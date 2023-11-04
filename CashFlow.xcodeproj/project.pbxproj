@@ -193,6 +193,7 @@
 		D9EB247B2A7BDD4500C12ADD /* AddBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB247A2A7BDD4500C12ADD /* AddBudgetView.swift */; };
 		D9EB4ED82A7927F000445985 /* ArchivedTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4ED72A7927F000445985 /* ArchivedTransactionsView.swift */; };
 		D9F56A2A2A654D6000E6CCC6 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */; };
+		D9FA83712AF67A6A00C4D9E8 /* transactionWithApplePay.mov in Resources */ = {isa = PBXBuildFile; fileRef = D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -317,7 +318,6 @@
 		D96155362A73DAE0005E1473 /* OrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationManager.swift; sourceTree = "<group>"; };
 		D9627A5E2A6E92BC000FCC23 /* CashFlowChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowChart.swift; sourceTree = "<group>"; };
 		D9699F2A2A92482E0054924D /* PaywallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallScreenView.swift; sourceTree = "<group>"; };
-		D96B9E302ADEE835003AC4E5 /* howToAddShortcutWithWallet.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = howToAddShortcutWithWallet.mp4; sourceTree = "<group>"; };
 		D96B9E312ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCreditCardRecognizer.swift; sourceTree = "<group>"; };
 		D96B9E332ADF0848003AC4E5 /* ScannerCreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCreditCardView.swift; sourceTree = "<group>"; };
 		D96E2DDD2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingPlansForHomeScreen.swift; sourceTree = "<group>"; };
@@ -396,6 +396,7 @@
 		D9EB247A2A7BDD4500C12ADD /* AddBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBudgetView.swift; sourceTree = "<group>"; };
 		D9EB4ED72A7927F000445985 /* ArchivedTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedTransactionsView.swift; sourceTree = "<group>"; };
 		D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = transactionWithApplePay.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -793,7 +794,7 @@
 		D96B9E2F2ADEE82A003AC4E5 /* Videos */ = {
 			isa = PBXGroup;
 			children = (
-				D96B9E302ADEE835003AC4E5 /* howToAddShortcutWithWallet.mp4 */,
+				D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */,
 			);
 			path = Videos;
 			sourceTree = "<group>";
@@ -952,6 +953,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81C141412A46EA2E00C9B764 /* PlusJakartaSans-Bold.ttf in Resources */,
+				D9FA83712AF67A6A00C4D9E8 /* transactionWithApplePay.mov in Resources */,
 				D9A625332AD5CEBE00A2DCAE /* InfoPlist.strings in Resources */,
 				81C141442A46EA3200C9B764 /* PlusJakartaSans-Medium.ttf in Resources */,
 				81A707942A3B6B4D00BEB0BF /* Preview Assets.xcassets in Resources */,
