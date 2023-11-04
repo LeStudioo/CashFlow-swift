@@ -1,0 +1,9 @@
+/* 
+  AppShortcuts.strings
+  CashFlow
+
+  Created by KaayZenn on 01/11/2023.
+  
+*/
+
+"New transaction in ${applicationName}" = "Crear una transacción en ${applicationName}";

@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 http://docs.oasis-open.org/xliff/v1.2/os/xliff-core-1.2-strict.xsd">
+  <file original="TurboBudget/en.lproj/InfoPlist.strings" datatype="plaintext" source-language="en" target-language="de">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
+    </header>
+    <body>
+      <trans-unit id="CFBundleDisplayName" xml:space="preserve">
+        <source>CashFlow</source>
+        <note>Bundle display name</note>
+      </trans-unit>
+      <trans-unit id="CFBundleName" xml:space="preserve">
+        <source>CashFlow</source>
+        <note>Bundle name</note>
+      </trans-unit>
+      <trans-unit id="NSCameraUsageDescription" xml:space="preserve">
+        <source>Scanning Cards</source>
+        <note>Privacy - Camera Usage Description</note>
+      </trans-unit>
+      <trans-unit id="NSFaceIDUsageDescription" xml:space="preserve">
+        <source>Secures your data.</source>
+        <note>Privacy - Face ID Usage Description</note>
+      </trans-unit>
+    </body>
+  </file>
+  <file original="TurboBudget/Ressources/en.lproj/Localizable.strings" source-language="en" target-language="de" datatype="plaintext">
+    <header>
+      <tool tool-id="com.apple.dt.xcode" tool-name="Xcode" tool-version="14.3" build-num="14E222b"/>
+    </header>
+    <body>
+      <trans-unit id="$3,000" xml:space="preserve">
+        <source>$3,000</source>
+        <target>3.000 €</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="$10,000" xml:space="preserve">
+        <source>$10,000</source>
+        <target>10.000 €</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="AMAZING PEOPLE" xml:space="preserve">
+        <source>AMAZING PEOPLE</source>
+        <target>TOLLE PERSONEN</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Account Balance" xml:space="preserve">
+        <source>Account Balance</source>
+        <target>Kontostand</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Account Name" xml:space="preserve">
+        <source>Account Name</source>
+        <target>Kontoname</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Add" xml:space="preserve">
+        <source>Add</source>
+        <target>Hinzufügen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Animals" xml:space="preserve">
+        <source>Animals</source>
+        <target>Tiere</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="App Icon" xml:space="preserve">
+        <source>App Icon</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Appearance" xml:space="preserve">
+        <source>Appearance</source>
+        <target>Erscheinungsbild</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="BETA TESTERS" xml:space="preserve">
+        <source>BETA TESTERS</source>
+        <target>BETA-TESTER</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Bank charges" xml:space="preserve">
+        <source>Bank charges</source>
+        <target>Bankgebühren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Bars and clubs" xml:space="preserve">
+        <source>Bars and clubs</source>
+        <target>Bars und Clubs</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Blue" xml:space="preserve">
+        <source>Blue</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Books, Music" xml:space="preserve">
+        <source>Books, Music</source>
+        <target>Bücher, Musik</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Buying &amp; Shopping" xml:space="preserve">
+        <source>Buying &amp; Shopping</source>
+        <target>Kaufen &amp; Einkaufen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Card Limit" xml:space="preserve">
+        <source>Card Limit</source>
+        <target>Kartenlimit</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Card Limit Percentage" xml:space="preserve">
+        <source>Card Limit Percentage</source>
+        <target>Kartenlimit Prozentsatz</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cash inflow" xml:space="preserve">
+        <source>Cash inflow</source>
+        <target>Geldeingang</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Clothing, Footwear, Accessories" xml:space="preserve">
+        <source>Clothing, Footwear, Accessories</source>
+        <target>Kleidung, Schuhe, Accessoires</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Consumer loans" xml:space="preserve">
+        <source>Consumer loans</source>
+        <target>Verbraucherkredite</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Credits" xml:space="preserve">
+        <source>Credits</source>
+        <target>Kredite</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Cultural outings" xml:space="preserve">
+        <source>Cultural outings</source>
+        <target>Kulturelle Ausflüge</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Danger Zone" xml:space="preserve">
+        <source>Danger Zone</source>
+        <target>Gefahrenzone</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Decorative furniture" xml:space="preserve">
+        <source>Decorative furniture</source>
+        <target>Dekorative Möbel</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL Accounts" xml:space="preserve">
+        <source>Delete ALL Accounts</source>
+        <target>Alle Konten löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL Cards" xml:space="preserve">
+        <source>Delete ALL Cards</source>
+        <target>Alle Karten löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL Contributions" xml:space="preserve">
+        <source>Delete ALL Contributions</source>
+        <target>Alle Beiträge löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL DATA" xml:space="preserve">
+        <source>Delete ALL DATA</source>
+        <target>Alle Daten löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL Saving Plans" xml:space="preserve">
+        <source>Delete ALL Saving Plans</source>
+        <target>Alle Sparpläne löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete ALL Transactions" xml:space="preserve">
+        <source>Delete ALL Transactions</source>
+        <target>Alle Transaktionen löschen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete All" xml:space="preserve">
+        <source>Delete All</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete a contribution" xml:space="preserve">
+        <source>Delete a contribution</source>
+        <target>Lösche einen Beitrag</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete a saving plan" xml:space="preserve">
+        <source>Delete a saving plan</source>
+        <target>Lösche einen Sparplan</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete a transaction" xml:space="preserve">
+        <source>Delete a transaction</source>
+        <target>Lösche eine Transaktion</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Delete an account" xml:space="preserve">
+        <source>Delete an account</source>
+        <target>Lösche ein Konto</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Discover Other Apps" xml:space="preserve">
+        <source>Discover Other Apps</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Display" xml:space="preserve">
+        <source>Display</source>
+        <target>Anzeige</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Doctor" xml:space="preserve">
+        <source>Doctor</source>
+        <target>Arzt</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Donations" xml:space="preserve">
+        <source>Donations</source>
+        <target>Spenden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Enable" xml:space="preserve">
+        <source>Enable</source>
+        <target>Aktivieren</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Expenses" xml:space="preserve">
+        <source>Expenses</source>
+        <target>Ausgaben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fines" xml:space="preserve">
+        <source>Fines</source>
+        <target>Strafen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="First Account" xml:space="preserve">
+        <source>First Account</source>
+        <target>Erstes Konto</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Food" xml:space="preserve">
+        <source>Food</source>
+        <target>Lebensmittel</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Food &amp; Restaurants" xml:space="preserve">
+        <source>Food &amp; Restaurants</source>
+        <target>Lebensmittel &amp; Restaurants</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Fuel" xml:space="preserve">
+        <source>Fuel</source>
+        <target>Kraftstoff</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Gifts" xml:space="preserve">
+        <source>Gifts</source>
+        <target>Geschenke</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Green" xml:space="preserve">
+        <source>Green</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Hairdresser, Beauty salon" xml:space="preserve">
+        <source>Hairdresser, Beauty salon</source>
+        <target>Friseur, Schönheitssalon</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Health" xml:space="preserve">
+        <source>Health</source>
+        <target>Gesundheit</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Health, Care" xml:space="preserve">
+        <source>Health, Care</source>
+        <target>Gesundheit, Pflege</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Help" xml:space="preserve">
+        <source>Help</source>
+        <target>Hilfe</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="High Tech, Video games" xml:space="preserve">
+        <source>High Tech, Video games</source>
+        <target>High Tech, Videospiele</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Holidays, Travel" xml:space="preserve">
+        <source>Holidays, Travel</source>
+        <target>Ferien, Reisen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Home insurance" xml:space="preserve">
+        <source>Home insurance</source>
+        <target>Hausversicherung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Housing &amp; Utilities" xml:space="preserve">
+        <source>Housing &amp; Utilities</source>
+        <target>Wohnen &amp; Versorgung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Housing costs, Accessories" xml:space="preserve">
+        <source>Housing costs, Accessories</source>
+        <target>Wohnkosten, Zubehör</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Income" xml:space="preserve">
+        <source>Income</source>
+        <target>Einkommen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Income tax" xml:space="preserve">
+        <source>Income tax</source>
+        <target>Einkommensteuer</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Internet, Telephony" xml:space="preserve">
+        <source>Internet, Telephony</source>
+        <target>Internet, Telefonie</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Leisure &amp; Holidays" xml:space="preserve">
+        <source>Leisure &amp; Holidays</source>
+        <target>Freizeit &amp; Urlaub</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Maintenance, Vehicle equipment" xml:space="preserve">
+        <source>Maintenance, Vehicle equipment</source>
+        <target>Wartung, Fahrzeugausstattung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Market" xml:space="preserve">
+        <source>Market</source>
+        <target>Markt</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Meals at work" xml:space="preserve">
+        <source>Meals at work</source>
+        <target>Mahlzeiten bei der Arbeit</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="More from this Developer" xml:space="preserve">
+        <source>More from this Developer</source>
+        <target>Mehr von diesem Entwickler</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Mortgage loan" xml:space="preserve">
+        <source>Mortgage loan</source>
+        <target>Hypothekendarlehen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Multimedia subscriptions" xml:space="preserve">
+        <source>Multimedia subscriptions</source>
+        <target>Multimedia-Abonnements</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Mutual insurance" xml:space="preserve">
+        <source>Mutual insurance</source>
+        <target>Gegenseitige Versicherung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="OPEN SOURCE COMPONENTS" xml:space="preserve">
+        <source>OPEN SOURCE COMPONENTS</source>
+        <target>OPEN-SOURCE-KOMPONENTEN</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Opique" xml:space="preserve">
+        <source>Opique</source>
+        <target>Optiker</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Other" xml:space="preserve">
+        <source>Other</source>
+        <target>Andere</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Parking" xml:space="preserve">
+        <source>Parking</source>
+        <target>Parken</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Pharmacy" xml:space="preserve">
+        <source>Pharmacy</source>
+        <target>Apotheke</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Plane, Train, Boat" xml:space="preserve">
+        <source>Plane, Train, Boat</source>
+        <target>Flugzeug, Zug, Boot</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Preferences" xml:space="preserve">
+        <source>Preferences</source>
+        <target>Einstellungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Privacy Policy" xml:space="preserve">
+        <source>Privacy Policy</source>
+        <target>Datenschutzrichtlinie</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Professional expenses" xml:space="preserve">
+        <source>Professional expenses</source>
+        <target>Berufliche Ausgaben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Property tax" xml:space="preserve">
+        <source>Property tax</source>
+        <target>Grundsteuer</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Public transport" xml:space="preserve">
+        <source>Public transport</source>
+        <target>Öffentlicher Verkehr</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Recent Transactions" xml:space="preserve">
+        <source>Recent Transactions</source>
+        <target>Letzte Transaktionen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Red" xml:space="preserve">
+        <source>Red</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Rent" xml:space="preserve">
+        <source>Rent</source>
+        <target>Miete</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Report a Bug" xml:space="preserve">
+        <source>Report a Bug</source>
+        <target>Einen Fehler melden</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Restaurants, Snacks" xml:space="preserve">
+        <source>Restaurants, Snacks</source>
+        <target>Restaurants, Snacks</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Savings &amp; Investments" xml:space="preserve">
+        <source>Savings &amp; Investments</source>
+        <target>Sparen &amp; Investitionen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Scan your creditcard" xml:space="preserve">
+        <source>Scan your creditcard</source>
+        <target>Scanne deine Kreditkarte</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search an icon" xml:space="preserve">
+        <source>Search an icon</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search for a category..." xml:space="preserve">
+        <source>Search for a category...</source>
+        <target>Suche nach einer Kategorie...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Search for a subcategory..." xml:space="preserve">
+        <source>Search for a subcategory...</source>
+        <target>Suche nach einer Unterkategorie...</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Second home" xml:space="preserve">
+        <source>Second home</source>
+        <target>Zweites Zuhause</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Settings" xml:space="preserve">
+        <source>Settings</source>
+        <target>Einstellungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Share App" xml:space="preserve">
+        <source>Share App</source>
+        <target>App teilen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Social security contributions" xml:space="preserve">
+        <source>Social security contributions</source>
+        <target>Sozialversicherungsbeiträge</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Spend" xml:space="preserve">
+        <source>Spend</source>
+        <target>Ausgaben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Sport" xml:space="preserve">
+        <source>Sport</source>
+        <target>Sport</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Sporting goods" xml:space="preserve">
+        <source>Sporting goods</source>
+        <target>Sportartikel</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Student loans" xml:space="preserve">
+        <source>Student loans</source>
+        <target>Studentendarlehen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Suggest New Features" xml:space="preserve">
+        <source>Suggest New Features</source>
+        <target>Neue Funktionen vorschlagen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Supermarket, Grocery" xml:space="preserve">
+        <source>Supermarket, Grocery</source>
+        <target>Supermarkt, Lebensmittelgeschäft</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="TRANSLATOR" xml:space="preserve">
+        <source>TRANSLATOR</source>
+        <target>ÜBERSETZER</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Taxes &amp; charges" xml:space="preserve">
+        <source>Taxes &amp; charges</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Taxi, VTC" xml:space="preserve">
+        <source>Taxi, VTC</source>
+        <target>Taxi, VTC</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Terms &amp; Conditions" xml:space="preserve">
+        <source>Terms &amp; Conditions</source>
+        <target>Geschäftsbedingungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The number of recent transactions displayed on the home screen and the analysis screen." xml:space="preserve">
+        <source>The number of recent transactions displayed on the home screen and the analysis screen.</source>
+        <target>Die Anzahl der kürzlich angezeigten Transaktionen auf dem Startbildschirm und dem Analysebildschirm.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="The percentage by which the card balance must be exceeded for the alert to be displayed" xml:space="preserve">
+        <source>The percentage by which the card balance must be exceeded for the alert to be displayed</source>
+        <target>Der Prozentsatz, um den das Kartenlimit überschritten werden muss, um die Warnung anzuzeigen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Theme" xml:space="preserve">
+        <source>Theme</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Theo's Account" xml:space="preserve">
+        <source>Theo's Account</source>
+        <target>Theos Konto</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="These actions are irreversible !" xml:space="preserve">
+        <source>These actions are irreversible !</source>
+        <target>Diese Aktionen sind nicht rückgängig zu machen!</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Tint Color" xml:space="preserve">
+        <source>Tint Color</source>
+        <target>Akzentfarbe</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Tips" xml:space="preserve">
+        <source>Tips</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Tobacco, Press" xml:space="preserve">
+        <source>Tobacco, Press</source>
+        <target>Tabak, Presse</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Toll" xml:space="preserve">
+        <source>Toll</source>
+        <target>Maut</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Toys" xml:space="preserve">
+        <source>Toys</source>
+        <target>Spielzeug</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Transport" xml:space="preserve">
+        <source>Transport</source>
+        <target>Transport</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Vehicle insurance" xml:space="preserve">
+        <source>Vehicle insurance</source>
+        <target>Fahrzeugversicherung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Vehicle loan" xml:space="preserve">
+        <source>Vehicle loan</source>
+        <target>Fahrzeugkredit</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Vehicle rental" xml:space="preserve">
+        <source>Vehicle rental</source>
+        <target>Fahrzeugvermietung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Water, Electricity, Gas" xml:space="preserve">
+        <source>Water, Electricity, Gas</source>
+        <target>Wasser, Strom, Gas</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Wealth tax" xml:space="preserve">
+        <source>Wealth tax</source>
+        <target>Vermögenssteuer</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Wines and spirits" xml:space="preserve">
+        <source>Wines and spirits</source>
+        <target>Weine und Spirituosen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Withdraw" xml:space="preserve">
+        <source>Withdraw</source>
+        <target>Abheben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Withdrawals" xml:space="preserve">
+        <source>Withdrawals</source>
+        <target>Abhebungen</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Work &amp; Study" xml:space="preserve">
+        <source>Work &amp; Study</source>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Work, Maintenance" xml:space="preserve">
+        <source>Work, Maintenance</source>
+        <target>Arbeit, Instandhaltung</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="Write a Review" xml:space="preserve">
+        <source>Write a Review</source>
+        <target>Eine Rezension schreiben</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your accounts." xml:space="preserve">
+        <source>You are about to delete all your accounts.</source>
+        <target>Du bist dabei, alle deine Konten zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your cards." xml:space="preserve">
+        <source>You are about to delete all your cards.</source>
+        <target>Du bist dabei, alle deine Karten zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your contributions." xml:space="preserve">
+        <source>You are about to delete all your contributions.</source>
+        <target>Du bist dabei, alle deine Beiträge zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your data." xml:space="preserve">
+        <source>You are about to delete all your data.</source>
+        <target>Du bist dabei, alle deine Daten zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your saving plans." xml:space="preserve">
+        <source>You are about to delete all your saving plans.</source>
+        <target>Du bist dabei, alle deine Sparpläne zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="You are about to delete all your transactions." xml:space="preserve">
+        <source>You are about to delete all your transactions.</source>
+        <target>Du bist dabei, alle deine Transaktionen zu löschen.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+      <trans-unit id="to secure your app and your data." xml:space="preserve">
+        <source>to secure your app and your data.</source>
+        <target>um deine App und deine Daten zu sichern.</target>
+        <note>No comment provided by engineer.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,433 @@
+/* 
+  Localizable.strings
+  CashFlow
+
+  Created by KaayZenn on 14/07/2023.
+  
+*/
+//MARK: - LaunchScreen
+"Control your spending" = "ควบคุมการใช้จ่ายของคุณ";
+
+//MARK: - PageControllerView
+"Account Missing" = "บัญชีหายไป";
+"Create" = "สร้าง";
+"To create a transaction you need an account." = "ในการสร้างธุรกรรมคุณต้องมีบัญชี";
+"Secure your data." = "รักษาข้อมูลของคุณให้ปลอดภัย";
+
+//MARK: - ItemsForTabBar
+"Home" = "หน้าหลัก";
+"Analytic" = "วิเคราะห์";
+"Account" = "บัญชี";
+"Type" = "ประเภท";
+
+//MARK: - TutorialScreenView
+"First Account" = "บัญชีแรก";
+"Get Started" = "เริ่มต้น";
+"Next" = "ถัดไป";
+
+//MARK: FirstScreenTutorialView
+"Welcome to CashFlow !" = "ยินดีต้อนรับสู่ CashFlow!";
+"Track your spending, analyse your spending habits, identify areas where you can save and take control of your money with ease" = "ติดตามรายจ่ายของคุณ วิเคราะห์นิสัยการใช้จ่ายของคุณ ระบุพื้นที่ที่คุณสามารถประหยัดเงินได้และควบคุมเงินของคุณได้อย่างง่ายดาย";
+
+//MARK: SecondScreenTutorialView
+"Easy way to Track your financial" = "วิธีง่ายๆในการติดตามการเงินของคุณ";
+"All your financial activities will be recorded and displayed briefly and clearly" = "กิจกรรมทางการเงินทั้งหมดของคุณจะถูกบันทึกและแสดงอย่างสรุปและชัดเจน";
+
+//MARK: ThirdScreenTutorialView
+"Set your finance for the future" = "ตั้งค่าการเงินของคุณสำหรับอนาคต";
+"Features that can make it easier for you to save and plan finances in the future" = "คุณสมบัติที่ช่วยให้คุณสะดวกต่อการออมเงินและวางแผนการเงินในอนาคต";
+
+//MARK: FourthScreenTutorialView
+"New experience in manage money" = "ประสบการณ์ใหม่ในการจัดการเงิน";
+"Let’s get started and feel a new and fun experience in managing your finances" = "มาเริ่มต้นและสัมผัสประสบการณ์ใหม่และสนุกในการจัดการเงินของคุณ";
+
+//MARK: - HomeScreenView
+"Available Balance" = "ยอดเงินใช้ได้";
+"Money Spend" = "จำนวนเงินที่ใช้";
+"My Saving Plans" = "แผนการออมของฉัน";
+"Add a new Saving Plans" = "เพิ่มแผนการออมใหม่";
+"$13.850,00" = "13,850.00 บาท";
+"Recent Transactions" = "ธุรกรรมล่าสุด";
+"Click on the plus button to create a transaction." = "คลิกที่ปุ่มบวกเพื่อสร้างธุรกรรม";
+"Click on the plus button to create an account or go to \"Account\"." = "คลิกที่ปุ่มบวกเพื่อสร้างบัญชีหรือไปที่ \"บัญชี\"";
+"Home" = "หน้าหลัก";
+
+//MARK: - RecentTransactionsView
+"Click on the plus button to create a transaction." = "คลิกที่ปุ่มบวกเพื่อสร้างธุรกรรม";
+"Recent Transactions" = "ธุรกรรมล่าสุด";
+"Search for a transaction..." = "ค้นหาธุรกรรม...";
+"Incomes" = "รายได้";
+
+//MARK: - SavingPlansHomeView
+"Click on the plus button to create a saving plan." = "คลิกที่ปุ่มบวกเพื่อสร้างแผนการออม";
+"Saving Plans" = "แผนการออม";
+
+//MARK: - SavingPlanDetailView
+"End Date" = "วันที่สิ้นสุด";
+"Add a note to this saving plan..." = "เพิ่มหมายเหตุในแผนการออมนี้...";
+"Contributions" = "การสนับสนุน";
+"Delete a saving plan" = "ลบแผนการออม";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"You are about to delete one of your saving plan." = "คุณกำลังจะลบแผนการออม";
+"Add contribution" = "เพิ่มสนับสนุน";
+"Delete" = "ลบ";
+"Rename" = "เปลี่ยนชื่อ" ;
+"New name" = "ชื่อใหม่" ;
+
+//MARK: - AddSavingPlanView
+"New Saving Plan" = "แผนการออมใหม่";
+"Title" = "หัวข้อ";
+"Start" = "เริ่ม";
+"End" = "สิ้นสุด";
+"Add a end date" = "เพิ่มวันที่สิ้นสุด";
+"End Date" = "วันที่สิ้นสุด";
+
+//MARK: - CellContributionView
+"Money withdrawn" = "เงินถอน";
+"Money added" = "เงินที่เพิ่ม";
+"Delete a contribution" = "ลบการสนับสนุน";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"You are about to delete one of your contributions, the amount of this contribution will be refunded to your account." = "คุณกำลังจะลบการสนับสนุนของคุณ จำนวนเงินที่ใช้ในการสนับสนุนนี้จะถูกคืนให้บัญชีของคุณ";
+
+//MARK: - AddContributionView
+"New Contribution" = "การสนับสนุนใหม่";
+"Add" = "เพิ่ม";
+"Withdraw" = "ถอน";
+"⚠️ You cannot add more than the final amount." = "⚠️ คุณไม่สามารถเพิ่มได้มากกว่าจำนวนสุดท้าย";
+"for finish the saving plan." = "สำหรับการสิ้นสุดแผนการออม";
+"⚠️ You can't take out more than is on the saving plan." = "⚠️ คุณไม่สามารถถอนเงินเกินจำนวนที่อยู่ในแผนการออมได้";
+"‼️ Your account will be in negative after this spending." = "‼️ บัญชีของคุณจะอยู่ในสถานะลบหลังจากการใช้จ่ายนี้";
+
+//MARK: - AnalyticsHomeView
+"Transaction" = "ธุรกรรม";
+"Money Income" = "รายได้";
+"Money Spend" = "จำนวนเงินที่ใช้";
+"Recent Transactions" = "ธุรกรรมล่าสุด";
+"Click on the plus button to create a transaction." = "คลิกที่ปุ่มบวกเพื่อสร้างธุรกรรม";
+"Click on the plus button to create an account or go to \"Account\"." = "คลิกที่ปุ่มบวกเพื่อสร้างบัญชีหรือไปที่ \"บัญชี\"";
+"Analytics" = "การวิเคราะห์";
+
+//MARK: - AddTransactionView
+"Recover" = "กู้คืน";
+"New Transaction" = "ธุรกรรมใหม่";
+"Title" = "หัวข้อ";
+"Spend" = "จำนวนเงินที่ใช้";
+"Income" = "รายได้";
+"Successful Transaction" = "ธุรกรรมสำเร็จ";
+"Your transaction has been processed" = "ธุรกรรมของคุณถูกดำเนินการแล้ว";
+"Date & Time" = "วันที่และเวลา";
+"⚠️ Your balance is about to run out." = "⚠️ ยอดเงินคงเหลือของคุณกำลังจะหมด";
+"‼️ Your balance has been exceeded." = "‼️ ยอดเงินคงเหลือของคุณเกิน";
+"‼️ Your card limit will be exceeded after this spending." = "‼️ วงเงินบัตรของคุณจะถูกเกินไปหลังจากการใช้จ่ายนี้";
+"‼️ Your account will be in negative after this spending." = "‼️ บัญชีของคุณจะอยู่ในสถานะลบหลังจากการใช้จ่ายนี้";
+
+
+
+//MARK: - WhatCategoryView
+"What Category ?" = "หมวดหมู่อะไร ?";
+"Month" = "เดือน";
+"Year" = "ปี";
+"Total" = "รวม";
+"Search for a category or a subcategory..." = "ค้นหาหมวดหมู่หรือหมวดหมู่ย่อย...";
+
+//MARK: - RecoverTransactionView
+"Recover Transaction" = "กู้คืนธุรกรรม";
+"Enter your JSON" = "ใส่ JSON ของคุณ";
+"The JSON you provided contains one or more errors." = "JSON ที่คุณให้มีข้อผิดพลาดหรือมากกว่าหนึ่ง";
+"Recover" = "กู้คืน";
+"Successful Recover" = "กู้คืนสำเร็จ";
+"Your transaction has been recovered" = "ธุรกรรมของคุณได้รับการกู้คืนแล้ว";
+"Date & Time" = "วันที่และเวลา";
+
+//MARK: - CardViewEditable
+"Enter CVV" = "ใส่ CVV";
+"Back to card" = "กลับไปที่บัตร";
+"CARD HOLDER NAME" = "ชื่อเจ้าของบัตร";
+"CVV" = "CVV";
+
+//MARK: - CardViewNotEditable
+
+//MARK: - CellAccountView
+"Credit card added." = "เพิ่มบัตรเครดิตแล้ว";
+"No credit card added." = "ไม่มีการเพิ่มบัตรเครดิต";
+"No card limit added." = "ไม่มีการเพิ่มขีด จำกัด ของบัตร";
+
+//MARK: - AccountsHomeView
+"Click on the plus button to create an account." = "คลิกที่ปุ่มบวกเพื่อสร้างบัญชี";
+"Account" = "บัญชี";
+
+//MARK: - CellAddCardView
+
+//MARK: - AddAccountView
+"New Account" = "บัญชีใหม่";
+"Account Name" = "ชื่อบัญชี";
+"Theo's Account" = "บัญชีของฉัน";
+"Account Balance" = "ยอดเงินคงเหลือในบัญชี";
+"$10,000" = "10,000 บาท";
+"Card Limit" = "ขีด จำกัด ของบัตร";
+"$3,000" = "3,000 บาท";
+"You will be able to add a credit card by consulting your account." = "คุณจะสามารถเพิ่มบัตรเครดิตได้โดยการสอบถามบัญชีของคุณ";
+
+//MARK: - AddCardView
+"If you don't want to enter your real \"CVV\", type \"000\"." = "หากคุณไม่ต้องการใส่ \"CVV\" จริงของคุณ ให้พิมพ์ \"000\"";
+"Scan your creditcard" = "สแกนบัตรเครดิตของคุณ";
+"Scan Card" = "สแกนบัตร";
+
+//MARK: - AccountDetailView
+"Available Balance" = "ยอดเงินคงเหลือ";
+"Transactions" = "ธุรกรรม";
+"Saving Plans" = "แผนการออม";
+"Card Limit" = "ขีด จำกัด ของบัตร";
+"⚠️ Your balance is about to run out." = "⚠️ ยอดเงินคงเหลือของคุณกำลังจะหมด";
+"‼️ Your balance has been exceeded." = "‼️ ยอดเงินคงเหลือของคุณเกิน";
+"Add a credit card" = "เพิ่มบัตรเครดิต";
+"Edit Card Limit" = "แก้ไขขีด จำกัด ของบัตร";
+"Card Limit" = "ขีด จำกัด ของบัตร";
+"You can change your card limit." = "คุณสามารถเปลี่ยนขีด จำกัด ของบัตรของคุณ";
+"Delete an account" = "ลบบัญชี";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"You are about to delete one of your account." = "คุณกำลังจะลบบัญชีหนึ่งในบัญชีของคุณ";
+"Preferred account" = "บัญชีที่ต้องการ" ;
+"Account Name" = "ชื่อบัญชี";
+"You can change your account name." = "คุณสามารถเปลี่ยนชื่อบัญชีของคุณ";
+"Edit Account Name" = "แก้ไขชื่อบัญชี";
+
+//MARK: - TransactionCellForSubscritpionView
+
+//MARK: - CategoriesHomeView
+"Search for a category..." = "ค้นหาหมวดหมู่...";
+"Categories" = "หมวดหมู่";
+"Month" = "เดือน";
+"Year" = "ปี";
+"Total" = "รวม";
+
+//MARK: - SubcategoryHomeView
+"Search for a subcategory..." = "ค้นหาหมวดหมู่ย่อย...";
+"Subcategories" = "หมวดหมู่ย่อย";
+"Month" = "เดือน";
+"Year" = "ปี";
+"Total" = "รวม";
+
+//MARK: - AddCategoryView
+"New Category" = "หมวดหมู่ใหม่";
+"Title" = "หัวข้อ";
+
+//MARK: - SettingsView
+"Settings" = "การตั้งค่า";
+"Help" = "ช่วยเหลือ";
+"Preferences" = "การตั้งค่าล่วงหน้า";
+"The number of recent transactions displayed on the home screen and the analysis screen." = "จำนวนธุรกรรมล่าสุดที่แสดงบนหน้าจอหลักและหน้าจอการวิเคราะห์";
+"Recent Transactions" = "ธุรกรรมล่าสุด";
+"Add" = "เพิ่ม";
+"to secure your app and your data." = "เพื่อปกป้องแอปและข้อมูลของคุณ";
+"Enable" = "เปิดใช้งาน";
+"The percentage by which the card balance must be exceeded for the alert to be displayed" = "เปอร์เซ็นต์ที่ยอดเงินบัตรต้องเกินเพื่อแสดงการแจ้งเตือน";
+"Card Limit Percentage" = "เปอร์เซ็นต์ของวงเงินบัตร";
+"Appearance" = "ลักษณะ";
+"Display" = "แสดง";
+"Tint Color" = "สีตา";
+"Write a Review" = "เขียนรีวิว";
+"Share App" = "แชร์แอป";
+"Report a Bug" = "รายงานข้อบกพร่อง";
+"Suggest New Features" = "แนะนำคุณสมบัติใหม่";
+"Credits" = "เครดิต";
+"AMAZING PEOPLE" = "บุคคลที่น่าทึ่ง";
+"BETA TESTERS" = "ผู้ทดสอบเบต้า";
+"TRANSLATOR" = "นักแปล";
+"OPEN SOURCE COMPONENTS" = "ส่วนประกอบโอเพนซอร์ส";
+"More from this Developer" = "เพิ่มเติมจากนักพัฒนาคนนี้";
+"Privacy Policy" = "นโยบายความเป็นส่วนตัว";
+"Terms & Conditions" = "เงื่อนไขและข้อตกลง";
+"Danger Zone" = "โซนอันตราย";
+"These actions are irreversible !" = "การดำเนินการเหล่านี้ไม่สามารถย้อนกลับได้!";
+"Delete ALL Accounts" = "ลบบัญชีทั้งหมด";
+"You are about to delete all your accounts." = "คุณกำลังจะลบบัญชีทั้งหมดของคุณ";
+"Delete ALL Cards" = "ลบบัตรทั้งหมด";
+"You are about to delete all your cards." = "คุณกำลังจะลบบัตรทั้งหมดของคุณ";
+"Delete ALL Transactions" = "ลบธุรกรรมทั้งหมด";
+"You are about to delete all your transactions." = "คุณกำลังจะลบธุรกรรมทั้งหมดของคุณ";
+"Delete ALL Saving Plans" = "ลบแผนออมทั้งหมด";
+"You are about to delete all your saving plans." = "คุณกำลังจะลบแผนออมทั้งหมดของคุณ";
+"Delete ALL Contributions" = "ลบการเป็นส่วนร่วมทั้งหมด";
+"You are about to delete all your contributions." = "คุณกำลังจะลบการเป็นส่วนร่วมทั้งหมดของคุณ";
+"Delete ALL DATA" = "ลบข้อมูลทั้งหมด";
+"You are about to delete all your data." = "คุณกำลังจะลบข้อมูลทั้งหมดของคุณ";
+"Made with ❤ by Théo Sementa" = "ทำด้วย❤โดย Théo Sementa";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"Secure your data." = "ป้องกันข้อมูลของคุณ";
+"Security" = "ความปลอดภัย";
+"One account" = "บัญชีหนึ่งบัญชี";
+"Changes the display if you use several accounts." = "เปลี่ยนแสดงผลหากคุณใช้บัญชีหลายบัญชี";
+"Account can be negative" = "บัญชีสามารถเป็นค่าลบได้";
+"Choose whether your account can be negative or not." = "เลือกว่าบัญชีของคุณสามารถเป็นค่าลบหรือไม่";
+"Block spending" = "บล็อกการใช้จ่าย";
+"Blocks spending if balance exceeds." = "บล็อกการใช้จ่ายเมื่อยอดเงินเกิน";
+"Transaction" = "ธุรกรรม";
+"Notification" = "การแจ้งเตือน";
+"Notifications" = "การแจ้งเตือน";
+"Choose when your notification will be sent when you activate them." = "เลือกเวลาที่คุณต้องการให้ส่งการแจ้งเตือนเมื่อคุณเปิดใช้งาน";
+"Notification time" = "เวลาการแจ้งเตือน";
+"Select the time at which notifications are sent." = "เลือกเวลาที่แจ้งเตือนจะถูกส่ง";
+"DESIGNER" = "นักออกแบบ";
+"MARKETING" = "การตลาด";
+"Green" = "สีเขียว";
+"Blue" = "สีน้ำเงิน";
+"Purple" = "สีม่วง";
+"Red" = "สีแดง";
+"Original" = "ต้นฉบับ";
+"Dark" = "สีเข้ม";
+"Dark Wallet" = "กระเป๋าเงินสีเข้ม";
+"Wallet" = "กระเป๋าเงิน";
+
+
+
+//MARK: - CellDisplayThemeView
+"System" = "ระบบ";
+"Light" = "สว่าง";
+"Dark" = "มืด";
+
+//MARK: - CellColorThemeView
+"TINT COLOR" = "สีทำให้เป็นความโดดเด่น";
+
+//MARK: - TransactionCellView
+"Spend" = "จ่าย";
+"Income" = "รายได้";
+"Delete a transaction" = "ลบธุรกรรม";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "คุณกำลังจะลบธุรกรรมหนึ่งของคุณ จำนวนเงินของธุรกรรมนี้จะถูกคืนเข้าบัญชีของคุณ";
+
+//MARK: - TransactionCellWithoutAction
+"Spend" = "จ่าย";
+"Income" = "รายได้";
+
+//MARK: - TransactionDetailView
+"Amount" = "จำนวนเงิน";
+"Date" = "วันที่";
+"Category" = "หมวดหมู่";
+"Subcategory" = "หมวดหมู่ย่อย";
+"Add a note to this transaction..." = "เพิ่มบันทึกลงในธุรกรรมนี้...";
+"Delete a transaction" = "ลบธุรกรรม";
+"Cancel" = "ยกเลิก";
+"Delete" = "ลบ";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "คุณกำลังจะลบธุรกรรมหนึ่งของคุณ จำนวนเงินของธุรกรรมนี้จะถูกคืนเข้าบัญชีของคุณ";
+"Share" = "แชร์";
+"Delete" = "ลบ";
+
+//MARK: - PieChartView
+"Total" = "รวม";
+
+//MARK: - CreateButton
+"Create" = "สร้าง";
+
+//MARK: - ValidateButton
+"Validate" = "ยืนยัน";
+
+//MARK: - Predefined Subcategory and Category
+
+//MARK: 0. Income
+"Cash inflow" = "รับเงินสด";
+
+//MARK: 1. Achats & Shopping
+"Sporting goods" = "อุปกรณ์กีฬา";
+"Gifts" = "ของขวัญ";
+"Donations" = "บริจาค";
+"High Tech, Video games" = "เทคโนโลยีสูง, เกมวิดีโอ";
+"Books, Music" = "หนังสือ, เพลง";
+"Decorative furniture" = "เฟอร์นิเจอร์ตกแต่ง";
+"Consumer loans" = "สินเชื่อผู้บริโภค";
+"Tobacco, Press" = "ยาเส้น, พริ้นต์";
+"Clothing, Footwear, Accessories" = "เสื้อผ้า, รองเท้า, อุปกรณ์";
+"Other" = "อื่น ๆ";
+"Buying & Shopping" = "การซื้อขายและการช้อปปิ้ง";
+
+//MARK: 2. Alimentation & Restaurants
+"Market" = "ตลาด";
+"Restaurants, Snacks" = "ร้านอาหาร, ของว่าง";
+"Supermarket, Grocery" = "ซูเปอร์มาร์เก็ต, ร้านขายของชำ";
+"Wines and spirits" = "ไวน์และเหล้า";
+"Other" = "อื่น ๆ";
+"Food & Restaurants" = "อาหารและร้านอาหาร";
+
+//MARK: 3. Animaux
+"Toys" = "ของเล่น";
+"Mutual insurance" = "ประกันร่วม";
+"Food" = "อาหาร";
+"Health, Care" = "สุขภาพ, การดูแล";
+"Other" = "อื่น ๆ";
+"Animals" = "สัตว์";
+
+//MARK: 4. Crédits
+"Credits" = "เครดิต";
+
+//MARK: 5. Épargne & Placements
+"Savings & Investments" = "เงินออมและการลงทุน";
+
+//MARK: 6. Impôts, Taxes & Frais
+"Fines" = "ค่าปรับ";
+"Social security contributions" = "การสนับสนุนความปลอดภัยสังคม";
+"Bank charges" = "ค่าธรรมเนียมธนาคาร";
+"Wealth tax" = "ภาษีทรัพย์สิน";
+"Income tax" = "ภาษีเงินได้";
+"Property tax" = "ภาษีอสังหาริมทรัพย์";
+"Other" = "อื่น ๆ";
+"Taxes & charges" = "ภาษีและค่าใช้จ่าย";
+
+//MARK: 7. Logement & Charges
+"Home insurance" = "ประกันบ้าน";
+"Housing costs, Accessories" = "ค่าใช้จ่ายในการอยู่อาศัย, อุปกรณ์";
+"Water, Electricity, Gas" = "น้ำ, ไฟฟ้า, ก๊าซ";
+"Internet, Telephony" = "อินเทอร์เน็ต, โทรศัพท์";
+"Rent" = "ค่าเช่า";
+"Mortgage loan" = "สินเชื่อจดจำนอง";
+"Second home" = "บ้านที่สอง";
+"Work, Maintenance" = "งาน, การบำรุงรักษา";
+"Other" = "อื่น ๆ";
+"Housing & Utilities" = "ที่อยู่อาศัยและสาธารณูปโภค";
+
+//MARK: 8. Loisirs & vacances
+"Multimedia Subscriptions" = "การสมัครสมาชิกสื่อหลากสื่อ";
+"Bars and clubs" = "บาร์และสโมสร";
+"Hairdresser, Beauty salon" = "ร้านตัดผม, ร้านเสริมสวย";
+"Cultural outings" = "การเดินทางทางวัฒนธรรม";
+"Sport" = "กีฬา";
+"Holidays, Travel" = "วันหยุด, การเดินทาง";
+"Other" = "อื่น ๆ";
+"Leisure & Holidays" = "การพักผ่อนและวันหยุด";
+
+//MARK: 9. Retraits
+"Withdrawals" = "การถอน";
+
+//MARK: 10. Santé
+"Doctor" = "หมอ";
+"Mutual insurance" = "ประกันสังคม";
+"Opique" = "ทันตกรรม";
+"Pharmacy" = "ร้านขายยา";
+"Other" = "อื่น ๆ";
+"Health" = "สุขภาพ";
+
+//MARK: 11. Transport
+"Vehicle insurance" = "ประกันรถยนต์";
+"Plane, Train, Boat" = "เครื่องบิน, รถไฟ, เรือ";
+"Fuel" = "เชื้อเพลิง";
+"Maintenance, Vehicle equipment" = "การบำรุงรักษา, อุปกรณ์ยานพาหนะ";
+"Vehicle rental" = "การเช่ารถ";
+"Toll" = "ค่าผ่านทาง";
+"Vehicle loan" = "สินเชื่อรถยนต์";
+"Parking" = "ที่จอดรถ";
+"Taxi, VTC" = "รถแท็กซี่, VTC";
+"Public transport" = "การขนส่งสาธารณะ";
+"Other" = "อื่น ๆ";
+"Transport" = "การขนส่ง";
+
+//MARK: 12. Travail & Études
+"Professional expenses" = "ค่าใช้จ่ายในการทำงาน";
+"Expenses" = "ค่าใช้จ่าย";
+"Student loans" = "สินเชื่อนักศึกษา";
+"Meals at work" = "อาหารเวลาทำงาน";
+"Other" = "อื่น ๆ";
+"Work & Study" = "การทำงานและการศึกษา";

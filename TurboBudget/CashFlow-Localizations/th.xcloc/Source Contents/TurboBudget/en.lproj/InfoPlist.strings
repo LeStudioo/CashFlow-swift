@@ -1,0 +1,8 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "CashFlow";
+/* Bundle name */
+"CFBundleName" = "CashFlow";
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "Scanning Cards";
+/* Privacy - Face ID Usage Description */
+"NSFaceIDUsageDescription" = "Secures your data.";

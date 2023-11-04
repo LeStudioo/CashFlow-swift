@@ -1,0 +1,427 @@
+/* 
+  Localizable.strings
+  CashFlow
+
+  Created by KaayZenn on 14/07/2023.
+  
+*/
+
+//MARK: - LaunchScreen
+"Control your spending" = "支出を管理する";
+
+//MARK: - PageControllerView
+"Account Missing" = "アカウントが見つかりません";
+"Create" = "作成";
+"To create a transaction you need an account." = "トランザクションを作成するにはアカウントが必要です";
+"Secure your data." = "データを保護する";
+
+//MARK: - ItemsForTabBar
+"Home" = "ホーム";
+"Analytic" = "分析";
+"Account" = "アカウント";
+"Type" = "タイプ";
+
+//MARK: - TutorialScreenView
+"First Account" = "最初のアカウント";
+"Get Started" = "始めましょう";
+"Next" = "次へ";
+
+//MARK: FirstScreenTutorialView
+"Welcome to CashFlow !" = "CashFlowへようこそ！";
+"Track your spending, analyse your spending habits, identify areas where you can save and take control of your money with ease" = "支出を追跡し、支出習慣を分析し、節約できる領域を特定し、簡単にお金を管理しましょう";
+
+//MARK: SecondScreenTutorialView
+"Easy way to Track your financial" = "財務を追跡する簡単な方法";
+"All your financial activities will be recorded and displayed briefly and clearly" = "すべての財務活動が簡潔かつ明確に記録および表示されます";
+
+//MARK: ThirdScreenTutorialView
+"Set your finance for the future" = "将来のために財務を設定する";
+"Features that can make it easier for you to save and plan finances in the future" = "将来の節約と財務計画を容易にする機能";
+
+//MARK: FourthScreenTutorialView
+"New experience in manage money" = "お金の管理での新しい体験";
+"Let’s get started and feel a new and fun experience in managing your finances" = "始めて、財務管理の新しい楽しい体験を味わいましょう";
+
+//MARK: - HomeScreenView
+"Available Balance" = "利用可能残高";
+"Money Spend" = "支出金額";
+"My Saving Plans" = "マイ貯蓄計画";
+"Add a new Saving Plans" = "新しい貯蓄計画を追加";
+"$13.850,00" = "13,850.00ドル";
+"Recent Transactions" = "最近の取引";
+"Click on the plus button to create a transaction." = "トランザクションを作成するにはプラスボタンをクリックしてください";
+"Click on the plus button to create an account or go to \"Account\"." = "アカウントを作成するか、[アカウント]に移動するにはプラスボタンをクリックしてください";
+"Home" = "ホーム";
+
+//MARK: - RecentTransactionsView
+"Click on the plus button to create a transaction." = "トランザクションを作成するにはプラスボタンをクリックしてください";
+"Recent Transactions" = "最近の取引";
+"Search for a transaction..." = "取引を検索...";
+"Incomes" = "収入";
+
+//MARK: - SavingPlansHomeView
+"Click on the plus button to create a saving plan." = "貯蓄計画を作成するにはプラスボタンをクリックしてください";
+"Saving Plans" = "貯蓄計画";
+
+//MARK: - SavingPlanDetailView
+"End Date" = "終了日";
+"Add a note to this saving plan..." = "この貯蓄計画にメモを追加...";
+"Contributions" = "貢献";
+"Delete a saving plan" = "貯蓄計画を削除";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"You are about to delete one of your saving plan." = "貯蓄計画を削除しようとしています";
+"Add contribution" = "貢献を追加";
+"Delete" = "削除";
+"Rename" = "名前を変更する" ;
+"New name" = "新しい名前" ;
+
+//MARK: - AddSavingPlanView
+"New Saving Plan" = "新しい貯蓄計画";
+"Title" = "タイトル";
+"Start" = "開始";
+"End" = "終了";
+"Add a end date" = "終了日を追加";
+"End Date" = "終了日";
+
+//MARK: - CellContributionView
+"Money withdrawn" = "引き出されたお金";
+"Money added" = "追加されたお金";
+"Delete a contribution" = "貢献を削除";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"You are about to delete one of your contributions, the amount of this contribution will be refunded to your account." = "貢献の削除を行おうとしています。この貢献の金額はアカウントに返金されます";
+
+//MARK: - AddContributionView
+"New Contribution" = "新しい貢献";
+"Add" = "追加";
+"Withdraw" = "引き出す";
+"⚠️ You cannot add more than the final amount." = "⚠️ 最終金額以上を追加することはできません";
+"for finish the saving plan." = "貯蓄計画を完了するための金額";
+"⚠️ You can't take out more than is on the saving plan." = "⚠️ 貯蓄計画に記載された金額を超えて引き出すことはできません。";
+"‼️ Your account will be in negative after this spending." = "‼️ この支出後、アカウントはマイナスになります。";
+
+//MARK: - AnalyticsHomeView
+"Transaction" = "トランザクション";
+"Money Income" = "収入";
+"Money Spend" = "支出";
+"Recent Transactions" = "最近の取引";
+"Click on the plus button to create a transaction." = "トランザクションを作成するにはプラスボタンをクリックしてください";
+"Click on the plus button to create an account or go to \"Account\"." = "アカウントを作成するか、[アカウント]に移動するにはプラスボタンをクリックしてください";
+"Analytics" = "分析";
+
+//MARK: - AddTransactionView
+"Recover" = "回復";
+"New Transaction" = "新しいトランザクション";
+"Title" = "タイトル";
+"Spend" = "支出";
+"Income" = "収入";
+"Successful Transaction" = "トランザクションが正常に処理されました";
+"Your transaction has been processed" = "トランザクションが処理されました";
+"Date & Time" = "日付と時刻";
+"⚠️ Your balance is about to run out." = "⚠️ 残高が不足しそうです";
+"‼️ Your balance has been exceeded." = "‼️ 残高が超過されました";
+"‼️ Your card limit will be exceeded after this spending." = "‼️ この支出後、カードの利用限度額が超えられます。";
+"‼️ Your account will be in negative after this spending." = "‼️ この支出後、アカウントはマイナスになります。";
+
+//MARK: - WhatCategoryView
+"What Category ?" = "カテゴリを選択";
+"Month" = "月";
+"Year" = "年";
+"Total" = "合計";
+"Search for a category or a subcategory..." = "カテゴリまたはサブカテゴリを検索...";
+
+//MARK: - RecoverTransactionView
+"Recover Transaction" = "トランザクションを回復";
+"Enter your JSON" = "JSONを入力してください";
+"The JSON you provided contains one or more errors." = "提供されたJSONに1つ以上のエラーが含まれています";
+"Recover" = "回復";
+"Successful Recover" = "回復に成功しました";
+"Your transaction has been recovered" = "トランザクションが回復されました";
+"Date & Time" = "日付と時刻";
+
+//MARK: - CardViewEditable
+"Enter CVV" = "CVVを入力";
+"Back to card" = "カードに戻る";
+"CARD HOLDER NAME" = "カード名義人";
+"CVV" = "CVV";
+
+//MARK: - CellAccountView
+"Credit card added." = "クレジットカードが追加されました";
+"No credit card added." = "クレジットカードは追加されていません";
+"No card limit added." = "カードの制限は追加されていません";
+
+//MARK: - AccountsHomeView
+"Click on the plus button to create an account." = "アカウントを作成するにはプラスボタンをクリックしてください";
+"Account" = "アカウント";
+
+//MARK: - AddAccountView
+"New Account" = "新しいアカウント";
+"Account Name" = "アカウント名";
+"Theo's Account" = "テオのアカウント";
+"Account Balance" = "アカウント残高";
+"$10,000" = "10,000ドル";
+"Card Limit" = "カード制限";
+"$3,000" = "3,000ドル";
+"You will be able to add a credit card by consulting your account." = "アカウントを参照することでクレジットカードを追加できます";
+
+//MARK: - AddCardView
+"If you don't want to enter your real \"CVV\", type \"000\"." = "実際の「CVV」を入力したくない場合は、「000」と入力してください";
+"Scan your creditcard" = "クレジットカードをスキャン";
+"Scan Card" = "カードをスキャン";
+
+//MARK: - AccountDetailView
+"Available Balance" = "利用可能残高";
+"Transactions" = "取引";
+"Saving Plans" = "貯蓄計画";
+"Card Limit" = "カード制限";
+"⚠️ Your balance is about to run out." = "⚠️ 残高が不足しそうです";
+"‼️ Your balance has been exceeded." = "‼️ 残高が超過されました";
+"Add a credit card" = "クレジットカードを追加";
+"Edit Card Limit" = "カード制限を編集";
+"Card Limit" = "カード制限";
+"You can change your card limit." = "カード制限を変更できます";
+"Delete an account" = "アカウントを削除";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"You are about to delete one of your account." = "アカウントを削除しようとしています";
+"Preferred account" = "お好きな口座" ;
+"Account Name" = "アカウント名";
+"You can change your account name." = "アカウント名を変更できます。";
+"Edit Account Name" = "アカウント名の編集";
+
+//MARK: - TransactionCellForSubscritpionView
+
+
+//MARK: - CategoriesHomeView
+"Search for a category..." = "カテゴリを検索...";
+"Categories" = "カテゴリ";
+"Month" = "月";
+"Year" = "年";
+"Total" = "合計";
+
+//MARK: - SubcategoryHomeView
+"Search for a subcategory..." = "サブカテゴリを検索...";
+"Subcategories" = "サブカテゴリ";
+"Month" = "月";
+"Year" = "年";
+"Total" = "合計";
+
+//MARK: - AddCategoryView
+"New Category" = "新しいカテゴリ";
+"Title" = "タイトル";
+
+//MARK: - SettingsView
+"Settings" = "設定";
+"Help" = "ヘルプ";
+"Preferences" = "設定";
+"The number of recent transactions displayed on the home screen and the analysis screen." = "ホーム画面および分析画面に表示される最近の取引の数";
+"Recent Transactions" = "最近の取引";
+"Add" = "追加";
+"to secure your app and your data." = "アプリとデータを安全にするために";
+"Enable" = "有効にする";
+"The percentage by which the card balance must be exceeded for the alert to be displayed" = "アラートが表示されるためにカード残高が超過される割合";
+"Card Limit Percentage" = "カード制限の割合";
+"Appearance" = "外観";
+"Display" = "表示";
+"Tint Color" = "ティントカラー";
+"Write a Review" = "レビューを書く";
+"Share App" = "アプリを共有";
+"Report a Bug" = "バグを報告";
+"Suggest New Features" = "新機能の提案";
+"Credits" = "クレジット";
+"AMAZING PEOPLE" = "素晴らしい人々";
+"BETA TESTERS" = "ベータテスター";
+"TRANSLATOR" = "翻訳者";
+"OPEN SOURCE COMPONENTS" = "オープンソースのコンポーネント";
+"More from this Developer" = "この開発者からもっと見る";
+"Privacy Policy" = "プライバシーポリシー";
+"Terms & Conditions" = "利用規約";
+"Danger Zone" = "危険ゾーン";
+"These actions are irreversible !" = "これらのアクションは取り消すことができません！";
+"Delete ALL Accounts" = "すべてのアカウントを削除";
+"You are about to delete all your accounts." = "すべてのアカウントを削除しようとしています";
+"Delete ALL Cards" = "すべてのカードを削除";
+"You are about to delete all your cards." = "すべてのカードを削除しようとしています";
+"Delete ALL Transactions" = "すべての取引を削除";
+"You are about to delete all your transactions." = "すべての取引を削除しようとしています";
+"Delete ALL Saving Plans" = "すべての貯蓄計画を削除";
+"You are about to delete all your saving plans." = "すべての貯蓄計画を削除しようとしています";
+"Delete ALL Contributions" = "すべての貢献を削除";
+"You are about to delete all your contributions." = "すべての貢献を削除しようとしています";
+"Delete ALL DATA" = "すべてのデータを削除";
+"You are about to delete all your datas." = "すべてのデータを削除しようとしています";
+"Made with ❤ by Théo Sementa" = "Théo Sementaによる愛情込めて作成";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"Secure your data." = "データを保護する";
+"Security" = "セキュリティ";
+"One account" = "1つのアカウント";
+"Changes the display if you use several accounts." = "複数のアカウントを使用する場合の表示を変更します。";
+"Account can be negative" = "アカウントはマイナスになることがあります";
+"Choose whether your account can be negative or not." = "アカウントがマイナスになるかどうかを選択してください。";
+"Block spending" = "支出をブロックする";
+"Blocks spending if balance exceeds." = "残高が超過した場合、支出をブロックします。";
+"Transaction" = "取引";
+"Notification" = "通知";
+"Notifications" = "通知";
+"Choose when your notification will be sent when you activate them." = "通知をアクティブにしたときに通知が送信されるタイミングを選択してください。";
+"Notification time" = "通知の時間";
+"Select the time at which notifications are sent." = "通知が送信される時間を選択してください。";
+"DESIGNER" = "デザイナー";
+"MARKETING" = "マーケティング";
+"Green" = "緑";
+"Blue" = "青";
+"Purple" = "紫";
+"Red" = "赤";
+"Original" = "オリジナル";
+"Dark" = "ダーク";
+"Dark Wallet" = "ダークウォレット";
+"Wallet" = "ウォレット";
+
+//MARK: - CellDisplayThemeView
+"System" = "システム";
+"Light" = "ライト";
+"Dark" = "ダーク";
+
+//MARK: - CellColorThemeView
+"TINT COLOR" = "ティントカラー";
+
+//MARK: - TransactionCellView
+"Spend" = "支出";
+"Income" = "収入";
+"Delete a transaction" = "トランザクションを削除";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "トランザクションを削除しようとしています。このトランザクションの金額はアカウントに返金されます";
+
+//MARK: - TransactionCellWithoutAction
+"Spend" = "支出";
+"Income" = "収入";
+
+//MARK: - TransactionDetailView
+"Amount" = "金額";
+"Date" = "日付";
+"Category" = "カテゴリ";
+"Subcategory" = "サブカテゴリ";
+"Add a note to this transaction..." = "このトランザクションにメモを追加...";
+"Delete a transaction" = "トランザクションを削除";
+"Cancel" = "キャンセル";
+"Delete" = "削除";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "トランザクションを削除しようとしています。このトランザクションの金額はアカウントに返金されます";
+"Share" = "共有";
+"Delete" = "削除";
+
+//MARK: - PieChartView
+"Total" = "合計" ;
+
+//MARK: - CreateButton
+"Create" = "作成";
+
+//MARK: - ValidateButton
+"Validate" = "検証";
+
+//MARK: - Predefined Subcategory and Category
+
+//MARK: 0. Income
+"Cash inflow" = "現金流入";
+
+//MARK: 1. Achats & Shopping
+"Sporting goods" = "スポーツ用品";
+"Gifts" = "ギフト";
+"Donations" = "寄付";
+"High Tech, Video games" = "ハイテク、ビデオゲーム";
+"Books, Music" = "書籍、音楽";
+"Decorative furniture" = "装飾家具";
+"Consumer loans" = "消費者ローン";
+"Tobacco, Press" = "タバコ、新聞";
+"Clothing, Footwear, Accessories" = "衣類、靴、アクセサリー";
+"Other" = "その他";
+"Buying & Shopping" = "購入とショッピング";
+
+//MARK: 2. Alimentation & Restaurants
+"Market" = "市場";
+"Restaurants, Snacks" = "レストラン、スナック";
+"Supermarket, Grocery" = "スーパーマーケット、食料品";
+"Wines and spirits" = "ワインとスピリッツ";
+"Other" = "その他";
+"Food & Restaurants" = "食品とレストラン";
+
+//MARK: 3. Animaux
+"Toys" = "おもちゃ";
+"Mutual insurance" = "相互保険";
+"Food" = "フード";
+"Health, Care" = "健康、ケア";
+"Other" = "その他";
+"Animals" = "動物";
+
+//MARK: 4. Crédits
+"Credits" = "クレジット";
+
+//MARK: 5. Épargne & Placements
+"Savings & Investments" = "貯蓄と投資";
+
+//MARK: 6. Impôts, Taxes & Frais
+"Fines" = "罰金";
+"Social security contributions" = "社会保障貢献";
+"Bank charges" = "銀行手数料";
+"Wealth tax" = "富裕税";
+"Income tax" = "所得税";
+"Property tax" = "不動産税";
+"Other" = "その他";
+"Taxes & charges" = "税金と手数料";
+
+//MARK: 7. Logement & Charges
+"Home insurance" = "家屋保険";
+"Housing costs, Accessories" = "住居費、アクセサリー";
+"Water, Electricity, Gas" = "水、電気、ガス";
+"Internet, Telephony" = "インターネット、電話";
+"Rent" = "家賃";
+"Mortgage loan" = "住宅ローン";
+"Second home" = "セカンドホーム";
+"Work, Maintenance" = "作業、メンテナンス";
+"Other" = "その他";
+"Housing & Utilities" = "住宅と公共料金";
+
+//MARK: 8. Loisirs & vacances
+"Multimedia Subscriptions" = "マルチメディアの購読";
+"Bars and clubs" = "バーとクラブ";
+"Hairdresser, Beauty salon" = "美容院、美容サロン";
+"Cultural outings" = "文化イベント";
+"Sport" = "スポーツ";
+"Holidays, Travel" = "休暇、旅行";
+"Other" = "その他";
+"Leisure & Holidays" = "レジャーと休日";
+
+//MARK: 9. Retraits
+"Withdrawals" = "引き出し";
+
+//MARK: 10. Santé
+"Doctor" = "医師";
+"Mutual insurance" = "相互保険";
+"Opique" = "視力";
+"Pharmacy" = "薬局";
+"Other" = "その他";
+"Health" = "健康";
+
+//MARK: 11. Transport
+"Vehicle insurance" = "車両保険";
+"Plane, Train, Boat" = "飛行機、電車、船";
+"Fuel" = "燃料";
+"Maintenance, Vehicle equipment" = "メンテナンス、車両設備";
+"Vehicle rental" = "車両レンタル";
+"Toll" = "通行料";
+"Vehicle loan" = "車両ローン";
+"Parking" = "駐車場";
+"Taxi, VTC" = "タクシー、VTC";
+"Public transport" = "公共交通機関";
+"Other" = "その他";
+"Transport" = "交通機関";
+
+//MARK: 12. Travail & Études
+"Professional expenses" = "専門的な経費";
+"Expenses" = "経費";
+"Student loans" = "学生ローン";
+"Meals at work" = "職場での食事";
+"Other" = "その他";
+"Work & Study" = "仕事と学習";

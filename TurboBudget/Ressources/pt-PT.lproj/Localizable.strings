@@ -1,0 +1,429 @@
+/* 
+  Localizable.strings
+  CashFlow
+
+  Created by KaayZenn on 14/07/2023.
+  
+*/
+//MARK: - LaunchScreen
+"Control your spending" = "Controle seus gastos";
+
+//MARK: - PageControllerView
+"Account Missing" = "Conta não encontrada";
+"Create" = "Criar";
+"To create a transaction you need an account." = "Para criar uma transação você precisa de uma conta.";
+"Secure your data." = "Proteja seus dados.";
+
+//MARK: - ItemsForTabBar
+"Home" = "Início";
+"Analytic" = "Análises";
+"Account" = "Conta";
+"Type" = "Tipo";
+
+//MARK: - TutorialScreenView
+"First Account" = "Primeira Conta";
+"Get Started" = "Começar";
+"Next" = "Próximo";
+
+//MARK: FirstScreenTutorialView
+"Welcome to CashFlow !" = "Bem-vindo ao CashFlow!";
+"Track your spending, analyse your spending habits, identify areas where you can save and take control of your money with ease" = "Acompanhe seus gastos, analise seus hábitos de gastos, identifique áreas onde você pode economizar e controle seu dinheiro com facilidade";
+
+//MARK: SecondScreenTutorialView
+"Easy way to Track your financial" = "Forma fácil de controlar suas finanças";
+"All your financial activities will be recorded and displayed briefly and clearly" = "Todas as suas atividades financeiras serão registradas e exibidas de forma breve e clara";
+
+//MARK: ThirdScreenTutorialView
+"Set your finance for the future" = "Planeje suas finanças para o futuro";
+"Features that can make it easier for you to save and plan finances in the future" = "Recursos que podem facilitar sua economia e planejamento financeiro para o futuro";
+
+//MARK: FourthScreenTutorialView
+"New experience in manage money" = "Nova experiência em gerenciar dinheiro";
+"Let’s get started and feel a new and fun experience in managing your finances" = "Vamos começar e sentir uma nova e divertida experiência em gerenciar suas finanças";
+
+//MARK: - HomeScreenView
+"Available Balance" = "Saldo disponível";
+"Money Spend" = "Dinheiro gasto";
+"My Saving Plans" = "Meus planos de economia";
+"Add a new Saving Plans" = "Adicionar um novo plano de economia";
+"$13.850,00" = "R$13.850,00";
+"Recent Transactions" = "Transações recentes";
+"Click on the plus button to create a transaction." = "Clique no botão de adição para criar uma transação.";
+"Click on the plus button to create an account or go to \"Account\"." = "Clique no botão de adição para criar uma conta ou vá para \"Conta\".";
+"Home" = "Início";
+
+//MARK: - RecentTransactionsView
+"Click on the plus button to create a transaction." = "Clique no botão de adição para criar uma transação.";
+"Recent Transactions" = "Transações recentes";
+"Search for a transaction..." = "Pesquisar uma transação...";
+"Incomes" = "Rendimentos";
+
+//MARK: - SavingPlansHomeView
+"Click on the plus button to create a saving plan." = "Clique no botão de adição para criar um plano de economia.";
+"Saving Plans" = "Planos de Economia";
+
+//MARK: - SavingPlanDetailView
+"End Date" = "Data de Término";
+"Add a note to this saving plan..." = "Adicione uma observação a este plano de economia...";
+"Contributions" = "Contribuições";
+"Delete a saving plan" = "Excluir um plano de economia";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"You are about to delete one of your saving plan." = "Você está prestes a excluir um dos seus planos de economia.";
+"Add contribution" = "Adicionar contribuição";
+"Delete" = "Excluir";
+"Rename" = "Renomear";
+"New name" = "Novo nome";
+
+//MARK: - AddSavingPlanView
+"New Saving Plan" = "Novo Plano de Economia";
+"Title" = "Título";
+"Start" = "Início";
+"End" = "Fim";
+"Add a end date" = "Adicione uma data de término";
+"End Date" = "Data de Término";
+
+//MARK: - CellContributionView
+"Money withdrawn" = "Dinheiro retirado";
+"Money added" = "Dinheiro adicionado";
+"Delete a contribution" = "Excluir uma contribuição";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"You are about to delete one of your contributions, the amount of this contribution will be refunded to your account." = "Você está prestes a excluir uma das suas contribuições, o valor desta contribuição será reembolsado em sua conta.";
+
+//MARK: - AddContributionView
+"New Contribution" = "Nova Contribuição";
+"Add" = "Adicionar";
+"Withdraw" = "Retirar";
+"⚠️ You cannot add more than the final amount." = "⚠️ Você não pode adicionar mais do que o valor final.";
+"for finish the saving plan." = "para finalizar o plano de economia.";
+"⚠️ You can't take out more than is on the saving plan." = "⚠️ Você não pode retirar mais do que está no plano de economia.";
+"‼️ Your account will be in negative after this spending." = "‼️ Sua conta ficará negativa após essa despesa.";
+
+//MARK: - AnalyticsHomeView
+"Transaction" = "Transação";
+"Money Income" = "Entrada de dinheiro";
+"Money Spend" = "Dinheiro gasto";
+"Recent Transactions" = "Transações recentes";
+"Click on the plus button to create a transaction." = "Clique no botão de adição para criar uma transação.";
+"Click on the plus button to create an account or go to \"Account\"." = "Clique no botão de adição para criar uma conta ou vá para \"Conta\".";
+"Analytics" = "Análises";
+
+//MARK: - AddTransactionView
+"Recover" = "Recuperar";
+"New Transaction" = "Nova Transação";
+"Title" = "Título";
+"Spend" = "Gasto";
+"Income" = "Entrada";
+"Successful Transaction" = "Transação realizada com sucesso";
+"Your transaction has been processed" = "Sua transação foi processada";
+"Date & Time" = "Data e Hora";
+"⚠️ Your balance is about to run out." = "⚠️ Seu saldo está prestes a acabar.";
+"‼️ Your balance has been exceeded." = "‼️ Seu saldo foi excedido.";
+"‼️ Your card limit will be exceeded after this spending." = "‼️ Seu limite de cartão será excedido após essa despesa.";
+"‼️ Your account will be in negative after this spending." = "‼️ Sua conta ficará negativa após essa despesa.";
+
+//MARK: - WhatCategoryView
+"What Category ?" = "Qual categoria?";
+"Month" = "Mês";
+"Year" = "Ano";
+"Total" = "Total";
+"Search for a category or a subcategory..." = "Procure por uma categoria ou subcategoria...";
+
+//MARK: - RecoverTransactionView
+"Recover Transaction" = "Recuperar Transação";
+"Enter your JSON" = "Digite seu JSON";
+"The JSON you provided contains one or more errors." = "O JSON fornecido contém um ou mais erros.";
+"Recover" = "Recuperar";
+"Successful Recover" = "Recuperação bem-sucedida";
+"Your transaction has been recovered" = "Sua transação foi recuperada";
+"Date & Time" = "Data e Hora";
+
+//MARK: - CardViewEditable
+"Enter CVV" = "Digite o CVV";
+"Back to card" = "Voltar ao cartão";
+"CARD HOLDER NAME" = "NOME DO TITULAR DO CARTÃO";
+"CVV" = "CVV";
+
+//MARK: - CardViewNotEditable
+
+//MARK: - CellAccountView
+"Credit card added." = "Cartão de crédito adicionado.";
+"No credit card added." = "Nenhum cartão de crédito adicionado.";
+"No card limit added." = "Nenhum limite de cartão adicionado.";
+
+//MARK: - AccountsHomeView
+"Click on the plus button to create an account." = "Clique no botão de adição para criar uma conta.";
+"Account" = "Conta";
+
+//MARK: - CellAddCardView
+
+//MARK: - AddAccountView
+"New Account" = "Nova Conta";
+"Account Name" = "Nome da Conta";
+"Theo's Account" = "Conta do Theo";
+"Account Balance" = "Saldo da Conta";
+"$10,000" = "R$10.000";
+"Card Limit" = "Limite do Cartão";
+"$3,000" = "R$3.000";
+"You will be able to add a credit card by consulting your account." = "Você poderá adicionar um cartão de crédito consultando sua conta.";
+
+//MARK: - AddCardView
+"If you don't want to enter your real \"CVV\", type \"000\"." = "Se você não deseja digitar seu \"CVV\" real, digite \"000\".";
+"Scan your creditcard" = "Escaneie seu cartão de crédito";
+"Scan Card" = "Escaneie o Cartão";
+
+//MARK: - AccountDetailView
+"Available Balance" = "Saldo Disponível";
+"Transactions" = "Transações";
+"Saving Plans" = "Planos de Economia";
+"Card Limit" = "Limite do Cartão";
+"⚠️ Your balance is about to run out." = "⚠️ Seu saldo está prestes a acabar.";
+"‼️ Your balance has been exceeded." = "‼️ Seu saldo foi excedido.";
+"Add a credit card" = "Adicionar um cartão de crédito";
+"Edit Card Limit" = "Editar Limite do Cartão";
+"Card Limit" = "Limite do Cartão";
+"You can change your card limit." = "Você pode alterar seu limite do cartão.";
+"Delete an account" = "Excluir uma conta";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"You are about to delete one of your account." = "Você está prestes a excluir uma das suas contas.";
+"Preferred account" = "Conta preferencial";
+"Account Name" = "Nome da conta";
+"You can change your account name." = "Você pode alterar o nome da sua conta.";
+"Edit Account Name" = "Editar nome da conta";
+
+//MARK: - TransactionCellForSubscritpionView
+
+//MARK: - CategoriesHomeView
+"Search for a category..." = "Pesquise por uma categoria...";
+"Categories" = "Categorias";
+"Month" = "Mês";
+"Year" = "Ano";
+"Total" = "Total";
+
+//MARK: - SubcategoryHomeView
+"Search for a subcategory..." = "Pesquise por uma subcategoria...";
+"Subcategories" = "Subcategorias";
+"Month" = "Mês";
+"Year" = "Ano";
+"Total" = "Total";
+
+//MARK: - AddCategoryView
+"New Category" = "Nova Categoria";
+"Title" = "Título";
+
+//MARK: - SettingsView
+"Settings" = "Configurações";
+"Help" = "Ajuda";
+"Preferences" = "Preferências";
+"The number of recent transactions displayed on the home screen and the analysis screen." = "O número de transações recentes exibidas na tela inicial e na tela de análise.";
+"Recent Transactions" = "Transações Recentes";
+"Add" = "Adicionar";
+"to secure your app and your data." = "para proteger seu aplicativo e seus dados.";
+"Enable" = "Ativar";
+"The percentage by which the card balance must be exceeded for the alert to be displayed" = "A porcentagem em que o saldo do cartão deve ser excedido para que o alerta seja exibido";
+"Card Limit Percentage" = "Porcentagem do Limite do Cartão";
+"Appearance" = "Aparência";
+"Display" = "Exibição";
+"Tint Color" = "Cor de Tinta";
+"Write a Review" = "Escrever uma Avaliação";
+"Share App" = "Compartilhar Aplicativo";
+"Report a Bug" = "Reportar um Erro";
+"Suggest New Features" = "Sugerir Novos Recursos";
+"Credits" = "Créditos";
+"AMAZING PEOPLE" = "PESSOAS INCRÍVEIS";
+"BETA TESTERS" = "TESTADORES BETA";
+"TRANSLATOR" = "TRADUTOR";
+"OPEN SOURCE COMPONENTS" = "COMPONENTES DE CÓDIGO ABERTO";
+"More from this Developer" = "Mais do Desenvolvedor";
+"Privacy Policy" = "Política de Privacidade";
+"Terms & Conditions" = "Termos e Condições";
+"Danger Zone" = "Zona de Perigo";
+"These actions are irreversible !" = "Essas ações são irreversíveis!";
+"Delete ALL Accounts" = "Excluir TODAS as Contas";
+"You are about to delete all your accounts." = "Você está prestes a excluir todas as suas contas.";
+"Delete ALL Cards" = "Excluir TODOS os Cartões";
+"You are about to delete all your cards." = "Você está prestes a excluir todos os seus cartões.";
+"Delete ALL Transactions" = "Excluir TODAS as Transações";
+"You are about to delete all your transactions." = "Você está prestes a excluir todas as suas transações.";
+"Delete ALL Saving Plans" = "Excluir TODOS os Planos de Economia";
+"You are about to delete all your saving plans." = "Você está prestes a excluir todos os seus planos de economia.";
+"Delete ALL Contributions" = "Excluir TODAS as Contribuições";
+"You are about to delete all your contributions." = "Você está prestes a excluir todas as suas contribuições.";
+"Delete ALL DATA" = "Excluir TODOS os DADOS";
+"You are about to delete all your data." = "Você está prestes a excluir todos os seus dados.";
+"Made with ❤ by Théo Sementa" = "Feito com ❤ por Théo Sementa";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"Secure your data." = "Proteja seus dados.";
+"Security" = "Segurança";
+"One account" = "Uma conta";
+"Changes the display if you use several accounts." = "Altera a exibição se você usar várias contas.";
+"Account can be negative" = "A conta pode ficar negativa";
+"Choose whether your account can be negative or not." = "Escolha se sua conta pode ficar negativa ou não.";
+"Block spending" = "Bloquear gastos";
+"Blocks spending if balance exceeds." = "Bloqueia os gastos se o saldo for excedido.";
+"Transaction" = "Transação";
+"Notification" = "Notificação";
+"Notifications" = "Notificações";
+"Choose when your notification will be sent when you activate them." = "Escolha quando suas notificações serão enviadas quando você as ativar.";
+"Notification time" = "Horário de notificação";
+"Select the time at which notifications are sent." = "Selecione o horário em que as notificações são enviadas.";
+"DESIGNER" = "DESIGNER";
+"MARKETING" = "MARKETING";
+"Green" = "Verde";
+"Blue" = "Azul";
+"Purple" = "Roxo";
+"Red" = "Vermelho";
+"Original" = "Original";
+"Dark" = "Escuro";
+"Dark Wallet" = "Carteira escura";
+"Wallet" = "Carteira";
+
+//MARK: - CellDisplayThemeView
+"System" = "Sistema";
+"Light" = "Claro";
+"Dark" = "Escuro";
+
+//MARK: - CellColorThemeView
+"TINT COLOR" = "COR DE DESTAQUE";
+
+//MARK: - TransactionCellView
+"Spend" = "Gasto";
+"Income" = "Entrada";
+"Delete a transaction" = "Excluir uma transação";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "Você está prestes a excluir uma das suas transações, o valor desta transação será reembolsado em sua conta.";
+
+//MARK: - TransactionCellWithoutAction
+"Spend" = "Gasto";
+"Income" = "Entrada";
+
+//MARK: - TransactionDetailView
+"Amount" = "Valor";
+"Date" = "Data";
+"Category" = "Categoria";
+"Subcategory" = "Subcategoria";
+"Add a note to this transaction..." = "Adicione uma observação a esta transação...";
+"Delete a transaction" = "Excluir uma transação";
+"Cancel" = "Cancelar";
+"Delete" = "Excluir";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "Você está prestes a excluir uma das suas transações, o valor desta transação será reembolsado em sua conta.";
+"Share" = "Compartilhar";
+"Delete" = "Excluir";
+
+//MARK: - PieChartView
+"Total" = "Total";
+
+//MARK: - CreateButton
+"Create" = "Criar";
+
+//MARK: - ValidateButton
+"Validate" = "Validar";
+
+//MARK: - Predefined Subcategory and Category
+
+//MARK: 0. Income
+"Cash inflow" = "Entrada de dinheiro";
+
+//MARK: 1. Achats & Shopping
+"Sporting goods" = "Artigos esportivos";
+"Gifts" = "Presentes";
+"Donations" = "Doações";
+"High Tech, Video games" = "Tecnologia avançada, Jogos de vídeo";
+"Books, Music" = "Livros, Música";
+"Decorative furniture" = "Móveis decorativos";
+"Consumer loans" = "Empréstimos ao consumidor";
+"Tobacco, Press" = "Tabaco, Imprensa";
+"Clothing, Footwear, Accessories" = "Roupas, Calçados, Acessórios";
+"Other" = "Outro";
+"Buying & Shopping" = "Compras e Compras";
+
+//MARK: 2. Alimentation & Restaurants
+"Market" = "Mercado";
+"Restaurants, Snacks" = "Restaurantes, Lanches";
+"Supermarket, Grocery" = "Supermercado, Mercearia";
+"Wines and spirits" = "Vinhos e bebidas";
+"Other" = "Outro";
+"Food & Restaurants" = "Alimentação e Restaurantes";
+
+//MARK: 3. Animaux
+"Toys" = "Brinquedos";
+"Mutual insurance" = "Seguro mútuo";
+"Food" = "Alimentação";
+"Health, Care" = "Saúde, Cuidados";
+"Other" = "Outro";
+"Animals" = "Animais";
+
+//MARK: 4. Crédits
+"Credits" = "Créditos";
+
+//MARK: 5. Épargne & Placements
+"Savings & Investments" = "Poupança e Investimentos";
+
+//MARK: 6. Impôts, Taxes & Frais
+"Fines" = "Multas";
+"Social security contributions" = "Contribuições para a segurança social";
+"Bank charges" = "Tarifas bancárias";
+"Wealth tax" = "Imposto sobre o patrimônio";
+"Income tax" = "Imposto de renda";
+"Property tax" = "Imposto sobre a propriedade";
+"Other" = "Outro";
+"Taxes & charges" = "Impostos e taxas";
+
+//MARK: 7. Logement & Charges
+"Home insurance" = "Seguro residencial";
+"Housing costs, Accessories" = "Custos com habitação, Acessórios";
+"Water, Electricity, Gas" = "Água, Eletricidade, Gás";
+"Internet, Telephony" = "Internet, Telefonia";
+"Rent" = "Aluguel";
+"Mortgage loan" = "Empréstimo hipotecário";
+"Second home" = "Segunda residência";
+"Work, Maintenance" = "Trabalho, Manutenção";
+"Other" = "Outro";
+"Housing & Utilities" = "Moradia e Serviços Públicos";
+
+//MARK: 8. Loisirs & vacances
+"Multimedia Subscriptions" = "Assinaturas multimídia";
+"Bars and clubs" = "Bares e clubes";
+"Hairdresser, Beauty salon" = "Cabeleireiro, Salão de beleza";
+"Cultural outings" = "Passeios culturais";
+"Sport" = "Esporte";
+"Holidays, Travel" = "Férias, Viagens";
+"Other" = "Outro";
+"Leisure & Holidays" = "Lazer e Férias";
+
+//MARK: 9. Retraits
+"Withdrawals" = "Retiradas";
+
+//MARK: 10. Santé
+"Doctor" = "Médico";
+"Mutual insurance" = "Seguro mútuo";
+"Opique" = "Ótica";
+"Pharmacy" = "Farmácia";
+"Other" = "Outro";
+"Health" = "Saúde";
+
+//MARK: 11. Transport
+"Vehicle insurance" = "Seguro de veículo";
+"Plane, Train, Boat" = "Avião, Trem, Barco";
+"Fuel" = "Combustível";
+"Maintenance, Vehicle equipment" = "Manutenção, Equipamentos de veículos";
+"Vehicle rental" = "Aluguel de veículos";
+"Toll" = "Pedágio";
+"Vehicle loan" = "Empréstimo de veículo";
+"Parking" = "Estacionamento";
+"Taxi, VTC" = "Táxi, VTC";
+"Public transport" = "Transporte público";
+"Other" = "Outro";
+"Transport" = "Transporte";
+
+//MARK: 12. Travail & Études
+"Professional expenses" = "Despesas profissionais";
+"Expenses" = "Despesas";
+"Student loans" = "Empréstimos estudantis";
+"Meals at work" = "Refeições no trabalho";
+"Other" = "Outro";
+"Work & Study" = "Trabalho e Estudo";

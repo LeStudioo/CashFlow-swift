@@ -1,0 +1,157 @@
+//
+//  BudgetsHomeView.swift
+//  CashFlow
+//
+//  Created by KaayZenn on 03/08/2023.
+//
+// Refactor 26/09/2023
+// Localizations 01/10/2023
+
+import SwiftUI
+
+struct BudgetsHomeView: View {
+    
+    //Custom type
+    var categories = PredefinedObjectManager.shared.allPredefinedCategory
+    @ObservedObject var filter: Filter = sharedFilter
+    
+    //CoreData
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
+    private var budgets: FetchedResults<Budget>
+    
+    //Environnements
+    @Environment(\.dismiss) private var dismiss
+    
+    //State or Binding String
+    @State private var searchText: String = ""
+    var months: [String] = Calendar.current.monthSymbols
+    
+    //State or Binding Int, Float and Double
+    
+    //State or Binding Bool
+    @State private var update: Bool = false
+    @State private var showAddBudget: Bool = false
+    
+    //State or Binding Date
+    
+    //Enum
+    
+    //Computed var
+    
+    var getAllBudgetsByCategory: [PredefinedCategory] {
+        var array: [PredefinedCategory] = []
+        for budget in budgets {
+            if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: budget.predefCategoryID), !array.contains(category) {
+                array.append(category)
+            }
+        }
+        return array
+    }
+    
+    var searchResults: [Budget] {
+        if searchText.isEmpty {
+            return Array(budgets)
+        } else { //Searching
+            let budgetsFilterByTitle: [Budget] = budgets.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            let budgetsFilterByCategory: [Budget] = budgets.filter { PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID)?.title.localizedStandardContains(searchText) ?? false }
+            
+            if budgetsFilterByTitle.isEmpty {
+                return budgetsFilterByCategory
+            } else {
+                return budgetsFilterByTitle
+            }
+        }
+    }
+    
+    //MARK: - Body
+    var body: some View {
+        VStack(spacing: 0) {
+            if budgets.count != 0 && searchResults.count != 0 {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        ForEach(getAllBudgetsByCategory, id: \.self) { category in
+                            if budgets.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
+                                if searchResults.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
+                                    HStack {
+                                        Text(category.title)
+                                            .font(.mediumCustom(size: 22))
+                                        Spacer()
+                                        Circle()
+                                            .frame(width: 30, height: 30)
+                                            .foregroundColor(category.color)
+                                            .overlay {
+                                                Image(systemName: category.icon)
+                                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                                    .foregroundColor(.colorLabelInverse)
+                                            }
+                                    }
+                                    .padding([.horizontal, .top])
+                                }
+                                ForEach(searchResults) { budget in
+                                    if PredefinedCategoryManager().categoryByUniqueID(idUnique: budget.predefCategoryID) == category {
+                                        NavigationLink(destination: {
+                                            if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: budget.predefSubcategoryID) {
+                                                BudgetsTransactionsView(subcategory: subcategory, update: $update)
+                                            }
+                                        }, label: {
+                                            CellBudgetView(budget: budget, selectedDate: $filter.date, update: $update)
+                                        })
+                                        .padding(.horizontal)
+                                        .padding(.vertical, 8)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } //End ScrollView
+                .blur(radius: filter.showMenu ? 3 : 0)
+                .disabled(filter.showMenu)
+                .onTapGesture { withAnimation { filter.showMenu = false } }
+            } else {
+                ErrorView(
+                    searchResultsCount: searchResults.count,
+                    searchText: searchText,
+                    image: "NoBudgets",
+                    text: NSLocalizedString("budgets_home_no_budget", comment: "")
+                )
+            }
+        }
+        .padding(update ? 0 : 0)
+        .navigationTitle(NSLocalizedString("word_budgets", comment: ""))
+        .navigationBarTitleDisplayMode(.large)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }, label: {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 18, weight: .bold, design: .rounded))
+                        .foregroundColor(.colorLabel)
+                })
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Menu(content: {
+                    Button(action: { showAddBudget.toggle() }, label: { Label(NSLocalizedString("word_add", comment: ""), systemImage: "plus") })
+                    Button(action: { filter.fromBudget = true; filter.showMenu = true }, label: { Label(NSLocalizedString("word_month", comment: ""), systemImage: "calendar") })
+                }, label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(.colorLabel)
+                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                })
+            }
+        }
+        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
+        .sheet(isPresented: $showAddBudget, onDismiss: { update.toggle() }, content: { AddBudgetView() })
+        .onChange(of: filter.date) { _ in
+            update.toggle()
+        }
+    }//END body
+}//END struct
+
+//MARK: - Preview
+struct BudgetsHomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        BudgetsHomeView()
+    }
+}

@@ -1,0 +1,429 @@
+/* 
+  Localizable.strings
+  CashFlow
+
+  Created by KaayZenn on 14/07/2023.
+  
+*/
+//MARK: - LaunchScreen
+"Control your spending" = "Управляйте своими расходами";
+
+//MARK: - PageControllerView
+"Account Missing" = "Отсутствует аккаунт";
+"Create" = "Создать";
+"To create a transaction you need an account." = "Для создания транзакции вам необходим аккаунт.";
+"Secure your data." = "Защитите свои данные.";
+
+//MARK: - ItemsForTabBar
+"Home" = "Главная";
+"Analytic" = "Аналитика";
+"Account" = "Аккаунт";
+"Type" = "Тип";
+
+//MARK: - TutorialScreenView
+"First Account" = "Первый аккаунт";
+"Get Started" = "Начать";
+"Next" = "Далее";
+
+//MARK: FirstScreenTutorialView
+"Welcome to CashFlow !" = "Добро пожаловать в CashFlow!";
+"Track your spending, analyse your spending habits, identify areas where you can save and take control of your money with ease" = "Отслеживайте свои расходы, анализируйте свои привычки расходов, определите области, где можно сэкономить и легко контролируйте свои деньги";
+
+//MARK: SecondScreenTutorialView
+"Easy way to Track your financial" = "Простой способ отслеживать ваши финансы";
+"All your financial activities will be recorded and displayed briefly and clearly" = "Все ваши финансовые операции будут записаны и отображены кратко и ясно";
+
+//MARK: ThirdScreenTutorialView
+"Set your finance for the future" = "Настройте свои финансы на будущее";
+"Features that can make it easier for you to save and plan finances in the future" = "Функции, которые могут упростить сохранение и планирование финансов в будущем";
+
+//MARK: FourthScreenTutorialView
+"New experience in manage money" = "Новый опыт управления деньгами";
+"Let’s get started and feel a new and fun experience in managing your finances" = "Давайте начнем и почувствуем новый и увлекательный опыт управления вашими финансами";
+
+//MARK: - HomeScreenView
+"Available Balance" = "Доступный баланс";
+"Money Spend" = "Потраченные деньги";
+"My Saving Plans" = "Мои планы накоплений";
+"Add a new Saving Plans" = "Добавить новый план накоплений";
+"$13.850,00" = "13 850,00 $";
+"Recent Transactions" = "Последние транзакции";
+"Click on the plus button to create a transaction." = "Нажмите на кнопку плюса, чтобы создать транзакцию.";
+"Click on the plus button to create an account or go to \"Account\"." = "Нажмите на кнопку плюса, чтобы создать аккаунт или перейти к \"Аккаунту\".";
+"Home" = "Главная";
+
+//MARK: - RecentTransactionsView
+"Click on the plus button to create a transaction." = "Нажмите на кнопку плюса, чтобы создать транзакцию.";
+"Recent Transactions" = "Последние транзакции";
+"Search for a transaction..." = "Поиск транзакции...";
+"Incomes" = "Доходы";
+
+//MARK: - SavingPlansHomeView
+"Click on the plus button to create a saving plan." = "Нажмите на кнопку плюса, чтобы создать план накоплений.";
+"Saving Plans" = "Планы накоплений";
+
+//MARK: - SavingPlanDetailView
+"End Date" = "Дата окончания";
+"Add a note to this saving plan..." = "Добавить примечание к этому плану накоплений...";
+"Contributions" = "Взносы";
+"Delete a saving plan" = "Удалить план накоплений";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"You are about to delete one of your saving plan." = "Вы собираетесь удалить один из своих планов накоплений.";
+"Add contribution" = "Добавить взнос";
+"Delete" = "Удалить";
+"Rename" = "Переименовать" ;
+"New name" = "Новое имя" ;
+
+//MARK: - AddSavingPlanView
+"New Saving Plan" = "Новый план накоплений";
+"Title" = "Заголовок";
+"Start" = "Начало";
+"End" = "Окончание";
+"Add a end date" = "Добавить дату окончания";
+"End Date" = "Дата окончания";
+
+//MARK: - CellContributionView
+"Money withdrawn" = "Снятые деньги";
+"Money added" = "Добавленные деньги";
+"Delete a contribution" = "Удалить взнос";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"You are about to delete one of your contributions, the amount of this contribution will be refunded to your account." = "Вы собираетесь удалить один из своих взносов, сумма этого взноса будет возвращена на ваш счет.";
+
+//MARK: - AddContributionView
+"New Contribution" = "Новый взнос";
+"Add" = "Добавить";
+"Withdraw" = "Снять";
+"⚠️ You cannot add more than the final amount." = "⚠️ Вы не можете добавить больше, чем конечная сумма.";
+"for finish the saving plan." = "для завершения плана накоплений.";
+"⚠️ You can't take out more than is on the saving plan." = "⚠️ Вы не можете снять больше, чем есть в плане накоплений.";
+"‼️ Your account will be in negative after this spending." = "‼️ Ваш счет будет отрицательным после этого расхода.";
+
+//MARK: - AnalyticsHomeView
+"Transaction" = "Транзакция";
+"Money Income" = "Доходы";
+"Money Spend" = "Расходы";
+"Recent Transactions" = "Последние транзакции";
+"Click on the plus button to create a transaction." = "Нажмите на кнопку плюса, чтобы создать транзакцию.";
+"Click on the plus button to create an account or go to \"Account\"." = "Нажмите на кнопку плюса, чтобы создать аккаунт или перейти к \"Аккаунту\".";
+"Analytics" = "Аналитика";
+
+//MARK: - AddTransactionView
+"Recover" = "Восстановить";
+"New Transaction" = "Новая транзакция";
+"Title" = "Заголовок";
+"Spend" = "Расход";
+"Income" = "Доход";
+"Successful Transaction" = "Успешная транзакция";
+"Your transaction has been processed" = "Ваша транзакция была обработана";
+"Date & Time" = "Дата и время";
+"⚠️ Your balance is about to run out." = "⚠️ Ваш баланс скоро иссякнет.";
+"‼️ Your balance has been exceeded." = "‼️ Ваш баланс превышен.";
+"‼️ Your card limit will be exceeded after this spending." = "‼️ После этого расхода ваш лимит карты будет превышен.";
+"‼️ Your account will be in negative after this spending." = "‼️ Ваш счет будет отрицательным после этого расхода.";
+
+//MARK: - WhatCategoryView
+"What Category ?" = "Какая категория?";
+"Month" = "Месяц";
+"Year" = "Год";
+"Total" = "Всего";
+"Search for a category or a subcategory..." = "Поиск по категории или подкатегории...";
+
+//MARK: - RecoverTransactionView
+"Recover Transaction" = "Восстановить транзакцию";
+"Enter your JSON" = "Введите свой JSON";
+"The JSON you provided contains one or more errors." = "Предоставленный вами JSON содержит одну или несколько ошибок.";
+"Recover" = "Восстановить";
+"Successful Recover" = "Успешное восстановление";
+"Your transaction has been recovered" = "Ваша транзакция была восстановлена";
+"Date & Time" = "Дата и время";
+
+//MARK: - CardViewEditable
+"Enter CVV" = "Введите CVV";
+"Back to card" = "Назад к карте";
+"CARD HOLDER NAME" = "Имя держателя карты";
+"CVV" = "CVV";
+
+//MARK: - CardViewNotEditable
+
+//MARK: - CellAccountView
+"Credit card added." = "Кредитная карта добавлена.";
+"No credit card added." = "Кредитная карта не добавлена.";
+"No card limit added." = "Не добавлен лимит на карту.";
+
+//MARK: - AccountsHomeView
+"Click on the plus button to create an account." = "Нажмите на кнопку плюса, чтобы создать аккаунт.";
+"Account" = "Аккаунт";
+
+//MARK: - CellAddCardView
+
+//MARK: - AddAccountView
+"New Account" = "Новый аккаунт";
+"Account Name" = "Название аккаунта";
+"Theo's Account" = "Аккаунт Тео";
+"Account Balance" = "Баланс аккаунта";
+"$10,000" = "10 000 $";
+"Card Limit" = "Лимит карты";
+"$3,000" = "3 000 $";
+"You will be able to add a credit card by consulting your account." = "Вы сможете добавить кредитную карту, проконсультировавшись с вашим аккаунтом.";
+
+//MARK: - AddCardView
+"If you don't want to enter your real \"CVV\", type \"000\"." = "Если вы не хотите вводить свой реальный \"CVV\", введите \"000\".";
+"Scan your creditcard" = "Сканируйте вашу кредитную карту";
+"Scan Card" = "Сканировать карту";
+
+//MARK: - AccountDetailView
+"Available Balance" = "Доступный баланс";
+"Transactions" = "Транзакции";
+"Saving Plans" = "Планы накоплений";
+"Card Limit" = "Лимит карты";
+"⚠️ Your balance is about to run out." = "⚠️ Ваш баланс скоро иссякнет.";
+"‼️ Your balance has been exceeded." = "‼️ Ваш баланс превышен.";
+"Add a credit card" = "Добавить кредитную карту";
+"Edit Card Limit" = "Редактировать лимит карты";
+"Card Limit" = "Лимит карты";
+"You can change your card limit." = "Вы можете изменить лимит своей карты.";
+"Delete an account" = "Удалить аккаунт";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"You are about to delete one of your account." = "Вы собираетесь удалить один из своих аккаунтов.";
+"Preferred account" = "Предпочитаемый счет" ;
+"Account Name" = "Название аккаунта";
+"You can change your account name." = "Вы можете изменить название аккаунта.";
+"Edit Account Name" = "Редактировать название аккаунта";
+
+//MARK: - TransactionCellForSubscritpionView
+
+//MARK: - CategoriesHomeView
+"Search for a category..." = "Поиск по категории...";
+"Categories" = "Категории";
+"Month" = "Месяц";
+"Year" = "Год";
+"Total" = "Всего";
+
+//MARK: - SubcategoryHomeView
+"Search for a subcategory..." = "Поиск по подкатегории...";
+"Subcategories" = "Подкатегории";
+"Month" = "Месяц";
+"Year" = "Год";
+"Total" = "Всего";
+
+//MARK: - AddCategoryView
+"New Category" = "Новая категория";
+"Title" = "Заголовок";
+
+//MARK: - SettingsView
+"Settings" = "Настройки";
+"Help" = "Помощь";
+"Preferences" = "Настройки";
+"The number of recent transactions displayed on the home screen and the analysis screen." = "Количество последних транзакций, отображаемых на главном экране и экране аналитики.";
+"Recent Transactions" = "Последние транзакции";
+"Add" = "Добавить";
+"to secure your app and your data." = "для обеспечения безопасности вашего приложения и ваших данных.";
+"Enable" = "Включить";
+"The percentage by which the card balance must be exceeded for the alert to be displayed" = "Процент, на который баланс карты должен быть превышен, чтобы отображалось предупреждение";
+"Card Limit Percentage" = "Процент лимита карты";
+"Appearance" = "Внешний вид";
+"Display" = "Отображение";
+"Tint Color" = "Цвет подсветки";
+"Write a Review" = "Написать отзыв";
+"Share App" = "Поделиться приложением";
+"Report a Bug" = "Сообщить о проблеме";
+"Suggest New Features" = "Предложить новые функции";
+"Credits" = "Авторы";
+"AMAZING PEOPLE" = "УДИВИТЕЛЬНЫЕ ЛЮДИ";
+"BETA TESTERS" = "БЕТА-ТЕСТЕРЫ";
+"TRANSLATOR" = "ПЕРЕВОДЧИК";
+"OPEN SOURCE COMPONENTS" = "КОМПОНЕНТЫ ОТКРЫТОГО ИСХОДНОГО КОДА";
+"More from this Developer" = "Еще от этого разработчика";
+"Privacy Policy" = "Политика конфиденциальности";
+"Terms & Conditions" = "Условия использования";
+"Danger Zone" = "Зона риска";
+"These actions are irreversible !" = "Эти действия нельзя отменить!";
+"Delete ALL Accounts" = "Удалить ВСЕ аккаунты";
+"You are about to delete all your accounts." = "Вы собираетесь удалить все свои аккаунты.";
+"Delete ALL Cards" = "Удалить ВСЕ карты.";
+"You are about to delete all your cards." = "Вы собираетесь удалить все свои карты.";
+"Delete ALL Transactions" = "Удалить ВСЕ транзакции";
+"You are about to delete all your transactions." = "Вы собираетесь удалить все свои транзакции.";
+"Delete ALL Saving Plans" = "Удалить ВСЕ планы накоплений";
+"You are about to delete all your saving plans." = "Вы собираетесь удалить все свои планы накоплений.";
+"Delete ALL Contributions" = "Удалить ВСЕ взносы";
+"You are about to delete all your contributions." = "Вы собираетесь удалить все свои взносы.";
+"Delete ALL DATA" = "Удалить ВСЕ данные";
+"You are about to delete all your datas." = "Вы собираетесь удалить все ваши данные.";
+"Made with ❤ by Théo Sementa" = "Сделано с ❤ Тео Семента";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"Secure your data." = "Защитите свои данные.";
+"Security" = "Безопасность";
+"One account" = "Один аккаунт";
+"Changes the display if you use several accounts." = "Изменяет отображение, если вы используете несколько аккаунтов.";
+"Account can be negative" = "Счет может быть отрицательным";
+"Choose whether your account can be negative or not." = "Выберите, может ли ваш счет быть отрицательным или нет.";
+"Block spending" = "Блокировка трат";
+"Blocks spending if balance exceeds." = "Блокирует траты, если баланс превышает лимит.";
+"Transaction" = "Транзакция";
+"Notification" = "Уведомление";
+"Notifications" = "Уведомления";
+"Choose when your notification will be sent when you activate them." = "Выберите время отправки уведомлений при их активации.";
+"Notification time" = "Время уведомления";
+"Select the time at which notifications are sent." = "Выберите время отправки уведомлений.";
+"DESIGNER" = "ДИЗАЙНЕР";
+"MARKETING" = "МАРКЕТИНГ";
+"Green" = "Зеленый";
+"Blue" = "Синий";
+"Purple" = "Фиолетовый";
+"Red" = "Красный";
+"Original" = "Оригинальный";
+"Dark" = "Темный";
+"Dark Wallet" = "Темный кошелек";
+"Wallet" = "Кошелек";
+
+//MARK: - CellDisplayThemeView
+"System" = "Система";
+"Light" = "Светлый";
+"Dark" = "Темный";
+
+//MARK: - CellColorThemeView
+"TINT COLOR" = "ЦВЕТ ПОДСВЕТКИ";
+
+//MARK: - TransactionCellView
+"Spend" = "Расход";
+"Income" = "Доход";
+"Delete a transaction" = "Удалить транзакцию";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "Вы собираетесь удалить одну из ваших транзакций, сумма этой транзакции будет возвращена на ваш счет.";
+
+//MARK: - TransactionCellWithoutAction
+"Spend" = "Расход";
+"Income" = "Доход";
+
+//MARK: - TransactionDetailView
+"Amount" = "Сумма";
+"Date" = "Дата";
+"Category" = "Категория";
+"Subcategory" = "Подкатегория";
+"Add a note to this transaction..." = "Добавить примечание к этой транзакции...";
+"Delete a transaction" = "Удалить транзакцию";
+"Cancel" = "Отмена";
+"Delete" = "Удалить";
+"You are about to delete one of your transactions, the amount of this transaction will be refunded to your account." = "Вы собираетесь удалить одну из ваших транзакций, сумма этой транзакции будет возвращена на ваш счет.";
+"Share" = "Поделиться";
+"Delete" = "Удалить";
+
+//MARK: - PieChartView
+"Total" = "Всего" ;
+
+//MARK: - CreateButton
+"Create" = "Создать";
+
+//MARK: - ValidateButton
+"Validate" = "Подтвердить";
+
+//MARK: - Predefined Subcategory and Category
+
+//MARK: 0. Income
+"Cash inflow" = "Поступление денежных средств";
+
+//MARK: 1. Achats & Shopping
+"Sporting goods" = "Спортивные товары";
+"Gifts" = "Подарки";
+"Donations" = "Пожертвования";
+"High Tech, Video games" = "Высокие технологии, видеоигры";
+"Books, Music" = "Книги, музыка";
+"Decorative furniture" = "Декоративная мебель";
+"Consumer loans" = "Потребительские кредиты";
+"Tobacco, Press" = "Табак, пресса";
+"Clothing, Footwear, Accessories" = "Одежда, обувь, аксессуары";
+"Other" = "Другое";
+"Buying & Shopping" = "Покупки и шопинг";
+
+//MARK: 2. Alimentation & Restaurants
+"Market" = "Рынок";
+"Restaurants, Snacks" = "Рестораны, закуски";
+"Supermarket, Grocery" = "Супермаркет, продуктовый магазин";
+"Wines and spirits" = "Вино и спиртные напитки";
+"Other" = "Другое";
+"Food & Restaurants" = "Еда и рестораны";
+
+//MARK: 3. Animaux
+"Toys" = "Игрушки";
+"Mutual insurance" = "Взаимное страхование";
+"Food" = "Еда";
+"Health, Care" = "Здоровье, уход";
+"Other" = "Другое";
+"Animals" = "Животные";
+
+//MARK: 4. Crédits
+"Credits" = "Кредиты";
+
+//MARK: 5. Épargne & Placements
+"Savings & Investments" = "Сбережения и инвестиции";
+
+//MARK: 6. Impôts, Taxes & Frais
+"Fines" = "Штрафы";
+"Social security contributions" = "Взносы на социальное обеспечение";
+"Bank charges" = "Банковские сборы";
+"Wealth tax" = "Налог на состояние";
+"Income tax" = "Налог на доход";
+"Property tax" = "Налог на недвижимость";
+"Other" = "Другое";
+"Taxes & charges" = "Налоги и сборы";
+
+//MARK: 7. Logement & Charges
+"Home insurance" = "Страхование жилья";
+"Housing costs, Accessories" = "Затраты на жилье, аксессуары";
+"Water, Electricity, Gas" = "Вода, электричество, газ";
+"Internet, Telephony" = "Интернет, телефония";
+"Rent" = "Аренда";
+"Mortgage loan" = "Ипотечный кредит";
+"Second home" = "Второй дом";
+"Work, Maintenance" = "Работа, обслуживание";
+"Other" = "Другое";
+"Housing & Utilities" = "Жилье и коммунальные услуги";
+
+//MARK: 8. Loisirs & vacances
+"Multimedia Subscriptions" = "Подписки на мультимедиа";
+"Bars and clubs" = "Бары и клубы";
+"Hairdresser, Beauty salon" = "Парикмахерская, салон красоты";
+"Cultural outings" = "Культурные мероприятия";
+"Sport" = "Спорт";
+"Holidays, Travel" = "Отпуск, путешествия";
+"Other" = "Другое";
+"Leisure & Holidays" = "Досуг и отпуск";
+
+//MARK: 9. Retraits
+"Withdrawals" = "Снятие денег";
+
+//MARK: 10. Santé
+"Doctor" = "Врач";
+"Mutual insurance" = "Взаимное страхование";
+"Opique" = "Оптика";
+"Pharmacy" = "Аптека";
+"Other" = "Другое";
+"Health" = "Здоровье";
+
+//MARK: 11. Transport
+"Vehicle insurance" = "Автострахование";
+"Plane, Train, Boat" = "Самолет, поезд, лодка";
+"Fuel" = "Топливо";
+"Maintenance, Vehicle equipment" = "Обслуживание, автомобильное оборудование";
+"Vehicle rental" = "Аренда транспортного средства";
+"Toll" = "Плата за проезд";
+"Vehicle loan" = "Автокредит";
+"Parking" = "Парковка";
+"Taxi, VTC" = "Такси, VTC";
+"Public transport" = "Общественный транспорт";
+"Other" = "Другое";
+"Transport" = "Транспорт";
+
+//MARK: 12. Travail & Études
+"Professional expenses" = "Профессиональные расходы";
+"Expenses" = "Расходы";
+"Student loans" = "Студенческие займы";
+"Meals at work" = "Питание на работе";
+"Other" = "Другое";
+"Work & Study" = "Работа и учеба";

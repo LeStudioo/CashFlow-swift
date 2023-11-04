@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  CashFlow
+
+  Created by KaayZenn on 10/10/2023.
+  
+*/
+
+"NSFaceIDUsageDescription" = "Sichert Ihre Daten.";
+
+"NSCameraUsageDescription" = "Wir benötigen Zugriff auf Ihre Kamera, um QR-Codes, Kreditkarten oder Quittungen zu scannen.";

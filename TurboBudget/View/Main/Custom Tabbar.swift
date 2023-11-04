@@ -1,0 +1,297 @@
+//
+//  TabbarView.swift
+//  TurboBudget
+//
+//  Created by Théo Sementa on 15/06/2023.
+//
+// Localizations 30/09/2023
+
+
+import SwiftUI
+
+struct TabbarView: View {
+
+    //Custom type
+    @Binding var account: Account?
+    @ObservedObject var filter: Filter = sharedFilter
+    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    @ObservedObject var viewModel = CustomTabBarViewModel.shared
+
+    //Environnements
+    @Environment(\.colorScheme) private var colorScheme
+
+    //State or Binding String
+
+    //State or Binding Int, Float and Double
+    @Binding var selectedTab: Int
+    @Binding var offsetYMenu: CGFloat
+
+    //State or Binding Bool
+    @Binding var update: Bool
+
+    //Enum
+    
+    //Computed var
+
+    //MARK: - Body
+    var body: some View {
+        ZStack(alignment: .top) {
+            BannerShape()
+                .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                .cornerRadius(10, corners: .topLeft)
+                .cornerRadius(10, corners: .topRight)
+                .frame(height: 100)
+                .shadow(radius: 64, y: -3)
+            
+            ZStack {
+                VStack(alignment: .leading, spacing: 32) {
+                    if account != nil {
+                        Button(action: { withAnimation { viewModel.showAddSavingPlanSheet() } }, label: {
+                            HStack {
+                                Image(systemName: "building.columns.fill")
+                                Text(NSLocalizedString("word_savingsplan", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        Button(action: { withAnimation { viewModel.showRecoverTransactionSheet() } }, label: {
+                            HStack {
+                                Image(systemName: "tray.and.arrow.down.fill")
+                                Text(NSLocalizedString("recover_button", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        Button(action: { withAnimation { viewModel.showAddAutomationSheet() } }, label: {
+                            HStack {
+                                Image(systemName: "clock.arrow.circlepath")
+                                Text(NSLocalizedString("word_automation", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
+                            HStack {
+                                Image(systemName: "barcode.viewfinder")
+                                Text(NSLocalizedString("word_scanner", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        Button(action: { withAnimation { viewModel.showAddTransactionSheet() } }, label: {
+                            HStack {
+                                Image(systemName: "creditcard.and.123")
+                                Text(NSLocalizedString("word_transaction", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                    } else {
+                        Button(action: { viewModel.showAddAccountSheet() }, label: {
+                            HStack {
+                                Image(systemName: "person")
+                                Text(NSLocalizedString("word_account", comment: ""))
+                            }
+                        })
+                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                    }
+                }
+                .padding()
+                .background(colorScheme == .light ? Color.primary0 : Color.secondary500)
+                .cornerRadius(15)
+                .shadow(radius: 4)
+                .scaleEffect(viewModel.showMenu ? 1 : 0)
+                .offset(y: offsetYMenu)
+                .opacity(viewModel.showMenu ? 1 : 0)
+                
+                Circle()
+                    .foregroundColor(HelperManager().getAppTheme().color)
+                    .frame(width: 80)
+                    .shadow(color: HelperManager().getAppTheme().color, radius: 12, y: 10)
+                
+                Image(systemName: "plus")
+                    .font(.system(size: 34, weight: .regular, design: .rounded))
+                    .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                    .rotationEffect(.degrees(viewModel.showMenu ? 45 : 0))
+            }
+            .frame(height: 80)
+            .offset(y: -10)
+            .onTapGesture {
+                filter.showMenu = false
+                withAnimation(.interpolatingSpring(stiffness: 150, damping: 12)) {
+                    viewModel.showMenu.toggle()
+                    if viewModel.showMenu {
+                        if account != nil {
+                            offsetYMenu = -180
+                        } else { offsetYMenu = -80 }
+                    } else {
+                        offsetYMenu = 0
+                    }
+                }
+                if viewModel.showMenu {
+                    if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                }
+            }
+            
+            HStack {
+                ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
+            }
+        }
+        .padding(update ? 0 : 0)
+        .onRotate { _ in
+            update.toggle()
+        }
+    }//END body
+
+    //MARK: Fonctions
+
+}//END struct
+
+//MARK: - Preview
+struct TabBarBackgroundView_Previews: PreviewProvider {
+    
+    @State static var selectedTabPreview: Int = 0
+    @State static var previewUpdate: Bool = false
+    @State static var showMenu: Bool = false
+    
+    @State static var offsetYMenu: CGFloat = 0
+    
+    @State static var previewAccount: Account? = previewAccount1()
+    
+    static var previews: some View {
+        TabbarView(
+            account: $previewAccount,
+            selectedTab: $selectedTabPreview,
+            offsetYMenu: $offsetYMenu,
+            update: $previewUpdate
+        )
+        
+        BannerShape()
+            .cornerRadius(15, corners: [.topLeft, .topRight])
+            .previewLayout(.sizeThatFits)
+            .frame(width: UIScreen.main.bounds.width, height: 100)
+            .padding()
+    }
+}
+
+struct ItemsForTabBar: View {
+    
+    //Custom Type
+    @ObservedObject var filter: Filter = sharedFilter
+    
+    //Environnements
+    @Environment(\.colorScheme) private var colorScheme
+    
+    //State or Binding String
+    
+    //State or Binding Int, Float and Double
+    @Binding var selectedTab: Int
+    @Binding var showMenu: Bool
+    var hStackwidth = UIScreen.main.bounds.width / 2 - 80
+    
+    var body: some View {
+        HStack(alignment: .center) {
+            HStack {
+                VStack(spacing: 14) {
+                    Image(systemName: "house")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .frame(width: 20, height: 20)
+                    
+                    Text(NSLocalizedString("word_home", comment: ""))
+                        .font(.semiBoldSmall())
+                }
+                .foregroundColor(
+                    selectedTab == 0
+                    ? Color(uiColor: UIColor.label)
+                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                )
+                .onTapGesture { selectedTab = 0; withAnimation { showMenu = false; filter.showMenu = false } }
+                .frame(width: hStackwidth / 2)
+                
+                VStack(spacing: 14) {
+                    Image(systemName: "chart.bar")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .frame(width: 20, height: 20)
+                    
+                    Text(NSLocalizedString("word_analytic", comment: ""))
+                        .font(.semiBoldSmall())
+                }
+                .onTapGesture { selectedTab = 1; withAnimation { showMenu = false; filter.showMenu = false } }
+                .foregroundColor(
+                    selectedTab == 1
+                    ? Color(uiColor: UIColor.label)
+                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                )
+                .frame(width: hStackwidth / 2 + 10)
+            }
+            .padding(.bottom, 16)
+            .frame(width: hStackwidth, height: 70)
+            
+            Spacer()
+                        
+            HStack {
+                VStack(spacing: 14) {
+                    Image(systemName: "creditcard")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .frame(width: 20, height: 20)
+                    
+                    Text(NSLocalizedString("word_account", comment: ""))
+                        .font(.semiBoldSmall())
+                }
+                .onTapGesture { selectedTab = 3; withAnimation { showMenu = false; filter.showMenu = false } }
+                .foregroundColor(
+                    selectedTab == 3
+                    ? Color(uiColor: UIColor.label)
+                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                )
+                .frame(width: hStackwidth / 2 + 10)
+                
+                VStack(spacing: 14) {
+                    Image(systemName: "rectangle.stack")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .frame(width: 20, height: 20)
+                    
+                    Text(NSLocalizedString("word_type", comment: ""))
+                        .font(.semiBoldSmall())
+                }
+                .onTapGesture { selectedTab = 4; withAnimation { showMenu = false; filter.showMenu = false } }
+                .foregroundColor(
+                    selectedTab == 4
+                    ? Color(uiColor: UIColor.label)
+                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                )
+                .frame(width: hStackwidth / 2)
+            }
+            .padding(.bottom, 16)
+            .frame(width: hStackwidth, height: 70)
+        }
+        .padding(.horizontal)
+        .frame(height: 90)
+    }
+}
+
+struct BannerShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        return Path { path in
+            path.move(to: .zero)
+            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width / 2 - 48, y: 0))
+            
+            var pt1: CGPoint = .zero
+            var pt2: CGPoint = .zero
+            
+            pt1 = .init(x: UIScreen.main.bounds.width / 2 - 48 + 5, y: 0)
+            pt2 = .init(x: UIScreen.main.bounds.width / 2 - 48 - 10, y: 105)
+            path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
+            
+            let p3 = path.currentPoint!
+            path.addCurve(to: CGPoint(x: UIScreen.main.bounds.width - p3.x, y: p3.y),
+                          control1: CGPoint(x: UIScreen.main.bounds.width / 2 - 75, y: 102),
+                          control2: CGPoint(x: UIScreen.main.bounds.width / 2 + 75, y: 102))
+            
+            pt1 = .init(x: UIScreen.main.bounds.width / 2 + 48 - 10, y: 0)
+            pt2 = .init(x: UIScreen.main.bounds.width / 2 + 48 + 10, y: 0)
+            path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
+            
+            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
+            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 100))
+            path.addLine(to: CGPoint(x: 0, y: 100))
+            path.addLine(to: .zero)
+            path.closeSubpath()
+        }
+    }
+}
