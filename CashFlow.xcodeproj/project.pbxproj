@@ -179,6 +179,7 @@
 		D9B805BE2AADAFD400632449 /* SettingAppearenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B805BD2AADAFD400632449 /* SettingAppearenceView.swift */; };
 		D9C45B322A63C964003D0004 /* Rotation Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C45B312A63C964003D0004 /* Rotation Detection.swift */; };
 		D9C5C2262AF769400084B542 /* AddSavingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */; };
+		D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */; };
 		D9CA6CC82AA3237D00803E66 /* PieChartViewNoInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */; };
 		D9D676B22AD29B0F000DBB42 /* BudgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D676B12AD29B0F000DBB42 /* BudgetManager.swift */; };
 		D9E509C22A7D2A06003A6A6A /* CellBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E509C12A7D2A06003A6A6A /* CellBudgetView.swift */; };
@@ -383,6 +384,7 @@
 		D9B805BD2AADAFD400632449 /* SettingAppearenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppearenceView.swift; sourceTree = "<group>"; };
 		D9C45B312A63C964003D0004 /* Rotation Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rotation Detection.swift"; sourceTree = "<group>"; };
 		D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingPlanViewModel.swift; sourceTree = "<group>"; };
+		D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContributionViewModel.swift; sourceTree = "<group>"; };
 		D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewNoInteractive.swift; sourceTree = "<group>"; };
 		D9D676B12AD29B0F000DBB42 /* BudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManager.swift; sourceTree = "<group>"; };
 		D9E509C12A7D2A06003A6A6A /* CellBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBudgetView.swift; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 				D9A91CF52AF41B6B0018AD2D /* AddAutomationViewModel.swift */,
 				D9A91CF72AF42AA60018AD2D /* AddBudgetViewModel.swift */,
 				D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */,
+				D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */,
 				D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */,
 				D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */,
 				D974FAD82AECDEBE00CD8CFF /* TransactionDetailViewModel.swift */,
@@ -1046,6 +1049,7 @@
 				81A707A62A3B6DBB00BEB0BF /* Colors.swift in Sources */,
 				D9989D202AC204FE00A4912A /* DetailOfExpensesOrIncomesByMonth.swift in Sources */,
 				D918343E2AADE164009BD53B /* Binding String.swift in Sources */,
+				D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */,
 				D98618332A9E06DD00405DAF /* LabelForCellAdvice.swift in Sources */,
 				D9E8C14E2AEA2BFA0077DA90 /* SampleAutomation.swift in Sources */,
 				D98288412A71205100AF47EC /* Recent Incomes Auto.swift in Sources */,
