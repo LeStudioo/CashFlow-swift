@@ -13,6 +13,7 @@ class AddTransactionViewModel: ObservableObject {
     static let shared = AddTransactionViewModel()
     let context = persistenceController.container.viewContext
     var predefinedObjectManager = PredefinedObjectManager.shared
+    var userDefaultsManager = UserDefaultsManager.shared
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: Double = 0
@@ -24,7 +25,6 @@ class AddTransactionViewModel: ObservableObject {
     @Published var theNewTransaction: Transaction? = nil
     
     @Published var mainAccount: Account? = nil
-    var userDefaultsManager = UserDefaultsManager.shared
     
     // Alerts
     @Published var isCardLimitSoonToBeExceeded: Bool = false

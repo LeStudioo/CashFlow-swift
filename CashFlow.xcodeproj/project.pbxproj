@@ -178,6 +178,7 @@
 		D9B805BC2AADAC5200632449 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B805BB2AADAC5200632449 /* OnboardingView.swift */; };
 		D9B805BE2AADAFD400632449 /* SettingAppearenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9B805BD2AADAFD400632449 /* SettingAppearenceView.swift */; };
 		D9C45B322A63C964003D0004 /* Rotation Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C45B312A63C964003D0004 /* Rotation Detection.swift */; };
+		D9C5C2262AF769400084B542 /* AddSavingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */; };
 		D9CA6CC82AA3237D00803E66 /* PieChartViewNoInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */; };
 		D9D676B22AD29B0F000DBB42 /* BudgetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D676B12AD29B0F000DBB42 /* BudgetManager.swift */; };
 		D9E509C22A7D2A06003A6A6A /* CellBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E509C12A7D2A06003A6A6A /* CellBudgetView.swift */; };
@@ -381,6 +382,7 @@
 		D9B805BB2AADAC5200632449 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D9B805BD2AADAFD400632449 /* SettingAppearenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingAppearenceView.swift; sourceTree = "<group>"; };
 		D9C45B312A63C964003D0004 /* Rotation Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rotation Detection.swift"; sourceTree = "<group>"; };
+		D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingPlanViewModel.swift; sourceTree = "<group>"; };
 		D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewNoInteractive.swift; sourceTree = "<group>"; };
 		D9D676B12AD29B0F000DBB42 /* BudgetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManager.swift; sourceTree = "<group>"; };
 		D9E509C12A7D2A06003A6A6A /* CellBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBudgetView.swift; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				D96F8F222AEAE0AD0084F011 /* AddTransactionViewModel.swift */,
 				D9A91CF52AF41B6B0018AD2D /* AddAutomationViewModel.swift */,
 				D9A91CF72AF42AA60018AD2D /* AddBudgetViewModel.swift */,
+				D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */,
 				D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */,
 				D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */,
 				D974FAD82AECDEBE00CD8CFF /* TransactionDetailViewModel.swift */,
@@ -991,6 +994,7 @@
 				D9A91CF82AF42AA60018AD2D /* AddBudgetViewModel.swift in Sources */,
 				81A707DA2A3B809100BEB0BF /* Number Separator Currency.swift in Sources */,
 				817C18F22A4C60930090B657 /* Category Manager.swift in Sources */,
+				D9C5C2262AF769400084B542 /* AddSavingPlanViewModel.swift in Sources */,
 				81AE984B2A3CB4F40066AE94 /* AddAccountView.swift in Sources */,
 				81E0284B2A4DE5630079856F /* PieChartSubcategoryView.swift in Sources */,
 				81A707D62A3B7F5000BEB0BF /* Transaction Manager.swift in Sources */,
