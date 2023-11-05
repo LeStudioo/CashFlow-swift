@@ -276,7 +276,7 @@ struct PageControllerView: View {
             if !UserDefaults.standard.bool(forKey: "alreadyOpen") {
                 icloudManager.checkDataInCloudKit()
             }
-            if !udV1_1 {
+            if !udV1_1 && UserDefaults.standard.bool(forKey: "alreadyOpen") {
                 showUpdateView.toggle()
                 UserDefaults.standard.setValue(true, forKey: "udV1_1")
             }

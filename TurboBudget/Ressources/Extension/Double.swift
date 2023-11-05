@@ -11,8 +11,13 @@ import SwiftUI
 extension Double {
     
     func splitDecimal() -> (Int, Double) {
+        guard self <= Double(Int.max), self >= Double(Int.min) else {
+            print("Double value cannot be converted to Int because it is out of bounds.")
+            return (0, 0)
+        }
+        
         let whole = Int(self)
-        let decimal = self - Darwin.floor(self)
+        let decimal = self - Double(whole)
         
         return (whole, decimal)
     }

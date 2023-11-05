@@ -222,16 +222,17 @@ struct CellTransactionView: View {
     //MARK: Fonctions
     
     func deleteTransaction() {
-        DispatchQueue.main.async {
-            if let account = transaction.transactionToAccount {
-                account.balance = transaction.amount < 0 ? account.balance - transaction.amount : account.balance - transaction.amount
-            }
-            viewContext.delete(transaction)
-            PredefinedObjectManager.shared.reloadTransactions()
+        if let account = transaction.transactionToAccount {
+            account.balance = transaction.amount < 0 ? account.balance - transaction.amount : account.balance - transaction.amount
+        }
+        viewContext.delete(transaction)
+        PredefinedObjectManager.shared.reloadTransactions()
+        update.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             update.toggle()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                persistenceController.saveContext()
-            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            persistenceController.saveContext()
         }
     }
 
