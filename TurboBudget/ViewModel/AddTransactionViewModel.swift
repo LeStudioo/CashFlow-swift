@@ -114,39 +114,37 @@ extension AddTransactionViewModel {
 
         if let account = mainAccount {
             for transaction in account.transactions {
-                if transaction.title.lowercased().trimmingCharacters(in: .whitespaces).contains( transactionTitle.lowercased().trimmingCharacters(in: .whitespaces)) && transactionTitle.count > 3 {
+                if transaction.title.lowercased().trimmingCharacters(in: .whitespaces).contains(transactionTitle.lowercased().trimmingCharacters(in: .whitespaces)) && transactionTitle.count > 3 {
                     arrayOfCandidate.append(transaction)
                 }
             }
         }
 
-        var categoryCount: [String: Int] = [:]
+        // Au lieu de compter les catégories, créez un dictionnaire pour stocker la transaction la plus récente de chaque catégorie
+        var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if candidate.predefCategoryID != "" {
-                categoryCount[candidate.predefCategoryID, default: 0] += 1
+            if candidate.predefCategoryID != "" && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
+                // Vérifier si la transaction actuelle est plus récente que celle stockée
+                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
+                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+                } else if mostRecentTransactionByCategory[candidate.predefCategoryID] == nil {
+                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+                }
             }
         }
 
-        guard let mostCommonCategory = categoryCount.max(by: { $0.value < $1.value })?.key else {
-            return (nil, nil)  // No categories found
+        // Trouvez la transaction la plus récente toutes catégories confondues
+        guard let mostRecentTransaction = mostRecentTransactionByCategory.values.sorted(by: { $0.date > $1.date }).first else {
+            return (nil, nil)  // No transactions found
         }
 
-        let filteredTransactions = arrayOfCandidate.filter { $0.predefCategoryID == mostCommonCategory }
-        
-        guard !filteredTransactions.isEmpty else {
-            return (nil, nil)  // No transactions found for the most common category
-        }
-        
-        let sortedTransactions = filteredTransactions.sorted { $0.date > $1.date }
-        
-        let mostRecentTransaction = sortedTransactions.first!
-        
         let finalCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: mostRecentTransaction.predefCategoryID)
         let finalSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: finalCategory?.subcategories ?? [], idUnique: mostRecentTransaction.predefSubcategoryID)
         
         return (finalCategory, finalSubcategory)
     }
+
     
     func resetData() {
         transactionTitle = ""

@@ -60,7 +60,7 @@ struct HomeScreenView: View {
                                 HStack(spacing: -1) {
                                     Text(accountBalanceInt.formatted(style: .decimal))
                                     if accountBalanceDouble != 1 {
-                                        Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: ""))
+                                        Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: "").replacingOccurrences(of: "-", with: ""))
                                     }
                                 }
                             }
