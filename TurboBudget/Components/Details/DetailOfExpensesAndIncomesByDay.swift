@@ -20,6 +20,7 @@ struct DetailOfExpensesAndIncomesByDay: View {
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var store: Store
 
     //State or Binding String
 
@@ -37,7 +38,7 @@ struct DetailOfExpensesAndIncomesByDay: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithDayMonthYear(date: day))
                     .font(.mediumCustom(size: 22))
-                if userDefaultsManager.isCashFlowProEnable {
+                if store.isLifetimeActive {
                     HStack {
                         if amountOfExpenses != 0 {
                             Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)

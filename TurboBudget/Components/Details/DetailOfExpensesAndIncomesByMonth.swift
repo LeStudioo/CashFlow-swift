@@ -20,7 +20,8 @@ struct DetailOfExpensesAndIncomesByMonth: View {
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-
+    @EnvironmentObject var store: Store
+    
     //State or Binding String
 
     //State or Binding Int, Float and Double
@@ -37,7 +38,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithMonthYear(date: month))
                     .font(.mediumCustom(size: 22))
-                if userDefaultsManager.isCashFlowProEnable {
+                if store.isLifetimeActive {
                     HStack {
                         if amountOfExpenses != 0 {
                             Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)

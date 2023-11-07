@@ -22,6 +22,7 @@ struct AddTransactionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var store: Store
     
     //State or Binding String
     
@@ -131,7 +132,7 @@ struct AddTransactionView: View {
                                     }
                                 }
                                 
-                                if userDefaultsManager.isCashFlowProEnable && viewModel.selectedCategory == nil {
+                                if store.isLifetimeActive && viewModel.selectedCategory == nil {
                                     if let categoryFound = viewModel.automaticCategorySearch().0 {
                                         let subcategoryFound = viewModel.automaticCategorySearch().1
                                         VStack(spacing: 0) {

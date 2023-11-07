@@ -22,6 +22,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var store: Store
 
     //State or Binding String
 
@@ -41,7 +42,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     VStack(alignment: .leading) {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
-                        if userDefaultsManager.isCashFlowProEnable {
+                        if store.isLifetimeActive {
                             Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
                                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
@@ -62,7 +63,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     VStack(alignment: .leading) {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
-                        if userDefaultsManager.isCashFlowProEnable {
+                        if store.isLifetimeActive {
                             Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
                                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)

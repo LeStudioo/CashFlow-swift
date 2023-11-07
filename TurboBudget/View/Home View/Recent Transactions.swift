@@ -64,6 +64,8 @@ struct RecentTransactionsView: View {
                     } else {
                         return account.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
                     }
+                } else if filterTransactions == .category {
+                    return account.transactions.filter({ $0.date >= Date().startOfMonth && $0.date <= Date().endOfMonth })
                 } else {
                     return account.transactions
                 }
@@ -93,7 +95,7 @@ struct RecentTransactionsView: View {
                         List(PredefinedCategoryManager().getAllCategoriesForTransactions(), id: \.self) { category in
                             if searchResults.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
                                 Section(content: {
-                                    ForEach(searchResults.filter({ $0.date >= Date().startOfMonth && $0.date <= Date().endOfMonth })) { transaction in
+                                    ForEach(searchResults) { transaction in
                                         if let categoryOfTransaction = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID), categoryOfTransaction == category {
                                             ZStack {
                                                 NavigationLink(destination: {

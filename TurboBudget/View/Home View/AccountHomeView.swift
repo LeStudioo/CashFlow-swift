@@ -24,6 +24,7 @@ struct AccountHomeView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject var csManager: ColorSchemeManager
+    @EnvironmentObject var store: Store
     
     //State or Binding String
     @State private var cardNumber: String = ""
@@ -114,7 +115,7 @@ struct AccountHomeView: View {
                                 HStack(spacing: -1) {
                                     Text(accountBalanceInt.formatted(style: .decimal))
                                     if accountBalanceDouble != 1 {
-                                        Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: ""))
+                                        Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: "").replacingOccurrences(of: "-", with: ""))
                                     }
                                 }
                             }
@@ -123,7 +124,7 @@ struct AccountHomeView: View {
                     }
                     .padding(.vertical, 12)
                     
-                    if userDefaultsManager.isCashFlowProEnable {
+                    if store.isLifetimeActive {
                         let amountExpenses: Double = account.amountExpensesByMonth(month: .now)
                         let amountIncomes: Double = account.amountIncomesByMonth(month: .now)
                         let amountCashFlow: Double = account.amountCashFlowByMonth(month: .now)
@@ -165,7 +166,7 @@ struct AccountHomeView: View {
                             cellForOnglet(text: NSLocalizedString("word_savingsplans", comment: ""), num: account.savingPlans.count, systemImage: "building.columns.fill")
                         })
                         
-                        if userDefaultsManager.isCashFlowProEnable {
+                        if store.isLifetimeActive {
                             NavigationLink(destination: { BudgetsHomeView() }, label: {
                                 cellForOnglet(text: NSLocalizedString("word_budgets", comment: ""), num: budgets.count, systemImage: "chart.pie.fill")
                             })
@@ -224,6 +225,15 @@ struct AccountHomeView: View {
                         })
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
+                        
+                        if !store.isLifetimeActive {
+                            Button(action: { showPaywall.toggle() }, label: {
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.primary500)
+                                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                            })
+                        }
+                        
                         NavigationLink(destination: {
                             SettingsHomeView(account: account, update: $update)
                                 .environmentObject(csManager)
@@ -293,7 +303,7 @@ struct AccountHomeView: View {
                     Spacer()
                 }
             }
-        }
+        } // Main VStack
         .padding(update ? 0 : 0)
         .onAppear {
             if let account {
@@ -308,7 +318,7 @@ struct AccountHomeView: View {
         }, message: {
             Text(NSLocalizedString("alert_cashflow_pro_desc", comment: ""))
         })
-        .sheet(isPresented: $showPaywall) { PaywallScreenView() }
+        .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
         .if(account != nil, transform: { view in
             view
                 .onChange(of: account!.balance, perform: { _ in

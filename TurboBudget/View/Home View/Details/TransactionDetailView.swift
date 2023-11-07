@@ -19,6 +19,7 @@ struct TransactionDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var store: Store
 
     //State or Binding String
     @State private var transactionNote: String = ""
@@ -97,7 +98,7 @@ struct TransactionDetailView: View {
                 Spacer()
             }
             
-            if userDefaultsManager.isCashFlowProEnable && transaction.predefCategoryID == categoryPredefined00.idUnique {
+            if store.isLifetimeActive && transaction.predefCategoryID == categoryPredefined00.idUnique {
                 if let categoryFound = viewModel.automaticCategorySearch(title: transaction.title).0, categoryFound != categoryPredefined0 {
                     let subcategoryFound = viewModel.automaticCategorySearch(title: transaction.title).1
                     VStack(spacing: 0) {

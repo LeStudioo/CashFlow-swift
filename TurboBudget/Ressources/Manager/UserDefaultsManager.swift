@@ -20,11 +20,6 @@ class UserDefaultsManager: ObservableObject {
         didSet { UserDefaults.standard.set(accountID, forKey: "accountID") }
     }
     
-    //Setting - CashFlow Pro
-    @Published var isCashFlowProEnable: Bool {
-        didSet { UserDefaults.standard.set(isCashFlowProEnable, forKey: "isCashFlowProEnable") }
-    }
-    
     //Setting - General
     @Published var hapticFeedback: Bool {
         didSet { UserDefaults.standard.set(hapticFeedback, forKey: "hapticFeedback") }
@@ -137,9 +132,7 @@ class UserDefaultsManager: ObservableObject {
     }
     
     //Init
-    init() {
-        isCashFlowProEnable = UserDefaults.standard.bool(forKey: "isCashFlowProEnable")
-        
+    init() {        
         //Setting - General
         hapticFeedback = UserDefaults.standard.bool(forKey: "hapticFeedback")
         

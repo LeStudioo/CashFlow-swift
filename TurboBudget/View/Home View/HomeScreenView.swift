@@ -27,6 +27,7 @@ struct HomeScreenView: View {
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var csManager: ColorSchemeManager
+    @EnvironmentObject var store: Store
     
     //State or Binding String
     @State private var searchText: String = ""
@@ -37,6 +38,7 @@ struct HomeScreenView: View {
     
     //State or Binding Bool
     @State private var busy: Bool = false
+    @State private var showPaywall: Bool = false
     
     //State or Binding Orientation
     @State private var orientation = UIDeviceOrientation.unknown
@@ -73,6 +75,18 @@ struct HomeScreenView: View {
                     }
                     
                     Spacer()
+                    
+                    if !store.isLifetimeActive {
+                        Button(action: { showPaywall.toggle() }, label: {
+                            Image(systemName: "crown.fill")
+                                .foregroundColor(.primary500)
+                                .font(.system(size: 18, weight: .medium, design: .rounded))
+                        })
+                        .sheet(isPresented: $showPaywall) {
+                            PaywallScreenView()
+                                .environmentObject(store)
+                        }
+                    }
                     
                     NavigationLink(destination: {
                         SettingsHomeView(account: account, update: $update)
