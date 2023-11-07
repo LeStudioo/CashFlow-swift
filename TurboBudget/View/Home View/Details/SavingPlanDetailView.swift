@@ -18,6 +18,7 @@ struct SavingPlanDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var store: Store
 
     //State or Binding String
     @State private var savingPlanNote: String = ""
@@ -118,7 +119,7 @@ struct SavingPlanDetailView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             
-            archivedOrDeleteButton()
+//            archivedOrDeleteButton()
             
             HStack {
                 Text(NSLocalizedString("word_contributions", comment: ""))
@@ -194,7 +195,7 @@ struct SavingPlanDetailView: View {
                               : NSLocalizedString("savingsplan_detail_enable_steps", comment: ""),
                               systemImage: "chart.line.uptrend.xyaxis")
                     })
-                    .disabled(!userDefaultsManager.isCashFlowProEnable)
+                    .disabled(!store.isLifetimeActive)
                     
                     Button(action: { showAddContribution.toggle() }, label: { Label(NSLocalizedString("savingsplan_detail_add_contribution", comment: ""), systemImage: "plus") })
                     

@@ -14,6 +14,10 @@ class Store: NSObject, ObservableObject {
     
     @Published var allRecipes = [Purchase]()
     
+    var isLifetimeActive: Bool {
+        return allRecipes.filter({ !$0.isLocked }).count == 1
+    }
+    
     private let allProductIdentifiers = Set([
         "com.Sementa.CashFlow.lifetime"
     ])

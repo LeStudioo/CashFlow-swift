@@ -31,6 +31,7 @@ struct SettingsHomeView: View {
     
     //EnvironnementsObject
     @EnvironmentObject var csManager: ColorSchemeManager
+    @EnvironmentObject var store: Store
     
     //State or Binding String
     
@@ -88,7 +89,7 @@ struct SettingsHomeView: View {
                 
                 SettingGroup {
                     SettingButton(title: NSLocalizedString("setting_home_cashflow_pro", comment: ""), action: { showPaywall.toggle() })
-                        .icon(icon: .image(name: "LogoCashFlow", inset: 1, foregroundColor: nil, backgroundColor: .black))
+                        .icon(icon: .system(icon: "crown.fill", foregroundColor: Color.white, backgroundColor: Color.primary500))
                 }
                 
                 SettingGroup {
@@ -136,7 +137,7 @@ struct SettingsHomeView: View {
                     settingAccountView(indexChoosePercentage: $indexChoosePercentage)
                     settingTransactionView(indexDayArchivedTransaction: $indexDayArchivedTransaction)
                     settingSavingPlansView(indexDayArchived: $indexDayArchivedSavingPlan)
-                    if userDefaultsManager.isCashFlowProEnable {
+                    if store.isLifetimeActive {
                         settingBudgetsView(indexChoosePercentage: $indexPercentageBudgetAlert)
                         settingFinancialAdviceView(isDarkMode: $isDarkMode)
                     } else {

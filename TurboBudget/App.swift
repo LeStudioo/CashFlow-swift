@@ -26,16 +26,6 @@ struct TurboBudgetApp: App {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
     }
     
-    var isLifetimePurchase: Bool {
-        let lifetime = store.allRecipes.filter({$0.id == "com.Sementa.CashFlow.lifetime"}).first
-        if let lifetime, lifetime.isLocked {
-            return false
-        } else if let lifetime, !lifetime.isLocked {
-            return true
-        }
-        return false
-    }
-    
     var body: some Scene {
         WindowGroup {
             Group {
@@ -64,9 +54,6 @@ struct TurboBudgetApp: App {
                             csManager.applyColorScheme()
                         }
                 }
-            }
-            .onAppear {
-                if isLifetimePurchase { userDefaultsManager.isCashFlowProEnable = true }
             }
         }
     } // End body

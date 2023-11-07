@@ -27,15 +27,6 @@ struct PaywallScreenView: View {
 	//Enum
 	
 	//Computed var
-    var isLifetimePurchase: Bool {
-        let lifetime = store.allRecipes.filter({$0.id == "com.Sementa.CashFlow.lifetime"}).first
-        if let lifetime, lifetime.isLocked {
-            return false
-        } else if let lifetime, !lifetime.isLocked {
-            return true
-        }
-        return false
-    }
 
     //MARK: - Body
     var body: some View {
@@ -45,7 +36,7 @@ struct PaywallScreenView: View {
                 Text(NSLocalizedString("paywall_title", comment: ""))
                     .font(.boldH2())
                     .foregroundStyle(
-                        LinearGradient(colors: [.blue, .blue.darker(by: 30)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                        LinearGradient(colors: [.primary500, .primary500.darker(by: 30)], startPoint: .topLeading, endPoint: .bottomTrailing)
                     )
                 Spacer()
             }
@@ -56,8 +47,8 @@ struct PaywallScreenView: View {
                         .foregroundColor(.colorMaterial)
                         .overlay {
                             Image(systemName: "xmark")
+                                .font(.system(size: 14, weight: .semibold))
                                 .foregroundColor(.colorLabel)
-                                .fontWeight(.semibold)
                         }
                 })
             }
@@ -76,7 +67,7 @@ struct PaywallScreenView: View {
             Spacer()
             
             VStack(spacing: 8) {
-                if !isLifetimePurchase {
+                if !store.isLifetimeActive {
                     Button(action: {
                         if let product = store.product(for: "com.Sementa.CashFlow.lifetime") {
                             store.purchaseProduct(product)
@@ -89,7 +80,6 @@ struct PaywallScreenView: View {
                             promoText: NSLocalizedString("paywall_price_without_promo", comment: ""),
                             promoPerc: NSLocalizedString("-70%", comment: "")
                         )
-                        .padding(.vertical, 8)
                     })
                 } else {
                     HStack {
@@ -100,7 +90,7 @@ struct PaywallScreenView: View {
                     }
                     .foregroundColor(.white)
                     .padding()
-                    .background(Color.blue)
+                    .background(Color.primary500)
                     .cornerRadius(15)
                 }
                 
@@ -109,13 +99,12 @@ struct PaywallScreenView: View {
                     Button(action: { store.restorePurchases() }, label: {
                         Text(NSLocalizedString("paywall_restore", comment: ""))
                             .font(Font.mediumSmall())
+                            .foregroundStyle(Color.primary500)
                     })
                 }
+                .padding(.trailing, 8)
             }
             .padding(.horizontal)
-        }
-        .onChange(of: isLifetimePurchase) { _ in
-            if isLifetimePurchase { userDefaultsManager.isCashFlowProEnable = true }
         }
     }//END body
     
@@ -155,13 +144,13 @@ struct PaywallScreenView: View {
             Spacer()
             Text(promoText)
                 .font(.semiBoldText16())
-                .foregroundColor(.secondary300)
+                .foregroundColor(.secondary400)
                 .if(promo) { view in
                     view
                         .overlay {
                             Rectangle()
                                 .frame(height: 2)
-                                .foregroundColor(.secondary300)
+                                .foregroundColor(.secondary400)
                         }
                 }
             Text(price)
@@ -169,8 +158,8 @@ struct PaywallScreenView: View {
         }
         .foregroundColor(.white)
         .padding()
-        .background(Color.blue)
-        .cornerRadius(15)
+        .background(Color.primary500)
+        .cornerRadius(12)
         .if(promo) { view in
             view
                 .overlay(alignment: .topTrailing) {
