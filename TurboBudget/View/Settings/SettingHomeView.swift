@@ -43,8 +43,6 @@ struct SettingsHomeView: View {
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     @State private var isDarkMode: Bool = false
-    @State private var showPolicyPrivacy: Bool = false
-    @State private var showConditionOfUse: Bool = false
     
     //Enum
     
@@ -182,12 +180,14 @@ struct SettingsHomeView: View {
                 
                 SettingGroup {
                     SettingButton(title: NSLocalizedString("setting_home_privacy_policy", comment: ""), action: {
-                        showPolicyPrivacy.toggle()
+                        
                     })
                     .icon("lock.fill", foregroundColor: .blue, backgroundColor: .clear)
                     
                     SettingButton(title: NSLocalizedString("setting_home_terms_conditions", comment: ""), action: {
-                        showConditionOfUse.toggle()
+                        if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                            UIApplication.shared.open(url)
+                        }
                     })
                     .icon("hand.raised.fill", foregroundColor: .blue, backgroundColor: .clear)
                 }
@@ -404,11 +404,6 @@ struct SettingsHomeView: View {
             Text(NSLocalizedString("alert_cashflow_pro_desc", comment: ""))
         })
         .sheet(isPresented: $showPaywall, content: { PaywallScreenView() })
-        .fullScreenCover(isPresented: $showConditionOfUse) {
-            if let url = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-                SFSafariViewWrapper(url: url)
-            }
-        }
     }//END body
         
     //MARK: Fonctions

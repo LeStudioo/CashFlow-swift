@@ -224,24 +224,26 @@ struct AccountHomeView: View {
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
                         })
                     }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        
-                        if !store.isLifetimeActive {
-                            Button(action: { showPaywall.toggle() }, label: {
-                                Image(systemName: "crown.fill")
-                                    .foregroundColor(.primary500)
-                                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                        HStack {
+                            if !store.isLifetimeActive {
+                                Button(action: { showPaywall.toggle() }, label: {
+                                    Image(systemName: "crown.fill")
+                                        .foregroundColor(.primary500)
+                                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                                })
+                            }
+                            
+                            NavigationLink(destination: {
+                                SettingsHomeView(account: account, update: $update)
+                                    .environmentObject(csManager)
+                            }, label: {
+                                Image(systemName: "gearshape.fill")
+                                    .foregroundColor(.colorLabel)
+                                    .font(.system(size: 14, weight: .medium, design: .rounded))
                             })
                         }
-                        
-                        NavigationLink(destination: {
-                            SettingsHomeView(account: account, update: $update)
-                                .environmentObject(csManager)
-                        }, label: {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundColor(.colorLabel)
-                                .font(.system(size: 14, weight: .medium, design: .rounded))
-                        })
                     }
                 }
                 .background(Color.colorBackground.edgesIgnoringSafeArea(.all))

@@ -141,7 +141,6 @@
 		D97BC5322A8D128100DA016A /* Saving Plan Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */; };
 		D97BC5342A8D148C00DA016A /* SubcategoryTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */; };
 		D97BC5362A8D2B4C00DA016A /* AlertViewForSuccessful.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5352A8D2B4C00DA016A /* AlertViewForSuccessful.swift */; };
-		D981E9202AFB63C000AE7CBB /* SFSafariViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981E91F2AFB63C000AE7CBB /* SFSafariViewWrapper.swift */; };
 		D98288412A71205100AF47EC /* Recent Incomes Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98288402A71205100AF47EC /* Recent Incomes Auto.swift */; };
 		D98288432A71285400AF47EC /* Recent Expenses Auto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98288422A71285400AF47EC /* Recent Expenses Auto.swift */; };
 		D983683A2A6A93D000CB79B6 /* Recent Expenses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D98368392A6A93D000CB79B6 /* Recent Expenses.swift */; };
@@ -340,7 +339,6 @@
 		D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Saving Plan Manager.swift"; sourceTree = "<group>"; };
 		D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryTransactionsView.swift; sourceTree = "<group>"; };
 		D97BC5352A8D2B4C00DA016A /* AlertViewForSuccessful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewForSuccessful.swift; sourceTree = "<group>"; };
-		D981E91F2AFB63C000AE7CBB /* SFSafariViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariViewWrapper.swift; sourceTree = "<group>"; };
 		D98288402A71205100AF47EC /* Recent Incomes Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recent Incomes Auto.swift"; sourceTree = "<group>"; };
 		D98288422A71285400AF47EC /* Recent Expenses Auto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recent Expenses Auto.swift"; sourceTree = "<group>"; };
 		D98368392A6A93D000CB79B6 /* Recent Expenses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Recent Expenses.swift"; sourceTree = "<group>"; };
@@ -676,7 +674,6 @@
 				D96B9E312ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift */,
 				D96B9E332ADF0848003AC4E5 /* ScannerCreditCardView.swift */,
 				D99B86B32AF2364100C0EA03 /* NewUpdateView.swift */,
-				D981E91F2AFB63C000AE7CBB /* SFSafariViewWrapper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1012,7 +1009,6 @@
 				81805B3A2A5AB72400FD47FB /* CellContributionView.swift in Sources */,
 				D975BFB02A66936A004FFA9D /* Automation Manager.swift in Sources */,
 				81ACEBD02A48B7CD00493666 /* RecoverTransaction.swift in Sources */,
-				D981E9202AFB63C000AE7CBB /* SFSafariViewWrapper.swift in Sources */,
 				D99B86B42AF2364100C0EA03 /* NewUpdateView.swift in Sources */,
 				81A707BA2A3B727000BEB0BF /* Account Entity.swift in Sources */,
 				81C141402A46E98200C9B764 /* Font.swift in Sources */,
