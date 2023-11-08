@@ -17,7 +17,6 @@ struct AutomationsHomeView: View {
 
     //Custom type
     @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnements
     @Environment(\.dismiss) private var dismiss
@@ -33,9 +32,6 @@ struct AutomationsHomeView: View {
     
     //State or Binding Orientation
     @State private var orientation = UIDeviceOrientation.unknown
-
-	//Enum
-    @State private var filterAutomation: FilterForAutomation = .day
 	
 	//Computed var
     private var searchResults: [Automation] {
@@ -53,34 +49,6 @@ struct AutomationsHomeView: View {
                 }
             }
         } else { return [] }
-    }
-    
-    public var automationsByDay: [Date: [Automation]] {
-        var arrayDate: [Date] = []
-        var finalDict: [Date : [Automation]] = [:]
-        
-        for automation in searchResults {
-            let day = Calendar.current.dateComponents([.day, .month, .year], from: automation.date)
-            let finalDate = Calendar.current.date(from: day)
-            if let finalDate {
-                if !arrayDate.contains(finalDate) { arrayDate.append(finalDate) }
-            }
-        }
-        
-        for date in arrayDate {
-            finalDict[date] = []
-            
-            for automation in searchResults {
-                let day = Calendar.current.dateComponents([.day, .month, .year], from: automation.date)
-                let finalDate = Calendar.current.date(from: day)
-                if let finalDate {
-                    if Calendar.current.isDate(date, inSameDayAs: finalDate) && Calendar.current.isDate(date, equalTo: finalDate, toGranularity: .month) {
-                        finalDict[date]?.append(automation)
-                    }
-                }
-            }
-        }
-        return finalDict
     }
     
     public var automationsByMonth: [Date: [Automation]] {
@@ -111,10 +79,6 @@ struct AutomationsHomeView: View {
         return finalDict
     }
     
-    var systemImageDay: String {
-        return String(Date().currentDayOfMonth()) + ".circle"
-    }
-    
     //Binding update
     @Binding var update: Bool
     
@@ -125,32 +89,15 @@ struct AutomationsHomeView: View {
                 if account.automations.count != 0 && searchResults.count != 0  {
                     ScrollView(showsIndicators: false) {
                         VStack {
-                            if filterAutomation == .day {
-                                ForEach(automationsByDay.sorted(by: { $0.key < $1.key }), id: \.key) { day, automations in
-                                    if automations.count != 0 {
-                                        DetailOfExpensesAndIncomesByDay(
-                                            day: day,
-                                            amountOfExpenses: AutomationManager().amountExpensesByDay(day: day, automations: automations),
-                                            amountOfIncomes: AutomationManager().amountIncomesByDay(day: day, automations: automations)
-                                        )
-                                        ForEach(automations, id: \.self) { automation in
-                                            if let transaction = automation.automationToTransaction {
-                                                CellTransactionForAutomationView(transaction: transaction, update: $update)
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if filterAutomation == .month {
-                                ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
-                                    DetailOfExpensesAndIncomesByMonth(
-                                        month: month,
-                                        amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
-                                        amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
-                                    )
-                                    ForEach(automations, id: \.self) { automation in
-                                        if let transaction = automation.automationToTransaction {
-                                            CellTransactionForAutomationView(transaction: transaction, update: $update)
-                                        }
+                            ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
+                                DetailOfExpensesAndIncomesByMonth(
+                                    month: month,
+                                    amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
+                                    amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
+                                )
+                                ForEach(automations, id: \.self) { automation in
+                                    if let transaction = automation.automationToTransaction {
+                                        CellTransactionForAutomationView(transaction: transaction, update: $update)
                                     }
                                 }
                             }
@@ -179,16 +126,8 @@ struct AutomationsHomeView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Menu(content: {
-                        Button(action: { showAddAutomation.toggle() }, label: { Label(NSLocalizedString("word_add", comment: ""), systemImage: "plus") })
-                        Menu(content: {
-                            Button(action: { filterAutomation = .day }, label: { Label(NSLocalizedString("word_day", comment: ""), systemImage: systemImageDay) })
-                            Button(action: { filterAutomation = .month }, label: { Label(NSLocalizedString("word_month", comment: ""), systemImage: "calendar") })
-                        }, label: {
-                            Label(NSLocalizedString("word_filter", comment: ""), systemImage: "slider.horizontal.3")
-                        })
-                    }, label: {
-                        Image(systemName: "ellipsis")
+                    Button(action: { showAddAutomation.toggle() }, label: {
+                        Image(systemName: "plus")
                             .foregroundColor(.colorLabel)
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                     })
@@ -212,12 +151,6 @@ struct AutomationsHomeView: View {
 }//END struct
 
 //MARK: - Preview
-struct AutomationsView_Previews: PreviewProvider {
-    
-    @State static var previewBool: Bool = false
-    @State static var previewAccount: Account? = previewAccount1()
-    
-    static var previews: some View {
-        AutomationsHomeView(account: $previewAccount, update: $previewBool)
-    }
+#Preview {
+    AutomationsHomeView(account: .constant(previewAccount1()), update: .constant(true))
 }
