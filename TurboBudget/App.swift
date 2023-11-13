@@ -55,6 +55,9 @@ struct TurboBudgetApp: App {
                         }
                 }
             }
+            .onAppear {
+                store.restorePurchases()
+            }
         }
     } // End body
 }
