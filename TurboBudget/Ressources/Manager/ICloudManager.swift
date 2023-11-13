@@ -23,13 +23,19 @@ class ICloudManager: ObservableObject {
         let query = CKQuery(recordType: "CD_Account", predicate: NSPredicate(value: true))
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             if let error {
-                self.icloudDataStatus = .error
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .error
+                }
                 print("⚠️ ERROR DATA ICLOUD \(error.localizedDescription)")
             } else if let records = records, !records.isEmpty {
-                self.icloudDataStatus = .found
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .found
+                }
                 print("🔥 DATA ICLOUD FOUND")
             } else {
-                self.icloudDataStatus = .error
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .error
+                }
                 print("🔥 ERROR DATA ICLOUD")
             }
         }
