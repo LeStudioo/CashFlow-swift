@@ -299,9 +299,15 @@
 
 "paywall_budgets_desc" = "Establez límites de gastos para una categoría específica.";
 
+"paywall_detailled_budgets" = "Los presupuestos son una excelente característica para limitar sus gastos. Con ellos, puedes establecer un límite que no debes exceder y así seguir prestando atención a tus gastos.";
+
 "paywall_statistics_desc" = "Vea más estadísticas sobre sus transacciones.";
 
+"paywall_detailled_statistics" = "Sigue mejor tus gastos con estadísticas detalladas. Descubre instantáneamente tus ganancias o pérdidas mensuales con el widget en la página de tu cuenta.";
+
 "paywall_category_desc" = "Ordene sus categorías por día.";
+
+"paywall_detailled_category" = "Gestiona tus transacciones con precisión ordenándolas por día.";
 
 "paywall_automations_desc" = "Automatice las contribuciones que realiza a un plan de ahorro.";
 
@@ -314,6 +320,8 @@
 "paywall_prediction_title" = "Predicción";
 
 "paywall_prediction_desc" = "Predicción de la categoría según sus hábitos para facilitar la adición de un gasto.";
+
+"paywall_detailled_prediction" = "No te molestes en encontrar la categoría adecuada para tu transacción, ¡CashFlow puede hacerlo por ti!";
 
 "paywall_lifetime" = "De por vida";
 

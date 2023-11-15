@@ -299,9 +299,15 @@
 
 "paywall_budgets_desc" = "Fixez des limites de dépenses pour une catégorie particulière.";
 
+"paywall_detailled_budgets" = "Les budgets sont une super fonctionnalité pour délimité vos dépenses. Grâce à eux vous pouvez vous fixez un palier à ne pas dépasser et ainsi continuer de faire attention à vos dépenses.";
+
 "paywall_statistics_desc" = "Voir plus de statistiques sur vos transactions.";
 
+"paywall_detailled_statistics" = "Suivez mieux vos dépenses grâce à des statistiques détaillées. Découvrez instantanément vos gains ou pertes du mois avec le widget sur la page de votre compte.";
+
 "paywall_category_desc" = "Triez vos catégories par jour.";
+
+"paywall_detailled_category" = "Gérez vos transactions avec précision en les triant par jour !";
 
 "paywall_automations_desc" = "Automatisez les contributions que vous faites à un plan d'épargne.";
 
@@ -314,6 +320,8 @@
 "paywall_prediction_title" = "Prédiction";
 
 "paywall_prediction_desc" = "Prédiction de la catégorie en fonction de vos habitudes pour faciliter l'ajout d'une dépense.";
+
+"paywall_detailled_prediction" = "Ne vous embétez plus à trouver la bonne catégorie pour votre transaction, CashFlow peut le faire pour vous !";
 
 "paywall_lifetime" = "À vie";
 

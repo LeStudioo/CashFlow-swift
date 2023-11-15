@@ -57,7 +57,12 @@ struct PaywallScreenView: View {
                 
                 ScrollView(showsIndicators: false) {
                     NavigationLink(destination: {
-                        pageDetailledFeature(title: NSLocalizedString("word_budgets", comment: ""), imageWithout: [], imageWith: ["budgetPaywallDetailled"], desc: "Les budgets sont une super fonctionnalité pour délimité vos dépenses. Grâce à eux vous pouvez vous fixez un palier à ne pas dépasser et ainsi continuer de faire attention à vos dépenses.")
+                        pageDetailledFeature(
+                            title: NSLocalizedString("word_budgets", comment: ""),
+                            imageWithout: [],
+                            imageWith: ["budgetPaywallDetailled"],
+                            desc: NSLocalizedString("paywall_detailled_budgets", comment: "")
+                        )
                     }, label: {
                         cellForFeature(
                             systemName: "chart.pie.fill",
@@ -72,7 +77,8 @@ struct PaywallScreenView: View {
                             title: NSLocalizedString("word_statistics", comment: ""),
                             imageWithout: ["stat1WithoutPaywallDetailled", "stat2WithoutPaywallDetailled"],
                             imageWith: ["stat1WithPaywallDetailled", "stat2WithPaywallDetailled"],
-                            desc: "Suivez mieux vos dépenses grâce à des statistiques détaillées. Découvrez instantanément vos gains ou pertes du mois avec le widget sur la page de votre compte.")
+                            desc: NSLocalizedString("paywall_detailled_statistics", comment: "")
+                        )
                     }, label: {
                         cellForFeature(
                             systemName: "chart.xyaxis.line",
@@ -87,7 +93,8 @@ struct PaywallScreenView: View {
                             title: NSLocalizedString("paywall_prediction_title", comment: ""),
                             imageWithout: [],
                             imageWith: ["predictionPaywallDetailled"],
-                            desc: "Ne vous embétez plus à trouver la bonne catégorie pour votre transaction, CashFlow peut le faire pour vous !")
+                            desc: NSLocalizedString("paywall_detailled_prediction", comment: "")
+                        )
                     }, label: {
                         cellForFeature(systemName: "sparkles", title: NSLocalizedString("paywall_prediction_title", comment: ""), text: NSLocalizedString("paywall_prediction_desc", comment: ""), color: .red, isDetailed: true)
                     })
@@ -96,7 +103,8 @@ struct PaywallScreenView: View {
                             title: NSLocalizedString("word_category", comment: ""),
                             imageWithout: [],
                             imageWith: ["categoryPaywallDetailled"],
-                            desc: "Gérez vos transactions avec précision en les triant par jour !")
+                            desc: NSLocalizedString("paywall_detailled_category", comment: "")
+                        )
                     }, label: {
                         cellForFeature(systemName: "rectangle.stack", title: NSLocalizedString("word_category", comment: ""), text: NSLocalizedString("paywall_category_desc", comment: ""), color: .blue, isDetailed: true)
                     })
@@ -194,7 +202,8 @@ struct PaywallScreenView: View {
                 .font(.mediumText16())
                 .multilineTextAlignment(.center)
                 .padding(.vertical, 8)
-                .padding(.bottom, 4)
+                .padding(.bottom, 8)
+                .padding(.horizontal)
             
             HStack(spacing: 8) {
                 if !imageWithout.isEmpty {
