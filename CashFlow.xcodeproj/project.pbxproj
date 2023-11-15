@@ -195,7 +195,6 @@
 		D9EB247B2A7BDD4500C12ADD /* AddBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB247A2A7BDD4500C12ADD /* AddBudgetView.swift */; };
 		D9EB4ED82A7927F000445985 /* ArchivedTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB4ED72A7927F000445985 /* ArchivedTransactionsView.swift */; };
 		D9F56A2A2A654D6000E6CCC6 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */; };
-		D9FA83712AF67A6A00C4D9E8 /* transactionWithApplePay.mov in Resources */ = {isa = PBXBuildFile; fileRef = D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -400,7 +399,6 @@
 		D9EB247A2A7BDD4500C12ADD /* AddBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBudgetView.swift; sourceTree = "<group>"; };
 		D9EB4ED72A7927F000445985 /* ArchivedTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedTransactionsView.swift; sourceTree = "<group>"; };
 		D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
-		D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = transactionWithApplePay.mov; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,7 +505,6 @@
 				D905950B2A8F9AA200A14C5A /* Extension */,
 				81A707A12A3B6D6200BEB0BF /* Helper */,
 				81A7078F2A3B6B4D00BEB0BF /* Assets.xcassets */,
-				D96B9E2F2ADEE82A003AC4E5 /* Videos */,
 				81A707A52A3B6DBB00BEB0BF /* Colors.swift */,
 				81AE98552A3CB69D0066AE94 /* Global Variables.swift */,
 			);
@@ -795,14 +792,6 @@
 			path = Purchases;
 			sourceTree = "<group>";
 		};
-		D96B9E2F2ADEE82A003AC4E5 /* Videos */ = {
-			isa = PBXGroup;
-			children = (
-				D9FA83702AF67A6A00C4D9E8 /* transactionWithApplePay.mov */,
-			);
-			path = Videos;
-			sourceTree = "<group>";
-		};
 		D96F8F212AEAE07A0084F011 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -959,7 +948,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81C141412A46EA2E00C9B764 /* PlusJakartaSans-Bold.ttf in Resources */,
-				D9FA83712AF67A6A00C4D9E8 /* transactionWithApplePay.mov in Resources */,
 				D9A625332AD5CEBE00A2DCAE /* InfoPlist.strings in Resources */,
 				81C141442A46EA3200C9B764 /* PlusJakartaSans-Medium.ttf in Resources */,
 				81A707942A3B6B4D00BEB0BF /* Preview Assets.xcassets in Resources */,
