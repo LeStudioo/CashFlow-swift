@@ -10,10 +10,9 @@ import SwiftUI
 @main
 struct TurboBudgetApp: App {
     
-    //CoreData
+    // CoreData
     let persistenceController = PersistenceController.shared
     
-    //Link color mode
     @StateObject var csManager = ColorSchemeManager()
     @StateObject private var store = Store()
     @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
