@@ -545,6 +545,9 @@
 				D9263F8B2ACB1AE3003518A9 /* JSONManager.swift */,
 				D975BFB12A66A994004FFA9D /* Notification Manager.swift */,
 				D96155362A73DAE0005E1473 /* OrientationManager.swift */,
+				D9AE9DD02AD17CDD00BF3733 /* PredefinedCategoryManager.swift */,
+				D9AE9DCC2AD15F4300BF3733 /* PredefinedObjectManager.swift */,
+				D9AE9DCE2AD175F100BF3733 /* PredefinedSubcategoryManager.swift */,
 				D9263F892ACB1A03003518A9 /* QRCodeManager.swift */,
 				D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */,
 				81E0284C2A4DE6B20079856F /* Subcategory Manager.swift */,
@@ -562,10 +565,7 @@
 				81ACEBCF2A48B7CD00493666 /* RecoverTransaction.swift */,
 				D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */,
 				D9AE9DC82AD1589000BF3733 /* PredefinedCategory.swift */,
-				D9AE9DD02AD17CDD00BF3733 /* PredefinedCategoryManager.swift */,
 				D9AE9DCA2AD1589900BF3733 /* PredefinedSubcategory.swift */,
-				D9AE9DCE2AD175F100BF3733 /* PredefinedSubcategoryManager.swift */,
-				D9AE9DCC2AD15F4300BF3733 /* PredefinedObjectManager.swift */,
 				81B35DF42A3F2B56003F8965 /* Predefined Object.swift */,
 			);
 			path = Model;
