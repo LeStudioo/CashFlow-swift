@@ -230,13 +230,17 @@ struct PageControllerView: View {
                     update.toggle()
                 }
                 .onChange(of: launchScreenEnd, perform: { newValue in
+                    // LaunchScreen ended and no data in iCloud
                     if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
-                        if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 { //First Launch of CashFlow
+                        // First open + no data in iCloud
+                        if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 {
                             showOnboarding.toggle()
                             firstLaunchOfCashFlow()
+                            // First open + no iCloud
                         } else if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count != 0 {
                             firstLaunchOfCashFlow()
                         }
+                        // Already open + app close
                         if !UserDefaults.standard.bool(forKey: "appIsOpen") && UserDefaults.standard.bool(forKey: "alreadyOpen") {
                             if userDefaultsManager.isFaceIDEnable {
                                 authenticate()
