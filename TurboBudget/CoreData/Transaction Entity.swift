@@ -29,6 +29,8 @@ public class Transaction: NSManagedObject, Identifiable {
     @NSManaged public var isAuto: Bool
     @NSManaged public var isArchived: Bool
     @NSManaged public var comeFromAuto: Bool
+    @NSManaged public var comeFromApplePay: Bool
+    @NSManaged public var nameFromApplePay: Bool
     @NSManaged public var transactionToAccount: Account?
     @NSManaged public var transactionToCategory: CategoryEntity?
     @NSManaged public var transactionToSubCategory: Subcategory?

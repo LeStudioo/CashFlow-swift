@@ -19,6 +19,9 @@ struct AccountHomeView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
     private var budgets: FetchedResults<Budget>
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingsAccount.id, ascending: true)])
+    private var savingsAccounts: FetchedResults<SavingsAccount>
+    
     //Environnements
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -155,9 +158,19 @@ struct AccountHomeView: View {
                     }
                     
                     LazyVGrid(columns: columns, spacing: 12, content: {
+                        
+                        NavigationLink(destination: { CardHomeView() }, label: {
+                            cellForOnglet(text: NSLocalizedString("word_card", comment: ""), num: account.transactionsFromApplePay.count , systemImage: "creditcard.fill")
+                        })
+                        
+                        NavigationLink(destination: { SavingsAccountHomeView(savingsAccount: savingsAccounts.first, update: $update) }, label: {
+                            cellForOnglet(text: NSLocalizedString("word_savings_account", comment: ""), num: savingsAccounts.first?.transfers.count ?? 0, systemImage: "building.columns.fill")
+                        })
+                        
                         NavigationLink(destination: { RecentTransactionsView(account: $account, update: $update) }, label: {
                             cellForOnglet(text: NSLocalizedString("word_transactions", comment: ""), num: account.transactions.count, systemImage: "banknote.fill")
                         })
+                        
                         NavigationLink(destination: { AutomationsHomeView(account: $account, update: $update) }, label: {
                             cellForOnglet(text: NSLocalizedString("word_automations", comment: ""), num: account.automations.count, systemImage: "gearshape.2.fill")
                         })
@@ -185,12 +198,6 @@ struct AccountHomeView: View {
                         if account.savingPlansArchived.count != 0 {
                             NavigationLink(destination: { ArchivedSavingPlansView(account: $account, update: $update) }, label: {
                                 cellForOnglet(text: NSLocalizedString("word_archived_savingsplans", comment: ""), num: account.savingPlansArchived.count, systemImage: "archivebox.fill")
-                            })
-                        }
-                        
-                        if account.accountToCard == nil {
-                            Button(action: { showAddCard.toggle() }, label: {
-                                cellForOnglet(text: NSLocalizedString("account_detail_add_credit_card", comment: ""), num: 0, systemImage: "plus")
                             })
                         }
                     })

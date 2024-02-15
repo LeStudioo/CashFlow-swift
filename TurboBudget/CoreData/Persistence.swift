@@ -66,6 +66,7 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
     //MARK: Additional func
@@ -214,6 +215,17 @@ func previewTransaction8() -> Transaction {
 }
 
 var previewAllTransactions: [Transaction] = [previewTransaction1(), previewTransaction2(), previewTransaction3(), previewTransaction4(), previewTransaction5(), previewTransaction6(), previewTransaction7(), previewTransaction8()]
+
+//MARK: - Transfer
+func previewTransfer() -> Transfer {
+    let prevTransfer = Transfer(context: PersistenceController.preview.container.viewContext)
+    prevTransfer.id = UUID()
+    prevTransfer.amount = 500
+    prevTransfer.date = .now
+    prevTransfer.note = "Preview Note"
+    
+    return prevTransfer
+}
 
 //MARK: - AUTOMATIONS
 func previewAutomation1() -> Automation {

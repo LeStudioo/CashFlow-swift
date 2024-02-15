@@ -1,0 +1,131 @@
+//
+//  CellTransferView.swift
+//  CashFlow
+//
+//  Created by KaayZenn on 23/11/2023.
+//
+
+import SwiftUI
+import SwipeActions
+
+struct CellTransferView: View {
+
+    //Custom type
+    var transfer: Transfer
+    
+    //Environnements
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.colorScheme) private var colorScheme
+    
+    //State or Binding String
+    
+    //State or Binding Int, Float and Double
+    
+    //State or Binding Bool
+    @Binding var update: Bool
+    @State private var isDeleting: Bool = false
+    @State private var cancelDeleting: Bool = false
+    
+    //Enum
+    
+    //Computed var
+
+    //MARK: - Body
+    var body: some View {
+        SwipeView(label: {
+            HStack {
+                Circle()
+                    .foregroundColor(.color2Apple)
+                    .frame(width: 50)
+                    .overlay {
+                        Circle()
+                            .foregroundColor(transfer.amount < 0 ? .error400 : .primary500)
+                            .shadow(radius: 4, y: 4)
+                            .frame(width: 34)
+                        
+                        Text(Locale.current.currencySymbol ?? "$")
+                            .foregroundColor(.colorLabelInverse)
+                    }
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(NSLocalizedString("word_transfer", comment: ""))
+                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .font(Font.mediumSmall())
+                    Text(transfer.amount < 0 ? NSLocalizedString("word_withdrawal", comment: "") : NSLocalizedString("word_savings", comment: ""))
+                        .font(.semiBoldText18())
+                        .foregroundColor(.colorLabel)
+                        .lineLimit(1)
+                }
+                
+                Spacer()
+                
+                VStack(alignment: .trailing, spacing: 5) {
+                    Text(transfer.amount.currency)
+                        .font(.semiBoldText16())
+                        .foregroundColor(transfer.amount < 0 ? .error400 : .primary500)
+                        .lineLimit(1)
+                    Text(transfer.date.formatted(date: .numeric, time: .omitted))
+                        .font(Font.mediumSmall())
+                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .lineLimit(1)
+                }
+            }
+            .padding(12)
+            .background(Color.colorCell)
+            .cornerRadius(15)
+        }, trailingActions: { context in
+            SwipeAction(action: {
+                withAnimation { isDeleting.toggle() }
+            }, label: { _ in
+                VStack(spacing: 5) {
+                    Image(systemName: "trash")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                    Text(NSLocalizedString("word_DELETE", comment: ""))
+                        .font(.semiBoldCustom(size: 10))
+                }
+                .foregroundColor(.colorLabelInverse)
+            }, background: { _ in
+                Rectangle()
+                    .foregroundColor(.error400)
+            })
+            .onChange(of: cancelDeleting) { _ in
+                context.state.wrappedValue = .closed
+            }
+        })
+        .swipeActionsStyle(.cascade)
+        .swipeActionWidth(90)
+        .swipeActionCornerRadius(15)
+        .swipeMinimumDistance(30)
+        .padding(.vertical, 4)
+        .padding(.horizontal)
+        .padding(update ? 0 : 0)
+        .alert(NSLocalizedString("transfer_detail_delete_transac", comment: ""), isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+            Button(role: .destructive, action: { withAnimation { deleteTranfer() } }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+        }, message: {
+            Text(transfer.amount < 0 ? NSLocalizedString("transfer_detail_alert_if_expense", comment: "") : NSLocalizedString("transfer_detail_alert_if_income", comment: ""))
+        })
+    } // End body
+    
+    //MARK: Fonctions
+    
+    func deleteTranfer() {
+        if let account = transfer.transferToSavingsAccount {
+            account.balance = transfer.amount < 0 ? account.balance - transfer.amount : account.balance - transfer.amount
+        }
+        viewContext.delete(transfer)
+        update.toggle()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            update.toggle()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            persistenceController.saveContext()
+        }
+    }
+    
+} // End struct
+
+//MARK: - Preview
+#Preview {
+    CellTransferView(transfer: previewTransfer(), update: .constant(true))
+}
