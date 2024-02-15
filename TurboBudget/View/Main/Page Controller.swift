@@ -277,9 +277,20 @@ struct PageControllerView: View {
         }
         .onAppear {
             store.loadStoredPurchases()
-            if !UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                icloudManager.checkDataInCloudKit()
+//            if !UserDefaults.standard.bool(forKey: "alreadyOpen") {
+            icloudManager.checkDataInCloudKit { success in
+                icloudManager.fetchTransactionFromCloudKit { records, error in
+                    if let records {
+                        icloudManager.saveRecordsToCoreData(records: records)
+                    } else {
+                        print("🔥 RECORDS FAIL")
+                    }
+                }
+//                if success {
+//                    isUnlocked = true
+//                }
             }
+//            }
             if !udV1_1 && UserDefaults.standard.bool(forKey: "alreadyOpen") {
                 showUpdateView.toggle()
                 UserDefaults.standard.setValue(true, forKey: "udV1_1")

@@ -99,6 +99,7 @@ struct AddTransactionIntent: AppIntent {
         newTransaction.title = title
         newTransaction.amount = -finalNumber
         newTransaction.date = Date()
+        newTransaction.comeFromApplePay = true
         newTransaction.predefCategoryID = "PREDEFCAT00"
         newTransaction.transactionToAccount = allAccounts.first
         

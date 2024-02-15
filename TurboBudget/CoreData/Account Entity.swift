@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import CloudKit
 
 @objc(Account)
 public class Account: NSManagedObject, Identifiable {
@@ -44,6 +45,10 @@ public class Account: NSManagedObject, Identifiable {
     
     public var transactionsWithOnlyAutomations: [Transaction] {
         return transactions.filter({ $0.comeFromAuto })
+    }
+    
+    public var transactionsFromApplePay: [Transaction] {
+        return transactions.filter({ $0.comeFromApplePay })
     }
     
     public var transactionsArchived: [Transaction] {
