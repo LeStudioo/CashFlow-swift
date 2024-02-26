@@ -18,7 +18,6 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     @Binding var ascendingOrder: Bool
 
     //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
     
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
@@ -43,7 +42,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
                         if store.isLifetimeActive {
-                            Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
                                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
@@ -52,7 +51,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     Spacer()
                     Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
                         HStack {
-                            Text(NSLocalizedString("word_expenses", comment: ""))
+                            Text("word_expenses".localized)
                             Image(systemName: "arrow.up")
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
@@ -64,7 +63,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
                         if store.isLifetimeActive {
-                            Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
                                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
@@ -73,7 +72,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     Spacer()
                     Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
                         HStack {
-                            Text(NSLocalizedString("word_incomes", comment: ""))
+                            Text("word_incomes".localized)
                             Image(systemName: "arrow.up")
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }

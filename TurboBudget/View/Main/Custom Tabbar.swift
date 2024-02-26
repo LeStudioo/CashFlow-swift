@@ -10,28 +10,21 @@
 import SwiftUI
 
 struct TabbarView: View {
-
-    //Custom type
+    
+    // Builder
     @Binding var account: Account?
-    @ObservedObject var filter: Filter = sharedFilter
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-    @ObservedObject var viewModel = CustomTabBarViewModel.shared
-
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
     @Binding var selectedTab: Int
     @Binding var offsetYMenu: CGFloat
-
-    //State or Binding Bool
-    @Binding var update: Bool
-
-    //Enum
     
-    //Computed var
+    // Custom type
+    @ObservedObject var filter: Filter = sharedFilter
+    @ObservedObject var viewModel = CustomTabBarViewModel.shared
+
+    // Environement
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
 
     //MARK: - Body
     var body: some View {
@@ -49,35 +42,35 @@ struct TabbarView: View {
                         Button(action: { withAnimation { viewModel.showAddSavingPlanSheet() } }, label: {
                             HStack {
                                 Image(systemName: "building.columns.fill")
-                                Text(NSLocalizedString("word_savingsplan", comment: ""))
+                                Text("word_savingsplan".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                         Button(action: { withAnimation { viewModel.showRecoverTransactionSheet() } }, label: {
                             HStack {
                                 Image(systemName: "tray.and.arrow.down.fill")
-                                Text(NSLocalizedString("recover_button", comment: ""))
+                                Text("recover_button".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                         Button(action: { withAnimation { viewModel.showAddAutomationSheet() } }, label: {
                             HStack {
                                 Image(systemName: "clock.arrow.circlepath")
-                                Text(NSLocalizedString("word_automation", comment: ""))
+                                Text("word_automation".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                         Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
                             HStack {
                                 Image(systemName: "barcode.viewfinder")
-                                Text(NSLocalizedString("word_scanner", comment: ""))
+                                Text("word_scanner".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                         Button(action: { withAnimation { viewModel.showAddTransactionSheet() } }, label: {
                             HStack {
                                 Image(systemName: "creditcard.and.123")
-                                Text(NSLocalizedString("word_transaction", comment: ""))
+                                Text("word_transaction".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
@@ -85,7 +78,7 @@ struct TabbarView: View {
                         Button(action: { viewModel.showAddAccountSheet() }, label: {
                             HStack {
                                 Image(systemName: "person")
-                                Text(NSLocalizedString("word_account", comment: ""))
+                                Text("word_account".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
@@ -124,41 +117,30 @@ struct TabbarView: View {
                     }
                 }
                 if viewModel.showMenu {
-                    if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                 }
             }
             
-            HStack {
-                ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
-            }
+            ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
         }
-        .padding(update ? 0 : 0)
-        .onRotate { _ in
-            update.toggle()
-        }
-    }//END body
-
-    //MARK: Fonctions
-
-}//END struct
+    } // End body
+} //End struct
 
 //MARK: - Preview
 struct TabBarBackgroundView_Previews: PreviewProvider {
     
     @State static var selectedTabPreview: Int = 0
-    @State static var previewUpdate: Bool = false
     @State static var showMenu: Bool = false
     
     @State static var offsetYMenu: CGFloat = 0
     
-    @State static var previewAccount: Account? = previewAccount1()
+    @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
         TabbarView(
             account: $previewAccount,
             selectedTab: $selectedTabPreview,
-            offsetYMenu: $offsetYMenu,
-            update: $previewUpdate
+            offsetYMenu: $offsetYMenu
         )
         
         BannerShape()
@@ -171,19 +153,20 @@ struct TabBarBackgroundView_Previews: PreviewProvider {
 
 struct ItemsForTabBar: View {
     
-    //Custom Type
-    @ObservedObject var filter: Filter = sharedFilter
-    
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-    
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
+    // Builder
     @Binding var selectedTab: Int
     @Binding var showMenu: Bool
+    
+    // Custom Type
+    @ObservedObject var filter: Filter = sharedFilter
+    
+    // Environement
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Number variables
     var hStackwidth = UIScreen.main.bounds.width / 2 - 80
     
+    // MARK: - body
     var body: some View {
         HStack(alignment: .center) {
             HStack {
@@ -192,7 +175,7 @@ struct ItemsForTabBar: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_home", comment: ""))
+                    Text("word_home".localized)
                         .font(.semiBoldSmall())
                 }
                 .foregroundColor(
@@ -208,7 +191,7 @@ struct ItemsForTabBar: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_analytic", comment: ""))
+                    Text("word_analytic".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 1; withAnimation { showMenu = false; filter.showMenu = false } }
@@ -230,7 +213,7 @@ struct ItemsForTabBar: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_account", comment: ""))
+                    Text("word_account".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 3; withAnimation { showMenu = false; filter.showMenu = false } }
@@ -246,7 +229,7 @@ struct ItemsForTabBar: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_type", comment: ""))
+                    Text("word_type".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 4; withAnimation { showMenu = false; filter.showMenu = false } }
@@ -262,8 +245,8 @@ struct ItemsForTabBar: View {
         }
         .padding(.horizontal)
         .frame(height: 90)
-    }
-}
+    } // End body
+} // End struct
 
 struct BannerShape: Shape {
     func path(in rect: CGRect) -> Path {

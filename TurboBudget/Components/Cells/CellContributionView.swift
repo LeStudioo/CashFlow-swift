@@ -23,7 +23,6 @@ struct CellContributionView: View {
     //State or Binding Int, Float and Double
 
     //State or Binding Bool
-    @Binding var update: Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
 
@@ -35,7 +34,7 @@ struct CellContributionView: View {
     var body: some View {
         SwipeView(label: {
             HStack {
-                Text(contribution.amount < 0 ? NSLocalizedString("contribution_cell_withdrawn", comment: "") : NSLocalizedString("contribution_cell_added", comment: ""))
+                Text(contribution.amount < 0 ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
                     .font(Font.mediumText16())
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
@@ -58,7 +57,7 @@ struct CellContributionView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_DELETE", comment: ""))
+                    Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -76,11 +75,11 @@ struct CellContributionView: View {
         .swipeMinimumDistance(30)
         .padding(.horizontal, 12)
         .padding(.vertical, 2)
-        .alert(NSLocalizedString("contribution_cell_delete", comment: ""), isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(role: .destructive, action: { withAnimation { deleteContribution() } }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+        .alert("contribution_cell_delete".localized, isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: { withAnimation { deleteContribution() } }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(NSLocalizedString("contribution_cell_delete_desc", comment: ""))
+            Text("contribution_cell_delete_desc".localized)
         })
     }//END body
 
@@ -96,7 +95,6 @@ struct CellContributionView: View {
             }
             
             viewContext.delete(contribution)
-            withAnimation { update.toggle() }
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -107,8 +105,5 @@ struct CellContributionView: View {
 
 //MARK: - Preview
 #Preview {
-    CellContributionView(
-        contribution: previewContribution1(),
-        update: Binding.constant(false)
-    )
+    CellContributionView(contribution: Contribution.preview1)
 }

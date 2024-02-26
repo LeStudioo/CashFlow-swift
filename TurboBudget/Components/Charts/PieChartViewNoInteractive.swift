@@ -16,8 +16,6 @@ struct PieChartViewNoInteractive: View {
     
     @Binding var width: CGFloat
     @Binding var height: CGFloat
-
-    @Binding var update: Bool
     
     var categoriesWithExpenses: [PredefinedCategory] {
         var categoriesWithout0: [PredefinedCategory] = []
@@ -98,5 +96,9 @@ struct PieChartViewNoInteractive: View {
 
 //MARK: - Preview
 #Preview {
-    PieChartViewNoInteractive(categories: [], width: Binding.constant(280), height: Binding.constant(280), update: Binding.constant(false))
+    PieChartViewNoInteractive(
+        categories: [],
+        width: Binding.constant(280),
+        height: Binding.constant(280)
+    )
 }

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct SubcategoryTransactionsView: View {
     
-    //Custom type
-    var subcategory: PredefinedSubcategory
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Builder
+    var router: NavigationManager
+    @ObservedObject var subcategory: PredefinedSubcategory
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
@@ -64,9 +64,6 @@ struct SubcategoryTransactionsView: View {
         }
     }
     
-    //Binding update
-    @Binding var update: Bool
-    
     //MARK: - Body
     var body: some View {
         VStack {
@@ -77,13 +74,11 @@ struct SubcategoryTransactionsView: View {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
                                     if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
-                                        ZStack {
-                                            NavigationLink(destination: {
-                                                TransactionDetailView(transaction: transaction, update: $update)
-                                            }, label: { EmptyView()} )
-                                            .opacity(0)
-                                            CellTransactionView(transaction: transaction, update: $update)
-                                        }
+                                        Button(action: {
+                                            router.pushTransactionDetail(transaction: transaction)
+                                        }, label: {
+                                            CellTransactionView(transaction: transaction)
+                                        })
                                     }
                                 }
                                 .listRowSeparator(.hidden)
@@ -121,13 +116,12 @@ struct SubcategoryTransactionsView: View {
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
                     image: "NoTransaction",
-                    text: NSLocalizedString("error_message_transaction", comment: "")
+                    text: "error_message_transaction".localized
                 )
             }
         }
-        .padding(update ? 0 : 0)
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .navigationTitle(NSLocalizedString("word_transactions", comment: ""))
+        .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -142,10 +136,10 @@ struct SubcategoryTransactionsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Menu(content: {
-                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label(NSLocalizedString("word_month", comment: ""), systemImage: "calendar") })
-                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label(NSLocalizedString("word_expenses", comment: ""), systemImage: "arrow.down.forward") })
+                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
+                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
                     }, label: {
-                        Label(NSLocalizedString("word_filter", comment: ""), systemImage: "slider.horizontal.3")
+                        Label("word_filter".localized, systemImage: "slider.horizontal.3")
                     })
                 }, label: {
                     Image(systemName: "ellipsis")
@@ -154,14 +148,16 @@ struct SubcategoryTransactionsView: View {
                 })
             }
         }
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        //        .sheet(isPresented: $showAddTransaction, onDismiss: { update.toggle() }) { AddTransactionView(account: $account) }
-        .onDisappear { update.toggle() }
-    }//END body
-}//END struct
+        //        .sheet(isPresented: $showAddTransaction) { AddTransactionView(account: $account) }
+    } // End body
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    SubcategoryTransactionsView(subcategory: subCategory1Category1, update: Binding.constant(false))
+    SubcategoryTransactionsView(
+        router: .init(isPresented: .constant(.subcategoryTransactions(subcategory: subCategory1Category1))),
+        subcategory: subCategory1Category1
+    )
 }

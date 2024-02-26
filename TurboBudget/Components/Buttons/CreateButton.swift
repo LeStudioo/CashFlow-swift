@@ -25,7 +25,7 @@ struct CreateButton: View {
                     })
                 HStack {
                     Spacer()
-                    Text(NSLocalizedString("word_create", comment: ""))
+                    Text("word_create".localized)
                         .font(.semiBoldCustom(size: 20))
                         .foregroundColor(.primary0)
                     Spacer()

@@ -13,7 +13,6 @@ class AddTransactionViewModel: ObservableObject {
     static let shared = AddTransactionViewModel()
     let context = persistenceController.container.viewContext
     var predefinedObjectManager = PredefinedObjectManager.shared
-    var userDefaultsManager = UserDefaultsManager.shared
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: Double = 0
@@ -25,6 +24,14 @@ class AddTransactionViewModel: ObservableObject {
     @Published var theNewTransaction: Transaction? = nil
     
     @Published var mainAccount: Account? = nil
+    
+    // Prefrences
+    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
+    @Preference(\.budgetPercentage) private var budgetPercentage
+    @Preference(\.accountCanBeNegative) private var accountCanBeNegative
+    @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
+    @Preference(\.blockExpensesIfBudgetAmountExceeds) private var blockExpensesIfBudgetAmountExceeds
+    @Preference(\.isSearchDuplicateEnabled) private var isSearchDuplicateEnabled
     
     // Alerts
     @Published var isCardLimitSoonToBeExceeded: Bool = false
@@ -79,14 +86,14 @@ class AddTransactionViewModel: ObservableObject {
             // Card Limit
             if mainAccount.cardLimit != 0 {
                 let percentage = mainAccount.amountOfExpensesInActualMonth() / Double(mainAccount.cardLimit)
-                if percentage >= userDefaultsManager.cardLimitPercentage / 100 && percentage <= 1 { isCardLimitSoonToBeExceeded = true }
+                if percentage >= cardLimitPercentage / 100 && percentage <= 1 { isCardLimitSoonToBeExceeded = true }
                 if percentage > 1 { isCardLimitExceeded = true }
             }
             
             // Budget
             if let selectedSubcategory, let budget = selectedSubcategory.budget {
                 let percentage = budget.actualAmountForMonth(month: .now) / budget.amount
-                if percentage >= userDefaultsManager.budgetPercentage / 100 && percentage <= 1 {
+                if percentage >= budgetPercentage / 100 && percentage <= 1 {
                     isBudgetSoonToBeExceeded = true
                 }
                 if percentage > 1 { isBudgetExceed = true }
@@ -171,20 +178,20 @@ extension AddTransactionViewModel {
 extension AddTransactionViewModel {
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount, !userDefaultsManager.accountCanBeNegative {
+        if let mainAccount, !accountCanBeNegative {
             if mainAccount.balance - transactionAmount < 0 && transactionType == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount, mainAccount.cardLimit != 0, userDefaultsManager.blockExpensesIfCardLimitExceeds, transactionType == .expense {
+        if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isBudgetIsExceededAfterThisTransaction: Bool {
-        if let selectedSubcategory, userDefaultsManager.blockExpensesIfBudgetAmountExceeds {
+        if let selectedSubcategory, blockExpensesIfBudgetAmountExceeds {
             if let budget = selectedSubcategory.budget {
                 if budget.isExceeded(month: transactionDate) { return true }
                 if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount) > budget.amount { return true }
@@ -194,7 +201,7 @@ extension AddTransactionViewModel {
     }
     
     var isDuplicateTransactions: Bool {
-        if let mainAccount, userDefaultsManager.isSearchDuplicateEnable, transactionType == .expense {
+        if let mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
             let accountFilteredByTitle = mainAccount.allTransactions.filter { $0.title == transactionTitle }
             let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.idUnique ?? "" && selectedSubcategory != nil }
             if accountFilteredBySubcategory.count != 0 { return true } else { return false }
@@ -224,7 +231,7 @@ extension AddTransactionViewModel {
         
         if transactionType == .income && !transactionTitle.isEmptyWithoutSpace() && transactionAmount != 0.0 { return true }
         
-        if userDefaultsManager.blockExpensesIfCardLimitExceeds && transactionType == .expense {
+        if blockExpensesIfCardLimitExceeds && transactionType == .expense {
             if !transactionTitle.isEmptyWithoutSpace() && transactionAmount != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
                 return true
             }

@@ -11,28 +11,24 @@ import SwiftUI
 
 struct CategoryTransactionsView: View {
     
-    //Custom type
-    var category: PredefinedCategory
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Builder
+    var router: NavigationManager
+    @ObservedObject var category: PredefinedCategory
     
-    //Environnements
+    // Environment
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
+    // String variables
     @State private var searchText: String = ""
-    
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Bool
+        
+    // Boolean variables
     @State private var ascendingOrder: Bool = false
-    
-    //State or Binding Date
-    
-    //Enum
+        
+    // Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
-    //Computed var
+    // Computed var
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
         for transaction in category.transactions {
@@ -64,10 +60,7 @@ struct CategoryTransactionsView: View {
         }
     }
     
-    //Binding update
-    @Binding var update: Bool
-    
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         VStack {
             if category.transactions.count != 0 && searchResults.count != 0 {
@@ -77,13 +70,11 @@ struct CategoryTransactionsView: View {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
                                     if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
-                                        ZStack {
-                                            NavigationLink(destination: {
-                                                TransactionDetailView(transaction: transaction, update: $update)
-                                            }, label: { EmptyView()} )
-                                            .opacity(0)
-                                            CellTransactionView(transaction: transaction, update: $update)
-                                        }
+                                        Button(action: {
+                                            router.pushTransactionDetail(transaction: transaction)
+                                        }, label: {
+                                            CellTransactionView(transaction: transaction)
+                                        })
                                     }
                                 }
                                 .listRowSeparator(.hidden)
@@ -121,11 +112,10 @@ struct CategoryTransactionsView: View {
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
                     image: "NoTransaction",
-                    text: NSLocalizedString("error_message_transaction", comment: "")
+                    text: "error_message_transaction".localized
                 )
             }
         }
-        .padding(update ? 0 : 0)
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_recent_transactions")
         .navigationBarTitleDisplayMode(.large)
@@ -158,13 +148,15 @@ struct CategoryTransactionsView: View {
                 })
             }
         }
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .onDisappear { update.toggle() }
-    }//END body
-}//END struct
+    } // End body
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    CategoryTransactionsView(category: categoryPredefined1, update: Binding.constant(false))
+    CategoryTransactionsView(
+        router: .init(isPresented: .constant(.categoryTransactions(category: categoryPredefined1))),
+        category: categoryPredefined1
+    )
 }

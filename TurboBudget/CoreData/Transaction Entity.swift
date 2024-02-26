@@ -30,10 +30,25 @@ public class Transaction: NSManagedObject, Identifiable {
     @NSManaged public var isArchived: Bool
     @NSManaged public var comeFromAuto: Bool
     @NSManaged public var comeFromApplePay: Bool
-    @NSManaged public var nameFromApplePay: Bool
+    @NSManaged public var nameFromApplePay: String
     @NSManaged public var transactionToAccount: Account?
-    @NSManaged public var transactionToCategory: CategoryEntity?
-    @NSManaged public var transactionToSubCategory: Subcategory?
     @NSManaged public var transactionToAutomation: Automation?
 
-} //END Class
+} // End class
+
+extension Transaction {
+    
+    static var preview1: Transaction {
+        let transaction = Transaction(context: previewViewContext)
+        transaction.id = UUID()
+        transaction.predefCategoryID = categoryPredefined1.idUnique
+        transaction.predefSubcategoryID = subCategory1Category1.idUnique
+        transaction.title = "Preview Transaction"
+        transaction.amount = -40.51
+        transaction.date = Date()
+        transaction.creationDate = Date()
+        
+        return transaction
+    }
+    
+}

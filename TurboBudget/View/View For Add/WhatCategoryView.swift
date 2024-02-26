@@ -27,7 +27,6 @@ struct WhatCategoryView: View {
     @State private var offsetValidationButton: CGFloat = 120
     
     //State or Binding Bool
-    @State private var update: Bool = false
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     
@@ -173,7 +172,7 @@ struct WhatCategoryView: View {
                             .shadow(radius: 4, y: 4)
                             .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
                         
-                        Text(NSLocalizedString("word_no_results", comment: "") + " '\(searchText)'")
+                        Text("word_no_results".localized + " '\(searchText)'")
                             .font(.semiBoldText16())
                             .multilineTextAlignment(.center)
                     }
@@ -182,7 +181,7 @@ struct WhatCategoryView: View {
                 }
             } //End VStack
             .background(Color.color2Apple.edgesIgnoringSafeArea(.all))
-            .navigationTitle(NSLocalizedString("what_category_title", comment: ""))
+            .navigationTitle("what_category_title".localized)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
@@ -194,12 +193,12 @@ struct WhatCategoryView: View {
                 }
             }
         } //End Navigation Stack
-        .searchable(text: $searchText.animation(), placement: .navigationBarDrawer(displayMode: .always), prompt: NSLocalizedString("word_search", comment: ""))
-        .alert(NSLocalizedString("alert_cashflow_pro_title", comment: ""), isPresented: $showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(action: { showPaywall.toggle() }, label: { Text(NSLocalizedString("alert_cashflow_pro_see", comment: "")) })
+        .searchable(text: $searchText.animation(), placement: .navigationBarDrawer(displayMode: .always), prompt: "word_search".localized)
+        .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
+            Button(action: { return }, label: { Text("word_cancel".localized) })
+            Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
         }, message: {
-            Text(NSLocalizedString("alert_cashflow_pro_desc", comment: ""))
+            Text("alert_cashflow_pro_desc".localized)
         })
         .sheet(isPresented: $showPaywall) { PaywallScreenView() }
     }//END body

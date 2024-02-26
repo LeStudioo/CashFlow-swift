@@ -12,7 +12,6 @@ struct FilterView: View {
 
     //Custom type
     @ObservedObject var filter: Filter = sharedFilter
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
@@ -64,7 +63,7 @@ struct FilterView: View {
                     Spacer()
                     
                     Toggle(isOn: $filter.byDay.animation(), label: {
-                        Text(NSLocalizedString("filter_by_day", comment: ""))
+                        Text("filter_by_day".localized)
                     })
                     .disabled(filter.total)
                     .padding(8)
@@ -81,7 +80,7 @@ struct FilterView: View {
                     }
                     
                     Toggle(isOn: $filter.automation.animation(), label: {
-                        Text(NSLocalizedString("filter_only_auto", comment: ""))
+                        Text("filter_only_auto".localized)
                     })
                     .padding(8)
                     .padding(.horizontal, 8)
@@ -90,7 +89,7 @@ struct FilterView: View {
                     .padding(.horizontal, 8)
                     
                     Toggle(isOn: $filter.total.animation(), label: {
-                        Text(NSLocalizedString("filter_total", comment: ""))
+                        Text("filter_total".localized)
                     })
                     .padding(8)
                     .padding(.horizontal, 8)

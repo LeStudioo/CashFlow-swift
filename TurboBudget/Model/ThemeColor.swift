@@ -17,8 +17,8 @@ struct ThemeColor: Identifiable {
 }
 
 let themes: [ThemeColor] = [
-    ThemeColor(id: UUID(), idUnique: "111", name: NSLocalizedString("theme_green", comment: ""), color: Color.primary500),
-    ThemeColor(id: UUID(), idUnique: "222", name: NSLocalizedString("theme_blue", comment: ""), color: Color.blue),
-    ThemeColor(id: UUID(), idUnique: "333", name: NSLocalizedString("theme_purple", comment: ""), color: Color.purple),
-    ThemeColor(id: UUID(), idUnique: "444", name: NSLocalizedString("theme_red", comment: ""), color: Color.red),
+    ThemeColor(id: UUID(), idUnique: "111", name: "theme_green".localized, color: Color.primary500),
+    ThemeColor(id: UUID(), idUnique: "222", name: "theme_blue".localized, color: Color.blue),
+    ThemeColor(id: UUID(), idUnique: "333", name: "theme_purple".localized, color: Color.purple),
+    ThemeColor(id: UUID(), idUnique: "444", name: "theme_red".localized, color: Color.red),
 ]

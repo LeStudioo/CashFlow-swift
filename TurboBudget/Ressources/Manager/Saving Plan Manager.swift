@@ -9,6 +9,10 @@ import Foundation
 
 class SavingPlanManager {
     
+    // Preferences
+    @Preference(\.automatedArchivedSavingPlan) var automatedArchivedSavingPlan
+    @Preference(\.numberOfDayForArchivedSavingPlan) var numberOfDayForArchivedSavingPlan
+    
 }
 
 //MARK: Archived
@@ -21,10 +25,10 @@ extension SavingPlanManager {
     // Extra : Cette fonction vérifie si l'archivage automatique des plans d'épargne est activé dans les préférences de l'utilisateur. Si c'est le cas, elle archive les plans d'épargne qui ont atteint leur montant cible après un certain nombre de jours défini pour l'archivage.
     //--------------------------------------------------------------------------------------------------
     func archiveCompletedSavingPlansAutomatically(account: Account) {
-        if UserDefaultsManager().automatedArchivedSavingPlan {
+        if automatedArchivedSavingPlan {
             for savingPlan in account.savingPlans {
                 if savingPlan.actualAmount == savingPlan.amountOfEnd {
-                    let dateForArchive: Date = Calendar.current.date(byAdding: .day, value: UserDefaultsManager().numberOfDayForArchivedTransaction, to: savingPlan.dateOfEnd!)!
+                    let dateForArchive: Date = Calendar.current.date(byAdding: .day, value: numberOfDayForArchivedSavingPlan, to: savingPlan.dateOfEnd!)!
                     if Date() > dateForArchive {
                         savingPlan.isArchived = true
                         persistenceController.saveContext()

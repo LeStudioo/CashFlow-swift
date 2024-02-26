@@ -118,7 +118,7 @@ struct AddTransactionIntent: AppIntent {
         let currencySymbol: String = Locale.current.currencySymbol ?? ""
         let title: String = newTransaction.title
         
-        let formatString = NSLocalizedString("shortcut_result", comment: "")
+        let formatString = "shortcut_result".localized
         let formattedText = String(format: formatString, amountString, currencySymbol, title)
         
         return  .result(dialog: IntentDialog(stringLiteral: formattedText))

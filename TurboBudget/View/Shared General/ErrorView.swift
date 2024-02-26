@@ -41,7 +41,7 @@ struct ErrorView: View {
                     .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
                 
                 if !searchText.isEmpty {
-                    Text(NSLocalizedString("word_no_results", comment: "") + " '\(searchText)'")
+                    Text("word_no_results".localized + " '\(searchText)'")
                         .font(Font.mediumText16())
                         .multilineTextAlignment(.center)
                 }

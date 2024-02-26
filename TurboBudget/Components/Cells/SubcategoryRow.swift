@@ -20,7 +20,6 @@ struct SubcategoryRow: View {
     //State or Binding Int, Float and Double
     
     //State or Binding Bool
-    @Binding var update: Bool
     
     //State or Binding Date
     
@@ -91,5 +90,5 @@ struct SubcategoryRow: View {
 
 //MARK: - Preview
 #Preview {
-    SubcategoryRow(subcategory: subCategory1Category1, update: Binding.constant(false))
+    SubcategoryRow(subcategory: subCategory1Category1)
 }

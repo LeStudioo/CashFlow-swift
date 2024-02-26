@@ -24,3 +24,17 @@ public class Automation: NSManagedObject, Identifiable {
     @NSManaged public var automationToTransaction: Transaction?
     @NSManaged public var automationToAccount: Account?
 }
+
+extension Automation {
+    
+    static var preview: Automation {
+        let automation = Automation(context: previewViewContext)
+        automation.id = UUID()
+        automation.title = "Preview"
+        automation.date = Calendar.current.date(byAdding: .day, value: 10, to: Date()) ?? .now
+        automation.frenquently = 0
+        automation.automationToTransaction = Transaction.preview1
+        return automation
+    }
+    
+}

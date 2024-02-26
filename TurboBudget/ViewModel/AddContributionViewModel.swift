@@ -10,13 +10,16 @@ import CoreData
 
 class AddContributionViewModel: ObservableObject {
     let context = persistenceController.container.viewContext
-    let userDefaultsManager = UserDefaultsManager.shared
     @Published var mainAccount: Account? = nil
     @Published var savingPlan: SavingPlan? = nil
     
     @Published var amountContribution: Double = 0.0
     @Published var dateContribution: Date = .now
     @Published var typeContribution: ExpenseOrIncome = .expense // expense = Add / income = withdrawal
+    
+    // Preferences
+    @Preference(\.accountCanBeNegative) private var accountCanBeNegative
+    @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
     
     // init
     init() {
@@ -68,7 +71,7 @@ extension AddContributionViewModel {
     }
     
     func validateContribution() -> Bool {
-        if let savingPlan, userDefaultsManager.blockExpensesIfCardLimitExceeds && typeContribution == .expense {
+        if let savingPlan, blockExpensesIfCardLimitExceeds && typeContribution == .expense {
             if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && !isCardLimitExceeds {
                 return true
             }
@@ -89,7 +92,7 @@ extension AddContributionViewModel {
 extension AddContributionViewModel {
     var isAccountWillBeNegative: Bool {
         if let account = mainAccount {
-            if !userDefaultsManager.accountCanBeNegative && account.balance - amountContribution < 0 && typeContribution == .expense { return true } else { return false }
+            if !accountCanBeNegative && account.balance - amountContribution < 0 && typeContribution == .expense { return true } else { return false }
         } else { return false }
     }
     

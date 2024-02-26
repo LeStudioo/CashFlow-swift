@@ -12,7 +12,6 @@ import SwiftUI
 class AddSavingPlanViewModel: ObservableObject {
     static let shared = AddSavingPlanViewModel()
     let context = persistenceController.container.viewContext
-    let userDefaultsManager = UserDefaultsManager.shared
     @Published var mainAccount: Account? = nil
     
     @Published var theNewSavingPlan: SavingPlan? = nil
@@ -30,6 +29,11 @@ class AddSavingPlanViewModel: ObservableObject {
     
     @Published var isEndDate: Bool = false
     @Published var isEmoji: Bool = false
+    
+    // Preferences
+    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
+    @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
+    @Preference(\.accountCanBeNegative) private var accountCanBeNegative
     
     // init
     init() {
@@ -72,7 +76,7 @@ class AddSavingPlanViewModel: ObservableObject {
             
             if account.cardLimit != 0 {
                 let percentage = account.amountOfExpensesInActualMonth() / account.cardLimit
-                if percentage >= userDefaultsManager.cardLimitPercentage / 100 && percentage <= 1 {
+                if percentage >= cardLimitPercentage / 100 && percentage <= 1 {
                     isCardLimitSoonToBeExceeded = true
                 } else if percentage > 1 { isCardLimitExceeded = true }
             }
@@ -95,7 +99,7 @@ extension AddSavingPlanViewModel {
     
     func validateSavingPlan() -> Bool {
         if isAccountWillBeNegative { return false }
-        if userDefaultsManager.blockExpensesIfCardLimitExceeds {
+        if blockExpensesIfCardLimitExceeds {
             if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd != 0 && !isCardLimitExceeds {
                 return true
             }
@@ -106,14 +110,14 @@ extension AddSavingPlanViewModel {
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount, mainAccount.cardLimit != 0, userDefaultsManager.blockExpensesIfCardLimitExceeds {
+        if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount, !userDefaultsManager.accountCanBeNegative {
+        if let mainAccount, !accountCanBeNegative {
             if mainAccount.balance - savingPlanAmountOfStart < 0 { return true }
         }
         return false

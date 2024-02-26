@@ -106,7 +106,7 @@ struct CardViewEditable: View {
                 
                 Spacer(minLength: 0)
                 
-                TextField(NSLocalizedString("card_editable_holder", comment: ""), text: $cardHolder)
+                TextField("card_editable_holder".localized, text: $cardHolder)
                     .font(Font.mediumText16())
                     .focused($activeKeyboardField, equals: .cardHolder)
                     .textCase(.uppercase)

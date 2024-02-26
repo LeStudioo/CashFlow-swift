@@ -36,12 +36,18 @@ class AddBudgetViewModel: ObservableObject {
 extension AddBudgetViewModel {
     func numberOfAlerts() -> Int {
         var num: Int = 0
-        if let sub = selectedSubcategory, let _ = sub.budget { num += 1 }
+        if let sub = selectedSubcategory, let _ = sub.budget {
+            num += 1
+        }
         return num
     }
     
     func isBudgetAlredayExist() -> Bool {
-        if let sub = selectedSubcategory, let _ = sub.budget { return true } else { return false }
+        if let sub = selectedSubcategory, let _ = sub.budget {
+            return true
+        } else {
+            return false
+        }
     }
 }
 

@@ -11,8 +11,8 @@ import SwipeActions
 
 struct CellTransactionView: View {
     
-    //Custom type
-    var transaction: Transaction
+    // Builder
+    @ObservedObject var transaction: Transaction
     
     //Environnements
     @Environment(\.managedObjectContext) private var viewContext
@@ -23,7 +23,6 @@ struct CellTransactionView: View {
     //State or Binding Int, Float and Double
     
     //State or Binding Bool
-    @Binding var update: Bool
     @State private var isEditing: Bool = false
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
@@ -85,8 +84,8 @@ struct CellTransactionView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(transaction.amount < 0
-                         ? (transaction.comeFromAuto ? NSLocalizedString("word_automation_expense", comment: "") : NSLocalizedString("word_expense", comment: ""))
-                         : (transaction.comeFromAuto ? NSLocalizedString("word_automation_income", comment: "") : NSLocalizedString("word_income", comment: "")))
+                         ? (transaction.comeFromAuto ? "word_automation_expense".localized : "word_expense".localized)
+                         : (transaction.comeFromAuto ? "word_automation_income".localized : "word_income".localized))
                     .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
                     Text(transaction.title)
@@ -111,31 +110,6 @@ struct CellTransactionView: View {
             .padding(12)
             .background(Color.colorCell)
             .cornerRadius(15)
-//        }, leadingActions: { context in
-//            SwipeAction(action: {
-//                withAnimation {
-//                    isEditing.toggle()
-//                    if transaction.isArchived { transaction.isArchived = false } else { transaction.isArchived = true }
-//                    update.toggle()
-//                    Task {
-//                        persistenceController.saveContext()
-//                    }
-//                }
-//            }, label: { _ in
-//                VStack(spacing: 5) {
-//                    Image(systemName: transaction.isArchived ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
-//                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-//                    Text(transaction.isArchived ? NSLocalizedString("word_UNARCHIVE", comment: "") : NSLocalizedString("word_ARCHIVE", comment: ""))
-//                        .font(.semiBoldCustom(size: 10))
-//                }
-//                    .foregroundColor(.colorLabelInverse)
-//            }, background: { _ in
-//                Rectangle()
-//                    .foregroundColor(.blue)
-//            })
-//            .onChange(of: isEditing) { _ in
-//                context.state.wrappedValue = .closed
-//            }
         }, trailingActions: { context in
             SwipeAction(action: {
                 withAnimation { isSharingJSON.toggle() }
@@ -143,7 +117,7 @@ struct CellTransactionView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "curlybraces")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_json", comment: ""))
+                    Text("word_json".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -161,7 +135,7 @@ struct CellTransactionView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "qrcode")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_QRCODE", comment: ""))
+                    Text("word_QRCODE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -179,7 +153,7 @@ struct CellTransactionView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_DELETE", comment: ""))
+                    Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -197,12 +171,11 @@ struct CellTransactionView: View {
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
         .padding(.horizontal)
-        .padding(update ? 0 : 0)
-        .alert(NSLocalizedString("transaction_detail_delete_transac", comment: ""), isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+        .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(transaction.amount < 0 ? NSLocalizedString("transaction_detail_alert_if_expense", comment: "") : NSLocalizedString("transaction_detail_alert_if_income", comment: ""))
+            Text(transaction.amount < 0 ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
         })
         .sheet(isPresented: $isSharingQRCode) { QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!) }
         .background(SharingViewController(isPresenting: $isSharingJSON) {
@@ -227,10 +200,6 @@ struct CellTransactionView: View {
         }
         viewContext.delete(transaction)
         PredefinedObjectManager.shared.reloadTransactions()
-        update.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            update.toggle()
-        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             persistenceController.saveContext()
         }
@@ -241,8 +210,8 @@ struct CellTransactionView: View {
 //MARK: - Preview
 #Preview {
     Group {
-        CellTransactionView(transaction: previewTransaction1(), update: Binding.constant(false))
-        CellTransactionView(transaction: previewTransaction5(), update: Binding.constant(false))
+        CellTransactionView(transaction: Transaction.preview1)
+        CellTransactionView(transaction: Transaction.preview1)
     }
     .previewLayout(.sizeThatFits)
 }

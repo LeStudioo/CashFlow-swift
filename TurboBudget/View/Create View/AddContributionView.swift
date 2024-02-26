@@ -11,20 +11,15 @@ import Combine
 
 struct AddContributionView: View {
 
-    //Custom type
+    // Custom type
     var savingPlan: SavingPlan
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
     @StateObject private var viewModel = AddContributionViewModel()
 
-    //Environnements
+    // Environement
     @Environment(\.dismiss) private var dismiss
 
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    @State private var update: Bool = false
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
 
 	//Enum
     enum Field: CaseIterable {
@@ -46,10 +41,10 @@ struct AddContributionView: View {
             VStack {
                 DismissButtonInSheet()
                 
-                Text(NSLocalizedString("contribution_new", comment: ""))
+                Text("contribution_new".localized)
                     .titleAdjustSize()
                 
-                TextField(NSLocalizedString("contribution_placeholder_amount", comment: ""), value: $viewModel.amountContribution.animation(), formatter: numberFormatter)
+                TextField("contribution_placeholder_amount".localized, value: $viewModel.amountContribution.animation(), formatter: numberFormatter)
                     .focused($focusedField, equals: .amount)
                     .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                     .multilineTextAlignment(.center)
@@ -72,8 +67,8 @@ struct AddContributionView: View {
                     }
                 
                 CustomSegmentedControl(selection: $viewModel.typeContribution,
-                                       textLeft: NSLocalizedString("contribution_add", comment: ""),
-                                       textRight: NSLocalizedString("contribution_withdraw", comment: ""),
+                                       textLeft: "contribution_add".localized,
+                                       textRight: "contribution_withdraw".localized,
                                        height: isLittleIphone ? 40 : 50)
                 .padding(.horizontal)
 
@@ -93,16 +88,14 @@ struct AddContributionView: View {
                 }
                 .padding()
                 
-                cellForAlerts()
-                
                 VStack {
                     if (viewModel.amountContribution > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
-                        Text(NSLocalizedString("contribution_alert_more_final_amount", comment: ""))
+                        Text("contribution_alert_more_final_amount".localized)
                     } else if (viewModel.amountContribution < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
-                        Text("💰" + viewModel.moneyForFinish.currency + " " + NSLocalizedString("contribution_alert_for_finish", comment: ""))
+                        Text("💰" + viewModel.moneyForFinish.currency + " " + "contribution_alert_for_finish".localized)
                     }
                     if (savingPlan.actualAmount - viewModel.amountContribution < 0) && viewModel.typeContribution == .income {
-                        Text(NSLocalizedString("contribution_alert_take_more_amount", comment: ""))
+                        Text("contribution_alert_take_more_amount".localized)
                     }
                 }
                 .font(Font.mediumText16())
@@ -113,7 +106,7 @@ struct AddContributionView: View {
                 
                 CreateButton(action: {
                     viewModel.createContribution()
-                    if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                     dismiss()
                 }, validate: viewModel.validateContribution())
                     .padding(.horizontal, 8)
@@ -134,25 +127,11 @@ struct AddContributionView: View {
             .onAppear {
                 viewModel.savingPlan = savingPlan
             }
-        } //End Navigation Stack
-    }//END body
-    
-    //MARK: - ViewBuilder
-    @ViewBuilder
-    func cellForAlerts() -> some View {
-        if viewModel.numberOfAlerts != 0 {
-            NavigationLink(destination: {
-                AlertsView(
-                    isAccountWillBeNegative: viewModel.isAccountWillBeNegative,
-                    isCardLimitExceeds: viewModel.isCardLimitExceeds
-                )
-            }, label: { LabelForCellAlerts(numberOfAlert: viewModel.numberOfAlerts) })
-        }
-    }
+        } // End Navigation Stack
+    } // End body
+} // End struct
 
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    AddContributionView(savingPlan: previewSavingPlan1())
+    AddContributionView(savingPlan: SavingPlan.preview1)
 }

@@ -21,8 +21,8 @@ class JSONManager {
         let date = transaction.date
         let dateString = dateFormatter.string(from: date)
         
-        let categoryTransaction = transaction.transactionToCategory
-        let subcategoryTransaction = transaction.transactionToSubCategory
+        let categoryTransaction = transaction.predefCategoryID
+        let subcategoryTransaction = transaction.predefSubcategoryID
         
         let jsonString = """
         {
@@ -33,8 +33,8 @@ class JSONManager {
             "amount": \(transaction.amount),
             "date": "\(dateString)",
             "transactionToAccount": "null",
-            "transactionToCategory": "\(categoryTransaction?.idUnique ?? "null")",
-            "transactionToSubCategory": "\(subcategoryTransaction?.idUnique ?? "null")"
+            "transactionToCategory": "\(categoryTransaction)",
+            "transactionToSubCategory": "\(subcategoryTransaction)"
         }
         """
         return jsonString
