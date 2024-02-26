@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct PredefinedSubcategory: Identifiable, Equatable, Hashable {
+class PredefinedSubcategory: ObservableObject, Identifiable, Equatable, Hashable {
     var id: UUID = UUID()
     var idUnique: String
     var title: String
@@ -15,6 +15,15 @@ struct PredefinedSubcategory: Identifiable, Equatable, Hashable {
     var category: PredefinedCategory
     var transactions: [Transaction]
     var budget: Budget?
+    
+    init(idUnique: String, title: String, icon: String, category: PredefinedCategory, transactions: [Transaction], budget: Budget? = nil) {
+        self.idUnique = idUnique
+        self.title = title
+        self.icon = icon
+        self.category = category
+        self.transactions = transactions
+        self.budget = budget
+    }
     
     static func == (lhs: PredefinedSubcategory, rhs: PredefinedSubcategory) -> Bool {
         return lhs.idUnique == rhs.idUnique

@@ -16,7 +16,6 @@ struct DetailOfExpensesAndIncomesByDay: View {
     var amountOfIncomes: Double
 
     //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
@@ -41,14 +40,14 @@ struct DetailOfExpensesAndIncomesByDay: View {
                 if store.isLifetimeActive {
                     HStack {
                         if amountOfExpenses != 0 {
-                            Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
                         }
                         if amountOfExpenses != 0 && amountOfIncomes != 0 {
                             Text("|")
                         }
                         if amountOfIncomes != 0 {
-                            Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
                         }
                         Spacer()

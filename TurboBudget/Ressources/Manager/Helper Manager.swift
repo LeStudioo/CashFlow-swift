@@ -58,8 +58,11 @@ struct HelperManager {
     //MARK: - OTHER
     //Get App Theme
     func getAppTheme() -> ThemeColor {
+        
+        @Preference(\.colorSelected) var colorSelected
+        
         for theme in themes {
-            if theme.idUnique == UserDefaultsManager().colorSelected { return theme }
+            if theme.idUnique == colorSelected { return theme }
         }
         return themes[0] //Theme de base
     }

@@ -11,7 +11,10 @@ import SwiftUI
 
 struct BudgetsHomeView: View {
     
-    //Custom type
+    // Builder
+    var router: NavigationManager
+    
+    // Custom
     var categories = PredefinedObjectManager.shared.allPredefinedCategory
     @ObservedObject var filter: Filter = sharedFilter
     
@@ -29,7 +32,6 @@ struct BudgetsHomeView: View {
     //State or Binding Int, Float and Double
     
     //State or Binding Bool
-    @State private var update: Bool = false
     @State private var showAddBudget: Bool = false
     
     //State or Binding Date
@@ -89,12 +91,12 @@ struct BudgetsHomeView: View {
                                 }
                                 ForEach(searchResults) { budget in
                                     if PredefinedCategoryManager().categoryByUniqueID(idUnique: budget.predefCategoryID) == category {
-                                        NavigationLink(destination: {
+                                        Button(action: {
                                             if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: budget.predefSubcategoryID) {
-                                                BudgetsTransactionsView(subcategory: subcategory, update: $update)
+                                                router.pushBudgetTransactions(subcategory: subcategory)
                                             }
                                         }, label: {
-                                            CellBudgetView(budget: budget, selectedDate: $filter.date, update: $update)
+                                            CellBudgetView(budget: budget, selectedDate: $filter.date)
                                         })
                                         .padding(.horizontal)
                                         .padding(.vertical, 8)
@@ -112,12 +114,11 @@ struct BudgetsHomeView: View {
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
                     image: "NoBudgets",
-                    text: NSLocalizedString("budgets_home_no_budget", comment: "")
+                    text: "budgets_home_no_budget".localized
                 )
             }
         }
-        .padding(update ? 0 : 0)
-        .navigationTitle(NSLocalizedString("word_budgets", comment: ""))
+        .navigationTitle("word_budgets".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -131,8 +132,8 @@ struct BudgetsHomeView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { showAddBudget.toggle() }, label: { Label(NSLocalizedString("word_add", comment: ""), systemImage: "plus") })
-                    Button(action: { filter.fromBudget = true; filter.showMenu = true }, label: { Label(NSLocalizedString("word_month", comment: ""), systemImage: "calendar") })
+                    Button(action: { showAddBudget.toggle() }, label: { Label("word_add".localized, systemImage: "plus") })
+                    Button(action: { filter.fromBudget = true; filter.showMenu = true }, label: { Label("word_month".localized, systemImage: "calendar") })
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.colorLabel)
@@ -141,17 +142,12 @@ struct BudgetsHomeView: View {
             }
         }
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
-        .sheet(isPresented: $showAddBudget, onDismiss: { update.toggle() }, content: { AddBudgetView() })
-        .onChange(of: filter.date) { _ in
-            update.toggle()
-        }
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        .sheet(isPresented: $showAddBudget, content: { AddBudgetView() })
     }//END body
 }//END struct
 
 //MARK: - Preview
-struct BudgetsHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        BudgetsHomeView()
-    }
+#Preview {
+    BudgetsHomeView(router: .init(isPresented: .constant(.allBudgets)))
 }

@@ -22,8 +22,6 @@ public class Budget: NSManagedObject, Identifiable {
     @NSManaged public var amount: Double
     @NSManaged public var predefCategoryID: String
     @NSManaged public var predefSubcategoryID: String
-    @NSManaged public var budgetToCategory: CategoryEntity
-    @NSManaged public var budgetToSubcategory: Subcategory
     
 //    public func actualAmountForMonth(month: Date) -> Double {
 //        var amount: Double = 0.0
@@ -78,6 +76,30 @@ public class Budget: NSManagedObject, Identifiable {
         if actualAmountForMonth(month: month) >= amount { return true } else { return false }
     }
 
+}
+
+extension Budget {
+    
+    static var preview1: Budget {
+        let budget = Budget(context: previewViewContext)
+        budget.id = UUID()
+        budget.title = "Preview Budget 1"
+        budget.amount = 500
+        budget.predefCategoryID = categoryPredefined1.idUnique
+        return budget
+    }
+    
+    static var preview2: Budget {
+        let budget = Budget(context: PersistenceController.preview.container.viewContext)
+        budget.id = UUID()
+        budget.title = "Preview Budget 2"
+        budget.amount = 800
+        budget.predefCategoryID = categoryPredefined2.idUnique
+        budget.predefSubcategoryID = subCategory1Category2.idUnique
+        
+        return budget
+    }
+    
 }
 
 //MARK: - Color

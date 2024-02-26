@@ -9,20 +9,20 @@
 import SwiftUI
 import CloudKit
 import CoreData
-import LocalAuthentication
 
 struct PageControllerView: View {
     
-    //Custom type
+    // Custom type
     let persistenceController = PersistenceController.shared
+    let router = NavigationManager(isPresented: .constant(.pageController))
     @State private var account: Account? = nil
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var filter: Filter = sharedFilter
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
     @ObservedObject var viewModelAddTransaction = AddTransactionViewModel.shared
     
-    //CoreData
+    // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
     private var accounts: FetchedResults<Account>
     
@@ -32,56 +32,41 @@ struct PageControllerView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingPlan.position, ascending: true)])
     private var savingPlans: FetchedResults<SavingPlan>
     
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Subcategory.title, ascending: true)])
-    private var subCategories: FetchedResults<Subcategory>
-    
     // Capture NOTIFICATION changes
     var didRemoteChange = NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: RunLoop.main)
     
-    //Environnements
-    @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject private var store: Store
+    // Environement
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
+    // EnvironmentObject
+    @EnvironmentObject var csManager: ColorSchemeManager
+    @EnvironmentObject private var store: Store
     
-    //State or Binding Int, Float and Double
+    // Preferences
+    @Preference(\.isFaceIDEnabled) private var isFaceIDEnabled
+    @Preference(\.alreadyOpen) private var alreadyOpen
+    
+    // Number variables
     @State private var selectedTab: Int = 0
     @State private var offsetY: CGFloat = 0
-    @State private var scale: CGFloat = 0
     @State private var offsetYMenu: CGFloat = 0
     @State private var offsetYFilterView: CGFloat = -UIScreen.main.bounds.height
     
-    //State or Binding Bool
+    // Boolean variables
     @State private var update: Bool = false
     
-    @State private var showAlertAccount: Bool = false
-    @State private var showOnboarding: Bool = false
-    @State private var isUnlocked: Bool = false
-    @State private var launchScreenEnd: Bool = false
-    
-    @State private var showAlertPaywall: Bool = false
-    @State private var showPaywall: Bool = false
-    
-    @State private var showUpdateView: Bool = false
-    
-    //Enum
-    
-    //Computed var
-    private var arrayOfSubCategories: [Subcategory] { return Array(subCategories) }
-    
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         ZStack(alignment: .top) {
-            NavigationStack {
+            NavStack(router: router) {
                 VStack {
-                    if !launchScreenEnd { LaunchScreen(launchScreenEnd: $launchScreenEnd) }
-                    if !isUnlocked && icloudManager.icloudDataStatus == .found {
+                    if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
+                    if !pageControllerVM.isUnlocked && icloudManager.icloudDataStatus == .found {
                         VStack {
                             Spacer()
                             ProgressView()
-                            Text(NSLocalizedString("alert_recover_data", comment: ""))
+                            Text("alert_recover_data".localized)
                                 .multilineTextAlignment(.center)
                                 .font(.mediumText16())
                             Spacer()
@@ -96,7 +81,7 @@ struct PageControllerView: View {
                                         let results = try context.fetch(fetchRequest)
                                         if let accoutRetrieve = results.first {
                                             account = accoutRetrieve
-                                            isUnlocked = true
+                                            pageControllerVM.isUnlocked = true
                                         }
                                         print("🔥 results : \(results.count)")
                                     } catch {
@@ -105,47 +90,62 @@ struct PageControllerView: View {
                                 }
                             }
                         }
-                    } else if isUnlocked {
+                    } else if pageControllerVM.isUnlocked {
                         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                            if account != nil {
+                            if let account {
                                 VStack {
                                     switch selectedTab {
                                     case 0:
                                         HomeScreenView(
-                                            account: $account,
-                                            update: $update
+                                            router: router,
+                                            account: account
                                         )
-                                        .environmentObject(csManager)
-                                        .environmentObject(store)
                                     case 1:
                                         AnalyticsHomeView(
-                                            account: $account,
-                                            update: $update
+                                            account: account
                                         )
-                                        .environmentObject(csManager)
-                                        .environmentObject(store)
                                     case 3:
-                                        AccountHomeView(
-                                            account: $account,
-                                            update: $update
+                                        AccountDashboardView(
+                                            router: router,
+                                            account: account
                                         )
-                                        .environmentObject(csManager)
-                                        .environmentObject(store)
                                     case 4:
                                         CategoriesHomeView(
-                                            update: $update
+                                            router: router
                                         )
-                                        .environmentObject(csManager)
-                                        .environmentObject(store)
                                     default:
                                         EmptyView() //Can't arrived
                                     }
                                 }
+                                .environmentObject(csManager)
+                                .environmentObject(store)
                                 .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
                                 .disabled(viewModelCustomBar.showMenu)
                                 .onTapGesture {
                                     withAnimation { viewModelCustomBar.showMenu = false }
                                 }
+                                .sheet(isPresented: $viewModelCustomBar.showAddSavingPlan, content: {
+                                    AddSavingPlanView()
+                                        .environmentObject(account)
+                                })
+                                .sheet(isPresented: $viewModelCustomBar.showAddTransaction, onDismiss: {
+                                    withAnimation {
+                                        viewModelAddTransaction.resetData()
+                                        update.toggle()
+                                    }
+                                }, content: {
+                                    AddTransactionView()
+                                        .environmentObject(account)
+                                })
+                                .sheet(isPresented: $viewModelCustomBar.showAddAutomation, onDismiss: {
+                                    withAnimation {
+                                        AutomationManager().activateScheduledAutomations(automations: account.automations)
+                                        update.toggle()
+                                    }
+                                }, content: {
+                                    AddAutomationsView()
+                                        .environmentObject(account)
+                                })
                             } else {
                                 VStack {
                                     Spacer()
@@ -158,7 +158,7 @@ struct PageControllerView: View {
                                                 .shadow(radius: 4, y: 4)
                                                 .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5)
                                             
-                                            Text(NSLocalizedString("home_screen_no_account", comment: ""))
+                                            Text("home_screen_no_account".localized)
                                                 .font(.semiBoldText16())
                                                 .multilineTextAlignment(.center)
                                         }
@@ -172,9 +172,11 @@ struct PageControllerView: View {
                             
                             TabbarView(account: $account,
                                        selectedTab: $selectedTab,
-                                       offsetYMenu: $offsetYMenu,
-                                       update: $update
+                                       offsetYMenu: $offsetYMenu
                             )
+                        }
+                        .onChange(of: selectedTab) { _ in
+                            router.navigateToRoot()
                         }
                         .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
                             withAnimation {
@@ -188,30 +190,15 @@ struct PageControllerView: View {
                         .sheet(isPresented: $viewModelCustomBar.showAddAccount, onDismiss: {
                             selectedTab = 3;
                             withAnimation { update.toggle() }
-                        }, content: {  AddAccountView(account: $account) })
-                        
-                        .sheet(isPresented: $viewModelCustomBar.showAddSavingPlan, onDismiss: {
-                            withAnimation { update.toggle() }
-                        }, content: { AddSavingPlanView(account: $account) })
+                        }, content: {  CreateAccountView(account: $account) })
                         .sheet(isPresented: $viewModelCustomBar.showRecoverTransaction, content: {
                             RecoverTransactionView(account: $account)
                         })
-                        .sheet(isPresented: $viewModelCustomBar.showAddAutomation, onDismiss: {
-                            withAnimation {
-                                if let account { AutomationManager().activateScheduledAutomations(automations: account.automations) }
-                                update.toggle()
-                            }
-                        }, content: { AddAutomationsView(account: $account) })
+                        
                         .sheet(isPresented: $viewModelCustomBar.showScanTransaction, onDismiss: { viewModelCustomBar.showAddTransaction = true }) {
                             viewModelAddTransaction.makeScannerView()
                         }
-                        .sheet(isPresented: $viewModelCustomBar.showAddTransaction, onDismiss: {
-                            withAnimation {
-                                viewModelAddTransaction.resetData()
-                                update.toggle()
-                            }
-                        }, content: { AddTransactionView(account: $account) })
-                        .sheet(isPresented: $showOnboarding, onDismiss: {
+                        .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
                             withAnimation {
                                 account = accounts[0]
                                 update.toggle()
@@ -219,37 +206,34 @@ struct PageControllerView: View {
                         }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
                         .edgesIgnoringSafeArea(.bottom)
                         .ignoresSafeArea(.keyboard) //Pour pas que la tap bar monte quand un clavier apparait
-                    }
+                    } // End if unlocked
                 }
                 .padding(update ? 0 : 0)
-                .padding(isUnlocked ? 0 : 0)
+                .padding(pageControllerVM.isUnlocked ? 0 : 0)
                 .onAppear {
                     if accounts.count != 0 { account = Array(accounts)[0] }
                 }
                 .onRotate { _ in
                     update.toggle()
                 }
-                .onChange(of: launchScreenEnd, perform: { newValue in
+                .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
                     // LaunchScreen ended and no data in iCloud
                     if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
                         // First open + no data in iCloud
                         if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 {
-                            showOnboarding.toggle()
-                            firstLaunchOfCashFlow()
+                            pageControllerVM.showOnboarding.toggle()
                             // First open + no iCloud
-                        } else if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count != 0 {
-                            firstLaunchOfCashFlow()
                         }
                         // Already open + app close
                         if !UserDefaults.standard.bool(forKey: "appIsOpen") && UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                            if userDefaultsManager.isFaceIDEnable {
-                                authenticate()
+                            if isFaceIDEnabled {
+                                pageControllerVM.authenticate()
                             } else {
-                                withAnimation { isUnlocked = true }
+                                withAnimation { pageControllerVM.isUnlocked = true }
                                 UserDefaults.standard.set(true, forKey: "appIsOpen")
                             }
                         } else {
-                            withAnimation { isUnlocked = true }
+                            withAnimation { pageControllerVM.isUnlocked = true }
                             UserDefaults.standard.set(true, forKey: "appIsOpen")
                         }
                     }
@@ -259,9 +243,9 @@ struct PageControllerView: View {
                         UserDefaults.standard.set(false, forKey: "appIsOpen")
                     }
                 }
-            } // END NavigationStack
+            } // End NavStack
 
-            FilterView(showAlertPaywall: $showAlertPaywall, update: $update)
+            FilterView(showAlertPaywall: $pageControllerVM.showAlertPaywall, update: $update)
                 .offset(y: offsetYFilterView)
                 .edgesIgnoringSafeArea(.top)
                 .onChange(of: filter.showMenu) { newValue in
@@ -277,110 +261,46 @@ struct PageControllerView: View {
         }
         .onAppear {
             store.loadStoredPurchases()
-//            if !UserDefaults.standard.bool(forKey: "alreadyOpen") {
-            icloudManager.checkDataInCloudKit { success in
-                icloudManager.fetchTransactionFromCloudKit { records, error in
-                    if let records {
-                        icloudManager.saveRecordsToCoreData(records: records)
-                    } else {
-                        print("🔥 RECORDS FAIL")
+            if !alreadyOpen {
+                icloudManager.checkDataInCloudKit { success in
+                    icloudManager.fetchTransactionFromCloudKit { records, error in
+                        if let records {
+                            icloudManager.saveRecordsToCoreData(records: records)
+                        } else {
+                            print("🔥 RECORDS FAIL")
+                        }
+                    }
+                    if success {
+                        pageControllerVM.isUnlocked = true
                     }
                 }
-//                if success {
-//                    isUnlocked = true
-//                }
             }
-//            }
-            if !udV1_1 && UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                showUpdateView.toggle()
+            if !udV1_1 && alreadyOpen {
+                pageControllerVM.showUpdateView.toggle()
                 UserDefaults.standard.setValue(true, forKey: "udV1_1")
             }
         }
-        .alert(NSLocalizedString("alert_cashflow_pro_title", comment: ""), isPresented: $showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(action: { showPaywall.toggle() }, label: { Text(NSLocalizedString("alert_cashflow_pro_see", comment: "")) })
+        .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
+            Button(action: { return }, label: { Text("word_cancel".localized) })
+            Button(action: { pageControllerVM.showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
         }, message: {
-            Text(NSLocalizedString("alert_cashflow_pro_desc", comment: ""))
+            Text("alert_cashflow_pro_desc".localized)
         })
-        .sheet(isPresented: $showPaywall) { PaywallScreenView() }
-        .sheet(isPresented: $showUpdateView) { NewUpdateView() }
+        .sheet(isPresented: $pageControllerVM.showPaywall) { PaywallScreenView() }
+        .sheet(isPresented: $pageControllerVM.showUpdateView) { NewUpdateView() }
         .onChange(of: icloudManager.icloudDataStatus) { newValue in
             if newValue == .found {
                 DispatchQueue.main.async {
-                    if !UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                        showOnboarding = false
-                        isUnlocked = false
-                        firstLaunchOfCashFlow()
-                        UserDefaults.standard.set(true, forKey: "alreadyOpen")
+                    if !alreadyOpen {
+                        pageControllerVM.showOnboarding = false
+                        pageControllerVM.isUnlocked = true
+                        alreadyOpen = true
                     }
                 }
             }
         }
-    }//END body
-    
-    //MARK: Fonctions
-    
-    //-------------------- firstLaunchOfCashFlow() ----------------------
-    // Description : Setup user default at the first launch
-    // Parameter :
-    // Output :
-    // Extra :
-    //-----------------------------------------------------------
-    func firstLaunchOfCashFlow() {
-        userDefaultsManager.hapticFeedback = true
-        userDefaultsManager.blockExpensesIfCardLimitExceeds = true
-        userDefaultsManager.isSavingPlansDisplayedHomeScreen = true
-        userDefaultsManager.isAutomationsDisplayedHomeScreen = true
-        userDefaultsManager.isRecentTransactionsDisplayedHomeScreen = true
-        userDefaultsManager.isIncomeFromTransactionsChart = true
-        userDefaultsManager.isExpenseTransactionsChart = true
-        userDefaultsManager.isIncomeFromTransactionsWithAutomationChart = true
-        userDefaultsManager.isExpenseTransactionsWithAutomationChart = true
-        userDefaultsManager.blockExpensesIfBudgetAmountExceeds = true
-        
-        userDefaultsManager.numberOfSavingPlansDisplayedInHomeScreen = 4
-        userDefaultsManager.numberOfAutomationsDisplayedInHomeScreen = 4
-        
-        userDefaultsManager.cardLimitPercentage = 80
-        userDefaultsManager.budgetPercentage = 80
-        
-        var components = DateComponents()
-        components.hour = 10
-        components.minute = 0
-        
-        let dateDefaultNotificationHour = Calendar.current.date(from: components)
-        
-        if let dateDefaultNotificationHour {
-            userDefaultsManager.notificationTimeHour = dateDefaultNotificationHour
-        }
-        
-    }
-    
-    func authenticate() {
-        let context = LAContext()
-        var error: NSError?
-        
-        // check whether biometric authentication is possible
-        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-            // it's possible, so go ahead and use it
-            let reason = NSLocalizedString("alert_request_biometric", comment: "")
-            
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
-                // authentication has now completed
-                if success {
-                    isUnlocked = true
-                    UserDefaults.standard.set(true, forKey: "appIsOpen")
-                } else {
-                    isUnlocked = false
-                    UserDefaults.standard.set(false, forKey: "appIsOpen")
-                }
-            }
-        } else {
-            // no biometrics
-        }
-    }
-    
-}//END struct
+    } // End body
+} // End struct
 
 //MARK: - Preview
 struct PageControllerView_Previews: PreviewProvider {

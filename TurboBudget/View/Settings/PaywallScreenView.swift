@@ -10,31 +10,20 @@ import SwiftUI
 
 struct PaywallScreenView: View {
 
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-
-    //Environnements
+    // Environment
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
+    
+    // EnvironmentObject
     @EnvironmentObject private var store: Store
 
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
-
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         NavigationStack {
             VStack {
                 HStack {
                     Spacer()
-                    Text(NSLocalizedString("paywall_title", comment: ""))
+                    Text("paywall_title".localized)
                         .font(.boldH2())
                         .foregroundStyle(
                             LinearGradient(colors: [.primary500, .primary500.darker(by: 30)], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -58,59 +47,59 @@ struct PaywallScreenView: View {
                 ScrollView(showsIndicators: false) {
                     NavigationLink(destination: {
                         pageDetailledFeature(
-                            title: NSLocalizedString("word_budgets", comment: ""),
+                            title: "word_budgets".localized,
                             imageWithout: [],
                             imageWith: ["budgetPaywallDetailled"],
-                            desc: NSLocalizedString("paywall_detailled_budgets", comment: "")
+                            desc: "paywall_detailled_budgets".localized
                         )
                     }, label: {
                         cellForFeature(
                             systemName: "chart.pie.fill",
-                            title: NSLocalizedString("word_budgets", comment: ""),
-                            text: NSLocalizedString("paywall_budgets_desc", comment: ""),
+                            title: "word_budgets".localized,
+                            text: "paywall_budgets_desc".localized,
                             color: .purple,
                             isDetailed: true
                         )
                     })
                     NavigationLink(destination: {
                         pageDetailledFeature(
-                            title: NSLocalizedString("word_statistics", comment: ""),
+                            title: "word_statistics".localized,
                             imageWithout: ["stat1WithoutPaywallDetailled", "stat2WithoutPaywallDetailled"],
                             imageWith: ["stat1WithPaywallDetailled", "stat2WithPaywallDetailled"],
-                            desc: NSLocalizedString("paywall_detailled_statistics", comment: "")
+                            desc: "paywall_detailled_statistics".localized
                         )
                     }, label: {
                         cellForFeature(
                             systemName: "chart.xyaxis.line",
-                            title: NSLocalizedString("word_statistics",comment: ""),
-                            text: NSLocalizedString("paywall_statistics_desc",comment: ""),
+                            title: "word_statistics".localized,
+                            text: "paywall_statistics_desc".localized,
                             color: .yellow,
                             isDetailed: true
                         )
                     })
                     NavigationLink(destination: {
                         pageDetailledFeature(
-                            title: NSLocalizedString("paywall_prediction_title", comment: ""),
+                            title: "paywall_prediction_title".localized,
                             imageWithout: [],
                             imageWith: ["predictionPaywallDetailled"],
-                            desc: NSLocalizedString("paywall_detailled_prediction", comment: "")
+                            desc: "paywall_detailled_prediction".localized
                         )
                     }, label: {
-                        cellForFeature(systemName: "sparkles", title: NSLocalizedString("paywall_prediction_title", comment: ""), text: NSLocalizedString("paywall_prediction_desc", comment: ""), color: .red, isDetailed: true)
+                        cellForFeature(systemName: "sparkles", title: "paywall_prediction_title".localized, text: "paywall_prediction_desc".localized, color: .red, isDetailed: true)
                     })
                     NavigationLink(destination: {
                         pageDetailledFeature(
-                            title: NSLocalizedString("word_category", comment: ""),
+                            title: "word_category".localized,
                             imageWithout: [],
                             imageWith: ["categoryPaywallDetailled"],
-                            desc: NSLocalizedString("paywall_detailled_category", comment: "")
+                            desc: "paywall_detailled_category".localized
                         )
                     }, label: {
-                        cellForFeature(systemName: "rectangle.stack", title: NSLocalizedString("word_category", comment: ""), text: NSLocalizedString("paywall_category_desc", comment: ""), color: .blue, isDetailed: true)
+                        cellForFeature(systemName: "rectangle.stack", title: "word_category".localized, text: "paywall_category_desc".localized, color: .blue, isDetailed: true)
                     })
-                    cellForFeature(systemName: "text.book.closed.fill", title: NSLocalizedString("word_financial_advice", comment: ""), text: NSLocalizedString("paywall_financial_advice_desc", comment: ""), color: .green, isDetailed: false)
-                    cellForFeature(systemName: "person.fill", title: NSLocalizedString("paywall_support_dev", comment: ""), text: NSLocalizedString("paywall_support_dev_desc", comment: ""), color: .blue, isDetailed: false)
-                    //                    cellForFeature(systemName: "gearshape.2.fill", title: NSLocalizedString("word_automations", comment: ""), text: NSLocalizedString("paywall_automations_desc", comment: ""), color: .indigo)
+                    cellForFeature(systemName: "text.book.closed.fill", title: "word_financial_advice".localized, text: "paywall_financial_advice_desc".localized, color: .green, isDetailed: false)
+                    cellForFeature(systemName: "person.fill", title: "paywall_support_dev".localized, text: "paywall_support_dev_desc".localized, color: .blue, isDetailed: false)
+                    //                    cellForFeature(systemName: "gearshape.2.fill", title: "word_automations".localized, text: "paywall_automations_desc".localized, color: .indigo)
                 }
                 
                 Spacer()
@@ -123,17 +112,17 @@ struct PaywallScreenView: View {
                             }
                         }, label: {
                             cellForPayement(
-                                text: NSLocalizedString("paywall_lifetime", comment: ""),
-                                price: NSLocalizedString("paywall_price_in_promo", comment: ""),
+                                text: "paywall_lifetime".localized,
+                                price: "paywall_price_in_promo".localized,
                                 promo: true,
-                                promoText: NSLocalizedString("paywall_price_without_promo", comment: ""),
-                                promoPerc: NSLocalizedString("-70%", comment: "")
+                                promoText: "paywall_price_without_promo".localized,
+                                promoPerc: "-70%".localized
                             )
                         })
                     } else {
                         HStack {
                             Spacer()
-                            Text(NSLocalizedString("paywall_thanks", comment: ""))
+                            Text("paywall_thanks".localized)
                                 .font(.semiBoldCustom(size: 20))
                             Spacer()
                         }
@@ -146,7 +135,7 @@ struct PaywallScreenView: View {
                     HStack {
                         Spacer()
                         Button(action: { store.restorePurchases() }, label: {
-                            Text(NSLocalizedString("paywall_restore", comment: ""))
+                            Text("paywall_restore".localized)
                                 .font(Font.mediumSmall())
                                 .foregroundStyle(Color.primary500)
                         })
@@ -277,10 +266,9 @@ struct PaywallScreenView: View {
                 }
         }
     }
+} // END struct
 
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     PaywallScreenView()
 }

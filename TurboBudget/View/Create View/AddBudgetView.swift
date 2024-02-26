@@ -11,17 +11,15 @@ import Combine
 
 struct AddBudgetView: View {
     
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Custom type
     @StateObject private var viewModel = AddBudgetViewModel()
     
-    //Environnements
+    // Environement
     @Environment(\.dismiss) private var dismiss
     @Environment(\.managedObjectContext) private var viewContext
     
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
     
     //State or Binding Bool
     @State private var update: Bool = false
@@ -52,7 +50,7 @@ struct AddBudgetView: View {
             VStack {
                 DismissButtonInSheet()
                 
-                Text(NSLocalizedString("budget_new", comment: ""))
+                Text("budget_new".localized)
                     .titleAdjustSize()
                 
                 HStack {
@@ -103,39 +101,37 @@ struct AddBudgetView: View {
                     update.toggle()
                 }
                 
-                TextField(NSLocalizedString("budget_placeholder_amount", comment: ""), value: $viewModel.amountBudget.animation(), formatter: numberFormatter)
-                    .focused($focusedField, equals: .amount)
-                    .font(.boldCustom(size: isLittleIphone ? 24 : 30))
-                    .multilineTextAlignment(.center)
-                    .keyboardType(.decimalPad)
-                    .if(!isLittleIphone) { view in
-                        view
-                            .padding()
+                TextField(
+                    "budget_placeholder_amount".localized,
+                    value: $viewModel.amountBudget.animation(),
+                    formatter: numberFormatter
+                )
+                .focused($focusedField, equals: .amount)
+                .font(.boldCustom(size: isLittleIphone ? 24 : 30))
+                .multilineTextAlignment(.center)
+                .keyboardType(.decimalPad)
+                .if(!isLittleIphone) { view in
+                    view
+                        .padding()
+                }
+                .if(isLittleIphone) { view in
+                    view
+                        .padding(8)
+                }
+                .background(Color.color3Apple.cornerRadius(100))
+                .padding()
+                .onReceive(Just(viewModel.amountBudget)) { newValue in
+                    if viewModel.amountBudget > 1_000_000_000 {
+                        let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountBudget)
+                        self.viewModel.amountBudget = numberWithoutLastDigit
                     }
-                    .if(isLittleIphone) { view in
-                        view
-                            .padding(8)
-                    }
-                    .background(Color.color3Apple.cornerRadius(100))
-                    .padding()
-                    .onReceive(Just(viewModel.amountBudget)) { newValue in
-                        if viewModel.amountBudget > 1_000_000_000 {
-                            let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountBudget)
-                            self.viewModel.amountBudget = numberWithoutLastDigit
-                        }
-                    }
-                
-                if viewModel.numberOfAlerts() != 0 {
-                    NavigationLink(destination: { AlertViewForBudget(isBudgetAlredayExist: viewModel.isBudgetAlredayExist()) }, label: {
-                        LabelForCellAlerts(numberOfAlert: viewModel.numberOfAlerts())
-                    })
                 }
                 
                 Spacer()
                 
                 CreateButton(action: {
                     viewModel.createNewBudget()
-                    if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                     dismiss()
                 }, validate: viewModel.validateBudget())
                 .ignoresSafeArea(.keyboard)

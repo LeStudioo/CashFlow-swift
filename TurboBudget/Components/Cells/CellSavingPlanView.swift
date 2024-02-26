@@ -22,7 +22,6 @@ struct CellSavingPlanView: View {
     @State private var increaseWidthAmount: Double = 0
 
     //State or Binding Bool
-    @Binding var update: Bool
 
 	//Enum
 	
@@ -68,7 +67,6 @@ struct CellSavingPlanView: View {
             
             Spacer()
         }
-        .padding(update ? 0 : 0)
         .padding(.horizontal, 12)
         .frame(height: 150)
         .background(Color.colorCell)
@@ -129,11 +127,8 @@ struct CellSavingPlanView: View {
 
 //MARK: - Preview
 struct SavingPlanCellView_Previews: PreviewProvider {
-    
-    @State static var preveiwUpdate: Bool = false
-    
     static var previews: some View {
-        CellSavingPlanView(savingPlan: previewSavingPlan1(), update: $preveiwUpdate)
+        CellSavingPlanView(savingPlan: SavingPlan.preview1)
             .frame(width: 180, height: 150)
     }
 }

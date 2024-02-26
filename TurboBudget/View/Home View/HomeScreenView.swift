@@ -5,54 +5,59 @@
 //  Created by Théo Sementa on 15/06/2023.
 //
 // Localizations 01/10/2023
+// Refactor 18/02/2024
 
 import SwiftUI
 import Charts
 import CoreData
-//import StoreKit // For requestReview
 
 struct HomeScreenView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Builder
+    var router: NavigationManager
+    @ObservedObject var account: Account
+    
+    // Custom
     @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
     
+    // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
     private var accounts: FetchedResults<Account>
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Transaction.amount, ascending: true)])
     private var transactions: FetchedResults<Transaction>
     
-    //Environnements
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
+    
+    // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store
     
-    //State or Binding String
+    // Preferences
+    @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
+    @Preference(\.isAutomationsDisplayedHomeScreen) private var isAutomationsDisplayedHomeScreen
+    @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen
+    @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen
+    @Preference(\.isStepsEnbaledForAllSavingsPlans) private var isStepsEnbaledForAllSavingsPlans
+    
+    // String variables
     @State private var searchText: String = ""
     
-    //State or Binding Int, Float and Double
+    // Number variables
     @State private var accountBalanceInt: Int = 0
     @State private var accountBalanceDouble: Double = 0.0
     
-    //State or Binding Bool
+    // Boolean variables
     @State private var busy: Bool = false
     @State private var showPaywall: Bool = false
     
-    //State or Binding Orientation
+    // State or Binding Orientation
     @State private var orientation = UIDeviceOrientation.unknown
     
-    //Enum
-    
-    //Computed var
-    
-    //Binding update
-    @Binding var update: Bool
-    
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
-        if let account {
+        NavStack(router: router) {
             VStack(spacing: 0) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -69,7 +74,7 @@ struct HomeScreenView: View {
                         }
                         .titleAdjustSize()
                         
-                        Text(NSLocalizedString("home_screen_available_balance", comment: ""))
+                        Text("home_screen_available_balance".localized)
                             .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                             .font(Font.mediumText16())
                     }
@@ -88,9 +93,8 @@ struct HomeScreenView: View {
                         }
                     }
                     
-                    NavigationLink(destination: {
-                        SettingsHomeView(account: account, update: $update)
-                            .environmentObject(csManager)
+                    Button(action: {
+                        router.pushSettings(account: account)
                     }, label: {
                         Image(systemName: "gearshape.fill")
                             .foregroundColor(.colorLabel)
@@ -100,30 +104,36 @@ struct HomeScreenView: View {
                 .padding([.horizontal, .bottom])
                 // End Header
                 
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack {
-                        CarouselOfChartsView(account: $account, update: $update)
+                        CarouselOfChartsView(account: account)
                         
                         // Saving Plans
-                        if userDefaultsManager.isSavingPlansDisplayedHomeScreen {
-                            SavingPlansForHomeScreen(account: $account, update: $update)
+                        if isSavingPlansDisplayedHomeScreen {
+                            SavingPlansForHomeScreen(
+                                router: router,
+                                account: account
+                            )
                         }
-                        //End Saving Plans
+                        // End Saving Plans
                         
                         // Automations
-                        if userDefaultsManager.isAutomationsDisplayedHomeScreen {
-                            AutomationsForHomeScreen(account: $account, update: $update)
+                        if isAutomationsDisplayedHomeScreen {
+                            AutomationsForHomeScreen(
+                                router: router,
+                                account: account
+                            )
                         }
                         // End Automations
                         
                         // Recent Transactions
-                        if userDefaultsManager.isRecentTransactionsDisplayedHomeScreen {
+                        if isRecentTransactionsDisplayedHomeScreen {
                             VStack {
-                                NavigationLink(destination: {
-                                    RecentTransactionsView(account: $account, update: $update)
+                                Button(action: { 
+                                    router.pushAllTransactions(account: account)
                                 }, label: {
                                     HStack {
-                                        Text(NSLocalizedString("word_recent_transactions", comment: ""))
+                                        Text("word_recent_transactions".localized)
                                             .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                                             .font(.semiBoldCustom(size: 22))
                                         
@@ -132,16 +142,16 @@ struct HomeScreenView: View {
                                             .foregroundColor(HelperManager().getAppTheme().color)
                                             .font(.system(size: 20, weight: .medium, design: .rounded))
                                     }
-                                    .padding(.horizontal)
-                                    .padding(.top)
                                 })
+                                .padding(.horizontal)
+                                .padding(.top)
                                 
                                 if account.transactions.count != 0 {
-                                    ForEach(account.transactions.prefix(userDefaultsManager.recentTransactionNumber)) { transaction in
-                                        NavigationLink(destination: {
-                                            TransactionDetailView(transaction: transaction, update: $update)
+                                    ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
+                                        Button(action: {
+                                            router.pushTransactionDetail(transaction: transaction)
                                         }, label: {
-                                            CellTransactionView(transaction: transaction, update: $update)
+                                            CellTransactionView(transaction: transaction)
                                         })
                                     }
                                 } else {
@@ -152,7 +162,7 @@ struct HomeScreenView: View {
                                             .shadow(radius: 4, y: 4)
                                             .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5)
                                         
-                                        Text(NSLocalizedString("home_screen_no_transaction", comment: ""))
+                                        Text("home_screen_no_transaction".localized)
                                             .font(.semiBoldText16())
                                             .multilineTextAlignment(.center)
                                     }
@@ -165,18 +175,16 @@ struct HomeScreenView: View {
                                 Spacer()
                             }
                         }
-                        //END Recent Transactions
+                        // End Recent Transactions
                     }
                     Spacer()
-                }//End Scroll View
-                
-            } //End VStack
-            .padding(update ? 0 : 0)
+                } // End ScrollView
+                .scrollIndicators(.hidden)
+            } // End VStack
             .onRotate { newOrientation in
                 orientation = newOrientation
-                update.toggle()
             }
-            .onChange(of: userDefaultsManager.isStepsEnbaleForAllSavingsPlans) { newValue in
+            .onChange(of: isStepsEnbaledForAllSavingsPlans) { newValue in // TODO: Ne devrait pas etre ici ??
                 for savingPlan in account.savingPlans {
                     savingPlan.isStepEnable = newValue
                     persistenceController.saveContext()
@@ -193,12 +201,9 @@ struct HomeScreenView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
             .onAppear {
-                print("🔥 LOCALE : \(Locale.current.identifier)")
-                addDefaultValueForPreference()
                 getOrientationOnAppear()
                 
                 AutomationManager().activateScheduledAutomations(automations: account.automations)
-                TransactionManager().archiveTransactionsAutomatically(account: account)
                 SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
                 
                 accountBalanceInt = account.balance.splitDecimal().0
@@ -208,71 +213,23 @@ struct HomeScreenView: View {
                 //Notification Counter
                 UserDefaults.standard.set(0, forKey: "counterOfNotif")
                 UIApplication.shared.applicationIconBadgeNumber = 0
-                
-                let arrayOfTransactionWithBadSubcategory = transactions.filter({ ($0.predefSubcategoryID == "" || $0.predefSubcategoryID == nil) && $0.transactionToSubCategory != nil })
-                if arrayOfTransactionWithBadSubcategory.count != 0 {
-                    for transaction in arrayOfTransactionWithBadSubcategory {
-                        if transaction.transactionToSubCategory?.idUnique != "" {
-                            print("🔥 TRANSACTION BAD SUBCATEGORY: \(transaction.title) -> \(transaction.date.formatted(date: .numeric, time: .omitted)) -> CAT \(transaction.predefCategoryID)")
-                            transaction.predefSubcategoryID = transaction.transactionToSubCategory?.idUnique ?? ""
-                            transaction.transactionToSubCategory = nil
-                            persistenceController.saveContext()
-                        }
-                    }
-                    predefinedObjectManager.reloadTransactions()
-                }
-                
-                let arrayOfTransactionWithBadCategory = transactions.filter({ ($0.predefCategoryID == "" || $0.predefCategoryID == nil) && $0.transactionToCategory != nil })
-                if arrayOfTransactionWithBadCategory.count != 0 {
-                    for transaction in arrayOfTransactionWithBadCategory {
-                        if transaction.transactionToCategory?.idUnique != "" {
-                            print("🔥 TRANSACTION BAD CATEGORY: \(transaction.title) \(transaction.date.formatted(date: .numeric, time: .omitted))")
-                            transaction.predefCategoryID = transaction.transactionToCategory?.idUnique ?? ""
-                            transaction.transactionToCategory = nil
-                            persistenceController.saveContext()
-                        }
-                    }
-                    predefinedObjectManager.reloadTransactions()
-                }
-
-                update.toggle()
             }
-        } // End if
-    }//END body
+        } // End NavStack
+    } // End body
     
-    //MARK: Fonctions
-    func addDefaultValueForPreference() { //TODO: Changer de place
-        if userDefaultsManager.cardLimitPercentage == 0 { userDefaultsManager.cardLimitPercentage = 80 }
-        if userDefaultsManager.recentTransactionNumber == 0 { userDefaultsManager.recentTransactionNumber = 5 }
-    }
-    
+    // MARK: Fonctions
     func getOrientationOnAppear() {
         if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
             orientation = UIDeviceOrientation.landscapeLeft
         } else { orientation = UIDeviceOrientation.portrait }
     }
-    
-//    func checkIfBadSubcategory() {
-//        var arrayOfTransactionWithBadSubcategory = transactions.filter { transaction in
-//            let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-//            
-//            let hasEmptySubcategory = (transaction.predefSubcategoryID == "" || transaction.predefSubcategoryID == nil)
-//            let hasValidCategory = (transaction.predefCategoryID != "")
-//            let categoryHasSubcategories = (category?.subcategories.count ?? 0) != 0
-//            
-//            return hasEmptySubcategory && hasValidCategory && categoryHasSubcategories
-//        }
-//        if arrayOfTransactionWithBadSubcategory.count != 0 {
-//            for transaction in arrayOfTransactionWithBadSubcategory {
-//                transaction.predefSubcategoryID = transaction.transactionToSubCategory?.idUnique ?? ""
-//                persistenceController.saveContext()
-//                predefinedObjectManager.reloadTransactions()
-//            }
-//        }
-//    }
-}//END struct
 
-//MARK: - Preview
+} // End struct
+
+// MARK: - Preview
 #Preview {
-    HomeScreenView(account: Binding.constant(previewAccount1()), update: Binding.constant(false))
+    HomeScreenView(
+        router: .init(isPresented: .constant(.home(account: Account.preview))),
+        account: Account.preview
+    )
 }

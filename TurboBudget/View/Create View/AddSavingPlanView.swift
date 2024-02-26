@@ -12,22 +12,23 @@ import ConfettiSwiftUI
 
 struct AddSavingPlanView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Custom type
     @StateObject private var viewModel = AddSavingPlanViewModel()
     
-    //Environnements
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     
-    //State or Binding String
+    // EnvironmentObject
+    @EnvironmentObject var account: Account
+    
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
     
     //State or Binding Int, Float and Double
     @State private var confettiCounter: Int = 0
     
     //State or Binding Bool
-    @State private var update: Bool = false
     @State private var showSettings: Bool = false
     
     //State or Binding Bool - Successful
@@ -56,7 +57,7 @@ struct AddSavingPlanView: View {
                     VStack {
                         DismissButtonInSheet()
                         
-                        Text(NSLocalizedString("savingsplan_new", comment: ""))
+                        Text("savingsplan_new".localized)
                             .titleAdjustSize()
                         
                         ZStack {
@@ -84,23 +85,23 @@ struct AddSavingPlanView: View {
                             ZStack {
                                 Capsule()
                                     .foregroundColor(Color.color3Apple)
-                                TextField(NSLocalizedString("savingsplan_emoji", comment: ""), text: $viewModel.savingPlanEmoji.max(1))
+                                TextField("savingsplan_emoji".localized, text: $viewModel.savingPlanEmoji.max(1))
                                     .focused($focusedField, equals: .emoji)
                                     .padding(.horizontal)
                             }
                             .frame(width: 100, height: 40)
                         }
                         
-                        TextField(NSLocalizedString("savingsplan_title", comment: ""), text: $viewModel.savingPlanTitle)
+                        TextField("savingsplan_title".localized, text: $viewModel.savingPlanTitle)
                             .focused($focusedField, equals: .title)
                             .multilineTextAlignment(.center)
                             .font(.semiBoldCustom(size: isLittleIphone ? 24 : 30))
                         
                         HStack {
                             VStack(alignment: .center, spacing: 2) {
-                                Text(NSLocalizedString("savingsplan_start", comment: ""))
+                                Text("savingsplan_start".localized)
                                     .font(Font.mediumText16())
-                                TextField(NSLocalizedString("savingsplan_placeholder_amount", comment: ""), value: $viewModel.savingPlanAmountOfStart.animation(), formatter: numberFormatter)
+                                TextField("savingsplan_placeholder_amount".localized, value: $viewModel.savingPlanAmountOfStart.animation(), formatter: numberFormatter)
                                     .focused($focusedField, equals: .amountOfStart)
                                     .font(.semiBoldCustom(size: 30))
                                     .multilineTextAlignment(.center)
@@ -114,9 +115,9 @@ struct AddSavingPlanView: View {
                             }
                             
                             VStack(alignment: .center, spacing: 2) {
-                                Text(NSLocalizedString("savingsplan_end", comment: ""))
+                                Text("savingsplan_end".localized)
                                     .font(Font.mediumText16())
-                                TextField(NSLocalizedString("savingsplan_placeholder_amount", comment: ""), value: $viewModel.savingPlanAmountOfEnd.animation(), formatter: numberFormatter)
+                                TextField("savingsplan_placeholder_amount".localized, value: $viewModel.savingPlanAmountOfEnd.animation(), formatter: numberFormatter)
                                     .focused($focusedField, equals: .amountOfEnd)
                                     .font(.semiBoldCustom(size: 30))
                                     .multilineTextAlignment(.center)
@@ -139,7 +140,7 @@ struct AddSavingPlanView: View {
                                 
                                 HStack {
                                     Spacer()
-                                    Toggle(NSLocalizedString("savingsplan_end_date", comment: ""), isOn: $viewModel.isEndDate.animation())
+                                    Toggle("savingsplan_end_date".localized, isOn: $viewModel.isEndDate.animation())
                                         .font(Font.mediumText16())
                                         .padding(.horizontal)
                                 }
@@ -154,7 +155,7 @@ struct AddSavingPlanView: View {
                                     
                                     HStack {
                                         Spacer()
-                                        DatePicker(NSLocalizedString("savingsplan_end_date_picker", comment: ""), selection: $viewModel.savingPlanDateOfEnd, in: Date()..., displayedComponents: [.date])
+                                        DatePicker("savingsplan_end_date_picker".localized, selection: $viewModel.savingPlanDateOfEnd, in: Date()..., displayedComponents: [.date])
                                             .font(Font.mediumText16())
                                             .padding(.horizontal)
                                     }
@@ -163,13 +164,11 @@ struct AddSavingPlanView: View {
                             }
                         }
                         
-                        cellForAlerts()
-                        
                         Spacer()
                         
                         CreateButton(action: {
                             viewModel.createSavingPlan()
-                            if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                            if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                         }, validate: viewModel.validateSavingPlan())
                             .padding(.horizontal, 8)
                             .padding(.bottom)
@@ -181,11 +180,11 @@ struct AddSavingPlanView: View {
                             .confettiCannon(counter: $confettiCounter, num: 50, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)
                         
                         VStack(spacing: 20) {
-                            Text(NSLocalizedString("savingsplan_successful", comment: ""))
+                            Text("savingsplan_successful".localized)
                                 .font(.semiBoldCustom(size: 28))
                                 .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                             
-                            Text(NSLocalizedString("savingsplan_successful_desc", comment: ""))
+                            Text("savingsplan_successful_desc".localized)
                                 .font(Font.mediumSmall())
                                 .foregroundColor(.secondary400)
                         }
@@ -193,24 +192,22 @@ struct AddSavingPlanView: View {
                         
                         if let theNewSavingPlan = viewModel.theNewSavingPlan {
                             VStack {
-                                CellSavingPlanView(savingPlan: theNewSavingPlan, update: $update)
+                                CellSavingPlanView(savingPlan: theNewSavingPlan)
                             }
                             .padding(.horizontal)
                         }
                         
                         Spacer()
                         
-                        if let account, viewModel.numberOfAlertsForSuccessful != 0 {
-                            NavigationLink(destination: {
-                                AlertViewForSuccessful(account: account, isCardLimitSoonExceed: viewModel.isCardLimitSoonToBeExceeded, isCardLimitExceeded: viewModel.isCardLimitExceeded)
-                            }, label: { LabelForCellAlerts(numberOfAlert: viewModel.numberOfAlertsForSuccessful, colorCell: true) })
-                        }
-                        
                         ValidateButton(action: { dismiss() }, validate: true)
                             .padding(.horizontal, 8)
                             .padding(.bottom)
                     }
-                    .onAppear { DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { confettiCounter += 1 } }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                            confettiCounter += 1
+                        }
+                    }
                 }
             }
             .ignoresSafeArea(.keyboard)
@@ -230,28 +227,14 @@ struct AddSavingPlanView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showSettings, content: {
-                SettingsHomeView(account: account, update: $update)
-            })
+//            .sheet(isPresented: $showSettings, content: {
+//                SettingsHomeView()
+//            })
         } // End NavigationStack
-    }//END body
+    } // End body
+} // End struct
 
-    //MARK: - ViewBuilder
-    @ViewBuilder
-    func cellForAlerts() -> some View {
-        if viewModel.numberOfAlerts != 0 {
-            NavigationLink(destination: {
-                AlertsView(
-                    isAccountWillBeNegative: viewModel.isAccountWillBeNegative,
-                    isCardLimitExceeds: viewModel.isCardLimitExceeds,
-                    isStartTallerThanEnd: viewModel.isStartTallerThanEnd
-                )
-            }, label: { LabelForCellAlerts(numberOfAlert: viewModel.numberOfAlerts) })
-        }
-    }
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    AddSavingPlanView(account: .constant(previewAccount1()))
+    AddSavingPlanView()
 }

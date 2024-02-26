@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct PredefinedCategory: Identifiable, Equatable, Hashable {
+class PredefinedCategory: ObservableObject, Identifiable, Equatable, Hashable {
     var id: UUID = UUID()
     var idUnique: String
     var title: String
@@ -18,6 +18,17 @@ struct PredefinedCategory: Identifiable, Equatable, Hashable {
     var transactions: [Transaction]
     var transactionsArchived: [Transaction]
     var budget: Budget?
+    
+    init(idUnique: String, title: String, icon: String, color: Color, subcategories: [PredefinedSubcategory], transactions: [Transaction], transactionsArchived: [Transaction], budget: Budget? = nil) {
+        self.idUnique = idUnique
+        self.title = title
+        self.icon = icon
+        self.color = color
+        self.subcategories = subcategories
+        self.transactions = transactions
+        self.transactionsArchived = transactionsArchived
+        self.budget = budget
+    }
     
     static func == (lhs: PredefinedCategory, rhs: PredefinedCategory) -> Bool {
         return lhs.idUnique == rhs.idUnique

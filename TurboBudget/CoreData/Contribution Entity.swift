@@ -22,3 +22,25 @@ public class Contribution: NSManagedObject, Identifiable {
     @NSManaged public var contributionToSavingPlan: SavingPlan?
 
 }
+
+extension Contribution {
+    
+    static var preview1: Contribution {
+        let contribution = Contribution(context: previewViewContext)
+        contribution.id = UUID()
+        contribution.amount = 1000
+        contribution.date = .now
+
+        return contribution
+    }
+    
+    static var preview2: Contribution {
+        let contribution = Contribution(context: previewViewContext)
+        contribution.id = UUID()
+        contribution.amount = -500
+        contribution.date = .now
+
+        return contribution
+    }
+    
+}

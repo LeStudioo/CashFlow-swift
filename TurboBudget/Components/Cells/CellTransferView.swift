@@ -22,7 +22,6 @@ struct CellTransferView: View {
     //State or Binding Int, Float and Double
     
     //State or Binding Bool
-    @Binding var update: Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
     
@@ -48,10 +47,10 @@ struct CellTransferView: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(NSLocalizedString("word_transfer", comment: ""))
+                    Text("word_transfer".localized)
                     .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
-                    Text(transfer.amount < 0 ? NSLocalizedString("word_withdrawal", comment: "") : NSLocalizedString("word_savings", comment: ""))
+                    Text(transfer.amount < 0 ? "word_withdrawal".localized : "word_savings".localized)
                         .font(.semiBoldText18())
                         .foregroundColor(.colorLabel)
                         .lineLimit(1)
@@ -80,7 +79,7 @@ struct CellTransferView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_DELETE", comment: ""))
+                    Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -98,26 +97,18 @@ struct CellTransferView: View {
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
         .padding(.horizontal)
-        .padding(update ? 0 : 0)
-        .alert(NSLocalizedString("transfer_detail_delete_transac", comment: ""), isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(role: .destructive, action: { withAnimation { deleteTranfer() } }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+        .alert("transfer_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: { withAnimation { deleteTranfer() } }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(transfer.amount < 0 ? NSLocalizedString("transfer_detail_alert_if_expense", comment: "") : NSLocalizedString("transfer_detail_alert_if_income", comment: ""))
+            Text(transfer.amount < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
         })
     } // End body
     
     //MARK: Fonctions
     
     func deleteTranfer() {
-        if let account = transfer.transferToSavingsAccount {
-            account.balance = transfer.amount < 0 ? account.balance - transfer.amount : account.balance - transfer.amount
-        }
         viewContext.delete(transfer)
-        update.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            update.toggle()
-        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             persistenceController.saveContext()
         }
@@ -127,5 +118,5 @@ struct CellTransferView: View {
 
 //MARK: - Preview
 #Preview {
-    CellTransferView(transfer: previewTransfer(), update: .constant(true))
+    CellTransferView(transfer: Transfer.preview1)
 }

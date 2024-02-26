@@ -4,36 +4,28 @@
 //
 //  Created by Théo Sementa on 16/06/2023.
 //
+// Refactor 17/02/2024
 
 import SwiftUI
 
 struct CustomSegmentedControl: View {
 
+    // Builder
     @Binding var selection: ExpenseOrIncome
-
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
     var textLeft: String
     var textRight: String
-
-    //State or Binding Int, Float and Double
     var height: CGFloat
+
+    // Environement
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
+
+    // Number variables
     @State private var newX: CGFloat = 0
 
-    //State or Binding Bool
-
-    //Enum
-
-    //Computed var
-    
-    //Other
-
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -67,7 +59,7 @@ struct CustomSegmentedControl: View {
                         newX = 0
                     }
                 }
-                if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+                if hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
             }
             .onChange(of: selection) { _ in
                 withAnimation(.spring().speed(1.25)) {
@@ -77,23 +69,21 @@ struct CustomSegmentedControl: View {
                         newX = geo.size.width / 2 - 4
                     }
                 }
-                if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+                if hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
             }
         }
         .frame(height: height)
-    }//END body
+    } // End body
+} // End struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct CustomSegmentedControl_Previews: PreviewProvider {
-    
-    @State static var selectionPreview: ExpenseOrIncome = .expense
-    
-    static var previews: some View {
-        CustomSegmentedControl(selection: $selectionPreview, textLeft: "Left", textRight: "Right", height: 30)
-            .padding()
-    }
+// MARK: - Preview
+#Preview {
+    @State var selectionPreview: ExpenseOrIncome = .expense
+    return CustomSegmentedControl(
+        selection: $selectionPreview,
+        textLeft: "Left",
+        textRight: "Right",
+        height: 30
+    )
+    .padding()
 }

@@ -1,0 +1,193 @@
+//
+//  NavigationDirection.swift
+//  Krabs
+//
+//  Created by Theo Sementa on 05/12/2023.
+//
+
+import Foundation
+import SwiftUI
+
+enum NavigationDirection: Identifiable {
+    case pageController
+    
+    case home(account: Account)
+    case homeSavingPlans(account: Account)
+    case homeAutomations(account: Account)
+    
+    case allTransactions(account: Account)
+    case transactionDetail(transaction: Transaction)
+    
+    case savingPlansDetail(savingPlan: SavingPlan)
+    
+    case accountDashboard(account: Account)
+    case allCards
+    case allSavingsAccount
+    case allBudgets
+    case budgetTransactions(subcategory: PredefinedSubcategory)
+    case allArchivedSavingPlans(account: Account)
+    
+    case homeCategories
+    case categoryTransactions(category: PredefinedCategory)
+    case homeSubcategories(category: PredefinedCategory)
+    case subcategoryTransactions(subcategory: PredefinedSubcategory)
+
+    case paywall
+    
+    case settings(account: Account)
+    case settingsGeneral
+    case settingsSecurity
+    case settingsAppearence
+    case settingsDisplay
+    case settingsAccount
+    case settingsSavingPlans
+    case settingsBudget
+    case settingsCredits
+    case settingsDangerZone(account: Account)
+    
+    var id: String {
+        switch self {
+        case .pageController:
+            return "pageController"
+            
+        case .home(let account):
+            return "home_\(account.id)"
+        case .homeSavingPlans(let account):
+            return "homeSavingPlans_\(account.id)"
+        case .homeAutomations(let account):
+            return "homeAutomations_\(account.id)"
+            
+        case .savingPlansDetail(let savingPlan):
+            return "savingPlansDetail_\(savingPlan.id)"
+            
+        case .allTransactions(let account):
+            return "allTransactions_\(account.id)"
+        case .transactionDetail(let transaction):
+            return "transactionDetail_\(transaction.id)"
+            
+        case .accountDashboard(let account):
+            return "accountDashboard_\(account.id)"
+        case .allCards:
+            return "allCards"
+        case .allSavingsAccount:
+            return "allSavingsAccount"
+        case .allBudgets:
+            return "allBudgets"
+        case .budgetTransactions(let subcategory):
+            return "budgetTransactions_\(subcategory.id)"
+        case .allArchivedSavingPlans(let account):
+            return "allArchivedSavingPlans_\(account.id)"
+
+        case .homeCategories:
+            return "homeCategories"
+        case .categoryTransactions(let category):
+            return "categoryTransactions_\(category.id)"
+        case .homeSubcategories(let category):
+            return "homeSubcategories_\(category.id)"
+        case .subcategoryTransactions(let subcategory):
+            return "subcategoryTransactions_\(subcategory.id)"
+            
+        case .paywall:
+            return "paywall"
+            
+        case .settings(let account):
+            return "settings_\(account.id)"
+        case .settingsGeneral:
+            return "settingsGeneral"
+        case .settingsSecurity:
+            return "settingsSecurity"
+        case .settingsAppearence:
+            return "settingsAppearence"
+        case .settingsDisplay:
+            return "settingsDisplay"
+        case .settingsAccount:
+            return "settingsAccount"
+        case .settingsSavingPlans:
+            return "settingsSavingPlans"
+        case .settingsBudget:
+            return "settingsBudget"
+        case .settingsCredits:
+            return "settingsCredits"
+        case .settingsDangerZone(let account):
+            return "settingsDangerZone_\(account.id)"
+        }
+    }
+}
+
+extension NavigationDirection: Equatable {
+    static func == (lhs: NavigationDirection, rhs: NavigationDirection) -> Bool {
+        switch (lhs, rhs) {
+        case (.pageController, .pageController),
+            (.allCards, .allCards),
+            (.allSavingsAccount, .allSavingsAccount),
+            (.allBudgets, .allBudgets),
+            (.homeCategories, .homeCategories),
+            (.paywall, .paywall),
+            (.settingsGeneral, .settingsGeneral),
+            (.settingsSecurity, .settingsSecurity),
+            (.settingsAppearence, .settingsAppearence),
+            (.settingsDisplay, .settingsDisplay),
+            (.settingsAccount, .settingsAccount),
+            (.settingsSavingPlans, .settingsSavingPlans),
+            (.settingsBudget, .settingsBudget),
+            (.settingsCredits, .settingsCredits):
+            return true
+            
+        case let (.home(lhsAccount), .home(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.homeSavingPlans(lhsAccount), .homeSavingPlans(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.homeAutomations(lhsAccount), .homeAutomations(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+            
+        case let (.savingPlansDetail(lhsSavingPlan), .savingPlansDetail(rhsSavingPlan)):
+            return lhsSavingPlan.id == rhsSavingPlan.id
+            
+
+        case let (.allTransactions(lhsAccount), .allTransactions(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.transactionDetail(lhsTransaction), .transactionDetail(rhsTransaction)):
+            return lhsTransaction.id == rhsTransaction.id
+            
+            
+        case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.allArchivedSavingPlans(lhsAccount), .allArchivedSavingPlans(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.budgetTransactions(lhsSubcategory), .budgetTransactions(rhsSubcategory)):
+            return lhsSubcategory.id == rhsSubcategory.id
+            
+            
+        case let (.categoryTransactions(lhsCategory), .categoryTransactions(rhsCategory)):
+            return lhsCategory.id == rhsCategory.id
+            
+        case let (.homeSubcategories(lhsCategory), .homeSubcategories(rhsCategory)):
+            return lhsCategory.id == rhsCategory.id
+            
+        case let (.subcategoryTransactions(lhsSubcategory), .subcategoryTransactions(rhsSubcategory)):
+            return lhsSubcategory.id == rhsSubcategory.id
+            
+            
+        case let (.settings(lhsAccount), .settings(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        case let (.settingsDangerZone(lhsAccount), .settingsDangerZone(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+        default:
+            return false
+        }
+    }
+}
+
+extension NavigationDirection: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

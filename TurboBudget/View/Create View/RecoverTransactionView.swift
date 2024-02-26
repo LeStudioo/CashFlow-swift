@@ -15,7 +15,6 @@ struct RecoverTransactionView: View {
     //Custom type
     @Binding var account: Account?
     @State private var transaction: Transaction? = nil
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnements
     @Environment(\.dismiss) private var dismiss
@@ -61,15 +60,15 @@ struct RecoverTransactionView: View {
                     VStack {
                         DismissButtonInSheet()
                         
-                        Text(NSLocalizedString("recover_transaction", comment: ""))
+                        Text("recover_transaction".localized)
                             .titleAdjustSize()
                         
-                        TextField(NSLocalizedString("recover_enter_json", comment: ""), text: $jsonString, axis: .vertical)
+                        TextField("recover_enter_json".localized, text: $jsonString, axis: .vertical)
                             .textFieldStyle(.roundedBorder)
                             .padding(8)
                         
                         if jsonStatus == .error {
-                            Text("⚠️" + NSLocalizedString("recover_error_json", comment: ""))
+                            Text("⚠️" + "recover_error_json".localized)
                                 .foregroundColor(.red)
                                 .font(Font.mediumText16())
                                 .multilineTextAlignment(.center)
@@ -86,7 +85,7 @@ struct RecoverTransactionView: View {
                                         .frame(height: isLittleIphone ? 40 : 50)
                                     HStack {
                                         Spacer()
-                                        Text(NSLocalizedString("recover_scan_qrcode", comment: ""))
+                                        Text("recover_scan_qrcode".localized)
                                             .font(.semiBoldText16())
                                             .foregroundColor(.colorLabelInverse)
                                         Spacer()
@@ -104,7 +103,7 @@ struct RecoverTransactionView: View {
                                             .frame(height: isLittleIphone ? 40 : 50)
                                         HStack {
                                             Spacer()
-                                            Text(NSLocalizedString("recover_import_qrcode", comment: ""))
+                                            Text("recover_import_qrcode".localized)
                                                 .font(.semiBoldText16())
                                                 .foregroundColor(.colorLabelInverse)
                                             Spacer()
@@ -118,7 +117,7 @@ struct RecoverTransactionView: View {
                                             selectedImageData = data
                                             if let features = QRCodeManager().detectQRCode(UIImage(data: data)), !features.isEmpty{
                                                 for case let row as CIQRCodeFeature in features {
-                                                    jsonString = row.messageString ?? NSLocalizedString("recover_error_qrcode", comment: "")
+                                                    jsonString = row.messageString ?? "recover_error_qrcode".localized
                                                 }
                                             }
                                         }
@@ -152,7 +151,7 @@ struct RecoverTransactionView: View {
                                     })
                                         HStack {
                                         Spacer()
-                                        Text(NSLocalizedString("recover_button", comment: ""))
+                                        Text("recover_button".localized)
                                             .font(.semiBoldCustom(size: 20))
                                             .foregroundColor(.primary0)
                                         Spacer()
@@ -178,11 +177,11 @@ struct RecoverTransactionView: View {
                             .confettiCannon(counter: $confettiCounter, num: 50, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)
                         
                         VStack(spacing: 20) {
-                            Text(NSLocalizedString("recover_successful", comment: ""))
+                            Text("recover_successful".localized)
                                 .font(.semiBoldCustom(size: 28))
                                 .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                             
-                            Text(NSLocalizedString("recover_successful_desc", comment: ""))
+                            Text("recover_successful_desc".localized)
                                 .font(Font.mediumSmall())
                                 .foregroundColor(.secondary400)
                         }
@@ -195,10 +194,10 @@ struct RecoverTransactionView: View {
                         
                         if let transaction {
                             VStack {
-                                CellTransactionWithoutAction(transaction: transaction, update: $update)
+                                CellTransactionWithoutAction(transaction: transaction)
                                 
                                 HStack {
-                                    Text(NSLocalizedString("recover_successful_date", comment: ""))
+                                    Text("recover_successful_date".localized)
                                         .font(Font.mediumSmall())
                                         .foregroundColor(.secondary400)
                                     Spacer()
@@ -213,20 +212,20 @@ struct RecoverTransactionView: View {
                         Button(action: { isRenaming.toggle() }, label: {
                             HStack {
                                 Spacer()
-                                Text(NSLocalizedString("recover_successful_rename", comment: ""))
+                                Text("recover_successful_rename".localized)
                                     .font(Font.mediumText16())
                             }
                             .padding(8)
                         })
-                        .alert(NSLocalizedString("recover_successful_rename", comment: ""), isPresented: $isRenaming, actions: {
-                            TextField(NSLocalizedString("recover_successful_new_name", comment: ""), text: $transactionName)
-                            Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+                        .alert("recover_successful_rename".localized, isPresented: $isRenaming, actions: {
+                            TextField("recover_successful_new_name".localized, text: $transactionName)
+                            Button(action: { return }, label: { Text("word_cancel".localized) })
                             Button(action: {
                                 if let transaction, !transactionName.isEmpty {
                                     transaction.title = transactionName
                                     update.toggle()
                                 }
-                            }, label: { Text(NSLocalizedString("word_validate", comment: "")) })
+                            }, label: { Text("word_validate".localized) })
                         })
                         
                         Spacer()
@@ -274,7 +273,7 @@ struct RecoverTransactionView: View {
 struct RecoverTransactionView_Previews: PreviewProvider {
     
     @State static var isTransactionRecoveredPreview: Bool = false
-    @State static var previewAccount: Account? = previewAccount1()
+    @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
         RecoverTransactionView(account: $previewAccount)

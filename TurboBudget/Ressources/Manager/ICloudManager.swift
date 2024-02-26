@@ -105,10 +105,6 @@ class ICloudManager: ObservableObject {
 
         let arrayIDDiff = resultsID.filter({ !arrayID.contains($0) })
         
-        print("🔥 COREDATA COUNT : \(results.count)")
-        print("🔥 ICLOUD COUNT : \(array.count)")
-        print("🔥 ARRAY DIFF ID (\(arrayIDDiff.count)) : \(arrayIDDiff)")
-        
         let query = CKQuery(recordType: "CD_Account", predicate: NSPredicate(value: true))
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             if let records {
@@ -116,9 +112,6 @@ class ICloudManager: ObservableObject {
                     for result in results {
                         for id in arrayIDDiff {
                             if result.id == id && result.amount != 0 {
-                                print("🔥 MISSING IN ICLOUD : \(result.title)")
-                                
-                                print("🔥 TRANSAC : \(result)")
                                 
                                 let newRecord = CKRecord(recordType: "CD_Transaction")
                                 newRecord["CD_id"] = result.id.uuidString
@@ -136,17 +129,12 @@ class ICloudManager: ObservableObject {
             //                    newRecord["CD_transactionToAutomation"] = result.transactionToAutomation
                                 newRecord["CD_transactionToCategory"] = nil
                                 newRecord["CD_transactionToSubCategory"] = nil
-                                
-                                print("🔥 NEW RECORD : \(newRecord)")
-
                             }
                         }
                     }
                 }
             }
         }
-        
-        
     }
     
     
@@ -157,31 +145,27 @@ class ICloudManager: ObservableObject {
         let query = CKQuery(recordType: "CD_Account", predicate: NSPredicate(value: true))
         privateDatabase.perform(query, inZoneWith: nil) { (records, error) in
             
-//            print("🔥 RECORDS : \(records)")
-
-            
-//            if let error {
-//                DispatchQueue.main.sync {
-//                    self.icloudDataStatus = .error
-//                }
-//                print("⚠️ ERROR DATA ICLOUD \(error.localizedDescription)")
-//            } else if let records = records, !records.isEmpty {
-//                DispatchQueue.main.sync {
-//                    self.icloudDataStatus = .found
-//                }
-//                print("🔥 DATA ICLOUD FOUND")
-//            } else {
-//                DispatchQueue.main.sync {
-//                    self.icloudDataStatus = .error
-//                }
-//                print("🔥 ERROR DATA ICLOUD")
-//            }
+            if let error {
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .error
+                }
+                print("⚠️ ERROR DATA ICLOUD \(error.localizedDescription)")
+            } else if let records = records, !records.isEmpty {
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .found
+                }
+                print("🔥 DATA ICLOUD FOUND")
+            } else {
+                DispatchQueue.main.sync {
+                    self.icloudDataStatus = .error
+                }
+                print("🔥 ERROR DATA ICLOUD")
+            }
         }
         
         let queryTr = CKQuery(recordType: "CD_Transaction", predicate: NSPredicate(value: true))
         privateDatabase.perform(queryTr, inZoneWith: nil) { (records, error) in
             if let records {
-//                print("🔥 RECORDS TR : \(records.count)")
                 if !records.isEmpty {
                     completion(true)
                 }

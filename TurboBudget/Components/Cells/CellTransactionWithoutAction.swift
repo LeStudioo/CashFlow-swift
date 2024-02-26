@@ -5,26 +5,18 @@
 //  Created by Théo Sementa on 05/07/2023.
 //
 // Localizations 01/10/2023
+// Refactor 17/02/2024
 
 import SwiftUI
 
 struct CellTransactionWithoutAction: View {
 
-    //Custom type
-    var transaction: Transaction
+    // Builder
+    @ObservedObject var transaction: Transaction
     
-    //Environnements
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
 
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    @Binding var update: Bool
-
-	//Enum
-	
 	//Computed var
     var category: PredefinedCategory? {
         return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
@@ -38,7 +30,7 @@ struct CellTransactionWithoutAction: View {
         }
     }
     
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         HStack {
             Circle()
@@ -77,8 +69,8 @@ struct CellTransactionWithoutAction: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 Text(transaction.amount < 0
-                     ? (transaction.comeFromAuto ? NSLocalizedString("word_automation_expense", comment: "") : NSLocalizedString("word_expense", comment: ""))
-                     : (transaction.comeFromAuto ? NSLocalizedString("word_automation_income", comment: "") : NSLocalizedString("word_income", comment: "")))
+                     ? (transaction.comeFromAuto ? "word_automation_expense".localized : "word_expense".localized)
+                     : (transaction.comeFromAuto ? "word_automation_income".localized : "word_income".localized))
                     .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
                 Text(transaction.title)
@@ -102,19 +94,10 @@ struct CellTransactionWithoutAction: View {
         .padding(12)
         .background(Color.colorCell)
         .cornerRadius(15)
-        .padding(update ? 0 : 0)
-    }//END body
+    } // End body
+} // End struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct TransactionCellWithoutAction_Previews: PreviewProvider {
-    
-    @State static var previewUpdate: Bool = false
-    
-    static var previews: some View {
-        CellTransactionWithoutAction(transaction: previewTransaction1(), update: $previewUpdate)
-    }
+// MARK: - Preview
+#Preview {
+    CellTransactionWithoutAction(transaction: Transaction.preview1)
 }

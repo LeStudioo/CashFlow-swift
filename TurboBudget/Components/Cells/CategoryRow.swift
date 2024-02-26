@@ -8,26 +8,15 @@
 import SwiftUI
 
 struct CategoryRow: View {
-
-    //Custom type
-    var category: PredefinedCategory
-    @ObservedObject var filter: Filter = sharedFilter
-
-    //Environnements
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    var showChevron: Bool?
-    @Binding var update: Bool
     
-    //State or Binding Date
-
-	//Enum
+    // Builder
+    @ObservedObject var category: PredefinedCategory
+    var showChevron: Bool?
+    
+    // Custom
+    @ObservedObject var filter: Filter = sharedFilter
 	
-	//Computed var
+	// Computed variables
     var stringAmount: String {
         if !filter.automation && !filter.total {
             if category.idUnique == "PREDEFCAT0" {
@@ -57,7 +46,7 @@ struct CategoryRow: View {
         return ""
     }
 
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         HStack {
             ZStack {
@@ -91,17 +80,13 @@ struct CategoryRow: View {
                 }
             }
         }
-        .padding(update ? 0 : 0)
         .padding()
         .background(Color.colorCell)
         .cornerRadius(15)
-    }//END body
+    } // End body
+} // End struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    CategoryRow(category: categoryPredefined2, update: Binding.constant(false))
+    CategoryRow(category: categoryPredefined2)
 }

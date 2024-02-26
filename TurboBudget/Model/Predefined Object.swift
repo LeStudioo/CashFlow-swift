@@ -16,7 +16,7 @@ import CoreData
 
 var categoryPredefined00 = PredefinedCategory(
     idUnique: "PREDEFCAT00",
-    title: NSLocalizedString("category00_name", comment: ""),
+    title: "category00_name".localized,
     icon: "questionmark",
     color: Color.gray.lighter(by: 4),
     subcategories: [],
@@ -28,7 +28,7 @@ var categoryPredefined00 = PredefinedCategory(
 
 var categoryPredefined0 = PredefinedCategory(
     idUnique: "PREDEFCAT0",
-    title: NSLocalizedString("word_incomes", comment: ""),
+    title: "word_incomes".localized,
     icon: "tray.and.arrow.down",
     color: Color.green,
     subcategories: [],
@@ -40,7 +40,7 @@ var categoryPredefined0 = PredefinedCategory(
 
 var categoryPredefined1 = PredefinedCategory(
     idUnique: "PREDEFCAT1",
-    title: NSLocalizedString("category1_name", comment: ""),
+    title: "category1_name".localized,
     icon: "cart.fill",
     color: Color.red,
     subcategories: [],
@@ -51,7 +51,7 @@ var categoryPredefined1 = PredefinedCategory(
 //1. Articles de sport
 var subCategory1Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT1",
-    title: NSLocalizedString("category1_subcategory1_name", comment: ""),
+    title: "category1_subcategory1_name".localized,
     icon: "dumbbell.fill",
     category: categoryPredefined1,
     transactions: []
@@ -60,7 +60,7 @@ var subCategory1Category1 = PredefinedSubcategory(
 //2. Cadeaux
 var subCategory2Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT1",
-    title: NSLocalizedString("category1_subcategory2_name", comment: ""),
+    title: "category1_subcategory2_name".localized,
     icon: "gift.fill",
     category: categoryPredefined1,
     transactions: []
@@ -69,7 +69,7 @@ var subCategory2Category1 = PredefinedSubcategory(
 //3. Dons
 var subCategory3Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT1",
-    title: NSLocalizedString("category1_subcategory3_name", comment: ""),
+    title: "category1_subcategory3_name".localized,
     icon: "hands.sparkles.fill",
     category: categoryPredefined1,
     transactions: []
@@ -78,7 +78,7 @@ var subCategory3Category1 = PredefinedSubcategory(
 //4. High Tech, Jeux vidéos
 var subCategory4Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT1",
-    title: NSLocalizedString("category1_subcategory4_name", comment: ""),
+    title: "category1_subcategory4_name".localized,
     icon: "iphone.gen2",
     category: categoryPredefined1,
     transactions: []
@@ -87,7 +87,7 @@ var subCategory4Category1 = PredefinedSubcategory(
 //5. Livres, Musique
 var subCategory5Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT1",
-    title: NSLocalizedString("category1_subcategory5_name", comment: ""),
+    title: "category1_subcategory5_name".localized,
     icon: "book.fill",
     category: categoryPredefined1,
     transactions: []
@@ -96,7 +96,7 @@ var subCategory5Category1 = PredefinedSubcategory(
 //6. Mobilier décoration
 var subCategory6Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT6CAT1",
-    title: NSLocalizedString("category1_subcategory6_name", comment: ""),
+    title: "category1_subcategory6_name".localized,
     icon: "sofa.fill",
     category: categoryPredefined1,
     transactions: []
@@ -105,7 +105,7 @@ var subCategory6Category1 = PredefinedSubcategory(
 //7. Prêt consommation
 var subCategory7Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT7CAT1",
-    title: NSLocalizedString("category1_subcategory7_name", comment: ""),
+    title: "category1_subcategory7_name".localized,
     icon: "building.columns.fill",
     category: categoryPredefined1,
     transactions: []
@@ -114,7 +114,7 @@ var subCategory7Category1 = PredefinedSubcategory(
 //8. Tabac, Presse
 var subCategory8Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT8CAT1",
-    title: NSLocalizedString("category1_subcategory8_name", comment: ""),
+    title: "category1_subcategory8_name".localized,
     icon: "newspaper.fill",
     category: categoryPredefined1,
     transactions: []
@@ -123,7 +123,7 @@ var subCategory8Category1 = PredefinedSubcategory(
 //9. Vêtements, Chaussures, Accessoires
 var subCategory9Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT9CAT1",
-    title: NSLocalizedString("category1_subcategory9_name", comment: ""),
+    title: "category1_subcategory9_name".localized,
     icon: "tshirt.fill",
     category: categoryPredefined1,
     transactions: []
@@ -132,7 +132,7 @@ var subCategory9Category1 = PredefinedSubcategory(
 //10. Achats & Shopping - Autres
 var subCategory10Category1 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT10CAT1",
-    title: NSLocalizedString("category1_subcategory10_name", comment: ""),
+    title: "category1_subcategory10_name".localized,
     icon: "cart.fill",
     category: categoryPredefined1,
     transactions: []
@@ -142,7 +142,7 @@ var subCategory10Category1 = PredefinedSubcategory(
 
 var categoryPredefined2 = PredefinedCategory(
     idUnique: "PREDEFCAT2",
-    title: NSLocalizedString("category2_name", comment: ""),
+    title: "category2_name".localized,
     icon: "fork.knife",
     color: Color.orange,
     subcategories: [],
@@ -153,7 +153,7 @@ var categoryPredefined2 = PredefinedCategory(
 //1. Marché
 var subCategory1Category2 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT2",
-    title: NSLocalizedString("category2_subcategory1_name", comment: ""),
+    title: "category2_subcategory1_name".localized,
     icon: "tree.fill",
     category: categoryPredefined2,
     transactions: []
@@ -162,7 +162,7 @@ var subCategory1Category2 = PredefinedSubcategory(
 //2. Restaurants, Snacks
 var subCategory2Category2 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT2",
-    title: NSLocalizedString("category2_subcategory2_name", comment: ""),
+    title: "category2_subcategory2_name".localized,
     icon: "fork.knife",
     category: categoryPredefined2,
     transactions: []
@@ -171,7 +171,7 @@ var subCategory2Category2 = PredefinedSubcategory(
 //3. Supermarché, Épicerie
 var subCategory3Category2 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT2",
-    title: NSLocalizedString("category2_subcategory3_name", comment: ""),
+    title: "category2_subcategory3_name".localized,
     icon: "cart.fill",
     category: categoryPredefined2,
     transactions: []
@@ -180,7 +180,7 @@ var subCategory3Category2 = PredefinedSubcategory(
 //4. Vins et spiritueux
 var subCategory4Category2 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT2",
-    title: NSLocalizedString("category2_subcategory4_name", comment: ""),
+    title: "category2_subcategory4_name".localized,
     icon: "wineglass.fill",
     category: categoryPredefined2,
     transactions: []
@@ -189,7 +189,7 @@ var subCategory4Category2 = PredefinedSubcategory(
 //5. Alimentation & Restaurants - Autres
 var subCategory5Category2 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT2",
-    title: NSLocalizedString("category2_subcategory5_name", comment: ""),
+    title: "category2_subcategory5_name".localized,
     icon: "cup.and.saucer.fill",
     category: categoryPredefined2,
     transactions: []
@@ -199,7 +199,7 @@ var subCategory5Category2 = PredefinedSubcategory(
 
 var categoryPredefined3 = PredefinedCategory(
     idUnique: "PREDEFCAT3",
-    title: NSLocalizedString("category3_name", comment: ""),
+    title: "category3_name".localized,
     icon: "pawprint.fill",
     color: Color.yellow,
     subcategories: [],
@@ -210,7 +210,7 @@ var categoryPredefined3 = PredefinedCategory(
 //1. Jouets
 var subCategory1Category3 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT3",
-    title: NSLocalizedString("category3_subcategory1_name", comment: ""),
+    title: "category3_subcategory1_name".localized,
     icon: "soccerball",
     category: categoryPredefined3,
     transactions: []
@@ -219,7 +219,7 @@ var subCategory1Category3 = PredefinedSubcategory(
 //2. Mutuelle
 var subCategory2Category3 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT3",
-    title: NSLocalizedString("category3_subcategory2_name", comment: ""),
+    title: "category3_subcategory2_name".localized,
     icon: "waveform.path.ecg",
     category: categoryPredefined3,
     transactions: []
@@ -228,7 +228,7 @@ var subCategory2Category3 = PredefinedSubcategory(
 //3. Nourriture
 var subCategory3Category3 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT3",
-    title: NSLocalizedString("category3_subcategory3_name", comment: ""),
+    title: "category3_subcategory3_name".localized,
     icon: "fork.knife",
     category: categoryPredefined3,
     transactions: []
@@ -237,7 +237,7 @@ var subCategory3Category3 = PredefinedSubcategory(
 //4. Santé, Soins
 var subCategory4Category3 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT3",
-    title: NSLocalizedString("category3_subcategory4_name", comment: ""),
+    title: "category3_subcategory4_name".localized,
     icon: "pills.fill",
     category: categoryPredefined3,
     transactions: []
@@ -246,7 +246,7 @@ var subCategory4Category3 = PredefinedSubcategory(
 //5. Animaux - Autres
 var subCategory5Category3 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT3",
-    title: NSLocalizedString("category3_subcategory5_name", comment: ""),
+    title: "category3_subcategory5_name".localized,
     icon: "pawprint.fill",
     category: categoryPredefined3,
     transactions: []
@@ -256,7 +256,7 @@ var subCategory5Category3 = PredefinedSubcategory(
 
 var categoryPredefined4 = PredefinedCategory(
     idUnique: "PREDEFCAT4",
-    title: NSLocalizedString("category4_name", comment: ""),
+    title: "category4_name".localized,
     icon: "creditcard.fill",
     color: Color.green,
     subcategories: [],
@@ -268,7 +268,7 @@ var categoryPredefined4 = PredefinedCategory(
 
 var categoryPredefined5 = PredefinedCategory(
     idUnique: "PREDEFCAT5",
-    title: NSLocalizedString("category5_name", comment: ""),
+    title: "category5_name".localized,
     icon: "chart.bar.fill",
     color: Color.mint,
     subcategories: [],
@@ -280,7 +280,7 @@ var categoryPredefined5 = PredefinedCategory(
 
 var categoryPredefined6 = PredefinedCategory(
     idUnique: "PREDEFCAT6",
-    title: NSLocalizedString("category6_name", comment: ""),
+    title: "category6_name".localized,
     icon: "chart.line.downtrend.xyaxis",
     color: Color.teal,
     subcategories: [],
@@ -291,7 +291,7 @@ var categoryPredefined6 = PredefinedCategory(
 //1. Amendes
 var subCategory1Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT6",
-    title: NSLocalizedString("category6_subcategory1_name", comment: ""),
+    title: "category6_subcategory1_name".localized,
     icon: "icons8-plaque-de-policier-96",
     category: categoryPredefined6,
     transactions: []
@@ -300,7 +300,7 @@ var subCategory1Category6 = PredefinedSubcategory(
 //2. Contributions sociales
 var subCategory2Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT6",
-    title: NSLocalizedString("category6_subcategory2_name", comment: ""),
+    title: "category6_subcategory2_name".localized,
     icon: "puzzlepiece.fill",
     category: categoryPredefined6,
     transactions: []
@@ -309,7 +309,7 @@ var subCategory2Category6 = PredefinedSubcategory(
 //3. Frais bancaires
 var subCategory3Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT6",
-    title: NSLocalizedString("category6_subcategory3_name", comment: ""),
+    title: "category6_subcategory3_name".localized,
     icon: "puzzlepiece.fill",
     category: categoryPredefined6,
     transactions: []
@@ -318,7 +318,7 @@ var subCategory3Category6 = PredefinedSubcategory(
 //4. Impôts sur la fortune
 var subCategory4Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT6",
-    title: NSLocalizedString("category6_subcategory4_name", comment: ""),
+    title: "category6_subcategory4_name".localized,
     icon: "building.2.fill",
     category: categoryPredefined6,
     transactions: []
@@ -327,7 +327,7 @@ var subCategory4Category6 = PredefinedSubcategory(
 //5. Impôts sur le revenue
 var subCategory5Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT6",
-    title: NSLocalizedString("category6_subcategory5_name", comment: ""),
+    title: "category6_subcategory5_name".localized,
     icon: "icons8-bribery-96",
     category: categoryPredefined6,
     transactions: []
@@ -336,7 +336,7 @@ var subCategory5Category6 = PredefinedSubcategory(
 //6. Taxes foncières
 var subCategory6Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT6CAT6",
-    title: NSLocalizedString("category6_subcategory6_name", comment: ""),
+    title: "category6_subcategory6_name".localized,
     icon: "icons8-banque-96",
     category: categoryPredefined6,
     transactions: []
@@ -345,7 +345,7 @@ var subCategory6Category6 = PredefinedSubcategory(
 //7. Impôts, Taxes & Frais - Autres
 var subCategory7Category6 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT7CAT6",
-    title: NSLocalizedString("category6_subcategory7_name", comment: ""),
+    title: "category6_subcategory7_name".localized,
     icon: "chart.line.downtrend.xyaxis",
     category: categoryPredefined6,
     transactions: []
@@ -355,7 +355,7 @@ var subCategory7Category6 = PredefinedSubcategory(
 
 var categoryPredefined7 = PredefinedCategory(
     idUnique: "PREDEFCAT7",
-    title: NSLocalizedString("category7_name", comment: ""),
+    title: "category7_name".localized,
     icon: "house.fill",
     color: Color.cyan,
     subcategories: [],
@@ -366,7 +366,7 @@ var categoryPredefined7 = PredefinedCategory(
 //1. Assurance logement
 var subCategory1Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT7",
-    title: NSLocalizedString("category7_subcategory1_name", comment: ""),
+    title: "category7_subcategory1_name".localized,
     icon: "umbrella.fill",
     category: categoryPredefined7,
     transactions: []
@@ -375,7 +375,7 @@ var subCategory1Category7 = PredefinedSubcategory(
 //2. Charges logement, Accessoires
 var subCategory2Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT7",
-    title: NSLocalizedString("category7_subcategory2_name", comment: ""),
+    title: "category7_subcategory2_name".localized,
     icon: "lamp.floor.fill",
     category: categoryPredefined7,
     transactions: []
@@ -384,7 +384,7 @@ var subCategory2Category7 = PredefinedSubcategory(
 //3. Eau, Électricité, Gaz
 var subCategory3Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT7",
-    title: NSLocalizedString("category7_subcategory3_name", comment: ""),
+    title: "category7_subcategory3_name".localized,
     icon: "bolt.fill",
     category: categoryPredefined7,
     transactions: []
@@ -393,7 +393,7 @@ var subCategory3Category7 = PredefinedSubcategory(
 //4. Internet, Téléphonie
 var subCategory4Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT7",
-    title: NSLocalizedString("category7_subcategory4_name", comment: ""),
+    title: "category7_subcategory4_name".localized,
     icon: "phone.fill",
     category: categoryPredefined7,
     transactions: []
@@ -402,7 +402,7 @@ var subCategory4Category7 = PredefinedSubcategory(
 //5. Loyer
 var subCategory5Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT7",
-    title: NSLocalizedString("category7_subcategory5_name", comment: ""),
+    title: "category7_subcategory5_name".localized,
     icon: "house.fill",
     category: categoryPredefined7,
     transactions: []
@@ -411,7 +411,7 @@ var subCategory5Category7 = PredefinedSubcategory(
 //6. Prêt immobilier
 var subCategory6Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT6CAT7",
-    title: NSLocalizedString("category7_subcategory6_name", comment: ""),
+    title: "category7_subcategory6_name".localized,
     icon: "building.columns.fill",
     category: categoryPredefined7,
     transactions: []
@@ -420,7 +420,7 @@ var subCategory6Category7 = PredefinedSubcategory(
 //7. Résidence secondaire
 var subCategory7Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT7CAT7",
-    title: NSLocalizedString("category7_subcategory7_name", comment: ""),
+    title: "category7_subcategory7_name".localized,
     icon: "house.lodge.fill",
     category: categoryPredefined7,
     transactions: []
@@ -429,7 +429,7 @@ var subCategory7Category7 = PredefinedSubcategory(
 //8. Travaux, Entretien
 var subCategory8Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT8CAT7",
-    title: NSLocalizedString("category7_subcategory8_name", comment: ""),
+    title: "category7_subcategory8_name".localized,
     icon: "paintbrush.fill",
     category: categoryPredefined7,
     transactions: []
@@ -438,7 +438,7 @@ var subCategory8Category7 = PredefinedSubcategory(
 //9. Logement & Charges - Autres
 var subCategory9Category7 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT9CAT7",
-    title: NSLocalizedString("category7_subcategory9_name", comment: ""),
+    title: "category7_subcategory9_name".localized,
     icon: "house.fill",
     category: categoryPredefined7,
     transactions: []
@@ -448,7 +448,7 @@ var subCategory9Category7 = PredefinedSubcategory(
 
 var categoryPredefined8 = PredefinedCategory(
     idUnique: "PREDEFCAT8",
-    title: NSLocalizedString("category8_name", comment: ""),
+    title: "category8_name".localized,
     icon: "sun.max",
     color: Color.blue,
     subcategories: [],
@@ -459,7 +459,7 @@ var categoryPredefined8 = PredefinedCategory(
 //1. Abonnements multimédia
 var subCategory1Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT8",
-    title: NSLocalizedString("category8_subcategory1_name", comment: ""),
+    title: "category8_subcategory1_name".localized,
     icon: "play.fill",
     category: categoryPredefined8,
     transactions: []
@@ -468,7 +468,7 @@ var subCategory1Category8 = PredefinedSubcategory(
 //2. Bars et clubs
 var subCategory2Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT8",
-    title: NSLocalizedString("category8_subcategory2_name", comment: ""),
+    title: "category8_subcategory2_name".localized,
     icon: "wineglass.fill",
     category: categoryPredefined8,
     transactions: []
@@ -477,7 +477,7 @@ var subCategory2Category8 = PredefinedSubcategory(
 //3. Coiffeur, Esthétique
 var subCategory3Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT8",
-    title: NSLocalizedString("category8_subcategory3_name", comment: ""),
+    title: "category8_subcategory3_name".localized,
     icon: "scissors",
     category: categoryPredefined8,
     transactions: []
@@ -486,7 +486,7 @@ var subCategory3Category8 = PredefinedSubcategory(
 //4. Sorties culturelles
 var subCategory4Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT8",
-    title: NSLocalizedString("category8_subcategory4_name", comment: ""),
+    title: "category8_subcategory4_name".localized,
     icon: "popcorn.fill",
     category: categoryPredefined8,
     transactions: []
@@ -495,7 +495,7 @@ var subCategory4Category8 = PredefinedSubcategory(
 //5. Sport
 var subCategory5Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT8",
-    title: NSLocalizedString("category8_subcategory5_name", comment: ""),
+    title: "category8_subcategory5_name".localized,
     icon: "dumbbell.fill",
     category: categoryPredefined8,
     transactions: []
@@ -504,7 +504,7 @@ var subCategory5Category8 = PredefinedSubcategory(
 //6. Vacances, Voyages
 var subCategory6Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT6CAT8",
-    title: NSLocalizedString("category8_subcategory6_name", comment: ""),
+    title: "category8_subcategory6_name".localized,
     icon: "airplane.departure",
     category: categoryPredefined8,
     transactions: []
@@ -513,7 +513,7 @@ var subCategory6Category8 = PredefinedSubcategory(
 //7. Loisirs & vacances - Autres
 var subCategory7Category8 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT7CAT8",
-    title: NSLocalizedString("category8_subcategory7_name", comment: ""),
+    title: "category8_subcategory7_name".localized,
     icon: "sun.max",
     category: categoryPredefined8,
     transactions: []
@@ -523,7 +523,7 @@ var subCategory7Category8 = PredefinedSubcategory(
 
 var categoryPredefined9 = PredefinedCategory(
     idUnique: "PREDEFCAT9",
-    title: NSLocalizedString("category9_name", comment: ""),
+    title: "category9_name".localized,
     icon: "creditcard.and.123",
     color: Color.indigo,
     subcategories: [],
@@ -535,7 +535,7 @@ var categoryPredefined9 = PredefinedCategory(
 
 var categoryPredefined10 = PredefinedCategory(
     idUnique: "PREDEFCAT10",
-    title: NSLocalizedString("category10_name", comment: ""),
+    title: "category10_name".localized,
     icon: "cross",
     color: Color.purple,
     subcategories: [],
@@ -546,7 +546,7 @@ var categoryPredefined10 = PredefinedCategory(
 //1. Médecin
 var subCategory1Category10 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT10",
-    title: NSLocalizedString("category10_subcategory1_name", comment: ""),
+    title: "category10_subcategory1_name".localized,
     icon: "heart.fill",
     category: categoryPredefined10,
     transactions: []
@@ -555,7 +555,7 @@ var subCategory1Category10 = PredefinedSubcategory(
 //2. Mutuelle
 var subCategory2Category10 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT10",
-    title: NSLocalizedString("category10_subcategory2_name", comment: ""),
+    title: "category10_subcategory2_name".localized,
     icon: "waveform.path.ecg",
     category: categoryPredefined10,
     transactions: []
@@ -564,7 +564,7 @@ var subCategory2Category10 = PredefinedSubcategory(
 //3. Opique
 var subCategory3Category10 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT10",
-    title: NSLocalizedString("category10_subcategory3_name", comment: ""),
+    title: "category10_subcategory3_name".localized,
     icon: "eyeglasses",
     category: categoryPredefined10,
     transactions: []
@@ -573,7 +573,7 @@ var subCategory3Category10 = PredefinedSubcategory(
 //4. Pharmacie
 var subCategory4Category10 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT10",
-    title: NSLocalizedString("category10_subcategory4_name", comment: ""),
+    title: "category10_subcategory4_name".localized,
     icon: "pills.fill",
     category: categoryPredefined10,
     transactions: []
@@ -582,7 +582,7 @@ var subCategory4Category10 = PredefinedSubcategory(
 //5. Santé - Autres
 var subCategory5Category10 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT10",
-    title: NSLocalizedString("category10_subcategory5_name", comment: ""),
+    title: "category10_subcategory5_name".localized,
     icon: "cross",
     category: categoryPredefined10,
     transactions: []
@@ -592,7 +592,7 @@ var subCategory5Category10 = PredefinedSubcategory(
 
 var categoryPredefined11 = PredefinedCategory(
     idUnique: "PREDEF11",
-    title: NSLocalizedString("category11_name", comment: ""),
+    title: "category11_name".localized,
     icon: "car.side.fill",
     color: Color.pink,
     subcategories: [],
@@ -603,7 +603,7 @@ var categoryPredefined11 = PredefinedCategory(
 //1. Assurance véhicule
 var subCategory1Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT11",
-    title: NSLocalizedString("category11_subcategory1_name", comment: ""),
+    title: "category11_subcategory1_name".localized,
     icon: "umbrella.fill",
     category: categoryPredefined11,
     transactions: []
@@ -612,7 +612,7 @@ var subCategory1Category11 = PredefinedSubcategory(
 //2. Avion, Train, Bateau
 var subCategory2Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT11",
-    title: NSLocalizedString("category11_subcategory2_name", comment: ""),
+    title: "category11_subcategory2_name".localized,
     icon: "sailboat.fill",
     category: categoryPredefined11,
     transactions: []
@@ -621,7 +621,7 @@ var subCategory2Category11 = PredefinedSubcategory(
 //3. Carburant
 var subCategory3Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT11",
-    title: NSLocalizedString("category11_subcategory3_name", comment: ""),
+    title: "category11_subcategory3_name".localized,
     icon: "fuelpump.fill",
     category: categoryPredefined11,
     transactions: []
@@ -630,7 +630,7 @@ var subCategory3Category11 = PredefinedSubcategory(
 //4. Entretien, Équipement véhicule
 var subCategory4Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT11",
-    title: NSLocalizedString("category11_subcategory4_name", comment: ""),
+    title: "category11_subcategory4_name".localized,
     icon: "wrench.and.screwdriver.fill",
     category: categoryPredefined11,
     transactions: []
@@ -639,7 +639,7 @@ var subCategory4Category11 = PredefinedSubcategory(
 //5. Location véhicule
 var subCategory5Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT11",
-    title: NSLocalizedString("category11_subcategory5_name", comment: ""),
+    title: "category11_subcategory5_name".localized,
     icon: "key.fill",
     category: categoryPredefined11,
     transactions: []
@@ -648,7 +648,7 @@ var subCategory5Category11 = PredefinedSubcategory(
 //6. Péage
 var subCategory6Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT6CAT11",
-    title: NSLocalizedString("category11_subcategory6_name", comment: ""),
+    title: "category11_subcategory6_name".localized,
     icon: "road.lanes",
     category: categoryPredefined11,
     transactions: []
@@ -657,7 +657,7 @@ var subCategory6Category11 = PredefinedSubcategory(
 //7. Prêt véhicule
 var subCategory7Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT7CAT11",
-    title: NSLocalizedString("category11_subcategory7_name", comment: ""),
+    title: "category11_subcategory7_name".localized,
     icon: "building.columns.fill",
     category: categoryPredefined11,
     transactions: []
@@ -666,7 +666,7 @@ var subCategory7Category11 = PredefinedSubcategory(
 //8. Stationnement
 var subCategory8Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT8CAT11",
-    title: NSLocalizedString("category11_subcategory8_name", comment: ""),
+    title: "category11_subcategory8_name".localized,
     icon: "parkingsign",
     category: categoryPredefined11,
     transactions: []
@@ -675,7 +675,7 @@ var subCategory8Category11 = PredefinedSubcategory(
 //9. Taxi, VTC
 var subCategory9Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT9CAT11",
-    title: NSLocalizedString("category11_subcategory9_name", comment: ""),
+    title: "category11_subcategory9_name".localized,
     icon: "car.front.waves.up",
     category: categoryPredefined11,
     transactions: []
@@ -684,7 +684,7 @@ var subCategory9Category11 = PredefinedSubcategory(
 //10. Transport en commun
 var subCategory10Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT10CAT11",
-    title: NSLocalizedString("category11_subcategory10_name", comment: ""),
+    title: "category11_subcategory10_name".localized,
     icon: "bus.fill",
     category: categoryPredefined11,
     transactions: []
@@ -693,7 +693,7 @@ var subCategory10Category11 = PredefinedSubcategory(
 //11. Transport - Autres
 var subCategory11Category11 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT11CAT11",
-    title: NSLocalizedString("category11_subcategory11_name", comment: ""),
+    title: "category11_subcategory11_name".localized,
     icon: "car.side.fill",
     category: categoryPredefined11,
     transactions: []
@@ -703,7 +703,7 @@ var subCategory11Category11 = PredefinedSubcategory(
 
 var categoryPredefined12 = PredefinedCategory(
     idUnique: "PREDEF12",
-    title: NSLocalizedString("category12_name", comment: ""),
+    title: "category12_name".localized,
     icon: "building.2.fill",
     color: Color.brown,
     subcategories: [],
@@ -714,7 +714,7 @@ var categoryPredefined12 = PredefinedCategory(
 //1. Dépenses professionnelles
 var subCategory1Category12 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT1CAT12",
-    title: NSLocalizedString("category12_subcategory1_name", comment: ""),
+    title: "category12_subcategory1_name".localized,
     icon: "creditcard.fill",
     category: categoryPredefined12,
     transactions: []
@@ -723,7 +723,7 @@ var subCategory1Category12 = PredefinedSubcategory(
 //2. Notes de frais
 var subCategory2Category12 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT2CAT12",
-    title: NSLocalizedString("category12_subcategory2_name", comment: ""),
+    title: "category12_subcategory2_name".localized,
     icon: "icons8-facture-96",
     category: categoryPredefined12,
     transactions: []
@@ -732,7 +732,7 @@ var subCategory2Category12 = PredefinedSubcategory(
 //3. Prêt étudiant
 var subCategory3Category12 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT3CAT12",
-    title: NSLocalizedString("category12_subcategory3_name", comment: ""),
+    title: "category12_subcategory3_name".localized,
     icon: "building.columns.fill",
     category: categoryPredefined12,
     transactions: []
@@ -741,7 +741,7 @@ var subCategory3Category12 = PredefinedSubcategory(
 //4. Repas au travail
 var subCategory4Category12 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT4CAT12",
-    title: NSLocalizedString("category12_subcategory4_name", comment: ""),
+    title: "category12_subcategory4_name".localized,
     icon: "fork.knife",
     category: categoryPredefined12,
     transactions: []
@@ -751,7 +751,7 @@ var subCategory4Category12 = PredefinedSubcategory(
 //5. Travail & Études - Autres
 var subCategory5Category12 = PredefinedSubcategory(
     idUnique: "PREDEFSUBCAT5CAT12",
-    title: NSLocalizedString("category12_subcategory5_name", comment: ""),
+    title: "category12_subcategory5_name".localized,
     icon: "building.2.fill",
     category: categoryPredefined12,
     transactions: []

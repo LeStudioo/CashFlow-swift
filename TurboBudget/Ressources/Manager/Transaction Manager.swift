@@ -134,30 +134,6 @@ extension TransactionManager {
     }
 }
 
-//MARK: - Automated Archivage
-extension TransactionManager {
-    
-    //-------------------- archiveTransactionsAutomatically ----------------------
-    // Description : Archive automatiquement les transactions d'un compte en fonction des préférences de l'utilisateur.
-    // Parameter : (account: Account)
-    // Output : None
-    // Extra : Cette fonction vérifie si l'archivage automatique est activé dans les préférences de l'utilisateur. Si c'est le cas, elle archive les transactions qui dépassent le nombre de jours défini pour l'archivage.
-    //--------------------------------------------------------------------------------------------------
-    func archiveTransactionsAutomatically(account: Account) {
-        if UserDefaultsManager().automatedArchivedTransaction {
-            for transation in account.transactions {
-                let dateForArchive: Date = Calendar.current.date(byAdding: .day, value: UserDefaultsManager().numberOfDayForArchivedTransaction, to: transation.creationDate)!
-                if Date() > dateForArchive {
-                    transation.isArchived = true
-                    persistenceController.saveContext()
-                }
-            }
-        }
-    }
-    
-}
-
-
 //MARK: - Cash Flow Chart
 extension TransactionManager {
     
