@@ -25,7 +25,7 @@ struct ValidateButton: View {
                     })
                 HStack {
                     Spacer()
-                    Text(NSLocalizedString("word_validate", comment: ""))
+                    Text("word_validate".localized)
                         .font(.semiBoldCustom(size: 20))
                         .foregroundColor(.primary0)
                     Spacer()

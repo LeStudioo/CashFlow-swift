@@ -44,10 +44,6 @@ class AutomationManager {
                             transactionOfAuto.date = Calendar.current.date(byAdding: .year, value: 1, to: transactionOfAuto.date)!
                         }
                         
-                        if automation.isNotif {
-                            NotificationManager().createNotification(transaction: newTransaction, Automation: automation, dateSchedule: transactionOfAuto.date)
-                        }
-                        
                         persistenceController.saveContext()
                     }
                 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct CellBudgetView: View {
 
     //Custom type
-    var budget: Budget
+    @ObservedObject var budget: Budget
 
     //Environnements
 
@@ -31,8 +31,6 @@ struct CellBudgetView: View {
     
     var actualAmount: Double { return budget.actualAmountForMonth(month: selectedDate) }
 
-    //Binding update
-    @Binding var update: Bool
     
     //MARK: - Body
     var body: some View {
@@ -49,7 +47,7 @@ struct CellBudgetView: View {
                 Spacer()
                 VStack(spacing: 10) {
                     HStack {
-                        Text(NSLocalizedString("budget_cell_max", comment: "") + " :")
+                        Text("budget_cell_max".localized + " :")
                         Spacer()
                         Text(formatNumber(budget.amount))
                     }
@@ -58,7 +56,7 @@ struct CellBudgetView: View {
                     .background(Color.color2Apple)
                     .cornerRadius(12)
                     HStack {
-                        Text(NSLocalizedString("budget_cell_actual", comment: "") + " :")
+                        Text("budget_cell_actual".localized + " :")
                         Spacer()
                         Text(formatNumber(actualAmount))
                     }
@@ -68,7 +66,7 @@ struct CellBudgetView: View {
                     .cornerRadius(12)
                     if budget.amount < actualAmount {
                         HStack {
-                            Text(NSLocalizedString("budget_cell_overrun", comment: "") + " :")
+                            Text("budget_cell_overrun".localized + " :")
                             Spacer()
                             Text(formatNumber(actualAmount - budget.amount))
                         }
@@ -86,13 +84,12 @@ struct CellBudgetView: View {
         .padding()
         .background(Color.colorCell)
         .cornerRadius(15)
-        .padding(update ? 0 : 0)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 withAnimation(.spring()) { valueForCircle = actualAmount / budget.amount }
             }
         }
-        .onChange(of: update) { _ in
+        .onChange(of: budget) { _ in // TODO: A VOIR
             withAnimation(.spring()) { valueForCircle = actualAmount / budget.amount }
         }
     }//END body
@@ -114,21 +111,18 @@ struct CellBudgetView: View {
                 .font(.semiBoldSmall())
                 .foregroundColor(.colorLabel)
         }
-        .padding(update ? 0 : 0)
     }
-}//END struct
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 struct BudgetCellView_Previews: PreviewProvider {
     
     @State static var datePreview: Date = Date()
-    @State static var update: Bool = false
     
     static var previews: some View {
         Group {
-            CellBudgetView(budget: previewBudget1(), selectedDate: $datePreview, update: $update)
-            CellBudgetView(budget: previewBudget2(), selectedDate: $datePreview, update: $update)
+            CellBudgetView(budget: Budget.preview1, selectedDate: $datePreview)
+            CellBudgetView(budget: Budget.preview2, selectedDate: $datePreview)
         }
-        
     }
 }

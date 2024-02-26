@@ -1,5 +1,5 @@
 //
-//  AccountHomeView.swift
+//  AccountDashboardView.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -8,26 +8,32 @@
 
 import SwiftUI
 
-struct AccountHomeView: View {
+struct AccountDashboardView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Builder
+    var router: NavigationManager
+    @ObservedObject var account: Account
+    
+    // Custom type
     var categories = PredefinedObjectManager.shared.allPredefinedCategory
     
-    //CoreData
+    // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
     private var budgets: FetchedResults<Budget>
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingsAccount.id, ascending: true)])
     private var savingsAccounts: FetchedResults<SavingsAccount>
     
-    //Environnements
-    @Environment(\.dismiss) private var dismiss
+    //Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store
+    
+    // Preferences
+    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
     
     //State or Binding String
     @State private var cardNumber: String = ""
@@ -51,11 +57,7 @@ struct AccountHomeView: View {
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     
-    //State or Binding Date
-
-    //Enum
-    
-    //Computed var
+    // Computed var
     var widthOfChart: CGFloat {
         if isIPad {
             return UIScreen.main.bounds.width / 5
@@ -65,17 +67,13 @@ struct AccountHomeView: View {
     }
     
     var percentage: Double {
-        if let account {
-            if account.amountOfExpensesInActualMonth() / Double(account.cardLimit) >= 1 { return 0.98 } else {
-                return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
-            }
-        } else { return 0 }
+        if account.amountOfExpensesInActualMonth() / Double(account.cardLimit) >= 1 { return 0.98 } else {
+            return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
+        }
     }
     
     var realPercentage: Double {
-        if let account {
-            return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
-        } else { return 0 }
+        return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
     }
     
     var columns: [GridItem] {
@@ -86,7 +84,7 @@ struct AccountHomeView: View {
         }
     }
     
-    //Other
+    // Other
     var numberFormatter: NumberFormatter {
         let numFor = NumberFormatter()
         numFor.numberStyle = .decimal
@@ -94,13 +92,16 @@ struct AccountHomeView: View {
         return numFor
     }
     
-    //Binding Bool
-    @Binding var update: Bool
+    // init
+    init(router: NavigationManager, account: Account) {
+        self.router = router
+        self.account = account
+    }
     
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
-        VStack {
-            if let account {
+        NavStack(router: router) {
+            VStack {
                 ScrollView(showsIndicators: false) {
                     Text(account.title)
                         .titleAdjustSize()
@@ -109,7 +110,7 @@ struct AccountHomeView: View {
                         .lineLimit(2)
                     
                     VStack(spacing: -2) {
-                        Text(NSLocalizedString("account_detail_avail_balance", comment: ""))
+                        Text("account_detail_avail_balance".localized)
                             .font(Font.mediumText16())
                             .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         HStack {
@@ -138,13 +139,17 @@ struct AccountHomeView: View {
                                     .font(.semiBoldH3())
                                     .padding(.leading, 8)
                                 HStack {
-                                    PieChartViewNoInteractive(categories: categories, width: .constant(widthOfChart), height: .constant(widthOfChart), update: $update)
-                                        .padding(.horizontal, 8)
+                                    PieChartViewNoInteractive(
+                                        categories: categories,
+                                        width: .constant(widthOfChart),
+                                        height: .constant(widthOfChart)
+                                    )
+                                    .padding(.horizontal, 8)
                                     VStack {
-                                        cellForChart(text: NSLocalizedString("word_expenses", comment: ""), amount: amountExpenses.currency)
-                                        cellForChart(text: NSLocalizedString("word_incomes", comment: ""), amount: amountIncomes.currency)
-                                        cellForChart(text: NSLocalizedString("account_detail_cashflow", comment: ""), amount: amountCashFlow.currency)
-                                        cellForChart(text: NSLocalizedString(amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss", comment: ""), amount: amountGainOrLoss.currency)
+                                        cellForChart(text: "word_expenses".localized, amount: amountExpenses.currency)
+                                        cellForChart(text: "word_incomes".localized, amount: amountIncomes.currency)
+                                        cellForChart(text: "account_detail_cashflow".localized, amount: amountCashFlow.currency)
+                                        cellForChart(text: amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss".localized, amount: amountGainOrLoss.currency)
                                     }
                                 }
                             }
@@ -157,52 +162,91 @@ struct AccountHomeView: View {
                         }
                     }
                     
-                    LazyVGrid(columns: columns, spacing: 12, content: {
+                    LazyVGrid(columns: columns,
+                              spacing: 12,
+                              content: {
                         
-                        NavigationLink(destination: { CardHomeView() }, label: {
-                            cellForOnglet(text: NSLocalizedString("word_card", comment: ""), num: account.transactionsFromApplePay.count , systemImage: "creditcard.fill")
+                        Button(action: {
+                            router.pushAllCards()
+                        }, label: {
+                            cellForOnglet(
+                                text: "word_card".localized,
+                                num: account.transactionsFromApplePay.count ,
+                                systemImage: "creditcard.fill"
+                            )
                         })
                         
-                        NavigationLink(destination: { SavingsAccountHomeView(savingsAccount: savingsAccounts.first, update: $update) }, label: {
-                            cellForOnglet(text: NSLocalizedString("word_savings_account", comment: ""), num: savingsAccounts.first?.transfers.count ?? 0, systemImage: "building.columns.fill")
+                        Button(action: {
+                            router.pushAllSavingsAccount()
+                        }, label: {
+                            cellForOnglet(
+                                text: "word_savings_account".localized,
+                                num: savingsAccounts.count,
+                                systemImage: "building.columns.fill"
+                            )
                         })
                         
-                        NavigationLink(destination: { RecentTransactionsView(account: $account, update: $update) }, label: {
-                            cellForOnglet(text: NSLocalizedString("word_transactions", comment: ""), num: account.transactions.count, systemImage: "banknote.fill")
+                        Button(action: {
+                            router.pushAllTransactions(account: account)
+                        }, label: {
+                            cellForOnglet(
+                                text: "word_transactions".localized,
+                                num: account.transactions.count,
+                                systemImage: "banknote.fill"
+                            )
                         })
                         
-                        NavigationLink(destination: { AutomationsHomeView(account: $account, update: $update) }, label: {
-                            cellForOnglet(text: NSLocalizedString("word_automations", comment: ""), num: account.automations.count, systemImage: "gearshape.2.fill")
+                        Button(action: {
+                            router.pushHomeAutomations(account: account)
+                        }, label: {
+                            cellForOnglet(
+                                text: "word_automations".localized,
+                                num: account.automations.count,
+                                systemImage: "gearshape.2.fill"
+                            )
                         })
                         
-                        NavigationLink(destination: { SavingPlansHomeView(account: $account, update: $update) }, label: {
-                            cellForOnglet(text: NSLocalizedString("word_savingsplans", comment: ""), num: account.savingPlans.count, systemImage: "building.columns.fill")
+                        Button(action: {
+                            router.pushHomeSavingPlans(account: account)
+                        }, label: {
+                            cellForOnglet(
+                                text: "word_savingsplans".localized,
+                                num: account.savingPlans.count,
+                                systemImage: "building.columns.fill"
+                            )
                         })
                         
                         if store.isLifetimeActive {
-                            NavigationLink(destination: { BudgetsHomeView() }, label: {
-                                cellForOnglet(text: NSLocalizedString("word_budgets", comment: ""), num: budgets.count, systemImage: "chart.pie.fill")
+                            Button(action: {
+                                router.pushAllBudgets()
+                            }, label: {
+                                cellForOnglet(
+                                    text: "word_budgets".localized,
+                                    num: budgets.count,
+                                    systemImage: "chart.pie.fill"
+                                )
                             })
                         } else {
-                            cellForOnglet(text: NSLocalizedString("word_budgets", comment: ""), num: budgets.count, systemImage: "chart.pie.fill")
+                            cellForOnglet(text: "word_budgets".localized, num: budgets.count, systemImage: "chart.pie.fill")
                                 .opacity(0.5)
                                 .overlay { Image(systemName: "lock.fill") }
                                 .onTapGesture { showAlertPaywall.toggle() }
                         }
                         
-//                        if account.transactionsArchived.count != 0 {
-//                            NavigationLink(destination: { ArchivedTransactionsView(account: $account, update: $update) }, label: {
-//                                cellForOnglet(text: NSLocalizedString("word_archived_transactions", comment: ""), num: account.transactionsArchived.count, systemImage: "archivebox.fill")
-//                            })
-//                        }
                         if account.savingPlansArchived.count != 0 {
-                            NavigationLink(destination: { ArchivedSavingPlansView(account: $account, update: $update) }, label: {
-                                cellForOnglet(text: NSLocalizedString("word_archived_savingsplans", comment: ""), num: account.savingPlansArchived.count, systemImage: "archivebox.fill")
+                            Button(action: {
+                                router.pushArchivedSavingPlans(account: account)
+                            }, label: {
+                                cellForOnglet(
+                                    text: "word_archived_savingsplans".localized,
+                                    num: account.savingPlansArchived.count,
+                                    systemImage: "archivebox.fill"
+                                )
                             })
                         }
                     })
                     .padding(.horizontal, 8)
-
+                    
                     if account.cardLimit != 0 {
                         cardLimitProgress(account: account)
                     }
@@ -215,16 +259,15 @@ struct AccountHomeView: View {
                     
                     Rectangle().frame(height: 120).opacity(0)
                 }
-                .padding(update ? 0 : 0)
                 .navigationTitle("")
                 .navigationBarTitleDisplayMode(.large)
                 .padding(.top, -40)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu(content: {
-                            Button(action: { isEditingAccountName.toggle() }, label: { Label(NSLocalizedString("account_detail_rename", comment: ""), systemImage: "pencil") })
-                            Button(action: { isEditingCardLimit.toggle() }, label: { Label(NSLocalizedString("account_detail_edit", comment: ""), systemImage: "pencil") })
-                            Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label(NSLocalizedString("word_delete", comment: ""), systemImage: "trash.fill") })
+                            Button(action: { isEditingAccountName.toggle() }, label: { Label("account_detail_rename".localized, systemImage: "pencil") })
+                            Button(action: { isEditingCardLimit.toggle() }, label: { Label("account_detail_edit".localized, systemImage: "pencil") })
+                            Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
                         }, label: {
                             Image(systemName: "ellipsis")
                                 .foregroundColor(.colorLabel)
@@ -238,109 +281,100 @@ struct AccountHomeView: View {
                                 Button(action: { showPaywall.toggle() }, label: {
                                     Image(systemName: "crown.fill")
                                         .foregroundColor(.primary500)
-                                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                                        .font(.system(size: 14, weight: .medium, design: .rounded))
                                 })
                             }
                             
-                            NavigationLink(destination: {
-                                SettingsHomeView(account: account, update: $update)
-                                    .environmentObject(csManager)
+                            Button(action: {
+                                router.pushSettings(account: account)
                             }, label: {
                                 Image(systemName: "gearshape.fill")
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                                     .font(.system(size: 14, weight: .medium, design: .rounded))
                             })
                         }
                     }
                 }
                 .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-                .sheet(isPresented: $showAddCard, onDismiss: { update.toggle() }) { AddCardView(account: $account) }
-                .alert(NSLocalizedString(NSLocalizedString("account_detail_rename", comment: ""), comment: ""), isPresented: $isEditingAccountName, actions: {
-                    TextField(NSLocalizedString("account_detail_new_name", comment: ""), text: $accountName)
-                    Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+                .sheet(isPresented: $showAddCard) { AddCardView() }
+                .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
+                    TextField("account_detail_new_name".localized, text: $accountName)
+                    Button(action: { return }, label: { Text("word_cancel".localized) })
                     Button(action: {
                         account.title = accountName
                         persistenceController.saveContext()
-                    }, label: { Text(NSLocalizedString("word_validate", comment: "")) })
+                    }, label: { Text("word_validate".localized) })
                 })
-                .alert(NSLocalizedString(NSLocalizedString("account_detail_card_limit", comment: ""), comment: ""), isPresented: $isEditingCardLimit, actions: {
-                    TextField(NSLocalizedString("account_detail_card_limit", comment: ""), value: $cardLimit, formatter: numberFormatter)
+                .alert("account_detail_card_limit".localized, isPresented: $isEditingCardLimit, actions: {
+                    TextField("account_detail_card_limit".localized, value: $cardLimit, formatter: numberFormatter)
                         .keyboardType(.numberPad)
-                    Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+                    Button(action: { return }, label: { Text("word_cancel".localized) })
                     Button(action: {
                         account.cardLimit = cardLimit
                         persistenceController.saveContext()
-                    }, label: { Text(NSLocalizedString("word_validate", comment: "")) })
+                    }, label: { Text("word_validate".localized) })
                 }, message: {
-                    Text(NSLocalizedString("account_detail_edit_desc", comment: ""))
+                    Text("account_detail_edit_desc".localized)
                 })
-                .alert(NSLocalizedString("account_detail_delete_account", comment: ""), isPresented: $isDeleting, actions: {
+                .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
                     TextField(account.title, text: $accountNameForDeleting)
-                    Button(role: .cancel, action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+                    Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                     Button(role: .destructive, action: {
                         if account.title == accountNameForDeleting {
                             withAnimation {
                                 viewContext.delete(account)
-                                self.account = nil
                                 persistenceController.saveContext()
-                                update.toggle()
                             }
                         }
-                    }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
-                }, message: { Text(NSLocalizedString("account_detail_delete_account_desc", comment: "")) })
-            } else {
-                VStack {
-                    Spacer()
-                    
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 20) {
-                            Image("NoCards\(themeSelected)")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .shadow(radius: 4, y: 4)
-                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
-                            
-                            Text(NSLocalizedString("account_detail_no_account", comment: ""))
-                                .font(.semiBoldText16())
-                                .multilineTextAlignment(.center)
-                        }
-                        .offset(y: -50)
-                        Spacer()
-                    }
-                    
-                    Spacer()
-                }
-            }
-        } // Main VStack
-        .padding(update ? 0 : 0)
-        .onAppear {
-            if let account {
+                    }, label: { Text("word_delete".localized) })
+                }, message: { Text("account_detail_delete_account_desc".localized) })
+                //                VStack {
+                //                    Spacer()
+                //
+                //                    HStack {
+                //                        Spacer()
+                //                        VStack(spacing: 20) {
+                //                            Image("NoCards\(themeSelected)")
+                //                                .resizable()
+                //                                .aspectRatio(contentMode: .fit)
+                //                                .shadow(radius: 4, y: 4)
+                //                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+                //
+                //                            Text("account_detail_no_account".localized)
+                //                                .font(.semiBoldText16())
+                //                                .multilineTextAlignment(.center)
+                //                        }
+                //                        .offset(y: -50)
+                //                        Spacer()
+                //                    }
+                //
+                //                    Spacer()
+                //                }
+                
+            } // Main VStack
+            .onAppear {
                 accountBalanceInt = account.balance.splitDecimal().0
                 accountBalanceDouble = account.balance.splitDecimal().1
                 if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
             }
-        }
-        .alert(NSLocalizedString("alert_cashflow_pro_title", comment: ""), isPresented: $showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(action: { showPaywall.toggle() }, label: { Text(NSLocalizedString("alert_cashflow_pro_see", comment: "")) })
-        }, message: {
-            Text(NSLocalizedString("alert_cashflow_pro_desc", comment: ""))
-        })
-        .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
-        .if(account != nil, transform: { view in
-            view
-                .onChange(of: account!.balance, perform: { _ in
-                    Timer.animateNumber(number: $accountBalanceInt, busy: $busy, start: accountBalanceInt, end: Int(account!.balance))
-                    withAnimation {
-                        accountBalanceDouble = account!.balance.splitDecimal().1
-                        if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
-                    }
-                })
-        })
-    }//END body
+            .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
+                Button(action: { return }, label: { Text("word_cancel".localized) })
+                Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
+            }, message: {
+                Text("alert_cashflow_pro_desc".localized)
+            })
+            .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
+            .onChange(of: account.balance, perform: { _ in
+                Timer.animateNumber(number: $accountBalanceInt, busy: $busy, start: accountBalanceInt, end: Int(account.balance))
+                withAnimation {
+                    accountBalanceDouble = account.balance.splitDecimal().1
+                    if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
+                }
+            })
+        } // End NavStack
+    } // End body
     
-    //MARK: - ViewBuilder
+    // MARK: - ViewBuilder
     @ViewBuilder
     func cellForOnglet(text: String, num: Int, systemImage: String) -> some View {
         let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
@@ -395,11 +429,11 @@ struct AccountHomeView: View {
     @ViewBuilder
     func cardLimitProgress(account: Account) -> some View {
         
-        let isPercentage80AndMoreButMinus100 = percentage >= userDefaultsManager.cardLimitPercentage / 100 && realPercentage < 1
+        let isPercentage80AndMoreButMinus100 = percentage >= cardLimitPercentage / 100 && realPercentage < 1
         
         VStack {
             HStack {
-                Text(NSLocalizedString("account_detail_card_limit", comment: ""))
+                Text("account_detail_card_limit".localized)
                 Spacer()
                 Text(account.cardLimit.currency)
             }
@@ -407,31 +441,31 @@ struct AccountHomeView: View {
             .foregroundColor(.colorLabel)
             
             GeometryReader { geometry in
-                    let widthCapsule = geometry.size.width * percentage
-                    let widthAmount = account.amountOfExpensesInActualMonth().currency.widthOfString(usingFont: UIFont(name: nameFontBold, size: 16)!) * 1.5
-                    
-                    Capsule()
-                        .frame(height: 36)
-                        .foregroundStyle(Color.color3Apple)
-                        .overlay(alignment: .leading) {
-                            Capsule()
-                                .foregroundColor(HelperManager().getAppTheme().color)
-                                .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
-                                .padding(4)
-                                .overlay(alignment: .trailing) {
-                                    Text(account.amountOfExpensesInActualMonth().currency)
-                                        .padding(.trailing, 12)
-                                        .font(.semiBoldText16())
-                                        .foregroundColor(.primary0)
-                                }
-                        }
+                let widthCapsule = geometry.size.width * percentage
+                let widthAmount = account.amountOfExpensesInActualMonth().currency.widthOfString(usingFont: UIFont(name: nameFontBold, size: 16)!) * 1.5
+                
+                Capsule()
+                    .frame(height: 36)
+                    .foregroundStyle(Color.color3Apple)
+                    .overlay(alignment: .leading) {
+                        Capsule()
+                            .foregroundColor(HelperManager().getAppTheme().color)
+                            .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
+                            .padding(4)
+                            .overlay(alignment: .trailing) {
+                                Text(account.amountOfExpensesInActualMonth().currency)
+                                    .padding(.trailing, 12)
+                                    .font(.semiBoldText16())
+                                    .foregroundColor(.primary0)
+                            }
+                    }
                 
             } // End GeometryReader
             .frame(height: 44)
             
             HStack {
                 let amountRemaining = account.cardLimit - account.amountOfExpensesInActualMonth()
-                Text(NSLocalizedString("account_detail_card_remaining", comment: ""))
+                Text("account_detail_card_remaining".localized)
                 Spacer()
                 Text(amountRemaining.currency)
             }
@@ -447,7 +481,7 @@ struct AccountHomeView: View {
             
             if isPercentage80AndMoreButMinus100 || realPercentage >= 1 {
                 HStack {
-                    Text(isPercentage80AndMoreButMinus100 ? "⚠️ " + NSLocalizedString("account_detail_alert_almost_exceeded", comment: "") : "‼️ " + NSLocalizedString("account_detail_alert_exceeded", comment: ""))
+                    Text(isPercentage80AndMoreButMinus100 ? "⚠️ " + "account_detail_alert_almost_exceeded".localized : "‼️ " + "account_detail_alert_exceeded".localized)
                         .foregroundColor(isPercentage80AndMoreButMinus100 ? .yellow : .red)
                         .font(.mediumText16())
                     Spacer()
@@ -470,15 +504,12 @@ struct AccountHomeView: View {
         .padding(.vertical, 6)
     }
     
-}//END struct
+} // End struct
 
-//MARK: - Preview
-struct AccountDetailView_Previews: PreviewProvider {
-    
-    @State static var previewBool: Bool = false
-    @State static var previewAccount: Account? = previewAccount1()
-    
-    static var previews: some View {
-        AccountHomeView(account: $previewAccount, update: $previewBool)
-    }
+// MARK: - Preview
+#Preview {
+    AccountDashboardView(
+        router: .init(isPresented: .constant(.accountDashboard(account: Account.preview))),
+        account: Account.preview
+    )
 }

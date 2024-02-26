@@ -36,13 +36,13 @@ struct DetailOfCategory: View {
                     .font(.mediumCustom(size: 22))
                 
                 if category.amountTotalOfExpenses != 0 {
-                    Text(NSLocalizedString("word_expenses", comment: "") + " : " + category.amountTotalOfExpenses.currency)
+                    Text("word_expenses".localized + " : " + category.amountTotalOfExpenses.currency)
                         .lineLimit(1)
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfIncomes != 0 {
-                    Text(NSLocalizedString("word_incomes", comment: "") + " : " + category.amountTotalOfIncomes.currency)
+                    Text("word_incomes".localized + " : " + category.amountTotalOfIncomes.currency)
                         .lineLimit(1)
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())

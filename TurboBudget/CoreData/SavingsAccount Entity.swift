@@ -18,8 +18,14 @@ public class SavingsAccount: NSManagedObject, Identifiable {
     }
 
     @NSManaged public var id: UUID
-    @NSManaged public var balance: Double
+    @NSManaged public var name: String
+    @NSManaged private var balanceAtStart: Double
     @NSManaged public var savingsAccountToTransfer: Set<Transfer>?
+    
+    public var balance: Double {
+        let transfersAmount = transfers.map({ $0.amount }).reduce(0, +)
+        return transfersAmount + balanceAtStart
+    }
     
     public var transfers: [Transfer] {
         if let transfers = savingsAccountToTransfer {
@@ -29,6 +35,17 @@ public class SavingsAccount: NSManagedObject, Identifiable {
         }
     }
 
+    static var preview: SavingsAccount {
+        let previewSavingsAccount = SavingsAccount(context: PersistenceController.shared.container.viewContext)
+        previewSavingsAccount.id = UUID()
+        previewSavingsAccount.name = "Preview Savings"
+        previewSavingsAccount.balanceAtStart = 30_000
+        previewSavingsAccount.savingsAccountToTransfer?.insert(Transfer.preview1)
+        previewSavingsAccount.savingsAccountToTransfer?.insert(Transfer.preview1)
+        
+        return previewSavingsAccount
+    }
+    
 }
 
 // MARK: - Savings

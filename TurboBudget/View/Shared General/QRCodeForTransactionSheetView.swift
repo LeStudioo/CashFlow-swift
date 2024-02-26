@@ -32,20 +32,20 @@ struct QRCodeForTransactionSheetView: View {
         VStack {
             DismissButtonInSheet()
             
-            Text(NSLocalizedString("qrcode_transactions_share", comment: ""))
+            Text("qrcode_transactions_share".localized)
                 .titleAdjustSize()
             
             Image(uiImage: UIImage(data: qrcode)!)
                             .resizable()
                             .frame(width: 200, height: 200)
             
-            Text(NSLocalizedString("qrcode_transactions_how", comment: ""))
+            Text("qrcode_transactions_how".localized)
                 .titleAdjustSize()
                 .multilineTextAlignment(.center)
             
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
-                    Text(NSLocalizedString("qrcode_recover_transactions", comment: ""))
+                    Text("qrcode_recover_transactions".localized)
                 }
                 .font(Font.mediumText16())
                 .multilineTextAlignment(.leading)

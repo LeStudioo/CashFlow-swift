@@ -35,13 +35,13 @@ struct DetailOfCategoryForArchivedTransaction: View {
                     .font(.mediumCustom(size: 22))
                 
                 if category.amountTotalOfArchivedTransactionsExpenses != 0 {
-                    Text(NSLocalizedString("word_expenses", comment: "") + " : " + category.amountTotalOfArchivedTransactionsExpenses.currency)
+                    Text("word_expenses".localized + " : " + category.amountTotalOfArchivedTransactionsExpenses.currency)
                         .lineLimit(1)
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfArchivedTransactionsIncomes != 0 {
-                    Text(NSLocalizedString("word_incomes", comment: "") + " : " + category.amountTotalOfArchivedTransactionsIncomes.currency)
+                    Text("word_incomes".localized + " : " + category.amountTotalOfArchivedTransactionsIncomes.currency)
                         .lineLimit(1)
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())

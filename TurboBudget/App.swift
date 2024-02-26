@@ -13,22 +13,28 @@ struct TurboBudgetApp: App {
     // CoreData
     let persistenceController = PersistenceController.shared
     
-    @StateObject var csManager = ColorSchemeManager()
+    // Custom type
+//    @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.home))
+    @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var store = Store()
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
     
+    // Environment
     @Environment(\.scenePhase) private var scenePhase
     
-    //init
+    // Preferences
+    @Preference(\.isSecurityPlusEnabled) private var isSecurityPlusEnabled
+    
+    // init
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
     }
     
+    //MARK: - body
     var body: some Scene {
         WindowGroup {
-            Group {
-                if userDefaultsManager.isSecurityPlusEnable {
+//            NavStack(router: router) {
+                if isSecurityPlusEnabled {
                     if scenePhase == .active {
                         PageControllerView()
                             .environment(\.managedObjectContext, persistenceController.container.viewContext)
@@ -54,9 +60,9 @@ struct TurboBudgetApp: App {
                         }
                 }
             }
-            .onAppear {
-                store.restorePurchases()
-            }
-        }
+//            .onAppear {
+//                store.restorePurchases()
+//            }
+//        }
     } // End body
-}
+} // End struct

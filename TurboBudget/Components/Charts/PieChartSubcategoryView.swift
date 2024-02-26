@@ -22,9 +22,7 @@ struct PieChartSubcategoryView: View {
     @Binding var selectedSubcategory: PredefinedSubcategory?
     
     @Binding var height: CGFloat
-    
-    @Binding var update: Bool
-    
+        
     var subcategoriesWithExpenses: [PredefinedSubcategory] {
         var subcategoriesWithout0: [PredefinedSubcategory] = []
         for subcategory in Array(subcategories) {
@@ -218,9 +216,9 @@ struct PieChartSubcategoryView: View {
                 return Calendar.current.monthSymbols[month - 1]
             } else { return "" }
         } else if !filter.automation && filter.total {
-            return NSLocalizedString("word_total", comment: "")
+            return "word_total".localized
         } else if filter.automation && filter.total {
-            return NSLocalizedString("word_total_auto", comment: "")
+            return "word_total_auto".localized
         }
         
         return ""
@@ -230,5 +228,9 @@ struct PieChartSubcategoryView: View {
 
 //MARK: - Preview
 #Preview {
-    PieChartSubcategoryView(subcategories: [subCategory1Category1], selectedSubcategory: Binding.constant(subCategory1Category1), height: Binding.constant(280), update: Binding.constant(false))
+    PieChartSubcategoryView(
+        subcategories: [subCategory1Category1],
+        selectedSubcategory: Binding.constant(subCategory1Category1),
+        height: Binding.constant(280)
+    )
 }

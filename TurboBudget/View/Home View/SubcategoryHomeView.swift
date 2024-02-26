@@ -11,8 +11,11 @@ import Charts
 
 struct SubcategoryHomeView: View {
     
-    //Custom type
-    var category: PredefinedCategory
+    // Builder
+    var router: NavigationManager
+    @ObservedObject var category: PredefinedCategory
+    
+    // Custom
     @State private var selectedSubcategory: PredefinedSubcategory? = nil
     @ObservedObject var filter: Filter = sharedFilter
     
@@ -65,9 +68,6 @@ struct SubcategoryHomeView: View {
         return formatter
     }()
     
-    //Binding update
-    @Binding var update: Bool
-    
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
@@ -87,8 +87,7 @@ struct SubcategoryHomeView: View {
                             PieChartSubcategoryView(
                                 subcategories: category.subcategories,
                                 selectedSubcategory: $selectedSubcategory,
-                                height: $height,
-                                update: $update
+                                height: $height
                             )
                             .frame(height: height)
                             .id(filter.id)
@@ -102,23 +101,23 @@ struct SubcategoryHomeView: View {
                     }
                     
                     ForEach(searchResults) { subcategory in
-                        NavigationLink(destination: {
-                            SubcategoryTransactionsView(subcategory: subcategory, update: $update)
+                        Button(action: {
+                            router.pushSubcategoryTransactions(subcategory: subcategory)
                         }, label: {
-                            SubcategoryRow(subcategory: subcategory, update: $update)
-                                .padding(.bottom, 8)
+                            SubcategoryRow(subcategory: subcategory)
                         })
+                        .padding(.bottom, 8)
                         .disabled(!dataAvailableForSubcategoryWithFilter(subcategory: subcategory))
                     }
                 }
                 .padding()
-            } //End ScrollView
+            } // End ScrollView
         } // End VStack
         .blur(radius: filter.showMenu ? 3 : 0)
         .disabled(filter.showMenu)
         .onTapGesture { withAnimation { filter.showMenu = false } }
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
-        .navigationTitle(NSLocalizedString("word_subcategories", comment: ""))
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        .navigationTitle("word_subcategories".localized)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
@@ -141,9 +140,9 @@ struct SubcategoryHomeView: View {
             }
         }
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-    }//END body
+    } // End body
     
-    //MARK: Fonctions
+    // MARK: - Functions
     func dataAvailableForSubcategoryWithFilter(subcategory: PredefinedSubcategory) -> Bool {
         if filter.total && subcategory.transactions.count != 0 { return true }
         if subcategory.expensesTransactionsAmountForSelectedDate(filter: filter) != 0 { return true }
@@ -152,16 +151,19 @@ struct SubcategoryHomeView: View {
     
     func alertMessageIfEmpty() -> String {
         if filter.byDay && !isDisplayChart {
-            return "⚠️" + " " + NSLocalizedString("error_message_no_data_day", comment: "")
+            return "⚠️" + " " + "error_message_no_data_day".localized
         } else if !filter.byDay && !isDisplayChart && !filter.total {
-            return "⚠️" + " " + NSLocalizedString("error_message_no_data_month", comment: "")
+            return "⚠️" + " " + "error_message_no_data_month".localized
         }
         return ""
     }
     
-}//END struct
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    SubcategoryHomeView(category: categoryPredefined1, update: Binding.constant(false))
+    SubcategoryHomeView(
+        router: .init(isPresented: .constant(.homeSubcategories(category: categoryPredefined1))),
+        category: categoryPredefined1
+    )
 }

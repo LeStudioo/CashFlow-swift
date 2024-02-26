@@ -10,39 +10,38 @@ import SwiftUI
 
 struct TransactionDetailView: View {
 
-    //Custom type
-    var transaction: Transaction
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
+    // Builder
+    @ObservedObject var transaction: Transaction
+    
+    // Custom type
     @ObservedObject var viewModel = TransactionDetailViewModel.shared
 
-    //Environnements
+    // Environement
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // EnvironmentObject
     @EnvironmentObject var store: Store
 
-    //State or Binding String
+    // String variables
     @State private var transactionNote: String = ""
     @State private var newTransactionName: String = ""
     
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    @Binding var update: Bool
+    // Boolean variables
     @State private var isDeleting: Bool = false
     @State private var isSharingJSON: Bool = false
     @State private var isSharingQRCode: Bool = false
     @State private var isEditingTransactionName: Bool = false
     @State private var showWhatCategory: Bool = false
 
-	//Enum
+	// Enum
     enum Field: CaseIterable {
         case note
     }
     @FocusState var focusedField: Field?
 	
 	//Computed var
-    
     var isAnExpense: Bool { if transaction.amount < 0 { return true } else { return false} }
     
     var category: PredefinedCategory? {
@@ -90,7 +89,6 @@ struct TransactionDetailView: View {
                             }
                             .sheet(isPresented: $showWhatCategory, onDismiss: {
                                 viewModel.changeCategory(transaction: transaction)
-                                update.toggle()
                             }) {
                                 WhatCategoryView(selectedCategory: $viewModel.selectedCategory, selectedSubcategory: $viewModel.selectedSubcategory)
                             }
@@ -102,7 +100,7 @@ struct TransactionDetailView: View {
                 if let categoryFound = viewModel.automaticCategorySearch(title: transaction.title).0, categoryFound != categoryPredefined0 {
                     let subcategoryFound = viewModel.automaticCategorySearch(title: transaction.title).1
                     VStack(spacing: 0) {
-                        Text(NSLocalizedString("transaction_recommended_category", comment: "") + " : ")
+                        Text("transaction_recommended_category".localized + " : ")
                         HStack {
                             Image(systemName: categoryFound.icon)
                             Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
@@ -114,7 +112,6 @@ struct TransactionDetailView: View {
                         viewModel.selectedCategory = categoryFound
                         if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
                         viewModel.changeCategory(transaction: transaction)
-                        update.toggle()
                     }
                     .padding(.top, 8)
                 }
@@ -125,15 +122,15 @@ struct TransactionDetailView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            CellForDetailTransaction(leftText: NSLocalizedString("transaction_detail_amount", comment: ""), rightText: transaction.amount.currency, rightTextColor: isAnExpense ? .error400 : .primary500)
+            CellForDetailTransaction(leftText: "transaction_detail_amount".localized, rightText: transaction.amount.currency, rightTextColor: isAnExpense ? .error400 : .primary500)
             
-            CellForDetailTransaction(leftText: NSLocalizedString("transaction_detail_date", comment: ""), rightText: transaction.date.formatted(date: .abbreviated, time: .omitted), rightTextColor: .colorLabel)
+            CellForDetailTransaction(leftText: "transaction_detail_date".localized, rightText: transaction.date.formatted(date: .abbreviated, time: .omitted), rightTextColor: .colorLabel)
             
             if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) {
-                CellForDetailTransaction(leftText: NSLocalizedString("word_category", comment: ""), rightText: category.title, rightTextColor: category.color)
+                CellForDetailTransaction(leftText: "word_category".localized, rightText: category.title, rightTextColor: category.color)
                 
                 if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID) {
-                    CellForDetailTransaction(leftText: NSLocalizedString("word_subcategory", comment: ""), rightText: subcategory.title, rightTextColor: category.color)
+                    CellForDetailTransaction(leftText: "word_subcategory".localized, rightText: subcategory.title, rightTextColor: category.color)
                 }
             }
             
@@ -146,7 +143,7 @@ struct TransactionDetailView: View {
                     
                     if transactionNote.isEmpty {
                         HStack {
-                            Text(NSLocalizedString("transaction_detail_note", comment: ""))
+                            Text("transaction_detail_note".localized)
                                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(Font.mediumText16())
                             Spacer()
@@ -165,19 +162,19 @@ struct TransactionDetailView: View {
             
             Spacer()
         }
-        .alert(NSLocalizedString("transaction_detail_delete_transac", comment: ""), isPresented: $isDeleting, actions: {
+        .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel") })
             Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text("word_delete") })
         }, message: {
-            Text(transaction.amount < 0 ? NSLocalizedString("transaction_detail_alert_if_expense", comment: "") : NSLocalizedString("transaction_detail_alert_if_income", comment: ""))
+            Text(transaction.amount < 0 ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
         })
-        .alert(NSLocalizedString("word_rename", comment: ""), isPresented: $isEditingTransactionName, actions: {
-            TextField(NSLocalizedString("word_new_name", comment: ""), text: $newTransactionName)
-            Button(action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+        .alert("word_rename".localized, isPresented: $isEditingTransactionName, actions: {
+            TextField("word_new_name".localized, text: $newTransactionName)
+            Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 transaction.title = newTransactionName
                 persistenceController.saveContext()
-            }, label: { Text(NSLocalizedString("word_validate", comment: "")) })
+            }, label: { Text("word_validate".localized) })
         })
         .onAppear { 
             transactionNote = transaction.note
@@ -201,12 +198,12 @@ struct TransactionDetailView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { isEditingTransactionName.toggle() }, label: { Label(NSLocalizedString("word_rename", comment: ""), systemImage: "pencil") })
+                    Button(action: { isEditingTransactionName.toggle() }, label: { Label("word_rename".localized, systemImage: "pencil") })
                     Menu(content: {
-                        Button(action: { isSharingJSON.toggle() }, label: { Label(NSLocalizedString("word_json", comment: ""), systemImage: "curlybraces") })
-                        Button(action: { isSharingQRCode.toggle() }, label: { Label(NSLocalizedString("word_qrcode", comment: ""), systemImage: "qrcode") })
+                        Button(action: { isSharingJSON.toggle() }, label: { Label("word_json".localized, systemImage: "curlybraces") })
+                        Button(action: { isSharingQRCode.toggle() }, label: { Label("word_qrcode".localized, systemImage: "qrcode") })
                     }, label: {
-                        Label(NSLocalizedString("word_share", comment: ""), systemImage: "square.and.arrow.up.fill")
+                        Label("word_share".localized, systemImage: "square.and.arrow.up.fill")
                     })
                     Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete", systemImage: "trash.fill") })
                 }, label: {
@@ -248,10 +245,6 @@ struct TransactionDetailView: View {
         }
         viewContext.delete(transaction)
         PredefinedObjectManager.shared.reloadTransactions()
-        update.toggle()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            update.toggle()
-        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             persistenceController.saveContext()
         }
@@ -261,10 +254,8 @@ struct TransactionDetailView: View {
 }//END struct
 
 //MARK: - Preview
-struct TransactionDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        TransactionDetailView(transaction: previewTransaction1(), update: Binding.constant(false))
-    }
+#Preview {
+    TransactionDetailView(transaction: Transaction.preview1)
 }
 
 private struct CellForDetailTransaction: View {

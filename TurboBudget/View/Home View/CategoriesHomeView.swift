@@ -8,9 +8,11 @@
 // Localizations 01/10/2023
 
 import SwiftUI
-import Charts
 
 struct CategoriesHomeView: View {
+    
+    // Builder
+    var router: NavigationManager
     
     //Custom type
     @State private var selectedCategory: PredefinedCategory? = nil
@@ -89,115 +91,112 @@ struct CategoriesHomeView: View {
         return formatter
     }()
     
-    //Binding update
-    @Binding var update: Bool
-    
     //MARK: - Body
     var body: some View {
-        VStack(spacing: 0) {
-            if searchResults.count != 0 {
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        if !alertMessageIfEmpty().isEmpty {
-                            HStack {
-                                Text(alertMessageIfEmpty())
-                                    .font(Font.mediumText16())
-                                Spacer()
+        NavStack(router: router) {
+            VStack(spacing: 0) {
+                if searchResults.count != 0 {
+                    ScrollView(showsIndicators: false) {
+                        VStack {
+                            if !alertMessageIfEmpty().isEmpty {
+                                HStack {
+                                    Text(alertMessageIfEmpty())
+                                        .font(Font.mediumText16())
+                                    Spacer()
+                                }
+                                .padding(.bottom, 8)
                             }
-                            .padding(.bottom, 8)
-                        }
-                        if dataWithFilterChoosen && searchText.isEmpty {
-                            VStack {
-                                ZStack(alignment: .topTrailing) {
-                                    HStack {
-                                        Spacer()
-                                        PieChartView(
-                                            categories: categories,
-                                            selectedCategory: $selectedCategory,
-                                            height: $height,
-                                            update: $update
-                                        )
+                            if dataWithFilterChoosen && searchText.isEmpty {
+                                VStack {
+                                    ZStack(alignment: .topTrailing) {
+                                        HStack {
+                                            Spacer()
+                                            PieChartView(
+                                                categories: categories,
+                                                selectedCategory: $selectedCategory,
+                                                height: $height
+                                            )
                                             .frame(height: height)
                                             .id(filter.id)
-                                        Spacer()
+                                            Spacer()
+                                        }
+                                        .padding()
+                                        .background(Color.colorCell)
+                                        .cornerRadius(15)
                                     }
-                                    .padding()
-                                    .background(Color.colorCell)
-                                    .cornerRadius(15)
+                                }
+                                .padding(.bottom, 8)
+                            }
+                            
+                            ForEach(searchResults) { category in
+                                if category.subcategories.count != 0 {
+                                    Button(action: {
+                                        router.pushHomeSubcategories(category: category)
+                                    }, label: {
+                                        CategoryRow(category: category, showChevron: true)
+                                            .foregroundStyle(Color(uiColor: .label))
+                                    })
+                                    .padding(.bottom, 8)
+                                } else {
+                                    Button(action: {
+                                        router.pushCategoryTransactions(category: category)
+                                    }, label: {
+                                        CategoryRow(category: category, showChevron: true)
+                                    })
+                                    .padding(.bottom, 8)
+                                    .foregroundStyle(Color(uiColor: .label))
+                                    .disabled(!(category.transactions.count != 0))
                                 }
                             }
-                            .padding(.bottom, 8)
+                            
+                            Rectangle().frame(height: 100).opacity(0)
                         }
-                        
-                        ForEach(searchResults) { category in
-                            if category.subcategories.count != 0 {
-                                NavigationLink(destination: { 
-                                    SubcategoryHomeView(category: category, update: $update)
-                                }, label: {
-                                    CategoryRow(category: category, showChevron: true, update: $update)
-                                        .padding(.bottom, 8)
-                                })
-                                .foregroundColor(.colorLabel)
-                            } else {
-                                NavigationLink(destination: { 
-                                    CategoryTransactionsView(category: category, update: $update)
-                                }, label: {
-                                    CategoryRow(category: category, showChevron: true, update: $update)
-                                        .padding(.bottom, 8)
-                                })
-                                .foregroundColor(.colorLabel)
-                                .disabled(!(category.transactions.count != 0))
-                            }
-                        }
-                        
-                        Rectangle().frame(height: 100).opacity(0)
-                    }
-                    .padding()
-                } //End ScrollView
-            } else {
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "",
-                    text: ""
-                )
+                        .padding()
+                    } //End ScrollView
+                } else {
+                    ErrorView(
+                        searchResultsCount: searchResults.count,
+                        searchText: searchText,
+                        image: "",
+                        text: ""
+                    )
+                }
+            } // End VStack
+            .blur(radius: filter.showMenu ? 3 : 0)
+            .disabled(filter.showMenu)
+            .onTapGesture { withAnimation { filter.showMenu = false } }
+            .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+            .navigationTitle("word_categories")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        filter.fromBudget = false
+                        filter.fromAnalytics = false
+                        filter.showMenu.toggle()
+                    }, label: {
+                        Image(systemName: "calendar")
+                            .foregroundColor(.colorLabel)
+                    })
+                }
             }
-        } // End VStack
-        .padding(update ? 0 : 0)
-        .blur(radius: filter.showMenu ? 3 : 0)
-        .disabled(filter.showMenu)
-        .onTapGesture { withAnimation { filter.showMenu = false } }
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
-        .navigationTitle("word_categories")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    filter.fromBudget = false
-                    filter.fromAnalytics = false
-                    filter.showMenu.toggle()
-                }, label: {
-                    Image(systemName: "calendar")
-                        .foregroundColor(.colorLabel)
-                })
-            }
-        }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-    }//END body
+            .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        } // End NavStack
+    } // End body
     
-    //MARK: Fonctions
+    // MARK: Functions
     func alertMessageIfEmpty() -> String {
         if filter.byDay && !dataWithFilterChoosen && searchResults.map({ $0.incomesTransactionsAmountForSelectedDate(filter: filter) }).reduce(0, +) == 0 {
-            return "⚠️" + " " + NSLocalizedString("error_message_no_data_day", comment: "")
+            return "⚠️" + " " + "error_message_no_data_day".localized
         } else if !filter.byDay && !dataWithFilterChoosen && !filter.total {
-            return "⚠️" + " " + NSLocalizedString("error_message_no_data_month", comment: "")
+            return "⚠️" + " " + "error_message_no_data_month".localized
         }
         return ""
     }
     
-}//END struct
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    CategoriesHomeView(update: Binding.constant(false))
+    CategoriesHomeView(router: .init(isPresented: .constant(.homeCategories)))
 }

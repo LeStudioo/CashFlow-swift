@@ -15,7 +15,6 @@ struct DetailOfTransferByMonth: View {
     var amountOfWithdrawal: Double
 
     //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
@@ -40,14 +39,14 @@ struct DetailOfTransferByMonth: View {
                 if store.isLifetimeActive {
                     HStack {
                         if amountOfSavings != 0 {
-                            Text(NSLocalizedString("word_savings", comment: "") + " : " + amountOfSavings.currency)
+                            Text("word_savings".localized + " : " + amountOfSavings.currency)
                                 .lineLimit(1)
                         }
                         if amountOfSavings != 0 && amountOfWithdrawal != 0 {
                             Text("|")
                         }
                         if amountOfWithdrawal != 0 {
-                            Text(NSLocalizedString("word_withdrawal", comment: "") + " : " + amountOfWithdrawal.currency)
+                            Text("word_withdrawal".localized + " : " + amountOfWithdrawal.currency)
                                 .lineLimit(1)
                         }
                         Spacer()

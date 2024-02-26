@@ -33,7 +33,7 @@ struct AddTransactionShortcuts: AppShortcutsProvider {
 //        AppShortcut(
 //            intent: AddTransactionIntent(),
 //            phrases: [
-//                AppShortcutPhrase(stringLiteral: NSLocalizedString("shortcuts_name_one", comment: "")),
+//                AppShortcutPhrase(stringLiteral: "shortcuts_name_one".localized),
 //                "shortcuts_name_one",
 //                "Hello \(AppShortcutPhraseToken.applicationName)"
 //            ]

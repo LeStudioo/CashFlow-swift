@@ -10,6 +10,10 @@ import SwiftUI
 
 extension String {
     
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
     func isEmptyWithoutSpace() -> Bool {
         if self.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range: nil).isEmpty {
             return true

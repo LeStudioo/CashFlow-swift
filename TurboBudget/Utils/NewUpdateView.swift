@@ -59,7 +59,7 @@ struct NewUpdateView: View {
                 Button(action: { dismiss() }, label: {
                     HStack {
                         Spacer()
-                        Text(NSLocalizedString("word_continue", comment: ""))
+                        Text("word_continue".localized)
                             .foregroundStyle(Color.colorLabel)
                             .font(.semiBoldText18())
                         Spacer()
@@ -90,11 +90,11 @@ struct NewFeature: Identifiable {
 }
 
 //MARK: UPDATE v1.1
-let firstFeat = NewFeature(icon: "barcode.viewfinder", title: NSLocalizedString("update_first_feat_title", comment: ""), desc: NSLocalizedString("update_first_feat_desc", comment: ""))
-let secondFeat = NewFeature(icon: "ipad.landscape", title: NSLocalizedString("update_second_feat_title", comment: ""), desc: NSLocalizedString("update_second_feat_desc", comment: ""))
-let thirdFeat = NewFeature(icon: "icloud.fill", title: NSLocalizedString("update_third_feat_title", comment: ""), desc: NSLocalizedString("update_third_feat_desc", comment: ""))
-let fourthFeat = NewFeature(icon: "creditcard.viewfinder", title: NSLocalizedString("update_fourth_feat_title", comment: ""), desc: NSLocalizedString("update_fourth_feat_desc", comment: ""))
-let fifthFeat = NewFeature(icon: "bolt.horizontal.fill", title: NSLocalizedString("update_fifth_feat_title", comment: ""), desc: NSLocalizedString("update_fifth_feat_desc", comment: ""))
-let sixthFeat = NewFeature(icon: "sparkles", title: NSLocalizedString("update_sixth_feat_title", comment: ""), desc: NSLocalizedString("update_sixth_feat_desc", comment: ""))
+let firstFeat = NewFeature(icon: "barcode.viewfinder", title: "update_first_feat_title".localized, desc: "update_first_feat_desc".localized)
+let secondFeat = NewFeature(icon: "ipad.landscape", title: "update_second_feat_title".localized, desc: "update_second_feat_desc".localized)
+let thirdFeat = NewFeature(icon: "icloud.fill", title: "update_third_feat_title".localized, desc: "update_third_feat_desc".localized)
+let fourthFeat = NewFeature(icon: "creditcard.viewfinder", title: "update_fourth_feat_title".localized, desc: "update_fourth_feat_desc".localized)
+let fifthFeat = NewFeature(icon: "bolt.horizontal.fill", title: "update_fifth_feat_title".localized, desc: "update_fifth_feat_desc".localized)
+let sixthFeat = NewFeature(icon: "sparkles", title: "update_sixth_feat_title".localized, desc: "update_sixth_feat_desc".localized)
 
 let features = [firstFeat, sixthFeat, secondFeat, thirdFeat, fourthFeat, fifthFeat]

@@ -12,41 +12,40 @@ import ConfettiSwiftUI
 
 struct AddTransactionView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-    @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
+    // Custom type
     @StateObject private var viewModel = AddTransactionViewModel()
+    @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
     
-    //Environnements
-    @Environment(\.managedObjectContext) private var viewContext
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+
+    // EnvironmentObject
+    @EnvironmentObject var account: Account
     @EnvironmentObject var store: Store
     
-    //State or Binding String
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
     
-    //State or Binding Int, Float and Double
+    // Number variables
     @State private var confettiCounter: Int = 0
     @State private var showCheckmark = -60
     
-    //State or Binding Bool
-    @State private var update: Bool = false
+    // Bool variables
     @State private var showCategories: Bool = false
-    @State private var showAlertNoSpendChallenge: Bool = false
     
-    //Enum
+    // Enum
     enum Field: CaseIterable {
         case amount, title
     }
     @FocusState var focusedField: Field?
     
-    //Computed var
+    // Computed var
     var widthCircleCategory: CGFloat {
         return isLittleIphone ? 80 : 100
     }
     
-    //Other
+    // Other
     var numberFormatter: NumberFormatter {
         let numFor = NumberFormatter()
         numFor.numberStyle = .decimal
@@ -54,7 +53,7 @@ struct AddTransactionView: View {
         return numFor
     }
     
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         NavigationStack {
             VStack {
@@ -65,18 +64,12 @@ struct AddTransactionView: View {
                         VStack {
                             HStack {
                                 Spacer()
-                                Text(NSLocalizedString("transaction_new", comment: ""))
+                                Text("transaction_new".localized)
                                     .titleAdjustSize()
                                 Spacer()
                             }
                             .padding(.horizontal, 12)
                             
-                            if userDefaultsManager.isBuyingQualityEnable && viewModel.transactionType == .expense {
-                                Text(NSLocalizedString("transaction_alert_quality_purchase", comment: ""))
-                                    .font(Font.mediumText16())
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, 8)
-                            }
                             VStack {
                                 if viewModel.transactionType == .expense {
                                     HStack {
@@ -136,7 +129,7 @@ struct AddTransactionView: View {
                                     if let categoryFound = viewModel.automaticCategorySearch().0 {
                                         let subcategoryFound = viewModel.automaticCategorySearch().1
                                         VStack(spacing: 0) {
-                                            Text(NSLocalizedString("transaction_recommended_category", comment: "") + " : ")
+                                            Text("transaction_recommended_category".localized + " : ")
                                             HStack {
                                                 Image(systemName: categoryFound.icon)
                                                 Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
@@ -160,14 +153,14 @@ struct AddTransactionView: View {
                             .padding(.top)
                             .padding(.bottom, 8)
                             
-                            TextField(NSLocalizedString("transaction_title", comment: ""), text: $viewModel.transactionTitle.animation())
+                            TextField("transaction_title".localized, text: $viewModel.transactionTitle.animation())
                                 .focused($focusedField, equals: .title)
                                 .multilineTextAlignment(.center)
                                 .font(.semiBoldCustom(size: isLittleIphone ? 24 : 30))
                                 .padding(.horizontal, 8)
                         }
                         
-                        TextField(NSLocalizedString("transaction_placeholder_amount", comment: ""), value: $viewModel.transactionAmount.animation(), formatter: numberFormatter)
+                        TextField("transaction_placeholder_amount".localized, value: $viewModel.transactionAmount.animation(), formatter: numberFormatter)
                             .focused($focusedField, equals: .amount)
                             .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                             .multilineTextAlignment(.center)
@@ -190,8 +183,8 @@ struct AddTransactionView: View {
                             }
                         
                         CustomSegmentedControl(selection: $viewModel.transactionType,
-                                               textLeft: NSLocalizedString("word_expense", comment: ""),
-                                               textRight: NSLocalizedString("word_income", comment: ""),
+                                               textLeft: "word_expense".localized,
+                                               textRight: "word_income".localized,
                                                height: isLittleIphone ? 40 : 50)
                         .padding(.horizontal)
                         
@@ -209,27 +202,18 @@ struct AddTransactionView: View {
                             }
                         }
                         .padding()
-                        
-                        cellForAlerts()
-                        
+
                         Spacer()
                         
                         // Validate Button
                         CreateButton(action: {
-                            if userDefaultsManager.isNoSpendChallengeEnbale {
-                                showAlertNoSpendChallenge.toggle()
-                            } else { viewModel.createNewTransaction() }
-                            if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                            viewModel.createNewTransaction()
+                            if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                         }, validate: viewModel.validateTrasaction())
                         .padding(.horizontal, 8)
                         .padding(.bottom)
                     } // End New Transaction
                     .ignoresSafeArea(.keyboard, edges: .bottom)
-                    .alert(NSLocalizedString("transaction_alert_no_spend_challenge_title", comment: ""), isPresented: $showAlertNoSpendChallenge, actions: {
-                        Button(role: .destructive, action: { viewModel.createNewTransaction() }, label: { Text(NSLocalizedString("word_yes", comment: "")) })
-                    }, message: {
-                        Text(NSLocalizedString("transaction_alert_no_spend_challenge_desc", comment: ""))
-                    })
                 } else {
                     VStack { // Successful Transaction
                         CircleWithCheckmark()
@@ -237,11 +221,11 @@ struct AddTransactionView: View {
                             .confettiCannon(counter: $confettiCounter, num: 50, openingAngle: Angle(degrees: 0), closingAngle: Angle(degrees: 360), radius: 200)
                         
                         VStack(spacing: 20) {
-                            Text(NSLocalizedString("transaction_successful", comment: ""))
+                            Text("transaction_successful".localized)
                                 .font(.semiBoldCustom(size: 28))
                                 .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
                             
-                            Text(NSLocalizedString("transaction_successful_desc", comment: ""))
+                            Text("transaction_successful_desc".localized)
                                 .font(Font.mediumSmall())
                                 .foregroundColor(.secondary400)
                         }
@@ -249,10 +233,10 @@ struct AddTransactionView: View {
                         
                         if let theNewTransaction = viewModel.theNewTransaction {
                             VStack {
-                                CellTransactionWithoutAction(transaction: theNewTransaction, update: $update)
+                                CellTransactionWithoutAction(transaction: theNewTransaction)
                                 
                                 HStack {
-                                    Text(NSLocalizedString("transaction_successful_date", comment: ""))
+                                    Text("transaction_successful_date".localized)
                                         .font(Font.mediumSmall())
                                         .foregroundColor(.secondary400)
                                     Spacer()
@@ -263,21 +247,6 @@ struct AddTransactionView: View {
                                 .padding(.horizontal, 8)
                             }
                             .padding(.horizontal)
-                        }
-                        
-                        if let theNewTransaction = viewModel.theNewTransaction {
-                            if userDefaultsManager.isPayingYourselfFirstEnable && theNewTransaction.amount > 0 {
-                                NavigationLink(destination: {
-                                    AdviceView()
-                                }, label: { LabelForCellAdvice(colorCell: true) })
-                            }
-                        }
-                        
-                        if let account, viewModel.numberOfAlertsForSuccessful != 0 {
-                            NavigationLink(destination: {
-                                AlertViewForSuccessful(account: account, subcategory: viewModel.selectedSubcategory, isCardLimitSoonExceed: viewModel.isCardLimitSoonToBeExceeded, isCardLimitExceeded: viewModel.isCardLimitExceeded, isBudgetSoonExceed: viewModel.isBudgetSoonToBeExceeded, isBudgetExceeded: viewModel.isBudgetExceed)
-                            }, label: { LabelForCellAlerts(numberOfAlert: viewModel.numberOfAlertsForSuccessful, colorCell: true) })
-                            .padding(.top)
                         }
                         
                         Spacer()
@@ -310,32 +279,10 @@ struct AddTransactionView: View {
                 WhatCategoryView(selectedCategory: $viewModel.selectedCategory, selectedSubcategory: $viewModel.selectedSubcategory)
             }
         } // End NavigationStack
-    } // END body
-    
-    //MARK: - ViewBuilder
-    @ViewBuilder
-    func cellForAlerts() -> some View {
-        if viewModel.numberOfAlerts != 0 {
-            NavigationLink(destination: {
-                AlertsView(
-                    isAccountWillBeNegative: viewModel.isAccountWillBeNegative,
-                    isCardLimitExceeds: viewModel.isCardLimitExceeds,
-                    isBudgetIsExceeded: viewModel.isBudgetIsExceededAfterThisTransaction,
-                    isDuplicateTransactions: viewModel.isDuplicateTransactions
-                )
-            }, label: { LabelForCellAlerts(numberOfAlert:viewModel.numberOfAlerts) })
-        }
-    }
-    
-}//END struct
+    } // End body
+} // End struct
 
-//MARK: - Preview
-struct AddTransactionView_Previews: PreviewProvider {
-    
-    @State static var previewBool: Bool = false
-    @State static var previewAccount: Account? = previewAccount1()
-    
-    static var previews: some View {
-        AddTransactionView(account: $previewAccount)
-    }
+// MARK: - Preview
+#Preview {
+    AddTransactionView()
 }

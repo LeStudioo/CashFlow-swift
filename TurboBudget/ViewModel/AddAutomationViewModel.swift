@@ -15,7 +15,6 @@ enum AutomationFrequently: CaseIterable {
 
 class AddAutomationViewModel: ObservableObject {
     static let shared = AddAutomationViewModel()
-    let userDefaultsManager = UserDefaultsManager.shared
     let viewContext = persistenceController.container.viewContext
     
     @Published var selectedCategory: PredefinedCategory? = nil
@@ -80,12 +79,6 @@ class AddAutomationViewModel: ObservableObject {
         
         newTransaction.transactionToAutomation = newAutomation
         
-        //Create a Notification
-        if allowNotification && addNotification {
-            newAutomation.isNotif = true
-            NotificationManager().createNotification(transaction: newTransaction, Automation: newAutomation, dateSchedule: newTransaction.date)
-        }
-        
         do {
             try viewContext.save()
             print("🔥 New Transaction created with Success")
@@ -95,33 +88,6 @@ class AddAutomationViewModel: ObservableObject {
             withAnimation { showSuccessfulAutomation.toggle() }
         } catch {
             print("⚠️ Error for : \(error.localizedDescription)")
-        }
-    }
-}
-
-//MARK: - Utils
-extension AddAutomationViewModel {
-    
-    //-------------------- checkAllowNotification() ----------------------
-    // Description : Allows to know if the user has activated the notifications. If not, they are asked if they want to activate them or are told to go to their settings
-    // Parameter : No
-    // Output : Void
-    // Extra :
-    //-----------------------------------------------------------
-    func checkAllowNotification() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if success {
-                self.allowNotification = true
-            } else if let error = error {
-                self.allowNotification = false
-                self.userDefaultsManager.notificationTimeDay = 0
-                print("⚠️ Error for check notif : \(error.localizedDescription)")
-            } else {
-                self.info = MultipleAlert(id: .one, title: NSLocalizedString("alert_notification_title", comment: ""), message: NSLocalizedString("alert_notification_desc", comment: ""), action: {})
-                self.addNotification = false
-                self.allowNotification = false
-                self.userDefaultsManager.notificationTimeDay = 0
-            }
         }
     }
 }

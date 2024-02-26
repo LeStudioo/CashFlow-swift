@@ -1,10 +1,9 @@
 //
-//  SettingAppearenceView.swift
+//  SettingsAppearenceView.swift
 //  CashFlow
 //
-//  Created by KaayZenn on 10/09/2023.
+//  Created by KaayZenn on 25/02/2024.
 //
-// Localizations 01/10/2023
 
 import SwiftUI
 
@@ -19,34 +18,24 @@ let iconsOfSerena: PeopleIcon = PeopleIcon(name: "Séréna De Araujo", icons: ["
 let iconsOfRyan: PeopleIcon = PeopleIcon(name: "Ryan Delépine", icons: ["AppIconCFLight", "AppIconCFDark"])
 let allPeopleWithIcons: [PeopleIcon] = [iconsOfSerena, iconsOfRyan, iconsOfAli]
 
-struct SettingAppearenceView: View {
-
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-
-    //Environnements
+struct SettingsAppearenceView: View {
+    
+    // Custom
+    @State private var selectedPeople: PeopleIcon = iconsOfSerena
+    
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
     
-    //EnvironmentsObject
+    // EnvironmentsObject
     @EnvironmentObject var csManager: ColorSchemeManager
-
-    //State or Binding String
-    @Binding var colorSelected: String
-    @State private var selectedPeople: PeopleIcon = iconsOfSerena
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    @Binding var update: Bool
-
-	//Enum
-	
-	//Computed var
+    
+    // Preferences
+    @Preference(\.colorSelected) private var colorSelected
 
     //MARK: - Body
     var body: some View {
-        VStack(spacing: 32) {
-            //Theme
+        ScrollView {
+            // Theme
             HStack {
                 Spacer()
                 cellForThemeSystem()
@@ -58,15 +47,16 @@ struct SettingAppearenceView: View {
             }
             .padding()
             
-            //Tint color
-            VStack(spacing: 2) {
+            // Tint color
+            VStack(spacing: 4) {
                 HStack {
-                    Text(NSLocalizedString("setting_appearence_tint_color", comment: ""))
+                    Text("setting_appearence_tint_color".localized)
                         .font(Font.mediumText16())
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                     Spacer()
                 }
                 .padding(.leading)
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(themes) { theme in
@@ -96,8 +86,6 @@ struct SettingAppearenceView: View {
                             }
                             .onTapGesture {
                                 colorSelected = theme.idUnique
-                                userDefaultsManager.colorSelected = colorSelected
-                                update.toggle()
                             }
                         }
                     }
@@ -107,9 +95,9 @@ struct SettingAppearenceView: View {
             
             //Alternate Icon
             VStack {
-                VStack(spacing: -1) {
+                VStack(spacing: 4) {
                     HStack {
-                        Text(NSLocalizedString("setting_appearence_app_icon", comment: ""))
+                        Text("setting_appearence_app_icon".localized)
                             .font(Font.mediumText16())
                             .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         Spacer()
@@ -144,11 +132,9 @@ struct SettingAppearenceView: View {
                         if UIApplication.shared.alternateIconName == iconName { print("🔥 LOGO already selected") } else {
                             if iconName == "AppIconMainLight" {
                                 UIApplication.shared.setAlternateIconName(nil)
-                                update.toggle()
                             } else {
                                 UIApplication.shared.setAlternateIconName(iconName) { error in
                                     if let error { print("⚠️ Error for change alternate icon : \(error.localizedDescription)") } else {
-                                        update.toggle()
                                     }
                                 }
                             }
@@ -189,14 +175,14 @@ struct SettingAppearenceView: View {
                     })
                 }
             }
-            .padding(update ? 0 : 0)
             .padding()
             
-            Spacer()
-        }
-    }//END body
+        } // End ScrollView
+        .scrollIndicators(.hidden)
+        .navigationBarTitleDisplayMode(.inline)
+    } // End body
     
-    //MARK: ViewBuilder
+    //MARK: - ViewBuilder
     @ViewBuilder
     func cellForThemeSystem() -> some View {
         Button(action: { csManager.colorScheme = .unspecified }, label: {
@@ -223,7 +209,7 @@ struct SettingAppearenceView: View {
                             }
                         }
                     )
-                Text(NSLocalizedString("setting_appearence_system", comment: ""))
+                Text("setting_appearence_system".localized)
                     .font(.semiBoldText16())
                     .foregroundColor(.colorLabel)
             }
@@ -254,7 +240,7 @@ struct SettingAppearenceView: View {
                             .font(.system(size: 22, weight: .semibold, design: .rounded))
                             .foregroundColor(.black)
                     }
-                Text(NSLocalizedString("word_light", comment: ""))
+                Text("word_light".localized)
                     .font(.semiBoldText16())
                     .foregroundColor(.colorLabel)
             }
@@ -285,49 +271,42 @@ struct SettingAppearenceView: View {
                             .font(.system(size: 22, weight: .semibold, design: .rounded))
                             .foregroundColor(.white)
                     }
-                Text(NSLocalizedString("word_dark", comment: ""))
+                Text("word_dark".localized)
                     .font(.semiBoldText16())
                     .foregroundColor(.colorLabel)
             }
         })
     }
 
-    //MARK: Fonctions
+    // MARK: - Functions
     func textDisplay(iconName: String) -> String {
         if iconName == "AppIconMainLight" {
-            return NSLocalizedString("setting_appearence_original", comment: "")
+            return "setting_appearence_original".localized
             
         } else if iconName == "AppIconMainDark" {
-            return NSLocalizedString("word_dark", comment: "")
+            return "word_dark".localized
             
         } else if iconName.contains("AppIconWallet") && iconName.contains("Dark") {
             let iconNameWithoutAppIconWallet = iconName.replacingOccurrences(of: "AppIconWallet", with: "")
             let iconNameWithoutDark = iconNameWithoutAppIconWallet.replacingOccurrences(of: "Dark", with: "")
-            return iconNameWithoutDark + " " + NSLocalizedString("setting_appearence_dark_wallet", comment: "")
+            return iconNameWithoutDark + " " + "setting_appearence_dark_wallet".localized
             
         } else if iconName.contains("AppIconWallet") && !iconName.contains("Dark") {
             let iconNameWithoutAppIconWallet = iconName.replacingOccurrences(of: "AppIconWallet", with: "")
-            return iconNameWithoutAppIconWallet + " " + NSLocalizedString("setting_appearence_wallet", comment: "")
+            return iconNameWithoutAppIconWallet + " " + "setting_appearence_wallet".localized
             
         } else if iconName == "AppIconCFLight" {
-            return NSLocalizedString("setting_appearence_CF_light", comment: "")
+            return "setting_appearence_CF_light".localized
             
         } else if iconName == "AppIconCFDark" {
-            return NSLocalizedString("setting_appearence_CF_dark", comment: "")
+            return "setting_appearence_CF_dark".localized
         }
         
         return ""
     }
+} // End struct
 
-}//END struct
-
-//MARK: - Preview
-struct SettingAppearenceView_Previews: PreviewProvider {
-    
-    @State static var previewColor: String = ""
-    @State static var updatePreview: Bool = false
-    
-    static var previews: some View {
-        SettingAppearenceView(colorSelected: $previewColor, update: $updatePreview)
-    }
+// MARK: - Preview
+#Preview {
+    SettingsAppearenceView()
 }

@@ -94,6 +94,22 @@ extension Account {
 
 }
 
+extension Account {
+    
+    static var preview: Account {
+        let account = Account(context: previewViewContext)
+        account.id = UUID()
+        account.title = "Preview Account"
+        account.balance = 18_915
+        account.cardLimit = 3000
+        account.position = 1
+        account.accountToAutomation?.insert(Automation.preview)
+        account.accountToSavingPlan?.insert(SavingPlan.preview1)
+        return account
+    }
+    
+}
+
 //MARK: - Extension Helper
 extension Account {
     

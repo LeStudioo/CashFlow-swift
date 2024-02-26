@@ -11,25 +11,18 @@ import SwipeActions
 
 struct CellTransactionForAutomationView: View {
 
-    //Custom type
-    var transaction: Transaction
+    // Builder
+    @ObservedObject var transaction: Transaction
 
-    //Environnements
+    // Environement
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-    @Binding var update: Bool
+    // Boolean variables
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
-
-	//Enum
 	
-	//Computed var
+	// Computed var
     var category: PredefinedCategory? {
         return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
     }
@@ -81,7 +74,7 @@ struct CellTransactionForAutomationView: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(transaction.amount < 0 ? NSLocalizedString("word_automation_expense", comment: "") : NSLocalizedString("word_automation_income", comment: ""))
+                    Text(transaction.amount < 0 ? "word_automation_expense".localized : "word_automation_income".localized)
                         .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(Font.mediumSmall())
                     Text(transaction.title)
@@ -114,7 +107,7 @@ struct CellTransactionForAutomationView: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(NSLocalizedString("word_DELETE", comment: ""))
+                    Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundColor(.colorLabelInverse)
@@ -132,25 +125,20 @@ struct CellTransactionForAutomationView: View {
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
         .padding(.horizontal)
-        .padding(update ? 0 : 0)
-        .alert(NSLocalizedString("transaction_cell_delete_auto", comment: ""), isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
-            Button(role: .destructive, action: { withAnimation { deleteTransactionWithAutomation() } }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+        .alert("transaction_cell_delete_auto".localized, isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: { withAnimation { deleteTransactionWithAutomation() } }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(NSLocalizedString("transaction_cell_delete_auto_desc", comment: ""))
+            Text("transaction_cell_delete_auto_desc".localized)
         })
     }//END body
 
     //MARK: Fonctions
     func deleteTransactionWithAutomation() {
-        if let auto = transaction.transactionToAutomation {
-            NotificationManager().deleteNotification(transaction: transaction, Automation: auto)
-        }
         DispatchQueue.main.async {
             if let automation = transaction.transactionToAutomation {
                 viewContext.delete(transaction)
                 viewContext.delete(automation)
-                update.toggle()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     persistenceController.saveContext()
                 }
@@ -161,11 +149,6 @@ struct CellTransactionForAutomationView: View {
 }//END struct
 
 //MARK: - Preview
-struct TransactionCellForSubscritpionView_Previews: PreviewProvider {
-    
-    @State static var previewUpdate: Bool = false
-    
-    static var previews: some View {
-        CellTransactionForAutomationView(transaction: previewTransaction1(), update: $previewUpdate)
-    }
+#Preview {
+    CellTransactionForAutomationView(transaction: Transaction.preview1)
 }

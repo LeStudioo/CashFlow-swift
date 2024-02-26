@@ -24,9 +24,7 @@ struct PieChartView: View {
     @Binding var selectedCategory: PredefinedCategory?
     
     @Binding var height: CGFloat
-    
-    @Binding var update: Bool
-    
+        
     var categoriesWithExpenses: [PredefinedCategory] {
         var categoriesWithout0: [PredefinedCategory] = []
         
@@ -195,9 +193,9 @@ struct PieChartView: View {
                 return Calendar.current.monthSymbols[month - 1]
             } else { return "" }
         } else if !filter.automation && filter.total {
-            return NSLocalizedString("word_total", comment: "")
+            return "word_total".localized
         } else if filter.automation && filter.total {
-            return NSLocalizedString("word_total_auto", comment: "")
+            return "word_total_auto".localized
         }
         
         return ""
@@ -237,7 +235,7 @@ struct PieChartView: View {
                      categoryPredefined2,
                      categoryPredefined3],
         selectedCategory: Binding.constant(categoryPredefined1),
-        height: Binding.constant(280), update: Binding.constant(false)
+        height: Binding.constant(280)
     )
 }
 

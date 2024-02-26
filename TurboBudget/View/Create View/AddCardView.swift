@@ -10,13 +10,13 @@ import SwiftUI
 
 struct AddCardView: View {
 
-    //Custom type
-    @Binding var account: Account?
-
-    //Environnements
+    // Environement
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // EnvironmentObject
+    @EnvironmentObject var account: Account
 
     //State or Binding String
     @State private var textFieldEmptyString: String = ""
@@ -41,7 +41,7 @@ struct AddCardView: View {
             CardViewEditable(cardNumber: $cardNumber, cardHolder: $cardHolder, cardDate: $cardDate)
                 .padding([.horizontal, .bottom], 8)
             
-            Text(NSLocalizedString("card_no_cvv", comment: ""))
+            Text("card_no_cvv".localized)
                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                 .multilineTextAlignment(.center)
                 .font(.semiBoldText16())
@@ -60,7 +60,7 @@ struct AddCardView: View {
                         Spacer()
                         Image(systemName: "barcode.viewfinder")
                             .font(.system(size: 22, weight: .medium))
-                        Text(NSLocalizedString("card_scan_button", comment: ""))
+                        Text("card_scan_button".localized)
                             .font(.semiBoldCustom(size: 20))
                         Spacer()
                     }
@@ -120,10 +120,7 @@ struct AddCardView: View {
 
 //MARK: - Preview
 struct AddCardView_Previews: PreviewProvider {
-    
-    @State static var previewAccount: Account? = previewAccount1()
-    
     static var previews: some View {
-        AddCardView(account: $previewAccount)
+        AddCardView()
     }
 }

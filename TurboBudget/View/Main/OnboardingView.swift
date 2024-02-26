@@ -64,29 +64,29 @@ struct OnboardingView: View {
                 //1
                 onboardingPage(
                     image: "TutorialPage1",
-                    title: NSLocalizedString("onboarding_page1_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page1_desc", comment: "")
+                    title: "onboarding_page1_title".localized,
+                    desc: "onboarding_page1_desc".localized
                 ).tag(1)
                 
                 //2
                 onboardingPage(
                     image: "TutorialPage2",
-                    title: NSLocalizedString("onboarding_page2_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page2_desc", comment: "")
+                    title: "onboarding_page2_title".localized,
+                    desc: "onboarding_page2_desc".localized
                 ).tag(2)
                 
                 //3
                 onboardingPage(
                     image: "TutorialPage3",
-                    title: NSLocalizedString("onboarding_page3_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page3_desc", comment: "")
+                    title: "onboarding_page3_title".localized,
+                    desc: "onboarding_page3_desc".localized
                 ).tag(3)
                 
                 //4
                 onboardingPage(
                     image: "TutorialPage4",
-                    title: NSLocalizedString("onboarding_page4_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page4_desc", comment: "")
+                    title: "onboarding_page4_title".localized,
+                    desc: "onboarding_page4_desc".localized
                 ).tag(4)
                 
                 addAccountPage().tag(5)
@@ -101,7 +101,7 @@ struct OnboardingView: View {
                     DispatchQueue.main.async {
                         let firstTransaction = Transaction(context: viewContext)
                         firstTransaction.id = UUID()
-                        firstTransaction.title = NSLocalizedString("name_first_transaction", comment: "")
+                        firstTransaction.title = "name_first_transaction".localized
                         firstTransaction.amount = accountBalance
                         firstTransaction.date = .now
                         
@@ -124,7 +124,7 @@ struct OnboardingView: View {
                     .foregroundColor(.primary400)
                     .frame(height: 60)
                     .overlay {
-                        Text(actualPage == 5 ? NSLocalizedString("onboarding_button_start", comment: "") : NSLocalizedString("onboarding_button_next", comment: ""))
+                        Text(actualPage == 5 ? "onboarding_button_start".localized : "onboarding_button_next".localized)
                             .font(.semiBoldCustom(size: 22))
                             .foregroundColor(.primary0)
                     }
@@ -185,33 +185,33 @@ struct OnboardingView: View {
     @ViewBuilder
     func addAccountPage() -> some View {
         VStack {
-            Text(NSLocalizedString("account_new", comment: ""))
+            Text("account_new".localized)
                 .titleAdjustSize()
                 .padding(.top)
             
-            CellAddCardView(textHeader: NSLocalizedString("account_name", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_name", comment: ""),
+            CellAddCardView(textHeader: "account_name".localized,
+                            placeholder: "account_placeholder_name".localized,
                             text: $accountTitle,
                             value: $textFieldEmptyDouble,
                             isNumberTextField: false)
             .padding(8)
             
-            CellAddCardView(textHeader: NSLocalizedString("account_balance", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_balance", comment: ""),
+            CellAddCardView(textHeader: "account_balance".localized,
+                            placeholder: "account_placeholder_balance".localized,
                             text: $textFieldEmptyString,
                             value: $accountBalance,
                             isNumberTextField: true)
             .padding(8)
             .padding(.vertical)
             
-            CellAddCardView(textHeader: NSLocalizedString("account_card_limit", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_card_limit", comment: ""),
+            CellAddCardView(textHeader: "account_card_limit".localized,
+                            placeholder: "account_placeholder_card_limit".localized,
                             text: $textFieldEmptyString,
                             value: $cardLimit,
                             isNumberTextField: true)
             .padding(8)
             
-            Text(NSLocalizedString("account_info_credit_card", comment: ""))
+            Text("account_info_credit_card".localized)
                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
                 .multilineTextAlignment(.center)
                 .font(.semiBoldText16())
@@ -235,7 +235,7 @@ struct OnboardingView: View {
 //MARK: - Preview
 struct OnboardingView_Previews: PreviewProvider {
     
-    @State static var previewAccount: Account? = previewAccount1()
+    @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
         OnboardingView(account: $previewAccount)
