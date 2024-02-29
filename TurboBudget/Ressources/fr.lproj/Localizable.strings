@@ -127,6 +127,12 @@
 
 "word_continue" = "Continuer";
 
+"word_cancel_changes" = "Annuler les modifications";
+
+"word_return" = "Retour";
+
+"word_savings_account" = "Comptes d'épargne";
+
 //MARK: - Error Message
 "error_message_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
 

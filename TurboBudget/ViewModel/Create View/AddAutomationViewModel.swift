@@ -33,7 +33,7 @@ class AddAutomationViewModel: ObservableObject {
     @Published var mainAccount: Account? = nil
     @Published var theNewTransaction: Transaction? = nil
     @Published var theNewAutomation: Automation? = nil
-    @Published var info: MultipleAlert?
+    @Published var presentingConfirmationDialog: Bool = false
     
     // init
     init() {
@@ -48,6 +48,9 @@ class AddAutomationViewModel: ObservableObject {
             print("⚠️ \(error.localizedDescription)")
         }
     }
+}
+
+extension AddAutomationViewModel {
     
     func createNewAutomation() {
         
@@ -90,10 +93,20 @@ class AddAutomationViewModel: ObservableObject {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
     }
+    
 }
 
-//MARK: - Verification
+// MARK: - Verification
 extension AddAutomationViewModel {
+    
+    func isAutomationInCreation() -> Bool {
+        if showSuccessfulAutomation { return false }
+        if selectedCategory != nil || selectedSubcategory != nil || !titleTransaction.isEmpty || amountTransaction != 0 {
+            return true
+        }
+        return false
+    }
+    
     func validateAutomation() -> Bool {
         if !titleTransaction.isEmptyWithoutSpace() && amountTransaction != 0.0 && selectedCategory != nil {
             return true

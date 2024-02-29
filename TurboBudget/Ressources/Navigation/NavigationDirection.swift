@@ -15,13 +15,20 @@ enum NavigationDirection: Identifiable {
     case homeSavingPlans(account: Account)
     case homeAutomations(account: Account)
     
+    case createAutomation
+    case createBudget
+    case createSavingPlans
+    case createTransaction
+    case recoverTransaction
+    
+    case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
+    
     case allTransactions(account: Account)
     case transactionDetail(transaction: Transaction)
     
     case savingPlansDetail(savingPlan: SavingPlan)
     
     case accountDashboard(account: Account)
-    case allCards
     case allSavingsAccount
     case allBudgets
     case budgetTransactions(subcategory: PredefinedSubcategory)
@@ -57,6 +64,20 @@ enum NavigationDirection: Identifiable {
         case .homeAutomations(let account):
             return "homeAutomations_\(account.id)"
             
+        case .createAutomation:
+            return "createAutomation"
+        case .createBudget:
+            return "createBudget"
+        case .createSavingPlans:
+            return "createSavingPlans"
+        case .createTransaction:
+            return "createTransaction"
+        case .recoverTransaction:
+            return "recoverTransaction"
+            
+        case .selectCategory(let category, let subcategory):
+            return "selectCategory_\(category.wrappedValue?.id ?? UUID())_\(subcategory.wrappedValue?.id ?? UUID())"
+            
         case .savingPlansDetail(let savingPlan):
             return "savingPlansDetail_\(savingPlan.id)"
             
@@ -67,8 +88,6 @@ enum NavigationDirection: Identifiable {
             
         case .accountDashboard(let account):
             return "accountDashboard_\(account.id)"
-        case .allCards:
-            return "allCards"
         case .allSavingsAccount:
             return "allSavingsAccount"
         case .allBudgets:
@@ -118,10 +137,14 @@ extension NavigationDirection: Equatable {
     static func == (lhs: NavigationDirection, rhs: NavigationDirection) -> Bool {
         switch (lhs, rhs) {
         case (.pageController, .pageController),
-            (.allCards, .allCards),
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
+            (.createAutomation, .createAutomation),
+            (.createBudget, .createBudget),
+            (.createSavingPlans, .createSavingPlans),
+            (.createTransaction, .createTransaction),
+            (.recoverTransaction, .recoverTransaction),
             (.paywall, .paywall),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),
@@ -141,6 +164,10 @@ extension NavigationDirection: Equatable {
             
         case let (.homeAutomations(lhsAccount), .homeAutomations(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
+            
+            
+        case let (.selectCategory(lhsCategory, lhsSubcategory), .selectCategory(rhsCategory, rhsSubcategory)):
+            return (lhsCategory.wrappedValue?.id == rhsCategory.wrappedValue?.id) && (lhsSubcategory.wrappedValue?.id == rhsSubcategory.wrappedValue?.id)
             
             
         case let (.savingPlansDetail(lhsSavingPlan), .savingPlansDetail(rhsSavingPlan)):

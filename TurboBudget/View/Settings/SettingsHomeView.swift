@@ -106,7 +106,7 @@ struct SettingsHomeView: View {
                         router.pushSettingsSavingPlans()
                     }, label: {
                         CellSettingsView(
-                            icon: "building.columns.fill",
+                            icon: "dollarsign.square.fill",
                             backgroundColor: Color.pink,
                             text: "word_savingsplans".localized,
                             isButton: false

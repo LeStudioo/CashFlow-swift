@@ -1,5 +1,5 @@
 //
-//  AddContributionView.swift
+//  CreateContributionView.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -9,25 +9,21 @@
 import SwiftUI
 import Combine
 
-struct AddContributionView: View {
+struct CreateContributionView: View {
 
-    // Custom type
-    var savingPlan: SavingPlan
+    // Builder
+    @ObservedObject var savingPlan: SavingPlan
+    
+    // Custom
     @StateObject private var viewModel = AddContributionViewModel()
 
-    // Environement
+    // Environment
     @Environment(\.dismiss) private var dismiss
 
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
 
-	//Enum
-    enum Field: CaseIterable {
-        case amount
-    }
-    @FocusState var focusedField: Field?
-
-    //Other
+    // Other
     var numberFormatter: NumberFormatter {
         let numFor = NumberFormatter()
         numFor.numberStyle = .decimal
@@ -38,14 +34,13 @@ struct AddContributionView: View {
     //MARK: - Body
     var body: some View {
         NavigationStack {
-            VStack {
-                DismissButtonInSheet()
+            ScrollView {
                 
                 Text("contribution_new".localized)
                     .titleAdjustSize()
+                    .padding(.vertical, 24)
                 
                 TextField("contribution_placeholder_amount".localized, value: $viewModel.amountContribution.animation(), formatter: numberFormatter)
-                    .focused($focusedField, equals: .amount)
                     .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
@@ -57,8 +52,8 @@ struct AddContributionView: View {
                         view
                             .padding(8)
                     }
-                    .background(Color.color3Apple.cornerRadius(100))
-                    .padding()
+                    .background(Color.backgroundComponentSheet.cornerRadius(100))
+                    .padding(.bottom, 24)
                     .onReceive(Just(viewModel.amountContribution)) { newValue in
                         if viewModel.amountContribution > 1_000_000_000 {
                             let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountContribution)
@@ -66,17 +61,18 @@ struct AddContributionView: View {
                         }
                     }
                 
-                CustomSegmentedControl(selection: $viewModel.typeContribution,
-                                       textLeft: "contribution_add".localized,
-                                       textRight: "contribution_withdraw".localized,
-                                       height: isLittleIphone ? 40 : 50)
-                .padding(.horizontal)
-
+                CustomSegmentedControl(
+                    selection: $viewModel.typeContribution,
+                    textLeft: "contribution_add".localized,
+                    textRight: "contribution_withdraw".localized,
+                    height: isLittleIphone ? 40 : 50
+                )
+                .padding(.bottom, 24)
                 
                 ZStack {
                     Capsule()
                         .frame(height: isLittleIphone ? 40 : 50)
-                        .foregroundColor(Color.color3Apple)
+                        .foregroundColor(Color.backgroundComponentSheet)
                     
                     HStack {
                         Spacer()
@@ -86,7 +82,7 @@ struct AddContributionView: View {
                             .padding(.horizontal)
                     }
                 }
-                .padding()
+                .padding(.bottom, 24)
                 
                 VStack {
                     if (viewModel.amountContribution > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
@@ -100,38 +96,45 @@ struct AddContributionView: View {
                 }
                 .font(Font.mediumText16())
                 .multilineTextAlignment(.center)
-                .padding(.horizontal)
-                
-                Spacer()
-                
-                CreateButton(action: {
-                    viewModel.createContribution()
-                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
-                    dismiss()
-                }, validate: viewModel.validateContribution())
-                    .padding(.horizontal, 8)
-                    .padding(.bottom)
-            }
-            .ignoresSafeArea(.keyboard)
-            .background(Color.color2Apple.edgesIgnoringSafeArea(.all).onTapGesture { UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil) } )
+                .padding(.bottom, 24)
+            } // End ScrollView
+            .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.immediately)
+            .padding(.horizontal)
             .toolbar {
-                ToolbarItem(placement: .keyboard) {
-                    HStack {
-                        EmptyView()
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundColor(HelperManager().getAppTheme().color) })
+                ToolbarDismissButtonView {
+                    if viewModel.isContributionInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
+                        dismiss()
                     }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-            }
-            .onAppear {
-                viewModel.savingPlan = savingPlan
+                
+                ToolbarCreateButtonView(isActive: viewModel.isContributionValid()) {
+                    viewModel.createContribution()
+                    if hapticFeedback {
+                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    }
+                    dismiss()
+                }
+                
+                ToolbarDismissKeyboardButtonView()
             }
         } // End Navigation Stack
+        .interactiveDismissDisabled(viewModel.isContributionInCreation()) {
+            viewModel.presentingConfirmationDialog.toggle()
+        }
+        .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_return".localized, role: .cancel, action: { })
+        }
+        .onAppear {
+            viewModel.savingPlan = savingPlan
+        }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    AddContributionView(savingPlan: SavingPlan.preview1)
+    CreateContributionView(savingPlan: SavingPlan.preview1)
 }

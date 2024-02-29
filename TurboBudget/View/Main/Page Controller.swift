@@ -13,8 +13,9 @@ import CoreData
 struct PageControllerView: View {
     
     // Custom type
-    let persistenceController = PersistenceController.shared
     let router = NavigationManager(isPresented: .constant(.pageController))
+    let persistenceController = PersistenceController.shared
+    
     @State private var account: Account? = nil
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
@@ -25,9 +26,6 @@ struct PageControllerView: View {
     // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
     private var accounts: FetchedResults<Account>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Card.position, ascending: true)])
-    private var cards: FetchedResults<Card>
     
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingPlan.position, ascending: true)])
     private var savingPlans: FetchedResults<SavingPlan>
@@ -92,7 +90,7 @@ struct PageControllerView: View {
                         }
                     } else if pageControllerVM.isUnlocked {
                         ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                            if let account {
+                            if let account = accounts.first {
                                 VStack {
                                     switch selectedTab {
                                     case 0:
@@ -124,28 +122,6 @@ struct PageControllerView: View {
                                 .onTapGesture {
                                     withAnimation { viewModelCustomBar.showMenu = false }
                                 }
-                                .sheet(isPresented: $viewModelCustomBar.showAddSavingPlan, content: {
-                                    AddSavingPlanView()
-                                        .environmentObject(account)
-                                })
-                                .sheet(isPresented: $viewModelCustomBar.showAddTransaction, onDismiss: {
-                                    withAnimation {
-                                        viewModelAddTransaction.resetData()
-                                        update.toggle()
-                                    }
-                                }, content: {
-                                    AddTransactionView()
-                                        .environmentObject(account)
-                                })
-                                .sheet(isPresented: $viewModelCustomBar.showAddAutomation, onDismiss: {
-                                    withAnimation {
-                                        AutomationManager().activateScheduledAutomations(automations: account.automations)
-                                        update.toggle()
-                                    }
-                                }, content: {
-                                    AddAutomationsView()
-                                        .environmentObject(account)
-                                })
                             } else {
                                 VStack {
                                     Spacer()
@@ -170,9 +146,11 @@ struct PageControllerView: View {
                                 }
                             }
                             
-                            TabbarView(account: $account,
-                                       selectedTab: $selectedTab,
-                                       offsetYMenu: $offsetYMenu
+                            TabbarView(
+                                router: router,
+                                account: $account,
+                                selectedTab: $selectedTab,
+                                offsetYMenu: $offsetYMenu
                             )
                         }
                         .onChange(of: selectedTab) { _ in
@@ -190,12 +168,8 @@ struct PageControllerView: View {
                         .sheet(isPresented: $viewModelCustomBar.showAddAccount, onDismiss: {
                             selectedTab = 3;
                             withAnimation { update.toggle() }
-                        }, content: {  CreateAccountView(account: $account) })
-                        .sheet(isPresented: $viewModelCustomBar.showRecoverTransaction, content: {
-                            RecoverTransactionView(account: $account)
-                        })
-                        
-                        .sheet(isPresented: $viewModelCustomBar.showScanTransaction, onDismiss: { viewModelCustomBar.showAddTransaction = true }) {
+                        }, content: {  CreateAccountView() })
+                        .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
                             viewModelAddTransaction.makeScannerView()
                         }
                         .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
@@ -205,16 +179,13 @@ struct PageControllerView: View {
                             }
                         }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
                         .edgesIgnoringSafeArea(.bottom)
-                        .ignoresSafeArea(.keyboard) //Pour pas que la tap bar monte quand un clavier apparait
+                        .ignoresSafeArea(.keyboard)
                     } // End if unlocked
                 }
                 .padding(update ? 0 : 0)
                 .padding(pageControllerVM.isUnlocked ? 0 : 0)
                 .onAppear {
-                    if accounts.count != 0 { account = Array(accounts)[0] }
-                }
-                .onRotate { _ in
-                    update.toggle()
+                    if !accounts.isEmpty { account = Array(accounts)[0] }
                 }
                 .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
                     // LaunchScreen ended and no data in iCloud
@@ -302,9 +273,7 @@ struct PageControllerView: View {
     } // End body
 } // End struct
 
-//MARK: - Preview
-struct PageControllerView_Previews: PreviewProvider {
-    static var previews: some View {
-        PageControllerView()
-    }
+// MARK: - Preview
+#Preview {
+    PageControllerView()
 }

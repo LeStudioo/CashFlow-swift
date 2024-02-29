@@ -30,6 +30,8 @@ class AddSavingPlanViewModel: ObservableObject {
     @Published var isEndDate: Bool = false
     @Published var isEmoji: Bool = false
     
+    @Published var presentingConfirmationDialog: Bool = false
+    
     // Preferences
     @Preference(\.cardLimitPercentage) private var cardLimitPercentage
     @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
@@ -96,6 +98,13 @@ class AddSavingPlanViewModel: ObservableObject {
 
 //MARK: Verification
 extension AddSavingPlanViewModel {
+    
+    func isSavingPlansInCreation() -> Bool {
+        if !savingPlanEmoji.isEmpty || !savingPlanTitle.isEmpty || savingPlanAmountOfStart != 0 || savingPlanAmountOfEnd != 0 || isEndDate {
+            return true
+        }
+        return false
+    }
     
     func validateSavingPlan() -> Bool {
         if isAccountWillBeNegative { return false }

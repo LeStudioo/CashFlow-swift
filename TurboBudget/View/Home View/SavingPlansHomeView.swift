@@ -14,15 +14,12 @@ struct SavingPlansHomeView: View {
     var router: NavigationManager
     @ObservedObject var account: Account
     
-    // Environement
+    // Environment
     @Environment(\.dismiss) private var dismiss
         
     // String variables
     @State private var searchText: String = ""
         
-    // Boolean variables
-    @State private var showAddSavingPlan: Bool = false
-    
     // Computed var
     private var searchResults: [SavingPlan] {
         if searchText.isEmpty {
@@ -77,7 +74,9 @@ struct SavingPlansHomeView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { showAddSavingPlan.toggle() }, label: {
+                Button(action: {
+                    router.presentCreateSavingPlans()
+                }, label: {
                     Image(systemName: "plus")
                         .foregroundColor(.colorLabel)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -85,7 +84,6 @@ struct SavingPlansHomeView: View {
             }
         }
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .sheet(isPresented: $showAddSavingPlan) { AddSavingPlanView() }
     } // End body
 } // End struct
 

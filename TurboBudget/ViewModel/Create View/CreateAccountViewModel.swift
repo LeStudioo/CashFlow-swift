@@ -12,15 +12,20 @@ class CreateAccountViewModel: ObservableObject {
     let viewContext = PersistenceController.shared.container.viewContext
     
     @Published var accountTitle: String = ""
-    @Published var textFieldEmptyString: String = ""
-
-    @Published var textFieldEmptyDouble: Double = 0.0
-    @Published var accountBalance: Double = 0.0
-    @Published var cardLimit: Double = 0.0
+    @Published var accountBalance: String = ""
+    
+    @Published var presentingConfirmationDialog: Bool = false
     
 }
 
 extension CreateAccountViewModel {
+    
+    func isAccountInCreation() -> Bool {
+        if !accountTitle.isEmpty || accountBalance.convertToDouble() != 0 {
+            return true
+        }
+        return false
+    }
     
     func valideAccount() -> Bool {
         if !accountTitle.isEmptyWithoutSpace() {
@@ -29,14 +34,11 @@ extension CreateAccountViewModel {
         return false
     }
     
-    func createNewAccount(account: Binding<Account?>) {
+    func createNewAccount() {
         let newAccount = Account(context: viewContext)
         newAccount.id = UUID()
         newAccount.title = accountTitle
-        newAccount.balance = accountBalance
-        newAccount.cardLimit = cardLimit
-        
-        account.wrappedValue = newAccount
+        newAccount.balance = accountBalance.convertToDouble()
         
         persistenceController.saveContext()
     }

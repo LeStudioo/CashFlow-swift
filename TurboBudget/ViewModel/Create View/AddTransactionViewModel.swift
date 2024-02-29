@@ -25,6 +25,8 @@ class AddTransactionViewModel: ObservableObject {
     
     @Published var mainAccount: Account? = nil
     
+    @Published var presentingConfirmationDialog: Bool = false
+    
     // Prefrences
     @Preference(\.cardLimitPercentage) private var cardLimitPercentage
     @Preference(\.budgetPercentage) private var budgetPercentage
@@ -176,6 +178,13 @@ extension AddTransactionViewModel {
 
 //MARK: - Verification
 extension AddTransactionViewModel {
+    
+    func isTransactionInCreation() -> Bool {
+        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount != 0 {
+            return true
+        }
+        return false
+    }
     
     var isAccountWillBeNegative: Bool {
         if let mainAccount, !accountCanBeNegative {

@@ -1,5 +1,5 @@
 //
-//  WhatCategoryView.swift
+//  SelectCategoryView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 18/06/2023.
@@ -9,11 +9,14 @@
 
 import SwiftUI
 
-struct WhatCategoryView: View {
+struct SelectCategoryView: View {
     
-    //Custom type
+    // Builder
     @Binding var selectedCategory: PredefinedCategory?
     @Binding var selectedSubcategory: PredefinedSubcategory?
+    
+    //Custom type
+   
     var predefinedCategories = PredefinedObjectManager.shared.allPredefinedCategory
     
     //Environnements
@@ -22,9 +25,6 @@ struct WhatCategoryView: View {
     
     //State or Binding String
     @State private var searchText: String = ""
-    
-    //State or Binding Int, Float and Double
-    @State private var offsetValidationButton: CGFloat = 120
     
     //State or Binding Bool
     @State private var showAlertPaywall: Bool = false
@@ -91,7 +91,13 @@ struct WhatCategoryView: View {
                                     .padding([.horizontal, .top])
                                     if category.subcategories.count == 0 {
                                         cellForCategory(category: category)
-                                            .onTapGesture { withAnimation { selectedSubcategory = nil; selectedCategory = category } }
+                                            .onTapGesture {
+                                                withAnimation {
+                                                    selectedSubcategory = nil
+                                                    selectedCategory = category
+                                                    dismiss()
+                                                }
+                                            }
                                             .overlay(alignment: .topTrailing) {
                                                 if selectedCategory == category {
                                                     ZStack {
@@ -109,7 +115,13 @@ struct WhatCategoryView: View {
                                         VStack {
                                             ForEach(category.subcategories) { subcategory in
                                                 cellForSubcategory(subcategory: subcategory)
-                                                    .onTapGesture { withAnimation { selectedCategory = subcategory.category; selectedSubcategory = subcategory } }
+                                                    .onTapGesture {
+                                                        withAnimation {
+                                                            selectedCategory = subcategory.category
+                                                            selectedSubcategory = subcategory
+                                                            dismiss()
+                                                        }
+                                                    }
                                                     .overlay(alignment: .topTrailing) {
                                                         if selectedSubcategory == subcategory {
                                                             ZStack {
@@ -136,33 +148,6 @@ struct WhatCategoryView: View {
                             .opacity(0)
                         
                         Spacer()
-                    }
-                    .overlay(alignment: .bottom) {
-                        if searchResults.count != 0 {
-                            ValidateButton(action: { dismiss() }, validate: true)
-                                .offset(y: offsetValidationButton)
-                                .onChange(of: selectedCategory) { newValue in
-                                    if newValue != nil {
-                                        withAnimation(.spring().speed(1.2)) { offsetValidationButton = 0 }
-                                    }
-                                }
-                                .onChange(of: selectedSubcategory) { newValue in
-                                    if newValue != nil {
-                                        withAnimation(.spring().speed(1.2)) { offsetValidationButton = 0 }
-                                    }
-                                }
-                                .padding(.horizontal, 8)
-                                .padding(.bottom)
-                                .if(offsetValidationButton != 120) { view in
-                                    view
-                                        .background(
-                                            LinearGradient(stops: [
-                                                Gradient.Stop(color: Color.color2Apple.opacity(0), location: 0.00),
-                                                Gradient.Stop(color: Color.color2Apple, location: 1.00)
-                                            ], startPoint: UnitPoint(x: 0.5, y: 0), endPoint: UnitPoint(x: 0.5, y: 0.27))
-                                        )
-                                }
-                        }
                     }
                 } else {
                     VStack(spacing: 20) {
@@ -268,6 +253,6 @@ struct WhatCategoryView: View {
 //    @State static var selectedSubcategoryPreview: ? =
 //
 //    static var previews: some View {
-//        WhatCategoryView(selectedCategory: $selectedCategoryPreview, selectedSubcategory: )
+//        SelectCategoryView(selectedCategory: $selectedCategoryPreview, selectedSubcategory: )
 //    }
 //}

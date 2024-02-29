@@ -31,7 +31,7 @@ struct CustomSegmentedControl: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 50)
                     .frame(height: height)
-                    .foregroundColor(Color.color3Apple)
+                    .foregroundStyle(Color.backgroundComponentSheet)
                     .overlay(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 50)
                             .foregroundColor(HelperManager().getAppTheme().color)

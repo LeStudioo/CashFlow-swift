@@ -41,10 +41,6 @@ class NavigationManager: Router {
         navigateTo(.accountDashboard(account: account))
     }
     
-    func pushAllCards() {
-        navigateTo(.allCards)
-    }
-    
     func pushAllSavingsAccount() {
         navigateTo(.allSavingsAccount)
     }
@@ -125,6 +121,30 @@ class NavigationManager: Router {
         presentSheet(.paywall)
     }
     
+    func presentCreateAutomation() {
+        presentSheet(.createAutomation)
+    }
+    
+    func presentCreateBudget() {
+        presentSheet(.createBudget)
+    }
+    
+    func presentCreateSavingPlans() {
+        presentSheet(.createSavingPlans)
+    }
+    
+    func presentCreateTransaction() {
+        presentSheet(.createTransaction)
+    }
+    
+    func presentRecoverTransaction() {
+        presentSheet(.recoverTransaction)
+    }
+    
+    func presentSelectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>) {
+        presentSheet(.selectCategory(category: category, subcategory: subcategory))
+    }
+    
     // Build view
     override func view(direction: NavigationDirection, route: Route) -> AnyView {
         AnyView(buildView(direction: direction, route: route))
@@ -147,6 +167,23 @@ private extension NavigationManager {
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
+                
+            case .createAutomation:
+                CreateAutomationView(router: router(route: route))
+            case .createBudget:
+                CreateBudgetView(router: router(route: route))
+            case .createSavingPlans:
+                CreateSavingPlansView(router: router(route: route))
+            case .createTransaction:
+                CreateTransactionView(router: router(route: route))
+            case .recoverTransaction:
+                RecoverTransactionView()
+                
+                
+            case .selectCategory(let category, let subcategory):
+                SelectCategoryView(selectedCategory: category, selectedSubcategory: subcategory)
+                
+                
             case .allTransactions(let account):
                 RecentTransactionsView(router: router(route: route), account: account)
             case .transactionDetail(let transaction):
@@ -159,8 +196,6 @@ private extension NavigationManager {
                 
             case .accountDashboard(let account):
                 AccountDashboardView(router: router(route: route), account: account)
-            case .allCards:
-                CardsHomeView()
             case .allSavingsAccount:
                 SavingsAccountHomeView()
             case .allBudgets:

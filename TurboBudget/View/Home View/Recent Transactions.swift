@@ -27,7 +27,6 @@ struct RecentTransactionsView: View {
     @State private var searchText: String = ""
         
     // Boolean variables
-    @State private var showAddTransaction: Bool = false
     @State private var ascendingOrder: Bool = false
         
     // Enum
@@ -174,7 +173,9 @@ struct RecentTransactionsView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { showAddTransaction.toggle() }, label: {
+                    Button(action: {
+                        router.presentCreateTransaction()
+                    }, label: {
                         Label("word_add".localized, systemImage: "plus")
                     })
                     Menu(content: {
@@ -197,7 +198,6 @@ struct RecentTransactionsView: View {
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .sheet(isPresented: $showAddTransaction) { AddTransactionView() }
     } // End body
 } // End struct
 

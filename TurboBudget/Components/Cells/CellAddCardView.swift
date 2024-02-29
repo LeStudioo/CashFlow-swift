@@ -9,35 +9,16 @@ import SwiftUI
 
 struct CellAddCardView: View {
 
-    //Custom type
-
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
+    // Builder
     var textHeader: String
     var placeholder: String
     @Binding var text: String
-    @Binding var value: Double
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
     var isNumberTextField: Bool
-
-    //Enum
     
-    //Computed var
-    
-    //Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
+    // Environment
+    @Environment(\.colorScheme) private var colorScheme
 
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         ZStack {
             ZStack(alignment: .topLeading) {
@@ -52,24 +33,14 @@ struct CellAddCardView: View {
                     .offset(x: 20, y: -12)
             }
             
-            if isNumberTextField {
-                TextField(placeholder, value: $value, formatter: numberFormatter)
-                    .font(Font.mediumText16())
-                    .offset(x: 20)
-                    .padding(.horizontal, 8)
-                    .keyboardType(.decimalPad)
-            } else {
-                TextField(placeholder, text: $text)
-                    .font(Font.mediumText16())
-                    .offset(x: 20)
-                    .padding(.horizontal, 8)
-            }
+            TextField(placeholder, text: $text)
+                .font(Font.mediumText16())
+                .offset(x: 20)
+                .padding(.horizontal, 8)
+                .keyboardType(isNumberTextField ? .decimalPad : .default)
         }
-    }//END body
-
-    //MARK: Fonctions
-
-}//END struct
+    } // End body
+} // Ens struct
 
 //MARK: - Preview
 struct CellAddCardView_Previews: PreviewProvider {
@@ -78,7 +49,12 @@ struct CellAddCardView_Previews: PreviewProvider {
     @State static private var valuePreview: Double = 0.0
     
     static var previews: some View {
-        CellAddCardView(textHeader: "Preview Header", placeholder: "Preview Placeholder", text: $textPreview, value: $valuePreview, isNumberTextField: false)
-            .padding()
+        CellAddCardView(
+            textHeader: "Preview Header",
+            placeholder: "Preview Placeholder",
+            text: $textPreview,
+            isNumberTextField: false
+        )
+        .padding()
     }
 }

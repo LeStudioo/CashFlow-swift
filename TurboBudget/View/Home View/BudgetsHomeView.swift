@@ -29,17 +29,7 @@ struct BudgetsHomeView: View {
     @State private var searchText: String = ""
     var months: [String] = Calendar.current.monthSymbols
     
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Bool
-    @State private var showAddBudget: Bool = false
-    
-    //State or Binding Date
-    
-    //Enum
-    
-    //Computed var
-    
+    // Computed var
     var getAllBudgetsByCategory: [PredefinedCategory] {
         var array: [PredefinedCategory] = []
         for budget in budgets {
@@ -132,8 +122,16 @@ struct BudgetsHomeView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { showAddBudget.toggle() }, label: { Label("word_add".localized, systemImage: "plus") })
-                    Button(action: { filter.fromBudget = true; filter.showMenu = true }, label: { Label("word_month".localized, systemImage: "calendar") })
+                    Button(action: {
+                        router.presentCreateBudget()
+                    }, label: {
+                        Label("word_add".localized, systemImage: "plus")
+                    })
+                    Button(action: {
+                        filter.fromBudget = true; filter.showMenu = true
+                    }, label: {
+                        Label("word_month".localized, systemImage: "calendar")
+                    })
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.colorLabel)
@@ -143,11 +141,10 @@ struct BudgetsHomeView: View {
         }
         .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .sheet(isPresented: $showAddBudget, content: { AddBudgetView() })
-    }//END body
-}//END struct
+    } // End body
+} // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     BudgetsHomeView(router: .init(isPresented: .constant(.allBudgets)))
 }

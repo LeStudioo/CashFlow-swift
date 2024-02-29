@@ -24,7 +24,7 @@ struct OnboardingView: View {
     @State private var textFieldEmptyString: String = ""
 
     //State or Binding Int, Float and Double
-    @State private var accountBalance: Double = 0.0
+    @State private var accountBalance: String = ""
     @State private var actualPage: Int = 1
     @State private var cardLimit: Double = 0.0
     @State private var textFieldEmptyDouble: Double = 0.0
@@ -102,13 +102,13 @@ struct OnboardingView: View {
                         let firstTransaction = Transaction(context: viewContext)
                         firstTransaction.id = UUID()
                         firstTransaction.title = "name_first_transaction".localized
-                        firstTransaction.amount = accountBalance
+                        firstTransaction.amount = accountBalance.convertToDouble()
                         firstTransaction.date = .now
                         
                         let firstAccount = Account(context: viewContext)
                         firstAccount.id = UUID()
                         firstAccount.title = accountTitle
-                        firstAccount.balance = accountBalance
+                        firstAccount.balance = accountBalance.convertToDouble()
                         firstAccount.cardLimit = cardLimit
                         firstAccount.accountToTransaction?.insert(firstTransaction)
                         
@@ -189,27 +189,22 @@ struct OnboardingView: View {
                 .titleAdjustSize()
                 .padding(.top)
             
-            CellAddCardView(textHeader: "account_name".localized,
-                            placeholder: "account_placeholder_name".localized,
-                            text: $accountTitle,
-                            value: $textFieldEmptyDouble,
-                            isNumberTextField: false)
+            CellAddCardView(
+                textHeader: "account_name".localized,
+                placeholder: "account_placeholder_name".localized,
+                text: $accountTitle,
+                isNumberTextField: false
+            )
             .padding(8)
             
-            CellAddCardView(textHeader: "account_balance".localized,
-                            placeholder: "account_placeholder_balance".localized,
-                            text: $textFieldEmptyString,
-                            value: $accountBalance,
-                            isNumberTextField: true)
+            CellAddCardView(
+                textHeader: "account_balance".localized,
+                placeholder: "account_placeholder_balance".localized,
+                text: $accountBalance,
+                isNumberTextField: true
+            )
             .padding(8)
             .padding(.vertical)
-            
-            CellAddCardView(textHeader: "account_card_limit".localized,
-                            placeholder: "account_placeholder_card_limit".localized,
-                            text: $textFieldEmptyString,
-                            value: $cardLimit,
-                            isNumberTextField: true)
-            .padding(8)
             
             Text("account_info_credit_card".localized)
                 .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
@@ -224,7 +219,7 @@ struct OnboardingView: View {
     //MARK: Fonctions
     func validateNewAccount() -> Bool {
         if actualPage == 5 {
-            if !accountTitle.isEmpty && accountBalance != 0 {
+            if !accountTitle.isEmpty && accountBalance.convertToDouble() != 0 {
                 return true
             } else { return false }
         } else { return true }
