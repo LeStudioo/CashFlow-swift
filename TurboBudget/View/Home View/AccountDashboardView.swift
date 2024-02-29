@@ -36,10 +36,6 @@ struct AccountDashboardView: View {
     @Preference(\.cardLimitPercentage) private var cardLimitPercentage
     
     //State or Binding String
-    @State private var cardNumber: String = ""
-    @State private var cardHolder: String = ""
-    @State private var cardDate: String = ""
-    @State private var cardCVV: String = ""
     @State private var accountName: String = ""
     @State private var accountNameForDeleting: String = ""
     
@@ -50,7 +46,6 @@ struct AccountDashboardView: View {
     
     //State or Binding Bool
     @State private var isDeleting: Bool = false
-    @State private var isEditingCardLimit: Bool = false
     @State private var isEditingAccountName: Bool = false
     @State private var showAddCard: Bool = false
     @State private var busy: Bool = false
@@ -162,19 +157,7 @@ struct AccountDashboardView: View {
                         }
                     }
                     
-                    LazyVGrid(columns: columns,
-                              spacing: 12,
-                              content: {
-                        
-                        Button(action: {
-                            router.pushAllCards()
-                        }, label: {
-                            cellForOnglet(
-                                text: "word_card".localized,
-                                num: account.transactionsFromApplePay.count ,
-                                systemImage: "creditcard.fill"
-                            )
-                        })
+                    LazyVGrid(columns: columns, spacing: 12, content: {
                         
                         Button(action: {
                             router.pushAllSavingsAccount()
@@ -212,7 +195,7 @@ struct AccountDashboardView: View {
                             cellForOnglet(
                                 text: "word_savingsplans".localized,
                                 num: account.savingPlans.count,
-                                systemImage: "building.columns.fill"
+                                systemImage: "dollarsign.square.fill"
                             )
                         })
                         
@@ -251,13 +234,9 @@ struct AccountDashboardView: View {
                         cardLimitProgress(account: account)
                     }
                     
-                    if let card = account.accountToCard {
-                        CardViewNotEditable(cardNumber: card.number, cardHolder: card.holder, cardDate: card.date)
-                            .padding(.horizontal)
-                            .padding(.vertical, 4)
-                    }
-                    
-                    Rectangle().frame(height: 120).opacity(0)
+                    Rectangle()
+                        .frame(height: 120)
+                        .opacity(0)
                 }
                 .navigationTitle("")
                 .navigationBarTitleDisplayMode(.large)
@@ -266,7 +245,6 @@ struct AccountDashboardView: View {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Menu(content: {
                             Button(action: { isEditingAccountName.toggle() }, label: { Label("account_detail_rename".localized, systemImage: "pencil") })
-                            Button(action: { isEditingCardLimit.toggle() }, label: { Label("account_detail_edit".localized, systemImage: "pencil") })
                             Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
                         }, label: {
                             Image(systemName: "ellipsis")
@@ -296,7 +274,6 @@ struct AccountDashboardView: View {
                     }
                 }
                 .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-                .sheet(isPresented: $showAddCard) { AddCardView() }
                 .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
                     TextField("account_detail_new_name".localized, text: $accountName)
                     Button(action: { return }, label: { Text("word_cancel".localized) })
@@ -304,17 +281,6 @@ struct AccountDashboardView: View {
                         account.title = accountName
                         persistenceController.saveContext()
                     }, label: { Text("word_validate".localized) })
-                })
-                .alert("account_detail_card_limit".localized, isPresented: $isEditingCardLimit, actions: {
-                    TextField("account_detail_card_limit".localized, value: $cardLimit, formatter: numberFormatter)
-                        .keyboardType(.numberPad)
-                    Button(action: { return }, label: { Text("word_cancel".localized) })
-                    Button(action: {
-                        account.cardLimit = cardLimit
-                        persistenceController.saveContext()
-                    }, label: { Text("word_validate".localized) })
-                }, message: {
-                    Text("account_detail_edit_desc".localized)
                 })
                 .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
                     TextField(account.title, text: $accountNameForDeleting)

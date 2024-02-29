@@ -127,6 +127,12 @@
 
 "word_continue" = "Weiter";
 
+"word_cancel_changes" = "Änderungen verwerfen";
+
+"word_return" = "Zurück";
+
+"word_savings_account" = "Sparkonten";
+
 //MARK: - Error Message
 "error_message_transaction" = "Klicken Sie auf die Schaltfläche \"Hinzufügen\", um eine Transaktion zu erstellen.";
 

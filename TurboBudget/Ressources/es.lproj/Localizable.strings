@@ -127,6 +127,12 @@
 
 "word_continue" = "Continúe";
 
+"word_cancel_changes" = "Descartar los cambios";
+
+"word_return" = "Atrás";
+
+"word_savings_account" = "Guardando cuentas";
+
 //MARK: - Error Message
 "error_message_transaction" = "Haz clic en el botón de más para crear una transacción.";
 

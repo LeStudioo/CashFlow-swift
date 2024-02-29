@@ -48,6 +48,10 @@ extension Router {
     func navigateToRoot() {
         state.navigationPath.removeLast(navigationPath.count)
     }
+    
+    func navigateBack() {
+        state.navigationPath.removeLast()
+    }
 
     func navigateTo(_ direction: NavigationDirection) {
         state.navigationPath.append(direction)

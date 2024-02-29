@@ -20,9 +20,6 @@ struct SavingPlansForHomeScreen: View {
     
     // Preferences
     @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) private var numberOfSavingPlansDisplayedInHomeScreen
-    
-    // Boolean variables
-    @State private var showAddSavingPlan: Bool = false
 
     // Other
     private let layout: [GridItem] = [
@@ -85,10 +82,11 @@ struct SavingPlansForHomeScreen: View {
                 .background(Color.colorCell)
                 .cornerRadius(20)
                 .padding(.horizontal)
-                .onTapGesture { showAddSavingPlan.toggle() }
+                .onTapGesture {
+                    router.presentCreateSavingPlans()
+                }
             }
         }
-        .sheet(isPresented: $showAddSavingPlan, content: { AddSavingPlanView() })
     } // End body
 } // End struct
 

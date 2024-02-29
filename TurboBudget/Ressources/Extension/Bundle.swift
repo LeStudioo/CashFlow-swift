@@ -1,17 +1,20 @@
 //
-//  App Info.swift
+//  Bundle.swift
 //  CashFlow
 //
-//  Created by Théo Sementa on 05/07/2023.
+//  Created by KaayZenn on 27/02/2024.
 //
 
 import Foundation
 
 extension Bundle {
+    
     var releaseVersionNumber: String? {
         return infoDictionary?["CFBundleShortVersionString"] as? String
     }
+    
     var buildVersionNumber: String? {
         return infoDictionary?["CFBundleVersion"] as? String
     }
+    
 }

@@ -22,7 +22,6 @@ public class Account: NSManagedObject, Identifiable {
     @NSManaged public var balance: Double
     @NSManaged public var cardLimit: Double
     @NSManaged public var position: Int64
-    @NSManaged public var accountToCard: Card?
     @NSManaged public var accountToTransaction: Set<Transaction>?
     @NSManaged public var accountToSavingPlan: Set<SavingPlan>?
     @NSManaged public var accountToAutomation: Set<Automation>?

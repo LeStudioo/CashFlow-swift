@@ -14,6 +14,11 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
+    func convertToDouble() -> Double {
+        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
+        return Double(stringFormated) ?? 0
+    }
+    
     func isEmptyWithoutSpace() -> Bool {
         if self.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range: nil).isEmpty {
             return true

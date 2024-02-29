@@ -21,9 +21,6 @@ struct AutomationsForHomeScreen: View {
     // Preferences
     @Preference(\.numberOfAutomationsDisplayedInHomeScreen) private var numberOfAutomationsDisplayedInHomeScreen
     
-    // Boolean variables
-    @State private var showAddAutomation: Bool = false
-    
     // MARK: - body
     var body: some View {
         VStack {
@@ -77,10 +74,11 @@ struct AutomationsForHomeScreen: View {
                 .background(Color.colorCell)
                 .cornerRadius(20)
                 .padding(.horizontal)
-                .onTapGesture { showAddAutomation.toggle() }
+                .onTapGesture {
+                    router.presentCreateAutomation()
+                }
             }
         }
-        .sheet(isPresented: $showAddAutomation) { AddAutomationsView() }
     } // End body
 } // End struct
 

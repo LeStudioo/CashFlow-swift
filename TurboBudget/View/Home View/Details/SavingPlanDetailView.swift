@@ -230,7 +230,7 @@ struct SavingPlanDetailView: View {
                     increaseWidthAmount = 1.5
                 }
             }
-        }, content: { AddContributionView(savingPlan: savingPlan) })
+        }, content: { CreateContributionView(savingPlan: savingPlan) })
         .alert("word_rename".localized, isPresented: $isRenaming, actions: {
             TextField("word_new_name".localized, text: $newName)
             Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })

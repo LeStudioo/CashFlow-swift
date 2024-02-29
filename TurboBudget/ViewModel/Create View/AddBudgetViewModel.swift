@@ -15,6 +15,8 @@ class AddBudgetViewModel: ObservableObject {
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
     @Published var amountBudget: Double = 0.0
     
+    @Published var presentingConfirmationDialog: Bool = false
+    
     func createNewBudget() {
         if let selectedCategory, let selectedSubcategory { //Budget for Subcategory
             if let budget = selectedSubcategory.budget {
@@ -53,6 +55,13 @@ extension AddBudgetViewModel {
 
 //MARK: - Verification
 extension AddBudgetViewModel {
+    func isBudgetInCreation() -> Bool {
+        if selectedCategory != nil || selectedSubcategory != nil || amountBudget != 0 {
+            return true
+        }
+        return false
+    }
+    
     func validateBudget() -> Bool {
         if amountBudget != 0 && selectedCategory != nil && selectedSubcategory != nil {
             return true

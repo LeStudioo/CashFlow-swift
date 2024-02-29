@@ -12,6 +12,7 @@ import SwiftUI
 struct TabbarView: View {
     
     // Builder
+    var router: NavigationManager
     @Binding var account: Account?
     @Binding var selectedTab: Int
     @Binding var offsetYMenu: CGFloat
@@ -39,27 +40,39 @@ struct TabbarView: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if account != nil {
-                        Button(action: { withAnimation { viewModel.showAddSavingPlanSheet() } }, label: {
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateSavingPlans()
+                        }, label: {
                             HStack {
-                                Image(systemName: "building.columns.fill")
+                                Image(systemName: "dollarsign.square.fill")
                                 Text("word_savingsplan".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showRecoverTransactionSheet() } }, label: {
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentRecoverTransaction()
+                        }, label: {
                             HStack {
                                 Image(systemName: "tray.and.arrow.down.fill")
                                 Text("recover_button".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showAddAutomationSheet() } }, label: {
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateAutomation()
+                        }, label: {
                             HStack {
                                 Image(systemName: "clock.arrow.circlepath")
                                 Text("word_automation".localized)
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        
                         Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
                             HStack {
                                 Image(systemName: "barcode.viewfinder")
@@ -67,7 +80,11 @@ struct TabbarView: View {
                             }
                         })
                         .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showAddTransactionSheet() } }, label: {
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateTransaction()
+                        }, label: {
                             HStack {
                                 Image(systemName: "creditcard.and.123")
                                 Text("word_transaction".localized)
@@ -138,6 +155,7 @@ struct TabBarBackgroundView_Previews: PreviewProvider {
     
     static var previews: some View {
         TabbarView(
+            router: .init(isPresented: .constant(.homeCategories)),
             account: $previewAccount,
             selectedTab: $selectedTabPreview,
             offsetYMenu: $offsetYMenu

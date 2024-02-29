@@ -181,9 +181,9 @@ struct HomeScreenView: View {
                 } // End ScrollView
                 .scrollIndicators(.hidden)
             } // End VStack
-            .onRotate { newOrientation in
-                orientation = newOrientation
-            }
+//            .onRotate { newOrientation in
+//                orientation = newOrientation
+//            }
             .onChange(of: isStepsEnbaledForAllSavingsPlans) { newValue in // TODO: Ne devrait pas etre ici ??
                 for savingPlan in account.savingPlans {
                     savingPlan.isStepEnable = newValue

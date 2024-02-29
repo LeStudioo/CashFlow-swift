@@ -7,7 +7,6 @@
         <attribute name="position" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="Int"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <relationship name="accountToAutomation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Automation" inverseName="automationToAccount" inverseEntity="Automation"/>
-        <relationship name="accountToCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Card" inverseName="cardToAccount" inverseEntity="Card"/>
         <relationship name="accountToSavingPlan" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavingPlan" inverseName="savingPlansToAccount" inverseEntity="SavingPlan"/>
         <relationship name="accountToTransaction" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="transactionToAccount" inverseEntity="Transaction"/>
     </entity>
@@ -26,17 +25,6 @@
         <attribute name="predefCategoryID" optional="YES" attributeType="String"/>
         <attribute name="predefSubcategoryID" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
-    </entity>
-    <entity name="Card" representedClassName="Card" syncable="YES">
-        <attribute name="color" attributeType="String" defaultValueString=""/>
-        <attribute name="cvv" attributeType="String" defaultValueString=""/>
-        <attribute name="date" attributeType="String" defaultValueString=""/>
-        <attribute name="holder" attributeType="String" defaultValueString=""/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="limit" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="number" attributeType="String" defaultValueString=""/>
-        <attribute name="position" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="cardToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="accountToCard" inverseEntity="Account"/>
     </entity>
     <entity name="Contribution" representedClassName="Contribution" syncable="YES">
         <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

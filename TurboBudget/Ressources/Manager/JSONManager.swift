@@ -33,8 +33,6 @@ class JSONManager {
             "amount": \(transaction.amount),
             "date": "\(dateString)",
             "transactionToAccount": "null",
-            "transactionToCategory": "\(categoryTransaction)",
-            "transactionToSubCategory": "\(subcategoryTransaction)"
         }
         """
         return jsonString

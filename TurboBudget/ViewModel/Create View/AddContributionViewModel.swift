@@ -17,6 +17,8 @@ class AddContributionViewModel: ObservableObject {
     @Published var dateContribution: Date = .now
     @Published var typeContribution: ExpenseOrIncome = .expense // expense = Add / income = withdrawal
     
+    @Published var presentingConfirmationDialog: Bool = false
+    
     // Preferences
     @Preference(\.accountCanBeNegative) private var accountCanBeNegative
     @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
@@ -70,9 +72,9 @@ extension AddContributionViewModel {
         } else { return 0 }
     }
     
-    func validateContribution() -> Bool {
+    func isContributionValid() -> Bool {
         if let savingPlan, blockExpensesIfCardLimitExceeds && typeContribution == .expense {
-            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && !isCardLimitExceeds {
+            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && !isCardLimitExceeds && amountContribution <= moneyForFinish {
                 return true
             }
         } else if let savingPlan, typeContribution == .income {
@@ -80,7 +82,7 @@ extension AddContributionViewModel {
                 return true
             }
         } else if let savingPlan, typeContribution == .expense {
-            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd {
+            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && amountContribution <= moneyForFinish {
                 return true
             }
         }
@@ -90,6 +92,14 @@ extension AddContributionViewModel {
 
 //MARK: - Verification
 extension AddContributionViewModel {
+    
+    func isContributionInCreation() -> Bool {
+        if amountContribution != 0 {
+            return true
+        }
+        return false
+    }
+    
     var isAccountWillBeNegative: Bool {
         if let account = mainAccount {
             if !accountCanBeNegative && account.balance - amountContribution < 0 && typeContribution == .expense { return true } else { return false }
