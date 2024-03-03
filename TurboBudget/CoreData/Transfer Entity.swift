@@ -22,7 +22,11 @@ public class Transfer: NSManagedObject, Identifiable {
     @NSManaged public var date: Date
     @NSManaged public var note: String
     @NSManaged public var transferToSavingsAccount: SavingsAccount?
+    
+}
 
+extension Transfer {
+    
     static var preview1: Transfer {
         let previewTransfer = Transfer(context: PersistenceController.shared.container.viewContext)
         previewTransfer.id = UUID()

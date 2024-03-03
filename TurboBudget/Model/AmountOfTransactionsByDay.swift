@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AmountOfTransactionsByDay: Hashable {
+public struct AmountOfTransactionsByDay: Hashable {
     var day: Date
     var amount: Double
 }

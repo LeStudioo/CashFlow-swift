@@ -122,15 +122,33 @@ struct TransactionDetailView: View {
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            CellForDetailTransaction(leftText: "transaction_detail_amount".localized, rightText: transaction.amount.currency, rightTextColor: isAnExpense ? .error400 : .primary500)
+            CellForDetailTransaction(
+                leftText: "transaction_detail_amount".localized,
+                rightText: transaction.amount.currency,
+                rightTextColor: isAnExpense ? .error400 : .primary500
+            )
             
-            CellForDetailTransaction(leftText: "transaction_detail_date".localized, rightText: transaction.date.formatted(date: .abbreviated, time: .omitted), rightTextColor: .colorLabel)
+            if !transaction.isFault {
+                CellForDetailTransaction(
+                    leftText: "transaction_detail_date".localized,
+                    rightText: transaction.date.formatted(date: .abbreviated, time: .omitted),
+                    rightTextColor: .colorLabel
+                )
+            }
             
             if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) {
-                CellForDetailTransaction(leftText: "word_category".localized, rightText: category.title, rightTextColor: category.color)
+                CellForDetailTransaction(
+                    leftText: "word_category".localized,
+                    rightText: category.title,
+                    rightTextColor: category.color
+                )
                 
                 if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID) {
-                    CellForDetailTransaction(leftText: "word_subcategory".localized, rightText: subcategory.title, rightTextColor: category.color)
+                    CellForDetailTransaction(
+                        leftText: "word_subcategory".localized,
+                        rightText: subcategory.title,
+                        rightTextColor: category.color
+                    )
                 }
             }
             
@@ -241,13 +259,9 @@ struct TransactionDetailView: View {
     //MARK: Fonctions
     func deleteTransaction() {
         if let account = transaction.transactionToAccount {
-            account.balance = transaction.amount < 0 ? account.balance - transaction.amount : account.balance - transaction.amount
+            account.deleteTransaction(transaction: transaction)
         }
-        viewContext.delete(transaction)
         PredefinedObjectManager.shared.reloadTransactions()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            persistenceController.saveContext()
-        }
         dismiss()
     }
     

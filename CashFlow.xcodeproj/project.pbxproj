@@ -126,7 +126,7 @@
 		D975BFA72A66762B004FFA9D /* Automation Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFA52A66762B004FFA9D /* Automation Entity.swift */; };
 		D975BFAA2A667941004FFA9D /* AutomationsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFA92A667941004FFA9D /* AutomationsHomeView.swift */; };
 		D975BFAC2A668041004FFA9D /* AddAutomationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAB2A668041004FFA9D /* AddAutomationsView.swift */; };
-		D975BFAE2A66900F004FFA9D /* CellTransactionForAutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAD2A66900F004FFA9D /* CellTransactionForAutomationView.swift */; };
+		D975BFAE2A66900F004FFA9D /* CellAutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAD2A66900F004FFA9D /* CellAutomationView.swift */; };
 		D975BFB02A66936A004FFA9D /* Automation Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAF2A66936A004FFA9D /* Automation Manager.swift */; };
 		D97BC5322A8D128100DA016A /* Saving Plan Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */; };
 		D97BC5342A8D148C00DA016A /* SubcategoryTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */; };
@@ -317,7 +317,7 @@
 		D975BFA52A66762B004FFA9D /* Automation Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Automation Entity.swift"; sourceTree = "<group>"; };
 		D975BFA92A667941004FFA9D /* AutomationsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationsHomeView.swift; sourceTree = "<group>"; };
 		D975BFAB2A668041004FFA9D /* AddAutomationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAutomationsView.swift; sourceTree = "<group>"; };
-		D975BFAD2A66900F004FFA9D /* CellTransactionForAutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTransactionForAutomationView.swift; sourceTree = "<group>"; };
+		D975BFAD2A66900F004FFA9D /* CellAutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAutomationView.swift; sourceTree = "<group>"; };
 		D975BFAF2A66936A004FFA9D /* Automation Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Automation Manager.swift"; sourceTree = "<group>"; };
 		D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Saving Plan Manager.swift"; sourceTree = "<group>"; };
 		D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryTransactionsView.swift; sourceTree = "<group>"; };
@@ -767,7 +767,7 @@
 				812F44162A3EE101003BE09D /* CategoryRow.swift */,
 				81C141452A46EC6100C9B764 /* CellSavingPlanView.swift */,
 				8182DC5F2A40C5B300D45979 /* SubcategoryRow.swift */,
-				D975BFAD2A66900F004FFA9D /* CellTransactionForAutomationView.swift */,
+				D975BFAD2A66900F004FFA9D /* CellAutomationView.swift */,
 				81AD45B92A3D8D63000C9551 /* CellTransactionView.swift */,
 				8145ABD62A55664C0085F233 /* CellTransactionWithoutAction.swift */,
 				D94E95972B0F4C0000E965D7 /* CellTransferView.swift */,
@@ -1088,7 +1088,7 @@
 				D9428C352B7E932C0030DAC2 /* NavigationDirection.swift in Sources */,
 				81C7D5A92A5B09500014EEB1 /* UserDefaultsManager.swift in Sources */,
 				D9AB6FC92B852F02007E0B07 /* CellSavingsAccountView.swift in Sources */,
-				D975BFAE2A66900F004FFA9D /* CellTransactionForAutomationView.swift in Sources */,
+				D975BFAE2A66900F004FFA9D /* CellAutomationView.swift in Sources */,
 				81A7079E2A3B6CE800BEB0BF /* Page Controller.swift in Sources */,
 				D96155372A73DAE0005E1473 /* OrientationManager.swift in Sources */,
 				D92454242A89035E00035304 /* CircleWithCheckmark.swift in Sources */,

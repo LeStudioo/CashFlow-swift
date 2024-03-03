@@ -101,10 +101,13 @@ struct CellTransactionView: View {
                         .font(.semiBoldText16())
                         .foregroundColor(transaction.amount < 0 ? .error400 : .primary500)
                         .lineLimit(1)
-                    Text(transaction.date.formatted(date: .numeric, time: .omitted))
-                        .font(Font.mediumSmall())
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
-                        .lineLimit(1)
+                    
+                    if !transaction.isFault {
+                        Text(transaction.date.formatted(date: .numeric, time: .omitted))
+                            .font(Font.mediumSmall())
+                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .lineLimit(1)
+                    }
                 }
             }
             .padding(12)
@@ -190,24 +193,19 @@ struct CellTransactionView: View {
             }
             return av
         })
-    }//END body
+    } // END body
     
-    //MARK: Fonctions
-    
-    func deleteTransaction() {
+    // MARK: Fonctions
+    private func deleteTransaction() {
         if let account = transaction.transactionToAccount {
-            account.balance = transaction.amount < 0 ? account.balance - transaction.amount : account.balance - transaction.amount
+            account.deleteTransaction(transaction: transaction)
         }
-        viewContext.delete(transaction)
         PredefinedObjectManager.shared.reloadTransactions()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            persistenceController.saveContext()
-        }
     }
 
-}//END struct
+} // END struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     Group {
         CellTransactionView(transaction: Transaction.preview1)
