@@ -101,17 +101,11 @@ struct AddTransactionIntent: AppIntent {
         newTransaction.date = Date()
         newTransaction.comeFromApplePay = true
         newTransaction.predefCategoryID = "PREDEFCAT00"
-        newTransaction.transactionToAccount = allAccounts.first
         
         if let account = allAccounts.first {
-            account.balance += newTransaction.amount
-        }
-        
-        do {
-            try viewContext.save()
+            newTransaction.transactionToAccount = account
+            account.addNewTransaction(transaction: newTransaction)
             PredefinedObjectManager.shared.reloadTransactions()
-        } catch {
-            print("⚠️ Error for : \(error.localizedDescription)")
         }
         
         let amountString: String = extractNumberString(from: amount)

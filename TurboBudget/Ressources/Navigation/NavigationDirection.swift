@@ -178,8 +178,12 @@ extension NavigationDirection: Equatable {
             return lhsAccount.id == rhsAccount.id
             
         case let (.transactionDetail(lhsTransaction), .transactionDetail(rhsTransaction)):
-            return lhsTransaction.id == rhsTransaction.id
-            
+            if !lhsTransaction.isFault && !rhsTransaction.isFault {
+                return lhsTransaction.id == rhsTransaction.id
+            } else {
+                return false
+            }
+
             
         case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
             return lhsAccount.id == rhsAccount.id

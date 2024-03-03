@@ -79,12 +79,11 @@ class AddTransactionViewModel: ObservableObject {
             newTransaction.date = transactionDate
             newTransaction.creationDate = Date()
             newTransaction.comeFromAuto = false
-            newTransaction.transactionToAccount = mainAccount
             newTransaction.predefCategoryID = transactionType == .income ? categoryPredefined0.idUnique : selectedCategory?.idUnique ?? ""
             newTransaction.predefSubcategoryID = transactionType == .income ? "" : selectedSubcategory?.idUnique ?? ""
             
-            mainAccount.balance += newTransaction.amount
-            
+            mainAccount.addNewTransaction(transaction: newTransaction)
+                        
             // Card Limit
             if mainAccount.cardLimit != 0 {
                 let percentage = mainAccount.amountOfExpensesInActualMonth() / Double(mainAccount.cardLimit)

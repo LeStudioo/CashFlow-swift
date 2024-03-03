@@ -12,7 +12,8 @@ import CloudKit
 
 @objc(Account)
 public class Account: NSManagedObject, Identifiable {
-
+    private let persistenceController = PersistenceController.shared
+    
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Account> {
         return NSFetchRequest<Account>(entityName: "Account")
     }
@@ -76,23 +77,46 @@ public class Account: NSManagedObject, Identifiable {
 
 } // END Class
 
-// MARK: Generated accessors for accountToTransaction
+// MARK: - Accessors for Transactions
 extension Account {
-
-    @objc(addAccountToTransactionObject:)
-    @NSManaged public func addToAccountToTransaction(_ value: Transaction)
-
-    @objc(removeAccountToTransactionObject:)
-    @NSManaged public func removeFromAccountToTransaction(_ value: Transaction)
-
-    @objc(addAccountToTransaction:)
-    @NSManaged public func addToAccountToTransaction(_ values: NSSet)
-
-    @objc(removeAccountToTransaction:)
-    @NSManaged public func removeFromAccountToTransaction(_ values: NSSet)
-
+    
+    public func addNewTransaction(transaction: Transaction) {
+        self.accountToTransaction?.insert(transaction)
+        
+        self.balance += transaction.amount
+        
+        self.persistenceController.saveContext()
+    }
+    
+    public func deleteTransaction(transaction: Transaction) {
+        let context = persistenceController.container.viewContext
+        
+        self.balance -= transaction.amount
+        context.delete(transaction)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.persistenceController.saveContext()
+        }
+    }
+    
 }
 
+// MARK: - Accessors for Automations
+extension Account {
+    
+    public func deleteAutomation(automation: Automation) {
+        let context = persistenceController.container.viewContext
+        
+        context.delete(automation)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.persistenceController.saveContext()
+        }
+    }
+    
+}
+
+// MARK: - Preview
 extension Account {
     
     static var preview: Account {
@@ -118,7 +142,7 @@ extension Account {
     // Output :
     // Extra :
     //-----------------------------------------------------------
-    public var transactionsActualMonth: [Transaction] {
+    private var transactionsActualMonth: [Transaction] {
         var transactionsActualMonth: [Transaction] = []
         let dateOfStartOfTheMonth = Date().startOfMonth
         let dateOfEndOfTheMonth = Date().endOfMonth
@@ -142,7 +166,7 @@ extension Account {
     // Output : return Double
     // Extra : transactionsActualMonth = Account.transactionsActualMonth
     //-----------------------------------------------------------
-    func amountIncomeInActualMonth() -> Double {
+    public func amountIncomeInActualMonth() -> Double {
         var total: Double = 0
         for transaction in transactionsActualMonth {
             if transaction.amount > 0 && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil { total += transaction.amount }
@@ -156,7 +180,7 @@ extension Account {
     // Output : return [AmountOfTransactionsByDay]
     // Extra : transactionsActualMonth = Account.transactionsActualMonth
     //-----------------------------------------------------------
-    func amountIncomePerDayInActualMonth() -> [AmountOfTransactionsByDay] {
+    public func amountIncomePerDayInActualMonth() -> [AmountOfTransactionsByDay] {
         var array: [AmountOfTransactionsByDay] = []
         let dates = Date().allDateOfMonth
         
@@ -184,7 +208,7 @@ extension Account {
     // Output : return [Transaction]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [Transaction] {
+    public func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [Transaction] {
         var transactionsIncomes: [Transaction] = []
         
         for transaction in transactions {
@@ -199,36 +223,11 @@ extension Account {
     // Output : return [Transaction]
     // Extra : No
     //-----------------------------------------------------------
-    func amountIncomesByMonth(month: Date) -> Double {
+    public func amountIncomesByMonth(month: Date) -> Double {
         return getAllTransactionsIncomeForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
     }
     
-    //-------------------- getAllIncomesForArchivedTransactionsForChosenMonth() ----------------------
-    // Description : Récupère tous les transactions archivées qui sont des revenus, pour un mois donné
-    // Parameter : (account: Account, selectedDate: Date)
-    // Output : return [Transaction]
-    // Extra : No
-    //-----------------------------------------------------------
-    func getAllIncomesForArchivedTransactionsForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsIncomes: [Transaction] = []
-        
-        for transaction in transactionsArchived {
-            if transaction.amount > 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil { transactionsIncomes.append(transaction) }
-        }
-        return transactionsIncomes
-    }
-    
-    //-------------------- amountIncomesArchivedByMonth() ----------------------
-    // Description : Retourne la somme de toutes les transactions archivées qui sont des revenus, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [Transaction]
-    // Extra : No
-    //-----------------------------------------------------------
-    func amountIncomesArchivedByMonth(month: Date) -> Double {
-        return getAllIncomesForArchivedTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
-    }
-    
-} //END Extension Incomes
+} // End Extension Incomes
 
 //MARK: - Extension Expenses
 extension Account {
@@ -302,34 +301,7 @@ extension Account {
         return getAllExpensesTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, -)
     }
     
-    //-------------------- getAllExpensesForArchivedTransactionsForChosenMonth() ----------------------
-    // Description : Récupère toutes les transactions archivées qui sont des dépenses, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
-    // Extra : No
-    //-----------------------------------------------------------
-    func getAllExpensesForArchivedTransactionsForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsArchivedExpenses: [Transaction] = []
-        
-        for transaction in transactionsArchived {
-            if transaction.amount < 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
-                transactionsArchivedExpenses.append(transaction)
-            }
-        }
-        return transactionsArchivedExpenses
-    }
-    
-    //-------------------- amountExpensesArchivedByMonth() ----------------------
-    // Description : Retourne la somme de toutes les transactions archivées qui sont des dépenses, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [Transaction]
-    // Extra : No
-    //-----------------------------------------------------------
-    func amountExpensesArchivedByMonth(month: Date) -> Double {
-        return getAllExpensesForArchivedTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, -)
-    }
-    
-} //END Extension Expenses
+} // End Extension Expenses
 
 //MARK: - Extension CashFlow
 extension Account {

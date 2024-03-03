@@ -27,8 +27,8 @@ class JSONManager {
         let jsonString = """
         {
             "id": "\(transaction.id)",
-            "predefCategoryID": "\(transaction.predefCategoryID)",
-            "predefSubcategoryID": "\(transaction.predefSubcategoryID)",
+            "predefCategoryID": "\(categoryTransaction)",
+            "predefSubcategoryID": "\(subcategoryTransaction)",
             "title": "\(transaction.title)",
             "amount": \(transaction.amount),
             "date": "\(dateString)",

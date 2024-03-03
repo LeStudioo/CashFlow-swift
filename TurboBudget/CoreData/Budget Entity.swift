@@ -23,6 +23,14 @@ public class Budget: NSManagedObject, Identifiable {
     @NSManaged public var predefCategoryID: String
     @NSManaged public var predefSubcategoryID: String
     
+    public var color: Color {
+        if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: predefCategoryID) {
+            return category.color
+        } else {
+            return .red
+        }
+    }
+    
 //    public func actualAmountForMonth(month: Date) -> Double {
 //        var amount: Double = 0.0
 //        
@@ -73,11 +81,16 @@ public class Budget: NSManagedObject, Identifiable {
     }
     
     public func isExceeded(month: Date) -> Bool {
-        if actualAmountForMonth(month: month) >= amount { return true } else { return false }
+        if actualAmountForMonth(month: month) >= amount {
+            return true
+        } else {
+            return false
+        }
     }
 
 }
 
+// MARK: - Preview
 extension Budget {
     
     static var preview1: Budget {
@@ -100,15 +113,4 @@ extension Budget {
         return budget
     }
     
-}
-
-//MARK: - Color
-extension Budget {
-    public var color: Color {
-        if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: predefCategoryID) {
-            return category.color
-        } else {
-            return .red
-        }
-    }
 }

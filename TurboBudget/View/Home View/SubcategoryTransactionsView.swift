@@ -33,9 +33,11 @@ struct SubcategoryTransactionsView: View {
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
         for transaction in subcategory.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
-            if !array.contains(components) {
-                array.append(components)
+            if !transaction.isFault {
+                let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
+                if !array.contains(components) {
+                    array.append(components)
+                }
             }
         }
         
@@ -73,12 +75,14 @@ struct SubcategoryTransactionsView: View {
                         if searchResults.map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
-                                        Button(action: {
-                                            router.pushTransactionDetail(transaction: transaction)
-                                        }, label: {
-                                            CellTransactionView(transaction: transaction)
-                                        })
+                                    if !transaction.isFault {
+                                        if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+                                            Button(action: {
+                                                router.pushTransactionDetail(transaction: transaction)
+                                            }, label: {
+                                                CellTransactionView(transaction: transaction)
+                                            })
+                                        }
                                     }
                                 }
                                 .listRowSeparator(.hidden)

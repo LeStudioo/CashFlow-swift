@@ -8,7 +8,7 @@
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <relationship name="accountToAutomation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Automation" inverseName="automationToAccount" inverseEntity="Automation"/>
         <relationship name="accountToSavingPlan" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavingPlan" inverseName="savingPlansToAccount" inverseEntity="SavingPlan"/>
-        <relationship name="accountToTransaction" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="transactionToAccount" inverseEntity="Transaction"/>
+        <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="transactionToAccount" inverseEntity="Transaction"/>
     </entity>
     <entity name="Automation" representedClassName="Automation" syncable="YES">
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="711357600" usesScalarValueType="NO"/>
@@ -69,7 +69,7 @@
         <attribute name="predefCategoryID" optional="YES" attributeType="String"/>
         <attribute name="predefSubcategoryID" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
-        <relationship name="transactionToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="accountToTransaction" inverseEntity="Account"/>
+        <relationship name="transactionToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
         <relationship name="transactionToAutomation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Automation" inverseName="automationToTransaction" inverseEntity="Automation"/>
     </entity>
     <entity name="Transfer" representedClassName="Transfer" syncable="YES">

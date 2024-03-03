@@ -45,13 +45,13 @@ struct AutomationsForHomeScreen: View {
             if account.automations.count != 0 {
                 VStack {
                     ForEach(account.automations.prefix(numberOfAutomationsDisplayedInHomeScreen)) { automation in
-                        if let transaction = automation.automationToTransaction {
-                            Button(action: {
+                        Button(action: {
+                            if let transaction = automation.automationToTransaction {
                                 router.pushTransactionDetail(transaction: transaction)
-                            }, label: {
-                                CellTransactionForAutomationView(transaction: transaction)
-                            })
-                        }
+                            }
+                        }, label: {
+                            CellAutomationView(automation: automation)
+                        })
                     }
                 }
             } else {

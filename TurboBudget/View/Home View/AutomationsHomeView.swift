@@ -88,9 +88,7 @@ struct AutomationsHomeView: View {
                                 amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
                             )
                             ForEach(automations, id: \.self) { automation in
-                                if let transaction = automation.automationToTransaction {
-                                    CellTransactionForAutomationView(transaction: transaction)
-                                }
+                                CellAutomationView(automation: automation)
                             }
                         }
                     }
@@ -118,7 +116,7 @@ struct AutomationsHomeView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { showAddAutomation.toggle() }, label: {
+                Button(action: {  }, label: {
                     Image(systemName: "plus")
                         .foregroundColor(.colorLabel)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
