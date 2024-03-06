@@ -30,17 +30,17 @@ struct SavingsAccountDetailView: View {
                     Spacer()
                     Circle()
                         .frame(width: 100, height: 100)
-                        .foregroundColor(.colorCell)
+                        .foregroundStyle(.colorCell)
                         .overlay {
                             Circle()
                                 .frame(width: 80, height: 80)
-                                .foregroundColor(HelperManager().getAppTheme().color)
+                                .foregroundStyle(HelperManager().getAppTheme().color)
                                 .shadow(color:HelperManager().getAppTheme().color, radius: 4, y: 2)
                                 .overlay {
                                     VStack {
                                         Image(systemName: "building.columns.fill")
                                             .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundColor(.colorLabelInverse)
+                                            .foregroundStyle(Color(uiColor: .systemBackground))
                                         
                                     }
                                 }
@@ -76,7 +76,7 @@ struct SavingsAccountDetailView: View {
                             )
                             .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                         })
-                        .foregroundStyle(Color.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     }
                 }
             }

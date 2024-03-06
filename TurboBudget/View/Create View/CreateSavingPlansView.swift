@@ -19,7 +19,6 @@ struct CreateSavingPlansView: View {
     @StateObject private var viewModel = AddSavingPlanViewModel()
     
     // Environment
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     
     // Preferences
@@ -153,7 +152,7 @@ struct CreateSavingPlansView: View {
                                 ZStack {
                                     Capsule()
                                         .frame(height: 50)
-                                        .foregroundColor(Color.backgroundComponentSheet)
+                                        .foregroundStyle(Color.backgroundComponentSheet)
                                     
                                     HStack {
                                         Spacer()
@@ -168,7 +167,7 @@ struct CreateSavingPlansView: View {
                                     ZStack {
                                         Capsule()
                                             .frame(height: 50)
-                                            .foregroundColor(Color.backgroundComponentSheet)
+                                            .foregroundStyle(Color.backgroundComponentSheet)
                                         
                                         HStack {
                                             Spacer()
@@ -195,11 +194,11 @@ struct CreateSavingPlansView: View {
                             VStack(spacing: 20) {
                                 Text("savingsplan_successful".localized)
                                     .font(.semiBoldCustom(size: 28))
-                                    .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                    .foregroundStyle(Color(uiColor: .label))
                                 
                                 Text("savingsplan_successful_desc".localized)
                                     .font(Font.mediumSmall())
-                                    .foregroundColor(.secondary400)
+                                    .foregroundStyle(.secondary400)
                             }
                             .padding(.bottom, 30)
                             

@@ -116,7 +116,7 @@ struct AnalyticsHomeView: View {
                         }
                     }, label: {
                         Image(systemName: "calendar")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                     })
                 }
             }

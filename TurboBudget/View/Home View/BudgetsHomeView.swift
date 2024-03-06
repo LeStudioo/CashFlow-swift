@@ -70,11 +70,11 @@ struct BudgetsHomeView: View {
                                         Spacer()
                                         Circle()
                                             .frame(width: 30, height: 30)
-                                            .foregroundColor(category.color)
+                                            .foregroundStyle(category.color)
                                             .overlay {
                                                 Image(systemName: category.icon)
                                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                                    .foregroundColor(.colorLabelInverse)
+                                                    .foregroundStyle(Color(uiColor: .systemBackground))
                                             }
                                     }
                                     .padding([.horizontal, .top])
@@ -116,7 +116,7 @@ struct BudgetsHomeView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -134,7 +134,7 @@ struct BudgetsHomeView: View {
                     })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }

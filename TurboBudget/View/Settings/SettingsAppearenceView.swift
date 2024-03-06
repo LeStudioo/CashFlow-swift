@@ -22,10 +22,7 @@ struct SettingsAppearenceView: View {
     
     // Custom
     @State private var selectedPeople: PeopleIcon = iconsOfSerena
-    
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // EnvironmentsObject
     @EnvironmentObject var csManager: ColorSchemeManager
     
@@ -52,7 +49,7 @@ struct SettingsAppearenceView: View {
                 HStack {
                     Text("setting_appearence_tint_color".localized)
                         .font(Font.mediumText16())
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                     Spacer()
                 }
                 .padding(.leading)
@@ -63,10 +60,10 @@ struct SettingsAppearenceView: View {
                             VStack {
                                 Circle()
                                     .frame(width: 30)
-                                    .foregroundColor(theme.color)
+                                    .foregroundStyle(theme.color)
                                 Text(theme.name)
                                     .font(Font.mediumText16())
-                                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                    .foregroundStyle(Color.customGray)
                             }
                             .padding()
                             .frame(width: 90, height: 90)
@@ -79,7 +76,7 @@ struct SettingsAppearenceView: View {
                                     if colorSelected == theme.idUnique {
                                         RoundedRectangle(cornerRadius: 15)
                                             .stroke(style: StrokeStyle(lineWidth: 3))
-                                            .foregroundColor(theme.color)
+                                            .foregroundStyle(theme.color)
                                             .padding(4)
                                     }
                                 }
@@ -99,7 +96,7 @@ struct SettingsAppearenceView: View {
                     HStack {
                         Text("setting_appearence_app_icon".localized)
                             .font(Font.mediumText16())
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                         Spacer()
                     }
                     .padding(.leading)
@@ -108,7 +105,7 @@ struct SettingsAppearenceView: View {
                             ForEach(allPeopleWithIcons) { people in
                                 Button(action: { withAnimation { selectedPeople = people } }, label: {
                                     Text(people.name)
-                                        .foregroundColor(.colorLabel)
+                                        .foregroundStyle(Color(uiColor: .label))
                                         .font(Font.mediumText16())
                                         .padding(16)
                                         .background(Color.colorCell)
@@ -117,7 +114,7 @@ struct SettingsAppearenceView: View {
                                             if selectedPeople == people {
                                                 RoundedRectangle(cornerRadius: 12)
                                                     .stroke(style: StrokeStyle(lineWidth: 3))
-                                                    .foregroundColor(HelperManager().getAppTheme().color)
+                                                    .foregroundStyle(HelperManager().getAppTheme().color)
                                             }
                                         }
                                         .padding(4)
@@ -160,14 +157,14 @@ struct SettingsAppearenceView: View {
                             if iconName == UIApplication.shared.alternateIconName {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                    .foregroundColor(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(HelperManager().getAppTheme().color)
                             } else if iconName == "AppIconMainLight" && UIApplication.shared.alternateIconName == nil {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                    .foregroundColor(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(HelperManager().getAppTheme().color)
                             }
                         }
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .padding(12)
                         .background(Color.colorCell)
                         .cornerRadius(15)
@@ -205,13 +202,13 @@ struct SettingsAppearenceView: View {
                                     .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.colorLabel, lineWidth: 1)
+                                    .stroke(Color(uiColor: .label), lineWidth: 1)
                             }
                         }
                     )
                 Text("setting_appearence_system".localized)
                     .font(.semiBoldText16())
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
         })
     }
@@ -221,7 +218,7 @@ struct SettingsAppearenceView: View {
         Button(action: { csManager.colorScheme = .light }, label: {
             VStack {
                 Rectangle()
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .frame(height: 50)
                     .cornerRadius(15)
                     .overlay(
@@ -231,18 +228,18 @@ struct SettingsAppearenceView: View {
                                     .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.colorLabel, lineWidth: 1)
+                                    .stroke(Color(uiColor: .label), lineWidth: 1)
                             }
                         }
                     )
                     .overlay {
                         Image(systemName: "sun.max.fill")
                             .font(.system(size: 22, weight: .semibold, design: .rounded))
-                            .foregroundColor(.black)
+                            .foregroundStyle(.black)
                     }
                 Text("word_light".localized)
                     .font(.semiBoldText16())
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
         })
     }
@@ -252,7 +249,7 @@ struct SettingsAppearenceView: View {
         Button(action: { csManager.colorScheme = .dark }, label: {
             VStack {
                 Rectangle()
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
                     .frame(height: 50)
                     .cornerRadius(15)
                     .overlay(
@@ -262,18 +259,18 @@ struct SettingsAppearenceView: View {
                                     .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.colorLabel, lineWidth: 1)
+                                    .stroke(Color(uiColor: .label), lineWidth: 1)
                             }
                         }
                     )
                     .overlay {
                         Image(systemName: "moon.fill")
                             .font(.system(size: 22, weight: .semibold, design: .rounded))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                     }
                 Text("word_dark".localized)
                     .font(.semiBoldText16())
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
         })
     }

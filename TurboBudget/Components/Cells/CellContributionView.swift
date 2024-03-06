@@ -40,11 +40,11 @@ struct CellContributionView: View {
                 VStack(alignment: .trailing, spacing: 3) {
                     Text(contribution.amount.currency)
                         .font(.semiBoldText16())
-                        .foregroundColor(contribution.amount < 0 ? .error400 : .primary500)
+                        .foregroundStyle(contribution.amount < 0 ? .error400 : .primary500)
                     
                     Text(HelperManager().stringDateDay(date: contribution.date))
                         .font(Font.mediumSmall())
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 }
             }
             .padding(8)
@@ -60,10 +60,10 @@ struct CellContributionView: View {
                     Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundColor(.colorLabelInverse)
+                .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundColor(.error400)
+                    .foregroundStyle(.error400)
             })
             .allowSwipeToTrigger()
             .onChange(of: cancelDeleting) { _ in

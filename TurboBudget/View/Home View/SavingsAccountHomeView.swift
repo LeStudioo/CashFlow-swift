@@ -21,7 +21,7 @@ struct SavingsAccountHomeView: View {
                         Spacer()
                         Circle()
                             .frame(width: 100, height: 100)
-                            .foregroundColor(.colorCell)
+                            .foregroundStyle(.colorCell)
                             .overlay {
                                 Circle()
                                     .frame(width: 80, height: 80)
@@ -31,7 +31,7 @@ struct SavingsAccountHomeView: View {
                                         VStack {
                                             Image(systemName: "building.columns.fill")
                                                 .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                                .foregroundColor(.colorLabelInverse)
+                                                .foregroundStyle(Color(uiColor: .systemBackground))
                                             
                                         }
                                     }

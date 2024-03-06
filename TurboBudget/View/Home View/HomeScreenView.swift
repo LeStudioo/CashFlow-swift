@@ -75,7 +75,7 @@ struct HomeScreenView: View {
                         .titleAdjustSize()
                         
                         Text("home_screen_available_balance".localized)
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .font(Font.mediumText16())
                     }
                     
@@ -84,7 +84,7 @@ struct HomeScreenView: View {
                     if !store.isLifetimeActive {
                         Button(action: { showPaywall.toggle() }, label: {
                             Image(systemName: "crown.fill")
-                                .foregroundColor(.primary500)
+                                .foregroundStyle(.primary500)
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
                         })
                         .sheet(isPresented: $showPaywall) {
@@ -97,7 +97,7 @@ struct HomeScreenView: View {
                         router.pushSettings(account: account)
                     }, label: {
                         Image(systemName: "gearshape.fill")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                     })
                 }
@@ -134,12 +134,12 @@ struct HomeScreenView: View {
                                 }, label: {
                                     HStack {
                                         Text("word_recent_transactions".localized)
-                                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                            .foregroundStyle(Color.customGray)
                                             .font(.semiBoldCustom(size: 22))
                                         
                                         Spacer()
                                         Image(systemName: "arrow.right")
-                                            .foregroundColor(HelperManager().getAppTheme().color)
+                                            .foregroundStyle(HelperManager().getAppTheme().color)
                                             .font(.system(size: 20, weight: .medium, design: .rounded))
                                     }
                                 })
@@ -199,7 +199,7 @@ struct HomeScreenView: View {
             })
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+            .background(Color.background.edgesIgnoringSafeArea(.all))
             .onAppear {
                 getOrientationOnAppear()
                 

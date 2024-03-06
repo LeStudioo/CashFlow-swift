@@ -20,7 +20,7 @@ struct CellSettingsView: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .font(.footnote)
                 .frame(width: 28, height: 28)
                 .background(backgroundColor)
@@ -65,7 +65,7 @@ struct CellSettingsView: View {
 //
 //        if let indicator {
 //            Image(systemName: indicator)
-//                .foregroundColor(settingSecondaryColor)
+//                .foregroundStyle(settingSecondaryColor)
 //        }
 //    }
 //    .padding(.horizontal, horizontalPadding)

@@ -34,25 +34,25 @@ struct CellTransferView: View {
         SwipeView(label: {
             HStack {
                 Circle()
-                    .foregroundColor(.color2Apple)
+                    .foregroundStyle(.color2Apple)
                     .frame(width: 50)
                     .overlay {
                         Circle()
-                            .foregroundColor(transfer.amount < 0 ? .error400 : .primary500)
+                            .foregroundStyle(transfer.amount < 0 ? .error400 : .primary500)
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
                         Text(Locale.current.currencySymbol ?? "$")
-                            .foregroundColor(.colorLabelInverse)
+                            .foregroundStyle(Color(uiColor: .systemBackground))
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("word_transfer".localized)
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
                     Text(transfer.amount < 0 ? "word_withdrawal".localized : "word_savings".localized)
                         .font(.semiBoldText18())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .lineLimit(1)
                 }
                 
@@ -61,11 +61,11 @@ struct CellTransferView: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     Text(transfer.amount.currency)
                         .font(.semiBoldText16())
-                        .foregroundColor(transfer.amount < 0 ? .error400 : .primary500)
+                        .foregroundStyle(transfer.amount < 0 ? .error400 : .primary500)
                         .lineLimit(1)
                     Text(transfer.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .lineLimit(1)
                 }
             }
@@ -82,10 +82,10 @@ struct CellTransferView: View {
                     Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundColor(.colorLabelInverse)
+                .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundColor(.error400)
+                    .foregroundStyle(.error400)
             })
             .onChange(of: cancelDeleting) { _ in
                 context.state.wrappedValue = .closed

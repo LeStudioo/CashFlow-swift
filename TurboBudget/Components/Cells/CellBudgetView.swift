@@ -80,7 +80,7 @@ struct CellBudgetView: View {
                 .padding(8)
             }
         }
-        .foregroundColor(.colorLabel)
+        .foregroundStyle(Color(uiColor: .label))
         .padding()
         .background(Color.colorCell)
         .cornerRadius(15)
@@ -101,15 +101,15 @@ struct CellBudgetView: View {
         ZStack {
             Circle()
                 .stroke(style: StrokeStyle(lineWidth: 20))
-                .foregroundColor(budget.color.opacity(0.5))
+                .foregroundStyle(budget.color.opacity(0.5))
             Circle()
                 .trim(from: 0, to: value)
                 .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round))
-                .foregroundColor(budget.color)
+                .foregroundStyle(budget.color)
                 .rotationEffect(.degrees(-90))
             Text(String(format: "%.1f", textInCircle * 10) + "%")
                 .font(.semiBoldSmall())
-                .foregroundColor(.colorLabel)
+                .foregroundStyle(Color(uiColor: .label))
         }
     }
 } // End struct

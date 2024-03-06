@@ -176,7 +176,7 @@ struct CategoriesHomeView: View {
                         filter.showMenu.toggle()
                     }, label: {
                         Image(systemName: "calendar")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                     })
                 }
             }

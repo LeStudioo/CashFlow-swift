@@ -125,7 +125,7 @@ struct SubcategoryHomeView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -135,7 +135,7 @@ struct SubcategoryHomeView: View {
                     filter.showMenu.toggle()
                 }, label: {
                     Image(systemName: "calendar")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
         }

@@ -12,7 +12,6 @@ struct PaywallScreenView: View {
 
     // Environment
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // EnvironmentObject
     @EnvironmentObject private var store: Store
@@ -34,11 +33,11 @@ struct PaywallScreenView: View {
                     Button(action: { dismiss() }, label: {
                         Circle()
                             .frame(width: 26, height: 26)
-                            .foregroundColor(.colorMaterial)
+                            .foregroundStyle(.colorMaterial)
                             .overlay {
                                 Image(systemName: "xmark")
                                     .font(.system(size: 14, weight: .semibold))
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                             }
                     })
                 }
@@ -126,7 +125,7 @@ struct PaywallScreenView: View {
                                 .font(.semiBoldCustom(size: 20))
                             Spacer()
                         }
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding()
                         .background(Color.primary500)
                         .cornerRadius(15)
@@ -152,30 +151,31 @@ struct PaywallScreenView: View {
         HStack {
             Circle()
                 .frame(width: 50)
-                .foregroundColor(color.opacity(0.3))
+                .foregroundStyle(color.opacity(0.3))
                 .overlay {
                     Image(systemName: systemName)
                         .font(.system(size: 22, weight: .semibold, design: .rounded))
-                        .foregroundColor(color)
+                        .foregroundStyle(color)
                 }
             
             VStack(alignment: .leading) {
                 Text(title)
                     .font(.semiBoldText16())
                     .lineLimit(1)
-                    .foregroundStyle(Color.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
                 Text(text)
                     .font(Font.mediumSmall())
                     .multilineTextAlignment(.leading)
                     .lineLimit(3)
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
             }
             .padding(.leading, 8)
+            
             Spacer(minLength: 0)
             
             if isDetailed {
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(Color.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
         }
         .padding(.horizontal)
@@ -237,19 +237,19 @@ struct PaywallScreenView: View {
             Spacer()
             Text(promoText)
                 .font(.semiBoldText16())
-                .foregroundColor(.secondary400)
+                .foregroundStyle(.secondary400)
                 .if(promo) { view in
                     view
                         .overlay {
                             Rectangle()
                                 .frame(height: 2)
-                                .foregroundColor(.secondary400)
+                                .foregroundStyle(.secondary400)
                         }
                 }
             Text(price)
                 .font(.semiBoldText16())
         }
-        .foregroundColor(.white)
+        .foregroundStyle(.white)
         .padding()
         .background(Color.primary500)
         .cornerRadius(12)
@@ -258,7 +258,7 @@ struct PaywallScreenView: View {
                 .overlay(alignment: .topTrailing) {
                     Text(promoPerc)
                         .font(.semiBoldVerySmall())
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .padding(4)
                         .background(Color.red)
                         .cornerRadius(30)

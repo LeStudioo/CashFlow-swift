@@ -29,10 +29,10 @@ struct QRCodeScannerView: View {
     var body: some View {
         ZStack {
             QRScanner(result: $jsonString)
-                .foregroundColor(.black.opacity(0.5))
+                .foregroundStyle(.black.opacity(0.5))
             
             qrCodeLimit()
-                .foregroundColor(.blue)
+                .foregroundStyle(.blue)
         }
         .onChange(of: jsonString) { _ in
             dismiss()
@@ -45,7 +45,7 @@ struct QRCodeScannerView: View {
     func qrCodeLimit() -> some View {
         Rectangle()
             .frame(width: 200, height: 200)
-            .foregroundColor(.clear)
+            .foregroundStyle(.clear)
             .overlay {
                 CornerShape()
                     .stroke(style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))

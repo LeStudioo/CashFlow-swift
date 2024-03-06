@@ -18,20 +18,18 @@ struct CellTransactionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
+    // State or Binding String
     
-    //State or Binding Int, Float and Double
+    // State or Binding Int, Float and Double
     
-    //State or Binding Bool
+    // State or Binding Bool
     @State private var isEditing: Bool = false
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
     @State private var isSharingJSON: Bool = false
     @State private var isSharingQRCode: Bool = false
-    
-    //Enum
-    
-    //Computed var
+
+    // Computed var
     var category: PredefinedCategory? {
         return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
     }
@@ -49,48 +47,50 @@ struct CellTransactionView: View {
         SwipeView(label: {
             HStack {
                 Circle()
-                    .foregroundColor(.color2Apple)
+                    .foregroundStyle(Color.background)
                     .frame(width: 50)
                     .overlay {
                         if let category, let subcategory {
                             Circle()
-                                .foregroundColor(category.color)
+                                .foregroundStyle(category.color)
                                 .shadow(radius: 4, y: 4)
                                 .frame(width: 34)
                             
                             Image(systemName: subcategory.icon)
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundColor(.colorLabelInverse)
+                                .foregroundStyle(Color(uiColor: .systemBackground))
                             
                         } else if let category, subcategory == nil {
                             Circle()
-                                .foregroundColor(category.color)
+                                .foregroundStyle(category.color)
                                 .shadow(radius: 4, y: 4)
                                 .frame(width: 34)
                             
                             Image(systemName: category.icon)
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundColor(.colorLabelInverse)
+                                .foregroundStyle(Color(uiColor: .systemBackground))
                         } else {
                             Circle()
-                                .foregroundColor(transaction.amount < 0 ? .error400 : .primary500)
+                                .foregroundStyle(transaction.amount < 0 ? .error400 : .primary500)
                                 .shadow(radius: 4, y: 4)
                                 .frame(width: 34)
                             
                             Text(Locale.current.currencySymbol ?? "$")
-                                .foregroundColor(.colorLabelInverse)
+                                .foregroundStyle(Color(uiColor: .systemBackground))
                         }
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(transaction.amount < 0
                          ? (transaction.comeFromAuto ? "word_automation_expense".localized : "word_expense".localized)
-                         : (transaction.comeFromAuto ? "word_automation_income".localized : "word_income".localized))
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                         : (transaction.comeFromAuto ? "word_automation_income".localized : "word_income".localized)
+                    )
+                    .foregroundStyle(Color.customGray)
                     .font(Font.mediumSmall())
+                    
                     Text(transaction.title)
                         .font(.semiBoldText18())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .lineLimit(1)
                 }
                 
@@ -99,13 +99,13 @@ struct CellTransactionView: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     Text(transaction.amount.currency)
                         .font(.semiBoldText16())
-                        .foregroundColor(transaction.amount < 0 ? .error400 : .primary500)
+                        .foregroundStyle(transaction.amount < 0 ? .error400 : .primary500)
                         .lineLimit(1)
                     
                     if !transaction.isFault {
                         Text(transaction.date.formatted(date: .numeric, time: .omitted))
                             .font(Font.mediumSmall())
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .lineLimit(1)
                     }
                 }
@@ -123,10 +123,10 @@ struct CellTransactionView: View {
                     Text("word_json".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundColor(.colorLabelInverse)
+                .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundColor(.yellow)
+                    .foregroundStyle(.yellow)
             })
             .onChange(of: isSharingJSON) { _ in
                 context.state.wrappedValue = .closed
@@ -141,10 +141,10 @@ struct CellTransactionView: View {
                     Text("word_QRCODE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundColor(.colorLabelInverse)
+                .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundColor(.green)
+                    .foregroundStyle(.green)
             })
             .onChange(of: isSharingQRCode) { _ in
                 context.state.wrappedValue = .closed
@@ -159,10 +159,10 @@ struct CellTransactionView: View {
                     Text("word_DELETE".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundColor(.colorLabelInverse)
+                .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundColor(.error400)
+                    .foregroundStyle(.error400)
             })
             .onChange(of: cancelDeleting) { _ in
                 context.state.wrappedValue = .closed

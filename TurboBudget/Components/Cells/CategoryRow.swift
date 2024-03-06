@@ -51,11 +51,11 @@ struct CategoryRow: View {
         HStack {
             ZStack {
                 Circle()
-                    .foregroundColor(category.color)
+                    .foregroundStyle(category.color)
                     .frame(width: 45, height: 45)
                 Image(systemName: category.icon)
                     .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    .foregroundColor(.black)
+                    .foregroundStyle(.black)
             }
             .padding(.trailing, 8)
             
@@ -66,7 +66,7 @@ struct CategoryRow: View {
                 
                 Text(stringAmount)
                     .font(.semiBoldText18())
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .lineLimit(1)
             }
             
@@ -75,7 +75,7 @@ struct CategoryRow: View {
             if let showChevron {
                 if (category.subcategories.count != 0 || category.transactions.count != 0) && showChevron {
                     Image(systemName: "chevron.right")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                 }
             }

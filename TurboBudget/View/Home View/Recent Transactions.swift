@@ -97,7 +97,7 @@ struct RecentTransactionsView: View {
                                 DetailOfCategory(category: category)
                                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                             })
-                            .foregroundStyle(Color.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                         }
                     } // End List
                     .listStyle(.plain)
@@ -140,7 +140,7 @@ struct RecentTransactionsView: View {
                                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                                     }
                                 })
-                                .foregroundStyle(Color.colorLabel)
+                                .foregroundStyle(Color(uiColor: .label))
                             }
                         }
                     } // End List
@@ -167,7 +167,7 @@ struct RecentTransactionsView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -191,7 +191,7 @@ struct RecentTransactionsView: View {
                     })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }

@@ -81,11 +81,11 @@ struct SelectCategoryView: View {
                                         Spacer()
                                         Circle()
                                             .frame(width: 30, height: 30)
-                                            .foregroundColor(category.color)
+                                            .foregroundStyle(category.color)
                                             .overlay {
                                                 Image(systemName: category.icon)
                                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                                    .foregroundColor(.colorLabelInverse)
+                                                    .foregroundStyle(Color(uiColor: .systemBackground))
                                             }
                                     }
                                     .padding([.horizontal, .top])
@@ -103,10 +103,10 @@ struct SelectCategoryView: View {
                                                     ZStack {
                                                         Circle()
                                                             .frame(width: 25, height: 25)
-                                                            .foregroundColor(HelperManager().getAppTheme().color)
+                                                            .foregroundStyle(HelperManager().getAppTheme().color)
                                                         Image(systemName: "checkmark")
                                                             .font(.system(size: 12, weight: .heavy, design: .rounded))
-                                                            .foregroundColor(.white)
+                                                            .foregroundStyle(.white)
                                                     }
                                                     .padding(8)
                                                 }
@@ -127,10 +127,10 @@ struct SelectCategoryView: View {
                                                             ZStack {
                                                                 Circle()
                                                                     .frame(width: 25, height: 25)
-                                                                    .foregroundColor(HelperManager().getAppTheme().color)
+                                                                    .foregroundStyle(HelperManager().getAppTheme().color)
                                                                 Image(systemName: "checkmark")
                                                                     .font(.system(size: 12, weight: .heavy, design: .rounded))
-                                                                    .foregroundColor(.white)
+                                                                    .foregroundStyle(.white)
                                                             }
                                                             .padding(8)
                                                         }
@@ -165,14 +165,13 @@ struct SelectCategoryView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             } //End VStack
-            .background(Color.color2Apple.edgesIgnoringSafeArea(.all))
             .navigationTitle("what_category_title".localized)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: { dismiss() }, label: {
                         Image(systemName: "xmark")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                             .font(.system(size: 18, weight: .semibold))
                     })
                 }
@@ -192,14 +191,14 @@ struct SelectCategoryView: View {
     func cellForSubcategory(subcategory: PredefinedSubcategory) -> some View {
         HStack {
             Circle()
-                .foregroundColor(subcategory.category.color)
+                .foregroundStyle(subcategory.category.color)
                 .frame(width: 35, height: 35)
                 .overlay {
                     Group {
                         if let _ = UIImage(systemName: subcategory.icon) {
                             Image(systemName: subcategory.icon)
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
-                                .foregroundColor(.black)
+                                .foregroundStyle(.black)
                         } else {
                             Image("\(subcategory.icon)")
                                 .resizable()
@@ -211,7 +210,7 @@ struct SelectCategoryView: View {
             
             Text(subcategory.title)
                 .font(.semiBoldSmall())
-                .foregroundColor(.colorLabel)
+                .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
             
             Spacer()
@@ -224,17 +223,17 @@ struct SelectCategoryView: View {
     func cellForCategory(category: PredefinedCategory) -> some View {
         HStack {
             Circle()
-                .foregroundColor(category.color)
+                .foregroundStyle(category.color)
                 .frame(width: 35, height: 35)
                 .overlay {
                     Image(systemName: category.icon)
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundColor(.black)
+                        .foregroundStyle(.black)
                 }
             
             Text(category.title)
                 .font(.semiBoldSmall())
-                .foregroundColor(.colorLabel)
+                .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
             
             Spacer()

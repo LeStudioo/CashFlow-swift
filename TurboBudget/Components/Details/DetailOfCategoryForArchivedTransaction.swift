@@ -37,13 +37,13 @@ struct DetailOfCategoryForArchivedTransaction: View {
                 if category.amountTotalOfArchivedTransactionsExpenses != 0 {
                     Text("word_expenses".localized + " : " + category.amountTotalOfArchivedTransactionsExpenses.currency)
                         .lineLimit(1)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfArchivedTransactionsIncomes != 0 {
                     Text("word_incomes".localized + " : " + category.amountTotalOfArchivedTransactionsIncomes.currency)
                         .lineLimit(1)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
             }
@@ -51,11 +51,11 @@ struct DetailOfCategoryForArchivedTransaction: View {
             Spacer()
             Circle()
                 .frame(width: 30, height: 30)
-                .foregroundColor(category.color)
+                .foregroundStyle(category.color)
                 .overlay {
                     Image(systemName: category.icon)
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(.colorLabelInverse)
+                        .foregroundStyle(Color(uiColor: .systemBackground))
                 }
         }
         .padding([.horizontal, .top])

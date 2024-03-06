@@ -51,7 +51,7 @@ struct DetailOfTransferByMonth: View {
                         }
                         Spacer()
                     }
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 }
             }

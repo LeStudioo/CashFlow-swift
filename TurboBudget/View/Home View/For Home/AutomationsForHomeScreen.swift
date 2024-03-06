@@ -29,13 +29,13 @@ struct AutomationsForHomeScreen: View {
             }, label: {
                 HStack {
                     Text("automations_for_home_title".localized)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(.semiBoldCustom(size: 22))
                     
                     Spacer()
                     
                     Image(systemName: "arrow.right")
-                        .foregroundColor(HelperManager().getAppTheme().color)
+                        .foregroundStyle(HelperManager().getAppTheme().color)
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                 }
             })

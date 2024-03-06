@@ -85,7 +85,7 @@ struct PieChartViewNoInteractive: View {
                     
                 }
             }
-            .foregroundColor(Color.white)
+            .foregroundStyle(Color.white)
             Spacer()
         }
         .frame(width: width, height: height)

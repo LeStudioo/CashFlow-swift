@@ -30,7 +30,7 @@ struct DismissButtonInSheet: View {
             Spacer()
             Button(action: { dismiss() }, label: {
                 Image(systemName: "xmark")
-                    .foregroundColor(.color4Apple)
+                    .foregroundStyle(.color4Apple)
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
             })
         }

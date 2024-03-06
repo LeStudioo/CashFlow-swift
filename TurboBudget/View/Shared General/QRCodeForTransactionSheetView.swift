@@ -55,7 +55,7 @@ struct QRCodeForTransactionSheetView: View {
             
             Spacer()
         }
-        .foregroundColor(.colorLabel)
+        .foregroundStyle(Color(uiColor: .label))
     }//END body
 
     //MARK: Fonctions

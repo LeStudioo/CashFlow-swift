@@ -33,7 +33,7 @@ struct CellSavingPlanView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.color3Apple)
+                    .foregroundStyle(.color3Apple)
                     .cornerRadius(12)
                     .overlay {
                         if savingPlan.icon.count == 1 {
@@ -43,7 +43,7 @@ struct CellSavingPlanView: View {
                         } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
                             Image(systemName: savingPlan.icon)
                                 .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                .foregroundStyle(Color(uiColor: .label))
                                 .shadow(radius: 2, y: 2)
                         }
                     }
@@ -52,13 +52,13 @@ struct CellSavingPlanView: View {
                 
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
             .padding(.top)
             
             Text(savingPlan.title)
                 .font(.semiBoldText16())
-                .foregroundColor(.colorLabel)
+                .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
             
             progressBar()
@@ -97,24 +97,24 @@ struct CellSavingPlanView: View {
                         Text(formatNumber(savingPlan.amountOfEnd))
                     }
                     .font(.semiBoldVerySmall())
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
                     
                     let widthCapsule = geometry.size.width * percentage
                     let widthAmount = formatNumber(savingPlan.actualAmount).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
                     
                     Capsule()
                         .frame(height: 24)
-                        .foregroundColor(.color2Apple)
+                        .foregroundStyle(.color2Apple)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundColor(HelperManager().getAppTheme().color)
+                                .foregroundStyle(HelperManager().getAppTheme().color)
                                 .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
                                 .padding(3)
                                 .overlay(alignment: .trailing) {
                                     Text(formatNumber(savingPlan.actualAmount))
                                         .padding(.trailing, 12)
                                         .font(.semiBoldVerySmall())
-                                        .foregroundColor(.colorLabelInverse)
+                                        .foregroundStyle(Color(uiColor: .systemBackground))
                                 }
                         }
                 }

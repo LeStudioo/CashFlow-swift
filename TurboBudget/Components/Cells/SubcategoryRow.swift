@@ -44,13 +44,13 @@ struct SubcategoryRow: View {
         HStack {
             ZStack {
                 Circle()
-                    .foregroundColor(subcategory.category.color)
+                    .foregroundStyle(subcategory.category.color)
                     .frame(width: 45, height: 45)
                 
                 if let _ = UIImage(systemName: subcategory.icon) {
                     Image(systemName: subcategory.icon)
                         .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        .foregroundColor(.black)
+                        .foregroundStyle(.black)
                 } else {
                     Image("\(subcategory.icon)")
                         .resizable()
@@ -62,12 +62,12 @@ struct SubcategoryRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(subcategory.title)
                     .font(.semiBoldCustom(size: 20))
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
                     .lineLimit(1)
                 
                 Text(stringAmount)
                     .font(.semiBoldText18())
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .lineLimit(1)
             }
             
@@ -75,7 +75,7 @@ struct SubcategoryRow: View {
             
             if subcategory.transactions.count != 0 && stringAmount != 0.currency {
                 Image(systemName: "chevron.right")
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
                     .font(.system(size: 14, weight: .semibold, design: .rounded))
             }
         }
