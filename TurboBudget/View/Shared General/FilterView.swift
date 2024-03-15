@@ -45,7 +45,7 @@ struct FilterView: View {
                     }
                 }, label: {
                     Image(systemName: "xmark")
-                        .foregroundStyle(.color4Apple)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 22, weight: .semibold, design: .rounded))
                 })
             }
@@ -68,7 +68,7 @@ struct FilterView: View {
                     .disabled(filter.total)
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(8)
                     .if(!store.isLifetimeActive) { view in
@@ -84,7 +84,7 @@ struct FilterView: View {
                     })
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(.horizontal, 8)
                     
@@ -93,7 +93,7 @@ struct FilterView: View {
                     })
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(8)
                 }

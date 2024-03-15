@@ -13,7 +13,7 @@ import CoreData
 struct PageControllerView: View {
     
     // Custom type
-    let router = NavigationManager(isPresented: .constant(.pageController))
+    @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     let persistenceController = PersistenceController.shared
     
     @State private var account: Account? = nil

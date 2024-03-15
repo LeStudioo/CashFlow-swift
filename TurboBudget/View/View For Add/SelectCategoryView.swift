@@ -15,8 +15,7 @@ struct SelectCategoryView: View {
     @Binding var selectedCategory: PredefinedCategory?
     @Binding var selectedSubcategory: PredefinedSubcategory?
     
-    //Custom type
-   
+    //Custom
     var predefinedCategories = PredefinedObjectManager.shared.allPredefinedCategory
     
     //Environnements
@@ -30,11 +29,7 @@ struct SelectCategoryView: View {
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     
-    //State or Binding Date
-    
-    //Enum
-    
-    //Computed var
+    // Computed variables
     var searchResults: [PredefinedCategory] {
         if searchText.isEmpty {
             return predefinedCategories.sorted { $0.title < $1.title }

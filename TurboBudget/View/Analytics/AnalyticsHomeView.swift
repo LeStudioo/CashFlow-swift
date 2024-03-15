@@ -121,7 +121,7 @@ struct AnalyticsHomeView: View {
                 }
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct
 

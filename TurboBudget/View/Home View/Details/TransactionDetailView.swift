@@ -240,7 +240,7 @@ struct TransactionDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .background(SharingViewController(isPresenting: $isSharingJSON) {
             let json = JSONManager().generateJSONForTransaction(transaction: transaction)
             let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)

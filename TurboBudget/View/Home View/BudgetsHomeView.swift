@@ -139,7 +139,7 @@ struct BudgetsHomeView: View {
                 })
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
     } // End body
 } // End struct

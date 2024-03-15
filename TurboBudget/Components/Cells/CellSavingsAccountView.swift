@@ -21,7 +21,7 @@ struct CellSavingsAccountView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(.color3Apple)
+                    .foregroundStyle(Color.colorCell)
                     .cornerRadius(12)
                     .overlay {
                         Image(systemName: "building.columns.fill")

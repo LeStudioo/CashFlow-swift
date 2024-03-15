@@ -230,10 +230,6 @@ struct AccountDashboardView: View {
                     })
                     .padding(.horizontal, 8)
                     
-                    if account.cardLimit != 0 {
-                        cardLimitProgress(account: account)
-                    }
-                    
                     Rectangle()
                         .frame(height: 120)
                         .opacity(0)
@@ -273,7 +269,7 @@ struct AccountDashboardView: View {
                         }
                     }
                 }
-                .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                .background(Color.background.edgesIgnoringSafeArea(.all))
                 .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
                     TextField("account_detail_new_name".localized, text: $accountName)
                     Button(action: { return }, label: { Text("word_cancel".localized) })
@@ -349,7 +345,7 @@ struct AccountDashboardView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(.color3Apple)
+                    .foregroundStyle(Color.componentInComponent)
                     .cornerRadius(12)
                     .overlay {
                         Image(systemName: systemImage)
@@ -387,87 +383,9 @@ struct AccountDashboardView: View {
             Text(amount)
         }
         .padding(8)
-        .background(Color.color3Apple)
+        .background(Color.componentInComponent)
         .cornerRadius(12)
         .font(.mediumSmall())
-    }
-    
-    @ViewBuilder
-    func cardLimitProgress(account: Account) -> some View {
-        
-        let isPercentage80AndMoreButMinus100 = percentage >= cardLimitPercentage / 100 && realPercentage < 1
-        
-        VStack {
-            HStack {
-                Text("account_detail_card_limit".localized)
-                Spacer()
-                Text(account.cardLimit.currency)
-            }
-            .font(.semiBoldText16())
-            .foregroundStyle(Color(uiColor: .label))
-            
-            GeometryReader { geometry in
-                let widthCapsule = geometry.size.width * percentage
-                let widthAmount = account.amountOfExpensesInActualMonth().currency.widthOfString(usingFont: UIFont(name: nameFontBold, size: 16)!) * 1.5
-                
-                Capsule()
-                    .frame(height: 36)
-                    .foregroundStyle(Color.color3Apple)
-                    .overlay(alignment: .leading) {
-                        Capsule()
-                            .foregroundStyle(HelperManager().getAppTheme().color)
-                            .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
-                            .padding(4)
-                            .overlay(alignment: .trailing) {
-                                Text(account.amountOfExpensesInActualMonth().currency)
-                                    .padding(.trailing, 12)
-                                    .font(.semiBoldText16())
-                                    .foregroundStyle(.primary0)
-                            }
-                    }
-                
-            } // End GeometryReader
-            .frame(height: 44)
-            
-            HStack {
-                let amountRemaining = account.cardLimit - account.amountOfExpensesInActualMonth()
-                Text("account_detail_card_remaining".localized)
-                Spacer()
-                Text(amountRemaining.currency)
-            }
-            .font(.semiBoldText16())
-            .padding(8)
-            .padding(.horizontal, 8)
-            .background {
-                Capsule()
-                    .foregroundStyle(Color.color3Apple)
-                    .frame(height: 40)
-            }
-            .padding(.bottom, (isPercentage80AndMoreButMinus100 || realPercentage >= 1) ? 8 : 0)
-            
-            if isPercentage80AndMoreButMinus100 || realPercentage >= 1 {
-                HStack {
-                    Text(isPercentage80AndMoreButMinus100 ? "⚠️ " + "account_detail_alert_almost_exceeded".localized : "‼️ " + "account_detail_alert_exceeded".localized)
-                        .foregroundStyle(isPercentage80AndMoreButMinus100 ? .yellow : .red)
-                        .font(.mediumText16())
-                    Spacer()
-                }
-                .font(.semiBoldText16())
-                .padding(8)
-                .padding(.horizontal, 8)
-                .background {
-                    Capsule()
-                        .foregroundStyle(Color.color3Apple)
-                        .frame(height: 44)
-                }
-            }
-        }
-        .padding(12)
-        .padding(.bottom, 8)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
     }
     
 } // End struct

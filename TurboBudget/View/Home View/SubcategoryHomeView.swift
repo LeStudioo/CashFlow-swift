@@ -139,7 +139,7 @@ struct SubcategoryHomeView: View {
                 })
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
     
     // MARK: - Functions

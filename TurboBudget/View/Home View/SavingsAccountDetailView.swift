@@ -67,7 +67,7 @@ struct SavingsAccountDetailView: View {
                             }
                             .listRowSeparator(.hidden)
                             .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                            .listRowBackground(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                         }, header: {
                             DetailOfTransferByMonth(
                                 month: month,
@@ -84,7 +84,7 @@ struct SavingsAccountDetailView: View {
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct
 

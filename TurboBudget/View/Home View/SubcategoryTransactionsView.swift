@@ -87,7 +87,7 @@ struct SubcategoryTransactionsView: View {
                                 }
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                                .listRowBackground(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                                .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                             }, header: {
                                 if filterTransactions == .month {
                                     DetailOfExpensesAndIncomesByMonth(
@@ -114,7 +114,7 @@ struct SubcategoryTransactionsView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
-                .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                .background(Color.background.edgesIgnoringSafeArea(.all))
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,
@@ -124,7 +124,7 @@ struct SubcategoryTransactionsView: View {
                 )
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -153,7 +153,7 @@ struct SubcategoryTransactionsView: View {
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         //        .sheet(isPresented: $showAddTransaction) { AddTransactionView(account: $account) }
     } // End body
 } // End struct

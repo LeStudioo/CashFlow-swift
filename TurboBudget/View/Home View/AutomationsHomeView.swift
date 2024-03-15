@@ -123,7 +123,7 @@ struct AutomationsHomeView: View {
                 })
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
 //        .sheet(isPresented: $showAddAutomation) { AddAutomationsView() } //TODO: REACTIVER
         .onAppear { getOrientationOnAppear() }
     } // End body

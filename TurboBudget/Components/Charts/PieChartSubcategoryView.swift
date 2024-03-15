@@ -175,7 +175,7 @@ struct PieChartSubcategoryView: View {
                                     .multilineTextAlignment(.center)
                                     .lineLimit(2)
                                     .foregroundStyle(Color.gray)
-                                    .frame(width: height * innerRadiusFraction - 20)
+                                    .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
                                 
                                 //Amount
                                 Text(self.activeSlice == nil ? values.reduce(0, -).currency : (-(activeSlice?.value ?? 0)).currency)

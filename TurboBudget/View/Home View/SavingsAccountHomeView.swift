@@ -46,7 +46,7 @@ struct SavingsAccountHomeView: View {
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .scrollIndicators(.hidden)
-            .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+            .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct
 

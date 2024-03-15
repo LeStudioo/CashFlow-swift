@@ -180,7 +180,7 @@ struct CategoriesHomeView: View {
                     })
                 }
             }
-            .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+            .background(Color.background.edgesIgnoringSafeArea(.all))
         } // End NavStack
     } // End body
     

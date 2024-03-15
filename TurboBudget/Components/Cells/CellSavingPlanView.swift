@@ -33,7 +33,7 @@ struct CellSavingPlanView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(.color3Apple)
+                    .foregroundStyle(Color.componentInComponent)
                     .cornerRadius(12)
                     .overlay {
                         if savingPlan.icon.count == 1 {

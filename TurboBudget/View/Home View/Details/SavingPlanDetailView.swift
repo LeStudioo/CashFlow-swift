@@ -212,7 +212,7 @@ struct SavingPlanDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $showAddContribution, onDismiss: {
             withAnimation(.spring()) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
