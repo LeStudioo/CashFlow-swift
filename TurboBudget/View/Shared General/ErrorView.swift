@@ -38,7 +38,10 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
+                    .frame(width: isIPad 
+                           ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                           : UIScreen.main.bounds.width / 1.5
+                    )
                 
                 if !searchText.isEmpty {
                     Text("word_no_results".localized + " '\(searchText)'")
@@ -54,7 +57,10 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
+                    .frame(width: isIPad 
+                           ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                           : UIScreen.main.bounds.width / 1.5
+                    )
                 
                 Text(text)
                         .font(Font.mediumText16())

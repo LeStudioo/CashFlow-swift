@@ -51,9 +51,7 @@ struct HomeScreenView: View {
     // Boolean variables
     @State private var busy: Bool = false
     @State private var showPaywall: Bool = false
-    
-    // State or Binding Orientation
-    @State private var orientation = UIDeviceOrientation.unknown
+    @State private var updateOrientation: Bool = false
     
     // MARK: - body
     var body: some View {
@@ -160,7 +158,10 @@ struct HomeScreenView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)
-                                            .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5)
+                                            .frame(width: isIPad 
+                                                   ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                                                   : UIScreen.main.bounds.width / 1.5
+                                            )
                                         
                                         Text("home_screen_no_transaction".localized)
                                             .font(.semiBoldText16())
@@ -181,9 +182,6 @@ struct HomeScreenView: View {
                 } // End ScrollView
                 .scrollIndicators(.hidden)
             } // End VStack
-//            .onRotate { newOrientation in
-//                orientation = newOrientation
-//            }
             .onChange(of: isStepsEnbaledForAllSavingsPlans) { newValue in // TODO: Ne devrait pas etre ici ??
                 for savingPlan in account.savingPlans {
                     savingPlan.isStepEnable = newValue
@@ -201,8 +199,6 @@ struct HomeScreenView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.background.edgesIgnoringSafeArea(.all))
             .onAppear {
-                getOrientationOnAppear()
-                
                 AutomationManager().activateScheduledAutomations(automations: account.automations)
                 SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
                 
@@ -216,14 +212,6 @@ struct HomeScreenView: View {
             }
         } // End NavStack
     } // End body
-    
-    // MARK: Fonctions
-    func getOrientationOnAppear() {
-        if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
-            orientation = UIDeviceOrientation.landscapeLeft
-        } else { orientation = UIDeviceOrientation.portrait }
-    }
-
 } // End struct
 
 // MARK: - Preview

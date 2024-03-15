@@ -15,7 +15,7 @@ class AddTransactionViewModel: ObservableObject {
     var predefinedObjectManager = PredefinedObjectManager.shared
     
     @Published var transactionTitle: String = ""
-    @Published var transactionAmount: Double = 0
+    @Published var transactionAmount: String = ""
     @Published var transactionType: ExpenseOrIncome = .expense
     @Published var transactionDate: Date = Date()
     @Published var selectedCategory: PredefinedCategory? = nil
@@ -59,7 +59,7 @@ class AddTransactionViewModel: ObservableObject {
     
     func makeScannerView() -> ScannerTicketView {
         ScannerTicketView { amount, date, errorMessage in
-            if let amount { self.transactionAmount = amount }
+            if let amount { self.transactionAmount = String(amount) }
             if let date { self.transactionDate = date }
         }
     }
@@ -75,7 +75,7 @@ class AddTransactionViewModel: ObservableObject {
             let newTransaction = Transaction(context: context)
             newTransaction.id = UUID()
             newTransaction.title = transactionTitle.trimmingCharacters(in: .whitespaces)
-            newTransaction.amount = transactionType == .expense ? -transactionAmount : transactionAmount
+            newTransaction.amount = transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble()
             newTransaction.date = transactionDate
             newTransaction.creationDate = Date()
             newTransaction.comeFromAuto = false
@@ -122,7 +122,13 @@ extension AddTransactionViewModel {
 
         if let account = mainAccount {
             for transaction in account.transactions {
-                if transaction.title.lowercased().trimmingCharacters(in: .whitespaces).contains(transactionTitle.lowercased().trimmingCharacters(in: .whitespaces)) && transactionTitle.count > 3 {
+                if transaction.title
+                    .lowercased()
+                    .trimmingCharacters(in: .whitespaces)
+                    .contains(transactionTitle
+                        .lowercased()
+                        .trimmingCharacters(in: .whitespaces)
+                    ) && transactionTitle.count > 3 {
                     arrayOfCandidate.append(transaction)
                 }
             }
@@ -132,7 +138,7 @@ extension AddTransactionViewModel {
         var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if candidate.predefCategoryID != "" && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
+            if !candidate.predefCategoryID.isEmpty && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
                 // Vérifier si la transaction actuelle est plus récente que celle stockée
                 if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
@@ -156,7 +162,7 @@ extension AddTransactionViewModel {
     
     func resetData() {
         transactionTitle = ""
-        transactionAmount = 0.0
+        transactionAmount = ""
         transactionType = .expense
         transactionDate = Date()
         selectedCategory = nil
@@ -179,7 +185,7 @@ extension AddTransactionViewModel {
 extension AddTransactionViewModel {
     
     func isTransactionInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.convertToDouble() != 0 {
             return true
         }
         return false
@@ -187,13 +193,13 @@ extension AddTransactionViewModel {
     
     var isAccountWillBeNegative: Bool {
         if let mainAccount, !accountCanBeNegative {
-            if mainAccount.balance - transactionAmount < 0 && transactionType == .expense { return true } else { return false }
+            if mainAccount.balance - transactionAmount.convertToDouble() < 0 && transactionType == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
         if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
-            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount
+            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
@@ -202,7 +208,7 @@ extension AddTransactionViewModel {
         if let selectedSubcategory, blockExpensesIfBudgetAmountExceeds {
             if let budget = selectedSubcategory.budget {
                 if budget.isExceeded(month: transactionDate) { return true }
-                if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount) > budget.amount { return true }
+                if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.convertToDouble()) > budget.amount { return true }
             }
         }
         return false
@@ -237,13 +243,13 @@ extension AddTransactionViewModel {
     func validateTrasaction() -> Bool {
         if isAccountWillBeNegative { return false }
         
-        if transactionType == .income && !transactionTitle.isEmptyWithoutSpace() && transactionAmount != 0.0 { return true }
+        if transactionType == .income && !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 { return true }
         
         if blockExpensesIfCardLimitExceeds && transactionType == .expense {
-            if !transactionTitle.isEmptyWithoutSpace() && transactionAmount != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
+            if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
                 return true
             }
-        } else if !transactionTitle.isEmptyWithoutSpace() && transactionAmount != 0.0 && selectedCategory != nil && !isBudgetIsExceededAfterThisTransaction {
+        } else if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil && !isBudgetIsExceededAfterThisTransaction {
             return true
         }
         return false

@@ -34,7 +34,7 @@ struct SelectCategoryView: View {
         if searchText.isEmpty {
             return predefinedCategories.sorted { $0.title < $1.title }
         } else { //Searching
-            let categoryFilterByTitle: [PredefinedCategory] = predefinedCategories.filter { $0.title.localizedCaseInsensitiveContains(searchText) }.sorted { $0.title < $1.title }
+            let categoryFilterByTitle: [PredefinedCategory] = predefinedCategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }.sorted { $0.title < $1.title }
             
             if categoryFilterByTitle.isEmpty {
                 var subcategories: [PredefinedSubcategory] = []
@@ -45,7 +45,7 @@ struct SelectCategoryView: View {
                     }
                 }
                 
-                let filterSubcategories = subcategories.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                let filterSubcategories = subcategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
                 
                 var categories: [PredefinedCategory] = []
                 for subcategory in filterSubcategories {
@@ -107,8 +107,13 @@ struct SelectCategoryView: View {
                                                 }
                                             }
                                     } else {
+                                        let categoryFilterByTitle: [PredefinedCategory] = predefinedCategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }.sorted { $0.title < $1.title }
+
                                         VStack {
-                                            ForEach(category.subcategories) { subcategory in
+                                            ForEach(searchText.isEmpty || (!searchText.isEmpty && !categoryFilterByTitle.isEmpty)
+                                                    ? category.subcategories
+                                                    : category.subcategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
+                                            ) { subcategory in
                                                 cellForSubcategory(subcategory: subcategory)
                                                     .onTapGesture {
                                                         withAnimation {
@@ -150,7 +155,10 @@ struct SelectCategoryView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)
-                            .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
+                            .frame(width: isIPad
+                                   ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                                   : UIScreen.main.bounds.width / 1.5
+                            )
                         
                         Text("word_no_results".localized + " '\(searchText)'")
                             .font(.semiBoldText16())
@@ -210,8 +218,8 @@ struct SelectCategoryView: View {
             
             Spacer()
         }
-        .padding(.horizontal, 8).padding(.vertical, 16)
-        .background(Color.colorCell)
+        .padding(.horizontal, 12).padding(.vertical, 16)
+        .background(Color.componentInComponent)
         .cornerRadius(15)
     }
     
@@ -233,8 +241,8 @@ struct SelectCategoryView: View {
             
             Spacer()
         }
-        .padding(.horizontal, 8).padding(.vertical, 16)
-        .background(Color.colorCell)
+        .padding(.horizontal, 12).padding(.vertical, 16)
+        .background(Color.componentInComponent)
         .cornerRadius(15)
     }
     

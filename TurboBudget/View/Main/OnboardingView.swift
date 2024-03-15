@@ -28,19 +28,8 @@ struct OnboardingView: View {
     @State private var actualPage: Int = 1
     @State private var cardLimit: Double = 0.0
     @State private var textFieldEmptyDouble: Double = 0.0
-
-    //State or Binding Bool
-
-	//Enum
 	
-	//Computed var
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-    
+	// Computed var
     var sizeTitleOnboarding: CGFloat {
         if isLittleIphone {
             return 26
@@ -192,17 +181,16 @@ struct OnboardingView: View {
             CellAddCardView(
                 textHeader: "account_name".localized,
                 placeholder: "account_placeholder_name".localized,
-                text: $accountTitle,
-                isNumberTextField: false
+                text: $accountTitle
             )
             .padding(8)
             
             CellAddCardView(
                 textHeader: "account_balance".localized,
                 placeholder: "account_placeholder_balance".localized,
-                text: $accountBalance,
-                isNumberTextField: true
+                text: $accountBalance
             )
+            .keyboardType(.decimalPad)
             .padding(8)
             .padding(.vertical)
             

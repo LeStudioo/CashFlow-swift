@@ -54,7 +54,13 @@ extension TransactionDetailViewModel {
 
         if let account = mainAccount {
             for transaction in account.transactions {
-                if transaction.title.lowercased().trimmingCharacters(in: .whitespaces).contains(title.lowercased().trimmingCharacters(in: .whitespaces)) && title.count > 3 {
+                if transaction.title
+                    .lowercased()
+                    .trimmingCharacters(in: .whitespaces)
+                    .contains(title
+                        .lowercased()
+                        .trimmingCharacters(in: .whitespaces)
+                    ) && title.count > 3 {
                     arrayOfCandidate.append(transaction)
                 }
             }
@@ -64,7 +70,7 @@ extension TransactionDetailViewModel {
         var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if candidate.predefCategoryID != "" && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
+            if !candidate.predefCategoryID.isEmpty && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
                 // Vérifier si la transaction actuelle est plus récente que celle stockée
                 if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate

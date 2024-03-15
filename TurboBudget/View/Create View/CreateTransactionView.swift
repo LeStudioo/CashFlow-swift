@@ -7,7 +7,6 @@
 // Localizations 30/09/2023
 
 import SwiftUI
-import Combine
 import ConfettiSwiftUI
 
 struct CreateTransactionView: View {
@@ -43,14 +42,6 @@ struct CreateTransactionView: View {
         return isLittleIphone ? 80 : 100
     }
     
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-    
     // MARK: - body
     var body: some View {
         NavStack(router: router) {
@@ -58,7 +49,6 @@ struct CreateTransactionView: View {
                 ScrollView {
                     if !viewModel.showSuccessfulTransaction {
                         VStack { //New Transaction
-                            
                             
                             Text("transaction_new".localized)
                                 .titleAdjustSize()
@@ -130,7 +120,7 @@ struct CreateTransactionView: View {
                                     focusedField = .amount
                                 }
                             
-                            TextField("transaction_placeholder_amount".localized, value: $viewModel.transactionAmount.animation(), formatter: numberFormatter)
+                            TextField("0.00", text: $viewModel.transactionAmount.max(9).animation())
                                 .focused($focusedField, equals: .amount)
                                 .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                                 .multilineTextAlignment(.center)
@@ -145,12 +135,6 @@ struct CreateTransactionView: View {
                                 }
                                 .background(Color.backgroundComponentSheet.cornerRadius(100))
                                 .padding(.bottom, 24)
-                                .onReceive(Just(viewModel.transactionAmount)) { newValue in
-                                    if viewModel.transactionAmount > 1_000_000_000 {
-                                        let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.transactionAmount)
-                                        viewModel.transactionAmount = numberWithoutLastDigit
-                                    }
-                                }
                             
                             CustomSegmentedControl(
                                 selection: $viewModel.transactionType,

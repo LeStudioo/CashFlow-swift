@@ -28,12 +28,6 @@ struct SubcategoryHomeView: View {
     //State or Binding Int, Float and Double
     @State private var height: CGFloat = 0
     
-    //State or Binding Bool
-    
-    //State or Binding Date
-    
-    //Enum
-    
     //Computed var
     var isDisplayChart: Bool {
         if !filter.automation && !filter.total {
@@ -56,17 +50,9 @@ struct SubcategoryHomeView: View {
         if searchText.isEmpty {
             return category.subcategories.sorted { $0.title < $1.title }
         } else {
-            return category.subcategories.sorted { $0.title < $1.title }.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return category.subcategories.sorted { $0.title < $1.title }.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
         }
     }
-    
-    var valueFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
-        formatter.decimalSeparator = ""
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
     
     //MARK: - Body
     var body: some View {
@@ -112,6 +98,7 @@ struct SubcategoryHomeView: View {
                 }
                 .padding()
             } // End ScrollView
+            .scrollDismissesKeyboard(.immediately)
         } // End VStack
         .blur(radius: filter.showMenu ? 3 : 0)
         .disabled(filter.showMenu)

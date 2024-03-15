@@ -13,7 +13,6 @@ struct CellAddCardView: View {
     var textHeader: String
     var placeholder: String
     @Binding var text: String
-    var isNumberTextField: Bool
     
     // Environment
     @Environment(\.colorScheme) private var colorScheme
@@ -37,7 +36,6 @@ struct CellAddCardView: View {
                 .font(Font.mediumText16())
                 .offset(x: 20)
                 .padding(.horizontal, 8)
-                .keyboardType(isNumberTextField ? .decimalPad : .default)
         }
     } // End body
 } // Ens struct
@@ -52,8 +50,7 @@ struct CellAddCardView_Previews: PreviewProvider {
         CellAddCardView(
             textHeader: "Preview Header",
             placeholder: "Preview Placeholder",
-            text: $textPreview,
-            isNumberTextField: false
+            text: $textPreview
         )
         .padding()
     }

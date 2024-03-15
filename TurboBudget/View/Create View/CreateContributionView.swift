@@ -7,7 +7,6 @@
 // Localizations 30/09/2023
 
 import SwiftUI
-import Combine
 
 struct CreateContributionView: View {
 
@@ -23,14 +22,6 @@ struct CreateContributionView: View {
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
 
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-
     //MARK: - Body
     var body: some View {
         NavigationStack {
@@ -40,7 +31,7 @@ struct CreateContributionView: View {
                     .titleAdjustSize()
                     .padding(.vertical, 24)
                 
-                TextField("contribution_placeholder_amount".localized, value: $viewModel.amountContribution.animation(), formatter: numberFormatter)
+                TextField("0.00", text: $viewModel.amountContribution.max(9).animation())
                     .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
@@ -54,12 +45,6 @@ struct CreateContributionView: View {
                     }
                     .background(Color.backgroundComponentSheet.cornerRadius(100))
                     .padding(.bottom, 24)
-                    .onReceive(Just(viewModel.amountContribution)) { newValue in
-                        if viewModel.amountContribution > 1_000_000_000 {
-                            let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountContribution)
-                            viewModel.amountContribution = numberWithoutLastDigit
-                        }
-                    }
                 
                 CustomSegmentedControl(
                     selection: $viewModel.typeContribution,
@@ -85,12 +70,12 @@ struct CreateContributionView: View {
                 .padding(.bottom, 24)
                 
                 VStack {
-                    if (viewModel.amountContribution > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
+                    if (viewModel.amountContribution.convertToDouble() > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
                         Text("contribution_alert_more_final_amount".localized)
-                    } else if (viewModel.amountContribution < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
+                    } else if (viewModel.amountContribution.convertToDouble() < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
                         Text("💰" + viewModel.moneyForFinish.currency + " " + "contribution_alert_for_finish".localized)
                     }
-                    if (savingPlan.actualAmount - viewModel.amountContribution < 0) && viewModel.typeContribution == .income {
+                    if (savingPlan.actualAmount - viewModel.amountContribution.convertToDouble() < 0) && viewModel.typeContribution == .income {
                         Text("contribution_alert_take_more_amount".localized)
                     }
                 }

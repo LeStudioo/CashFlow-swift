@@ -13,7 +13,7 @@ class AddBudgetViewModel: ObservableObject {
     
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
-    @Published var amountBudget: Double = 0.0
+    @Published var amountBudget: String = ""
     
     @Published var presentingConfirmationDialog: Bool = false
     
@@ -25,7 +25,7 @@ class AddBudgetViewModel: ObservableObject {
             let newBudget = Budget(context: viewContext)
             newBudget.id = UUID()
             newBudget.title = selectedSubcategory.title
-            newBudget.amount = amountBudget
+            newBudget.amount = amountBudget.convertToDouble()
             newBudget.predefCategoryID = selectedCategory.idUnique
             newBudget.predefSubcategoryID = selectedSubcategory.idUnique
         }
@@ -56,14 +56,14 @@ extension AddBudgetViewModel {
 //MARK: - Verification
 extension AddBudgetViewModel {
     func isBudgetInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || amountBudget != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || amountBudget.convertToDouble() != 0 {
             return true
         }
         return false
     }
     
     func validateBudget() -> Bool {
-        if amountBudget != 0 && selectedCategory != nil && selectedSubcategory != nil {
+        if amountBudget.convertToDouble() != 0 && selectedCategory != nil && selectedSubcategory != nil {
             return true
         } else { return false }
     } 

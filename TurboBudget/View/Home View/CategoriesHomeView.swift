@@ -56,7 +56,7 @@ struct CategoriesHomeView: View {
         if searchText.isEmpty {
             return predefCategories.sorted { $0.title < $1.title }
         } else {
-            let isCategoryEmpty: Bool = predefCategories.sorted { $0.title < $1.title }.filter { $0.title.localizedCaseInsensitiveContains(searchText) }.isEmpty
+            let isCategoryEmpty: Bool = predefCategories.sorted { $0.title < $1.title }.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }.isEmpty
             
             if isCategoryEmpty {
                 var subcategories: [PredefinedSubcategory] = []
@@ -67,7 +67,7 @@ struct CategoriesHomeView: View {
                     }
                 }
                 
-                let filterSubcategories = subcategories.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                let filterSubcategories = subcategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
                 
                 var categories: [PredefinedCategory] = []
                 for subcategory in filterSubcategories {
@@ -78,18 +78,10 @@ struct CategoriesHomeView: View {
                 
                 return categories.sorted { $0.title < $1.title }
             } else {
-                return predefCategories.sorted { $0.title < $1.title }.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+                return predefCategories.sorted { $0.title < $1.title }.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
             }
         }
     }
-    
-    var valueFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .none
-        formatter.decimalSeparator = ""
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
     
     //MARK: - Body
     var body: some View {
@@ -153,6 +145,7 @@ struct CategoriesHomeView: View {
                         }
                         .padding()
                     } //End ScrollView
+                    .scrollDismissesKeyboard(.immediately)
                 } else {
                     ErrorView(
                         searchResultsCount: searchResults.count,
