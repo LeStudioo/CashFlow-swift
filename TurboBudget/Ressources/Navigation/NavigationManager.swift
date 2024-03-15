@@ -41,6 +41,10 @@ class NavigationManager: Router {
         navigateTo(.accountDashboard(account: account))
     }
     
+    func pushSavingsAccountDetail(savingsAccount: SavingsAccount) {
+        navigateTo(.savingsAccountDetail(savingsAccount: savingsAccount))
+    }
+    
     func pushAllSavingsAccount() {
         navigateTo(.allSavingsAccount)
     }
@@ -141,6 +145,10 @@ class NavigationManager: Router {
         presentSheet(.recoverTransaction)
     }
     
+    func presentCreateSavingsAccount() {
+        presentSheet(.createSavingsAccount)
+    }
+    
     func presentSelectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>) {
         presentSheet(.selectCategory(category: category, subcategory: subcategory))
     }
@@ -178,6 +186,8 @@ private extension NavigationManager {
                 CreateTransactionView(router: router(route: route))
             case .recoverTransaction:
                 RecoverTransactionView()
+            case .createSavingsAccount:
+                CreateSavingsAccountView()
                 
                 
             case .selectCategory(let category, let subcategory):
@@ -196,8 +206,10 @@ private extension NavigationManager {
                 
             case .accountDashboard(let account):
                 AccountDashboardView(router: router(route: route), account: account)
+            case .savingsAccountDetail(let savingsAccount):
+                SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:
-                SavingsAccountHomeView()
+                SavingsAccountHomeView(router: router(route: route))
             case .allBudgets:
                 BudgetsHomeView(router: router(route: route))
             case .budgetTransactions(let subcategory):

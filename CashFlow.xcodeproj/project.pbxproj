@@ -111,7 +111,6 @@
 		D9529B012AEC3C6D005E799D /* PageControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */; };
 		D9529B032AEC3E25005E799D /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */; };
 		D95DB33C2A84FFFA002282B1 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95DB33B2A84FFFA002282B1 /* FilterView.swift */; };
-		D96155372A73DAE0005E1473 /* OrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96155362A73DAE0005E1473 /* OrientationManager.swift */; };
 		D9627A5F2A6E92BC000FCC23 /* CashFlowChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9627A5E2A6E92BC000FCC23 /* CashFlowChart.swift */; };
 		D9699F2B2A92482E0054924D /* PaywallScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9699F2A2A92482E0054924D /* PaywallScreenView.swift */; };
 		D96B9E322ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96B9E312ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift */; };
@@ -179,7 +178,6 @@
 		D9C03D132B8E5A8B0019BA7E /* ToolbarDismissKeyboardButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C03D122B8E5A8B0019BA7E /* ToolbarDismissKeyboardButtonView.swift */; };
 		D9C03D152B8E618A0019BA7E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9C03D142B8E618A0019BA7E /* Colors.xcassets */; };
 		D9C03D172B8E69AC0019BA7E /* SelectCategoryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C03D162B8E69AC0019BA7E /* SelectCategoryButtonView.swift */; };
-		D9C45B322A63C964003D0004 /* Rotation Detection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C45B312A63C964003D0004 /* Rotation Detection.swift */; };
 		D9C5C2262AF769400084B542 /* AddSavingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */; };
 		D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */; };
 		D9CA6CC82AA3237D00803E66 /* PieChartViewNoInteractive.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */; };
@@ -189,6 +187,8 @@
 		D9EB24772A7BD9D600C12ADD /* BudgetsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB24762A7BD9D600C12ADD /* BudgetsHomeView.swift */; };
 		D9EB247B2A7BDD4500C12ADD /* CreateBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9EB247A2A7BDD4500C12ADD /* CreateBudgetView.swift */; };
 		D9F56A2A2A654D6000E6CCC6 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */; };
+		D9FA29DB2BA4A0F100C6A2F3 /* CreateSavingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA29DA2BA4A0F100C6A2F3 /* CreateSavingsAccountView.swift */; };
+		D9FA29DD2BA4A19400C6A2F3 /* CreateSavingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9FA29DC2BA4A19400C6A2F3 /* CreateSavingsAccountViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -303,7 +303,6 @@
 		D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerViewModel.swift; sourceTree = "<group>"; };
 		D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		D95DB33B2A84FFFA002282B1 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
-		D96155362A73DAE0005E1473 /* OrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationManager.swift; sourceTree = "<group>"; };
 		D9627A5E2A6E92BC000FCC23 /* CashFlowChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CashFlowChart.swift; sourceTree = "<group>"; };
 		D9699F2A2A92482E0054924D /* PaywallScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallScreenView.swift; sourceTree = "<group>"; };
 		D96B9E312ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCreditCardRecognizer.swift; sourceTree = "<group>"; };
@@ -378,7 +377,6 @@
 		D9C03D122B8E5A8B0019BA7E /* ToolbarDismissKeyboardButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarDismissKeyboardButtonView.swift; sourceTree = "<group>"; };
 		D9C03D142B8E618A0019BA7E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		D9C03D162B8E69AC0019BA7E /* SelectCategoryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryButtonView.swift; sourceTree = "<group>"; };
-		D9C45B312A63C964003D0004 /* Rotation Detection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Rotation Detection.swift"; sourceTree = "<group>"; };
 		D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingPlanViewModel.swift; sourceTree = "<group>"; };
 		D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContributionViewModel.swift; sourceTree = "<group>"; };
 		D9CA6CC72AA3237D00803E66 /* PieChartViewNoInteractive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartViewNoInteractive.swift; sourceTree = "<group>"; };
@@ -388,6 +386,8 @@
 		D9EB24762A7BD9D600C12ADD /* BudgetsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetsHomeView.swift; sourceTree = "<group>"; };
 		D9EB247A2A7BDD4500C12ADD /* CreateBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBudgetView.swift; sourceTree = "<group>"; };
 		D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		D9FA29DA2BA4A0F100C6A2F3 /* CreateSavingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSavingsAccountView.swift; sourceTree = "<group>"; };
+		D9FA29DC2BA4A19400C6A2F3 /* CreateSavingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateSavingsAccountViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,7 +510,6 @@
 				81A707D92A3B809100BEB0BF /* Number Separator Currency.swift */,
 				D985C4C82A703AAA0064F041 /* QRScannerController.swift */,
 				81A707A32A3B6D9200BEB0BF /* Radius Specific Corner.swift */,
-				D9C45B312A63C964003D0004 /* Rotation Detection.swift */,
 				D9261C142A6D1145006A6FD8 /* SharingViewController.swift */,
 				8182DC612A40C89E00D45979 /* Swipe Back.swift */,
 				81D567902A51E6B800431804 /* Title Font Adjust.swift */,
@@ -530,7 +529,6 @@
 				81A707D72A3B7FAD00BEB0BF /* Helper Manager.swift */,
 				D9B0D2F42ACC714100CFF4C1 /* ICloudManager.swift */,
 				D9263F8B2ACB1AE3003518A9 /* JSONManager.swift */,
-				D96155362A73DAE0005E1473 /* OrientationManager.swift */,
 				D9AE9DD02AD17CDD00BF3733 /* PredefinedCategoryManager.swift */,
 				D9AE9DCC2AD15F4300BF3733 /* PredefinedObjectManager.swift */,
 				D9AE9DCE2AD175F100BF3733 /* PredefinedSubcategoryManager.swift */,
@@ -615,6 +613,7 @@
 				81805B3B2A5AB7E400FD47FB /* CreateContributionView.swift */,
 				81AE98592A3CBB970066AE94 /* CreateTransactionView.swift */,
 				81ACEBCA2A48B51A00493666 /* RecoverTransactionView.swift */,
+				D9FA29DA2BA4A0F100C6A2F3 /* CreateSavingsAccountView.swift */,
 			);
 			path = "Create View";
 			sourceTree = "<group>";
@@ -625,8 +624,6 @@
 				D95C335D2AC4A23A0044FE27 /* For Home */,
 				D95C335E2AC4A2600044FE27 /* Details */,
 				81C7D5A62A5AF6560014EEB1 /* AccountDashboardView.swift */,
-				D94E95912B0F380E00E965D7 /* SavingsAccountHomeView.swift */,
-				D9AB6FC62B852910007E0B07 /* SavingsAccountDetailView.swift */,
 				D926536B2A7A7C7300935503 /* ArchivedSavingPlansView.swift */,
 				D975BFA92A667941004FFA9D /* AutomationsHomeView.swift */,
 				D9EB24762A7BD9D600C12ADD /* BudgetsHomeView.swift */,
@@ -636,6 +633,8 @@
 				81A707CE2A3B7E8000BEB0BF /* HomeScreenView.swift */,
 				81541F792A52D6CC008FC477 /* Recent Transactions.swift */,
 				81C3A77A2A421D59006BAFA6 /* SavingPlansHomeView.swift */,
+				D94E95912B0F380E00E965D7 /* SavingsAccountHomeView.swift */,
+				D9AB6FC62B852910007E0B07 /* SavingsAccountDetailView.swift */,
 				8182DC5D2A40C59500D45979 /* SubcategoryHomeView.swift */,
 				D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */,
 			);
@@ -715,6 +714,7 @@
 				D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */,
 				D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */,
 				D9BDDFC42B9056ED0082AF54 /* RecoverTransactionViewModel.swift */,
+				D9FA29DC2BA4A19400C6A2F3 /* CreateSavingsAccountViewModel.swift */,
 			);
 			path = "Create View";
 			sourceTree = "<group>";
@@ -994,6 +994,7 @@
 				81C141402A46E98200C9B764 /* Font.swift in Sources */,
 				D9428C342B7E932C0030DAC2 /* NavigationManager.swift in Sources */,
 				D9428C362B7E932C0030DAC2 /* NavigationStack.swift in Sources */,
+				D9FA29DB2BA4A0F100C6A2F3 /* CreateSavingsAccountView.swift in Sources */,
 				D9627A5F2A6E92BC000FCC23 /* CashFlowChart.swift in Sources */,
 				D9C03D0F2B8E59690019BA7E /* ToolbarDismissButtonView.swift in Sources */,
 				D9879DBD2B8B3E1600054FFC /* SettingsCreditsView.swift in Sources */,
@@ -1094,10 +1095,10 @@
 				D9AB6FC92B852F02007E0B07 /* CellSavingsAccountView.swift in Sources */,
 				D975BFAE2A66900F004FFA9D /* CellAutomationView.swift in Sources */,
 				81A7079E2A3B6CE800BEB0BF /* Page Controller.swift in Sources */,
-				D96155372A73DAE0005E1473 /* OrientationManager.swift in Sources */,
 				D92454242A89035E00035304 /* CircleWithCheckmark.swift in Sources */,
 				81AE985F2A3CBC570066AE94 /* DismissButtonInSheet.swift in Sources */,
 				81D567912A51E6B800431804 /* Title Font Adjust.swift in Sources */,
+				D9FA29DD2BA4A19400C6A2F3 /* CreateSavingsAccountViewModel.swift in Sources */,
 				D9B0D2F52ACC714100CFF4C1 /* ICloudManager.swift in Sources */,
 				D9989D1C2AC1FFA400A4912A /* DetailOfExpensesAndIncomesByMonth.swift in Sources */,
 				D99C9D1C2A6EDB1900658056 /* Incomes Auto Chart.swift in Sources */,
@@ -1123,7 +1124,6 @@
 				D92DAB132B8A74D800F01E48 /* URLManager.swift in Sources */,
 				D9EB24752A7BD71E00C12ADD /* Budget Entity.swift in Sources */,
 				81C7D5A72A5AF6560014EEB1 /* AccountDashboardView.swift in Sources */,
-				D9C45B322A63C964003D0004 /* Rotation Detection.swift in Sources */,
 				D97BC5342A8D148C00DA016A /* SubcategoryTransactionsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

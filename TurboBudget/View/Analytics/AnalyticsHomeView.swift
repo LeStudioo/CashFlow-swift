@@ -52,7 +52,7 @@ struct AnalyticsHomeView: View {
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)
                                             .frame(width: isIPad
-                                                   ? (OrientationManager.shared.orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3)
+                                                   ? UIScreen.main.bounds.width / 3
                                                    : UIScreen.main.bounds.width / 1.5
                                             )
                                         
@@ -94,7 +94,7 @@ struct AnalyticsHomeView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .shadow(radius: 4, y: 4)
                                 .frame(width: isIPad 
-                                       ? (OrientationManager.shared.orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3)
+                                       ? UIScreen.main.bounds.width / 3
                                        : UIScreen.main.bounds.width / 1.5
                                 )
                             

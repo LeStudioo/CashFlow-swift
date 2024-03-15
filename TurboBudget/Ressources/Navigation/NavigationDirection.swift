@@ -20,6 +20,7 @@ enum NavigationDirection: Identifiable {
     case createSavingPlans
     case createTransaction
     case recoverTransaction
+    case createSavingsAccount
     
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
@@ -30,6 +31,7 @@ enum NavigationDirection: Identifiable {
     
     case accountDashboard(account: Account)
     case allSavingsAccount
+    case savingsAccountDetail(savingsAccount: SavingsAccount)
     case allBudgets
     case budgetTransactions(subcategory: PredefinedSubcategory)
     case allArchivedSavingPlans(account: Account)
@@ -74,6 +76,8 @@ enum NavigationDirection: Identifiable {
             return "createTransaction"
         case .recoverTransaction:
             return "recoverTransaction"
+        case .createSavingsAccount:
+            return "createSavingsAccount"
             
         case .selectCategory(let category, let subcategory):
             return "selectCategory_\(category.wrappedValue?.id ?? UUID())_\(subcategory.wrappedValue?.id ?? UUID())"
@@ -90,6 +94,8 @@ enum NavigationDirection: Identifiable {
             return "accountDashboard_\(account.id)"
         case .allSavingsAccount:
             return "allSavingsAccount"
+        case .savingsAccountDetail(let savingsAccount):
+            return "savingsAccountDetail_\(savingsAccount.id)"
         case .allBudgets:
             return "allBudgets"
         case .budgetTransactions(let subcategory):
@@ -145,6 +151,7 @@ extension NavigationDirection: Equatable {
             (.createSavingPlans, .createSavingPlans),
             (.createTransaction, .createTransaction),
             (.recoverTransaction, .recoverTransaction),
+            (.createSavingsAccount, .createSavingsAccount),
             (.paywall, .paywall),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),
@@ -187,6 +194,9 @@ extension NavigationDirection: Equatable {
             
         case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
+            
+        case let (.savingsAccountDetail(lhsSavingsAccount), .savingsAccountDetail(rhsSavingsAccount)):
+            return lhsSavingsAccount.id == rhsSavingsAccount.id
             
         case let (.allArchivedSavingPlans(lhsAccount), .allArchivedSavingPlans(rhsAccount)):
             return lhsAccount.id == rhsAccount.id

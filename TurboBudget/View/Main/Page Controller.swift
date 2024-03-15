@@ -133,7 +133,7 @@ struct PageControllerView: View {
                                                 .aspectRatio(contentMode: .fit)
                                                 .shadow(radius: 4, y: 4)
                                                 .frame(width: isIPad 
-                                                       ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                                                       ? UIScreen.main.bounds.width / 3
                                                        : UIScreen.main.bounds.width / 1.5)
                                             
                                             Text("home_screen_no_account".localized)
@@ -271,9 +271,6 @@ struct PageControllerView: View {
                     }
                 }
             }
-        }
-        .onRotate { newOrientation in
-            OrientationManager.shared.orientation = newOrientation
         }
     } // End body
 } // End struct

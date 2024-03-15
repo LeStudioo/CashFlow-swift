@@ -48,6 +48,7 @@ struct CellContributionView: View {
                 }
             }
             .padding(8)
+            .padding(.horizontal, 4)
             .background(Color.colorCell)
             .cornerRadius(15)
         }, trailingActions: { context in

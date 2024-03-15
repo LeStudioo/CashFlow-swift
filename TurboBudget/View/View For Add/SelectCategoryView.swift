@@ -156,7 +156,7 @@ struct SelectCategoryView: View {
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)
                             .frame(width: isIPad
-                                   ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                                   ? UIScreen.main.bounds.width / 3
                                    : UIScreen.main.bounds.width / 1.5
                             )
                         

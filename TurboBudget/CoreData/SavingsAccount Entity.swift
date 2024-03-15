@@ -19,7 +19,8 @@ public class SavingsAccount: NSManagedObject, Identifiable {
 
     @NSManaged public var id: UUID
     @NSManaged public var name: String
-    @NSManaged private var balanceAtStart: Double
+    @NSManaged public var maxAmount: Double
+    @NSManaged public var balanceAtStart: Double
     @NSManaged public var savingsAccountToTransfer: Set<Transfer>?
     
     public var balance: Double {

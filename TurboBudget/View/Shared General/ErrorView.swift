@@ -16,20 +16,6 @@ struct ErrorView: View {
     var image: String
     var text: String
 
-    //Custom type
-
-    //Environnements
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
-
     //MARK: - Body
     var body: some View {
         if searchResultsCount == 0 && !searchText.isEmpty {
@@ -39,7 +25,7 @@ struct ErrorView: View {
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
                     .frame(width: isIPad 
-                           ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                           ? UIScreen.main.bounds.width / 3
                            : UIScreen.main.bounds.width / 1.5
                     )
                 
@@ -58,7 +44,7 @@ struct ErrorView: View {
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
                     .frame(width: isIPad 
-                           ? (OrientationManager.shared.orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2)
+                           ? UIScreen.main.bounds.width / 3
                            : UIScreen.main.bounds.width / 1.5
                     )
                 
