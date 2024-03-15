@@ -13,7 +13,7 @@ class AddContributionViewModel: ObservableObject {
     @Published var mainAccount: Account? = nil
     @Published var savingPlan: SavingPlan? = nil
     
-    @Published var amountContribution: Double = 0.0
+    @Published var amountContribution: String = ""
     @Published var dateContribution: Date = .now
     @Published var typeContribution: ExpenseOrIncome = .expense // expense = Add / income = withdrawal
     
@@ -40,23 +40,23 @@ class AddContributionViewModel: ObservableObject {
     func createContribution() {
         let newContribution = Contribution(context: context)
         newContribution.id = UUID()
-        newContribution.amount = typeContribution == .expense ? amountContribution : -amountContribution
+        newContribution.amount = typeContribution == .expense ? amountContribution.convertToDouble() : -amountContribution.convertToDouble()
         newContribution.date = dateContribution
         newContribution.contributionToSavingPlan = savingPlan
         
         if let savingPlan {
             if typeContribution == .income {
-                savingPlan.actualAmount -= amountContribution
+                savingPlan.actualAmount -= amountContribution.convertToDouble()
             } else {
-                savingPlan.actualAmount += amountContribution
+                savingPlan.actualAmount += amountContribution.convertToDouble()
             }
         }
         
         if let account = mainAccount {
             if typeContribution == .expense {
-                account.balance -= amountContribution
+                account.balance -= amountContribution.convertToDouble()
             } else {
-                account.balance += amountContribution
+                account.balance += amountContribution.convertToDouble()
             }
         }
         
@@ -74,15 +74,15 @@ extension AddContributionViewModel {
     
     func isContributionValid() -> Bool {
         if let savingPlan, blockExpensesIfCardLimitExceeds && typeContribution == .expense {
-            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && !isCardLimitExceeds && amountContribution <= moneyForFinish {
+            if amountContribution.convertToDouble() != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && !isCardLimitExceeds && amountContribution.convertToDouble() <= moneyForFinish {
                 return true
             }
         } else if let savingPlan, typeContribution == .income {
-            if amountContribution != 0 && (savingPlan.actualAmount - amountContribution >= 0) {
+            if amountContribution.convertToDouble() != 0 && (savingPlan.actualAmount - amountContribution.convertToDouble() >= 0) {
                 return true
             }
         } else if let savingPlan, typeContribution == .expense {
-            if amountContribution != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && amountContribution <= moneyForFinish {
+            if amountContribution.convertToDouble() != 0 && savingPlan.actualAmount < savingPlan.amountOfEnd && amountContribution.convertToDouble() <= moneyForFinish {
                 return true
             }
         }
@@ -94,7 +94,7 @@ extension AddContributionViewModel {
 extension AddContributionViewModel {
     
     func isContributionInCreation() -> Bool {
-        if amountContribution != 0 {
+        if amountContribution.convertToDouble() != 0 {
             return true
         }
         return false
@@ -102,14 +102,14 @@ extension AddContributionViewModel {
     
     var isAccountWillBeNegative: Bool {
         if let account = mainAccount {
-            if !accountCanBeNegative && account.balance - amountContribution < 0 && typeContribution == .expense { return true } else { return false }
+            if !accountCanBeNegative && account.balance - amountContribution.convertToDouble() < 0 && typeContribution == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
         if let account = mainAccount {
             if account.cardLimit != 0 {
-                let cardLimitAfterTransaction = account.amountOfExpensesInActualMonth() + amountContribution
+                let cardLimitAfterTransaction = account.amountOfExpensesInActualMonth() + amountContribution.convertToDouble()
                 if cardLimitAfterTransaction <= account.cardLimit { return false } else { return true }
             } else { return false }
         } else { return false }

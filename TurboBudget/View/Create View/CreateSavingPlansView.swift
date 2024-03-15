@@ -7,7 +7,6 @@
 // Localizations 30/09/2023
 
 import SwiftUI
-import Combine
 import ConfettiSwiftUI
 
 struct CreateSavingPlansView: View {
@@ -27,26 +26,11 @@ struct CreateSavingPlansView: View {
     //State or Binding Int, Float and Double
     @State private var confettiCounter: Int = 0
     
-    //State or Binding Bool
-    @State private var showSettings: Bool = false
-    
-    //State or Binding Bool - Successful
-    
-    //State or Binding Date
-    
     //Enum
     enum Field: CaseIterable {
         case emoji, title, amountOfStart, amountOfEnd
     }
     @FocusState var focusedField: Field?
-    
-    //Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
     
     //MARK: - Body
     var body: some View {
@@ -86,7 +70,7 @@ struct CreateSavingPlansView: View {
                                     ZStack {
                                         Capsule()
                                             .foregroundStyle(Color.backgroundComponentSheet)
-                                        TextField("savingsplan_emoji".localized, text: $viewModel.savingPlanEmoji.max(1))
+                                        EmojiTextField(text: $viewModel.savingPlanEmoji.max(1), placeholder: "savingsplan_emoji".localized)
                                             .focused($focusedField, equals: .emoji)
                                             .padding(.horizontal)
                                     }
@@ -111,7 +95,7 @@ struct CreateSavingPlansView: View {
                                 VStack(alignment: .center, spacing: 4) {
                                     Text("savingsplan_start".localized)
                                         .font(Font.mediumText16())
-                                    TextField("savingsplan_placeholder_amount".localized, value: $viewModel.savingPlanAmountOfStart.animation(), formatter: numberFormatter)
+                                    TextField("0.00", text: $viewModel.savingPlanAmountOfStart.max(9).animation())
                                         .focused($focusedField, equals: .amountOfStart)
                                         .font(.semiBoldCustom(size: 30))
                                         .multilineTextAlignment(.center)
@@ -119,18 +103,12 @@ struct CreateSavingPlansView: View {
                                         .padding(8)
                                         .background(Color.backgroundComponentSheet.cornerRadius(100))
                                         .keyboardType(.decimalPad)
-                                        .onReceive(Just(viewModel.savingPlanAmountOfStart)) { newValue in
-                                            if viewModel.savingPlanAmountOfStart > 1_000_000_000 {
-                                                let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.savingPlanAmountOfStart)
-                                                viewModel.savingPlanAmountOfStart = numberWithoutLastDigit
-                                            }
-                                        }
                                 }
                                 
                                 VStack(alignment: .center, spacing: 4) {
                                     Text("savingsplan_end".localized)
                                         .font(Font.mediumText16())
-                                    TextField("savingsplan_placeholder_amount".localized, value: $viewModel.savingPlanAmountOfEnd.animation(), formatter: numberFormatter)
+                                    TextField("0.00", text: $viewModel.savingPlanAmountOfEnd.max(9).animation())
                                         .focused($focusedField, equals: .amountOfEnd)
                                         .font(.semiBoldCustom(size: 30))
                                         .multilineTextAlignment(.center)
@@ -138,12 +116,6 @@ struct CreateSavingPlansView: View {
                                         .padding(8)
                                         .background(Color.backgroundComponentSheet.cornerRadius(100))
                                         .keyboardType(.decimalPad)
-                                        .onReceive(Just(viewModel.savingPlanAmountOfEnd)) { newValue in
-                                            if viewModel.savingPlanAmountOfEnd > 1_000_000_000 {
-                                                let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.savingPlanAmountOfEnd)
-                                                viewModel.savingPlanAmountOfEnd = numberWithoutLastDigit
-                                            }
-                                        }
                                 }
                             }
                             .padding(.bottom, 24)

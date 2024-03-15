@@ -40,17 +40,16 @@ struct CreateAccountView: View {
                         CellAddCardView(
                             textHeader: "account_name".localized,
                             placeholder: "account_placeholder_name".localized,
-                            text: $viewModel.accountTitle,
-                            isNumberTextField: false
+                            text: $viewModel.accountTitle
                         )
                         .padding(8)
                         
                         CellAddCardView(
                             textHeader: "account_balance".localized,
                             placeholder: "account_placeholder_balance".localized,
-                            text: $viewModel.accountBalance,
-                            isNumberTextField: true
+                            text: $viewModel.accountBalance
                         )
+                        .keyboardType(.decimalPad)
                         .padding(8)
                         .padding(.vertical)
                         

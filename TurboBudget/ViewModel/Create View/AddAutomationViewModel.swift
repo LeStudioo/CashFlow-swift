@@ -20,7 +20,7 @@ class AddAutomationViewModel: ObservableObject {
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
     @Published var titleTransaction: String = ""
-    @Published var amountTransaction: Double = 0.0
+    @Published var amountTransaction: String = ""
     @Published var dayAutomation: Int = 1
     @Published var dateAutomation: Date = .now
     @Published var typeTransaction: ExpenseOrIncome = .expense
@@ -66,7 +66,7 @@ extension AddAutomationViewModel {
         let newTransaction = Transaction(context: viewContext)
         newTransaction.id = UUID()
         newTransaction.title = titleTransaction
-        newTransaction.amount = typeTransaction == .expense ? -amountTransaction : amountTransaction
+        newTransaction.amount = typeTransaction == .expense ? -amountTransaction.convertToDouble() : amountTransaction.convertToDouble()
         newTransaction.date = finalDate
         newTransaction.isAuto = true
         newTransaction.predefCategoryID = typeTransaction == .income ? categoryPredefined0.idUnique : selectedCategory?.idUnique ?? ""
@@ -101,14 +101,14 @@ extension AddAutomationViewModel {
     
     func isAutomationInCreation() -> Bool {
         if showSuccessfulAutomation { return false }
-        if selectedCategory != nil || selectedSubcategory != nil || !titleTransaction.isEmpty || amountTransaction != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || !titleTransaction.isEmpty || amountTransaction.convertToDouble() != 0 {
             return true
         }
         return false
     }
     
     func validateAutomation() -> Bool {
-        if !titleTransaction.isEmptyWithoutSpace() && amountTransaction != 0.0 && selectedCategory != nil {
+        if !titleTransaction.isEmptyWithoutSpace() && amountTransaction.convertToDouble() != 0.0 && selectedCategory != nil {
             return true
         }
         return false

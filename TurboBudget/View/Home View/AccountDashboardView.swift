@@ -79,14 +79,6 @@ struct AccountDashboardView: View {
         }
     }
     
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-    
     // init
     init(router: NavigationManager, account: Account) {
         self.router = router

@@ -181,12 +181,9 @@ struct ItemsForTabBar: View {
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     
-    // Number variables
-    var hStackwidth = UIScreen.main.bounds.width / 2 - 80
-    
     // MARK: - body
     var body: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .center, spacing: 100) {
             HStack {
                 VStack(spacing: 14) {
                     Image(systemName: "house")
@@ -202,7 +199,7 @@ struct ItemsForTabBar: View {
                     : Color.reversedCustomGray
                 )
                 .onTapGesture { selectedTab = 0; withAnimation { showMenu = false; filter.showMenu = false } }
-                .frame(width: hStackwidth / 2)
+                .frame(maxWidth: .infinity)
                 
                 VStack(spacing: 14) {
                     Image(systemName: "chart.bar")
@@ -218,12 +215,11 @@ struct ItemsForTabBar: View {
                     ? Color(uiColor: UIColor.label)
                     : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2 + 10)
+                .frame(maxWidth: .infinity)
             }
             .padding(.bottom, 16)
-            .frame(width: hStackwidth, height: 70)
-            
-            Spacer()
+            .frame(height: 70)
+            .frame(maxWidth: .infinity)
                         
             HStack {
                 VStack(spacing: 14) {
@@ -240,7 +236,7 @@ struct ItemsForTabBar: View {
                     ? Color(uiColor: UIColor.label)
                     : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2 + 10)
+                .frame(maxWidth: .infinity)
                 
                 VStack(spacing: 14) {
                     Image(systemName: "rectangle.stack")
@@ -256,13 +252,15 @@ struct ItemsForTabBar: View {
                     ? Color(uiColor: UIColor.label)
                     : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2)
+                .frame(maxWidth: .infinity)
             }
             .padding(.bottom, 16)
-            .frame(width: hStackwidth, height: 70)
+            .frame(height: 70)
+            .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 4)
         .frame(height: 90)
+        .frame(maxWidth: .infinity)
     } // End body
 } // End struct
 
@@ -270,26 +268,26 @@ struct BannerShape: Shape {
     func path(in rect: CGRect) -> Path {
         return Path { path in
             path.move(to: .zero)
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width / 2 - 48, y: 0))
+            path.addLine(to: CGPoint(x: rect.width / 2 - 48, y: 0))
             
             var pt1: CGPoint = .zero
             var pt2: CGPoint = .zero
             
-            pt1 = .init(x: UIScreen.main.bounds.width / 2 - 48 + 5, y: 0)
-            pt2 = .init(x: UIScreen.main.bounds.width / 2 - 48 - 10, y: 105)
+            pt1 = .init(x: rect.width / 2 - 48 + 5, y: 0)
+            pt2 = .init(x: rect.width / 2 - 48 - 10, y: 105)
             path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
             
             let p3 = path.currentPoint!
-            path.addCurve(to: CGPoint(x: UIScreen.main.bounds.width - p3.x, y: p3.y),
-                          control1: CGPoint(x: UIScreen.main.bounds.width / 2 - 75, y: 102),
-                          control2: CGPoint(x: UIScreen.main.bounds.width / 2 + 75, y: 102))
+            path.addCurve(to: CGPoint(x: rect.width - p3.x, y: p3.y),
+                          control1: CGPoint(x: rect.width / 2 - 75, y: 102),
+                          control2: CGPoint(x: rect.width / 2 + 75, y: 102))
             
-            pt1 = .init(x: UIScreen.main.bounds.width / 2 + 48 - 10, y: 0)
-            pt2 = .init(x: UIScreen.main.bounds.width / 2 + 48 + 10, y: 0)
+            pt1 = .init(x: rect.width / 2 + 48 - 10, y: 0)
+            pt2 = .init(x: rect.width / 2 + 48 + 10, y: 0)
             path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
             
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 100))
+            path.addLine(to: CGPoint(x: rect.width, y: 0))
+            path.addLine(to: CGPoint(x: rect.width, y: 100))
             path.addLine(to: CGPoint(x: 0, y: 100))
             path.addLine(to: .zero)
             path.closeSubpath()

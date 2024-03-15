@@ -18,8 +18,8 @@ class AddSavingPlanViewModel: ObservableObject {
     
     @Published var savingPlanTitle: String = ""
     @Published var savingPlanEmoji: String = ""
-    @Published var savingPlanAmountOfStart: Double = 0.0
-    @Published var savingPlanAmountOfEnd: Double = 0.0
+    @Published var savingPlanAmountOfStart: String = ""
+    @Published var savingPlanAmountOfEnd: String = ""
     @Published var savingPlanDateOfEnd: Date = .now
     
     @Published var showSuccessfulSavingPlan: Bool = false
@@ -57,23 +57,23 @@ class AddSavingPlanViewModel: ObservableObject {
             newSavingPlan.id = UUID()
             newSavingPlan.title = savingPlanTitle
             newSavingPlan.icon = savingPlanEmoji
-            newSavingPlan.amountOfStart = savingPlanAmountOfStart
-            newSavingPlan.actualAmount = savingPlanAmountOfStart
-            newSavingPlan.amountOfEnd = savingPlanAmountOfEnd
+            newSavingPlan.amountOfStart = savingPlanAmountOfStart.convertToDouble()
+            newSavingPlan.actualAmount = savingPlanAmountOfStart.convertToDouble()
+            newSavingPlan.amountOfEnd = savingPlanAmountOfEnd.convertToDouble()
             newSavingPlan.isEndDate = isEndDate
             newSavingPlan.dateOfStart = .now
             newSavingPlan.savingPlansToAccount = account
             
             if isEndDate { newSavingPlan.dateOfEnd = savingPlanDateOfEnd } else { newSavingPlan.dateOfEnd = nil }
             
-            if savingPlanAmountOfStart > 0 {
+            if savingPlanAmountOfStart.convertToDouble() > 0 {
                 let firstContribution = Contribution(context: context)
                 firstContribution.id = UUID()
-                firstContribution.amount = savingPlanAmountOfStart
+                firstContribution.amount = savingPlanAmountOfStart.convertToDouble()
                 firstContribution.date = .now
                 firstContribution.contributionToSavingPlan = newSavingPlan
                 
-                account.balance -= savingPlanAmountOfStart
+                account.balance -= savingPlanAmountOfStart.convertToDouble()
             }
             
             if account.cardLimit != 0 {
@@ -100,7 +100,7 @@ class AddSavingPlanViewModel: ObservableObject {
 extension AddSavingPlanViewModel {
     
     func isSavingPlansInCreation() -> Bool {
-        if !savingPlanEmoji.isEmpty || !savingPlanTitle.isEmpty || savingPlanAmountOfStart != 0 || savingPlanAmountOfEnd != 0 || isEndDate {
+        if !savingPlanEmoji.isEmpty || !savingPlanTitle.isEmpty || savingPlanAmountOfStart.convertToDouble() != 0 || savingPlanAmountOfEnd.convertToDouble() != 0 || isEndDate {
             return true
         }
         return false
@@ -109,10 +109,10 @@ extension AddSavingPlanViewModel {
     func validateSavingPlan() -> Bool {
         if isAccountWillBeNegative { return false }
         if blockExpensesIfCardLimitExceeds {
-            if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd != 0 && !isCardLimitExceeds {
+            if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 && !isCardLimitExceeds {
                 return true
             }
-        } else if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd != 0 {
+        } else if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 {
             return true
         }
         return false
@@ -120,14 +120,14 @@ extension AddSavingPlanViewModel {
     
     var isCardLimitExceeds: Bool {
         if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
-            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart
+            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isAccountWillBeNegative: Bool {
         if let mainAccount, !accountCanBeNegative {
-            if mainAccount.balance - savingPlanAmountOfStart < 0 { return true }
+            if mainAccount.balance - savingPlanAmountOfStart.convertToDouble() < 0 { return true }
         }
         return false
     }

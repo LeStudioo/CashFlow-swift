@@ -91,6 +91,7 @@
 		D92DAB132B8A74D800F01E48 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB122B8A74D800F01E48 /* URLManager.swift */; };
 		D931BD6D2AD3283A00547AD1 /* TextTicketRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D931BD6C2AD3283A00547AD1 /* TextTicketRecognizer.swift */; };
 		D931BD6F2AD3288200547AD1 /* ScannerTicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D931BD6E2AD3288200547AD1 /* ScannerTicketView.swift */; };
+		D934FC352BA4699C00F5063D /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D934FC342BA4699C00F5063D /* EmojiTextField.swift */; };
 		D9388AD52A7294C8009C0B40 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9388AD42A7294C8009C0B40 /* Filter.swift */; };
 		D9428C342B7E932C0030DAC2 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9428C302B7E932B0030DAC2 /* NavigationManager.swift */; };
 		D9428C352B7E932C0030DAC2 /* NavigationDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9428C312B7E932B0030DAC2 /* NavigationDirection.swift */; };
@@ -280,6 +281,7 @@
 		D92DAB122B8A74D800F01E48 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
 		D931BD6C2AD3283A00547AD1 /* TextTicketRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTicketRecognizer.swift; sourceTree = "<group>"; };
 		D931BD6E2AD3288200547AD1 /* ScannerTicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerTicketView.swift; sourceTree = "<group>"; };
+		D934FC342BA4699C00F5063D /* EmojiTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		D9388AD42A7294C8009C0B40 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		D9428C302B7E932B0030DAC2 /* NavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		D9428C312B7E932B0030DAC2 /* NavigationDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationDirection.swift; sourceTree = "<group>"; };
@@ -652,6 +654,7 @@
 		D931BD6B2AD3282500547AD1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				D934FC342BA4699C00F5063D /* EmojiTextField.swift */,
 				D931BD6C2AD3283A00547AD1 /* TextTicketRecognizer.swift */,
 				D931BD6E2AD3288200547AD1 /* ScannerTicketView.swift */,
 				D96B9E312ADF05C8003AC4E5 /* TextCreditCardRecognizer.swift */,
@@ -1019,6 +1022,7 @@
 				D99253582ADD98ED002A84C4 /* AddTransactionShortcuts.swift in Sources */,
 				81A707D22A3B7ED700BEB0BF /* Account Manager.swift in Sources */,
 				8176347C2A3C9C2B001B536D /* Date.swift in Sources */,
+				D934FC352BA4699C00F5063D /* EmojiTextField.swift in Sources */,
 				81A707D42A3B7F2600BEB0BF /* AnalyticsHomeView.swift in Sources */,
 				D97468A02ADE48A000DD5C5B /* DetailOfCategoryForArchivedTransaction.swift in Sources */,
 				8145ABD72A55664C0085F233 /* CellTransactionWithoutAction.swift in Sources */,

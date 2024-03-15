@@ -10,6 +10,8 @@ import SwiftUI
 import Combine
 
 class OrientationManager: ObservableObject {
+    static let shared = OrientationManager()
+    
     @Published var orientation: UIDeviceOrientation = .unknown
     
     init() {
@@ -32,5 +34,3 @@ class OrientationManager: ObservableObject {
         }
     }
 }
-
-let orientation = OrientationManager().orientation

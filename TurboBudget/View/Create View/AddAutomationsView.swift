@@ -7,7 +7,6 @@
 // Localizations 30/09/2023
 
 import SwiftUI
-import Combine
 import ConfettiSwiftUI
 
 struct CreateAutomationView: View {
@@ -33,14 +32,6 @@ struct CreateAutomationView: View {
         case amount, title
     }
     @FocusState var focusedField: Field?
-    
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
     
     //MARK: - Body
     var body: some View {
@@ -77,7 +68,7 @@ struct CreateAutomationView: View {
                                     focusedField = .amount
                                 }
                             
-                            TextField("automation_placeholder_amount".localized, value: $viewModel.amountTransaction.animation(), formatter: numberFormatter)
+                            TextField("automation_placeholder_amount".localized, text: $viewModel.amountTransaction.max(9).animation())
                                 .focused($focusedField, equals: .amount)
                                 .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                                 .multilineTextAlignment(.center)
@@ -92,13 +83,7 @@ struct CreateAutomationView: View {
                                 }
                                 .background(Color.backgroundComponentSheet.cornerRadius(100))
                                 .padding(.bottom, 24)
-                                .onReceive(Just(viewModel.amountTransaction)) { newValue in
-                                    if viewModel.amountTransaction > 1_000_000_000 {
-                                        let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountTransaction)
-                                        self.viewModel.amountTransaction = numberWithoutLastDigit
-                                    }
-                                }
-                            
+     
                             CustomSegmentedControl(
                                 selection: $viewModel.typeTransaction,
                                 textLeft: "word_expense".localized,

@@ -51,7 +51,10 @@ struct AnalyticsHomeView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)
-                                            .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+                                            .frame(width: isIPad
+                                                   ? (OrientationManager.shared.orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3)
+                                                   : UIScreen.main.bounds.width / 1.5
+                                            )
                                         
                                         Text("analytic_home_no_stats".localized)
                                             .font(.semiBoldText16())
@@ -90,7 +93,10 @@ struct AnalyticsHomeView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .shadow(radius: 4, y: 4)
-                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+                                .frame(width: isIPad 
+                                       ? (OrientationManager.shared.orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3)
+                                       : UIScreen.main.bounds.width / 1.5
+                                )
                             
                             Text("analytic_home_no_stats".localized)
                                 .font(.semiBoldText16())

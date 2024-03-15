@@ -14,6 +14,10 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
+    func unaccent() -> String {
+        return self.folding(options: .diacriticInsensitive, locale: .current)
+    }
+    
     func convertToDouble() -> Double {
         let stringFormated = self.replacingOccurrences(of: ",", with: ".")
         return Double(stringFormated) ?? 0

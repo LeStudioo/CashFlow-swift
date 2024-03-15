@@ -7,7 +7,6 @@
 // Localizations 30/09/2023
 
 import SwiftUI
-import Combine
 
 struct CreateBudgetView: View {
     
@@ -23,14 +22,6 @@ struct CreateBudgetView: View {
     
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
-    
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
     
     // MARK: - body
     var body: some View {
@@ -51,11 +42,7 @@ struct CreateBudgetView: View {
                 }
                 .padding()
 
-                TextField(
-                    "budget_placeholder_amount".localized,
-                    value: $viewModel.amountBudget.animation(),
-                    formatter: numberFormatter
-                )
+                TextField("0.00", text: $viewModel.amountBudget.max(9).animation())
                 .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                 .multilineTextAlignment(.center)
                 .keyboardType(.decimalPad)
@@ -69,12 +56,6 @@ struct CreateBudgetView: View {
                 }
                 .background(Color.backgroundComponentSheet.cornerRadius(100))
                 .padding()
-                .onReceive(Just(viewModel.amountBudget)) { newValue in
-                    if viewModel.amountBudget > 1_000_000_000 {
-                        let numberWithoutLastDigit = HelperManager().removeLastDigit(from: viewModel.amountBudget)
-                        self.viewModel.amountBudget = numberWithoutLastDigit
-                    }
-                }
                 
             } // End ScrollView
             .scrollIndicators(.hidden)
