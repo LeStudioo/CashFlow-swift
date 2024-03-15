@@ -116,12 +116,12 @@ struct AnalyticsHomeView: View {
                         }
                     }, label: {
                         Image(systemName: "calendar")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                     })
                 }
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct
 

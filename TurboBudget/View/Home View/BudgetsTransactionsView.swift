@@ -76,7 +76,7 @@ struct BudgetsTransactionsView: View {
                 )
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -113,7 +113,7 @@ struct BudgetsTransactionsView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -123,13 +123,13 @@ struct BudgetsTransactionsView: View {
                     Button(role: .destructive, action: { showDeleteBudget.toggle() }, label: { Label("word_delete".localized, systemImage: "trash") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
     
     //MARK: ViewBuilder
@@ -147,7 +147,7 @@ struct BudgetsTransactionsView: View {
                             .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                     }
                 })
-                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 .font(.semiBoldSmall())
             }
             .font(.mediumCustom(size: 22))

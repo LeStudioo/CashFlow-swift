@@ -28,10 +28,10 @@ struct CircleWithCheckmark: View {
     var body: some View {
         Circle()
             .frame(width: 100, height: 100)
-            .foregroundColor(HelperManager().getAppTheme().color)
+            .foregroundStyle(HelperManager().getAppTheme().color)
             .overlay {
                 Image(systemName: "checkmark")
-                    .foregroundColor(.primary0)
+                    .foregroundStyle(.primary0)
                     .font(.system(size: 32, weight: .bold, design: .rounded))
                     .scaleEffect(scaleCheckmark)
             }

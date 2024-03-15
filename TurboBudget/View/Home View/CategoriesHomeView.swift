@@ -176,11 +176,11 @@ struct CategoriesHomeView: View {
                         filter.showMenu.toggle()
                     }, label: {
                         Image(systemName: "calendar")
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                     })
                 }
             }
-            .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+            .background(Color.background.edgesIgnoringSafeArea(.all))
         } // End NavStack
     } // End body
     

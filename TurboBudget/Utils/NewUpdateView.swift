@@ -9,19 +9,9 @@ import SwiftUI
 
 struct NewUpdateView: View {
 
-    // Custom Type
-
-    // Environement
+    // Environment
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
-
-    // String Variables
-
-    // Number Variables
-
-    // Bool Variables
-
-    // Computed Variables
 
     //MARK: - Body
     var body: some View {
@@ -60,7 +50,7 @@ struct NewUpdateView: View {
                     HStack {
                         Spacer()
                         Text("word_continue".localized)
-                            .foregroundStyle(Color.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                             .font(.semiBoldText18())
                         Spacer()
                     }

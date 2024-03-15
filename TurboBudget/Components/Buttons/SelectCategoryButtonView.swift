@@ -31,22 +31,22 @@ struct SelectCategoryButtonView: View {
                 ZStack {
                     Circle()
                         .frame(width: widthCircleCategory, height: widthCircleCategory)
-                        .foregroundColor(selectedCategory.color)
+                        .foregroundStyle(selectedCategory.color)
                     
                     Image(systemName: selectedSubcategory.icon)
                         .font(.system(size: isLittleIphone ? 26 : 32, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabelInverse)
+                        .foregroundStyle(Color(uiColor: .systemBackground))
                 }
             } else if let selectedCategory,
                       selectedSubcategory == nil {
                 ZStack {
                     Circle()
                         .frame(width: widthCircleCategory, height: widthCircleCategory)
-                        .foregroundColor(selectedCategory.color)
+                        .foregroundStyle(selectedCategory.color)
                     
                     Image(systemName: selectedCategory.icon)
                         .font(.system(size: isLittleIphone ? 26 : 32, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabelInverse)
+                        .foregroundStyle(Color(uiColor: .systemBackground))
                 }
             } else {
                 ZStack {
@@ -56,7 +56,7 @@ struct SelectCategoryButtonView: View {
                     
                     Image(systemName: "plus")
                         .font(.system(size: isLittleIphone ? 26 : 32, weight: .regular, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 }
             }
         })

@@ -121,12 +121,12 @@ struct OnboardingView: View {
                 }
             }, label: {
                 Capsule()
-                    .foregroundColor(.primary400)
+                    .foregroundStyle(.primary400)
                     .frame(height: 60)
                     .overlay {
                         Text(actualPage == 5 ? "onboarding_button_start".localized : "onboarding_button_next".localized)
                             .font(.semiBoldCustom(size: 22))
-                            .foregroundColor(.primary0)
+                            .foregroundStyle(.primary0)
                     }
                     .padding()
                     .padding(.horizontal)
@@ -160,16 +160,16 @@ struct OnboardingView: View {
                 ZStack(alignment: .top) {
                     CustomShapeOnboarding()
                         .frame(height: UIScreen.main.bounds.height / 2 - 30)
-                        .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                        .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                     
                     VStack(spacing: isLittleIphone ? 20 : 40) {
                         Text(title)
                             .font(.boldCustom(size: sizeTitleOnboarding))
                             .multilineTextAlignment(.center)
-                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                            .foregroundStyle(Color(uiColor: .label))
                         
                         Text(desc)
-                            .foregroundColor(.secondary400)
+                            .foregroundStyle(.secondary400)
                             .font(.mediumCustom(size: sizeDescOnboarding))
                             .multilineTextAlignment(.center)
                     }
@@ -207,7 +207,7 @@ struct OnboardingView: View {
             .padding(.vertical)
             
             Text("account_info_credit_card".localized)
-                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 .multilineTextAlignment(.center)
                 .font(.semiBoldText16())
                 .padding()

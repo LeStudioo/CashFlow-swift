@@ -69,7 +69,7 @@ struct SavingPlansHomeView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -78,12 +78,12 @@ struct SavingPlansHomeView: View {
                     router.presentCreateSavingPlans()
                 }, label: {
                     Image(systemName: "plus")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct
 

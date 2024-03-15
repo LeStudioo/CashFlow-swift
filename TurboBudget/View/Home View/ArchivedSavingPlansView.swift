@@ -61,7 +61,7 @@ struct ArchivedSavingPlansView: View {
                 )
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_archived_savingsplans".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -70,12 +70,12 @@ struct ArchivedSavingPlansView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .onChange(of: account.savingPlansArchived) { newValue in
             if newValue.count == 0 { dismiss() }
         }

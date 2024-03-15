@@ -72,7 +72,7 @@ struct CreateContributionView: View {
                 ZStack {
                     Capsule()
                         .frame(height: isLittleIphone ? 40 : 50)
-                        .foregroundColor(Color.backgroundComponentSheet)
+                        .foregroundStyle(Color.backgroundComponentSheet)
                     
                     HStack {
                         Spacer()

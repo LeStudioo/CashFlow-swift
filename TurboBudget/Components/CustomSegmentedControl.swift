@@ -34,19 +34,19 @@ struct CustomSegmentedControl: View {
                     .foregroundStyle(Color.backgroundComponentSheet)
                     .overlay(alignment: .leading) {
                         RoundedRectangle(cornerRadius: 50)
-                            .foregroundColor(HelperManager().getAppTheme().color)
+                            .foregroundStyle(HelperManager().getAppTheme().color)
                             .frame(width: (geo.size.width / 2))
                             .padding(2)
                             .offset(x: newX)
                         
                         Text(textLeft)
                             .font(.semiBoldText18())
-                            .foregroundColor(selection == .expense ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
+                            .foregroundStyle(selection == .expense ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
                     }
                 
                 Text(textRight)
                     .font(.semiBoldText18())
-                    .foregroundColor(selection == .income ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
+                    .foregroundStyle(selection == .income ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
                     .offset(x: geo.size.width / 4)
             }
             .onTapGesture {

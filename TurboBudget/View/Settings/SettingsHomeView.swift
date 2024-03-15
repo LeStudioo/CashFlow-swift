@@ -293,7 +293,7 @@ struct SettingsHomeView: View {
                     Button(action: { dismiss() }, label: {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                     })
                     .padding(.bottom, 8)
                 }

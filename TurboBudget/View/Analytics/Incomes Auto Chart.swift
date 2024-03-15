@@ -33,12 +33,12 @@ struct IncomesFromAutomationsChosenMonthChart: View {
                         VStack(alignment: .leading, spacing: 10) {
                             if let month = monthOfSelectedDate.month {
                                 Text("chart_auto_incomes_incomes_in".localized + " " + Calendar.current.monthSymbols[month - 1])
-                                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                     .font(Font.mediumSmall())
                             }
                             
                             Text(dailyIncomeOnlyAutomations.map { $0.amount }.reduce(0, +).currency )
-                                .foregroundColor(.colorLabel)
+                                .foregroundStyle(Color(uiColor: .label))
                                 .font(.semiBoldText18())
                         }
                         

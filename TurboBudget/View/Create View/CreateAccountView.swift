@@ -16,7 +16,6 @@ struct CreateAccountView: View {
     
     // Environment
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
 
     // MARK: - body
     var body: some View {
@@ -32,7 +31,7 @@ struct CreateAccountView: View {
                             
                             Button(action: { dismiss() }, label: {
                                 Image(systemName: "xmark")
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                                     .font(.system(size: 18, weight: .semibold))
                             })
                         }
@@ -56,7 +55,7 @@ struct CreateAccountView: View {
                         .padding(.vertical)
                         
                         Text("account_info_credit_card".localized)
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .multilineTextAlignment(.center)
                             .font(.semiBoldText16())
                             .padding()

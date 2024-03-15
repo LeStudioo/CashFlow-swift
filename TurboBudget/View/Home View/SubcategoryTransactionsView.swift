@@ -87,7 +87,7 @@ struct SubcategoryTransactionsView: View {
                                 }
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                                .listRowBackground(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                                .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                             }, header: {
                                 if filterTransactions == .month {
                                     DetailOfExpensesAndIncomesByMonth(
@@ -107,14 +107,14 @@ struct SubcategoryTransactionsView: View {
                                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                                 }
                             })
-                            .foregroundStyle(Color.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                         }
                     }
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
-                .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                .background(Color.background.edgesIgnoringSafeArea(.all))
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,
@@ -124,7 +124,7 @@ struct SubcategoryTransactionsView: View {
                 )
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -133,7 +133,7 @@ struct SubcategoryTransactionsView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -147,13 +147,13 @@ struct SubcategoryTransactionsView: View {
                     })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         //        .sheet(isPresented: $showAddTransaction) { AddTransactionView(account: $account) }
     } // End body
 } // End struct

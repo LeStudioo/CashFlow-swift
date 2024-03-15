@@ -17,7 +17,6 @@ struct RecoverTransactionView: View {
 
     // Environment
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
@@ -52,7 +51,7 @@ struct RecoverTransactionView: View {
                             
                             if viewModel.jsonStatus == .error {
                                 Text("⚠️" + "recover_error_json".localized)
-                                    .foregroundColor(.red)
+                                    .foregroundStyle(.red)
                                     .font(Font.mediumText16())
                                     .multilineTextAlignment(.center)
                                     .padding(9)
@@ -64,13 +63,13 @@ struct RecoverTransactionView: View {
                                 Button(action: { viewModel.showQRCodeScanner.toggle() }, label: {
                                     ZStack {
                                         Capsule()
-                                            .foregroundColor(.colorLabel)
+                                            .foregroundStyle(Color(uiColor: .label))
                                             .frame(height: isLittleIphone ? 40 : 50)
                                         HStack {
                                             Spacer()
                                             Text("recover_scan_qrcode".localized)
                                                 .font(.semiBoldText16())
-                                                .foregroundColor(.colorLabelInverse)
+                                                .foregroundStyle(Color(uiColor: .systemBackground))
                                             Spacer()
                                         }
                                     }
@@ -82,13 +81,13 @@ struct RecoverTransactionView: View {
                                     photoLibrary: .shared()) {
                                         ZStack {
                                             Capsule()
-                                                .foregroundColor(.colorLabel)
+                                                .foregroundStyle(Color(uiColor: .label))
                                                 .frame(height: isLittleIphone ? 40 : 50)
                                             HStack {
                                                 Spacer()
                                                 Text("recover_import_qrcode".localized)
                                                     .font(.semiBoldText16())
-                                                    .foregroundColor(.colorLabelInverse)
+                                                    .foregroundStyle(Color(uiColor: .systemBackground))
                                                 Spacer()
                                             }
                                         }
@@ -114,10 +113,10 @@ struct RecoverTransactionView: View {
                         VStack { // Successful Transaction
                             Circle()
                                 .frame(width: 100, height: 100)
-                                .foregroundColor(HelperManager().getAppTheme().color)
+                                .foregroundStyle(HelperManager().getAppTheme().color)
                                 .overlay {
                                     Image(systemName: "checkmark")
-                                        .foregroundColor(.primary0)
+                                        .foregroundStyle(.primary0)
                                         .font(.system(size: 32, weight: .bold, design: .rounded))
                                 }
                                 .padding(.vertical, 50)
@@ -132,11 +131,11 @@ struct RecoverTransactionView: View {
                             VStack(spacing: 20) {
                                 Text("recover_successful".localized)
                                     .font(.semiBoldCustom(size: 28))
-                                    .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                    .foregroundStyle(Color(uiColor: .label))
                                 
                                 Text("recover_successful_desc".localized)
                                     .font(Font.mediumSmall())
-                                    .foregroundColor(.secondary400)
+                                    .foregroundStyle(.secondary400)
                             }
                             .padding(.bottom, 30)
                             .onAppear {
@@ -152,11 +151,11 @@ struct RecoverTransactionView: View {
                                     HStack {
                                         Text("recover_successful_date".localized)
                                             .font(Font.mediumSmall())
-                                            .foregroundColor(.secondary400)
+                                            .foregroundStyle(.secondary400)
                                         Spacer()
                                         Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
                                             .font(.semiBoldSmall())
-                                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                            .foregroundStyle(Color(uiColor: .label))
                                     }
                                     .padding(.horizontal, 8)
                                 }

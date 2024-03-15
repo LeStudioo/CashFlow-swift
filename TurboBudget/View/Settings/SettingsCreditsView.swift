@@ -69,18 +69,18 @@ struct SettingsCreditsView: View {
                             HStack {
                                 RoundedRectangle(cornerRadius: 8)
                                     .frame(width: 30, height: 30)
-                                    .foregroundColor(.blue)
+                                    .foregroundStyle(.blue)
                                     .overlay {
                                         Image(systemName: license.icon)
                                             .font(.system(size: 14))
-                                            .foregroundColor(.white)
+                                            .foregroundStyle(.white)
                                     }
                                 Text(license.name)
                                     .font(Font.mediumText16())
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                                 Spacer()
                                 Image(systemName: "arrow.up.forward")
-                                    .foregroundColor(.secondary300)
+                                    .foregroundStyle(.secondary300)
                             }
                         })
                     }
@@ -88,22 +88,22 @@ struct SettingsCreditsView: View {
                     HStack {
                         Circle()
                             .frame(width: 50, height: 50)
-                            .foregroundColor(Color.green.opacity(0.3))
+                            .foregroundStyle(Color.green.opacity(0.3))
                             .overlay {
                                 Image(systemName: "doc.text.fill")
-                                    .foregroundColor(.green)
+                                    .foregroundStyle(.green)
                             }
                         VStack(alignment: .leading) {
                             Text("setting_credits_licences_title".localized)
                                 .font(.semiBoldText18())
-                                .foregroundColor(.colorLabel)
+                                .foregroundStyle(Color(uiColor: .label))
                             Text("setting_credits_licences_desc".localized)
                                 .font(Font.mediumSmall())
-                                .foregroundColor(.secondary300)
+                                .foregroundStyle(.secondary300)
                         }
                         Spacer()
                         Image(systemName: "chevron.right")
-                            .foregroundColor(.secondary300)
+                            .foregroundStyle(.secondary300)
                     }
                     .padding(12)
                     .background(Color.colorCustomCell)
@@ -130,14 +130,14 @@ struct SettingsCreditsView: View {
                 VStack(alignment: .leading) {
                     Text(people.name)
                         .font(.semiBoldText18())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     Text(people.bio)
                         .font(Font.mediumSmall())
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 }
                 Spacer()
                 Image(systemName: "arrow.up.forward")
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
             }
             .padding(12)
             .padding(.horizontal, 4)
@@ -151,7 +151,7 @@ struct SettingsCreditsView: View {
         HStack {
             Text(text)
                 .font(Font.mediumText16())
-                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
             Spacer()
         }
         .padding(.leading)

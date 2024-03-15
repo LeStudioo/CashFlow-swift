@@ -100,14 +100,14 @@ struct AccountDashboardView: View {
                 ScrollView(showsIndicators: false) {
                     Text(account.title)
                         .titleAdjustSize()
-                        .foregroundColor(HelperManager().getAppTheme().color)
+                        .foregroundStyle(HelperManager().getAppTheme().color)
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                     
                     VStack(spacing: -2) {
                         Text("account_detail_avail_balance".localized)
                             .font(Font.mediumText16())
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                         HStack {
                             if accountBalanceDouble == 0 { Text(accountBalanceInt.currency) } else {
                                 Text(currencySymbol)
@@ -149,7 +149,7 @@ struct AccountDashboardView: View {
                                 }
                             }
                             .padding(8)
-                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                            .foregroundStyle(Color(uiColor: .label))
                             .background(Color.colorCell)
                             .cornerRadius(15)
                             .padding(.horizontal, 8)
@@ -230,10 +230,6 @@ struct AccountDashboardView: View {
                     })
                     .padding(.horizontal, 8)
                     
-                    if account.cardLimit != 0 {
-                        cardLimitProgress(account: account)
-                    }
-                    
                     Rectangle()
                         .frame(height: 120)
                         .opacity(0)
@@ -248,7 +244,7 @@ struct AccountDashboardView: View {
                             Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
                         }, label: {
                             Image(systemName: "ellipsis")
-                                .foregroundColor(.colorLabel)
+                                .foregroundStyle(Color(uiColor: .label))
                                 .font(.system(size: 18, weight: .medium, design: .rounded))
                         })
                     }
@@ -258,7 +254,7 @@ struct AccountDashboardView: View {
                             if !store.isLifetimeActive {
                                 Button(action: { showPaywall.toggle() }, label: {
                                     Image(systemName: "crown.fill")
-                                        .foregroundColor(.primary500)
+                                        .foregroundStyle(.primary500)
                                         .font(.system(size: 14, weight: .medium, design: .rounded))
                                 })
                             }
@@ -273,7 +269,7 @@ struct AccountDashboardView: View {
                         }
                     }
                 }
-                .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+                .background(Color.background.edgesIgnoringSafeArea(.all))
                 .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
                     TextField("account_detail_new_name".localized, text: $accountName)
                     Button(action: { return }, label: { Text("word_cancel".localized) })
@@ -349,12 +345,12 @@ struct AccountDashboardView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.color3Apple)
+                    .foregroundStyle(Color.componentInComponent)
                     .cornerRadius(12)
                     .overlay {
                         Image(systemName: systemImage)
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                            .foregroundStyle(Color(uiColor: .label))
                             .shadow(radius: 2, y: 2)
                     }
                 Spacer()
@@ -373,7 +369,7 @@ struct AccountDashboardView: View {
                 .lineLimit(2)
         }
         .padding()
-        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+        .foregroundStyle(Color(uiColor: .label))
         .frame(width: width, height: width / 2 + 40)
         .background(Color.colorCell)
         .cornerRadius(15)
@@ -387,87 +383,9 @@ struct AccountDashboardView: View {
             Text(amount)
         }
         .padding(8)
-        .background(Color.color3Apple)
+        .background(Color.componentInComponent)
         .cornerRadius(12)
         .font(.mediumSmall())
-    }
-    
-    @ViewBuilder
-    func cardLimitProgress(account: Account) -> some View {
-        
-        let isPercentage80AndMoreButMinus100 = percentage >= cardLimitPercentage / 100 && realPercentage < 1
-        
-        VStack {
-            HStack {
-                Text("account_detail_card_limit".localized)
-                Spacer()
-                Text(account.cardLimit.currency)
-            }
-            .font(.semiBoldText16())
-            .foregroundColor(.colorLabel)
-            
-            GeometryReader { geometry in
-                let widthCapsule = geometry.size.width * percentage
-                let widthAmount = account.amountOfExpensesInActualMonth().currency.widthOfString(usingFont: UIFont(name: nameFontBold, size: 16)!) * 1.5
-                
-                Capsule()
-                    .frame(height: 36)
-                    .foregroundStyle(Color.color3Apple)
-                    .overlay(alignment: .leading) {
-                        Capsule()
-                            .foregroundColor(HelperManager().getAppTheme().color)
-                            .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
-                            .padding(4)
-                            .overlay(alignment: .trailing) {
-                                Text(account.amountOfExpensesInActualMonth().currency)
-                                    .padding(.trailing, 12)
-                                    .font(.semiBoldText16())
-                                    .foregroundColor(.primary0)
-                            }
-                    }
-                
-            } // End GeometryReader
-            .frame(height: 44)
-            
-            HStack {
-                let amountRemaining = account.cardLimit - account.amountOfExpensesInActualMonth()
-                Text("account_detail_card_remaining".localized)
-                Spacer()
-                Text(amountRemaining.currency)
-            }
-            .font(.semiBoldText16())
-            .padding(8)
-            .padding(.horizontal, 8)
-            .background {
-                Capsule()
-                    .foregroundStyle(Color.color3Apple)
-                    .frame(height: 40)
-            }
-            .padding(.bottom, (isPercentage80AndMoreButMinus100 || realPercentage >= 1) ? 8 : 0)
-            
-            if isPercentage80AndMoreButMinus100 || realPercentage >= 1 {
-                HStack {
-                    Text(isPercentage80AndMoreButMinus100 ? "⚠️ " + "account_detail_alert_almost_exceeded".localized : "‼️ " + "account_detail_alert_exceeded".localized)
-                        .foregroundColor(isPercentage80AndMoreButMinus100 ? .yellow : .red)
-                        .font(.mediumText16())
-                    Spacer()
-                }
-                .font(.semiBoldText16())
-                .padding(8)
-                .padding(.horizontal, 8)
-                .background {
-                    Capsule()
-                        .foregroundStyle(Color.color3Apple)
-                        .frame(height: 44)
-                }
-            }
-        }
-        .padding(12)
-        .padding(.bottom, 8)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 6)
     }
     
 } // End struct

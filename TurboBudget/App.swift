@@ -14,7 +14,6 @@ struct TurboBudgetApp: App {
     let persistenceController = PersistenceController.shared
     
     // Custom type
-//    @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.home))
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var store = Store()
     
@@ -33,23 +32,8 @@ struct TurboBudgetApp: App {
     //MARK: - body
     var body: some Scene {
         WindowGroup {
-//            NavStack(router: router) {
-                if isSecurityPlusEnabled {
-                    if scenePhase == .active {
-                        PageControllerView()
-                            .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                            .environmentObject(csManager)
-                            .environmentObject(store)
-                            .onAppear {
-                                UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-                                csManager.applyColorScheme()
-                            }
-                    } else {
-                        Image("LaunchScreen")
-                            .resizable()
-                            .edgesIgnoringSafeArea([.bottom, .top])
-                    }
-                } else {
+            if isSecurityPlusEnabled {
+                if scenePhase == .active {
                     PageControllerView()
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(csManager)
@@ -58,11 +42,24 @@ struct TurboBudgetApp: App {
                             UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                             csManager.applyColorScheme()
                         }
+                } else {
+                    Image("LaunchScreen")
+                        .resizable()
+                        .edgesIgnoringSafeArea([.bottom, .top])
                 }
+            } else {
+                PageControllerView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .environmentObject(csManager)
+                    .environmentObject(store)
+                    .onAppear {
+                        UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+                        csManager.applyColorScheme()
+                    }
             }
-//            .onAppear {
-//                store.restorePurchases()
-//            }
-//        }
+        }
+        //            .onAppear {
+        //                store.restorePurchases()
+        //            }
     } // End body
 } // End struct

@@ -44,7 +44,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         if store.isLifetimeActive {
                             Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
                         }
                     }
@@ -56,7 +56,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 } else if filterTransactions == .incomes {
                     VStack(alignment: .leading) {
@@ -65,7 +65,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         if store.isLifetimeActive {
                             Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
                         }
                     }
@@ -77,7 +77,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 }
             }

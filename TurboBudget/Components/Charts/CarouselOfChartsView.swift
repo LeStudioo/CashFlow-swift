@@ -102,11 +102,11 @@ struct CarouselOfChartsView: View {
         HStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text(text)
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
                     .font(Font.mediumText16())
                 
                 Text(amount.currency)
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
                     .font(.semiBoldH3())
             }
             Spacer()

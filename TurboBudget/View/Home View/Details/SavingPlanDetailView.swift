@@ -52,11 +52,11 @@ struct SavingPlanDetailView: View {
                 Spacer()
                 Circle()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(.colorCell)
+                    .foregroundStyle(.colorCell)
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundColor(HelperManager().getAppTheme().color)
+                            .foregroundStyle(HelperManager().getAppTheme().color)
                             .shadow(color: HelperManager().getAppTheme().color, radius: 4, y: 2)
                             .overlay {
                                 VStack {
@@ -67,7 +67,7 @@ struct SavingPlanDetailView: View {
                                     } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
                                         Image(systemName: savingPlan.icon)
                                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                            .foregroundStyle(Color(uiColor: .label))
                                             .shadow(radius: 2, y: 2)
                                     }
                                 }
@@ -87,7 +87,7 @@ struct SavingPlanDetailView: View {
             }
             
             if let date = savingPlan.dateOfEnd {
-                let color: Color = (date < Date() && savingPlan.actualAmount != savingPlan.amountOfEnd) ? Color.red : Color.colorLabel
+                let color: Color = (date < Date() && savingPlan.actualAmount != savingPlan.amountOfEnd) ? Color.red : Color(uiColor: .label)
                 CellForDetailSavingPlan(leftText: "savingsplan_detail_end_date".localized, rightText: date.formatted(date: .abbreviated, time: .omitted), rightTextColor: color)
             }
             
@@ -101,7 +101,7 @@ struct SavingPlanDetailView: View {
                     if savingPlanNote.isEmpty {
                         HStack {
                             Text("savingsplan_detail_note".localized)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(Font.mediumText16())
                             Spacer()
                         }
@@ -126,7 +126,7 @@ struct SavingPlanDetailView: View {
                 Button(action: { showAddContribution.toggle() }, label: {
                     Image(systemName: "plus")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             .padding(.top)
@@ -172,7 +172,7 @@ struct SavingPlanDetailView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -198,7 +198,7 @@ struct SavingPlanDetailView: View {
                     Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
@@ -207,12 +207,12 @@ struct SavingPlanDetailView: View {
                 HStack {
                     EmptyView()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundColor(HelperManager().getAppTheme().color) })
+                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(HelperManager().getAppTheme().color) })
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $showAddContribution, onDismiss: {
             withAnimation(.spring()) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -289,7 +289,7 @@ struct SavingPlanDetailView: View {
                             }
                         }
                         .font(.semiBoldText16())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     } else {
                         HStack {
                             Text(0.currency)
@@ -297,24 +297,24 @@ struct SavingPlanDetailView: View {
                             Text(savingPlan.amountOfEnd.currency)
                         }
                         .font(.semiBoldText16())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     }
                     
                     let widthAmount = savingPlan.actualAmount.currency.widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
                     
                     Capsule()
                         .frame(height: 40)
-                        .foregroundColor(.colorCell)
+                        .foregroundStyle(.colorCell)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundColor(HelperManager().getAppTheme().color)
+                                .foregroundStyle(HelperManager().getAppTheme().color)
                                 .frame(width: widthCapsule(widthBar: geometry.size.width) < widthAmount ? widthAmount : widthCapsule(widthBar: geometry.size.width))
                                 .padding(4)
                                 .overlay(alignment: .trailing) {
                                     Text(savingPlan.actualAmount.currency)
                                         .padding(.trailing, 12)
                                         .font(.semiBoldText16())
-                                        .foregroundColor(.colorLabelInverse)
+                                        .foregroundStyle(Color(uiColor: .systemBackground))
                                 }
                         }
                 }
@@ -349,7 +349,7 @@ struct SavingPlanDetailView: View {
                                 } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
                                     Image(systemName: savingPlan.icon)
                                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                        .foregroundStyle(Color(uiColor: .label))
                                 }
                             }
                         }
@@ -377,7 +377,7 @@ struct SavingPlanDetailView: View {
         }
         .padding(.horizontal, 12)
         .font(.semiBoldText16())
-        .foregroundColor(.colorLabel)
+        .foregroundStyle(Color(uiColor: .label))
     }
     
     @ViewBuilder
@@ -406,7 +406,7 @@ struct SavingPlanDetailView: View {
                         Spacer()
                     }
                 })
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding(8)
                 .background(Color.blue)
                 .cornerRadius(100)
@@ -422,7 +422,7 @@ struct SavingPlanDetailView: View {
                         Spacer()
                     }
                 })
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding(8)
                 .background(Color.red)
                 .cornerRadius(100)
@@ -513,7 +513,7 @@ private struct CellForDetailSavingPlan: View {
             Spacer()
             Text(rightText)
                 .font(.semiBoldText16())
-                .foregroundColor(rightTextColor)
+                .foregroundStyle(rightTextColor)
         }
         .padding(12)
         .background(Color.colorCell)

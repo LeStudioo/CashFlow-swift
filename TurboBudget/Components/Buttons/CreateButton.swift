@@ -18,7 +18,7 @@ struct CreateButton: View {
         Button(action: action, label: {
             ZStack {
                 Capsule()
-                    .foregroundColor(HelperManager().getAppTheme().color)
+                    .foregroundStyle(HelperManager().getAppTheme().color)
                     .frame(height: isLittleIphone ? 50 : 60)
                     .if(validate, transform: { view in
                         view.shadow(color: HelperManager().getAppTheme().color, radius: 8)
@@ -27,7 +27,7 @@ struct CreateButton: View {
                     Spacer()
                     Text("word_create".localized)
                         .font(.semiBoldCustom(size: 20))
-                        .foregroundColor(.primary0)
+                        .foregroundStyle(.primary0)
                     Spacer()
                 }
             }

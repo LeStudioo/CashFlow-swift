@@ -53,46 +53,46 @@ struct CellAutomationView: View {
             SwipeView(label: {
                 HStack {
                     Circle()
-                        .foregroundColor(.color2Apple)
+                        .foregroundStyle(.color2Apple)
                         .frame(width: 50)
                         .overlay {
                             if let category, let subcategory {
                                 Circle()
-                                    .foregroundColor(category.color)
+                                    .foregroundStyle(category.color)
                                     .shadow(radius: 4, y: 4)
                                     .frame(width: 34)
                                 
                                 Image(systemName: subcategory.icon)
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.colorLabelInverse)
+                                    .foregroundStyle(Color(uiColor: .systemBackground))
                                 
                             } else if let category, subcategory == nil {
                                 Circle()
-                                    .foregroundColor(category.color)
+                                    .foregroundStyle(category.color)
                                     .shadow(radius: 4, y: 4)
                                     .frame(width: 34)
                                 
                                 Image(systemName: category.icon)
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                    .foregroundColor(.colorLabelInverse)
+                                    .foregroundStyle(Color(uiColor: .systemBackground))
                             } else {
                                 Circle()
-                                    .foregroundColor(transaction.amount < 0 ? .error400 : .primary500)
+                                    .foregroundStyle(transaction.amount < 0 ? .error400 : .primary500)
                                     .shadow(radius: 4, y: 4)
                                     .frame(width: 34)
                                 
                                 Text(Locale.current.currencySymbol ?? "$")
-                                    .foregroundColor(.colorLabelInverse)
+                                    .foregroundStyle(Color(uiColor: .systemBackground))
                             }
                         }
                     
                     VStack(alignment: .leading, spacing: 5) {
                         Text(transaction.amount < 0 ? "word_automation_expense".localized : "word_automation_income".localized)
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                             .font(Font.mediumSmall())
                         Text(transaction.title)
                             .font(.semiBoldText18())
-                            .foregroundColor(.colorLabel)
+                            .foregroundStyle(Color(uiColor: .label))
                             .lineLimit(1)
                     }
                     
@@ -101,11 +101,11 @@ struct CellAutomationView: View {
                     VStack(alignment: .trailing, spacing: 5) {
                         Text(transaction.amount.currency)
                             .font(.semiBoldText16())
-                            .foregroundColor(transaction.amount < 0 ? .error400 : .primary500)
+                            .foregroundStyle(transaction.amount < 0 ? .error400 : .primary500)
                             .lineLimit(1)
                         Text(transaction.date.formatted(date: .numeric, time: .omitted))
                             .font(Font.mediumSmall())
-                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                             .lineLimit(1)
                     }
                 }
@@ -122,10 +122,10 @@ struct CellAutomationView: View {
                         Text("word_DELETE".localized)
                             .font(.semiBoldCustom(size: 10))
                     }
-                    .foregroundColor(.colorLabelInverse)
+                    .foregroundStyle(Color(uiColor: .systemBackground))
                 }, background: { _ in
                     Rectangle()
-                        .foregroundColor(.error400)
+                        .foregroundStyle(.error400)
                 })
                 .onChange(of: cancelDeleting) { _ in
                     context.state.wrappedValue = .closed

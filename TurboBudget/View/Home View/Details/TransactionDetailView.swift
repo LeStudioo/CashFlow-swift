@@ -63,22 +63,22 @@ struct TransactionDetailView: View {
                 Spacer()
                 Circle()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(.colorCell)
+                    .foregroundStyle(.colorCell)
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundColor(category?.color ?? .red)
+                            .foregroundStyle(category?.color ?? .red)
                             .shadow(color: category?.color ?? .red, radius: 4, y: 2)
                             .overlay {
                                 VStack {
                                     if let subcategory {
                                         Image(systemName: subcategory.icon)
                                             .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundColor(.colorLabelInverse)
+                                            .foregroundStyle(Color(uiColor: .systemBackground))
                                     } else if let category {
                                         Image(systemName: category.icon)
                                             .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundColor(.colorLabelInverse)
+                                            .foregroundStyle(Color(uiColor: .systemBackground))
                                     }
                                 }
                             }
@@ -132,7 +132,7 @@ struct TransactionDetailView: View {
                 CellForDetailTransaction(
                     leftText: "transaction_detail_date".localized,
                     rightText: transaction.date.formatted(date: .abbreviated, time: .omitted),
-                    rightTextColor: .colorLabel
+                    rightTextColor: Color(uiColor: .label)
                 )
             }
             
@@ -162,7 +162,7 @@ struct TransactionDetailView: View {
                     if transactionNote.isEmpty {
                         HStack {
                             Text("transaction_detail_note".localized)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(Font.mediumText16())
                             Spacer()
                         }
@@ -210,7 +210,7 @@ struct TransactionDetailView: View {
                 Button(action: { dismiss() }, label: {
                     Image(systemName: "chevron.left")
                         .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             
@@ -226,7 +226,7 @@ struct TransactionDetailView: View {
                     Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete", systemImage: "trash.fill") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
@@ -235,12 +235,12 @@ struct TransactionDetailView: View {
                 HStack {
                     EmptyView()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundColor(.primary500) })
+                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(.primary500) })
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .background(SharingViewController(isPresenting: $isSharingJSON) {
             let json = JSONManager().generateJSONForTransaction(transaction: transaction)
             let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
@@ -285,7 +285,7 @@ private struct CellForDetailTransaction: View {
             Spacer()
             Text(rightText)
                 .font(.semiBoldText16())
-                .foregroundColor(rightTextColor)
+                .foregroundStyle(rightTextColor)
         }
         .padding(12)
         .background(Color.colorCell)

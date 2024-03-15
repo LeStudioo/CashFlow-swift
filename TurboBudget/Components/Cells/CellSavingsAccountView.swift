@@ -21,31 +21,31 @@ struct CellSavingsAccountView: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.color3Apple)
+                    .foregroundStyle(Color.colorCell)
                     .cornerRadius(12)
                     .overlay {
                         Image(systemName: "building.columns.fill")
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                            .foregroundStyle(Color(uiColor: .label))
                     }
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundColor(.colorLabel)
+                    .foregroundStyle(Color(uiColor: .label))
             }
             .padding(.top)
             
             Text(savingsAccount.balance.formatted() + " \(Locale.current.currencySymbol ?? "")")
                 .font(.boldH3())
-                .foregroundColor(Color(uiColor: .label))
+                .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
             
             Text(savingsAccount.name)
                 .font(.semiBoldSmall())
                 .multilineTextAlignment(.center)
-                .foregroundColor(Color(uiColor: .label))
+                .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(2)
             
             Spacer()

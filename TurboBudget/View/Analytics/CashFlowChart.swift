@@ -35,11 +35,11 @@ struct CashFlowChart: View {
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("cashflowchart_title".localized)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(Font.mediumSmall())
                     
                     Text(TransactionManager().totalCashFlowForSelectedMonth(account: account, selectedDate: filter.date).currency)
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.semiBoldH3())
                 }
                 Spacer()
@@ -48,7 +48,7 @@ struct CashFlowChart: View {
             .overlay(alignment: .topTrailing) {
                 Button(action: { showAlert.toggle() }, label: {
                     Image(systemName: "info.circle")
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
                 .padding(8)

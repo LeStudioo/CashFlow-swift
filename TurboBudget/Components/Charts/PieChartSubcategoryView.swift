@@ -174,17 +174,17 @@ struct PieChartSubcategoryView: View {
                                     .font(Font.mediumText18())
                                     .multilineTextAlignment(.center)
                                     .lineLimit(2)
-                                    .foregroundColor(Color.gray)
-                                    .frame(width: height * innerRadiusFraction - 20)
+                                    .foregroundStyle(Color.gray)
+                                    .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
                                 
                                 //Amount
                                 Text(self.activeSlice == nil ? values.reduce(0, -).currency : (-(activeSlice?.value ?? 0)).currency)
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                                     .font(.semiBoldCustom(size: 20))
                                 
                                 //Percentage
                                 Text(activeSlice == nil ? "" : activeSlice?.percentage ?? "")
-                                    .foregroundColor(.colorLabel)
+                                    .foregroundStyle(Color(uiColor: .label))
                                     .font(Font.mediumText16())
                             }
                         }
@@ -194,7 +194,7 @@ struct PieChartSubcategoryView: View {
                     
                     //                     PieChartRows(colors: self.colors, names: self.names, values: self.values.map { self.formatter($0) }, percents: self.values.map { String(format: "%.0f%%", $0 * 100 / self.values.reduce(0, +)) })
                 }
-                .foregroundColor(Color.white)
+                .foregroundStyle(Color.white)
             }
             .onAppear {
                 height = isIPad ? widthFraction * geometry.size.width / 3 : widthFraction * geometry.size.width

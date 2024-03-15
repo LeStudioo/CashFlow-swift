@@ -31,7 +31,7 @@ struct TabbarView: View {
     var body: some View {
         ZStack(alignment: .top) {
             BannerShape()
-                .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                 .cornerRadius(10, corners: .topLeft)
                 .cornerRadius(10, corners: .topRight)
                 .frame(height: 100)
@@ -49,7 +49,7 @@ struct TabbarView: View {
                                 Text("word_savingsplan".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                         
                         Button(action: {
                             viewModel.showMenu = false
@@ -60,7 +60,7 @@ struct TabbarView: View {
                                 Text("recover_button".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                         
                         Button(action: {
                             viewModel.showMenu = false
@@ -71,7 +71,7 @@ struct TabbarView: View {
                                 Text("word_automation".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                         
                         Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
                             HStack {
@@ -79,7 +79,7 @@ struct TabbarView: View {
                                 Text("word_scanner".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                         
                         Button(action: {
                             viewModel.showMenu = false
@@ -90,7 +90,7 @@ struct TabbarView: View {
                                 Text("word_transaction".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                     } else {
                         Button(action: { viewModel.showAddAccountSheet() }, label: {
                             HStack {
@@ -98,7 +98,7 @@ struct TabbarView: View {
                                 Text("word_account".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                     }
                 }
                 .padding()
@@ -110,13 +110,13 @@ struct TabbarView: View {
                 .opacity(viewModel.showMenu ? 1 : 0)
                 
                 Circle()
-                    .foregroundColor(HelperManager().getAppTheme().color)
+                    .foregroundStyle(HelperManager().getAppTheme().color)
                     .frame(width: 80)
                     .shadow(color: HelperManager().getAppTheme().color, radius: 12, y: 10)
                 
                 Image(systemName: "plus")
                     .font(.system(size: 34, weight: .regular, design: .rounded))
-                    .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                    .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                     .rotationEffect(.degrees(viewModel.showMenu ? 45 : 0))
             }
             .frame(height: 80)
@@ -196,10 +196,10 @@ struct ItemsForTabBar: View {
                     Text("word_home".localized)
                         .font(.semiBoldSmall())
                 }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 0
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
                 .onTapGesture { selectedTab = 0; withAnimation { showMenu = false; filter.showMenu = false } }
                 .frame(width: hStackwidth / 2)
@@ -213,10 +213,10 @@ struct ItemsForTabBar: View {
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 1; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 1
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
                 .frame(width: hStackwidth / 2 + 10)
             }
@@ -235,10 +235,10 @@ struct ItemsForTabBar: View {
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 3; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 3
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
                 .frame(width: hStackwidth / 2 + 10)
                 
@@ -251,10 +251,10 @@ struct ItemsForTabBar: View {
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 4; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 4
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
                 .frame(width: hStackwidth / 2)
             }

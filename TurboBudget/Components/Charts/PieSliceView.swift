@@ -41,7 +41,7 @@ struct PieSlice: View {
                 .fill(pieSliceData.color)
                 
                 Image(systemName: pieSliceData.iconName)
-                    .foregroundColor(Color.black)
+                    .foregroundStyle(Color.black)
                     .font(.system(size: bigSymbol ? 18 : 14, weight: .medium, design: .rounded))
                     .position(
                         x: geometry.size.width * 0.5 * CGFloat(1.0 + 0.78 * cos(self.midRadians)),

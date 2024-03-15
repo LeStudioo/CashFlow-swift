@@ -20,7 +20,6 @@ struct CreateTransactionView: View {
     @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
     
     // Environment
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
 
     // EnvironmentObject
@@ -82,11 +81,11 @@ struct CreateTransactionView: View {
                                         ZStack {
                                             Circle()
                                                 .frame(width: widthCircleCategory, height: widthCircleCategory)
-                                                .foregroundColor(.green)
+                                                .foregroundStyle(.green)
                                             
                                             Image(systemName: "tray.and.arrow.down")
                                                 .font(.system(size: isLittleIphone ? 26 : 32, weight: .bold, design: .rounded))
-                                                .foregroundColor(.colorLabelInverse)
+                                                .foregroundStyle(Color(uiColor: .systemBackground))
                                         }
                                         Spacer()
                                     }
@@ -164,7 +163,7 @@ struct CreateTransactionView: View {
                             ZStack {
                                 Capsule()
                                     .frame(height: isLittleIphone ? 40 : 50)
-                                    .foregroundColor(Color.backgroundComponentSheet)
+                                    .foregroundStyle(Color.backgroundComponentSheet)
                                 
                                 HStack {
                                     Spacer()
@@ -192,11 +191,11 @@ struct CreateTransactionView: View {
                             VStack(spacing: 20) {
                                 Text("transaction_successful".localized)
                                     .font(.semiBoldCustom(size: 28))
-                                    .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                    .foregroundStyle(Color(uiColor: .label))
                                 
                                 Text("transaction_successful_desc".localized)
                                     .font(Font.mediumSmall())
-                                    .foregroundColor(.secondary400)
+                                    .foregroundStyle(.secondary400)
                             }
                             .padding(.bottom, 30)
                             
@@ -207,11 +206,11 @@ struct CreateTransactionView: View {
                                     HStack {
                                         Text("transaction_successful_date".localized)
                                             .font(Font.mediumSmall())
-                                            .foregroundColor(.secondary400)
+                                            .foregroundStyle(.secondary400)
                                         Spacer()
                                         Text(theNewTransaction.date.formatted(date: .abbreviated, time: .omitted))
                                             .font(.semiBoldSmall())
-                                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                            .foregroundStyle(Color(uiColor: .label))
                                     }
                                     .padding(.horizontal, 8)
                                 }
