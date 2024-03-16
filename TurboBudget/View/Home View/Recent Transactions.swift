@@ -19,6 +19,9 @@ struct RecentTransactionsView: View {
     var router: NavigationManager
     @ObservedObject var account: Account
     
+    // Custom
+    @StateObject private var viewModel = RecentTransactionsViewModel()
+    
     // Environement
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
@@ -107,9 +110,9 @@ struct RecentTransactionsView: View {
                 } else {
                     List(getAllMonthForTransactions, id: \.self) { dateComponents in
                         if let month = Calendar.current.date(from: dateComponents) {
-                            if searchResults.map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
+                            if viewModel.searchResults(account: account).map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                                 Section(content: {
-                                    ForEach(searchResults) { transaction in
+                                    ForEach(viewModel.searchResults(account: account)) { transaction in
                                         if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
                                             Button(action: {
                                                 router.pushTransactionDetail(transaction: transaction)
@@ -172,28 +175,35 @@ struct RecentTransactionsView: View {
             }
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(content: {
-                    Button(action: {
-                        router.presentCreateTransaction()
-                    }, label: {
-                        Label("word_add".localized, systemImage: "plus")
-                    })
-                    Menu(content: {
-                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
-                        
-                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
-                        
-                        Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes".localized, systemImage: "arrow.up.right") })
-                        
-                        Button(action: { withAnimation { filterTransactions = .category } }, label: { Label("word_categories".localized, systemImage: "rectangle.stack") })
-                    }, label: {
-                        Label("word_filter".localized, systemImage: "slider.horizontal.3")
-                    })
+                Button(action: {
+                    router.pushFilter()
                 }, label: {
-                    Image(systemName: "ellipsis")
+                    Image(systemName: "line.3.horizontal.decrease.circle")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
+//                Menu(content: {
+//                    Button(action: {
+//                        router.presentCreateTransaction()
+//                    }, label: {
+//                        Label("word_add".localized, systemImage: "plus")
+//                    })
+//                    Menu(content: {
+//                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
+//                        
+//                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
+//                        
+//                        Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes".localized, systemImage: "arrow.up.right") })
+//                        
+//                        Button(action: { withAnimation { filterTransactions = .category } }, label: { Label("word_categories".localized, systemImage: "rectangle.stack") })
+//                    }, label: {
+//                        Label("word_filter".localized, systemImage: "slider.horizontal.3")
+//                    })
+//                }, label: {
+//                    Image(systemName: "ellipsis")
+//                        .foregroundStyle(Color(uiColor: .label))
+//                        .font(.system(size: 18, weight: .medium, design: .rounded))
+//                })
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)

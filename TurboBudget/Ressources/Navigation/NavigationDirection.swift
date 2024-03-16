@@ -10,6 +10,7 @@ import SwiftUI
 
 enum NavigationDirection: Identifiable {
     case pageController
+    case filter
     
     case home(account: Account)
     case homeSavingPlans(account: Account)
@@ -21,6 +22,7 @@ enum NavigationDirection: Identifiable {
     case createTransaction
     case recoverTransaction
     case createSavingsAccount
+    case createTransfer
     
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
@@ -58,6 +60,8 @@ enum NavigationDirection: Identifiable {
         switch self {
         case .pageController:
             return "pageController"
+        case .filter:
+            return "filter"
             
         case .home(let account):
             return "home_\(account.id)"
@@ -78,6 +82,8 @@ enum NavigationDirection: Identifiable {
             return "recoverTransaction"
         case .createSavingsAccount:
             return "createSavingsAccount"
+        case .createTransfer:
+            return "createTransfer"
             
         case .selectCategory(let category, let subcategory):
             return "selectCategory_\(category.wrappedValue?.id ?? UUID())_\(subcategory.wrappedValue?.id ?? UUID())"
@@ -143,6 +149,7 @@ extension NavigationDirection: Equatable {
     static func == (lhs: NavigationDirection, rhs: NavigationDirection) -> Bool {
         switch (lhs, rhs) {
         case (.pageController, .pageController),
+            (.filter, .filter),
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
@@ -152,6 +159,7 @@ extension NavigationDirection: Equatable {
             (.createTransaction, .createTransaction),
             (.recoverTransaction, .recoverTransaction),
             (.createSavingsAccount, .createSavingsAccount),
+            (.createTransfer, .createTransfer),
             (.paywall, .paywall),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),

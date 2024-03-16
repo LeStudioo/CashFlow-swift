@@ -10,6 +10,10 @@ import SwiftUI
 class NavigationManager: Router {
 
     // Push
+    func pushFilter() {
+        navigateTo(.filter)
+    }
+    
     func pushHome(account: Account) {
         navigateTo(.home(account: account))
     }
@@ -149,6 +153,10 @@ class NavigationManager: Router {
         presentSheet(.createSavingsAccount)
     }
     
+    func presentCreateTransfer() {
+        presentSheet(.createTransfer)
+    }
+    
     func presentSelectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>) {
         presentSheet(.selectCategory(category: category, subcategory: subcategory))
     }
@@ -167,6 +175,8 @@ private extension NavigationManager {
             switch direction {
             case .pageController:
                 PageControllerView()
+            case .filter:
+                NewFilterView()
                 
             case .home(let account):
                 HomeScreenView(router: router(route: route), account: account)
@@ -188,6 +198,8 @@ private extension NavigationManager {
                 RecoverTransactionView()
             case .createSavingsAccount:
                 CreateSavingsAccountView()
+            case .createTransfer:
+                CreateTransferView()
                 
                 
             case .selectCategory(let category, let subcategory):

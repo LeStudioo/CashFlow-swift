@@ -40,6 +40,17 @@ struct TabbarView: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if account != nil {
+//                        Button(action: {
+//                            viewModel.showMenu = false
+//                            router.presentCreateTransfer()
+//                        }, label: {
+//                            HStack {
+//                                Image(systemName: "building.columns.fill")
+//                                Text("word_transfer".localized)
+//                            }
+//                        })
+//                        .foregroundStyle(Color(uiColor: .label))
+                        
                         Button(action: {
                             viewModel.showMenu = false
                             router.presentCreateSavingPlans()

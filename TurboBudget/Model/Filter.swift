@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class Filter: Identifiable, ObservableObject {
+    static let shared = Filter()
     var id: UUID = UUID()
     
     @Published var date: Date = Date()
@@ -22,8 +23,4 @@ class Filter: Identifiable, ObservableObject {
     @Published var total: Bool = false
 }
 
-class FilterManager: ObservableObject {
-    @Published var filter = Filter()
-}
-
-let sharedFilter = FilterManager().filter
+let sharedFilter = Filter.shared
