@@ -133,6 +133,22 @@
 
 "word_savings_account" = "Comptes d'épargne";
 
+"by_month_word" = "Par mois";
+
+"only_expenses_word" = "Seules les dépenses";
+
+"only_incomes_word" = "Seuls les revenus";
+
+"sort_by_word" = "Trier par";
+
+"date_word" = "Date";
+
+"ascending_order_word" = "Ordre croissant";
+
+"descending_order_word" = "Ordre décroissant";
+
+"alphabetic_word" = "Alphabétique";
+
 //MARK: - Error Message
 "error_message_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
 

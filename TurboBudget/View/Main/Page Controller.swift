@@ -100,6 +100,7 @@ struct PageControllerView: View {
                                         )
                                     case 1:
                                         AnalyticsHomeView(
+                                            router: router,
                                             account: account
                                         )
                                     case 3:
@@ -248,10 +249,6 @@ struct PageControllerView: View {
                     }
                 }
             }
-            if !udV1_1 && alreadyOpen {
-                pageControllerVM.showUpdateView.toggle()
-                UserDefaults.standard.setValue(true, forKey: "udV1_1")
-            }
         }
         .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
             Button(action: { return }, label: { Text("word_cancel".localized) })
@@ -260,7 +257,6 @@ struct PageControllerView: View {
             Text("alert_cashflow_pro_desc".localized)
         })
         .sheet(isPresented: $pageControllerVM.showPaywall) { PaywallScreenView() }
-        .sheet(isPresented: $pageControllerVM.showUpdateView) { NewUpdateView() }
         .onChange(of: icloudManager.icloudDataStatus) { newValue in
             if newValue == .found {
                 DispatchQueue.main.async {

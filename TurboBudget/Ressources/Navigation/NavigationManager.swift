@@ -27,6 +27,11 @@ class NavigationManager: Router {
     }
     
     
+    func pushAnalytics(account: Account) {
+        navigateTo(.analytics(account: account))
+    }
+    
+    
     func pushAllTransactions(account: Account) {
         navigateTo(.allTransactions(account: account))
     }
@@ -141,8 +146,8 @@ class NavigationManager: Router {
         presentSheet(.createSavingPlans)
     }
     
-    func presentCreateTransaction() {
-        presentSheet(.createTransaction)
+    func presentCreateTransaction(dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createTransaction, dismissAction)
     }
     
     func presentRecoverTransaction() {
@@ -185,6 +190,8 @@ private extension NavigationManager {
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
+            case .analytics(let account):
+                AnalyticsHomeView(router: router(route: route), account: account)
                 
             case .createAutomation:
                 CreateAutomationView(router: router(route: route))

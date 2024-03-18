@@ -115,16 +115,6 @@ struct SubcategoryHomeView: View {
                         .foregroundStyle(Color(uiColor: .label))
                 })
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    filter.fromBudget = false
-                    filter.fromAnalytics = false
-                    filter.showMenu.toggle()
-                }, label: {
-                    Image(systemName: "calendar")
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body

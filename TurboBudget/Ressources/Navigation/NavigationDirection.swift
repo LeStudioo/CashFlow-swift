@@ -16,6 +16,8 @@ enum NavigationDirection: Identifiable {
     case homeSavingPlans(account: Account)
     case homeAutomations(account: Account)
     
+    case analytics(account: Account)
+    
     case createAutomation
     case createBudget
     case createSavingPlans
@@ -69,6 +71,9 @@ enum NavigationDirection: Identifiable {
             return "homeSavingPlans_\(account.id)"
         case .homeAutomations(let account):
             return "homeAutomations_\(account.id)"
+            
+        case .analytics(let account):
+            return "analytics_\(account.id)"
             
         case .createAutomation:
             return "createAutomation"
@@ -178,6 +183,10 @@ extension NavigationDirection: Equatable {
             return lhsAccount.id == rhsAccount.id
             
         case let (.homeAutomations(lhsAccount), .homeAutomations(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+            
+        case let (.analytics(lhsAccount), .analytics(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
             
             

@@ -16,7 +16,7 @@ struct NewFilterView: View {
         Form {
             Section {
                 Toggle(isOn: $filter.byMonth) {
-                    Text("By month")
+                    Text("by_month_word".localized)
                 }
                 if filter.byMonth {
                     MonthYearWheelPickerView(date: $filter.date)
@@ -25,20 +25,20 @@ struct NewFilterView: View {
             
             Section {
                 Toggle(isOn: $filter.onlyExpenses) {
-                    Text("Only expenses")
+                    Text("only_expenses_word".localized)
                 }
                 
                 Toggle(isOn: $filter.onlyIncomes) {
-                    Text("Only incomes")
+                    Text("only_incomes_word".localized)
                 }
             }
             
             Section {
-                Picker("Sort by", selection: $filter.sortBy) {
-                    Text("Date").tag(FilterSort.date)
-                    Text("Asceding order").tag(FilterSort.ascendingOrder)
-                    Text("Descending Order").tag(FilterSort.descendingOrder)
-                    Text("Alphabetic").tag(FilterSort.alphabetic)
+                Picker("sort_by_word".localized, selection: $filter.sortBy) {
+                    Text("date_word".localized).tag(FilterSort.date)
+                    Text("ascending_order_word".localized).tag(FilterSort.ascendingOrder)
+                    Text("descending_order_word".localized).tag(FilterSort.descendingOrder)
+                    Text("alphabetic_word".localized).tag(FilterSort.alphabetic)
                 }
             }
         }

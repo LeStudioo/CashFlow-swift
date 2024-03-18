@@ -133,6 +133,22 @@
 
 "word_savings_account" = "Conti di risparmio";
 
+"by_month_word" = "Al mese";
+
+"only_expenses_word" = "Solo spesa";
+
+"only_incomes_word" = "Solo reddito";
+
+"sort_by_word" = "ordina per";
+
+"date_word" = "Data";
+
+"ascending_order_word" = "Ascendente";
+
+"descending_order_word" = "Ordine decrescente";
+
+"alphabetic_word" = "Alfabetico";
+
 //MARK: - Error Message
 "error_message_transaction" = "Fare clic sul pulsante più per creare una transazione.";
 

@@ -133,6 +133,22 @@
 
 "word_savings_account" = "Sparkonten";
 
+"by_month_word" = "Pro Monat";
+
+"only_expenses_word" = "Nur Ausgaben";
+
+"only_incomes_word" = "Nur Einkommen";
+
+"sort_by_word" = "Sortieren nach";
+
+"date_word" = "Datum";
+
+"ascending_order_word" = "Aufsteigend";
+
+"descending_order_word" = "Absteigende Reihenfolge";
+
+"alphabetic_word" = "Alphabetisch";
+
 //MARK: - Error Message
 "error_message_transaction" = "Klicken Sie auf die Schaltfläche \"Hinzufügen\", um eine Transaktion zu erstellen.";
 

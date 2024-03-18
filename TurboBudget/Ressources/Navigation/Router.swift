@@ -33,6 +33,8 @@ class Router: ObservableObject {
     }
 
     @Published private(set) var state: State
+    
+    @Published private(set) var dismissAction: (() -> Void)?
 
     init(isPresented: Binding<NavigationDirection?>) {
         state = State(isPresented: isPresented)
@@ -57,20 +59,24 @@ extension Router {
         state.navigationPath.append(direction)
     }
 
-    func presentSheet(_ direction: NavigationDirection) {
+    func presentSheet(_ direction: NavigationDirection, _ dismissAction: (() -> Void)? = nil) {
         state.presentingSheet = direction
+        self.dismissAction = dismissAction
     }
 
-    func presentFullScreen(_ direction: NavigationDirection) {
+    func presentFullScreen(_ direction: NavigationDirection, _ dismissAction: (() -> Void)? = nil) {
         state.presentingFullScreen = direction
+        self.dismissAction = dismissAction
     }
 
-    func presentModal(_ direction: NavigationDirection) {
+    func presentModal(_ direction: NavigationDirection, _ dismissAction: (() -> Void)? = nil) {
         state.presentingModal = direction
+        self.dismissAction = dismissAction
     }
 
-    func presentModalCanFullScreen(_ direction: NavigationDirection) {
+    func presentModalCanFullScreen(_ direction: NavigationDirection, _ dismissAction: (() -> Void)? = nil) {
         state.presentingModalCanFullScreen = direction
+        self.dismissAction = dismissAction
     }
 }
 

@@ -129,6 +129,7 @@
 		D975BFAC2A668041004FFA9D /* AddAutomationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAB2A668041004FFA9D /* AddAutomationsView.swift */; };
 		D975BFAE2A66900F004FFA9D /* CellAutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAD2A66900F004FFA9D /* CellAutomationView.swift */; };
 		D975BFB02A66936A004FFA9D /* Automation Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D975BFAF2A66936A004FFA9D /* Automation Manager.swift */; };
+		D979B0C02BA8A2600083F4A1 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D979B0BF2BA8A2600083F4A1 /* ModalView.swift */; };
 		D97BC5322A8D128100DA016A /* Saving Plan Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */; };
 		D97BC5342A8D148C00DA016A /* SubcategoryTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */; };
 		D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D983683D2A6A9A1C00CB79B6 /* YearMonthPickerView.swift */; };
@@ -325,6 +326,7 @@
 		D975BFAB2A668041004FFA9D /* AddAutomationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAutomationsView.swift; sourceTree = "<group>"; };
 		D975BFAD2A66900F004FFA9D /* CellAutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellAutomationView.swift; sourceTree = "<group>"; };
 		D975BFAF2A66936A004FFA9D /* Automation Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Automation Manager.swift"; sourceTree = "<group>"; };
+		D979B0BF2BA8A2600083F4A1 /* ModalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Saving Plan Manager.swift"; sourceTree = "<group>"; };
 		D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryTransactionsView.swift; sourceTree = "<group>"; };
 		D983683D2A6A9A1C00CB79B6 /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
@@ -828,6 +830,7 @@
 				D95C335F2AC4A2BD0044FE27 /* Cells */,
 				D94DDE6D2AC35D8C0034E6E1 /* Details */,
 				D94DDE6E2AC35DB10034E6E1 /* Buttons */,
+				D979B0BF2BA8A2600083F4A1 /* ModalView.swift */,
 				D92454232A89035E00035304 /* CircleWithCheckmark.swift */,
 				81AE985C2A3CBC140066AE94 /* CustomSegmentedControl.swift */,
 				D97553EA2A6FFC0B0095D8F0 /* PageControlView.swift */,
@@ -1082,6 +1085,7 @@
 				D9879DB32B8B20ED00054FFC /* SettingsAppearenceView.swift in Sources */,
 				D99C9D1A2A6ED87A00658056 /* Expenses Chart.swift in Sources */,
 				81B35DF52A3F2B56003F8965 /* Predefined Object.swift in Sources */,
+				D979B0C02BA8A2600083F4A1 /* ModalView.swift in Sources */,
 				81A707A02A3B6D3B00BEB0BF /* Custom Tabbar.swift in Sources */,
 				D974FAD92AECDEBE00CD8CFF /* TransactionDetailViewModel.swift in Sources */,
 				D97553E92A6FFB8F0095D8F0 /* CarouselOfChartsView.swift in Sources */,
@@ -1342,7 +1346,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.21;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sementa.CashFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -1390,7 +1394,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.21;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sementa.CashFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;

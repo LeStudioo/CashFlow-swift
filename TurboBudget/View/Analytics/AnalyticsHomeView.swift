@@ -13,11 +13,12 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
+    var router: NavigationManager
     @ObservedObject var account: Account
     
     // Custom
-    @ObservedObject var filter: Filter = sharedFilter
-    
+    @ObservedObject var filter = FilterManager.shared
+        
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     
@@ -79,9 +80,6 @@ struct AnalyticsHomeView: View {
                         .opacity(0)
                     
                 } // End ScrollView
-                .blur(radius: filter.showMenu ? 3 : 0)
-                .disabled(filter.showMenu)
-                .onTapGesture { withAnimation { filter.showMenu = false } }
             } else {
                 VStack {
                     Spacer()
@@ -116,13 +114,11 @@ struct AnalyticsHomeView: View {
             if account.transactions.count > 0 {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        withAnimation {
-                            filter.fromAnalytics = true
-                            filter.showMenu.toggle()
-                        }
+                        router.pushFilter()
                     }, label: {
-                        Image(systemName: "calendar")
+                        Image(systemName: "line.3.horizontal.decrease.circle")
                             .foregroundStyle(Color(uiColor: .label))
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
                     })
                 }
             }
@@ -133,7 +129,7 @@ struct AnalyticsHomeView: View {
 
 //MARK: - Preview
 #Preview {
-    AnalyticsHomeView(account: Account.preview)
+    AnalyticsHomeView(router: .init(isPresented: .constant(nil)), account: Account.preview)
 }
 
 

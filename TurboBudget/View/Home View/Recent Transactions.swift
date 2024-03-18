@@ -182,28 +182,6 @@ struct RecentTransactionsView: View {
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
-//                Menu(content: {
-//                    Button(action: {
-//                        router.presentCreateTransaction()
-//                    }, label: {
-//                        Label("word_add".localized, systemImage: "plus")
-//                    })
-//                    Menu(content: {
-//                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
-//                        
-//                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
-//                        
-//                        Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes".localized, systemImage: "arrow.up.right") })
-//                        
-//                        Button(action: { withAnimation { filterTransactions = .category } }, label: { Label("word_categories".localized, systemImage: "rectangle.stack") })
-//                    }, label: {
-//                        Label("word_filter".localized, systemImage: "slider.horizontal.3")
-//                    })
-//                }, label: {
-//                    Image(systemName: "ellipsis")
-//                        .foregroundStyle(Color(uiColor: .label))
-//                        .font(.system(size: 18, weight: .medium, design: .rounded))
-//                })
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
