@@ -26,7 +26,7 @@ class RecentTransactionsViewModel: ObservableObject {
 
         switch filter.sortBy {
         case .date:
-            return filteredTransactions.sorted { $0.date < $1.date }
+            return filteredTransactions.sorted { $0.date > $1.date }
         case .ascendingOrder:
             return filteredTransactions.sorted { $0.amount > $1.amount }
         case .descendingOrder:

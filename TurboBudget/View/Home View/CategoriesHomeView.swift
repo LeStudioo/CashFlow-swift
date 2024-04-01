@@ -18,7 +18,7 @@ struct CategoriesHomeView: View {
     @State private var selectedCategory: PredefinedCategory? = nil
     @ObservedObject var filter: Filter = sharedFilter
     var categories = PredefinedObjectManager.shared.allPredefinedCategory
-        
+    
     //State or Binding String
     @State private var searchText: String = ""
     
@@ -41,7 +41,7 @@ struct CategoriesHomeView: View {
     
     var searchResults: [PredefinedCategory] {
         let predefCategories = categories
- 
+        
         if searchText.isEmpty {
             return predefCategories.sorted { $0.title < $1.title }
         } else {
@@ -74,84 +74,82 @@ struct CategoriesHomeView: View {
     
     //MARK: - Body
     var body: some View {
-        NavStack(router: router) {
-            VStack(spacing: 0) {
-                if searchResults.count != 0 {
-                    ScrollView(showsIndicators: false) {
-                        VStack {
-                            if !alertMessageIfEmpty().isEmpty {
-                                HStack {
-                                    Text(alertMessageIfEmpty())
-                                        .font(Font.mediumText16())
-                                    Spacer()
-                                }
-                                .padding(.bottom, 8)
+        VStack(spacing: 0) {
+            if searchResults.count != 0 {
+                ScrollView(showsIndicators: false) {
+                    VStack {
+                        if !alertMessageIfEmpty().isEmpty {
+                            HStack {
+                                Text(alertMessageIfEmpty())
+                                    .font(Font.mediumText16())
+                                Spacer()
                             }
-                            if dataWithFilterChoosen && searchText.isEmpty {
-                                VStack {
-                                    ZStack(alignment: .topTrailing) {
-                                        HStack {
-                                            Spacer()
-                                            PieChartView(
-                                                categories: categories,
-                                                selectedCategory: $selectedCategory,
-                                                height: $height
-                                            )
-                                            .frame(height: height)
-                                            .id(filter.id)
-                                            Spacer()
-                                        }
-                                        .padding()
-                                        .background(Color.colorCell)
-                                        .cornerRadius(15)
-                                    }
-                                }
-                                .padding(.bottom, 8)
-                            }
-                            
-                            ForEach(searchResults) { category in
-                                if category.subcategories.count != 0 {
-                                    Button(action: {
-                                        router.pushHomeSubcategories(category: category)
-                                    }, label: {
-                                        CategoryRow(category: category, showChevron: true)
-                                            .foregroundStyle(Color(uiColor: .label))
-                                    })
-                                    .padding(.bottom, 8)
-                                } else {
-                                    Button(action: {
-                                        router.pushCategoryTransactions(category: category)
-                                    }, label: {
-                                        CategoryRow(category: category, showChevron: true)
-                                    })
-                                    .padding(.bottom, 8)
-                                    .foregroundStyle(Color(uiColor: .label))
-                                    .disabled(!(category.transactions.count != 0))
-                                }
-                            }
-                            
-                            Rectangle().frame(height: 100).opacity(0)
+                            .padding(.bottom, 8)
                         }
-                        .padding()
-                    } //End ScrollView
-                    .scrollDismissesKeyboard(.immediately)
-                } else {
-                    ErrorView(
-                        searchResultsCount: searchResults.count,
-                        searchText: searchText,
-                        image: "",
-                        text: ""
-                    )
-                }
-            } // End VStack
-            .blur(radius: filter.showMenu ? 3 : 0)
-            .disabled(filter.showMenu)
-            .onTapGesture { withAnimation { filter.showMenu = false } }
-            .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-            .navigationTitle("word_categories")
-            .navigationBarTitleDisplayMode(.large)
-            .background(Color.background.edgesIgnoringSafeArea(.all))
-        } // End NavStack
+                        if dataWithFilterChoosen && searchText.isEmpty {
+                            VStack {
+                                ZStack(alignment: .topTrailing) {
+                                    HStack {
+                                        Spacer()
+                                        PieChartView(
+                                            categories: categories,
+                                            selectedCategory: $selectedCategory,
+                                            height: $height
+                                        )
+                                        .frame(height: height)
+                                        .id(filter.id)
+                                        Spacer()
+                                    }
+                                    .padding()
+                                    .background(Color.colorCell)
+                                    .cornerRadius(15)
+                                }
+                            }
+                            .padding(.bottom, 8)
+                        }
+                        
+                        ForEach(searchResults) { category in
+                            if category.subcategories.count != 0 {
+                                Button(action: {
+                                    router.pushHomeSubcategories(category: category)
+                                }, label: {
+                                    CategoryRow(category: category, showChevron: true)
+                                        .foregroundStyle(Color(uiColor: .label))
+                                })
+                                .padding(.bottom, 8)
+                            } else {
+                                Button(action: {
+                                    router.pushCategoryTransactions(category: category)
+                                }, label: {
+                                    CategoryRow(category: category, showChevron: true)
+                                })
+                                .padding(.bottom, 8)
+                                .foregroundStyle(Color(uiColor: .label))
+                                .disabled(!(category.transactions.count != 0))
+                            }
+                        }
+                        
+                        Rectangle().frame(height: 100).opacity(0)
+                    }
+                    .padding()
+                } //End ScrollView
+                .scrollDismissesKeyboard(.immediately)
+            } else {
+                ErrorView(
+                    searchResultsCount: searchResults.count,
+                    searchText: searchText,
+                    image: "",
+                    text: ""
+                )
+            }
+        } // End VStack
+        .blur(radius: filter.showMenu ? 3 : 0)
+        .disabled(filter.showMenu)
+        .onTapGesture { withAnimation { filter.showMenu = false } }
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        .navigationTitle("word_categories")
+        .navigationBarTitleDisplayMode(.large)
+        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
     
     // MARK: Functions

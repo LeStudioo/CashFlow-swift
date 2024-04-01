@@ -179,7 +179,7 @@ private extension NavigationManager {
         Group {
             switch direction {
             case .pageController:
-                PageControllerView()
+                PageControllerView(router: router(route: route))
             case .filter:
                 NewFilterView()
                 
