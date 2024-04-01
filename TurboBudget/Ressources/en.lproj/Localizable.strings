@@ -133,6 +133,22 @@
 
 "word_savings_account" = "Savings accounts";
 
+"by_month_word" = "By month";
+
+"only_expenses_word" = "Only expenses";
+
+"only_incomes_word" = "Only incomes";
+
+"sort_by_word" = "Sort by";
+
+"date_word" = "Date";
+
+"ascending_order_word" = "Ascending order";
+
+"descending_order_word" = "Descending order";
+
+"alphabetic_word" = "Alphabetic";
+
 //MARK: - Error Message
 "error_message_transaction" = "Click on the plus button to create a transaction.";
 

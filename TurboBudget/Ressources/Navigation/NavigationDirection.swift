@@ -10,16 +10,21 @@ import SwiftUI
 
 enum NavigationDirection: Identifiable {
     case pageController
+    case filter
     
     case home(account: Account)
     case homeSavingPlans(account: Account)
     case homeAutomations(account: Account)
+    
+    case analytics(account: Account)
     
     case createAutomation
     case createBudget
     case createSavingPlans
     case createTransaction
     case recoverTransaction
+    case createSavingsAccount
+    case createTransfer
     
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
@@ -30,6 +35,7 @@ enum NavigationDirection: Identifiable {
     
     case accountDashboard(account: Account)
     case allSavingsAccount
+    case savingsAccountDetail(savingsAccount: SavingsAccount)
     case allBudgets
     case budgetTransactions(subcategory: PredefinedSubcategory)
     case allArchivedSavingPlans(account: Account)
@@ -56,6 +62,8 @@ enum NavigationDirection: Identifiable {
         switch self {
         case .pageController:
             return "pageController"
+        case .filter:
+            return "filter"
             
         case .home(let account):
             return "home_\(account.id)"
@@ -63,6 +71,9 @@ enum NavigationDirection: Identifiable {
             return "homeSavingPlans_\(account.id)"
         case .homeAutomations(let account):
             return "homeAutomations_\(account.id)"
+            
+        case .analytics(let account):
+            return "analytics_\(account.id)"
             
         case .createAutomation:
             return "createAutomation"
@@ -74,6 +85,10 @@ enum NavigationDirection: Identifiable {
             return "createTransaction"
         case .recoverTransaction:
             return "recoverTransaction"
+        case .createSavingsAccount:
+            return "createSavingsAccount"
+        case .createTransfer:
+            return "createTransfer"
             
         case .selectCategory(let category, let subcategory):
             return "selectCategory_\(category.wrappedValue?.id ?? UUID())_\(subcategory.wrappedValue?.id ?? UUID())"
@@ -90,6 +105,8 @@ enum NavigationDirection: Identifiable {
             return "accountDashboard_\(account.id)"
         case .allSavingsAccount:
             return "allSavingsAccount"
+        case .savingsAccountDetail(let savingsAccount):
+            return "savingsAccountDetail_\(savingsAccount.id)"
         case .allBudgets:
             return "allBudgets"
         case .budgetTransactions(let subcategory):
@@ -137,6 +154,7 @@ extension NavigationDirection: Equatable {
     static func == (lhs: NavigationDirection, rhs: NavigationDirection) -> Bool {
         switch (lhs, rhs) {
         case (.pageController, .pageController),
+            (.filter, .filter),
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
@@ -145,6 +163,8 @@ extension NavigationDirection: Equatable {
             (.createSavingPlans, .createSavingPlans),
             (.createTransaction, .createTransaction),
             (.recoverTransaction, .recoverTransaction),
+            (.createSavingsAccount, .createSavingsAccount),
+            (.createTransfer, .createTransfer),
             (.paywall, .paywall),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),
@@ -163,6 +183,10 @@ extension NavigationDirection: Equatable {
             return lhsAccount.id == rhsAccount.id
             
         case let (.homeAutomations(lhsAccount), .homeAutomations(rhsAccount)):
+            return lhsAccount.id == rhsAccount.id
+            
+            
+        case let (.analytics(lhsAccount), .analytics(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
             
             
@@ -187,6 +211,9 @@ extension NavigationDirection: Equatable {
             
         case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
+            
+        case let (.savingsAccountDetail(lhsSavingsAccount), .savingsAccountDetail(rhsSavingsAccount)):
+            return lhsSavingsAccount.id == rhsSavingsAccount.id
             
         case let (.allArchivedSavingPlans(lhsAccount), .allArchivedSavingPlans(rhsAccount)):
             return lhsAccount.id == rhsAccount.id

@@ -25,18 +25,18 @@ struct NavStack<Content: View>: View {
                     router.view(direction: direction, route: .navigation)
                 }
         }
-        .sheet(item: router.presentingSheet) { direction in
+        .sheet(item: router.presentingSheet, onDismiss: router.dismissAction) { direction in
             router.view(direction: direction, route: .sheet)
         }
-        .sheet(item: router.presentingModal) { direction in
+        .sheet(item: router.presentingModal, onDismiss: router.dismissAction) { direction in
             router.view(direction: direction, route: .sheet)
                 .presentationDetents([.medium])
         }
-        .sheet(item: router.presentingModalCanFullScreen) { direction in
+        .sheet(item: router.presentingModalCanFullScreen, onDismiss: router.dismissAction) { direction in
             router.view(direction: direction, route: .sheet)
                 .presentationDetents([.medium, .large])
         }
-        .fullScreenCover(item: router.presentingFullScreen) { direction in
+        .fullScreenCover(item: router.presentingFullScreen, onDismiss: router.dismissAction) { direction in
             router.view(direction: direction, route: .fullScreenCover)
         }
     }

@@ -151,15 +151,15 @@ struct AccountDashboardView: View {
                     
                     LazyVGrid(columns: columns, spacing: 12, content: {
                         
-                        Button(action: {
-                            router.pushAllSavingsAccount()
-                        }, label: {
-                            cellForOnglet(
-                                text: "word_savings_account".localized,
-                                num: savingsAccounts.count,
-                                systemImage: "building.columns.fill"
-                            )
-                        })
+//                        Button(action: {
+//                            router.pushAllSavingsAccount()
+//                        }, label: {
+//                            cellForOnglet(
+//                                text: "word_savings_account".localized,
+//                                num: savingsAccounts.count,
+//                                systemImage: "building.columns.fill"
+//                            )
+//                        })
                         
                         Button(action: {
                             router.pushAllTransactions(account: account)

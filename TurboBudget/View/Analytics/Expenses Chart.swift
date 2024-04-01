@@ -15,7 +15,7 @@ struct ExpensesChosenMonthChart: View {
     @ObservedObject var account: Account
     
     //Custom type
-    @ObservedObject var filter: Filter = sharedFilter
+    @ObservedObject var filter = FilterManager.shared
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme

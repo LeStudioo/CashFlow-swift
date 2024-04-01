@@ -14,21 +14,9 @@ struct DetailOfTransferByMonth: View {
     var amountOfSavings: Double
     var amountOfWithdrawal: Double
 
-    //Custom type
-
-    //Environnement
+    // Environnement
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var store: Store
-    
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-    //Enum
-    
-    //Computed var
 
     //MARK: - Body
     var body: some View {

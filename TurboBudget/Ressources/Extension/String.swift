@@ -18,6 +18,12 @@ extension String {
         return self.folding(options: .diacriticInsensitive, locale: .current)
     }
     
+    func widthOfString(usingFont font: UIFont) -> CGFloat {
+         let fontAttributes = [NSAttributedString.Key.font: font]
+         let size = self.size(withAttributes: fontAttributes)
+         return size.width
+     }
+    
     func convertToDouble() -> Double {
         let stringFormated = self.replacingOccurrences(of: ",", with: ".")
         return Double(stringFormated) ?? 0

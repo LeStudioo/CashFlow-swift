@@ -10,6 +10,10 @@ import SwiftUI
 class NavigationManager: Router {
 
     // Push
+    func pushFilter() {
+        navigateTo(.filter)
+    }
+    
     func pushHome(account: Account) {
         navigateTo(.home(account: account))
     }
@@ -20,6 +24,11 @@ class NavigationManager: Router {
     
     func pushHomeAutomations(account: Account) {
         navigateTo(.homeAutomations(account: account))
+    }
+    
+    
+    func pushAnalytics(account: Account) {
+        navigateTo(.analytics(account: account))
     }
     
     
@@ -39,6 +48,10 @@ class NavigationManager: Router {
     
     func pushAccountDashboard(account: Account) {
         navigateTo(.accountDashboard(account: account))
+    }
+    
+    func pushSavingsAccountDetail(savingsAccount: SavingsAccount) {
+        navigateTo(.savingsAccountDetail(savingsAccount: savingsAccount))
     }
     
     func pushAllSavingsAccount() {
@@ -133,12 +146,20 @@ class NavigationManager: Router {
         presentSheet(.createSavingPlans)
     }
     
-    func presentCreateTransaction() {
-        presentSheet(.createTransaction)
+    func presentCreateTransaction(dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createTransaction, dismissAction)
     }
     
     func presentRecoverTransaction() {
         presentSheet(.recoverTransaction)
+    }
+    
+    func presentCreateSavingsAccount() {
+        presentSheet(.createSavingsAccount)
+    }
+    
+    func presentCreateTransfer() {
+        presentSheet(.createTransfer)
     }
     
     func presentSelectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>) {
@@ -159,6 +180,8 @@ private extension NavigationManager {
             switch direction {
             case .pageController:
                 PageControllerView()
+            case .filter:
+                NewFilterView()
                 
             case .home(let account):
                 HomeScreenView(router: router(route: route), account: account)
@@ -167,6 +190,8 @@ private extension NavigationManager {
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
+            case .analytics(let account):
+                AnalyticsHomeView(router: router(route: route), account: account)
                 
             case .createAutomation:
                 CreateAutomationView(router: router(route: route))
@@ -178,6 +203,10 @@ private extension NavigationManager {
                 CreateTransactionView(router: router(route: route))
             case .recoverTransaction:
                 RecoverTransactionView()
+            case .createSavingsAccount:
+                CreateSavingsAccountView()
+            case .createTransfer:
+                CreateTransferView()
                 
                 
             case .selectCategory(let category, let subcategory):
@@ -196,8 +225,10 @@ private extension NavigationManager {
                 
             case .accountDashboard(let account):
                 AccountDashboardView(router: router(route: route), account: account)
+            case .savingsAccountDetail(let savingsAccount):
+                SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:
-                SavingsAccountHomeView()
+                SavingsAccountHomeView(router: router(route: route))
             case .allBudgets:
                 BudgetsHomeView(router: router(route: route))
             case .budgetTransactions(let subcategory):

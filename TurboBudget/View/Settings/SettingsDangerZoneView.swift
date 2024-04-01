@@ -19,6 +19,9 @@ struct SettingsDangerZoneView: View {
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
     private var accounts: FetchedResults<Account>
     
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.id, ascending: true)])
+    private var budgets: FetchedResults<Budget>
+    
     // Environment
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -109,6 +112,7 @@ struct SettingsDangerZoneView: View {
             deleteTransaction()
             deleteSavingPlan()
             deleteContribution()
+            deleteBudget()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             persistenceController.saveContext()
@@ -138,6 +142,12 @@ struct SettingsDangerZoneView: View {
             for contribution in savingPlan.contributions {
                 viewContext.delete(contribution)
             }
+        }
+    }
+    
+    func deleteBudget() {
+        for budget in budgets {
+            viewContext.delete(budget)
         }
     }
     

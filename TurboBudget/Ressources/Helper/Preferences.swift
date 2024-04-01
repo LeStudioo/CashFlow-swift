@@ -39,6 +39,8 @@ final class Preferences {
     @UserDefault("hapticFeedback")
     var hapticFeedback: Bool = true
     
+    @UserDefault("isSuccessfulModalSwhowing")
+    var isSuccessfulModalSwhowing: Bool = false
     
     // Setting - Security
     @UserDefault("isFaceIDEnabled")

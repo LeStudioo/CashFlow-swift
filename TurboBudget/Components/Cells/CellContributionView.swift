@@ -47,7 +47,8 @@ struct CellContributionView: View {
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 }
             }
-            .padding(8)
+            .padding(12)
+            .padding(.horizontal, 4)
             .background(Color.colorCell)
             .cornerRadius(15)
         }, trailingActions: { context in

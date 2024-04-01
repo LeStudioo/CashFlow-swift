@@ -48,9 +48,11 @@ struct SavingsAccountDetailView: View {
                     Spacer()
                 }
                 
-                Text("word_savings_account".localized)
+                Text(savingsAccount.name)
                     .titleAdjustSize()
             }
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
             
             ForEach(getAllMonthForTransactions, id: \.self) { dateComponents in
                 if let month = Calendar.current.date(from: dateComponents) {
@@ -58,11 +60,7 @@ struct SavingsAccountDetailView: View {
                         Section(content: {
                             ForEach(savingsAccount.transfers) { transfer in
                                 if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
-                                    Button(action: {
-                                        
-                                    }, label: {
-                                        CellTransferView(transfer: transfer)
-                                    })
+                                    CellTransferView(transfer: transfer)
                                 }
                             }
                             .listRowSeparator(.hidden)

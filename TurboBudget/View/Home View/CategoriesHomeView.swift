@@ -18,25 +18,14 @@ struct CategoriesHomeView: View {
     @State private var selectedCategory: PredefinedCategory? = nil
     @ObservedObject var filter: Filter = sharedFilter
     var categories = PredefinedObjectManager.shared.allPredefinedCategory
-    
-    //Environnements
-    
+        
     //State or Binding String
     @State private var searchText: String = ""
     
     //State or Binding Int, Float and Double
     @State private var height: CGFloat = 0
-    @State private var offsetYFilterView: CGFloat = 0
-    
-    //State or Binding Bool
-    @State private var showAddCategory: Bool = false
-    
-    //State or Binding Date
-    
-    //Enum
     
     //Computed var
-    
     var dataWithFilterChoosen: Bool {
         if !filter.automation && !filter.total {
             if categories.map({ $0.expensesTransactionsAmountForSelectedDate(filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
@@ -161,18 +150,6 @@ struct CategoriesHomeView: View {
             .searchable(text: $searchText.animation(), prompt: "word_search".localized)
             .navigationTitle("word_categories")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        filter.fromBudget = false
-                        filter.fromAnalytics = false
-                        filter.showMenu.toggle()
-                    }, label: {
-                        Image(systemName: "calendar")
-                            .foregroundStyle(Color(uiColor: .label))
-                    })
-                }
-            }
             .background(Color.background.edgesIgnoringSafeArea(.all))
         } // End NavStack
     } // End body
