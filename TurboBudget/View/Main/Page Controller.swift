@@ -12,10 +12,10 @@ import CoreData
 
 struct PageControllerView: View {
     
-    // Custom type
-    @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
-    let persistenceController = PersistenceController.shared
+    // Builder
+    var router: NavigationManager
     
+    // Custom
     @State private var account: Account? = nil
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
@@ -36,6 +36,7 @@ struct PageControllerView: View {
     // Environement
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
@@ -57,177 +58,172 @@ struct PageControllerView: View {
     // MARK: - body
     var body: some View {
         ZStack(alignment: .top) {
-            NavStack(router: router) {
-                VStack {
-                    if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
-                    if !pageControllerVM.isUnlocked && icloudManager.icloudDataStatus == .found {
-                        VStack {
-                            Spacer()
-                            ProgressView()
-                            Text("alert_recover_data".localized)
-                                .multilineTextAlignment(.center)
-                                .font(.mediumText16())
-                            Spacer()
-                        }
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                                do {
-                                    let context = persistenceController.container.viewContext
-                                    let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-                                    
-                                    do {
-                                        let results = try context.fetch(fetchRequest)
-                                        if let accoutRetrieve = results.first {
-                                            account = accoutRetrieve
-                                            pageControllerVM.isUnlocked = true
-                                        }
-                                        print("🔥 results : \(results.count)")
-                                    } catch {
-                                        print("⚠️ Error for : \(error.localizedDescription)")
-                                    }
-                                }
-                            }
-                        }
-                    } else if pageControllerVM.isUnlocked {
-                        ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                            if let account = accounts.first {
-                                VStack {
-                                    switch selectedTab {
-                                    case 0:
-                                        HomeScreenView(
-                                            router: router,
-                                            account: account
-                                        )
-                                    case 1:
-                                        AnalyticsHomeView(
-                                            router: router,
-                                            account: account
-                                        )
-                                    case 3:
-                                        AccountDashboardView(
-                                            router: router,
-                                            account: account
-                                        )
-                                    case 4:
-                                        CategoriesHomeView(
-                                            router: router
-                                        )
-                                    default:
-                                        EmptyView() //Can't arrived
-                                    }
-                                }
-                                .environmentObject(csManager)
-                                .environmentObject(store)
-                                .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
-                                .disabled(viewModelCustomBar.showMenu)
-                                .onTapGesture {
-                                    withAnimation { viewModelCustomBar.showMenu = false }
-                                }
-                            } else {
-                                VStack {
-                                    Spacer()
-                                    HStack {
-                                        Spacer()
-                                        VStack(spacing: 20) {
-                                            Image("NoAccount\(themeSelected)")
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .shadow(radius: 4, y: 4)
-                                                .frame(width: isIPad 
-                                                       ? UIScreen.main.bounds.width / 3
-                                                       : UIScreen.main.bounds.width / 1.5)
-                                            
-                                            Text("home_screen_no_account".localized)
-                                                .font(.semiBoldText16())
-                                                .multilineTextAlignment(.center)
-                                        }
-                                        .offset(y: -50)
-                                        Spacer()
-                                    }
-                                    
-                                    Spacer()
-                                }
-                            }
+            VStack {
+                if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
+                if !pageControllerVM.isUnlocked && icloudManager.icloudDataStatus == .found {
+                    VStack {
+                        Spacer()
+                        ProgressView()
+                        Text("alert_recover_data".localized)
+                            .multilineTextAlignment(.center)
+                            .font(.mediumText16())
+                        Spacer()
+                    }
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+                            let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
                             
-                            TabbarView(
-                                router: router,
-                                account: $account,
-                                selectedTab: $selectedTab,
-                                offsetYMenu: $offsetYMenu
-                            )
-                        }
-                        .onChange(of: selectedTab) { _ in
-                            router.navigateToRoot()
-                        }
-                        .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
-                            withAnimation {
-                                if newValue {
-                                    if accounts.count != 0 {
-                                        offsetYMenu = -180
-                                    } else { offsetYMenu = -80 }
-                                } else { offsetYMenu = 0 }
+                            do {
+                                let results = try viewContext.fetch(fetchRequest)
+                                if let accoutRetrieve = results.first {
+                                    account = accoutRetrieve
+                                    pageControllerVM.isUnlocked = true
+                                }
+                                print("🔥 results : \(results.count)")
+                            } catch {
+                                print("⚠️ Error for : \(error.localizedDescription)")
                             }
-                        })
-                        .sheet(isPresented: $viewModelCustomBar.showAddAccount, onDismiss: {
-                            selectedTab = 3;
-                            withAnimation { update.toggle() }
-                        }, content: {  CreateAccountView() })
-                        .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
-                            viewModelAddTransaction.makeScannerView()
                         }
-                        .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
-                            withAnimation {
-                                account = accounts[0]
-                                update.toggle()
+                    }
+                } else if pageControllerVM.isUnlocked {
+                    ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                        if let account = accounts.first {
+                            VStack {
+                                switch selectedTab {
+                                case 0:
+                                    HomeScreenView(
+                                        router: router,
+                                        account: account
+                                    )
+                                case 1:
+                                    AnalyticsHomeView(
+                                        router: router,
+                                        account: account
+                                    )
+                                case 3:
+                                    AccountDashboardView(
+                                        router: router,
+                                        account: account
+                                    )
+                                case 4:
+                                    CategoriesHomeView(
+                                        router: router
+                                    )
+                                default:
+                                    EmptyView() //Can't arrived
+                                }
                             }
-                        }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
-                        .edgesIgnoringSafeArea(.bottom)
-                        .ignoresSafeArea(.keyboard)
-                    } // End if unlocked
-                }
-                .padding(update ? 0 : 0)
-                .padding(pageControllerVM.isUnlocked ? 0 : 0)
-                .onAppear {
-                    if !accounts.isEmpty { account = Array(accounts)[0] }
-                }
-                .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
-                    // LaunchScreen ended and no data in iCloud
-                    if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
-                        // First open + no data in iCloud
-                        if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 {
-                            pageControllerVM.showOnboarding.toggle()
-                            // First open + no iCloud
+                            .environmentObject(csManager)
+                            .environmentObject(store)
+                            .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
+                            .disabled(viewModelCustomBar.showMenu)
+                            .onTapGesture {
+                                withAnimation { viewModelCustomBar.showMenu = false }
+                            }
+                        } else {
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Spacer()
+                                    VStack(spacing: 20) {
+                                        Image("NoAccount\(themeSelected)")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .shadow(radius: 4, y: 4)
+                                            .frame(width: isIPad
+                                                   ? UIScreen.main.bounds.width / 3
+                                                   : UIScreen.main.bounds.width / 1.5)
+                                        
+                                        Text("home_screen_no_account".localized)
+                                            .font(.semiBoldText16())
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    .offset(y: -50)
+                                    Spacer()
+                                }
+                                
+                                Spacer()
+                            }
                         }
-                        // Already open + app close
-                        if !UserDefaults.standard.bool(forKey: "appIsOpen") && UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                            if isFaceIDEnabled {
-                                pageControllerVM.authenticate()
-                            } else {
-                                withAnimation { pageControllerVM.isUnlocked = true }
-                                UserDefaults.standard.set(true, forKey: "appIsOpen")
-                            }
+                        
+                        TabbarView(
+                            router: router,
+                            account: $account,
+                            selectedTab: $selectedTab,
+                            offsetYMenu: $offsetYMenu
+                        )
+                    }
+                    //                        .onChange(of: selectedTab) { _ in
+                    //                            router.navigateToRoot()
+                    //                        }
+                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
+                        withAnimation {
+                            if newValue {
+                                if accounts.count != 0 {
+                                    offsetYMenu = -180
+                                } else { offsetYMenu = -80 }
+                            } else { offsetYMenu = 0 }
+                        }
+                    })
+                    .sheet(isPresented: $viewModelCustomBar.showAddAccount, onDismiss: {
+                        selectedTab = 3;
+                        withAnimation { update.toggle() }
+                    }, content: {  CreateAccountView() })
+                    .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
+                        viewModelAddTransaction.makeScannerView()
+                    }
+                    .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
+                        withAnimation {
+                            account = accounts[0]
+                            update.toggle()
+                        }
+                    }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
+                    .edgesIgnoringSafeArea(.bottom)
+                    .ignoresSafeArea(.keyboard)
+                } // End if unlocked
+            }
+            .padding(update ? 0 : 0)
+            .padding(pageControllerVM.isUnlocked ? 0 : 0)
+            .onAppear {
+                if !accounts.isEmpty { account = Array(accounts)[0] }
+            }
+            .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
+                // LaunchScreen ended and no data in iCloud
+                if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
+                    // First open + no data in iCloud
+                    if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 {
+                        pageControllerVM.showOnboarding.toggle()
+                        // First open + no iCloud
+                    }
+                    // Already open + app close
+                    if !UserDefaults.standard.bool(forKey: "appIsOpen") && UserDefaults.standard.bool(forKey: "alreadyOpen") {
+                        if isFaceIDEnabled {
+                            pageControllerVM.authenticate()
                         } else {
                             withAnimation { pageControllerVM.isUnlocked = true }
                             UserDefaults.standard.set(true, forKey: "appIsOpen")
                         }
-                    }
-                })
-                .onChange(of: scenePhase) { newValue in
-                    if newValue != .active {
-                        UserDefaults.standard.set(false, forKey: "appIsOpen")
+                    } else {
+                        withAnimation { pageControllerVM.isUnlocked = true }
+                        UserDefaults.standard.set(true, forKey: "appIsOpen")
                     }
                 }
-            } // End NavStack
-
-            FilterView(showAlertPaywall: $pageControllerVM.showAlertPaywall, update: $update)
-                .offset(y: offsetYFilterView)
-                .edgesIgnoringSafeArea(.top)
-                .onChange(of: filter.showMenu) { newValue in
-                    withAnimation {
-                        if newValue { offsetYFilterView = 0 } else { offsetYFilterView = -UIScreen.main.bounds.height }
-                        update.toggle()
-                    }
+            })
+            .onChange(of: scenePhase) { newValue in
+                if newValue != .active {
+                    UserDefaults.standard.set(false, forKey: "appIsOpen")
                 }
+            }
+            
+            //            FilterView(showAlertPaywall: $pageControllerVM.showAlertPaywall, update: $update)
+            //                .offset(y: offsetYFilterView)
+            //                .edgesIgnoringSafeArea(.top)
+            //                .onChange(of: filter.showMenu) { newValue in
+            //                    withAnimation {
+            //                        if newValue { offsetYFilterView = 0 } else { offsetYFilterView = -UIScreen.main.bounds.height }
+            //                        update.toggle()
+            //                    }
+            //                }
             
         } //END ZStack
         .onReceive(self.didRemoteChange){ _ in
@@ -273,5 +269,5 @@ struct PageControllerView: View {
 
 // MARK: - Preview
 #Preview {
-    PageControllerView()
+    PageControllerView(router: .init(isPresented: .constant(nil)))
 }
