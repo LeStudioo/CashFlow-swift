@@ -12,7 +12,7 @@ import ConfettiSwiftUI
 struct CreateAutomationView: View {
     
     // Builder
-    var router: NavigationManager
+    let router: NavigationManager = .init(isPresented: .constant(.createAutomation))
     
     // Custom
     @StateObject private var viewModel = AddAutomationViewModel()
@@ -225,5 +225,5 @@ struct CreateAutomationView: View {
 
 //MARK: - Preview
 #Preview {
-    CreateAutomationView(router: .init(isPresented: .constant(.homeCategories)))
+    CreateAutomationView()
 }

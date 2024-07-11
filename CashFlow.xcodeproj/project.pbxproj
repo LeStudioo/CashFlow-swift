@@ -107,6 +107,8 @@
 		D94E95922B0F380E00E965D7 /* SavingsAccountHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E95912B0F380E00E965D7 /* SavingsAccountHomeView.swift */; };
 		D94E95962B0F41E300E965D7 /* DetailOfTransferByMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E95952B0F41E300E965D7 /* DetailOfTransferByMonth.swift */; };
 		D94E95982B0F4C0000E965D7 /* CellTransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94E95972B0F4C0000E965D7 /* CellTransferView.swift */; };
+		D95067032C37116F00FFEFDF /* CategoriesHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95067022C37116F00FFEFDF /* CategoriesHomeViewModel.swift */; };
+		D95067052C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95067042C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift */; };
 		D9529B012AEC3C6D005E799D /* PageControllerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */; };
 		D9529B032AEC3E25005E799D /* CustomTabBarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */; };
 		D95DB33C2A84FFFA002282B1 /* FilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D95DB33B2A84FFFA002282B1 /* FilterView.swift */; };
@@ -304,6 +306,8 @@
 		D94E95912B0F380E00E965D7 /* SavingsAccountHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsAccountHomeView.swift; sourceTree = "<group>"; };
 		D94E95952B0F41E300E965D7 /* DetailOfTransferByMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOfTransferByMonth.swift; sourceTree = "<group>"; };
 		D94E95972B0F4C0000E965D7 /* CellTransferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellTransferView.swift; sourceTree = "<group>"; };
+		D95067022C37116F00FFEFDF /* CategoriesHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesHomeViewModel.swift; sourceTree = "<group>"; };
+		D95067042C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryHomeViewModel.swift; sourceTree = "<group>"; };
 		D9529B002AEC3C6D005E799D /* PageControllerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerViewModel.swift; sourceTree = "<group>"; };
 		D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarViewModel.swift; sourceTree = "<group>"; };
 		D95DB33B2A84FFFA002282B1 /* FilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterView.swift; sourceTree = "<group>"; };
@@ -810,6 +814,8 @@
 				D9529B022AEC3E25005E799D /* CustomTabBarViewModel.swift */,
 				D974FAD82AECDEBE00CD8CFF /* TransactionDetailViewModel.swift */,
 				D9E56B992BA5924E0023B777 /* RecentTransactionsViewModel.swift */,
+				D95067022C37116F00FFEFDF /* CategoriesHomeViewModel.swift */,
+				D95067042C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1057,6 +1063,7 @@
 				D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */,
 				D975BFAA2A667941004FFA9D /* AutomationsHomeView.swift in Sources */,
 				D9879DB72B8B275500054FFC /* SettingsAccountView.swift in Sources */,
+				D95067052C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift in Sources */,
 				D9B805BC2AADAC5200632449 /* OnboardingView.swift in Sources */,
 				D9428C372B7E932C0030DAC2 /* Router.swift in Sources */,
 				8145ABDB2A5585B50085F233 /* Biometric Type.swift in Sources */,
@@ -1098,6 +1105,7 @@
 				D9A91CF62AF41B6B0018AD2D /* AddAutomationViewModel.swift in Sources */,
 				D9261C152A6D1145006A6FD8 /* SharingViewController.swift in Sources */,
 				8182DC642A40C8B100D45979 /* Multiple Alert.swift in Sources */,
+				D95067032C37116F00FFEFDF /* CategoriesHomeViewModel.swift in Sources */,
 				D99C9D182A6ED6CD00658056 /* Incomes Chart.swift in Sources */,
 				D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */,
 				81787D112A4C53B500E926BF /* PieChartView.swift in Sources */,

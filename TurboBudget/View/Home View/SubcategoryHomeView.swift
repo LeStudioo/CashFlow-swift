@@ -16,48 +16,30 @@ struct SubcategoryHomeView: View {
     @ObservedObject var category: PredefinedCategory
     
     // Custom
-    @State private var selectedSubcategory: PredefinedSubcategory? = nil
-    @ObservedObject var filter: Filter = sharedFilter
+    @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
     
-    //State or Binding String
-    @State private var searchText: String = ""
-    
     //State or Binding Int, Float and Double
     @State private var height: CGFloat = 0
     
-    //Computed var
-    var isDisplayChart: Bool {
-        if !filter.automation && !filter.total {
-            if category.subcategories.map({ $0.expensesTransactionsAmountForSelectedDate(filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
-        } else if filter.automation && !filter.total {
-            if category.subcategories.map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
-        } else if !filter.automation && filter.total {
-            if category.subcategories.map({ $0.amountTotalOfExpenses }).reduce(0, +) > 0 { return true } else { return false }
-        } else if filter.automation && filter.total {
-            if category.subcategories.map({ $0.amountTotalOfExpensesAutomations }).reduce(0, +) > 0 { return true } else { return false }
-        }
-        return false
-    }
-    
-    var subcategoryWithTheHighestAmount: Double {
-        return category.subcategories.map { $0.amountTotalOfExpenses }.sorted { $0 < $1 }.last!
-    }
-    
+    // Computed
     var searchResults: [PredefinedSubcategory] {
-        if searchText.isEmpty {
-            return category.subcategories.sorted { $0.title < $1.title }
+        if viewModel.searchText.isEmpty {
+            return category.subcategories
+                .sorted { $0.title < $1.title }
         } else {
-            return category.subcategories.sorted { $0.title < $1.title }.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
+            return category.subcategories
+                .sorted { $0.title < $1.title }
+                .filter { $0.title.localizedStandardContains(viewModel.searchText) }
         }
     }
     
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView(showsIndicators: false) {
+            ScrollView {
                 VStack {
                     if !alertMessageIfEmpty().isEmpty {
                         HStack {
@@ -67,16 +49,16 @@ struct SubcategoryHomeView: View {
                         }
                         .padding(.bottom, 8)
                     }
-                    if isDisplayChart && searchText.isEmpty {
+                    if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
                         HStack {
                             Spacer()
                             PieChartSubcategoryView(
                                 subcategories: category.subcategories,
-                                selectedSubcategory: $selectedSubcategory,
+                                selectedSubcategory: $viewModel.selectedSubcategory,
                                 height: $height
                             )
                             .frame(height: height)
-                            .id(filter.id)
+                            .id(viewModel.filter.id)
                             Spacer()
                         }
                         .padding(.vertical)
@@ -99,11 +81,12 @@ struct SubcategoryHomeView: View {
                 .padding()
             } // End ScrollView
             .scrollDismissesKeyboard(.immediately)
+            .scrollIndicators(.hidden)
         } // End VStack
-        .blur(radius: filter.showMenu ? 3 : 0)
-        .disabled(filter.showMenu)
-        .onTapGesture { withAnimation { filter.showMenu = false } }
-        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        .blur(radius: viewModel.filter.showMenu ? 3 : 0)
+        .disabled(viewModel.filter.showMenu)
+        .onTapGesture { withAnimation { viewModel.filter.showMenu = false } }
+        .searchable(text: $viewModel.searchText.animation(), prompt: "word_search".localized)
         .navigationTitle("word_subcategories".localized)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.large)
@@ -121,15 +104,15 @@ struct SubcategoryHomeView: View {
     
     // MARK: - Functions
     func dataAvailableForSubcategoryWithFilter(subcategory: PredefinedSubcategory) -> Bool {
-        if filter.total && subcategory.transactions.count != 0 { return true }
-        if subcategory.expensesTransactionsAmountForSelectedDate(filter: filter) != 0 { return true }
+        if viewModel.filter.total && subcategory.transactions.count != 0 { return true }
+        if subcategory.expensesTransactionsAmountForSelectedDate(filter: viewModel.filter) != 0 { return true }
         return false
     }
     
     func alertMessageIfEmpty() -> String {
-        if filter.byDay && !isDisplayChart {
+        if viewModel.filter.byDay && !viewModel.isDisplayChart(category: category) {
             return "⚠️" + " " + "error_message_no_data_day".localized
-        } else if !filter.byDay && !isDisplayChart && !filter.total {
+        } else if !viewModel.filter.byDay && !viewModel.isDisplayChart(category: category) && !viewModel.filter.total {
             return "⚠️" + " " + "error_message_no_data_month".localized
         }
         return ""

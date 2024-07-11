@@ -50,35 +50,32 @@ struct OnboardingView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $actualPage) {
-                //1
                 onboardingPage(
                     image: "TutorialPage1",
                     title: "onboarding_page1_title".localized,
                     desc: "onboarding_page1_desc".localized
                 ).tag(1)
                 
-                //2
                 onboardingPage(
                     image: "TutorialPage2",
                     title: "onboarding_page2_title".localized,
                     desc: "onboarding_page2_desc".localized
                 ).tag(2)
                 
-                //3
                 onboardingPage(
                     image: "TutorialPage3",
                     title: "onboarding_page3_title".localized,
                     desc: "onboarding_page3_desc".localized
                 ).tag(3)
                 
-                //4
                 onboardingPage(
                     image: "TutorialPage4",
                     title: "onboarding_page4_title".localized,
                     desc: "onboarding_page4_desc".localized
                 ).tag(4)
                 
-                addAccountPage().tag(5)
+                addAccountPage()
+                    .tag(5)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
@@ -128,9 +125,9 @@ struct OnboardingView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-    }//END body
+    } // End body
     
-    //MARK: - ViewBuilder
+    // MARK: - ViewBuilder
     @ViewBuilder
     func onboardingPage(image: String, title: String, desc: String) -> some View {
         ZStack(alignment: .bottom) {
@@ -204,7 +201,7 @@ struct OnboardingView: View {
         }
     }
 
-    //MARK: Fonctions
+    // MARK: Fonctions
     func validateNewAccount() -> Bool {
         if actualPage == 5 {
             if !accountTitle.isEmpty && accountBalance.convertToDouble() != 0 {
@@ -213,7 +210,7 @@ struct OnboardingView: View {
         } else { return true }
     }
 
-}//END struct
+} // End struct
 
 //MARK: - Preview
 struct OnboardingView_Previews: PreviewProvider {

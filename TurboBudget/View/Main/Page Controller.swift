@@ -176,6 +176,7 @@ struct PageControllerView: View {
                         withAnimation {
                             account = accounts[0]
                             update.toggle()
+                            router.presentPaywall()
                         }
                     }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
                     .edgesIgnoringSafeArea(.bottom)

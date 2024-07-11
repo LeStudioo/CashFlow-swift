@@ -12,7 +12,7 @@ import ConfettiSwiftUI
 struct CreateTransactionView: View {
     
     // Builder
-    var router: NavigationManager
+    let router: NavigationManager = .init(isPresented: .constant(.createTransaction))
     
     // Custom
     @StateObject private var viewModel = AddTransactionViewModel()
@@ -251,5 +251,5 @@ struct CreateTransactionView: View {
 
 // MARK: - Preview
 #Preview {
-    CreateTransactionView(router: .init(isPresented: .constant(.createTransaction)))
+    CreateTransactionView()
 }

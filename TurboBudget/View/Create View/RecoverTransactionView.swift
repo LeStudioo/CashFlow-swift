@@ -13,7 +13,7 @@ import PhotosUI
 struct RecoverTransactionView: View {
     
     // Custom
-    @ObservedObject var viewModel = RecoverTransactionViewModel()
+    @StateObject private var viewModel: RecoverTransactionViewModel = .init()
 
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -24,14 +24,6 @@ struct RecoverTransactionView: View {
     //Photos
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
-    
-    // Other
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        formatter.timeZone = TimeZone(secondsFromGMT: 0)
-        return formatter
-    }
 
     //MARK: - Body
     var body: some View {

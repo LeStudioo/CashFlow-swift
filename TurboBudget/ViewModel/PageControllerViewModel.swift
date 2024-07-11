@@ -10,14 +10,7 @@ import LocalAuthentication
 
 class PageControllerViewModel: ObservableObject {
     static let shared = PageControllerViewModel()
-    
-//    @Published var showAddAccount: Bool = false
-//    @Published var showAddSavingPlan: Bool = false
-//    @Published var showRecoverTransaction: Bool = false
-//    @Published var showAddAutomation: Bool = false
-//    @Published var showScanTransaction: Bool = false
-//    @Published var showAddTransaction: Bool = false
-    
+        
     @Published var showAlertAccount: Bool = false
     @Published var showOnboarding: Bool = false
     @Published var isUnlocked: Bool = false

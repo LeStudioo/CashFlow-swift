@@ -194,13 +194,13 @@ private extension NavigationManager {
                 AnalyticsHomeView(router: router(route: route), account: account)
                 
             case .createAutomation:
-                CreateAutomationView(router: router(route: route))
+                CreateAutomationView()
             case .createBudget:
                 CreateBudgetView(router: router(route: route))
             case .createSavingPlans:
                 CreateSavingPlansView(router: router(route: route))
             case .createTransaction:
-                CreateTransactionView(router: router(route: route))
+                CreateTransactionView()
             case .recoverTransaction:
                 RecoverTransactionView()
             case .createSavingsAccount:
