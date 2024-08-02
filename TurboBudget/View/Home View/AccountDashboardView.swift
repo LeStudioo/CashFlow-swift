@@ -47,18 +47,13 @@ struct AccountDashboardView: View {
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var isEditingAccountName: Bool = false
-    @State private var showAddCard: Bool = false
     @State private var busy: Bool = false
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     
     // Computed var
     var widthOfChart: CGFloat {
-        if isIPad {
-            return UIScreen.main.bounds.width / 5
-        } else {
-            return UIScreen.main.bounds.width / 3
-        }
+        return UIScreen.main.bounds.width / (isIPad ? 5 : 3)
     }
     
     var percentage: Double {

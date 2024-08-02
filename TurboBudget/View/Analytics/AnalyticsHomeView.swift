@@ -18,9 +18,6 @@ struct AnalyticsHomeView: View {
     
     // Custom
     @ObservedObject var filter = FilterManager.shared
-        
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
     
     // Computed var
     private var chartsView: [AnyView] {

@@ -8,7 +8,6 @@
 // Refactor 18/02/2024
 
 import SwiftUI
-import Charts
 import CoreData
 
 struct HomeScreenView: View {
@@ -19,16 +18,6 @@ struct HomeScreenView: View {
     
     // Custom
     @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
-    
-    // CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
-    private var accounts: FetchedResults<Account>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Transaction.amount, ascending: true)])
-    private var transactions: FetchedResults<Transaction>
-    
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
     
     // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
@@ -41,9 +30,6 @@ struct HomeScreenView: View {
     @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen
     @Preference(\.isStepsEnbaledForAllSavingsPlans) private var isStepsEnbaledForAllSavingsPlans
     
-    // String variables
-    @State private var searchText: String = ""
-    
     // Number variables
     @State private var accountBalanceInt: Int = 0
     @State private var accountBalanceDouble: Double = 0.0
@@ -51,7 +37,6 @@ struct HomeScreenView: View {
     // Boolean variables
     @State private var busy: Bool = false
     @State private var showPaywall: Bool = false
-    @State private var updateOrientation: Bool = false
     
     // MARK: - body
     var body: some View {

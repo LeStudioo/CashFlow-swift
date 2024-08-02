@@ -153,9 +153,6 @@ struct PageControllerView: View {
                             offsetYMenu: $offsetYMenu
                         )
                     }
-                    //                        .onChange(of: selectedTab) { _ in
-                    //                            router.navigateToRoot()
-                    //                        }
                     .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
                         withAnimation {
                             if newValue {
