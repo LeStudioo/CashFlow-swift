@@ -201,7 +201,7 @@ struct CreateAutomationView: View {
             }
             .onChange(of: viewModel.typeTransaction, perform: { newValue in
                 if newValue == .income {
-                    viewModel.selectedCategory = categoryPredefined0
+                    viewModel.selectedCategory = .PREDEFCAT0
                     viewModel.selectedSubcategory = nil
                 } else {
                     viewModel.selectedCategory = nil

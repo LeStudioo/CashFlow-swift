@@ -81,11 +81,12 @@ struct RecentTransactionsView: View {
         VStack {
             if account.transactions.count != 0 && searchResults.count != 0 {
                 if filterTransactions == .category {
-                    List(PredefinedCategoryManager().getAllCategoriesForTransactions(), id: \.self) { category in
-                        if searchResults.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
+                    List(PredefinedCategory.categoriesWithTransactions, id: \.self) { category in
+                        if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if let categoryOfTransaction = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID), categoryOfTransaction == category {
+                                    if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID),
+                                       categoryOfTransaction == category {
                                         Button(action: {
                                             router.pushTransactionDetail(transaction: transaction)
                                         }, label: {

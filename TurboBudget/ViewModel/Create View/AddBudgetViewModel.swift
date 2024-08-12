@@ -26,8 +26,8 @@ class AddBudgetViewModel: ObservableObject {
             newBudget.id = UUID()
             newBudget.title = selectedSubcategory.title
             newBudget.amount = amountBudget.convertToDouble()
-            newBudget.predefCategoryID = selectedCategory.idUnique
-            newBudget.predefSubcategoryID = selectedSubcategory.idUnique
+            newBudget.predefCategoryID = selectedCategory.id
+            newBudget.predefSubcategoryID = selectedSubcategory.id
         }
         
         persistenceController.saveContext()

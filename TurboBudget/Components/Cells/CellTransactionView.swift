@@ -18,29 +18,12 @@ struct CellTransactionView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    // State or Binding String
-    
-    // State or Binding Int, Float and Double
-    
     // State or Binding Bool
     @State private var isEditing: Bool = false
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
     @State private var isSharingJSON: Bool = false
     @State private var isSharingQRCode: Bool = false
-
-    // Computed var
-    var category: PredefinedCategory? {
-        return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-    }
-    
-    var subcategory: PredefinedSubcategory? {
-        if let category {
-            return PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID)
-        } else {
-            return nil
-        }
-    }
     
     //MARK: - Body
     var body: some View {
@@ -50,7 +33,7 @@ struct CellTransactionView: View {
                     .foregroundStyle(Color.background)
                     .frame(width: 50)
                     .overlay {
-                        if let category, let subcategory {
+                        if let category = transaction.category, let subcategory = transaction.subcategory {
                             Circle()
                                 .foregroundStyle(category.color)
                                 .shadow(radius: 4, y: 4)
@@ -60,7 +43,7 @@ struct CellTransactionView: View {
                                 .font(.system(size: 14, weight: .semibold, design: .rounded))
                                 .foregroundStyle(Color(uiColor: .systemBackground))
                             
-                        } else if let category, subcategory == nil {
+                        } else if let category = transaction.category, transaction.subcategory == nil {
                             Circle()
                                 .foregroundStyle(category.color)
                                 .shadow(radius: 4, y: 4)
@@ -200,7 +183,8 @@ struct CellTransactionView: View {
         if let account = transaction.transactionToAccount {
             account.deleteTransaction(transaction: transaction)
         }
-        PredefinedObjectManager.shared.reloadTransactions()
+        // TODO: Voir si reload
+//        PredefinedObjectManager.shared.reloadTransactions()
     }
 
 } // END struct

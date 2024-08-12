@@ -105,7 +105,8 @@ struct AddTransactionIntent: AppIntent {
         if let account = allAccounts.first {
             newTransaction.transactionToAccount = account
             account.addNewTransaction(transaction: newTransaction)
-            PredefinedObjectManager.shared.reloadTransactions()
+            // TODO: - Voir si reload
+//            PredefinedObjectManager.shared.reloadTransactions()
         }
         
         let amountString: String = extractNumberString(from: amount)

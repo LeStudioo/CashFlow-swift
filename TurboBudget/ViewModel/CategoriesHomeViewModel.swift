@@ -9,7 +9,7 @@ import Foundation
 
 final class CategoriesHomeViewModel: ObservableObject {
     
-    let categories = PredefinedObjectManager.shared.allPredefinedCategory
+    let categories = PredefinedCategory.allCases
     let filter: Filter = .shared
     
     @Published var selectedCategory: PredefinedCategory? = nil

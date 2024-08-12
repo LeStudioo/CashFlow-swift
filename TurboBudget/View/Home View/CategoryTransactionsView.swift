@@ -13,7 +13,7 @@ struct CategoryTransactionsView: View {
     
     // Builder
     var router: NavigationManager
-    @ObservedObject var category: PredefinedCategory
+    var category: PredefinedCategory
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -133,7 +133,7 @@ struct CategoryTransactionsView: View {
                 Menu(content: {
                     Menu(content: {
                         Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month", systemImage: "calendar") })
-                        if category.idUnique != "PREDEFCAT0" {
+                        if category.id != PredefinedCategory.PREDEFCAT0.id {
                             Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses", systemImage: "arrow.down.forward") })
                         } else {
                             Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes", systemImage: "arrow.up.right") })
@@ -156,7 +156,7 @@ struct CategoryTransactionsView: View {
 // MARK: - Preview
 #Preview {
     CategoryTransactionsView(
-        router: .init(isPresented: .constant(.categoryTransactions(category: categoryPredefined1))),
-        category: categoryPredefined1
+        router: .init(isPresented: .constant(.categoryTransactions(category: .PREDEFCAT1))),
+        category: .PREDEFCAT1
     )
 }

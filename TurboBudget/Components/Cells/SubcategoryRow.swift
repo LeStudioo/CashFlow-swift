@@ -13,18 +13,6 @@ struct SubcategoryRow: View {
     var subcategory: PredefinedSubcategory
     @ObservedObject var filter: Filter = sharedFilter
     
-    //Environnements
-    
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Bool
-    
-    //State or Binding Date
-    
-    //Enum
-    
     //Computed var
     var stringAmount: String {
         if !filter.automation && !filter.total {
@@ -39,7 +27,7 @@ struct SubcategoryRow: View {
         return ""
     }
     
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
             ZStack {
@@ -82,13 +70,10 @@ struct SubcategoryRow: View {
         .padding()
         .background(Color.colorCell)
         .cornerRadius(15)
-    }//END body
-    
-    //MARK: Fonctions
-    
-}//END struct
+    } // End body
+} // End struct
 
 //MARK: - Preview
 #Preview {
-    SubcategoryRow(subcategory: subCategory1Category1)
+    SubcategoryRow(subcategory: .PREDEFSUBCAT1CAT1)
 }

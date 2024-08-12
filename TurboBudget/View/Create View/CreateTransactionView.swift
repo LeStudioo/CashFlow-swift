@@ -16,7 +16,6 @@ struct CreateTransactionView: View {
     
     // Custom
     @StateObject private var viewModel = AddTransactionViewModel()
-    @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -94,7 +93,7 @@ struct CreateTransactionView: View {
                                         }
                                         .font(.mediumText16())
                                         .onTapGesture {
-                                            if categoryFound == categoryPredefined0 {
+                                            if categoryFound == PredefinedCategory.PREDEFCAT0 {
                                                 withAnimation { viewModel.transactionType = .income }
                                             } else {
                                                 viewModel.selectedCategory = categoryFound

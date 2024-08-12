@@ -16,9 +16,6 @@ struct HomeScreenView: View {
     var router: NavigationManager
     @ObservedObject var account: Account
     
-    // Custom
-    @ObservedObject var predefinedObjectManager = PredefinedObjectManager.shared
-    
     // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store

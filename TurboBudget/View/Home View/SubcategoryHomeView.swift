@@ -13,7 +13,7 @@ struct SubcategoryHomeView: View {
     
     // Builder
     var router: NavigationManager
-    @ObservedObject var category: PredefinedCategory
+    var category: PredefinedCategory
     
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
@@ -123,7 +123,7 @@ struct SubcategoryHomeView: View {
 // MARK: - Preview
 #Preview {
     SubcategoryHomeView(
-        router: .init(isPresented: .constant(.homeSubcategories(category: categoryPredefined1))),
-        category: categoryPredefined1
+        router: .init(isPresented: .constant(.homeSubcategories(category: .PREDEFCAT1))),
+        category: .PREDEFCAT1
     )
 }

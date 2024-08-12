@@ -29,18 +29,24 @@ public class Account: NSManagedObject, Identifiable {
     
     public var allTransactions: [Transaction] {
         if let transactions = accountToTransaction {
-            return transactions.sorted { $0.date > $1.date }.filter({ !$0.isAuto && PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) != nil })
+            return transactions
+                .sorted { $0.date > $1.date }
+                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
         } else { return [] }
     }
 
     public var transactions: [Transaction] {
         if let transactions = accountToTransaction {
-            return transactions.filter({ !$0.isAuto && PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) != nil }).sorted {
-                if $0.date == $1.date { return $0.title < $1.title } else { return $0.date > $1.date }
-            }
-        } else {
-            return []
-        }
+            return transactions
+                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
+                .sorted {
+                    if $0.date == $1.date {
+                        return $0.title < $1.title
+                    } else {
+                        return $0.date > $1.date
+                    }
+                }
+        } else { return [] }
     }
     
     public var transactionsWithOnlyAutomations: [Transaction] {
@@ -53,7 +59,9 @@ public class Account: NSManagedObject, Identifiable {
     
     public var transactionsArchived: [Transaction] {
         if let transactions = accountToTransaction {
-            return transactions.sorted { $0.date > $1.date }.filter({ !$0.isAuto && PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) != nil && $0.isArchived })
+            return transactions
+                .sorted { $0.date > $1.date }
+                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil && $0.isArchived })
         } else { return [] }
     }
     
@@ -169,7 +177,9 @@ extension Account {
     public func amountIncomeInActualMonth() -> Double {
         var total: Double = 0
         for transaction in transactionsActualMonth {
-            if transaction.amount > 0 && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil { total += transaction.amount }
+            if transaction.amount > 0 && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                total += transaction.amount
+            }
         }
         return total
     }
@@ -188,7 +198,9 @@ extension Account {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsActualMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) && transaction.amount > 0 && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date)
+                    && transaction.amount > 0
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                     amountOfDay += transaction.amount
                 }
             }
@@ -212,7 +224,11 @@ extension Account {
         var transactionsIncomes: [Transaction] = []
         
         for transaction in transactions {
-            if transaction.amount > 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil { transactionsIncomes.append(transaction) }
+            if transaction.amount > 0 
+                && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month)
+                && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                transactionsIncomes.append(transaction)
+            }
         }
         return transactionsIncomes
     }

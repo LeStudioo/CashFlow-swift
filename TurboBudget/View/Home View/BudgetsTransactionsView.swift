@@ -13,7 +13,7 @@ struct BudgetsTransactionsView: View {
 
     // Builder
     var router: NavigationManager
-    @ObservedObject var subcategory: PredefinedSubcategory
+    var subcategory: PredefinedSubcategory
 
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -162,6 +162,6 @@ struct BudgetsTransactionsView: View {
 #Preview {
     BudgetsTransactionsView(
         router: .init(isPresented: .constant(.allBudgets)),
-        subcategory: subCategory1Category1
+        subcategory: .PREDEFSUBCAT1CAT1
     )
 }

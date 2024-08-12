@@ -24,7 +24,7 @@ public class Budget: NSManagedObject, Identifiable {
     @NSManaged public var predefSubcategoryID: String
     
     public var color: Color {
-        if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: predefCategoryID) {
+        if let category = PredefinedCategory.findByID(predefCategoryID) {
             return category.color
         } else {
             return .red
@@ -62,14 +62,13 @@ public class Budget: NSManagedObject, Identifiable {
     public func actualAmountForMonth(month: Date) -> Double {
         var amount: Double = 0.0
         
-        let categoryOfBudget = PredefinedCategoryManager().categoryByUniqueID(idUnique: predefCategoryID)
-        let subcategoryOfBudget = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: categoryOfBudget?.subcategories ?? [], idUnique: predefSubcategoryID)
-
-        if let subcategoryOfBudget {
-            for transaction in subcategoryOfBudget.transactions {
-                
-                let categoryOfTransaction = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-                let subcategoryOfTransaction = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: categoryOfTransaction?.subcategories ?? [], idUnique: transaction.predefSubcategoryID)
+        guard let categoryOfBudget = PredefinedCategory.findByID(predefCategoryID), let subcategoryOfBudget = categoryOfBudget.subcategories.findByID(predefSubcategoryID) else {
+            return 0
+        }
+        
+        for transaction in subcategoryOfBudget.transactions {
+            if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID) {
+                let subcategoryOfTransaction = categoryOfTransaction.subcategories.findByID(transaction.predefSubcategoryID)
                 
                 if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
                     amount -= transaction.amount
@@ -98,7 +97,7 @@ extension Budget {
         budget.id = UUID()
         budget.title = "Preview Budget 1"
         budget.amount = 500
-        budget.predefCategoryID = categoryPredefined1.idUnique
+        budget.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
         return budget
     }
     
@@ -107,8 +106,8 @@ extension Budget {
         budget.id = UUID()
         budget.title = "Preview Budget 2"
         budget.amount = 800
-        budget.predefCategoryID = categoryPredefined2.idUnique
-        budget.predefSubcategoryID = subCategory1Category2.idUnique
+        budget.predefCategoryID = PredefinedCategory.PREDEFCAT2.id
+        budget.predefSubcategoryID = PredefinedSubcategory.PREDEFSUBCAT1CAT2.id
         
         return budget
     }

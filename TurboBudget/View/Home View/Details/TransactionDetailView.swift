@@ -43,18 +43,6 @@ struct TransactionDetailView: View {
 	
 	//Computed var
     var isAnExpense: Bool { if transaction.amount < 0 { return true } else { return false} }
-    
-    var category: PredefinedCategory? {
-        return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-    }
-    
-    var subcategory: PredefinedSubcategory? {
-        if let category {
-            return PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID)
-        } else {
-            return nil
-        }
-    }
 
     //MARK: - Body
     var body: some View {
@@ -67,15 +55,15 @@ struct TransactionDetailView: View {
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundStyle(category?.color ?? .red)
-                            .shadow(color: category?.color ?? .red, radius: 4, y: 2)
+                            .foregroundStyle(transaction.category?.color ?? .red)
+                            .shadow(color: transaction.category?.color ?? .red, radius: 4, y: 2)
                             .overlay {
                                 VStack {
-                                    if let subcategory {
+                                    if let subcategory = transaction.subcategory {
                                         Image(systemName: subcategory.icon)
                                             .font(.system(size: 32, weight: .semibold, design: .rounded))
                                             .foregroundStyle(Color(uiColor: .systemBackground))
-                                    } else if let category {
+                                    } else if let category = transaction.category {
                                         Image(systemName: category.icon)
                                             .font(.system(size: 32, weight: .semibold, design: .rounded))
                                             .foregroundStyle(Color(uiColor: .systemBackground))
@@ -83,7 +71,9 @@ struct TransactionDetailView: View {
                                 }
                             }
                             .onTapGesture {
-                                if let category, category.idUnique != categoryPredefined0.idUnique, !transaction.isAuto {
+                                if let category = transaction.category,
+                                   category.id != PredefinedCategory.PREDEFCAT0.id,
+                                   !transaction.isAuto {
                                     showWhatCategory.toggle()
                                 }
                             }
@@ -96,8 +86,9 @@ struct TransactionDetailView: View {
                 Spacer()
             }
             
-            if store.isLifetimeActive && transaction.predefCategoryID == categoryPredefined00.idUnique {
-                if let categoryFound = viewModel.automaticCategorySearch(title: transaction.title).0, categoryFound != categoryPredefined0 {
+            if store.isLifetimeActive && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
+                if let categoryFound = viewModel.automaticCategorySearch(title: transaction.title).0,
+                   categoryFound != PredefinedCategory.PREDEFCAT0 {
                     let subcategoryFound = viewModel.automaticCategorySearch(title: transaction.title).1
                     VStack(spacing: 0) {
                         Text("transaction_recommended_category".localized + " : ")
@@ -136,14 +127,14 @@ struct TransactionDetailView: View {
                 )
             }
             
-            if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) {
+            if let category = transaction.category {
                 CellForDetailTransaction(
                     leftText: "word_category".localized,
                     rightText: category.title,
                     rightTextColor: category.color
                 )
                 
-                if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID) {
+                if let subcategory = transaction.subcategory {
                     CellForDetailTransaction(
                         leftText: "word_subcategory".localized,
                         rightText: subcategory.title,
@@ -261,7 +252,8 @@ struct TransactionDetailView: View {
         if let account = transaction.transactionToAccount {
             account.deleteTransaction(transaction: transaction)
         }
-        PredefinedObjectManager.shared.reloadTransactions()
+        // TODO: Voir si auto reload
+//        PredefinedObjectManager.shared.reloadTransactions()
         dismiss()
     }
     

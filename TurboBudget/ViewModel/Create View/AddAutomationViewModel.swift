@@ -69,8 +69,8 @@ extension AddAutomationViewModel {
         newTransaction.amount = typeTransaction == .expense ? -amountTransaction.convertToDouble() : amountTransaction.convertToDouble()
         newTransaction.date = finalDate
         newTransaction.isAuto = true
-        newTransaction.predefCategoryID = typeTransaction == .income ? categoryPredefined0.idUnique : selectedCategory?.idUnique ?? ""
-        newTransaction.predefSubcategoryID = typeTransaction == .income ? "" : selectedSubcategory?.idUnique ?? ""
+        newTransaction.predefCategoryID = typeTransaction == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? ""
+        newTransaction.predefSubcategoryID = typeTransaction == .income ? "" : selectedSubcategory?.id ?? ""
         
         let newAutomation = Automation(context: viewContext)
         newAutomation.id = UUID()

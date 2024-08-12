@@ -28,7 +28,9 @@ class TransactionManager {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) && transaction.amount > 0 && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date) 
+                    && transaction.amount > 0
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                     amountOfDay += transaction.amount
                 }
             }
@@ -147,7 +149,7 @@ extension TransactionManager {
         var amount: Double = 0.0
         
         for transaction in account.transactions {
-            if let _ = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) {
+            if let _ = PredefinedCategory.findByID(transaction.predefCategoryID) {
                 if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                     if transaction.amount < 0 { amount -= transaction.amount } else { amount += transaction.amount }
                 }
@@ -175,8 +177,13 @@ extension TransactionManager {
         
         for transaction in transactions {
             if let dateOfMonthSelected {
-                if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month) && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil {
-                    if transaction.amount < 0 { amount -= transaction.amount } else { amount += transaction.amount }
+                if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month)
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                    if transaction.amount < 0 { 
+                        amount -= transaction.amount
+                    } else {
+                        amount += transaction.amount
+                    }
                 }
             } else { print("⚠️ dateOfMonthSelected is NIL") }
         }

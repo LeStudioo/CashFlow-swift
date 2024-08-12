@@ -12,7 +12,6 @@ import SwiftUI
 class AddTransactionViewModel: ObservableObject {
     static let shared = AddTransactionViewModel()
     let context = persistenceController.container.viewContext
-    var predefinedObjectManager = PredefinedObjectManager.shared
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
@@ -79,8 +78,8 @@ class AddTransactionViewModel: ObservableObject {
             newTransaction.date = transactionDate
             newTransaction.creationDate = Date()
             newTransaction.comeFromAuto = false
-            newTransaction.predefCategoryID = transactionType == .income ? categoryPredefined0.idUnique : selectedCategory?.idUnique ?? ""
-            newTransaction.predefSubcategoryID = transactionType == .income ? "" : selectedSubcategory?.idUnique ?? ""
+            newTransaction.predefCategoryID = transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? ""
+            newTransaction.predefSubcategoryID = transactionType == .income ? "" : selectedSubcategory?.id ?? ""
             
             mainAccount.addNewTransaction(transaction: newTransaction)
                         
@@ -104,7 +103,8 @@ class AddTransactionViewModel: ObservableObject {
                 try context.save()
                 print("🔥 New Transaction created with Success")
                 theNewTransaction = newTransaction
-                predefinedObjectManager.reloadTransactions()
+                //TODO: Voir si reload auto sinon faire .append au lieu de fetch pour opti
+//                predefinedObjectManager.reloadTransactions()
                 withAnimation { showSuccessfulTransaction.toggle() }
             } catch {
                 print("⚠️ Error for : \(error.localizedDescription)")
@@ -138,7 +138,9 @@ extension AddTransactionViewModel {
         var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if !candidate.predefCategoryID.isEmpty && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
+            if !candidate.predefCategoryID.isEmpty 
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
                 // Vérifier si la transaction actuelle est plus récente que celle stockée
                 if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
@@ -153,8 +155,10 @@ extension AddTransactionViewModel {
             return (nil, nil)  // No transactions found
         }
 
-        let finalCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: mostRecentTransaction.predefCategoryID)
-        let finalSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: finalCategory?.subcategories ?? [], idUnique: mostRecentTransaction.predefSubcategoryID)
+        guard let finalCategory = PredefinedCategory.findByID(mostRecentTransaction.predefCategoryID) else {
+            return (nil, nil)
+        }
+        let finalSubcategory = finalCategory.subcategories.findByID(mostRecentTransaction.predefSubcategoryID)
         
         return (finalCategory, finalSubcategory)
     }
@@ -210,6 +214,7 @@ extension AddTransactionViewModel {
                 if budget.isExceeded(month: transactionDate) { return true }
                 if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.convertToDouble()) > budget.amount { return true }
             }
+            return true
         }
         return false
     }
@@ -217,7 +222,7 @@ extension AddTransactionViewModel {
     var isDuplicateTransactions: Bool {
         if let mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
             let accountFilteredByTitle = mainAccount.allTransactions.filter { $0.title == transactionTitle }
-            let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.idUnique ?? "" && selectedSubcategory != nil }
+            let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.id ?? "" && selectedSubcategory != nil }
             if accountFilteredBySubcategory.count != 0 { return true } else { return false }
         } else { return false }
     }

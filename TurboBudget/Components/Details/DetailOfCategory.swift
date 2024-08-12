@@ -65,5 +65,5 @@ struct DetailOfCategory: View {
 
 //MARK: - Preview
 #Preview {
-    DetailOfCategory(category: categoryPredefined1)
+    DetailOfCategory(category: .PREDEFCAT1)
 }

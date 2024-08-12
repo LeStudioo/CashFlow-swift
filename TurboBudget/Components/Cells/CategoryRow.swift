@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryRow: View {
     
     // Builder
-    @ObservedObject var category: PredefinedCategory
+    var category: PredefinedCategory
     var showChevron: Bool?
     
     // Custom
@@ -19,25 +19,25 @@ struct CategoryRow: View {
 	// Computed variables
     var stringAmount: String {
         if !filter.automation && !filter.total {
-            if category.idUnique == "PREDEFCAT0" {
+            if category.id == PredefinedCategory.PREDEFCAT0.id {
                 return category.incomesTransactionsAmountForSelectedDate(filter: filter).currency
             } else {
                 return category.expensesTransactionsAmountForSelectedDate(filter: filter).currency
             }
         } else if filter.automation && !filter.total {
-            if category.idUnique == "PREDEFCAT0" {
+            if category.id == PredefinedCategory.PREDEFCAT0.id {
                 return category.incomesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
             } else {
                 return category.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
             }
         } else if !filter.automation && filter.total {
-            if category.idUnique == "PREDEFCAT0" {
+            if category.id == PredefinedCategory.PREDEFCAT0.id {
                 return category.amountTotalOfIncomes.currency
             } else {
                 return category.amountTotalOfExpenses.currency
             }
         } else if filter.automation && filter.total {
-            if category.idUnique == "PREDEFCAT0" {
+            if category.id == PredefinedCategory.PREDEFCAT0.id {
                 return category.amountTotalOfIncomesAutomations.currency
             } else {
                 return category.amountTotalOfExpensesAutomations.currency
@@ -88,5 +88,5 @@ struct CategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryRow(category: categoryPredefined2)
+    CategoryRow(category: .PREDEFCAT2)
 }

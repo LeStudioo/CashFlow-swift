@@ -19,15 +19,13 @@ struct CellTransactionWithoutAction: View {
 
 	//Computed var
     var category: PredefinedCategory? {
-        return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
+        return PredefinedCategory.findByID(transaction.predefCategoryID)
     }
     
     var subcategory: PredefinedSubcategory? {
         if let category {
-            return PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID)
-        } else {
-            return nil
-        }
+            return category.subcategories.findByID(transaction.predefSubcategoryID)
+        } else { return nil }
     }
     
     // MARK: - body

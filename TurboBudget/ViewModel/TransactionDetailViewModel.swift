@@ -35,15 +35,18 @@ class TransactionDetailViewModel: ObservableObject {
 //MARK: - Utils
 extension TransactionDetailViewModel {
     
+    // TODO: Refaire
     func changeCategory(transaction: Transaction) {
-        if let selectedCategory, let newCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: selectedCategory.idUnique) {
-            transaction.predefCategoryID = newCategory.idUnique
+        if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
+            transaction.predefCategoryID = newCategory.id
             transaction.predefSubcategoryID = ""
-            PredefinedObjectManager.shared.addTransactionsToCategory()
-            PredefinedObjectManager.shared.addTransactionsToSubcategory()
-            if let selectedSubcategory, let newSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: newCategory.subcategories, idUnique: selectedSubcategory.idUnique) {
-                transaction.predefSubcategoryID = newSubcategory.idUnique
-                PredefinedObjectManager.shared.addTransactionsToSubcategory()
+            // TODO: Voir si auto update
+//            PredefinedObjectManager.shared.addTransactionsToCategory()
+//            PredefinedObjectManager.shared.addTransactionsToSubcategory()
+            if let selectedSubcategory, let newSubcategory = newCategory.subcategories.findByID(selectedSubcategory.id) {
+                transaction.predefSubcategoryID = newSubcategory.id
+                // TODO: Voir si auto update
+//                PredefinedObjectManager.shared.addTransactionsToSubcategory()
             }
             persistenceController.saveContext()
         }
@@ -70,7 +73,9 @@ extension TransactionDetailViewModel {
         var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if !candidate.predefCategoryID.isEmpty && candidate.predefCategoryID != categoryPredefined0.idUnique && candidate.predefCategoryID != categoryPredefined00.idUnique {
+            if !candidate.predefCategoryID.isEmpty
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
                 // Vérifier si la transaction actuelle est plus récente que celle stockée
                 if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
@@ -85,15 +90,12 @@ extension TransactionDetailViewModel {
             return (nil, nil)  // No transactions found
         }
 
-        let finalCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: mostRecentTransaction.predefCategoryID)
-        let finalSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: finalCategory?.subcategories ?? [], idUnique: mostRecentTransaction.predefSubcategoryID)
+        guard let finalCategory = PredefinedCategory.findByID(mostRecentTransaction.predefCategoryID) else {
+            return (nil, nil)
+        }
+        let finalSubcategory = finalCategory.subcategories.findByID(mostRecentTransaction.predefSubcategoryID)
         
         return (finalCategory, finalSubcategory)
-    }
-
-    
-    func resetData() {
-
     }
     
 }

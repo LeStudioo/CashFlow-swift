@@ -15,7 +15,6 @@ struct BudgetsHomeView: View {
     var router: NavigationManager
     
     // Custom
-    var categories = PredefinedObjectManager.shared.allPredefinedCategory
     @ObservedObject var filter: Filter = sharedFilter
     
     //CoreData
@@ -33,7 +32,7 @@ struct BudgetsHomeView: View {
     var getAllBudgetsByCategory: [PredefinedCategory] {
         var array: [PredefinedCategory] = []
         for budget in budgets {
-            if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: budget.predefCategoryID), !array.contains(category) {
+            if let category = PredefinedCategory.findByID(budget.predefCategoryID), !array.contains(category) {
                 array.append(category)
             }
         }
@@ -45,7 +44,8 @@ struct BudgetsHomeView: View {
             return Array(budgets)
         } else { //Searching
             let budgetsFilterByTitle: [Budget] = budgets.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let budgetsFilterByCategory: [Budget] = budgets.filter { PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID)?.title.localizedStandardContains(searchText) ?? false }
+            let budgetsFilterByCategory: [Budget] = budgets
+                .filter { PredefinedCategory.findByID($0.predefCategoryID)?.title.localizedStandardContains(searchText) ?? false }
             
             if budgetsFilterByTitle.isEmpty {
                 return budgetsFilterByCategory
@@ -62,8 +62,8 @@ struct BudgetsHomeView: View {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         ForEach(getAllBudgetsByCategory, id: \.self) { category in
-                            if budgets.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
-                                if searchResults.map({ PredefinedCategoryManager().categoryByUniqueID(idUnique: $0.predefCategoryID) }).contains(category) {
+                            if budgets.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
+                                if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
                                     HStack {
                                         Text(category.title)
                                             .font(.mediumCustom(size: 22))
@@ -80,9 +80,9 @@ struct BudgetsHomeView: View {
                                     .padding([.horizontal, .top])
                                 }
                                 ForEach(searchResults) { budget in
-                                    if PredefinedCategoryManager().categoryByUniqueID(idUnique: budget.predefCategoryID) == category {
+                                    if PredefinedCategory.findByID(budget.predefCategoryID) == category {
                                         Button(action: {
-                                            if let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: budget.predefSubcategoryID) {
+                                            if let subcategory = category.subcategories.findByID(budget.predefSubcategoryID) {
                                                 router.pushBudgetTransactions(subcategory: subcategory)
                                             }
                                         }, label: {

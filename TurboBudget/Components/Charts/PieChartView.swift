@@ -131,7 +131,7 @@ struct PieChartView: View {
                                 if (radians < slice.endAngle.radians) {
                                     withAnimation {
                                         self.activeSlice = slice
-                                        self.selectedCategory = PredefinedCategoryManager().categoryBySymbol(symbol: slice.iconName)
+//                                        self.selectedCategory = PredefinedCategoryManager().categoryBySymbol(symbol: slice.iconName)
                                     }
                                     break
                                 }
@@ -147,13 +147,13 @@ struct PieChartView: View {
                             .frame(width: height * innerRadiusFraction, height: height * innerRadiusFraction)
                         
                         VStack(spacing: 10) {
-                            //Month or name of category
-                            Text(((self.activeSlice == nil ? stringDisplayInCircle() : PredefinedCategoryManager().categoryBySymbol(symbol: activeSlice?.iconName ?? "")?.title ?? "")))
-                                .font(Font.mediumText18())
-                                .multilineTextAlignment(.center)
-                                .lineLimit(2)
-                                .foregroundStyle(Color.gray)
-                                .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
+//                            //Month or name of category
+//                            Text(((self.activeSlice == nil ? stringDisplayInCircle() : PredefinedCategoryManager().categoryBySymbol(symbol: activeSlice?.iconName ?? "")?.title ?? "")))
+//                                .font(Font.mediumText18())
+//                                .multilineTextAlignment(.center)
+//                                .lineLimit(2)
+//                                .foregroundStyle(Color.gray)
+//                                .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
                             
                             //Amount
                             Text(self.activeSlice == nil ? values.reduce(0, -).currency : (-(activeSlice?.value ?? 0)).currency)
@@ -231,10 +231,10 @@ struct PieChartView: View {
 
 #Preview {
     PieChartView(
-        categories: [categoryPredefined1,
-                     categoryPredefined2,
-                     categoryPredefined3],
-        selectedCategory: Binding.constant(categoryPredefined1),
+        categories: [PredefinedCategory.PREDEFCAT1,
+                     PredefinedCategory.PREDEFCAT2,
+                     PredefinedCategory.PREDEFCAT3],
+        selectedCategory: Binding.constant(PredefinedCategory.PREDEFCAT1),
         height: Binding.constant(280)
     )
 }

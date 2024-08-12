@@ -91,7 +91,7 @@ enum NavigationDirection: Identifiable {
             return "createTransfer"
             
         case .selectCategory(let category, let subcategory):
-            return "selectCategory_\(category.wrappedValue?.id ?? UUID())_\(subcategory.wrappedValue?.id ?? UUID())"
+            return "selectCategory_\(category.wrappedValue?.id ?? "")_\(subcategory.wrappedValue?.id ?? "")"
             
         case .savingPlansDetail(let savingPlan):
             return "savingPlansDetail_\(savingPlan.id)"

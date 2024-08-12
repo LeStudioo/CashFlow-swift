@@ -152,7 +152,7 @@ struct PieChartSubcategoryView: View {
                                 if (radians < slice.endAngle.radians) {
                                     withAnimation {
                                         self.activeSlice = slice
-                                        self.selectedSubcategory = PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: slice.iconName)
+//                                        self.selectedSubcategory = PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: slice.iconName)
                                     }
                                     break
                                 }
@@ -170,12 +170,12 @@ struct PieChartSubcategoryView: View {
                         VStack {
                             VStack(spacing: 10) {
                                 //Month of name of category
-                                Text(((self.activeSlice == nil ? stringDisplayInCircle() : PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: activeSlice?.iconName ?? "")?.title) ?? ""))
-                                    .font(Font.mediumText18())
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(2)
-                                    .foregroundStyle(Color.gray)
-                                    .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
+//                                Text(((self.activeSlice == nil ? stringDisplayInCircle() : PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: activeSlice?.iconName ?? "")?.title) ?? ""))
+//                                    .font(Font.mediumText18())
+//                                    .multilineTextAlignment(.center)
+//                                    .lineLimit(2)
+//                                    .foregroundStyle(Color.gray)
+//                                    .frame(width: height != 0 ? height * innerRadiusFraction - 20 : 0)
                                 
                                 //Amount
                                 Text(self.activeSlice == nil ? values.reduce(0, -).currency : (-(activeSlice?.value ?? 0)).currency)
@@ -229,8 +229,8 @@ struct PieChartSubcategoryView: View {
 //MARK: - Preview
 #Preview {
     PieChartSubcategoryView(
-        subcategories: [subCategory1Category1],
-        selectedSubcategory: Binding.constant(subCategory1Category1),
+        subcategories: [.PREDEFSUBCAT1CAT1],
+        selectedSubcategory: Binding.constant(.PREDEFSUBCAT1CAT1),
         height: Binding.constant(280)
     )
 }

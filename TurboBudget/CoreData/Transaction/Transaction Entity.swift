@@ -38,11 +38,25 @@ public class Transaction: NSManagedObject, Identifiable {
 
 extension Transaction {
     
+    var category: PredefinedCategory? {
+        return PredefinedCategory.findByID(self.predefCategoryID)
+    }
+    
+    var subcategory: PredefinedSubcategory? {
+        if let category {
+            return category.subcategories.findByID(self.predefSubcategoryID)
+        } else { return nil }
+    }
+    
+}
+
+extension Transaction {
+    
     static var preview1: Transaction {
         let transaction = Transaction(context: previewViewContext)
         transaction.id = UUID()
-        transaction.predefCategoryID = categoryPredefined1.idUnique
-        transaction.predefSubcategoryID = subCategory1Category1.idUnique
+        transaction.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
+        transaction.predefSubcategoryID = PredefinedCategory.PREDEFCAT1.subcategories[1].id
         transaction.title = "Preview Transaction"
         transaction.amount = -40.51
         transaction.date = Date()

@@ -27,6 +27,24 @@ public class Automation: NSManagedObject, Identifiable {
 
 extension Automation {
     
+    var category: PredefinedCategory? {
+        if let transaction = automationToTransaction {
+            return transaction.category
+        }
+        return nil
+    }
+    
+    var subcategory: PredefinedSubcategory? {
+        if let transaction = automationToTransaction {
+            return transaction.subcategory
+        }
+        return nil
+    }
+    
+}
+
+extension Automation {
+    
     static var preview: Automation {
         let automation = Automation(context: previewViewContext)
         automation.id = UUID()

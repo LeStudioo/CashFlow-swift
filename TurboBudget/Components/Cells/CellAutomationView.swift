@@ -21,42 +21,17 @@ struct CellAutomationView: View {
     // Boolean variables
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
-	
-	// Computed var
-    var category: PredefinedCategory? {
-        if let transaction {
-            return PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-        } else {
-            return nil
-        }
-    }
-    
-    var subcategory: PredefinedSubcategory? {
-        if let category, let transaction {
-            return PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category.subcategories, idUnique: transaction.predefSubcategoryID)
-        } else {
-            return nil
-        }
-    }
-    
-    var transaction: Transaction? {
-        if let transaction = automation.automationToTransaction {
-            return transaction
-        } else {
-            return nil
-        }
-    }
 
     //MARK: - Body
     var body: some View {
-        if let transaction {
+        if let transaction = automation.automationToTransaction {
             SwipeView(label: {
                 HStack {
                     Circle()
                         .foregroundStyle(.color2Apple)
                         .frame(width: 50)
                         .overlay {
-                            if let category, let subcategory {
+                            if let category = automation.category, let subcategory = automation.subcategory {
                                 Circle()
                                     .foregroundStyle(category.color)
                                     .shadow(radius: 4, y: 4)
@@ -66,7 +41,7 @@ struct CellAutomationView: View {
                                     .font(.system(size: 14, weight: .semibold, design: .rounded))
                                     .foregroundStyle(Color(uiColor: .systemBackground))
                                 
-                            } else if let category, subcategory == nil {
+                            } else if let category = automation.category, automation.subcategory == nil {
                                 Circle()
                                     .foregroundStyle(category.color)
                                     .shadow(radius: 4, y: 4)

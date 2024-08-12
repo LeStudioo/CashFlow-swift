@@ -16,7 +16,7 @@ struct SelectCategoryView: View {
     @Binding var selectedSubcategory: PredefinedSubcategory?
     
     //Custom
-    var predefinedCategories = PredefinedObjectManager.shared.allPredefinedCategory
+    var predefinedCategories = PredefinedCategory.allCases
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
@@ -49,7 +49,7 @@ struct SelectCategoryView: View {
                 
                 var categories: [PredefinedCategory] = []
                 for subcategory in filterSubcategories {
-                    if let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: subcategory.category.idUnique), !categories.contains(category) {
+                    if let category = PredefinedCategory.findByID(subcategory.category.id) {
                         categories.append(category)
                     }
                 }
@@ -68,7 +68,7 @@ struct SelectCategoryView: View {
                 if searchResults.count != 0 {
                     ScrollView(showsIndicators: false) {
                         ForEach(searchResults, id: \.self) { category in
-                            if category != categoryPredefined0 {
+                            if category != .PREDEFCAT0 {
                                 VStack {
                                     HStack {
                                         Text(category.title)

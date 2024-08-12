@@ -14,9 +14,6 @@ struct AccountDashboardView: View {
     var router: NavigationManager
     @ObservedObject var account: Account
     
-    // Custom type
-    var categories = PredefinedObjectManager.shared.allPredefinedCategory
-    
     // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
     private var budgets: FetchedResults<Budget>
@@ -121,7 +118,7 @@ struct AccountDashboardView: View {
                                 .padding(.leading, 8)
                             HStack {
                                 PieChartViewNoInteractive(
-                                    categories: categories,
+                                    categories: Array(PredefinedCategory.allCases),
                                     width: .constant(widthOfChart),
                                     height: .constant(widthOfChart)
                                 )
