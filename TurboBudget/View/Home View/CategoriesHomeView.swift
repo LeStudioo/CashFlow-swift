@@ -11,8 +11,8 @@ import SwiftUI
 
 struct CategoriesHomeView: View {
     
-    // Builder
-    var router: NavigationManager
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
     
     //Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
@@ -103,5 +103,5 @@ struct CategoriesHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoriesHomeView(router: .init(isPresented: .constant(.homeCategories)))
+    CategoriesHomeView()
 }

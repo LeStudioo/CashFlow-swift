@@ -13,8 +13,10 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
-    var router: NavigationManager
     @ObservedObject var account: Account
+    
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
     
     // Custom
     @ObservedObject var filter = FilterManager.shared
@@ -126,7 +128,7 @@ struct AnalyticsHomeView: View {
 
 //MARK: - Preview
 #Preview {
-    AnalyticsHomeView(router: .init(isPresented: .constant(nil)), account: Account.preview)
+    AnalyticsHomeView(account: Account.preview)
 }
 
 

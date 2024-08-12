@@ -179,19 +179,19 @@ private extension NavigationManager {
         Group {
             switch direction {
             case .pageController:
-                PageControllerView(router: router(route: route))
+                PageControllerView()
             case .filter:
                 NewFilterView()
                 
             case .home(let account):
-                HomeScreenView(router: router(route: route), account: account)
+                HomeScreenView(account: account)
             case .homeSavingPlans(let account):
                 SavingPlansHomeView(router: router(route: route), account: account)
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
             case .analytics(let account):
-                AnalyticsHomeView(router: router(route: route), account: account)
+                AnalyticsHomeView(account: account)
                 
             case .createAutomation:
                 CreateAutomationView()
@@ -224,7 +224,7 @@ private extension NavigationManager {
                 
                 
             case .accountDashboard(let account):
-                AccountDashboardView(router: router(route: route), account: account)
+                AccountDashboardView(account: account)
             case .savingsAccountDetail(let savingsAccount):
                 SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:
@@ -237,7 +237,7 @@ private extension NavigationManager {
                 ArchivedSavingPlansView(router: router(route: route), account: account)
                 
             case .homeCategories:
-                CategoriesHomeView(router: router(route: route))
+                CategoriesHomeView()
             case .categoryTransactions(let category):
                 CategoryTransactionsView(router: router(route: route), category: category)
             case .homeSubcategories(let category):

@@ -13,9 +13,11 @@ struct TabbarView: View {
     
     // Builder
     var router: NavigationManager
-    @Binding var account: Account?
     @Binding var selectedTab: Int
     @Binding var offsetYMenu: CGFloat
+    
+    // Repo
+    @EnvironmentObject private var accountRepo: AccountRepository
     
     // Custom type
     @ObservedObject var filter: Filter = sharedFilter
@@ -39,7 +41,7 @@ struct TabbarView: View {
             
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
-                    if account != nil {
+                    if accountRepo.mainAccount != nil {
 //                        Button(action: {
 //                            viewModel.showMenu = false
 //                            router.presentCreateTransfer()
@@ -137,7 +139,7 @@ struct TabbarView: View {
                 withAnimation(.interpolatingSpring(stiffness: 150, damping: 12)) {
                     viewModel.showMenu.toggle()
                     if viewModel.showMenu {
-                        if account != nil {
+                        if accountRepo.mainAccount != nil {
                             offsetYMenu = -180
                         } else { offsetYMenu = -80 }
                     } else {
@@ -167,7 +169,6 @@ struct TabBarBackgroundView_Previews: PreviewProvider {
     static var previews: some View {
         TabbarView(
             router: .init(isPresented: .constant(.homeCategories)),
-            account: $previewAccount,
             selectedTab: $selectedTabPreview,
             offsetYMenu: $offsetYMenu
         )

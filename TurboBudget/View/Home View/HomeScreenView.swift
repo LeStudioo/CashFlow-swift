@@ -12,11 +12,11 @@ import CoreData
 
 struct HomeScreenView: View {
     
-    // Builder
-    var router: NavigationManager
+    // Repo
     @ObservedObject var account: Account
     
     // EnvironmentObject
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store
     
@@ -196,8 +196,5 @@ struct HomeScreenView: View {
 
 // MARK: - Preview
 #Preview {
-    HomeScreenView(
-        router: .init(isPresented: .constant(.home(account: Account.preview))),
-        account: Account.preview
-    )
+    HomeScreenView(account: .preview)
 }

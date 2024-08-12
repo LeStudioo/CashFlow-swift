@@ -10,14 +10,14 @@ import SwiftUI
 import CloudKit
 
 struct OnboardingView: View {
-
-    //Custom type
-    @Binding var account: Account?
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // Repo
+    @EnvironmentObject private var accountRepo: AccountRepository
 
     //State or Binding String
     @State private var accountTitle: String = ""
@@ -98,7 +98,7 @@ struct OnboardingView: View {
                         firstAccount.cardLimit = cardLimit
                         firstAccount.accountToTransaction?.insert(firstTransaction)
                         
-                        account = firstAccount
+                        accountRepo.mainAccount = firstAccount
                         
                         persistenceController.saveContext()
                     }
@@ -218,7 +218,7 @@ struct OnboardingView_Previews: PreviewProvider {
     @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
-        OnboardingView(account: $previewAccount)
+        OnboardingView()
     }
 }
 

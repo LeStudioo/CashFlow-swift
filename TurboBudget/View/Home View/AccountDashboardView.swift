@@ -11,7 +11,6 @@ import SwiftUI
 struct AccountDashboardView: View {
     
     // Builder
-    var router: NavigationManager
     @ObservedObject var account: Account
     
     // CoreData
@@ -26,6 +25,7 @@ struct AccountDashboardView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store
     
@@ -69,12 +69,6 @@ struct AccountDashboardView: View {
         } else {
             return [GridItem(), GridItem()]
         }
-    }
-    
-    // init
-    init(router: NavigationManager, account: Account) {
-        self.router = router
-        self.account = account
     }
     
     // MARK: - body
@@ -374,8 +368,5 @@ struct AccountDashboardView: View {
 
 // MARK: - Preview
 #Preview {
-    AccountDashboardView(
-        router: .init(isPresented: .constant(.accountDashboard(account: Account.preview))),
-        account: Account.preview
-    )
+    AccountDashboardView(account: Account.preview)
 }

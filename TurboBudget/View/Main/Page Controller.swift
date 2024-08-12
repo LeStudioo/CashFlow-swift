@@ -12,11 +12,13 @@ import CoreData
 
 struct PageControllerView: View {
     
-    // Builder
-    var router: NavigationManager
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
+    
+    // Repo
+    @EnvironmentObject private var accountRepo: AccountRepository
     
     // Custom
-    @State private var account: Account? = nil
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var filter: Filter = sharedFilter
@@ -24,9 +26,6 @@ struct PageControllerView: View {
     @ObservedObject var viewModelAddTransaction = AddTransactionViewModel.shared
     
     // CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Account.position, ascending: true)])
-    private var accounts: FetchedResults<Account>
-    
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingPlan.position, ascending: true)])
     private var savingPlans: FetchedResults<SavingPlan>
     
@@ -76,7 +75,7 @@ struct PageControllerView: View {
                             do {
                                 let results = try viewContext.fetch(fetchRequest)
                                 if let accoutRetrieve = results.first {
-                                    account = accoutRetrieve
+                                    accountRepo.mainAccount = accoutRetrieve
                                     pageControllerVM.isUnlocked = true
                                 }
                                 print("🔥 results : \(results.count)")
@@ -87,30 +86,14 @@ struct PageControllerView: View {
                     }
                 } else if pageControllerVM.isUnlocked {
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                        if let account = accounts.first {
-                            VStack {
+                        if let account = accountRepo.mainAccount {
+                            Group {
                                 switch selectedTab {
-                                case 0:
-                                    HomeScreenView(
-                                        router: router,
-                                        account: account
-                                    )
-                                case 1:
-                                    AnalyticsHomeView(
-                                        router: router,
-                                        account: account
-                                    )
-                                case 3:
-                                    AccountDashboardView(
-                                        router: router,
-                                        account: account
-                                    )
-                                case 4:
-                                    CategoriesHomeView(
-                                        router: router
-                                    )
-                                default:
-                                    EmptyView() //Can't arrived
+                                case 0: HomeScreenView(account: account)
+                                case 1: AnalyticsHomeView(account: account)
+                                case 3: AccountDashboardView(account: account)
+                                case 4: CategoriesHomeView()
+                                default: EmptyView() //Can't arrived
                                 }
                             }
                             .environmentObject(csManager)
@@ -148,7 +131,6 @@ struct PageControllerView: View {
                         
                         TabbarView(
                             router: router,
-                            account: $account,
                             selectedTab: $selectedTab,
                             offsetYMenu: $offsetYMenu
                         )
@@ -156,7 +138,7 @@ struct PageControllerView: View {
                     .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
                         withAnimation {
                             if newValue {
-                                if accounts.count != 0 {
+                                if accountRepo.mainAccount != nil {
                                     offsetYMenu = -180
                                 } else { offsetYMenu = -80 }
                             } else { offsetYMenu = 0 }
@@ -170,26 +152,19 @@ struct PageControllerView: View {
                         viewModelAddTransaction.makeScannerView()
                     }
                     .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
-                        withAnimation {
-                            account = accounts[0]
-                            update.toggle()
-                            router.presentPaywall()
-                        }
-                    }, content: { OnboardingView(account: $account).interactiveDismissDisabled() })
+                        router.presentPaywall()
+                    }, content: { OnboardingView().interactiveDismissDisabled() })
                     .edgesIgnoringSafeArea(.bottom)
                     .ignoresSafeArea(.keyboard)
                 } // End if unlocked
             }
             .padding(update ? 0 : 0)
             .padding(pageControllerVM.isUnlocked ? 0 : 0)
-            .onAppear {
-                if !accounts.isEmpty { account = Array(accounts)[0] }
-            }
             .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
                 // LaunchScreen ended and no data in iCloud
                 if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
                     // First open + no data in iCloud
-                    if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accounts.count == 0 {
+                    if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accountRepo.mainAccount == nil {
                         pageControllerVM.showOnboarding.toggle()
                         // First open + no iCloud
                     }
@@ -267,5 +242,5 @@ struct PageControllerView: View {
 
 // MARK: - Preview
 #Preview {
-    PageControllerView(router: .init(isPresented: .constant(nil)))
+    PageControllerView()
 }

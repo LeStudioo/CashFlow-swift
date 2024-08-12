@@ -13,7 +13,7 @@ struct TurboBudgetApp: App {
     // Custom type
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var store = Store()
-    private let router = NavigationManager(isPresented: .constant(.pageController))
+    @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     
     // Repository
     @StateObject private var accountRepo: AccountRepository = .shared
@@ -37,17 +37,18 @@ struct TurboBudgetApp: App {
             NavStack(router: router) {
                 if isSecurityPlusEnabled {
                     if scenePhase == .active {
-                        PageControllerView(router: router)
+                        PageControllerView()
                     } else {
                         Image("LaunchScreen")
                             .resizable()
                             .edgesIgnoringSafeArea([.bottom, .top])
                     }
                 } else {
-                    PageControllerView(router: router)
+                    PageControllerView()
                 }
             }
             .environment(\.managedObjectContext, viewContext)
+            .environmentObject(router)
             .environmentObject(csManager)
             .environmentObject(store)
             .environmentObject(accountRepo)
