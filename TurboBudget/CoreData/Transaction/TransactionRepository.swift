@@ -27,6 +27,17 @@ extension TransactionRepository {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
         
+        // TODO: REMOVE AFTER 1 MONTH IN PROD
+        for transaction in allTransactions {
+            if transaction.predefCategoryID == "PREDEF11" {
+                transaction.predefCategoryID = PredefinedCategory.PREDEFCAT11.id
+                PersistenceController.shared.saveContext()
+            } else if transaction.predefCategoryID == "PREDEF12" {
+                transaction.predefCategoryID = PredefinedCategory.PREDEFCAT12.id
+                PersistenceController.shared.saveContext()
+            }
+        }
+        
         self.transactions = allTransactions
             .sorted { $0.date > $1.date }
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }

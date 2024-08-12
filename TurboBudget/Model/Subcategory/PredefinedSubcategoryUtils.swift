@@ -81,7 +81,7 @@ extension Array where Element == PredefinedSubcategory {
     
 }
 
-extension  PredefinedSubcategory {
+extension PredefinedSubcategory {
     
     public func transactionsInSelectedMonthAndYear(month: Int, year: Int) -> Double {
         var array: [Transaction] = []
@@ -106,7 +106,9 @@ extension  PredefinedSubcategory {
     }
     
     //MARK: - Expenses from automations
-
+    func amountExpensesByMonth(month: Date) -> Double {
+            return getAllExpensesTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, -)
+        }
     
     //MARK: - Extension Expenses
     
@@ -144,6 +146,7 @@ extension  PredefinedSubcategory {
             if transaction.amount > 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) && PredefinedCategory.findByID(transaction.predefCategoryID) != nil { transactionsIncomes.append(transaction) }
         }
         return transactionsIncomes
+    }
         
         //-------------------- amountIncomesByMonth() ----------------------
         // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
@@ -156,9 +159,6 @@ extension  PredefinedSubcategory {
         }
         
     }
-}
-
-
 
 
 

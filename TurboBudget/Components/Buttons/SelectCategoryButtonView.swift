@@ -33,9 +33,10 @@ struct SelectCategoryButtonView: View {
                         .frame(width: widthCircleCategory, height: widthCircleCategory)
                         .foregroundStyle(selectedCategory.color)
                     
-                    Image(systemName: selectedSubcategory.icon)
-                        .font(.system(size: isLittleIphone ? 26 : 32, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .systemBackground))
+                    CustomOrSystemImage(
+                        systemImage: selectedSubcategory.icon,
+                        size: isLittleIphone ? 26 : 32
+                    )
                 }
             } else if let selectedCategory,
                       selectedSubcategory == nil {

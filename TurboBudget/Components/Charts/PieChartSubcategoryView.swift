@@ -112,7 +112,7 @@ struct PieChartSubcategoryView: View {
             
             if endAngle > 360 { endAngle = 360 }
             
-            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endAngle), iconName: iconNames[i], value: value, percentage: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i]))
+//            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endAngle), iconName: iconNames[i], value: value, percentage: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i]))
             
             endDeg += degrees
         }
@@ -127,9 +127,9 @@ struct PieChartSubcategoryView: View {
                     Spacer()
                     ZStack {
                         ForEach(slices, id: \.self) { slice in
-                            PieSlice(pieSliceData: slice, isGap: slices.count > 1 ? true : false, bigSymbol: true)
-                                .scaleEffect(self.activeSlice == slice ? 1.03 : 1)
-                                .animation(Animation.spring(), value: activeSlice)
+//                            PieSlice(pieSliceData: slice, isGap: slices.count > 1 ? true : false, bigSymbol: true)
+//                                .scaleEffect(self.activeSlice == slice ? 1.03 : 1)
+//                                .animation(Animation.spring(), value: activeSlice)
                         }
                         .frame(width: height, height: height)
                         .onTapGesture {
@@ -149,13 +149,13 @@ struct PieChartSubcategoryView: View {
                             }
                             
                             for slice in slices {
-                                if (radians < slice.endAngle.radians) {
-                                    withAnimation {
-                                        self.activeSlice = slice
-//                                        self.selectedSubcategory = PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: slice.iconName)
-                                    }
-                                    break
-                                }
+//                                if (radians < slice.endAngle.radians) {
+//                                    withAnimation {
+//                                        self.activeSlice = slice
+////                                        self.selectedSubcategory = PredefinedSubcategoryManager().subcategoryForSymbol(subcategories: subcategories, symbol: slice.iconName)
+//                                    }
+//                                    break
+//                                }
                             }
                             
                             if actualSlice == activeSlice {
@@ -183,9 +183,9 @@ struct PieChartSubcategoryView: View {
                                     .font(.semiBoldCustom(size: 20))
                                 
                                 //Percentage
-                                Text(activeSlice == nil ? "" : activeSlice?.percentage ?? "")
-                                    .foregroundStyle(Color(uiColor: .label))
-                                    .font(Font.mediumText16())
+//                                Text(activeSlice == nil ? "" : activeSlice?.percentage ?? "")
+//                                    .foregroundStyle(Color(uiColor: .label))
+//                                    .font(Font.mediumText16())
                             }
                         }
                         

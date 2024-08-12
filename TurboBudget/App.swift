@@ -18,6 +18,9 @@ struct TurboBudgetApp: App {
     @StateObject private var store = Store()
     private let router = NavigationManager(isPresented: .constant(.pageController))
     
+    // Repository
+    @StateObject private var transactionRepo: TransactionRepository = .shared
+    
     // Environment
     @Environment(\.scenePhase) private var scenePhase
     
@@ -53,6 +56,7 @@ struct TurboBudgetApp: App {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
                 store.restorePurchases()
+                transactionRepo.fetchTransactions()
             }
         }
     } // End body

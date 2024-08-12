@@ -50,21 +50,17 @@ struct SubcategoryHomeView: View {
                         .padding(.bottom, 8)
                     }
                     if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
-                        HStack {
-                            Spacer()
-                            PieChartSubcategoryView(
-                                subcategories: category.subcategories,
-                                selectedSubcategory: $viewModel.selectedSubcategory,
-                                height: $height
-                            )
-                            .frame(height: height)
-                            .id(viewModel.filter.id)
-                            Spacer()
+                        PieChart(
+                            slices: category.categorySlices,
+                            backgroundColor: Color.colorCell,
+                            configuration: .init(style: .subcategory, space: 0.2, hole: 0.75)
+                        )
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                .fill(Color.colorCell)
                         }
-                        .padding(.vertical)
-                        .padding(.horizontal)
-                        .background(Color.colorCell)
-                        .cornerRadius(15)
                         .padding(.bottom, 8)
                     }
                     

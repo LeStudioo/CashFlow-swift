@@ -16,9 +16,6 @@ struct CategoriesHomeView: View {
     
     //Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
-    
-    //State or Binding Int, Float and Double
-    @State private var height: CGFloat = 0
         
     //MARK: - Body
     var body: some View {
@@ -33,23 +30,16 @@ struct CategoriesHomeView: View {
                                 .padding(.bottom, 8)
                         }
                         if viewModel.dataWithFilterChoosen && viewModel.searchText.isEmpty {
-                            VStack {
-                                ZStack(alignment: .topTrailing) {
-                                    HStack {
-                                        Spacer()
-                                        PieChartView(
-                                            categories: viewModel.categories,
-                                            selectedCategory: $viewModel.selectedCategory,
-                                            height: $height
-                                        )
-                                        .frame(height: height)
-                                        .id(viewModel.filter.id)
-                                        Spacer()
-                                    }
-                                    .padding()
-                                    .background(Color.colorCell)
-                                    .cornerRadius(15)
-                                }
+                            PieChart(
+                                slices: PredefinedCategory.categoriesSlices,
+                                backgroundColor: Color.colorCell,
+                                configuration: .init(style: .category, space: 0.2, hole: 0.75)
+                            )
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                    .fill(Color.colorCell)
                             }
                             .padding(.bottom, 8)
                         }

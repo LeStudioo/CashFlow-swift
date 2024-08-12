@@ -59,7 +59,7 @@ struct PieChartViewNoInteractive: View {
             
             let endAngle = endDeg + degrees
 
-            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endAngle), iconName: iconNames[i], value: value, percentage: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i]))
+//            tempSlices.append(PieSliceData(startAngle: Angle(degrees: endDeg), endAngle: Angle(degrees: endAngle), iconName: iconNames[i], value: value, percentage: String(format: "%.0f%%", value * 100 / sum), color: self.colors[i]))
 
             endDeg += degrees
         }
@@ -75,7 +75,7 @@ struct PieChartViewNoInteractive: View {
             VStack {
                 ZStack {
                     ForEach(slices, id: \.self) { slice in
-                        PieSlice(pieSliceData: slice, isGap: slices.count > 1 ? true : false, bigSymbol: false)
+//                        PieSlice(pieSliceData: slice, isGap: slices.count > 1 ? true : false, bigSymbol: false)
                     }
                     .frame(width: width, height: height)
                     

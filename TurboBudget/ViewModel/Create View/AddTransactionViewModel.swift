@@ -103,8 +103,7 @@ class AddTransactionViewModel: ObservableObject {
                 try context.save()
                 print("🔥 New Transaction created with Success")
                 theNewTransaction = newTransaction
-                //TODO: Voir si reload auto sinon faire .append au lieu de fetch pour opti
-//                predefinedObjectManager.reloadTransactions()
+                TransactionRepository.shared.transactions.append(newTransaction)
                 withAnimation { showSuccessfulTransaction.toggle() }
             } catch {
                 print("⚠️ Error for : \(error.localizedDescription)")
@@ -214,7 +213,7 @@ extension AddTransactionViewModel {
                 if budget.isExceeded(month: transactionDate) { return true }
                 if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.convertToDouble()) > budget.amount { return true }
             }
-            return true
+            return false
         }
         return false
     }
@@ -249,6 +248,7 @@ extension AddTransactionViewModel {
         if isAccountWillBeNegative { return false }
         
         if transactionType == .income && !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 { return true }
+
         
         if blockExpensesIfCardLimitExceeds && transactionType == .expense {
             if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
