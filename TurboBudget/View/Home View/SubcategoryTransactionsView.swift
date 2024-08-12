@@ -14,15 +14,15 @@ struct SubcategoryTransactionsView: View {
     var router: NavigationManager
     var subcategory: PredefinedSubcategory
     
+    // Repo
+    @EnvironmentObject private var transactionRepo: TransactionRepository
+    
     //Environnements
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     //State or Binding String
     @State private var searchText: String = ""
-    
-    //State or Binding Int, Float and Double
-    
+        
     //State or Binding Bool
     @State private var ascendingOrder: Bool = false
     
@@ -80,7 +80,7 @@ struct SubcategoryTransactionsView: View {
                                             Button(action: {
                                                 router.pushTransactionDetail(transaction: transaction)
                                             }, label: {
-                                                CellTransactionView(transaction: transaction)
+                                                TransactionRow(transaction: transaction)
                                             })
                                         }
                                     }
@@ -115,6 +115,7 @@ struct SubcategoryTransactionsView: View {
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
                 .background(Color.background.edgesIgnoringSafeArea(.all))
+                .animation(.smooth, value: transactionRepo.transactions.count)
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,

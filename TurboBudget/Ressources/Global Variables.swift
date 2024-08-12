@@ -12,9 +12,6 @@ import SwiftUI
 let isIPad = (UIDevice.current.userInterfaceIdiom == .pad)
 let isLittleIphone = UIScreen.main.bounds.width < 380 ? true : false
 
-//PersistenceController
-let persistenceController: PersistenceController = PersistenceController.shared
-
 //
 let currencySymbol = Locale(identifier: Locale.current.identifier).currencySymbol ?? "x"
 

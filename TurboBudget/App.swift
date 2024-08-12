@@ -10,15 +10,13 @@ import SwiftUI
 @main
 struct TurboBudgetApp: App {
     
-    // CoreData
-    let persistenceController = PersistenceController.shared
-    
     // Custom type
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var store = Store()
     private let router = NavigationManager(isPresented: .constant(.pageController))
     
     // Repository
+    @StateObject private var accountRepo: AccountRepository = .shared
     @StateObject private var transactionRepo: TransactionRepository = .shared
     
     // Environment
@@ -33,7 +31,7 @@ struct TurboBudgetApp: App {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
     }
     
-    //MARK: - body
+    // MARK: -
     var body: some Scene {
         WindowGroup {
             NavStack(router: router) {
@@ -49,13 +47,17 @@ struct TurboBudgetApp: App {
                     PageControllerView(router: router)
                 }
             }
-            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .environment(\.managedObjectContext, viewContext)
             .environmentObject(csManager)
             .environmentObject(store)
+            .environmentObject(accountRepo)
+            .environmentObject(transactionRepo)
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
                 store.restorePurchases()
+                
+                accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
             }
         }

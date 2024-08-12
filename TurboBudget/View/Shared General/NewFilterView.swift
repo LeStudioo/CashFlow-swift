@@ -42,6 +42,10 @@ struct NewFilterView: View {
                 }
             }
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .onChange(of: filter.byMonth) { newValue in
+            if !newValue { filter.date = .now }
+        }
     } // End body
 } // End struct
 

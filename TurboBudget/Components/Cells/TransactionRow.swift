@@ -1,5 +1,5 @@
 //
-//  CellTransactionView.swift
+//  TransactionRow.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 17/06/2023.
@@ -9,10 +9,13 @@
 import SwiftUI
 import SwipeActions
 
-struct CellTransactionView: View {
+struct TransactionRow: View {
     
     // Builder
     @ObservedObject var transaction: Transaction
+    
+    // Repo
+    @EnvironmentObject private var transactionRepo: TransactionRepository
     
     //Environnements
     @Environment(\.managedObjectContext) private var viewContext
@@ -39,11 +42,12 @@ struct CellTransactionView: View {
                                 .shadow(radius: 4, y: 4)
                                 .frame(width: 34)
                             
-                            Image(systemName: subcategory.icon)
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundStyle(Color(uiColor: .systemBackground))
-                            
-                        } else if let category = transaction.category, transaction.subcategory == nil {
+                            CustomOrSystemImage(
+                                systemImage: subcategory.icon,
+                                size: 14
+                            )
+                        } else if let category = transaction.category,
+                                  transaction.subcategory == nil {
                             Circle()
                                 .foregroundStyle(category.color)
                                 .shadow(radius: 4, y: 4)
@@ -158,8 +162,16 @@ struct CellTransactionView: View {
         .padding(.vertical, 4)
         .padding(.horizontal)
         .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text("word_delete".localized) })
+            Button(
+                role: .cancel,
+                action: {},
+                label: { Text("word_cancel".localized) }
+            )
+            Button(
+                role: .destructive,
+                action: { transactionRepo.deleteTransaction(transaction: transaction) },
+                label: { Text("word_delete".localized) }
+            )
         }, message: {
             Text(transaction.amount < 0 ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
         })
@@ -177,23 +189,13 @@ struct CellTransactionView: View {
             return av
         })
     } // END body
-    
-    // MARK: Fonctions
-    private func deleteTransaction() {
-        if let account = transaction.transactionToAccount {
-            account.deleteTransaction(transaction: transaction)
-        }
-        // TODO: Voir si reload
-//        PredefinedObjectManager.shared.reloadTransactions()
-    }
-
 } // END struct
 
 // MARK: - Preview
 #Preview {
     Group {
-        CellTransactionView(transaction: Transaction.preview1)
-        CellTransactionView(transaction: Transaction.preview1)
+        TransactionRow(transaction: Transaction.preview1)
+        TransactionRow(transaction: Transaction.preview1)
     }
     .previewLayout(.sizeThatFits)
 }

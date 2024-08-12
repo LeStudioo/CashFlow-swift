@@ -19,12 +19,14 @@ struct RecentTransactionsView: View {
     var router: NavigationManager
     @ObservedObject var account: Account
     
+    // Repo
+    @EnvironmentObject private var transactionRepo: TransactionRepository
+    
     // Custom
     @StateObject private var viewModel = RecentTransactionsViewModel()
     
     // Environement
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // String variables
     @State private var searchText: String = ""
@@ -79,7 +81,7 @@ struct RecentTransactionsView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if account.transactions.count != 0 && searchResults.count != 0 {
+            if transactionRepo.transactions.count != 0 && searchResults.count != 0 {
                 if filterTransactions == .category {
                     List(PredefinedCategory.categoriesWithTransactions, id: \.self) { category in
                         if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
@@ -90,7 +92,7 @@ struct RecentTransactionsView: View {
                                         Button(action: {
                                             router.pushTransactionDetail(transaction: transaction)
                                         }, label: {
-                                            CellTransactionView(transaction: transaction)
+                                            TransactionRow(transaction: transaction)
                                         })
                                     }
                                 }
@@ -108,6 +110,7 @@ struct RecentTransactionsView: View {
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
                     .background(Color.background.edgesIgnoringSafeArea(.all))
+                    .animation(.smooth, value: transactionRepo.transactions.count)
                 } else {
                     List(getAllMonthForTransactions, id: \.self) { dateComponents in
                         if let month = Calendar.current.date(from: dateComponents) {
@@ -118,7 +121,7 @@ struct RecentTransactionsView: View {
                                             Button(action: {
                                                 router.pushTransactionDetail(transaction: transaction)
                                             }, label: {
-                                                CellTransactionView(transaction: transaction)
+                                                TransactionRow(transaction: transaction)
                                             })
                                         }
                                     }
@@ -152,6 +155,7 @@ struct RecentTransactionsView: View {
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
                     .background(Color.background.edgesIgnoringSafeArea(.all))
+                    .animation(.smooth, value: transactionRepo.transactions.count)
                 }
             } else { // No Transactions
                 ErrorView(

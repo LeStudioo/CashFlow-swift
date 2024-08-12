@@ -73,7 +73,7 @@ struct CategoryTransactionsView: View {
                                         Button(action: {
                                             router.pushTransactionDetail(transaction: transaction)
                                         }, label: {
-                                            CellTransactionView(transaction: transaction)
+                                            TransactionRow(transaction: transaction)
                                         })
                                     }
                                 }

@@ -89,5 +89,8 @@ struct PersistenceController {
     }
 }
 
-//MARK: - Object For Preview
+// MARK: - GLOBAL
+let persistenceController: PersistenceController = PersistenceController.shared
+let viewContext: NSManagedObjectContext = persistenceController.container.viewContext
+
 let previewViewContext = PersistenceController.shared.container.viewContext
