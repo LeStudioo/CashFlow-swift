@@ -88,8 +88,8 @@ class NavigationManager: Router {
     }
     
     
-    func pushSettings(account: Account) {
-        navigateTo(.settings(account: account))
+    func pushSettings() {
+        navigateTo(.settings)
     }
     
     func pushSettingsGeneral() {
@@ -124,8 +124,8 @@ class NavigationManager: Router {
         navigateTo(.settingsCredits)
     }
     
-    func pushSettingsDangerZone(account: Account) {
-        navigateTo(.settingsDangerZone(account: account))
+    func pushSettingsDangerZone() {
+        navigateTo(.settingsDangerZone)
     }
     
     
@@ -186,7 +186,7 @@ private extension NavigationManager {
             case .home(let account):
                 HomeScreenView(account: account)
             case .homeSavingPlans(let account):
-                SavingPlansHomeView(account: account)
+                SavingPlansHomeView()
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
@@ -248,8 +248,8 @@ private extension NavigationManager {
             case .paywall:
                 PaywallScreenView()
                 
-            case .settings(let account):
-                SettingsHomeView(account: account)
+            case .settings:
+                SettingsHomeView()
             case .settingsGeneral:
                 SettingsGeneralView()
             case .settingsSecurity:
@@ -266,8 +266,8 @@ private extension NavigationManager {
                 SettingsBudgetView()
             case .settingsCredits:
                 SettingsCreditsView()
-            case .settingsDangerZone(let account):
-                SettingsDangerZoneView(account: account)
+            case .settingsDangerZone:
+                SettingsDangerZoneView()
             }
         }
     }

@@ -26,7 +26,6 @@ struct RecentTransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @Environment(\.dismiss) private var dismiss
     
     // String variables
     @State private var searchText: String = ""
@@ -171,13 +170,7 @@ struct RecentTransactionsView: View {
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {

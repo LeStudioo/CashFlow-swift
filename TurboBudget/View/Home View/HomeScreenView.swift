@@ -72,9 +72,7 @@ struct HomeScreenView: View {
                     }
                 }
                 
-                Button(action: {
-                    router.pushSettings(account: account)
-                }, label: {
+                Button(action: { router.pushSettings() }, label: {
                     Image(systemName: "gearshape.fill")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))

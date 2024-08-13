@@ -21,21 +21,14 @@ struct PageControllerView: View {
     // Custom
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
-    @ObservedObject var filter: Filter = sharedFilter
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
     @ObservedObject var viewModelAddTransaction = AddTransactionViewModel.shared
-    
-    // CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingPlan.position, ascending: true)])
-    private var savingPlans: FetchedResults<SavingPlan>
     
     // Capture NOTIFICATION changes
     var didRemoteChange = NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: RunLoop.main)
     
     // Environement
     @Environment(\.scenePhase) private var scenePhase
-    @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
@@ -70,15 +63,14 @@ struct PageControllerView: View {
                     }
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                            let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
+                            let request = Account.fetchRequest()
                             
                             do {
-                                let results = try viewContext.fetch(fetchRequest)
+                                let results = try viewContext.fetch(request)
                                 if let accoutRetrieve = results.first {
                                     accountRepo.mainAccount = accoutRetrieve
                                     pageControllerVM.isUnlocked = true
                                 }
-                                print("🔥 results : \(results.count)")
                             } catch {
                                 print("⚠️ Error for : \(error.localizedDescription)")
                             }
@@ -96,8 +88,6 @@ struct PageControllerView: View {
                                 default: EmptyView() //Can't arrived
                                 }
                             }
-                            .environmentObject(csManager)
-                            .environmentObject(store)
                             .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
                             .disabled(viewModelCustomBar.showMenu)
                             .onTapGesture {

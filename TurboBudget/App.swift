@@ -18,6 +18,8 @@ struct TurboBudgetApp: App {
     // Repository
     @StateObject private var accountRepo: AccountRepository = .shared
     @StateObject private var transactionRepo: TransactionRepository = .shared
+    @StateObject private var savingPlanRepo: SavingPlanRepository = .shared
+    @StateObject private var budgetRepo: BudgetRepository = .shared
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -51,8 +53,11 @@ struct TurboBudgetApp: App {
             .environmentObject(router)
             .environmentObject(csManager)
             .environmentObject(store)
+            
             .environmentObject(accountRepo)
             .environmentObject(transactionRepo)
+            .environmentObject(savingPlanRepo)
+            .environmentObject(budgetRepo)
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
@@ -60,6 +65,8 @@ struct TurboBudgetApp: App {
                 
                 accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
+                savingPlanRepo.fetchSavingPlans()
+                budgetRepo.fetchBudgets()
             }
         }
     } // End body

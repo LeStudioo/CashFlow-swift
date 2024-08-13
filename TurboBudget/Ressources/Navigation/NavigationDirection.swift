@@ -47,7 +47,7 @@ enum NavigationDirection: Identifiable {
 
     case paywall
     
-    case settings(account: Account)
+    case settings
     case settingsGeneral
     case settingsSecurity
     case settingsAppearence
@@ -56,7 +56,7 @@ enum NavigationDirection: Identifiable {
     case settingsSavingPlans
     case settingsBudget
     case settingsCredits
-    case settingsDangerZone(account: Account)
+    case settingsDangerZone
     
     var id: String {
         switch self {
@@ -126,8 +126,8 @@ enum NavigationDirection: Identifiable {
         case .paywall:
             return "paywall"
             
-        case .settings(let account):
-            return "settings_\(account.id)"
+        case .settings:
+            return "settings"
         case .settingsGeneral:
             return "settingsGeneral"
         case .settingsSecurity:
@@ -144,8 +144,8 @@ enum NavigationDirection: Identifiable {
             return "settingsBudget"
         case .settingsCredits:
             return "settingsCredits"
-        case .settingsDangerZone(let account):
-            return "settingsDangerZone_\(account.id)"
+        case .settingsDangerZone:
+            return "settingsDangerZone"
         }
     }
 }
@@ -166,6 +166,7 @@ extension NavigationDirection: Equatable {
             (.createSavingsAccount, .createSavingsAccount),
             (.createTransfer, .createTransfer),
             (.paywall, .paywall),
+            (.settings, .settings),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),
             (.settingsAppearence, .settingsAppearence),
@@ -173,7 +174,8 @@ extension NavigationDirection: Equatable {
             (.settingsAccount, .settingsAccount),
             (.settingsSavingPlans, .settingsSavingPlans),
             (.settingsBudget, .settingsBudget),
-            (.settingsCredits, .settingsCredits):
+            (.settingsCredits, .settingsCredits),
+            (.settingsDangerZone, .settingsDangerZone):
             return true
             
         case let (.home(lhsAccount), .home(rhsAccount)):
@@ -230,13 +232,6 @@ extension NavigationDirection: Equatable {
             
         case let (.subcategoryTransactions(lhsSubcategory), .subcategoryTransactions(rhsSubcategory)):
             return lhsSubcategory.id == rhsSubcategory.id
-            
-            
-        case let (.settings(lhsAccount), .settings(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
-            
-        case let (.settingsDangerZone(lhsAccount), .settingsDangerZone(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
             
         default:
             return false

@@ -26,4 +26,11 @@ extension AccountRepository {
         }
     }
     
+    func deleteAccount() {
+        if let mainAccount {
+            viewContext.delete(mainAccount)
+            self.mainAccount = nil
+        }
+    }
+    
 }

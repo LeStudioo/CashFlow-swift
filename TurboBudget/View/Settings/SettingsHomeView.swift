@@ -9,9 +9,6 @@ import SwiftUI
 
 struct SettingsHomeView: View {
     
-    // Builder
-    @ObservedObject var account: Account
-    
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
@@ -205,7 +202,7 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsDangerZone(account: account) }, label: {
+                Button(action: { router.pushSettingsDangerZone() }, label: {
                     CellSettingsView(
                         icon: "trash.fill",
                         backgroundColor: Color.red,
@@ -268,5 +265,5 @@ struct SettingsHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SettingsHomeView(account: Account.preview)
+    SettingsHomeView()
 }

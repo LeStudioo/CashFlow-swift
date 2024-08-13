@@ -10,12 +10,9 @@ import SwiftUI
 
 struct SavingPlansHomeView: View {
     
-    // Custom type
-    @ObservedObject var account: Account
-    
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
         
     // String variables
     @State private var searchText: String = ""
@@ -23,9 +20,9 @@ struct SavingPlansHomeView: View {
     // Computed var
     private var searchResults: [SavingPlan] {
         if searchText.isEmpty {
-            return account.savingPlans
+            return savingPlanRepo.savingPlans
         } else {
-            return account.savingPlans.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return savingPlanRepo.savingPlans.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
@@ -35,7 +32,7 @@ struct SavingPlansHomeView: View {
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if account.savingPlans.count != 0 {
+            if savingPlanRepo.savingPlans.count != 0 {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         LazyVGrid(columns: layout, alignment: .center) {
@@ -65,13 +62,7 @@ struct SavingPlansHomeView: View {
         .navigationBarBackButtonHidden(true)
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
@@ -89,5 +80,5 @@ struct SavingPlansHomeView: View {
 
 //MARK: - Preview
 #Preview {
-    SavingPlansHomeView(account: Account.preview)
+    SavingPlansHomeView()
 }

@@ -44,12 +44,11 @@ extension TransactionRepository {
     }
     
     func deleteTransaction(transaction: Transaction) {
-        let persistenceController = PersistenceController.shared
-        
         if let account = AccountRepository.shared.mainAccount {
             account.balance -= transaction.amount
         }
-        persistenceController.container.viewContext.delete(transaction)
+        
+        viewContext.delete(transaction)
 
         // TODO: Voir si pas possible de faire autrement
         self.transactions.removeAll(where: { $0.id == transaction.id })
@@ -57,6 +56,16 @@ extension TransactionRepository {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
             persistenceController.saveContext()
         }
+    }
+    
+    func deleteTransactions() {
+        for transaction in self.transactions {
+            viewContext.delete(transaction)
+        }
+        if let account = AccountRepository.shared.mainAccount {
+            account.balance = 0
+        }
+        self.transactions = []
     }
     
 }

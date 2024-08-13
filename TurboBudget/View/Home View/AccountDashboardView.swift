@@ -13,13 +13,6 @@ struct AccountDashboardView: View {
     // Builder
     @ObservedObject var account: Account
     
-    // CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
-    private var budgets: FetchedResults<Budget>
-    
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingsAccount.id, ascending: true)])
-    private var savingsAccounts: FetchedResults<SavingsAccount>
-    
     //Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
@@ -28,6 +21,8 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: Store
+    
+    @EnvironmentObject private var budgetRepo: BudgetRepository
     
     // Preferences
     @Preference(\.cardLimitPercentage) private var cardLimitPercentage
@@ -182,12 +177,12 @@ struct AccountDashboardView: View {
                         }, label: {
                             cellForOnglet(
                                 text: "word_budgets".localized,
-                                num: budgets.count,
+                                num: budgetRepo.budgets.count,
                                 systemImage: "chart.pie.fill"
                             )
                         })
                     } else {
-                        cellForOnglet(text: "word_budgets".localized, num: budgets.count, systemImage: "chart.pie.fill")
+                        cellForOnglet(text: "word_budgets".localized, num: budgetRepo.budgets.count, systemImage: "chart.pie.fill")
                             .opacity(0.5)
                             .overlay { Image(systemName: "lock.fill") }
                             .onTapGesture { showAlertPaywall.toggle() }

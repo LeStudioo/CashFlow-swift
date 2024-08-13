@@ -11,8 +11,6 @@ import SwiftUI
 
 class AddSavingPlanViewModel: ObservableObject {
     static let shared = AddSavingPlanViewModel()
-    let context = persistenceController.container.viewContext
-    @Published var mainAccount: Account? = nil
     
     @Published var theNewSavingPlan: SavingPlan? = nil
     
@@ -37,23 +35,9 @@ class AddSavingPlanViewModel: ObservableObject {
     @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
     @Preference(\.accountCanBeNegative) private var accountCanBeNegative
     
-    // init
-    init() {
-        let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-        var allAccount: [Account] = []
-        do {
-            allAccount = try context.fetch(fetchRequest)
-            if allAccount.count != 0 {
-                mainAccount = allAccount[0]
-            }
-        } catch {
-            print("⚠️ \(error.localizedDescription)")
-        }
-    }
-    
     func createSavingPlan() {
-        if let account = mainAccount {
-            let newSavingPlan = SavingPlan(context: context)
+        if let account = AccountRepository.shared.mainAccount {
+            let newSavingPlan = SavingPlan(context: viewContext)
             newSavingPlan.id = UUID()
             newSavingPlan.title = savingPlanTitle
             newSavingPlan.icon = savingPlanEmoji
@@ -67,7 +51,7 @@ class AddSavingPlanViewModel: ObservableObject {
             if isEndDate { newSavingPlan.dateOfEnd = savingPlanDateOfEnd } else { newSavingPlan.dateOfEnd = nil }
             
             if savingPlanAmountOfStart.convertToDouble() > 0 {
-                let firstContribution = Contribution(context: context)
+                let firstContribution = Contribution(context: viewContext)
                 firstContribution.id = UUID()
                 firstContribution.amount = savingPlanAmountOfStart.convertToDouble()
                 firstContribution.date = .now
@@ -84,7 +68,7 @@ class AddSavingPlanViewModel: ObservableObject {
             }
             
             do {
-                try context.save()
+                try viewContext.save()
                 print("🔥 Saving plans created with success")
                 theNewSavingPlan = newSavingPlan
                 withAnimation { showSuccessfulSavingPlan.toggle() }
@@ -119,14 +103,14 @@ extension AddSavingPlanViewModel {
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
+        if let mainAccount = AccountRepository.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount, !accountCanBeNegative {
+        if let mainAccount = AccountRepository.shared.mainAccount, !accountCanBeNegative {
             if mainAccount.balance - savingPlanAmountOfStart.convertToDouble() < 0 { return true }
         }
         return false
