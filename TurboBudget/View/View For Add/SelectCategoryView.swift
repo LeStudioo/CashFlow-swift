@@ -16,11 +16,10 @@ struct SelectCategoryView: View {
     @Binding var selectedSubcategory: PredefinedSubcategory?
     
     //Custom
-    var predefinedCategories = PredefinedCategory.allCases
+    let categories: [PredefinedCategory] = PredefinedCategory.allCases
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     //State or Binding String
     @State private var searchText: String = ""
@@ -30,44 +29,17 @@ struct SelectCategoryView: View {
     @State private var showPaywall: Bool = false
     
     // Computed variables
-    var searchResults: [PredefinedCategory] {
-        if searchText.isEmpty {
-            return predefinedCategories.sorted { $0.title < $1.title }
-        } else { //Searching
-            let categoryFilterByTitle: [PredefinedCategory] = predefinedCategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }.sorted { $0.title < $1.title }
-            
-            if categoryFilterByTitle.isEmpty {
-                var subcategories: [PredefinedSubcategory] = []
-                
-                for category in predefinedCategories {
-                    for subcategory in category.subcategories { 
-                        subcategories.append(subcategory)
-                    }
-                }
-                
-                let filterSubcategories = subcategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
-                
-                var categories: [PredefinedCategory] = []
-                for subcategory in filterSubcategories {
-                    if let category = PredefinedCategory.findByID(subcategory.category.id) {
-                        categories.append(category)
-                    }
-                }
-                
-                return categories.sorted { $0.title < $1.title }
-            } else {
-                return categoryFilterByTitle
-            }
-        }
+    var categoriesFiltered: [PredefinedCategory] {
+        return categories.searchFor(searchText)
     }
     
     //MARK: - Body
     var body: some View {
         NavigationStack {
             VStack {
-                if searchResults.count != 0 {
-                    ScrollView(showsIndicators: false) {
-                        ForEach(searchResults, id: \.self) { category in
+                if categoriesFiltered.count != 0 {
+                    ScrollView {
+                        ForEach(categoriesFiltered, id: \.self) { category in
                             if category != .PREDEFCAT0 {
                                 VStack {
                                     HStack {
@@ -107,12 +79,15 @@ struct SelectCategoryView: View {
                                                 }
                                             }
                                     } else {
-                                        let categoryFilterByTitle: [PredefinedCategory] = predefinedCategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }.sorted { $0.title < $1.title }
+                                        let categoryFilterByTitle: [PredefinedCategory] = categories
+                                            .filter { $0.title.localizedStandardContains(searchText) }
+                                            .sorted { $0.title < $1.title }
 
                                         VStack {
                                             ForEach(searchText.isEmpty || (!searchText.isEmpty && !categoryFilterByTitle.isEmpty)
                                                     ? category.subcategories
-                                                    : category.subcategories.filter { $0.title.unaccent().localizedCaseInsensitiveContains(searchText.unaccent()) }
+                                                    : category.subcategories
+                                                .filter { $0.title.localizedStandardContains(searchText) }
                                             ) { subcategory in
                                                 cellForSubcategory(subcategory: subcategory)
                                                     .onTapGesture {
@@ -149,6 +124,7 @@ struct SelectCategoryView: View {
                         
                         Spacer()
                     }
+                    .scrollIndicators(.hidden)
                 } else {
                     VStack(spacing: 20) {
                         Image("NoResults\(themeSelected)")

@@ -80,7 +80,10 @@ struct TransactionDetailView: View {
                             .sheet(isPresented: $showWhatCategory, onDismiss: {
                                 viewModel.changeCategory(transaction: transaction)
                             }) {
-                                SelectCategoryView(selectedCategory: $viewModel.selectedCategory, selectedSubcategory: $viewModel.selectedSubcategory)
+                                SelectCategoryView(
+                                    selectedCategory: $viewModel.selectedCategory,
+                                    selectedSubcategory: $viewModel.selectedSubcategory
+                                )
                             }
                     }
                 Spacer()

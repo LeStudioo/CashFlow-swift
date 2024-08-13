@@ -152,7 +152,7 @@ struct AccountDashboardView: View {
                     })
                     
                     Button(action: {
-                        router.pushHomeAutomations(account: account)
+                        router.pushHomeAutomations()
                     }, label: {
                         cellForOnglet(
                             text: "word_automations".localized,
@@ -162,7 +162,7 @@ struct AccountDashboardView: View {
                     })
                     
                     Button(action: {
-                        router.pushHomeSavingPlans(account: account)
+                        router.pushHomeSavingPlans()
                     }, label: {
                         cellForOnglet(
                             text: "word_savingsplans".localized,
@@ -232,7 +232,7 @@ struct AccountDashboardView: View {
                         }
                         
                         Button(action: {
-                            router.pushSettings(account: account)
+                            router.pushSettings()
                         }, label: {
                             Image(systemName: "gearshape.fill")
                                 .foregroundStyle(Color(uiColor: .label))

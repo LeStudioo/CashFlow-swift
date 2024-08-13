@@ -12,11 +12,11 @@ import SwiftUI
 struct TabbarView: View {
     
     // Builder
-    var router: NavigationManager
     @Binding var selectedTab: Int
     @Binding var offsetYMenu: CGFloat
     
     // Repo
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepo: AccountRepository
     
     // Custom type
@@ -160,15 +160,10 @@ struct TabbarView: View {
 struct TabBarBackgroundView_Previews: PreviewProvider {
     
     @State static var selectedTabPreview: Int = 0
-    @State static var showMenu: Bool = false
-    
     @State static var offsetYMenu: CGFloat = 0
-    
-    @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
         TabbarView(
-            router: .init(isPresented: .constant(.homeCategories)),
             selectedTab: $selectedTabPreview,
             offsetYMenu: $offsetYMenu
         )

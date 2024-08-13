@@ -21,8 +21,6 @@ struct HomeScreenView: View {
     @EnvironmentObject var store: Store
     
     // Preferences
-    @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
-    @Preference(\.isAutomationsDisplayedHomeScreen) private var isAutomationsDisplayedHomeScreen
     @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen
     @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen
     @Preference(\.isStepsEnbaledForAllSavingsPlans) private var isStepsEnbaledForAllSavingsPlans
@@ -85,23 +83,9 @@ struct HomeScreenView: View {
                 VStack {
                     CarouselOfChartsView(account: account)
                     
-                    // Saving Plans
-                    if isSavingPlansDisplayedHomeScreen {
-                        SavingPlansForHomeScreen(
-                            router: router,
-                            account: account
-                        )
-                    }
-                    // End Saving Plans
+                    SavingPlansForHomeScreen()
                     
-                    // Automations
-                    if isAutomationsDisplayedHomeScreen {
-                        AutomationsForHomeScreen(
-                            router: router,
-                            account: account
-                        )
-                    }
-                    // End Automations
+                    AutomationsForHomeScreen()
                     
                     // Recent Transactions
                     if isRecentTransactionsDisplayedHomeScreen {

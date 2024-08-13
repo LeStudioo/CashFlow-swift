@@ -32,37 +32,8 @@ extension CategoriesHomeViewModel {
         return false
     }
     
-    var searchResults: [PredefinedCategory] {
-        let predefCategories = categories
-        
-        if searchText.isEmpty {
-            return predefCategories.sorted { $0.title < $1.title }
-        } else {
-            let isCategoryEmpty: Bool = predefCategories.sorted { $0.title < $1.title }.filter { $0.title.localizedStandardContains(searchText) }.isEmpty
-            
-            if isCategoryEmpty {
-                var subcategories: [PredefinedSubcategory] = []
-                
-                for category in predefCategories {
-                    for subcategory in category.subcategories {
-                        subcategories.append(subcategory)
-                    }
-                }
-                
-                let filterSubcategories = subcategories.filter { $0.title.localizedStandardContains(searchText) }
-                
-                var categories: [PredefinedCategory] = []
-                for subcategory in filterSubcategories {
-                    if !categories.contains(subcategory.category) {
-                        categories.append(subcategory.category)
-                    }
-                }
-                
-                return categories.sorted { $0.title < $1.title }
-            } else {
-                return predefCategories.sorted { $0.title < $1.title }.filter { $0.title.localizedStandardContains(searchText) }
-            }
-        }
+    var categoriesFiltered: [PredefinedCategory] {
+        return categories.searchFor(searchText)
     }
-    
+        
 }

@@ -15,12 +15,9 @@ enum FilterForAutomation: Int, CaseIterable {
 
 struct AutomationsHomeView: View {
     
-    // Builder
-    @ObservedObject var account: Account
-    
     // Environement
+    @EnvironmentObject private var automationRepo: AutomationRepository
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // String variables
     @State private var searchText: String = ""
@@ -34,10 +31,10 @@ struct AutomationsHomeView: View {
     // Computed var
     private var searchResults: [Automation] {
         if searchText.isEmpty {
-            return account.automations
+            return automationRepo.automations
         } else { //Searching
-            let automationsFilterByTitle = account.automations.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let automationsFilterByDate = account.automations.filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date) .localizedCaseInsensitiveContains(searchText) }
+            let automationsFilterByTitle = automationRepo.automations.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            let automationsFilterByDate = automationRepo.automations.filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date) .localizedCaseInsensitiveContains(searchText) }
             
             if automationsFilterByTitle.isEmpty {
                 return automationsFilterByDate
@@ -78,7 +75,7 @@ struct AutomationsHomeView: View {
     // MARK: - body
     var body: some View {
         VStack(spacing: 0) {
-            if account.automations.count != 0 && searchResults.count != 0  {
+            if automationRepo.automations.count != 0 && searchResults.count != 0  {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
@@ -139,5 +136,5 @@ struct AutomationsHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    AutomationsHomeView(account: Account.preview)
+    AutomationsHomeView()
 }

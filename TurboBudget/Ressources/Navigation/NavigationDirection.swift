@@ -13,8 +13,8 @@ enum NavigationDirection: Identifiable {
     case filter
     
     case home(account: Account)
-    case homeSavingPlans(account: Account)
-    case homeAutomations(account: Account)
+    case homeSavingPlans
+    case homeAutomations
     
     case analytics(account: Account)
     
@@ -67,10 +67,10 @@ enum NavigationDirection: Identifiable {
             
         case .home(let account):
             return "home_\(account.id)"
-        case .homeSavingPlans(let account):
-            return "homeSavingPlans_\(account.id)"
-        case .homeAutomations(let account):
-            return "homeAutomations_\(account.id)"
+        case .homeSavingPlans:
+            return "homeSavingPlans"
+        case .homeAutomations:
+            return "homeAutomations"
             
         case .analytics(let account):
             return "analytics_\(account.id)"
@@ -158,6 +158,8 @@ extension NavigationDirection: Equatable {
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
+            (.homeSavingPlans, .homeSavingPlans),
+            (.homeAutomations, .homeAutomations),
             (.createAutomation, .createAutomation),
             (.createBudget, .createBudget),
             (.createSavingPlans, .createSavingPlans),
@@ -181,13 +183,6 @@ extension NavigationDirection: Equatable {
         case let (.home(lhsAccount), .home(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
             
-        case let (.homeSavingPlans(lhsAccount), .homeSavingPlans(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
-            
-        case let (.homeAutomations(lhsAccount), .homeAutomations(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
-            
-            
         case let (.analytics(lhsAccount), .analytics(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
             
@@ -209,7 +204,6 @@ extension NavigationDirection: Equatable {
             } else {
                 return false
             }
-
             
         case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
             return lhsAccount.id == rhsAccount.id

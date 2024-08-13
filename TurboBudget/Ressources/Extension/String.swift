@@ -14,10 +14,6 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
-    func unaccent() -> String {
-        return self.folding(options: .diacriticInsensitive, locale: .current)
-    }
-    
     func widthOfString(usingFont font: UIFont) -> CGFloat {
          let fontAttributes = [NSAttributedString.Key.font: font]
          let size = self.size(withAttributes: fontAttributes)

@@ -18,12 +18,12 @@ class NavigationManager: Router {
         navigateTo(.home(account: account))
     }
     
-    func pushHomeSavingPlans(account: Account) {
-        navigateTo(.homeSavingPlans(account: account))
+    func pushHomeSavingPlans() {
+        navigateTo(.homeSavingPlans)
     }
     
-    func pushHomeAutomations(account: Account) {
-        navigateTo(.homeAutomations(account: account))
+    func pushHomeAutomations() {
+        navigateTo(.homeAutomations)
     }
     
     
@@ -185,10 +185,10 @@ private extension NavigationManager {
                 
             case .home(let account):
                 HomeScreenView(account: account)
-            case .homeSavingPlans(let account):
+            case .homeSavingPlans:
                 SavingPlansHomeView()
-            case .homeAutomations(let account):
-                AutomationsHomeView(account: account)
+            case .homeAutomations:
+                AutomationsHomeView()
                 
             case .analytics(let account):
                 AnalyticsHomeView(account: account)

@@ -17,3 +17,9 @@ struct AdaptMyText: ViewModifier {
     }
 }
 
+extension View {
+    func adaptText() -> some View {
+        modifier(AdaptMyText())
+    }
+}
+

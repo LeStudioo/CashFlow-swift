@@ -11,21 +11,19 @@ import SwiftUI
 
 struct AutomationsForHomeScreen: View {
     
-    // Builder
-    var router: NavigationManager
-    @ObservedObject var account: Account
-    
     // Environment
-    @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var automationRepo: AutomationRepository
     
     // Preferences
+    @Preference(\.isAutomationsDisplayedHomeScreen) private var isAutomationsDisplayedHomeScreen
     @Preference(\.numberOfAutomationsDisplayedInHomeScreen) private var numberOfAutomationsDisplayedInHomeScreen
     
     // MARK: - body
     var body: some View {
         VStack {
             Button(action: {
-                router.pushHomeAutomations(account: account)
+                router.pushHomeAutomations()
             }, label: {
                 HStack {
                     Text("automations_for_home_title".localized)
@@ -42,9 +40,9 @@ struct AutomationsForHomeScreen: View {
             .padding(.horizontal)
             .padding(.top)
             
-            if account.automations.count != 0 {
+            if automationRepo.automations.count != 0 {
                 VStack {
-                    ForEach(account.automations.prefix(numberOfAutomationsDisplayedInHomeScreen)) { automation in
+                    ForEach(automationRepo.automations.prefix(numberOfAutomationsDisplayedInHomeScreen)) { automation in
                         Button(action: {
                             if let transaction = automation.automationToTransaction {
                                 router.pushTransactionDetail(transaction: transaction)
@@ -79,13 +77,11 @@ struct AutomationsForHomeScreen: View {
                 }
             }
         }
+        .isDisplayed(isAutomationsDisplayedHomeScreen)
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    AutomationsForHomeScreen(
-        router: .init(isPresented: .constant(.homeAutomations(account: Account.preview))),
-        account: Account.preview
-    )
+    AutomationsForHomeScreen()
 }

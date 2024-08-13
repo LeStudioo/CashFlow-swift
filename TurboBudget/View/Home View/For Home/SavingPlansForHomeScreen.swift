@@ -10,15 +10,13 @@
 import SwiftUI
 
 struct SavingPlansForHomeScreen: View {
-    
-    // Custom type
-    var router: NavigationManager
-    @ObservedObject var account: Account
-    
+        
     // Environment
-    @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
     
     // Preferences
+    @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
     @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) private var numberOfSavingPlansDisplayedInHomeScreen
 
     // Other
@@ -31,7 +29,7 @@ struct SavingPlansForHomeScreen: View {
     var body: some View {
         VStack {
             Button(action: {
-                router.pushHomeSavingPlans(account: account)
+                router.pushHomeSavingPlans()
             }, label: {
                 HStack {
                     Text("savingsplans_for_home_title".localized)
@@ -48,10 +46,10 @@ struct SavingPlansForHomeScreen: View {
             .padding(.horizontal)
             .padding(.top)
             
-            if account.savingPlans.count != 0 {
+            if savingPlanRepo.savingPlans.count != 0 {
                 HStack {
                     LazyVGrid(columns: layout, alignment: .center) {
-                        ForEach(account.savingPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingPlan in
+                        ForEach(savingPlanRepo.savingPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingPlan in
                             Button(action: {
                                 router.pushSavingPlansDetail(savingPlan: savingPlan)
                             }, label: {
@@ -87,13 +85,11 @@ struct SavingPlansForHomeScreen: View {
                 }
             }
         }
+        .isDisplayed(isSavingPlansDisplayedHomeScreen)
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    SavingPlansForHomeScreen(
-        router: .init(isPresented: .constant(.homeSavingPlans(account: Account.preview))),
-        account: Account.preview
-    )
+    SavingPlansForHomeScreen()
 }

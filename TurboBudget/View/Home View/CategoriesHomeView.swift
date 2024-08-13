@@ -20,7 +20,7 @@ struct CategoriesHomeView: View {
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.searchResults.count != 0 {
+            if viewModel.categoriesFiltered.count != 0 {
                 ScrollView {
                     VStack {
                         if !alertMessageIfEmpty().isEmpty {
@@ -44,7 +44,7 @@ struct CategoriesHomeView: View {
                             .padding(.bottom, 8)
                         }
                         
-                        ForEach(viewModel.searchResults) { category in
+                        ForEach(viewModel.categoriesFiltered) { category in
                             if category.subcategories.count != 0 {
                                 Button(action: {
                                     router.pushHomeSubcategories(category: category)
@@ -73,7 +73,7 @@ struct CategoriesHomeView: View {
                 .scrollIndicators(.hidden)
             } else {
                 ErrorView(
-                    searchResultsCount: viewModel.searchResults.count,
+                    searchResultsCount: viewModel.categoriesFiltered.count,
                     searchText: viewModel.searchText,
                     image: "",
                     text: ""
@@ -91,7 +91,11 @@ struct CategoriesHomeView: View {
     
     // MARK: Functions
     func alertMessageIfEmpty() -> String {
-        if viewModel.filter.byDay && !viewModel.dataWithFilterChoosen && viewModel.searchResults.map({ $0.incomesTransactionsAmountForSelectedDate(filter: viewModel.filter) }).reduce(0, +) == 0 {
+        if viewModel.filter.byDay
+            && !viewModel.dataWithFilterChoosen
+            && viewModel.categoriesFiltered
+            .map({ $0.incomesTransactionsAmountForSelectedDate(filter: viewModel.filter) })
+            .reduce(0, +) == 0 {
             return "⚠️" + " " + "error_message_no_data_day".localized
         } else if !viewModel.filter.byDay && !viewModel.dataWithFilterChoosen && !viewModel.filter.total {
             return "⚠️" + " " + "error_message_no_data_month".localized

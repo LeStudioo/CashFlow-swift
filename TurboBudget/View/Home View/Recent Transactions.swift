@@ -18,15 +18,13 @@ struct RecentTransactionsView: View {
     // Builder
     @ObservedObject var account: Account
     
-    // Repo
+    // Environement
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepo: TransactionRepository
     
     // Custom
     @StateObject private var viewModel = RecentTransactionsViewModel()
-    
-    // Environement
-    @EnvironmentObject private var router: NavigationManager
-    
+        
     // String variables
     @State private var searchText: String = ""
         

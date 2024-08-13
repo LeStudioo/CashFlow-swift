@@ -14,8 +14,6 @@ struct PageControllerView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    
-    // Repo
     @EnvironmentObject private var accountRepo: AccountRepository
     
     // Custom
@@ -120,7 +118,6 @@ struct PageControllerView: View {
                         }
                         
                         TabbarView(
-                            router: router,
                             selectedTab: $selectedTab,
                             offsetYMenu: $offsetYMenu
                         )
