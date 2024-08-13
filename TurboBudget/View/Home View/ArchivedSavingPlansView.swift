@@ -12,10 +12,10 @@ import SwiftUI
 struct ArchivedSavingPlansView: View {
     
     // Builder
-    var router: NavigationManager
     @ObservedObject var account: Account
     
     // Environement
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -84,8 +84,5 @@ struct ArchivedSavingPlansView: View {
 
 // MARK: - Preview
 #Preview {
-    ArchivedSavingPlansView(
-        router: .init(isPresented: .constant(.allArchivedSavingPlans(account: Account.preview))),
-        account: Account.preview
-    )
+    ArchivedSavingPlansView(account: Account.preview)
 }

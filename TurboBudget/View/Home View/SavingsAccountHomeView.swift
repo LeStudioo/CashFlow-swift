@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct SavingsAccountHomeView: View {
-
-    // Builder
-    var router: NavigationManager
     
     // CoreData
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingsAccount.id, ascending: true)])
     private var savingsAccounts: FetchedResults<SavingsAccount>
     
     // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -137,6 +135,6 @@ struct SavingsAccountHomeView: View {
 } // End struct
 
 //MARK: - Preview
-//#Preview {
-//    SavingsAccountHomeView()
-//}
+#Preview {
+    SavingsAccountHomeView()
+}

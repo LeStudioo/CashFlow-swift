@@ -11,13 +11,13 @@ import SwiftUI
 struct SubcategoryTransactionsView: View {
     
     // Builder
-    var router: NavigationManager
     var subcategory: PredefinedSubcategory
     
     // Repo
     @EnvironmentObject private var transactionRepo: TransactionRepository
     
     //Environnements
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String
@@ -161,8 +161,5 @@ struct SubcategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryTransactionsView(
-        router: .init(isPresented: .constant(.subcategoryTransactions(subcategory: .PREDEFSUBCAT1CAT1))),
-        subcategory: .PREDEFSUBCAT1CAT1
-    )
+    SubcategoryTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
 }

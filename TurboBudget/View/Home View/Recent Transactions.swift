@@ -16,7 +16,6 @@ enum FilterForRecentTransaction: Int, CaseIterable {
 struct RecentTransactionsView: View {
     
     // Builder
-    var router: NavigationManager
     @ObservedObject var account: Account
     
     // Repo
@@ -26,6 +25,7 @@ struct RecentTransactionsView: View {
     @StateObject private var viewModel = RecentTransactionsViewModel()
     
     // Environement
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -196,8 +196,5 @@ struct RecentTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    RecentTransactionsView(
-        router: .init(isPresented: .constant(.allTransactions(account: .preview))),
-        account: Account.preview
-    )
+    RecentTransactionsView(account: Account.preview)
 }

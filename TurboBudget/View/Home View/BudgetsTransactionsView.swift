@@ -12,10 +12,10 @@ import SwiftUI
 struct BudgetsTransactionsView: View {
 
     // Builder
-    var router: NavigationManager
     var subcategory: PredefinedSubcategory
 
     // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
@@ -160,8 +160,5 @@ struct BudgetsTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    BudgetsTransactionsView(
-        router: .init(isPresented: .constant(.allBudgets)),
-        subcategory: .PREDEFSUBCAT1CAT1
-    )
+    BudgetsTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
 }

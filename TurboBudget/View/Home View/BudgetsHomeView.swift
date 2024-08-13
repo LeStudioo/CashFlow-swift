@@ -11,9 +11,6 @@ import SwiftUI
 
 struct BudgetsHomeView: View {
     
-    // Builder
-    var router: NavigationManager
-    
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
     
@@ -22,6 +19,7 @@ struct BudgetsHomeView: View {
     private var budgets: FetchedResults<Budget>
     
     //Environnements
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String
@@ -146,5 +144,5 @@ struct BudgetsHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    BudgetsHomeView(router: .init(isPresented: .constant(.allBudgets)))
+    BudgetsHomeView()
 }

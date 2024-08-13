@@ -12,13 +12,13 @@ import Charts
 struct SubcategoryHomeView: View {
     
     // Builder
-    var router: NavigationManager
     var category: PredefinedCategory
     
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
     
     //Environnements
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding Int, Float and Double
@@ -118,8 +118,5 @@ struct SubcategoryHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryHomeView(
-        router: .init(isPresented: .constant(.homeSubcategories(category: .PREDEFCAT1))),
-        category: .PREDEFCAT1
-    )
+    SubcategoryHomeView(category: .PREDEFCAT1)
 }

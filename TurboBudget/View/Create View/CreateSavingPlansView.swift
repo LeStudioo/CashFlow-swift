@@ -11,12 +11,10 @@ import ConfettiSwiftUI
 
 struct CreateSavingPlansView: View {
     
-    // Builder
-    var router: NavigationManager
-    
     // Custom
     @StateObject private var viewModel = AddSavingPlanViewModel()
-    
+    private let router: NavigationManager = .init(isPresented: .constant(.createSavingPlans))
+
     // Environment
     @Environment(\.dismiss) private var dismiss
     
@@ -233,5 +231,5 @@ struct CreateSavingPlansView: View {
 
 // MARK: - Preview
 #Preview {
-    CreateSavingPlansView(router: .init(isPresented: .constant(.createSavingPlans)))
+    CreateSavingPlansView()
 }

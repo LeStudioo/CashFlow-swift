@@ -186,7 +186,7 @@ private extension NavigationManager {
             case .home(let account):
                 HomeScreenView(account: account)
             case .homeSavingPlans(let account):
-                SavingPlansHomeView(router: router(route: route), account: account)
+                SavingPlansHomeView(account: account)
             case .homeAutomations(let account):
                 AutomationsHomeView(account: account)
                 
@@ -196,9 +196,9 @@ private extension NavigationManager {
             case .createAutomation:
                 CreateAutomationView()
             case .createBudget:
-                CreateBudgetView(router: router(route: route))
+                CreateBudgetView()
             case .createSavingPlans:
-                CreateSavingPlansView(router: router(route: route))
+                CreateSavingPlansView()
             case .createTransaction:
                 CreateTransactionView()
             case .recoverTransaction:
@@ -214,7 +214,7 @@ private extension NavigationManager {
                 
                 
             case .allTransactions(let account):
-                RecentTransactionsView(router: router(route: route), account: account)
+                RecentTransactionsView(account: account)
             case .transactionDetail(let transaction):
                 TransactionDetailView(transaction: transaction)
                 
@@ -228,28 +228,28 @@ private extension NavigationManager {
             case .savingsAccountDetail(let savingsAccount):
                 SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:
-                SavingsAccountHomeView(router: router(route: route))
+                SavingsAccountHomeView()
             case .allBudgets:
-                BudgetsHomeView(router: router(route: route))
+                BudgetsHomeView()
             case .budgetTransactions(let subcategory):
-                BudgetsTransactionsView(router: router(route: route), subcategory: subcategory)
+                BudgetsTransactionsView(subcategory: subcategory)
             case .allArchivedSavingPlans(let account):
-                ArchivedSavingPlansView(router: router(route: route), account: account)
+                ArchivedSavingPlansView(account: account)
                 
             case .homeCategories:
                 CategoriesHomeView()
             case .categoryTransactions(let category):
-                CategoryTransactionsView(router: router(route: route), category: category)
+                CategoryTransactionsView(category: category)
             case .homeSubcategories(let category):
-                SubcategoryHomeView(router: router(route: route), category: category)
+                SubcategoryHomeView(category: category)
             case .subcategoryTransactions(let subcategory):
-                SubcategoryTransactionsView(router: router(route: route), subcategory: subcategory)
+                SubcategoryTransactionsView(subcategory: subcategory)
                 
             case .paywall:
                 PaywallScreenView()
                 
             case .settings(let account):
-                SettingsHomeView(router: router(route: route), account: account)
+                SettingsHomeView(account: account)
             case .settingsGeneral:
                 SettingsGeneralView()
             case .settingsSecurity:

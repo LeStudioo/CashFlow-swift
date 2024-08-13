@@ -10,15 +10,12 @@ import SwiftUI
 
 struct CreateBudgetView: View {
     
-    // Builder
-    var router: NavigationManager
-    
     // Custom
     @StateObject private var viewModel = AddBudgetViewModel()
+    private let router: NavigationManager = .init(isPresented: .constant(.createBudget))
     
     // Environment
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.managedObjectContext) private var viewContext
     
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
@@ -92,5 +89,5 @@ struct CreateBudgetView: View {
 
 //MARK: - Preview
 #Preview {
-    CreateBudgetView(router: .init(isPresented: .constant(.createBudget)))
+    CreateBudgetView()
 }

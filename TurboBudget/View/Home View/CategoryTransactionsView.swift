@@ -12,10 +12,10 @@ import SwiftUI
 struct CategoryTransactionsView: View {
     
     // Builder
-    var router: NavigationManager
     var category: PredefinedCategory
     
     // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     
@@ -155,8 +155,5 @@ struct CategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryTransactionsView(
-        router: .init(isPresented: .constant(.categoryTransactions(category: .PREDEFCAT1))),
-        category: .PREDEFCAT1
-    )
+    CategoryTransactionsView(category: .PREDEFCAT1)
 }

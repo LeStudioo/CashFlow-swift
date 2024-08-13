@@ -11,10 +11,10 @@ import SwiftUI
 struct SavingPlansHomeView: View {
     
     // Custom type
-    var router: NavigationManager
     @ObservedObject var account: Account
     
     // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
         
     // String variables
@@ -89,8 +89,5 @@ struct SavingPlansHomeView: View {
 
 //MARK: - Preview
 #Preview {
-    SavingPlansHomeView(
-        router: .init(isPresented: .constant(.homeSavingPlans(account: Account.preview))),
-        account: Account.preview
-    )
+    SavingPlansHomeView(account: Account.preview)
 }

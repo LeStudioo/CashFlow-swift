@@ -10,10 +10,10 @@ import SwiftUI
 struct SettingsHomeView: View {
     
     // Builder
-    var router: NavigationManager
     @ObservedObject var account: Account
     
     // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
     // EnvironementObject
@@ -268,8 +268,5 @@ struct SettingsHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SettingsHomeView(
-        router: .init(isPresented: .constant(.settings(account: Account.preview))),
-        account: Account.preview
-    )
+    SettingsHomeView(account: Account.preview)
 }
