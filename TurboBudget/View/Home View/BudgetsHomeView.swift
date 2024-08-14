@@ -14,12 +14,9 @@ struct BudgetsHomeView: View {
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
     
-    //CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Budget.title, ascending: true)])
-    private var budgets: FetchedResults<Budget>
-    
     //Environnements
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var budgetRepo: BudgetRepository
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String
@@ -29,7 +26,7 @@ struct BudgetsHomeView: View {
     // Computed var
     var getAllBudgetsByCategory: [PredefinedCategory] {
         var array: [PredefinedCategory] = []
-        for budget in budgets {
+        for budget in budgetRepo.budgets {
             if let category = PredefinedCategory.findByID(budget.predefCategoryID), !array.contains(category) {
                 array.append(category)
             }
@@ -39,10 +36,11 @@ struct BudgetsHomeView: View {
     
     var searchResults: [Budget] {
         if searchText.isEmpty {
-            return Array(budgets)
+            return Array(budgetRepo.budgets)
         } else { //Searching
-            let budgetsFilterByTitle: [Budget] = budgets.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let budgetsFilterByCategory: [Budget] = budgets
+            let budgetsFilterByTitle: [Budget] = budgetRepo.budgets
+                .filter { $0.title.localizedStandardContains(searchText) }
+            let budgetsFilterByCategory: [Budget] = budgetRepo.budgets
                 .filter { PredefinedCategory.findByID($0.predefCategoryID)?.title.localizedStandardContains(searchText) ?? false }
             
             if budgetsFilterByTitle.isEmpty {
@@ -56,11 +54,11 @@ struct BudgetsHomeView: View {
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if budgets.count != 0 && searchResults.count != 0 {
+            if budgetRepo.budgets.count != 0 && searchResults.count != 0 {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         ForEach(getAllBudgetsByCategory, id: \.self) { category in
-                            if budgets.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
+                            if budgetRepo.budgets.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
                                 if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
                                     HStack {
                                         Text(category.title)
@@ -110,13 +108,7 @@ struct BudgetsHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {

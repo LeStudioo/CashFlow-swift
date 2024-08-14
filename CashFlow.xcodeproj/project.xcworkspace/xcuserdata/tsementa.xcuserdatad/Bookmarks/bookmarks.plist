@@ -12,13 +12,13 @@
 					<key>EndingColumnNumber</key>
 					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>132</string>
+					<string>165</string>
 					<key>StartingColumnNumber</key>
 					<string>0</string>
 					<key>StartingLineNumber</key>
-					<string>131</string>
+					<string>164</string>
 					<key>Timestamp</key>
-					<string>745162852.822178</string>
+					<string>745343108.411359</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -37,7 +37,7 @@
 				<string>
 </string>
 				<key>leading</key>
-				<string>} // End struct
+				<string>}
 
 </string>
 				<key>trailing</key>

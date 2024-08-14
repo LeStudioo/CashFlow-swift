@@ -44,7 +44,7 @@ struct HelperManager {
     func formattedDateWithMonthYear(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: date).firstLetterCapitalized
+        return formatter.string(from: date).capitalized
     }
     
     //MARK: - Double

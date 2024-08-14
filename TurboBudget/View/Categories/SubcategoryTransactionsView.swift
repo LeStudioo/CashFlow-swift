@@ -1,40 +1,46 @@
 //
-//  CategoryTransactionsView.swift
+//  SubcategoryTransactionsView.swift
 //  CashFlow
 //
-//  Created by KaayZenn on 18/08/2023.
+//  Created by KaayZenn on 16/08/2023.
 //
-// Refactor 26/09/2023
 // Localizations 01/10/2023
 
 import SwiftUI
 
-struct CategoryTransactionsView: View {
+struct SubcategoryTransactionsView: View {
     
     // Builder
-    var category: PredefinedCategory
+    var subcategory: PredefinedSubcategory
     
-    // Environment
+    // Repo
+    @EnvironmentObject private var transactionRepo: TransactionRepository
+    
+    //Environnements
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
-    // String variables
+    //State or Binding String
     @State private var searchText: String = ""
         
-    // Boolean variables
+    //State or Binding Bool
     @State private var ascendingOrder: Bool = false
-        
-    // Enum
+    
+    //Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
-    // Computed var
+    //Computed var
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
-        for transaction in category.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
-            if !array.contains(components) { array.append(components) }
+        for transaction in subcategory.transactions {
+            if !transaction.isFault {
+                let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
+                if !array.contains(components) {
+                    array.append(components)
+                }
+            }
         }
+        
         return array
     }
     
@@ -42,39 +48,41 @@ struct CategoryTransactionsView: View {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
                 if ascendingOrder {
-                    return category.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
+                    return subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
                 } else {
-                    return category.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
+                    return subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
                 }
             } else if filterTransactions == .incomes {
                 if ascendingOrder {
-                    return category.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }.reversed()
+                    return subcategory.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }.reversed()
                 } else {
-                    return category.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
+                    return subcategory.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
                 }
             } else {
-                return category.transactions
+                return subcategory.transactions
             }
         } else {
-            return category.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return subcategory.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
-    // MARK: - body
+    //MARK: - Body
     var body: some View {
         VStack {
-            if category.transactions.count != 0 && searchResults.count != 0 {
+            if subcategory.transactions.count != 0 && searchResults.count != 0 {
                 List(getAllMonthForTransactions, id: \.self) { dateComponents in
                     if let month = Calendar.current.date(from: dateComponents) {
                         if searchResults.map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
-                                        Button(action: {
-                                            router.pushTransactionDetail(transaction: transaction)
-                                        }, label: {
-                                            TransactionRow(transaction: transaction)
-                                        })
+                                    if !transaction.isFault {
+                                        if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+                                            Button(action: {
+                                                router.pushTransactionDetail(transaction: transaction)
+                                            }, label: {
+                                                TransactionRow(transaction: transaction)
+                                            })
+                                        }
                                     }
                                 }
                                 .listRowSeparator(.hidden)
@@ -84,8 +92,8 @@ struct CategoryTransactionsView: View {
                                 if filterTransactions == .month {
                                     DetailOfExpensesAndIncomesByMonth(
                                         month: month,
-                                        amountOfExpenses: category.amountExpensesByMonth(month: month),
-                                        amountOfIncomes: category.amountIncomesByMonth(month: month)
+                                        amountOfExpenses: subcategory.amountExpensesByMonth(month: month),
+                                        amountOfIncomes: subcategory.amountIncomesByMonth(month: month)
                                     )
                                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                                 } else if filterTransactions == .expenses || filterTransactions == .incomes {
@@ -107,6 +115,7 @@ struct CategoryTransactionsView: View {
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
                 .background(Color.background.edgesIgnoringSafeArea(.all))
+                .animation(.smooth, value: transactionRepo.transactions.count)
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,
@@ -117,29 +126,19 @@ struct CategoryTransactionsView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .navigationTitle("word_recent_transactions")
+        .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Menu(content: {
-                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month", systemImage: "calendar") })
-                        if category.id != PredefinedCategory.PREDEFCAT0.id {
-                            Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses", systemImage: "arrow.down.forward") })
-                        } else {
-                            Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes", systemImage: "arrow.up.right") })
-                        }
+                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
+                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
                     }, label: {
-                        Label("word_filter", systemImage: "slider.horizontal.3")
+                        Label("word_filter".localized, systemImage: "slider.horizontal.3")
                     })
                 }, label: {
                     Image(systemName: "ellipsis")
@@ -150,10 +149,11 @@ struct CategoryTransactionsView: View {
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        //        .sheet(isPresented: $showAddTransaction) { AddTransactionView(account: $account) }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    CategoryTransactionsView(category: .PREDEFCAT1)
+    SubcategoryTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
 }

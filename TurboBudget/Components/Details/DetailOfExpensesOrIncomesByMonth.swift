@@ -16,22 +16,10 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     var amountOfExpenses: Double
     var amountOfIncomes: Double
     @Binding var ascendingOrder: Bool
-
-    //Custom type
     
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var store: Store
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
 
     //MARK: - Body
     var body: some View {
@@ -41,6 +29,8 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     VStack(alignment: .leading) {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
+                            .foregroundStyle(Color(uiColor: .label))
+                        
                         if store.isLifetimeActive {
                             Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
@@ -85,7 +75,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
             
             Spacer()
         }
-        .padding([.horizontal, .top])
+        .padding(.horizontal)
     }//END body
 }//END struct
 

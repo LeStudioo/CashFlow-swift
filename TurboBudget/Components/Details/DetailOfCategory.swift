@@ -13,20 +13,8 @@ struct DetailOfCategory: View {
     //Builder
     var category: PredefinedCategory
 
-    //Custom type
-
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
 
     //MARK: - Body
     var body: some View {
@@ -50,6 +38,7 @@ struct DetailOfCategory: View {
             }
             
             Spacer()
+            
             Circle()
                 .frame(width: 30, height: 30)
                 .foregroundStyle(category.color)

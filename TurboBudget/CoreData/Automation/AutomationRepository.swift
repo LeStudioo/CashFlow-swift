@@ -26,4 +26,14 @@ extension AutomationRepository {
         }
     }
     
+    func deleteAutomation(_ automation: Automation) {
+        self.automations.removeAll(where: { $0.id == automation.id })
+        
+        viewContext.delete(automation)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            persistenceController.saveContext()
+        }
+    }
+    
 }

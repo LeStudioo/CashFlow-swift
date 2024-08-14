@@ -20,7 +20,11 @@ struct PieChart: View {
     var lineWidthMultiplier: Double
     var chartStyle: PieChartStyle
     var height: CGFloat
+    var isInteractive: Bool
 
+    // Environment
+    @EnvironmentObject private var filter: FilterManager
+    
     // Other
     @State private var activeSlice: PieSliceData? = nil
     
@@ -66,10 +70,12 @@ struct PieChart: View {
                                 .scaleEffect(self.activeSlice == slices[index] ? 1.05 : 1)
                         )
                         .onTapGesture {
-                            if let activeSlice, activeSlice == slices[index] {
-                                withAnimation { self.activeSlice = nil }
-                            } else {
-                                withAnimation { self.activeSlice = slices[index] }
+                            if isInteractive {
+                                if let activeSlice, activeSlice == slices[index] {
+                                    withAnimation { self.activeSlice = nil }
+                                } else {
+                                    withAnimation { self.activeSlice = slices[index] }
+                                }
                             }
                         }
                     
@@ -102,12 +108,15 @@ struct PieChart: View {
                                         } else if let subcat = cat.subcategories.findByID(activeSlice?.subcategoryID ?? "") {
                                             Text(subcat.title)
                                         }
+                                    } else {
+                                        Text(monthDisplayedInPieChart())
                                     }
                                 }
                                 .font(Font.mediumText16())
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                                 .foregroundStyle(Color.gray)
+                                .isDisplayed(isInteractive)
                                 
                                 Text((self.activeSlice == nil ? values.reduce(0, +).currency : activeSlice?.value.currency) ?? "")
                                     .foregroundStyle(Color(uiColor: .label))
@@ -128,6 +137,30 @@ struct PieChart: View {
         .frame(height: height)
     } // End body
 } // End struct
+
+extension PieChart {
+    
+    func monthDisplayedInPieChart() -> String {
+        let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
+        
+//        if !filter.automation && !filter.total {
+            if let month = components.month, let year = components.year {
+                return Calendar.current.monthSymbols[month - 1].capitalized + " \(year)"
+            } else { return "" }
+//        } else if filter.automation && !filter.total {
+//            if let month = components.month {
+//                return Calendar.current.monthSymbols[month - 1]
+//            } else { return "" }
+//        } else if !filter.automation && filter.total {
+//            return "word_total".localized
+//        } else if filter.automation && filter.total {
+//            return "word_total_auto".localized
+//        }
+        
+//        return ""
+    }
+    
+}
 
 
 //var categoriesWithExpenses: [PredefinedCategory] {

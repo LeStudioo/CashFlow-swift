@@ -21,6 +21,9 @@ struct TurboBudgetApp: App {
     @StateObject private var automationRepo: AutomationRepository = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepository = .shared
     @StateObject private var budgetRepo: BudgetRepository = .shared
+    @StateObject private var savingsAccountRepo: SavingsAccountRepo = .shared
+
+    @StateObject private var filterManager: FilterManager = .shared
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -60,6 +63,9 @@ struct TurboBudgetApp: App {
             .environmentObject(automationRepo)
             .environmentObject(savingPlanRepo)
             .environmentObject(budgetRepo)
+            .environmentObject(savingsAccountRepo)
+            
+            .environmentObject(filterManager)
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
@@ -70,6 +76,7 @@ struct TurboBudgetApp: App {
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingPlans()
                 budgetRepo.fetchBudgets()
+                savingsAccountRepo.fetchSavingsAccounts()
             }
         }
     } // End body

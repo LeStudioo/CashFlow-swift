@@ -11,11 +11,16 @@ extension PredefinedCategory {
     
     static var categoriesWithTransactions: [PredefinedCategory] {
         var array: [PredefinedCategory] = []
+        let filterManager = FilterManager.shared
+        
         for category in self.allCases {
-            if category.transactions.count != 0 {
+            let transactionsFiltered = category.transactions
+                .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
+            if transactionsFiltered.count != 0 {
                 array.append(category)
             }
         }
+        
         return array
             .sorted { $0.title < $1.title }
     }
@@ -33,7 +38,7 @@ extension PredefinedCategory {
                 .init(
                     categoryID: category.id,
                     iconName: category.icon,
-                    value: category.transactions.map(\.amount).reduce(0, -),
+                    value: category.transactionsFiltered.map(\.amount).reduce(0, -),
                     color: category.color
                 )
             )
@@ -44,16 +49,23 @@ extension PredefinedCategory {
     
     var categorySlices: [PieSliceData] {
         var array: [PieSliceData] = []
+        let filterManager = FilterManager.shared
         
         for subcategory in self.subcategories {
-            let amount = subcategory.transactions.map(\.amount).reduce(0, -)
+            let transactionsFiltered = subcategory.transactions
+                .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
+            
+            let amount = transactionsFiltered
+                .map(\.amount)
+                .reduce(0, -)
+            
             if amount != 0 {
                 array.append(
                     .init(
                         categoryID: subcategory.category.id,
                         subcategoryID: subcategory.id,
                         iconName: subcategory.icon,
-                        value: subcategory.transactions.map(\.amount).reduce(0, -),
+                        value: subcategory.transactionsFiltered.map(\.amount).reduce(0, -),
                         color: subcategory.category.color
                     )
                 )

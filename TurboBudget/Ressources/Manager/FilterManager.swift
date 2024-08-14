@@ -11,7 +11,7 @@ class FilterManager: ObservableObject {
     static let shared = FilterManager()
     
     @Published var byMonth: Bool = false
-    @Published var date: Date = Date() // Month and year
+    @Published var date: Date = Date()
     
     @Published var onlyExpenses: Bool = false
     @Published var onlyIncomes: Bool = false

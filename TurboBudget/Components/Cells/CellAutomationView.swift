@@ -15,7 +15,7 @@ struct CellAutomationView: View {
     @ObservedObject var automation: Automation
 
     // Environement
-    @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var automationRepo: AutomationRepository
     @Environment(\.colorScheme) private var colorScheme
     
     // Boolean variables
@@ -114,20 +114,16 @@ struct CellAutomationView: View {
             .padding(.horizontal)
             .alert("transaction_cell_delete_auto".localized, isPresented: $isDeleting, actions: {
                 Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-                Button(role: .destructive, action: { withAnimation { deleteTransactionWithAutomation() } }, label: { Text("word_delete".localized) })
+                Button(
+                    role: .destructive,
+                    action: { automationRepo.deleteAutomation(automation) },
+                    label: { Text("word_delete".localized) }
+                )
             }, message: {
                 Text("transaction_cell_delete_auto_desc".localized)
             })
         } // End id
     } // End body
-
-    // MARK: Fonctions
-    private func deleteTransactionWithAutomation() {
-        if let account = automation.automationToAccount {
-            account.deleteAutomation(automation: automation)
-        }
-    }
-    
 } // End struct
 
 // MARK: - Preview

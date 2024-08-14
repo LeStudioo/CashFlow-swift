@@ -22,9 +22,7 @@ struct AutomationsForHomeScreen: View {
     // MARK: - body
     var body: some View {
         VStack {
-            Button(action: {
-                router.pushHomeAutomations()
-            }, label: {
+            Button(action: { router.pushHomeAutomations() }, label: {
                 HStack {
                     Text("automations_for_home_title".localized)
                         .foregroundStyle(Color.customGray)

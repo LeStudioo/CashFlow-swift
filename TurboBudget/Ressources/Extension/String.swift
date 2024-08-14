@@ -31,11 +31,6 @@ extension String {
         } else { return false }
     }
     
-    var firstLetterCapitalized: String {
-        guard let firstLetter = self.first else { return "" }
-        return firstLetter.uppercased() + self.dropFirst()
-    }
-    
     func matches(for regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)

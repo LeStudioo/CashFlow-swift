@@ -109,21 +109,6 @@ extension Account {
     
 }
 
-// MARK: - Accessors for Automations
-extension Account {
-    
-    public func deleteAutomation(automation: Automation) {
-        let context = persistenceController.container.viewContext
-        
-        context.delete(automation)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.persistenceController.saveContext()
-        }
-    }
-    
-}
-
 // MARK: - Preview
 extension Account {
     

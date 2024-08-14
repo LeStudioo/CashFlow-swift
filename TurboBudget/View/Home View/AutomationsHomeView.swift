@@ -16,6 +16,7 @@ enum FilterForAutomation: Int, CaseIterable {
 struct AutomationsHomeView: View {
     
     // Environement
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var automationRepo: AutomationRepository
     @Environment(\.dismiss) private var dismiss
     
@@ -76,20 +77,29 @@ struct AutomationsHomeView: View {
     var body: some View {
         VStack(spacing: 0) {
             if automationRepo.automations.count != 0 && searchResults.count != 0  {
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
+                List {
+                    ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
+                        Section {
+                            ForEach(automations, id: \.self) { automation in
+                                CellAutomationView(automation: automation)
+                            }
+                        } header: {
                             DetailOfExpensesAndIncomesByMonth(
                                 month: month,
                                 amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
                                 amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
                             )
-                            ForEach(automations, id: \.self) { automation in
-                                CellAutomationView(automation: automation)
-                            }
                         }
                     }
-                } //End ScrollView
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                    .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                } // End List
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .scrollIndicators(.hidden)
+                .background(Color.background.edgesIgnoringSafeArea(.all))
+                .animation(.smooth, value: automationRepo.automations.count)
             } else {
                 ErrorView(
                     searchResultsCount: searchResults.count,
@@ -104,16 +114,10 @@ struct AutomationsHomeView: View {
         .navigationBarBackButtonHidden(true)
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {  }, label: {
+                Button(action: { router.presentCreateAutomation()  }, label: {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -121,7 +125,6 @@ struct AutomationsHomeView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-//        .sheet(isPresented: $showAddAutomation) { AddAutomationsView() } //TODO: REACTIVER
         .onAppear { getOrientationOnAppear() }
     } // End body
     

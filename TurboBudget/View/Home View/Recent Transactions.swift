@@ -132,19 +132,22 @@ struct RecentTransactionsView: View {
                                             amountOfExpenses: account.amountExpensesByMonth(month: month),
                                             amountOfIncomes: account.amountIncomesByMonth(month: month)
                                         )
-                                        .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                                     } else if filterTransactions == .expenses || filterTransactions == .incomes {
                                         DetailOfExpensesOrIncomesByMonth(
                                             filterTransactions: $filterTransactions,
                                             month: month,
-                                            amountOfExpenses: searchResults.filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth }).map({ $0.amount }).reduce(0, -),
-                                            amountOfIncomes: searchResults.filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
+                                            amountOfExpenses: searchResults
+                                                .filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth })
+                                                .map({ $0.amount }).reduce(0, -),
+                                            amountOfIncomes: searchResults
+                                                .filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth })
+                                                .map({ $0.amount }).reduce(0, +),
                                             ascendingOrder: $ascendingOrder
                                         )
-                                        .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                                     }
                                 })
-                                .foregroundStyle(Color(uiColor: .label))
                             }
                         }
                     } // End List

@@ -9,12 +9,9 @@ import SwiftUI
 
 struct SavingsAccountHomeView: View {
     
-    // CoreData
-    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \SavingsAccount.id, ascending: true)])
-    private var savingsAccounts: FetchedResults<SavingsAccount>
-    
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var savingsAccountRepo: SavingsAccountRepo
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -22,7 +19,9 @@ struct SavingsAccountHomeView: View {
     
     // Computed variables
     var totalSavings: Double {
-        return savingsAccounts.map { $0.balance }.reduce(0, +)
+        return savingsAccountRepo.savingsAccounts
+            .map { $0.balance }
+            .reduce(0, +)
     }
     
     var columns: [GridItem] {
@@ -49,7 +48,7 @@ struct SavingsAccountHomeView: View {
             .padding(.vertical, 12)
             
             LazyVGrid(columns: columns, spacing: 12, content: {
-                ForEach(savingsAccounts) { account in
+                ForEach(savingsAccountRepo.savingsAccounts) { account in
                     Button(action: {
                         router.pushSavingsAccountDetail(savingsAccount: account)
                     }, label: {
@@ -64,13 +63,7 @@ struct SavingsAccountHomeView: View {
         .navigationBarBackButtonHidden(true)
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
                         
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {

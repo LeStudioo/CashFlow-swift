@@ -21,6 +21,7 @@ extension PieChart {
         self.lineWidthMultiplier = configuration.lineWidthMultiplier
         self.holeSizeRatio = configuration.holeSizeRatio
         self.height = configuration.height
+        self.isInteractive = configuration.isInteractive
     }
     
     static func adjustValues(_ inputValues: [Double]) -> [Double] {

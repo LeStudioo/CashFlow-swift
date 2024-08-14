@@ -168,13 +168,7 @@ struct SavingPlanDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {

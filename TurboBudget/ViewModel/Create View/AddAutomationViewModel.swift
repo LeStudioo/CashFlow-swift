@@ -15,7 +15,6 @@ enum AutomationFrequently: CaseIterable {
 
 class AddAutomationViewModel: ObservableObject {
     static let shared = AddAutomationViewModel()
-    let viewContext = persistenceController.container.viewContext
     
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
@@ -30,24 +29,10 @@ class AddAutomationViewModel: ObservableObject {
     @Published var allowNotification: Bool = false
     @Published var addNotification: Bool = false
     
-    @Published var mainAccount: Account? = nil
     @Published var theNewTransaction: Transaction? = nil
     @Published var theNewAutomation: Automation? = nil
     @Published var presentingConfirmationDialog: Bool = false
-    
-    // init
-    init() {
-        let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-        var allAccount: [Account] = []
-        do {
-            allAccount = try viewContext.fetch(fetchRequest)
-            if allAccount.count != 0 {
-                mainAccount = allAccount[0]
-            }
-        } catch {
-            print("⚠️ \(error.localizedDescription)")
-        }
-    }
+
 }
 
 extension AddAutomationViewModel {
@@ -78,8 +63,7 @@ extension AddAutomationViewModel {
         newAutomation.date = finalDate
         newAutomation.frenquently = automationFrenquently == .monthly ? 0 : 1
         newAutomation.automationToTransaction = newTransaction
-        newAutomation.automationToAccount = mainAccount
-        
+        newAutomation.automationToAccount = AccountRepository.shared.mainAccount
         newTransaction.transactionToAutomation = newAutomation
         
         do {
@@ -88,6 +72,7 @@ extension AddAutomationViewModel {
             print("🔥 New Automation created with Success")
             theNewTransaction = newTransaction
             theNewAutomation = newAutomation
+            AutomationRepository.shared.automations.append(newAutomation)
             withAnimation { showSuccessfulAutomation.toggle() }
         } catch {
             print("⚠️ Error for : \(error.localizedDescription)")

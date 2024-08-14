@@ -124,14 +124,7 @@ struct CreateTransactionView: View {
                                 .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                                 .multilineTextAlignment(.center)
                                 .keyboardType(.decimalPad)
-                                .if(!isLittleIphone) { view in
-                                    view
-                                        .padding()
-                                }
-                                .if(isLittleIphone) { view in
-                                    view
-                                        .padding(8)
-                                }
+                                .padding(isLittleIphone ? 8 : 16)
                                 .background(Color.backgroundComponentSheet.cornerRadius(100))
                                 .padding(.bottom, 24)
                             

@@ -130,6 +130,11 @@ extension PredefinedCategory {
         return TransactionRepository.shared.getTransactionsForCategory(categoryID: self.rawValue)
     }
     
+    var transactionsFiltered: [Transaction] {
+        return self.transactions
+            .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }
+    }
+    
     var automations: [Transaction] {
         return transactions.filter({ $0.comeFromAuto })
     }

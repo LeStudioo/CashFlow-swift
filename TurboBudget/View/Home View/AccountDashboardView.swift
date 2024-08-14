@@ -106,11 +106,12 @@ struct AccountDashboardView: View {
                                 .font(.semiBoldH3())
                                 .padding(.leading, 8)
                             HStack {
-                                PieChartViewNoInteractive(
-                                    categories: Array(PredefinedCategory.allCases),
-                                    width: .constant(widthOfChart),
-                                    height: .constant(widthOfChart)
+                                PieChart(
+                                    slices: PredefinedCategory.categoriesSlices,
+                                    backgroundColor: Color.colorCell,
+                                    configuration: .init(style: .category, space: 0.2, hole: 0.75, isInteractive: false)
                                 )
+                                .frame(height: 180)
                                 .padding(.horizontal, 8)
                                 VStack {
                                     cellForChart(text: "word_expenses".localized, amount: amountExpenses.currency)
