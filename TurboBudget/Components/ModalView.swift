@@ -7,36 +7,37 @@
 
 import SwiftUI
 
-struct SuccessfullModal<Content: View> {
+// TODO: Implenter ceci pour valider des transactions etc ...
+// Refaire le fichier correcetement
+struct SuccessfullModal {
     var title: String
     var subTitle: String
-    @ViewBuilder var content: Content
+    @ViewBuilder var content: AnyView
     
-    init(title: String, subTitle: String, content: @escaping () -> Content) {
+    init(title: String, subTitle: String, content: @escaping () -> AnyView) {
         self.title = title
         self.subTitle = subTitle
         self.content = content()
     }
 }
 
-struct ModalView<Content: View>: View {
+struct ModalView: View {
     
     // Builder
-    var successfullModal: SuccessfullModal<Content>
+    var successfullModal: SuccessfullModal
     
-    // Preferences
-    @Preference(\.isSuccessfulModalSwhowing) private var isSuccessfulModalSwhowing
+    @EnvironmentObject private var succesfullModalManager: SuccessfullModalManager
     
     // MARK: - body
     var body: some View {
         ZStack(alignment: .bottom) {
-            if isSuccessfulModalSwhowing {
+            if succesfullModalManager.isPresenting {
                 Color.black
                     .opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture {
                         withAnimation(.smooth) {
-                            isSuccessfulModalSwhowing = false
+                            succesfullModalManager.isPresenting = false
                         }
                     }
                 
@@ -45,7 +46,7 @@ struct ModalView<Content: View>: View {
                         Spacer()
                         Button(action: { 
                             withAnimation(.smooth) {
-                                isSuccessfulModalSwhowing = false
+                                succesfullModalManager.isPresenting = false
                             }
                         }, label: {
                             Image(systemName: "xmark")
@@ -79,7 +80,7 @@ struct ModalView<Content: View>: View {
                 .padding(.vertical, 8)
                 .frame(height: 400)
                 .frame(maxWidth: .infinity)
-                .background(Color(uiColor: .systemBackground))
+                .background(Color.backgroundComponent)
                 .clipShape(RoundedRectangle(cornerRadius: UIScreen.main.displayCornerRadius, style: .continuous))
                 .transition(.move(edge: .bottom))
                 .padding(4)

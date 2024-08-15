@@ -24,6 +24,7 @@ struct TurboBudgetApp: App {
     @StateObject private var savingsAccountRepo: SavingsAccountRepo = .shared
 
     @StateObject private var filterManager: FilterManager = .shared
+    @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -66,6 +67,7 @@ struct TurboBudgetApp: App {
             .environmentObject(savingsAccountRepo)
             
             .environmentObject(filterManager)
+            .environmentObject(successfullModalManager)
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()

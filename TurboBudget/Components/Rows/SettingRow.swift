@@ -1,5 +1,5 @@
 //
-//  CellSettingsView.swift
+//  SettingRow.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 24/02/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CellSettingsView: View {
+struct SettingRow: View {
     
     // Builder
     var icon: String
@@ -44,7 +44,7 @@ struct CellSettingsView: View {
 
 // MARK: - Preview
 #Preview {
-    CellSettingsView(
+    SettingRow(
         icon: "person.fill",
         backgroundColor: Color.red,
         text: "Preview",

@@ -1,5 +1,5 @@
 //
-//  CellTransferView.swift
+//  TransferRow.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 23/11/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwipeActions
 
-struct CellTransferView: View {
+struct TransferRow: View {
 
     //Custom type
     var transfer: Transfer
@@ -118,5 +118,5 @@ struct CellTransferView: View {
 
 //MARK: - Preview
 #Preview {
-    CellTransferView(transfer: Transfer.preview1)
+    TransferRow(transfer: Transfer.preview1)
 }

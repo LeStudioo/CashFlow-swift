@@ -25,7 +25,7 @@ enum NavigationDirection: Identifiable {
     case recoverTransaction
     case createSavingsAccount
     case createTransfer
-    
+        
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
     case allTransactions(account: Account)

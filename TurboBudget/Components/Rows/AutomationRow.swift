@@ -1,5 +1,5 @@
 //
-//  CellAutomationView.swift
+//  AutomationRow.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 18/07/2023.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SwipeActions
 
-struct CellAutomationView: View {
+struct AutomationRow: View {
 
     // Builder
     @ObservedObject var automation: Automation
@@ -128,5 +128,5 @@ struct CellAutomationView: View {
 
 // MARK: - Preview
 #Preview {
-    CellAutomationView(automation: Automation.preview)
+    AutomationRow(automation: Automation.preview)
 }

@@ -1,5 +1,5 @@
 //
-//  CellContributionView.swift
+//  ContributionRow.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -9,28 +9,19 @@
 import SwiftUI
 import SwipeActions
 
-struct CellContributionView: View {
+struct ContributionRow: View {
 
     //Custom type
     var contribution: Contribution
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.managedObjectContext) private var viewContext
-    
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
 
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
-
-	//Enum
-	
-	//Computed var
     
-    //MARK: - Body
+    //MARK: - 
     var body: some View {
         SwipeView(label: {
             HStack {
@@ -106,5 +97,5 @@ struct CellContributionView: View {
 
 //MARK: - Preview
 #Preview {
-    CellContributionView(contribution: Contribution.preview1)
+    ContributionRow(contribution: Contribution.preview1)
 }

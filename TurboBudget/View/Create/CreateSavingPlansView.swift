@@ -173,7 +173,7 @@ struct CreateSavingPlansView: View {
                             .padding(.bottom, 30)
                             
                             if let theNewSavingPlan = viewModel.theNewSavingPlan {
-                                CellSavingPlanView(savingPlan: theNewSavingPlan)
+                                SavingsPlanRow(savingPlan: theNewSavingPlan)
                                     .padding(.vertical)
                             }
                             

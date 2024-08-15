@@ -46,7 +46,7 @@ struct CategoryRow: View {
         return ""
     }
 
-    // MARK: - body
+    // MARK: -
     var body: some View {
         HStack {
             ZStack {

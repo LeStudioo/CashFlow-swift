@@ -60,7 +60,7 @@ struct SavingsAccountDetailView: View {
                         Section(content: {
                             ForEach(savingsAccount.transfers) { transfer in
                                 if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
-                                    CellTransferView(transfer: transfer)
+                                    TransferRow(transfer: transfer)
                                 }
                             }
                             .listRowSeparator(.hidden)

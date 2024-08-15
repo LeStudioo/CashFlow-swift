@@ -40,7 +40,7 @@ struct SavingPlansHomeView: View {
                                 Button(action: {
                                     router.pushSavingPlansDetail(savingPlan: savingPlan)
                                 }, label: {
-                                    CellSavingPlanView(savingPlan: savingPlan)
+                                    SavingsPlanRow(savingPlan: savingPlan)
                                 })
                                 .padding(.bottom)
                             }

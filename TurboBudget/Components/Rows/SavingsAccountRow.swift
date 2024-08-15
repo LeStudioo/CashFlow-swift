@@ -1,5 +1,5 @@
 //
-//  CellSavingsAccountView.swift
+//  SavingsAccountRow.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 20/02/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CellSavingsAccountView: View {
+struct SavingsAccountRow: View {
     
     // Builder
     @ObservedObject var savingsAccount: SavingsAccount
@@ -59,5 +59,5 @@ struct CellSavingsAccountView: View {
 
 // MARK: - Preview
 #Preview {
-    CellSavingsAccountView(savingsAccount: SavingsAccount.preview)
+    SavingsAccountRow(savingsAccount: SavingsAccount.preview)
 }

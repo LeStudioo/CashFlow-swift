@@ -82,7 +82,7 @@ struct BudgetsHomeView: View {
                                                 router.pushBudgetTransactions(subcategory: subcategory)
                                             }
                                         }, label: {
-                                            CellBudgetView(budget: budget, selectedDate: $filter.date)
+                                            BudgetRow(budget: budget, selectedDate: $filter.date)
                                         })
                                         .padding(.horizontal)
                                         .padding(.vertical, 8)

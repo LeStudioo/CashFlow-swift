@@ -9,20 +9,8 @@ import SwiftUI
 
 struct CircleWithCheckmark: View {
 
-    //Custom type
-
-    //Environnements
-
-    //State or Binding String
-
     //State or Binding Int, Float and Double
     @State private var scaleCheckmark: CGFloat = 0
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
 
     //MARK: - Body
     var body: some View {
@@ -38,15 +26,10 @@ struct CircleWithCheckmark: View {
             .onAppear {
                 withAnimation(.interpolatingSpring(stiffness: 170, damping: 5).delay(0.3)) { scaleCheckmark = 1.2 }
             }
-    }//END body
-
-    //MARK: Fonctions
-
-}//END struct
+    } // End body
+} // End struct
 
 //MARK: - Preview
-struct CircleWithCheckmark_Previews: PreviewProvider {
-    static var previews: some View {
-        CircleWithCheckmark()
-    }
+#Preview {
+    CircleWithCheckmark()
 }

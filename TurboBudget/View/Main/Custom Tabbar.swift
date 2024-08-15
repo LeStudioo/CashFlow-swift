@@ -19,6 +19,8 @@ struct TabbarView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepo: AccountRepository
     
+    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
+    
     // Custom type
     @ObservedObject var filter: Filter = sharedFilter
     @ObservedObject var viewModel = CustomTabBarViewModel.shared
@@ -96,7 +98,11 @@ struct TabbarView: View {
                         
                         Button(action: {
                             viewModel.showMenu = false
-                            router.presentCreateTransaction()
+                            router.presentCreateTransaction() {
+                                withAnimation(.smooth) {
+                                    successfullModalManager.isPresenting = true
+                                }
+                            }
                         }, label: {
                             HStack {
                                 Image(systemName: "creditcard.and.123")

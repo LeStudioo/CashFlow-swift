@@ -16,6 +16,8 @@ struct PageControllerView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepo: AccountRepository
     
+    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
+    
     // Custom
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
@@ -79,7 +81,7 @@ struct PageControllerView: View {
                         if let account = accountRepo.mainAccount {
                             Group {
                                 switch selectedTab {
-                                case 0: HomeScreenView(account: account)
+                                case 0: HomeView(account: account)
                                 case 1: AnalyticsHomeView(account: account)
                                 case 3: AccountDashboardView(account: account)
                                 case 4: CategoriesHomeView()
@@ -144,6 +146,13 @@ struct PageControllerView: View {
                     .edgesIgnoringSafeArea(.bottom)
                     .ignoresSafeArea(.keyboard)
                 } // End if unlocked
+            }
+            .overlay(alignment: .bottom) {
+//                if successfullModalManager.isPresenting {
+                    ModalView(successfullModal: .init(title: "COUCO", subTitle: "C'est encore moi", content: {
+                        AnyView(Text("ET OUI JE SUIS LAAAAA !!"))
+                    }))
+//                }
             }
             .padding(update ? 0 : 0)
             .padding(pageControllerVM.isUnlocked ? 0 : 0)

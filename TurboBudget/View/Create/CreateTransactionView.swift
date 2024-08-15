@@ -46,7 +46,7 @@ struct CreateTransactionView: View {
         NavStack(router: router) {
             GeometryReader { geometry in
                 ScrollView {
-                    if !viewModel.showSuccessfulTransaction {
+//                    if !viewModel.showSuccessfulTransaction {
                         VStack { //New Transaction
                             
                             Text("transaction_new".localized)
@@ -152,59 +152,59 @@ struct CreateTransactionView: View {
                             .padding(.bottom, 24)
                             
                         } // End New Transaction
-                    } else {
-                        VStack { // Successful Transaction
-                            CircleWithCheckmark()
-                                .padding(.vertical, 50)
-                                .confettiCannon(
-                                    counter: $confettiCounter,
-                                    num: 50,
-                                    openingAngle: Angle(degrees: 0),
-                                    closingAngle: Angle(degrees: 360),
-                                    radius: 200
-                                )
-                            
-                            VStack(spacing: 20) {
-                                Text("transaction_successful".localized)
-                                    .font(.semiBoldCustom(size: 28))
-                                    .foregroundStyle(Color(uiColor: .label))
-                                
-                                Text("transaction_successful_desc".localized)
-                                    .font(Font.mediumSmall())
-                                    .foregroundStyle(.secondary400)
-                            }
-                            .padding(.bottom, 30)
-                            
-                            if let theNewTransaction = viewModel.theNewTransaction {
-                                VStack {
-                                    CellTransactionWithoutAction(transaction: theNewTransaction)
-                                    
-                                    HStack {
-                                        Text("transaction_successful_date".localized)
-                                            .font(Font.mediumSmall())
-                                            .foregroundStyle(.secondary400)
-                                        Spacer()
-                                        Text(theNewTransaction.date.formatted(date: .abbreviated, time: .omitted))
-                                            .font(.semiBoldSmall())
-                                            .foregroundStyle(Color(uiColor: .label))
-                                    }
-                                    .padding(.horizontal, 8)
-                                }
-                            }
-                            
-                            Spacer()
-                            
-                            ValidateButton(action: { dismiss() }, validate: true)
-                                .padding(.bottom)
-                        }
-                        .frame(minHeight: geometry.size.height)
-                        .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { 
-                                confettiCounter += 1
-                            }
-                            showCheckmark = 0
-                        }
-                    }
+//                    } else {
+//                        VStack { // Successful Transaction
+//                            CircleWithCheckmark()
+//                                .padding(.vertical, 50)
+//                                .confettiCannon(
+//                                    counter: $confettiCounter,
+//                                    num: 50,
+//                                    openingAngle: Angle(degrees: 0),
+//                                    closingAngle: Angle(degrees: 360),
+//                                    radius: 200
+//                                )
+//                            
+//                            VStack(spacing: 20) {
+//                                Text("transaction_successful".localized)
+//                                    .font(.semiBoldCustom(size: 28))
+//                                    .foregroundStyle(Color(uiColor: .label))
+//                                
+//                                Text("transaction_successful_desc".localized)
+//                                    .font(Font.mediumSmall())
+//                                    .foregroundStyle(.secondary400)
+//                            }
+//                            .padding(.bottom, 30)
+//                            
+//                            if let theNewTransaction = viewModel.theNewTransaction {
+//                                VStack {
+//                                    CellTransactionWithoutAction(transaction: theNewTransaction)
+//                                    
+//                                    HStack {
+//                                        Text("transaction_successful_date".localized)
+//                                            .font(Font.mediumSmall())
+//                                            .foregroundStyle(.secondary400)
+//                                        Spacer()
+//                                        Text(theNewTransaction.date.formatted(date: .abbreviated, time: .omitted))
+//                                            .font(.semiBoldSmall())
+//                                            .foregroundStyle(Color(uiColor: .label))
+//                                    }
+//                                    .padding(.horizontal, 8)
+//                                }
+//                            }
+//                            
+//                            Spacer()
+//                            
+//                            ValidateButton(action: { dismiss() }, validate: true)
+//                                .padding(.bottom)
+//                        }
+//                        .frame(minHeight: geometry.size.height)
+//                        .onAppear {
+//                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { 
+//                                confettiCounter += 1
+//                            }
+//                            showCheckmark = 0
+//                        }
+//                    }
                 } // End ScrollView
                 .scrollIndicators(.hidden)
                 .scrollDismissesKeyboard(.immediately)
@@ -222,6 +222,7 @@ struct CreateTransactionView: View {
                     
                     ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
                         viewModel.createNewTransaction()
+                        dismiss()
                         if hapticFeedback {
                             UIImpactFeedbackGenerator(style: .light).impactOccurred()
                         }

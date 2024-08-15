@@ -46,7 +46,7 @@ struct AutomationsForHomeScreen: View {
                                 router.pushTransactionDetail(transaction: transaction)
                             }
                         }, label: {
-                            CellAutomationView(automation: automation)
+                            AutomationRow(automation: automation)
                         })
                     }
                 }

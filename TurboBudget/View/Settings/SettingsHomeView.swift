@@ -24,7 +24,7 @@ struct SettingsHomeView: View {
         Form {
             Section {
                 Button(action: { router.presentPaywall() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "crown.fill",
                         backgroundColor: Color.primary500,
                         text: "setting_home_cashflow_pro".localized,
@@ -36,7 +36,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { router.pushSettingsGeneral() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "gearshape.fill",
                         backgroundColor: Color.gray,
                         text: "setting_general_title".localized,
@@ -45,7 +45,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { router.pushSettingsSecurity() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "lock.fill",
                         backgroundColor: Color.green,
                         text: "setting_security_title".localized,
@@ -57,7 +57,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { router.pushSettingsAppearence() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "sun.max.fill",
                         backgroundColor: Color.indigo,
                         text: "setting_home_appearance".localized,
@@ -66,7 +66,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { router.pushSettingsDisplay() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "apps.iphone",
                         backgroundColor: Color.blue,
                         text: "setting_display_title".localized,
@@ -78,7 +78,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { router.pushSettingsAccount() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.blue,
                         text: "word_account".localized,
@@ -87,7 +87,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { router.pushSettingsSavingPlans() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "dollarsign.square.fill",
                         backgroundColor: Color.pink,
                         text: "word_savingsplans".localized,
@@ -97,7 +97,7 @@ struct SettingsHomeView: View {
                 
                 if store.isLifetimeActive {
                     Button(action: { router.pushSettingsBudget() }, label: {
-                        CellSettingsView(
+                        SettingRow(
                             icon: "chart.pie.fill",
                             backgroundColor: Color.purple,
                             text: "word_budgets".localized,
@@ -106,7 +106,7 @@ struct SettingsHomeView: View {
                     })
                 } else {
                     Button(action: { router.presentPaywall() }, label: {
-                        CellSettingsView(
+                        SettingRow(
                             icon: "chart.pie.fill",
                             backgroundColor: Color.purple,
                             text: "word_budgets".localized,
@@ -122,7 +122,7 @@ struct SettingsHomeView: View {
                 Button(action: {
                     URLManager.Setting.writeReview()
                 }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "star.fill",
                         backgroundColor: Color.orange,
                         text: "setting_home_write_review".localized,
@@ -131,7 +131,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { isSharing.toggle() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "square.and.arrow.up.fill",
                         backgroundColor: Color.blue,
                         text: "setting_home_share_app".localized,
@@ -140,7 +140,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { URLManager.Setting.reportBug() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "exclamationmark.triangle.fill",
                         backgroundColor: Color.red,
                         text: "setting_home_report_bug".localized,
@@ -149,7 +149,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { URLManager.Setting.suggestFeature() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "wand.and.stars",
                         backgroundColor: Color.purple,
                         text: "setting_home_new_features".localized,
@@ -161,7 +161,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { router.pushSettingsCredits() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.indigo,
                         text: "setting_credits_title".localized,
@@ -170,7 +170,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { URLManager.Setting.showDeveloperAccount() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "app.badge.checkmark.fill",
                         backgroundColor: Color.blue,
                         text: "setting_home_more_from_dev".localized,
@@ -182,7 +182,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "lock.fill",
                         backgroundColor: Color.blue,
                         text: "setting_home_privacy_policy".localized,
@@ -191,7 +191,7 @@ struct SettingsHomeView: View {
                 })
                 
                 Button(action: { URLManager.Setting.showTermsAndConditions() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "hand.raised.fill",
                         backgroundColor: Color.blue,
                         text: "setting_home_terms_conditions".localized,
@@ -203,7 +203,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Button(action: { router.pushSettingsDangerZone() }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "trash.fill",
                         backgroundColor: Color.red,
                         text: "setting_home_danger".localized,

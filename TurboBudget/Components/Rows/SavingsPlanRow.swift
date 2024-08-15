@@ -1,5 +1,5 @@
 //
-//  CellSavingPlanView.swift
+//  SavingsPlanRow.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 24/06/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CellSavingPlanView: View {
+struct SavingsPlanRow: View {
 
     //Custom type
     var savingPlan: SavingPlan
@@ -128,7 +128,7 @@ struct CellSavingPlanView: View {
 //MARK: - Preview
 struct SavingPlanCellView_Previews: PreviewProvider {
     static var previews: some View {
-        CellSavingPlanView(savingPlan: SavingPlan.preview1)
+        SavingsPlanRow(savingPlan: SavingPlan.preview1)
             .frame(width: 180, height: 150)
     }
 }

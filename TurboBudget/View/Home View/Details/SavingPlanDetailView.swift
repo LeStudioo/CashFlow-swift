@@ -133,7 +133,7 @@ struct SavingPlanDetailView: View {
             .padding(.horizontal, 12)
             
             ForEach(savingPlan.contributions) { contribution in
-                CellContributionView(contribution: contribution)
+                ContributionRow(contribution: contribution)
             }
             
             Spacer()

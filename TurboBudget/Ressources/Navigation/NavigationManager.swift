@@ -184,7 +184,7 @@ private extension NavigationManager {
                 NewFilterView()
                 
             case .home(let account):
-                HomeScreenView(account: account)
+                HomeView(account: account)
             case .homeSavingPlans:
                 SavingPlansHomeView()
             case .homeAutomations:

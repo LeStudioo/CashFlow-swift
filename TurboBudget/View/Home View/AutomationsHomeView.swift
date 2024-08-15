@@ -81,7 +81,7 @@ struct AutomationsHomeView: View {
                     ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
                         Section {
                             ForEach(automations, id: \.self) { automation in
-                                CellAutomationView(automation: automation)
+                                AutomationRow(automation: automation)
                             }
                         } header: {
                             DetailOfExpensesAndIncomesByMonth(

@@ -30,7 +30,7 @@ struct SettingsDangerZoneView: View {
                         action: viewModel.resetSettings
                     )
                 }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "arrow.counterclockwise",
                         backgroundColor: Color.red,
                         text: "setting_home_reset_settings".localized,
@@ -48,7 +48,7 @@ struct SettingsDangerZoneView: View {
                         action: { deleteAllData() }
                     )
                 }, label: {
-                    CellSettingsView(
+                    SettingRow(
                         icon: "trash.fill",
                         backgroundColor: Color.red,
                         text: "setting_home_reset_data".localized,

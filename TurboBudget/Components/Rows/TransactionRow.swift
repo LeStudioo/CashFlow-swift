@@ -16,11 +16,7 @@ struct TransactionRow: View {
     
     // Repo
     @EnvironmentObject private var transactionRepo: TransactionRepository
-    
-    //Environnements
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // State or Binding Bool
     @State private var isEditing: Bool = false
     @State private var isDeleting: Bool = false

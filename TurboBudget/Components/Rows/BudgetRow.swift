@@ -1,5 +1,5 @@
 //
-//  CellBudgetView.swift
+//  BudgetRow.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 04/08/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct CellBudgetView: View {
+struct BudgetRow: View {
 
     //Custom type
     @ObservedObject var budget: Budget
@@ -121,8 +121,8 @@ struct BudgetCellView_Previews: PreviewProvider {
     
     static var previews: some View {
         Group {
-            CellBudgetView(budget: Budget.preview1, selectedDate: $datePreview)
-            CellBudgetView(budget: Budget.preview2, selectedDate: $datePreview)
+            BudgetRow(budget: Budget.preview1, selectedDate: $datePreview)
+            BudgetRow(budget: Budget.preview2, selectedDate: $datePreview)
         }
     }
 }

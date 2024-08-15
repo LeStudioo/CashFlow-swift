@@ -1,5 +1,5 @@
 //
-//  HomeScreenView.swift
+//  HomeView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 15/06/2023.
@@ -10,7 +10,7 @@
 import SwiftUI
 import CoreData
 
-struct HomeScreenView: View {
+struct HomeView: View {
     
     // Repo
     @ObservedObject var account: Account
@@ -178,5 +178,5 @@ struct HomeScreenView: View {
 
 // MARK: - Preview
 #Preview {
-    HomeScreenView(account: .preview)
+    HomeView(account: .preview)
 }
