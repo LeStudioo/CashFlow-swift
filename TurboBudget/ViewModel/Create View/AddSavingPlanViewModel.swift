@@ -11,17 +11,14 @@ import SwiftUI
 
 class AddSavingPlanViewModel: ObservableObject {
     static let shared = AddSavingPlanViewModel()
-    
-    @Published var theNewSavingPlan: SavingPlan? = nil
-    
+    let successfullModalManager: SuccessfullModalManager = .shared
+        
     @Published var savingPlanTitle: String = ""
     @Published var savingPlanEmoji: String = ""
     @Published var savingPlanAmountOfStart: String = ""
     @Published var savingPlanAmountOfEnd: String = ""
     @Published var savingPlanDateOfEnd: Date = .now
-    
-    @Published var showSuccessfulSavingPlan: Bool = false
-    
+        
     @Published var isCardLimitSoonToBeExceeded: Bool = false
     @Published var isCardLimitExceeded: Bool = false
     
@@ -34,6 +31,10 @@ class AddSavingPlanViewModel: ObservableObject {
     @Preference(\.cardLimitPercentage) private var cardLimitPercentage
     @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
     @Preference(\.accountCanBeNegative) private var accountCanBeNegative
+
+}
+
+extension AddSavingPlanViewModel {
     
     func createSavingPlan() {
         if let account = AccountRepository.shared.mainAccount {
@@ -69,15 +70,21 @@ class AddSavingPlanViewModel: ObservableObject {
             
             do {
                 try viewContext.save()
-                print("🔥 Saving plans created with success")
-                theNewSavingPlan = newSavingPlan
-                withAnimation { showSuccessfulSavingPlan.toggle() }
+                SavingPlanRepository.shared.savingPlans.append(newSavingPlan)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.successfullModalManager.isPresenting = true
+                }
+                successfullModalManager.title = "savingsplan_successful".localized
+                successfullModalManager.subtitle = "savingsplan_successful_desc".localized
+                successfullModalManager.content = AnyView(
+                    SavingsPlanRow(savingPlan: newSavingPlan)
+                )
             } catch {
                 print("⚠️ Error for : \(error.localizedDescription)")
             }
         }
     }
-
+    
 }
 
 //MARK: Verification

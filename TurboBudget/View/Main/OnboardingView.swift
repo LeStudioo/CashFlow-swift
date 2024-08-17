@@ -175,27 +175,30 @@ struct OnboardingView: View {
                 .titleAdjustSize()
                 .padding(.top)
             
-            CellAddCardView(
-                textHeader: "account_name".localized,
-                placeholder: "account_placeholder_name".localized,
-                text: $accountTitle
-            )
-            .padding(8)
-            
-            CellAddCardView(
-                textHeader: "account_balance".localized,
-                placeholder: "account_placeholder_balance".localized,
-                text: $accountBalance
-            )
-            .keyboardType(.decimalPad)
-            .padding(8)
-            .padding(.vertical)
-            
-            Text("account_info_credit_card".localized)
-                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                .multilineTextAlignment(.center)
-                .font(.semiBoldText16())
-                .padding()
+            VStack {
+                CellAddCardView(
+                    textHeader: "account_name".localized,
+                    placeholder: "account_placeholder_name".localized,
+                    text: $accountTitle
+                )
+                .padding(8)
+                
+                CellAddCardView(
+                    textHeader: "account_balance".localized,
+                    placeholder: "account_placeholder_balance".localized,
+                    text: $accountBalance
+                )
+                .keyboardType(.decimalPad)
+                .padding(8)
+                .padding(.vertical)
+                
+                Text("account_info_credit_card".localized)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .multilineTextAlignment(.center)
+                    .font(.semiBoldText16())
+                    .padding()
+            }
+            .padding()
             
             Spacer()
         }

@@ -28,9 +28,7 @@ struct SavingPlansForHomeScreen: View {
     // MARK: - body
     var body: some View {
         VStack {
-            Button(action: {
-                router.pushHomeSavingPlans()
-            }, label: {
+            Button(action: { router.pushHomeSavingPlans() }, label: {
                 HStack {
                     Text("savingsplans_for_home_title".localized)
                         .foregroundStyle(Color.customGray)
@@ -85,6 +83,7 @@ struct SavingPlansForHomeScreen: View {
                 }
             }
         }
+        .animation(.smooth, value: savingPlanRepo.savingPlans.count)
         .isDisplayed(isSavingPlansDisplayedHomeScreen)
     } // End body
 } // End struct

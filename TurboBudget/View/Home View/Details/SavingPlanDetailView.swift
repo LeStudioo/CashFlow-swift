@@ -14,10 +14,10 @@ struct SavingPlanDetailView: View {
     var savingPlan: SavingPlan
     
     // Environement
-    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: Store
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
     
     // Preferences
     @Preference(\.hapticFeedback) private var hapticFeedback
@@ -236,15 +236,8 @@ struct SavingPlanDetailView: View {
         .alert("savingsplan_detail_delete_savingsplan".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        viewContext.delete(savingPlan)
-                        dismiss()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            persistenceController.saveContext()
-                        }
-                    }
-                }
+                savingPlanRepo.deleteSavingsPlan(savingsPlan: savingPlan)
+                dismiss()
             }, label: { Text("word_delete".localized) })
         }, message: { Text("savingsplan_detail_delete_savingsplan_desc".localized) })
     }//END body

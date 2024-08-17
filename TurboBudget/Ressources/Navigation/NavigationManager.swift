@@ -142,8 +142,8 @@ class NavigationManager: Router {
         presentSheet(.createBudget)
     }
     
-    func presentCreateSavingPlans() {
-        presentSheet(.createSavingPlans)
+    func presentCreateSavingPlans(dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createSavingPlans, dismissAction)
     }
     
     func presentCreateTransaction(dismissAction: (() -> Void)? = nil) {

@@ -76,7 +76,7 @@ struct TurboBudgetApp: App {
                 accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
                 automationRepo.fetchAutomations()
-                savingPlanRepo.fetchSavingPlans()
+                savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
                 savingsAccountRepo.fetchSavingsAccounts()
             }

@@ -98,11 +98,7 @@ struct TabbarView: View {
                         
                         Button(action: {
                             viewModel.showMenu = false
-                            router.presentCreateTransaction() {
-                                withAnimation(.smooth) {
-                                    successfullModalManager.isPresenting = true
-                                }
-                            }
+                            router.presentCreateTransaction()
                         }, label: {
                             HStack {
                                 Image(systemName: "creditcard.and.123")

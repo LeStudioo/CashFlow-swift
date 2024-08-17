@@ -15,7 +15,7 @@ final class SavingPlanRepository: ObservableObject {
 
 extension SavingPlanRepository {
     
-    func fetchSavingPlans() {
+    func fetchSavingsPlans() {
         let request = SavingPlan.fetchRequest()
         do {
             let results = try viewContext.fetch(request)
@@ -25,7 +25,15 @@ extension SavingPlanRepository {
         }
     }
     
-    func deleteSavingPlans() {
+    func deleteSavingsPlan(savingsPlan: SavingPlan) {
+        self.savingPlans.removeAll(where: { $0.id == savingsPlan.id })
+        viewContext.delete(savingsPlan)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+            persistenceController.saveContext()
+        }
+    }
+    
+    func deleteSavingsPlans() {
         for savingPlan in self.savingPlans {
             viewContext.delete(savingPlan)
         }

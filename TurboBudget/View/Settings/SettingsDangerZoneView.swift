@@ -74,7 +74,7 @@ struct SettingsDangerZoneView: View {
         DispatchQueue.main.async {
             accountRepo.deleteAccount()
             transactionRepo.deleteTransactions()
-            savingPlanRepo.deleteSavingPlans()
+            savingPlanRepo.deleteSavingsPlans()
             budgetRepo.deleteBudgets()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

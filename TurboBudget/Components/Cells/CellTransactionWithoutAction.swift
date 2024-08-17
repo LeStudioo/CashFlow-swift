@@ -16,36 +16,25 @@ struct CellTransactionWithoutAction: View {
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
-
-	//Computed var
-    var category: PredefinedCategory? {
-        return PredefinedCategory.findByID(transaction.predefCategoryID)
-    }
     
-    var subcategory: PredefinedSubcategory? {
-        if let category {
-            return category.subcategories.findByID(transaction.predefSubcategoryID)
-        } else { return nil }
-    }
-    
-    // MARK: - body
+    // MARK: -
     var body: some View {
         HStack {
             Circle()
-                .foregroundStyle(.color2Apple)
+                .foregroundStyle(Color.componentInComponent)
                 .frame(width: 50)
                 .overlay {
-                    if let category, let subcategory {
+                    if let category = transaction.category, let subcategory = transaction.subcategory {
                         Circle()
                             .foregroundStyle(category.color)
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
-                        Image(systemName: subcategory.icon)
-                            .font(.system(size: 14, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(uiColor: .systemBackground))
-                        
-                    } else if let category, subcategory == nil {
+                        CustomOrSystemImage(
+                            systemImage: subcategory.icon,
+                            size: 14
+                        )
+                    } else if let category = transaction.category, transaction.subcategory == nil {
                         Circle()
                             .foregroundStyle(category.color)
                             .shadow(radius: 4, y: 4)
@@ -75,9 +64,8 @@ struct CellTransactionWithoutAction: View {
                     .font(.semiBoldText18())
                     .lineLimit(1)
             }
-            
-            Spacer()
-            
+            .frame(maxWidth: .infinity, alignment: .leading)
+                        
             VStack(alignment: .trailing, spacing: 5) {
                 Text(transaction.amount.currency)
                     .font(.semiBoldText16())

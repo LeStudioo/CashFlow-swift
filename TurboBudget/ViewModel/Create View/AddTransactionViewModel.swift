@@ -12,6 +12,7 @@ import SwiftUI
 class AddTransactionViewModel: ObservableObject {
     static let shared = AddTransactionViewModel()
     let context = persistenceController.container.viewContext
+    let successfullModalManager = SuccessfullModalManager.shared
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
@@ -19,11 +20,7 @@ class AddTransactionViewModel: ObservableObject {
     @Published var transactionDate: Date = Date()
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
-    
-    @Published var theNewTransaction: Transaction? = nil
-    
-    @Published var mainAccount: Account? = nil
-    
+            
     @Published var presentingConfirmationDialog: Bool = false
     
     // Prefrences
@@ -39,23 +36,7 @@ class AddTransactionViewModel: ObservableObject {
     @Published var isCardLimitExceeded: Bool = false
     @Published var isBudgetSoonToBeExceeded: Bool = false
     @Published var isBudgetExceed: Bool = false
-    
-    @Published var showSuccessfulTransaction: Bool = false
-    
-    // init
-    init() {
-        let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-        var allAccount: [Account] = []
-        do {
-            allAccount = try context.fetch(fetchRequest)
-            if allAccount.count != 0 {
-                mainAccount = allAccount[0]
-            }
-        } catch {
-            print("⚠️ \(error.localizedDescription)")
-        }
-    }
-    
+        
     func makeScannerView() -> ScannerTicketView {
         ScannerTicketView { amount, date, errorMessage in
             if let amount { self.transactionAmount = String(amount) }
@@ -70,7 +51,7 @@ class AddTransactionViewModel: ObservableObject {
     // Extra :
     //-----------------------------------------------------------
     func createNewTransaction() {
-        if let mainAccount {
+        if let mainAccount = AccountRepository.shared.mainAccount {
             let newTransaction = Transaction(context: context)
             newTransaction.id = UUID()
             newTransaction.title = transactionTitle.trimmingCharacters(in: .whitespaces)
@@ -101,10 +82,28 @@ class AddTransactionViewModel: ObservableObject {
             
             do {
                 try context.save()
-                print("🔥 New Transaction created with Success")
-                theNewTransaction = newTransaction
                 TransactionRepository.shared.transactions.append(newTransaction)
-                withAnimation { showSuccessfulTransaction.toggle() }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.successfullModalManager.isPresenting = true
+                }
+                successfullModalManager.title = "transaction_successful".localized
+                successfullModalManager.subtitle = "transaction_successful_desc".localized
+                successfullModalManager.content = AnyView(
+                    VStack {
+                        CellTransactionWithoutAction(transaction: newTransaction)
+                        
+                        HStack {
+                            Text("transaction_successful_date".localized)
+                                .font(Font.mediumSmall())
+                                .foregroundStyle(.secondary400)
+                            Spacer()
+                            Text(newTransaction.date.formatted(date: .abbreviated, time: .omitted))
+                                .font(.semiBoldSmall())
+                                .foregroundStyle(Color(uiColor: .label))
+                        }
+                        .padding(.horizontal, 8)
+                    }
+                )
             } catch {
                 print("⚠️ Error for : \(error.localizedDescription)")
             }
@@ -119,7 +118,7 @@ extension AddTransactionViewModel {
     func automaticCategorySearch() -> (PredefinedCategory?, PredefinedSubcategory?) {
         var arrayOfCandidate: [Transaction] = []
 
-        if let account = mainAccount {
+        if let account = AccountRepository.shared.mainAccount {
             for transaction in account.transactions {
                 if transaction.title
                     .lowercased()
@@ -170,16 +169,12 @@ extension AddTransactionViewModel {
         transactionDate = Date()
         selectedCategory = nil
         selectedSubcategory = nil
-        
-        theNewTransaction = nil
-                
+                        
         // Alerts
         isCardLimitSoonToBeExceeded = false
         isCardLimitExceeded = false
         isBudgetSoonToBeExceeded = false
         isBudgetExceed = false
-        
-        showSuccessfulTransaction = false
     }
     
 }
@@ -195,13 +190,13 @@ extension AddTransactionViewModel {
     }
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount, !accountCanBeNegative {
+        if let mainAccount = AccountRepository.shared.mainAccount, !accountCanBeNegative {
             if mainAccount.balance - transactionAmount.convertToDouble() < 0 && transactionType == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
+        if let mainAccount = AccountRepository.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
@@ -219,7 +214,7 @@ extension AddTransactionViewModel {
     }
     
     var isDuplicateTransactions: Bool {
-        if let mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
+        if let mainAccount = AccountRepository.shared.mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
             let accountFilteredByTitle = mainAccount.allTransactions.filter { $0.title == transactionTitle }
             let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.id ?? "" && selectedSubcategory != nil }
             if accountFilteredBySubcategory.count != 0 { return true } else { return false }
@@ -238,7 +233,7 @@ extension AddTransactionViewModel {
     var numberOfAlertsForSuccessful: Int {
         var num: Int = 0
         if isCardLimitSoonToBeExceeded { num += 1 }
-        if let mainAccount { if mainAccount.amountOfExpensesInActualMonth() > mainAccount.cardLimit && mainAccount.cardLimit != 0 { num += 1 } }
+        if let mainAccount = AccountRepository.shared.mainAccount { if mainAccount.amountOfExpensesInActualMonth() > mainAccount.cardLimit && mainAccount.cardLimit != 0 { num += 1 } }
         if isBudgetSoonToBeExceeded { num += 1 }
         if isBudgetExceed { num += 1 }
         return num

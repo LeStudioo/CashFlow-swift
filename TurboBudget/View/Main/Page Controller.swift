@@ -148,11 +148,7 @@ struct PageControllerView: View {
                 } // End if unlocked
             }
             .overlay(alignment: .bottom) {
-//                if successfullModalManager.isPresenting {
-                    ModalView(successfullModal: .init(title: "COUCO", subTitle: "C'est encore moi", content: {
-                        AnyView(Text("ET OUI JE SUIS LAAAAA !!"))
-                    }))
-//                }
+                SuccessfullCreationView()
             }
             .padding(update ? 0 : 0)
             .padding(pageControllerVM.isUnlocked ? 0 : 0)

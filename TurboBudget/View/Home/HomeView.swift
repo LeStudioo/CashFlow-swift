@@ -31,7 +31,6 @@ struct HomeView: View {
     
     // Boolean variables
     @State private var busy: Bool = false
-    @State private var showPaywall: Bool = false
     
     // MARK: - body
     var body: some View {
@@ -59,15 +58,11 @@ struct HomeView: View {
                 Spacer()
                 
                 if !store.isLifetimeActive {
-                    Button(action: { showPaywall.toggle() }, label: {
+                    Button(action: { router.presentPaywall() }, label: {
                         Image(systemName: "crown.fill")
                             .foregroundStyle(.primary500)
                             .font(.system(size: 18, weight: .medium, design: .rounded))
                     })
-                    .sheet(isPresented: $showPaywall) {
-                        PaywallScreenView()
-                            .environmentObject(store)
-                    }
                 }
                 
                 Button(action: { router.pushSettings() }, label: {
@@ -80,68 +75,62 @@ struct HomeView: View {
             // End Header
             
             ScrollView {
-                VStack {
-                    CarouselOfChartsView(account: account)
-                    
-                    SavingPlansForHomeScreen()
-                    
-                    AutomationsForHomeScreen()
-                    
-                    // Recent Transactions
-                    if isRecentTransactionsDisplayedHomeScreen {
-                        VStack {
-                            Button(action: {
-                                router.pushAllTransactions(account: account)
-                            }, label: {
-                                HStack {
-                                    Text("word_recent_transactions".localized)
-                                        .foregroundStyle(Color.customGray)
-                                        .font(.semiBoldCustom(size: 22))
-                                    
-                                    Spacer()
-                                    Image(systemName: "arrow.right")
-                                        .foregroundStyle(HelperManager().getAppTheme().color)
-                                        .font(.system(size: 20, weight: .medium, design: .rounded))
-                                }
-                            })
-                            .padding(.horizontal)
-                            .padding(.top)
-                            
-                            if account.transactions.count != 0 {
-                                ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
-                                    Button(action: {
-                                        router.pushTransactionDetail(transaction: transaction)
-                                    }, label: {
-                                        TransactionRow(transaction: transaction)
-                                    })
-                                }
-                            } else {
-                                VStack(spacing: 20) {
-                                    Image("NoTransaction\(themeSelected)")
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .shadow(radius: 4, y: 4)
-                                        .frame(width: isIPad
-                                               ? UIScreen.main.bounds.width / 3
-                                               : UIScreen.main.bounds.width / 1.5
-                                        )
-                                    
-                                    Text("home_screen_no_transaction".localized)
-                                        .font(.semiBoldText16())
-                                        .multilineTextAlignment(.center)
-                                }
-                                .offset(y: -20)
+                CarouselOfChartsView(account: account)
+                
+                SavingPlansForHomeScreen()
+                
+                AutomationsForHomeScreen()
+                
+                // Recent Transactions
+                if isRecentTransactionsDisplayedHomeScreen {
+                    VStack {
+                        Button(action: { router.pushAllTransactions(account: account) }, label: {
+                            HStack {
+                                Text("word_recent_transactions".localized)
+                                    .foregroundStyle(Color.customGray)
+                                    .font(.semiBoldCustom(size: 22))
+                                
+                                Spacer()
+                                Image(systemName: "arrow.right")
+                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .font(.system(size: 20, weight: .medium, design: .rounded))
                             }
-                            Rectangle()
-                                .frame(height: 100)
-                                .opacity(0)
-                            
-                            Spacer()
+                        })
+                        .padding(.horizontal)
+                        .padding(.top)
+                        
+                        if account.transactions.count != 0 {
+                            ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
+                                Button(action: {
+                                    router.pushTransactionDetail(transaction: transaction)
+                                }, label: {
+                                    TransactionRow(transaction: transaction)
+                                })
+                            }
+                        } else {
+                            VStack(spacing: 20) {
+                                Image("NoTransaction\(themeSelected)")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .shadow(radius: 4, y: 4)
+                                    .frame(width: isIPad
+                                           ? UIScreen.main.bounds.width / 3
+                                           : UIScreen.main.bounds.width / 1.5
+                                    )
+                                
+                                Text("home_screen_no_transaction".localized)
+                                    .font(.semiBoldText16())
+                                    .multilineTextAlignment(.center)
+                            }
+                            .offset(y: -20)
                         }
+                        Rectangle()
+                            .frame(height: 100)
+                            .opacity(0)
+                        
+                        Spacer()
                     }
-                    // End Recent Transactions
-                }
-                Spacer()
+                } // End Recent Transactions
             } // End ScrollView
             .scrollIndicators(.hidden)
         } // End VStack

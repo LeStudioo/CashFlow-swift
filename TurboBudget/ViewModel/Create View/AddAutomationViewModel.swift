@@ -15,6 +15,7 @@ enum AutomationFrequently: CaseIterable {
 
 class AddAutomationViewModel: ObservableObject {
     static let shared = AddAutomationViewModel()
+    let successfullModalManager: SuccessfullModalManager = .shared
     
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
@@ -25,7 +26,6 @@ class AddAutomationViewModel: ObservableObject {
     @Published var typeTransaction: ExpenseOrIncome = .expense
     @Published var automationFrenquently: AutomationFrequently = .monthly
     
-    @Published var showSuccessfulAutomation: Bool = false
     @Published var allowNotification: Bool = false
     @Published var addNotification: Bool = false
     
@@ -68,12 +68,30 @@ extension AddAutomationViewModel {
         
         do {
             try viewContext.save()
-            print("🔥 New Transaction created with Success")
-            print("🔥 New Automation created with Success")
             theNewTransaction = newTransaction
             theNewAutomation = newAutomation
             AutomationRepository.shared.automations.append(newAutomation)
-            withAnimation { showSuccessfulAutomation.toggle() }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.successfullModalManager.isPresenting = true
+            }
+            successfullModalManager.title = "automation_successful".localized
+            successfullModalManager.subtitle = "automation_successful_desc".localized
+            successfullModalManager.content = AnyView(
+                VStack {
+                    CellTransactionWithoutAction(transaction: newTransaction)
+                    
+                    HStack {
+                        Text("automation_successful_date".localized)
+                            .font(Font.mediumSmall())
+                            .foregroundStyle(.secondary400)
+                        Spacer()
+                        Text(newAutomation.date.formatted(date: .abbreviated, time: .omitted))
+                            .font(.semiBoldSmall())
+                            .foregroundStyle(Color(uiColor: .label))
+                    }
+                    .padding(.horizontal, 8)
+                }
+            )
         } catch {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
@@ -85,7 +103,6 @@ extension AddAutomationViewModel {
 extension AddAutomationViewModel {
     
     func isAutomationInCreation() -> Bool {
-        if showSuccessfulAutomation { return false }
         if selectedCategory != nil || selectedSubcategory != nil || !titleTransaction.isEmpty || amountTransaction.convertToDouble() != 0 {
             return true
         }

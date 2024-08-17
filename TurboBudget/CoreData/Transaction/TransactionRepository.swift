@@ -12,6 +12,10 @@ final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
     @Published var transactions: [Transaction] = []
+    
+    // Preferences
+    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
+    @Preference(\.budgetPercentage) private var budgetPercentage
 }
 
 // MARK: - C.R.U.D
@@ -41,6 +45,40 @@ extension TransactionRepository {
         self.transactions = allTransactions
             .sorted { $0.date > $1.date }
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }
+    }
+    
+    func createNewTransaction(model: TransactionModel) {
+        guard let account = AccountRepository.shared.mainAccount else { return }
+        guard let subcategory = PredefinedSubcategory.findByID(model.predefSubcategoryID) else { return }
+        
+        let newTransaction = Transaction(context: viewContext)
+        newTransaction.id = UUID()
+        newTransaction.title = model.title.trimmingCharacters(in: .whitespaces)
+        newTransaction.amount = model.amount
+        newTransaction.date = model.date
+        newTransaction.creationDate = Date()
+        newTransaction.comeFromAuto = false
+        newTransaction.predefCategoryID = model.predefCategoryID
+        newTransaction.predefSubcategoryID = model.predefSubcategoryID
+        
+        account.addNewTransaction(transaction: newTransaction)
+        
+        // Card Limit
+        // TODO: Faire un alert manager pour le isCardLimit
+        if account.cardLimit != 0 {
+            let percentage = account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
+            if percentage >= cardLimitPercentage / 100 && percentage <= 1 { isCardLimitSoonToBeExceeded = true }
+            if percentage > 1 { isCardLimitExceeded = true }
+        }
+        
+        // Budget
+        if let budget = subcategory.budget {
+            let percentage = budget.actualAmountForMonth(month: .now) / budget.amount
+            if percentage >= budgetPercentage / 100 && percentage <= 1 {
+                isBudgetSoonToBeExceeded = true
+            }
+            if percentage > 1 { isBudgetExceed = true }
+        }
     }
     
     func deleteTransaction(transaction: Transaction) {
