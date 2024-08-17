@@ -10,34 +10,32 @@
 import SwiftUI
 
 struct TabbarView: View {
-
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var filter: Filter = sharedFilter
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-    @ObservedObject var viewModel = CustomTabBarViewModel.shared
-
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
+    
+    // Builder
     @Binding var selectedTab: Int
     @Binding var offsetYMenu: CGFloat
-
-    //State or Binding Bool
-    @Binding var update: Bool
-
-    //Enum
     
-    //Computed var
+    // Repo
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var accountRepo: AccountRepository
+    
+    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
+    
+    // Custom type
+    @ObservedObject var filter: Filter = sharedFilter
+    @ObservedObject var viewModel = CustomTabBarViewModel.shared
+
+    // Environement
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
 
     //MARK: - Body
     var body: some View {
         ZStack(alignment: .top) {
             BannerShape()
-                .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                 .cornerRadius(10, corners: .topLeft)
                 .cornerRadius(10, corners: .topRight)
                 .frame(height: 100)
@@ -45,50 +43,77 @@ struct TabbarView: View {
             
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
-                    if account != nil {
-                        Button(action: { withAnimation { viewModel.showAddSavingPlanSheet() } }, label: {
+                    if accountRepo.mainAccount != nil {
+//                        Button(action: {
+//                            viewModel.showMenu = false
+//                            router.presentCreateTransfer()
+//                        }, label: {
+//                            HStack {
+//                                Image(systemName: "building.columns.fill")
+//                                Text("word_transfer".localized)
+//                            }
+//                        })
+//                        .foregroundStyle(Color(uiColor: .label))
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateSavingPlans()
+                        }, label: {
                             HStack {
-                                Image(systemName: "building.columns.fill")
-                                Text(NSLocalizedString("word_savingsplan", comment: ""))
+                                Image(systemName: "dollarsign.square.fill")
+                                Text("word_savingsplan".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showRecoverTransactionSheet() } }, label: {
+                        .foregroundStyle(Color(uiColor: .label))
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentRecoverTransaction()
+                        }, label: {
                             HStack {
                                 Image(systemName: "tray.and.arrow.down.fill")
-                                Text(NSLocalizedString("recover_button", comment: ""))
+                                Text("recover_button".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showAddAutomationSheet() } }, label: {
+                        .foregroundStyle(Color(uiColor: .label))
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateAutomation()
+                        }, label: {
                             HStack {
                                 Image(systemName: "clock.arrow.circlepath")
-                                Text(NSLocalizedString("word_automation", comment: ""))
+                                Text("word_automation".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
+                        
                         Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
                             HStack {
                                 Image(systemName: "barcode.viewfinder")
-                                Text(NSLocalizedString("word_scanner", comment: ""))
+                                Text("word_scanner".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
-                        Button(action: { withAnimation { viewModel.showAddTransactionSheet() } }, label: {
+                        .foregroundStyle(Color(uiColor: .label))
+                        
+                        Button(action: {
+                            viewModel.showMenu = false
+                            router.presentCreateTransaction()
+                        }, label: {
                             HStack {
                                 Image(systemName: "creditcard.and.123")
-                                Text(NSLocalizedString("word_transaction", comment: ""))
+                                Text("word_transaction".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                     } else {
                         Button(action: { viewModel.showAddAccountSheet() }, label: {
                             HStack {
                                 Image(systemName: "person")
-                                Text(NSLocalizedString("word_account", comment: ""))
+                                Text("word_account".localized)
                             }
                         })
-                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                        .foregroundStyle(Color(uiColor: .label))
                     }
                 }
                 .padding()
@@ -100,13 +125,13 @@ struct TabbarView: View {
                 .opacity(viewModel.showMenu ? 1 : 0)
                 
                 Circle()
-                    .foregroundColor(HelperManager().getAppTheme().color)
+                    .foregroundStyle(HelperManager().getAppTheme().color)
                     .frame(width: 80)
                     .shadow(color: HelperManager().getAppTheme().color, radius: 12, y: 10)
                 
                 Image(systemName: "plus")
                     .font(.system(size: 34, weight: .regular, design: .rounded))
-                    .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                    .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                     .rotationEffect(.degrees(viewModel.showMenu ? 45 : 0))
             }
             .frame(height: 80)
@@ -116,7 +141,7 @@ struct TabbarView: View {
                 withAnimation(.interpolatingSpring(stiffness: 150, damping: 12)) {
                     viewModel.showMenu.toggle()
                     if viewModel.showMenu {
-                        if account != nil {
+                        if accountRepo.mainAccount != nil {
                             offsetYMenu = -180
                         } else { offsetYMenu = -80 }
                     } else {
@@ -124,41 +149,25 @@ struct TabbarView: View {
                     }
                 }
                 if viewModel.showMenu {
-                    if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                 }
             }
             
-            HStack {
-                ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
-            }
+            ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
         }
-        .padding(update ? 0 : 0)
-        .onRotate { _ in
-            update.toggle()
-        }
-    }//END body
-
-    //MARK: Fonctions
-
-}//END struct
+    } // End body
+} //End struct
 
 //MARK: - Preview
 struct TabBarBackgroundView_Previews: PreviewProvider {
     
     @State static var selectedTabPreview: Int = 0
-    @State static var previewUpdate: Bool = false
-    @State static var showMenu: Bool = false
-    
     @State static var offsetYMenu: CGFloat = 0
-    
-    @State static var previewAccount: Account? = previewAccount1()
     
     static var previews: some View {
         TabbarView(
-            account: $previewAccount,
             selectedTab: $selectedTabPreview,
-            offsetYMenu: $offsetYMenu,
-            update: $previewUpdate
+            offsetYMenu: $offsetYMenu
         )
         
         BannerShape()
@@ -171,58 +180,55 @@ struct TabBarBackgroundView_Previews: PreviewProvider {
 
 struct ItemsForTabBar: View {
     
-    //Custom Type
-    @ObservedObject var filter: Filter = sharedFilter
-    
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
-    
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
+    // Builder
     @Binding var selectedTab: Int
     @Binding var showMenu: Bool
-    var hStackwidth = UIScreen.main.bounds.width / 2 - 80
     
+    // Custom Type
+    @ObservedObject var filter: Filter = sharedFilter
+    
+    // Environement
+    @Environment(\.colorScheme) private var colorScheme
+    
+    // MARK: - body
     var body: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: .center, spacing: 100) {
             HStack {
                 VStack(spacing: 14) {
                     Image(systemName: "house")
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_home", comment: ""))
+                    Text("word_home".localized)
                         .font(.semiBoldSmall())
                 }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 0
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
                 .onTapGesture { selectedTab = 0; withAnimation { showMenu = false; filter.showMenu = false } }
-                .frame(width: hStackwidth / 2)
+                .frame(maxWidth: .infinity)
                 
                 VStack(spacing: 14) {
                     Image(systemName: "chart.bar")
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_analytic", comment: ""))
+                    Text("word_analytic".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 1; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 1
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2 + 10)
+                .frame(maxWidth: .infinity)
             }
             .padding(.bottom, 16)
-            .frame(width: hStackwidth, height: 70)
-            
-            Spacer()
+            .frame(height: 70)
+            .frame(maxWidth: .infinity)
                         
             HStack {
                 VStack(spacing: 14) {
@@ -230,65 +236,67 @@ struct ItemsForTabBar: View {
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_account", comment: ""))
+                    Text("word_account".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 3; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 3
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2 + 10)
+                .frame(maxWidth: .infinity)
                 
                 VStack(spacing: 14) {
                     Image(systemName: "rectangle.stack")
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                         .frame(width: 20, height: 20)
                     
-                    Text(NSLocalizedString("word_type", comment: ""))
+                    Text("word_type".localized)
                         .font(.semiBoldSmall())
                 }
                 .onTapGesture { selectedTab = 4; withAnimation { showMenu = false; filter.showMenu = false } }
-                .foregroundColor(
+                .foregroundStyle(
                     selectedTab == 4
                     ? Color(uiColor: UIColor.label)
-                    : (colorScheme == .light ? .secondary300 : .secondary400)
+                    : Color.reversedCustomGray
                 )
-                .frame(width: hStackwidth / 2)
+                .frame(maxWidth: .infinity)
             }
             .padding(.bottom, 16)
-            .frame(width: hStackwidth, height: 70)
+            .frame(height: 70)
+            .frame(maxWidth: .infinity)
         }
-        .padding(.horizontal)
+        .padding(.horizontal, 4)
         .frame(height: 90)
-    }
-}
+        .frame(maxWidth: .infinity)
+    } // End body
+} // End struct
 
 struct BannerShape: Shape {
     func path(in rect: CGRect) -> Path {
         return Path { path in
             path.move(to: .zero)
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width / 2 - 48, y: 0))
+            path.addLine(to: CGPoint(x: rect.width / 2 - 48, y: 0))
             
             var pt1: CGPoint = .zero
             var pt2: CGPoint = .zero
             
-            pt1 = .init(x: UIScreen.main.bounds.width / 2 - 48 + 5, y: 0)
-            pt2 = .init(x: UIScreen.main.bounds.width / 2 - 48 - 10, y: 105)
+            pt1 = .init(x: rect.width / 2 - 48 + 5, y: 0)
+            pt2 = .init(x: rect.width / 2 - 48 - 10, y: 105)
             path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
             
             let p3 = path.currentPoint!
-            path.addCurve(to: CGPoint(x: UIScreen.main.bounds.width - p3.x, y: p3.y),
-                          control1: CGPoint(x: UIScreen.main.bounds.width / 2 - 75, y: 102),
-                          control2: CGPoint(x: UIScreen.main.bounds.width / 2 + 75, y: 102))
+            path.addCurve(to: CGPoint(x: rect.width - p3.x, y: p3.y),
+                          control1: CGPoint(x: rect.width / 2 - 75, y: 102),
+                          control2: CGPoint(x: rect.width / 2 + 75, y: 102))
             
-            pt1 = .init(x: UIScreen.main.bounds.width / 2 + 48 - 10, y: 0)
-            pt2 = .init(x: UIScreen.main.bounds.width / 2 + 48 + 10, y: 0)
+            pt1 = .init(x: rect.width / 2 + 48 - 10, y: 0)
+            pt2 = .init(x: rect.width / 2 + 48 + 10, y: 0)
             path.addArc(tangent1End: pt1, tangent2End: pt2, radius: 10)
             
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
-            path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 100))
+            path.addLine(to: CGPoint(x: rect.width, y: 0))
+            path.addLine(to: CGPoint(x: rect.width, y: 100))
             path.addLine(to: CGPoint(x: 0, y: 100))
             path.addLine(to: .zero)
             path.closeSubpath()

@@ -10,15 +10,25 @@ import SwiftUI
 
 extension String {
     
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+    
+    func widthOfString(usingFont font: UIFont) -> CGFloat {
+         let fontAttributes = [NSAttributedString.Key.font: font]
+         let size = self.size(withAttributes: fontAttributes)
+         return size.width
+     }
+    
+    func convertToDouble() -> Double {
+        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
+        return Double(stringFormated) ?? 0
+    }
+    
     func isEmptyWithoutSpace() -> Bool {
         if self.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range: nil).isEmpty {
             return true
         } else { return false }
-    }
-    
-    var firstLetterCapitalized: String {
-        guard let firstLetter = self.first else { return "" }
-        return firstLetter.uppercased() + self.dropFirst()
     }
     
     func matches(for regex: String) -> [String] {

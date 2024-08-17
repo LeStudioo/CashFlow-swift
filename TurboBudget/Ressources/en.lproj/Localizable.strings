@@ -127,6 +127,28 @@
 
 "word_continue" = "Continue";
 
+"word_cancel_changes" = "Discard changes";
+
+"word_return" = "Back";
+
+"word_savings_account" = "Savings accounts";
+
+"by_month_word" = "By month";
+
+"only_expenses_word" = "Only expenses";
+
+"only_incomes_word" = "Only incomes";
+
+"sort_by_word" = "Sort by";
+
+"date_word" = "Date";
+
+"ascending_order_word" = "Ascending order";
+
+"descending_order_word" = "Descending order";
+
+"alphabetic_word" = "Alphabetic";
+
 //MARK: - Error Message
 "error_message_transaction" = "Click on the plus button to create a transaction.";
 
@@ -299,9 +321,15 @@
 
 "paywall_budgets_desc" = "Set spending limits for a specific category.";
 
+"paywall_detailled_budgets" = "Budgets are a great feature to limit your expenses. With them, you can set a threshold not to exceed and thus continue to pay attention to your expenses.";
+
 "paywall_statistics_desc" = "View more statistics on your transactions.";
 
+"paywall_detailled_statistics" = "Track your expenses better with detailed statistics. Instantly discover your monthly gains or losses with the widget on your account page.";
+
 "paywall_category_desc" = "Sort your categories by day.";
+
+"paywall_detailled_category" = "Manage your transactions with precision by sorting them by day!";
 
 "paywall_automations_desc" = "Automate the contributions you make to a savings plan.";
 
@@ -314,6 +342,8 @@
 "paywall_prediction_title" = "Prediction";
 
 "paywall_prediction_desc" = "Category prediction based on your habits to make adding an expense easier.";
+
+"paywall_detailled_prediction" = "Don't bother finding the right category for your transaction, CashFlow can do it for you!";
 
 "paywall_lifetime" = "Lifetime";
 

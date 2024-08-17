@@ -12,9 +12,6 @@ import SwiftUI
 let isIPad = (UIDevice.current.userInterfaceIdiom == .pad)
 let isLittleIphone = UIScreen.main.bounds.width < 380 ? true : false
 
-//PersistenceController
-let persistenceController: PersistenceController = PersistenceController.shared
-
 //
 let currencySymbol = Locale(identifier: Locale.current.identifier).currencySymbol ?? "x"
 
@@ -38,13 +35,15 @@ let colorsAvailable: [(Color, String)] = [
 
 //Theme Selected
 var themeSelected: String {
-    if UserDefaultsManager().colorSelected == "111" {
+    @Preference(\.colorSelected) var colorSelected
+    
+    if colorSelected == "111" {
         return "Green"
-    } else if UserDefaultsManager().colorSelected == "222" {
+    } else if colorSelected == "222" {
         return "Blue"
-    } else if UserDefaultsManager().colorSelected == "333" {
+    } else if colorSelected == "333" {
         return "Purple"
-    } else if UserDefaultsManager().colorSelected == "444" {
+    } else if colorSelected == "444" {
         return "Red"
     } else { return "Green" }
 }

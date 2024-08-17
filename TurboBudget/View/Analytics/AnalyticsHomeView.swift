@@ -12,49 +12,33 @@ import Charts
 
 struct AnalyticsHomeView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-    @ObservedObject var filter: Filter = sharedFilter
+    // Builder
+    @ObservedObject var account: Account
     
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
     
-    //State or Binding String
+    // Custom
+    @ObservedObject var filter = FilterManager.shared
     
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Bool
-    @Binding var update: Bool
-    
-    //State or Binding Date
-    
-    //State or Binding Orientation
-    
-    //Enum
-    
-    //Computed var
-    
-    private var sortedViews: [AnyView] {
-        let viewsDictionary: [String: AnyView] = [
-            NSLocalizedString("word_incomes", comment: ""): AnyView(IncomesChosenMonthChart(account: $account, update: $update)),
-            NSLocalizedString("word_expenses", comment: ""): AnyView(ExpensesChosenMonthChart(account: $account, update: $update)),
-            NSLocalizedString("word_automations_incomes", comment: ""): AnyView(IncomesFromAutomationsChosenMonthChart(account: $account, update: $update)),
-            NSLocalizedString("word_automations_expenses", comment: ""): AnyView(ExpensesFromAutomationsChosenMonthChart(account: $account, update: $update))
+    // Computed var
+    private var chartsView: [AnyView] {
+        return [
+            AnyView(IncomesChosenMonthChart(account: account)),
+            AnyView(ExpensesChosenMonthChart(account: account)),
+            AnyView(IncomesFromAutomationsChosenMonthChart(account: account)),
+            AnyView(ExpensesFromAutomationsChosenMonthChart(account: account))
         ]
-        let sortedKeys = userDefaultsManager.orderOfCharts
-        
-        return sortedKeys.compactMap { viewsDictionary[$0] }
     }
     
-    //MARK: - Body
+    //MARK: - body
     var body: some View {
         VStack {
-            if let account, account.transactions.count > 0 {
+            if account.transactions.count > 0 {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 20) {
                         // Cash Flow Chart
-                        CashFlowChart(account: $account, update: $update)
+                        CashFlowChart(account: account)
                         
                         if account.amountCashFlowByMonth(month: filter.date) == 0 {
                             VStack {
@@ -67,9 +51,12 @@ struct AnalyticsHomeView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)
-                                            .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+                                            .frame(width: isIPad
+                                                   ? UIScreen.main.bounds.width / 3
+                                                   : UIScreen.main.bounds.width / 1.5
+                                            )
                                         
-                                        Text(NSLocalizedString("analytic_home_no_stats", comment: ""))
+                                        Text("analytic_home_no_stats".localized)
                                             .font(.semiBoldText16())
                                             .multilineTextAlignment(.center)
                                     }
@@ -79,8 +66,8 @@ struct AnalyticsHomeView: View {
                                 Spacer()
                             }
                         } else {
-                            ForEach(sortedViews.indices, id: \.self) { index in
-                                sortedViews[index]
+                            ForEach(chartsView.indices, id: \.self) { index in
+                                chartsView[index]
                             }
                         }
                         
@@ -92,9 +79,6 @@ struct AnalyticsHomeView: View {
                         .opacity(0)
                     
                 } // End ScrollView
-                .blur(radius: filter.showMenu ? 3 : 0)
-                .disabled(filter.showMenu)
-                .onTapGesture { withAnimation { filter.showMenu = false } }
             } else {
                 VStack {
                     Spacer()
@@ -106,9 +90,12 @@ struct AnalyticsHomeView: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .shadow(radius: 4, y: 4)
-                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+                                .frame(width: isIPad 
+                                       ? UIScreen.main.bounds.width / 3
+                                       : UIScreen.main.bounds.width / 1.5
+                                )
                             
-                            Text(NSLocalizedString("analytic_home_no_stats", comment: ""))
+                            Text("analytic_home_no_stats".localized)
                                 .font(.semiBoldText16())
                                 .multilineTextAlignment(.center)
                         }
@@ -118,47 +105,30 @@ struct AnalyticsHomeView: View {
                     
                     Spacer()
                 }
-            }// End account
-        } // END VStack
-        .padding(update ? 0 : 0)
-        .navigationTitle(NSLocalizedString("word_analytic", comment: ""))
+            } // End account
+        } // End VStack
+        .navigationTitle("word_analytic".localized)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            if let account, account.transactions.count > 0 {
+            if account.transactions.count > 0 {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-                        withAnimation {
-                            filter.fromAnalytics = true
-                            filter.showMenu.toggle()
-                            update.toggle()
-                        }
+                        router.pushFilter()
                     }, label: {
-                        Image(systemName: "calendar")
-                            .foregroundColor(.colorLabel)
+                        Image(systemName: "line.3.horizontal.decrease.circle")
+                            .foregroundStyle(Color(uiColor: .label))
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
                     })
                 }
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .onRotate { _ in
-            update.toggle()
-        }
-    }//END body
-    
-    //MARK: Fonctions
-}//END struct
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+    } // End body
+} // End struct
 
 //MARK: - Preview
-struct AnalyticsHomeView_Previews: PreviewProvider {
-    
-    @State static var account: Account? = previewAccount1()
-    @State static var accountNil: Account? = nil
-    @State static var previewUpdate: Bool = false
-    
-    static var previews: some View {
-        AnalyticsHomeView(account: $account, update: $previewUpdate)
-        AnalyticsHomeView(account: $accountNil, update: $previewUpdate)
-    }
+#Preview {
+    AnalyticsHomeView(account: Account.preview)
 }
 
 

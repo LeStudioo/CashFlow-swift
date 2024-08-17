@@ -12,10 +12,10 @@ struct FilterView: View {
 
     //Custom type
     @ObservedObject var filter: Filter = sharedFilter
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var store: Store
 
     //State or Binding String
 
@@ -45,7 +45,7 @@ struct FilterView: View {
                     }
                 }, label: {
                     Image(systemName: "xmark")
-                        .foregroundColor(.color4Apple)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 22, weight: .semibold, design: .rounded))
                 })
             }
@@ -63,15 +63,15 @@ struct FilterView: View {
                     Spacer()
                     
                     Toggle(isOn: $filter.byDay.animation(), label: {
-                        Text(NSLocalizedString("filter_by_day", comment: ""))
+                        Text("filter_by_day".localized)
                     })
                     .disabled(filter.total)
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(8)
-                    .if(!userDefaultsManager.isCashFlowProEnable) { view in
+                    .if(!store.isLifetimeActive) { view in
                         view
                             .opacity(0.5)
                             .disabled(true)
@@ -80,20 +80,20 @@ struct FilterView: View {
                     }
                     
                     Toggle(isOn: $filter.automation.animation(), label: {
-                        Text(NSLocalizedString("filter_only_auto", comment: ""))
+                        Text("filter_only_auto".localized)
                     })
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(.horizontal, 8)
                     
                     Toggle(isOn: $filter.total.animation(), label: {
-                        Text(NSLocalizedString("filter_total", comment: ""))
+                        Text("filter_total".localized)
                     })
                     .padding(8)
                     .padding(.horizontal, 8)
-                    .background(Color.colorBackground)
+                    .background(Color.background)
                     .cornerRadius(15)
                     .padding(8)
                 }

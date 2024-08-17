@@ -28,7 +28,9 @@ class TransactionManager {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) && transaction.amount > 0 && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date) 
+                    && transaction.amount > 0
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                     amountOfDay += transaction.amount
                 }
             }
@@ -134,30 +136,6 @@ extension TransactionManager {
     }
 }
 
-//MARK: - Automated Archivage
-extension TransactionManager {
-    
-    //-------------------- archiveTransactionsAutomatically ----------------------
-    // Description : Archive automatiquement les transactions d'un compte en fonction des préférences de l'utilisateur.
-    // Parameter : (account: Account)
-    // Output : None
-    // Extra : Cette fonction vérifie si l'archivage automatique est activé dans les préférences de l'utilisateur. Si c'est le cas, elle archive les transactions qui dépassent le nombre de jours défini pour l'archivage.
-    //--------------------------------------------------------------------------------------------------
-    func archiveTransactionsAutomatically(account: Account) {
-        if UserDefaultsManager().automatedArchivedTransaction {
-            for transation in account.transactions {
-                let dateForArchive: Date = Calendar.current.date(byAdding: .day, value: UserDefaultsManager().numberOfDayForArchivedTransaction, to: transation.creationDate)!
-                if Date() > dateForArchive {
-                    transation.isArchived = true
-                    persistenceController.saveContext()
-                }
-            }
-        }
-    }
-    
-}
-
-
 //MARK: - Cash Flow Chart
 extension TransactionManager {
     
@@ -171,7 +149,7 @@ extension TransactionManager {
         var amount: Double = 0.0
         
         for transaction in account.transactions {
-            if let _ = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) {
+            if let _ = PredefinedCategory.findByID(transaction.predefCategoryID) {
                 if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                     if transaction.amount < 0 { amount -= transaction.amount } else { amount += transaction.amount }
                 }
@@ -199,8 +177,13 @@ extension TransactionManager {
         
         for transaction in transactions {
             if let dateOfMonthSelected {
-                if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month) && PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID) != nil {
-                    if transaction.amount < 0 { amount -= transaction.amount } else { amount += transaction.amount }
+                if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month)
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                    if transaction.amount < 0 { 
+                        amount -= transaction.amount
+                    } else {
+                        amount += transaction.amount
+                    }
                 }
             } else { print("⚠️ dateOfMonthSelected is NIL") }
         }

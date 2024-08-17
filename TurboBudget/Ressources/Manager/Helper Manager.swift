@@ -44,7 +44,7 @@ struct HelperManager {
     func formattedDateWithMonthYear(date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
-        return formatter.string(from: date).firstLetterCapitalized
+        return formatter.string(from: date).capitalized
     }
     
     //MARK: - Double
@@ -58,8 +58,11 @@ struct HelperManager {
     //MARK: - OTHER
     //Get App Theme
     func getAppTheme() -> ThemeColor {
+        
+        @Preference(\.colorSelected) var colorSelected
+        
         for theme in themes {
-            if theme.idUnique == UserDefaultsManager().colorSelected { return theme }
+            if theme.idUnique == colorSelected { return theme }
         }
         return themes[0] //Theme de base
     }

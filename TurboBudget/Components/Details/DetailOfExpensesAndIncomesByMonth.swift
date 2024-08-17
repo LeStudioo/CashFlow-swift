@@ -15,21 +15,9 @@ struct DetailOfExpensesAndIncomesByMonth: View {
     var amountOfExpenses: Double
     var amountOfIncomes: Double
 
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
+    @EnvironmentObject var store: Store
 
     //MARK: - Body
     var body: some View {
@@ -37,28 +25,30 @@ struct DetailOfExpensesAndIncomesByMonth: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithMonthYear(date: month))
                     .font(.mediumCustom(size: 22))
-                if userDefaultsManager.isCashFlowProEnable {
+                    .foregroundStyle(Color(uiColor: .label))
+                
+                if store.isLifetimeActive {
                     HStack {
                         if amountOfExpenses != 0 {
-                            Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
                         }
                         if amountOfExpenses != 0 && amountOfIncomes != 0 {
                             Text("|")
                         }
                         if amountOfIncomes != 0 {
-                            Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
                         }
                         Spacer()
                     }
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 }
             }
             Spacer()
         }
-        .padding([.horizontal, .top])
+        .padding(.horizontal)
     }//END body
 }//END struct
 

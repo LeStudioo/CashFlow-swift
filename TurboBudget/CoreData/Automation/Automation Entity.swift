@@ -1,0 +1,58 @@
+//
+//  Automation+CoreDataClass.swift
+//  CashFlow
+//
+//  Created by KaayZenn on 18/07/2023.
+//
+//
+
+import Foundation
+import CoreData
+
+@objc(Automation)
+public class Automation: NSManagedObject, Identifiable {
+
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Automation> {
+        return NSFetchRequest<Automation>(entityName: "Automation")
+    }
+
+    @NSManaged public var id: UUID
+    @NSManaged public var title: String
+    @NSManaged public var date: Date
+    @NSManaged public var isNotif: Bool
+    @NSManaged public var frenquently: Int16
+    @NSManaged public var automationToTransaction: Transaction?
+    @NSManaged public var automationToAccount: Account?
+}
+
+extension Automation {
+    
+    var category: PredefinedCategory? {
+        if let transaction = automationToTransaction {
+            return transaction.category
+        }
+        return nil
+    }
+    
+    var subcategory: PredefinedSubcategory? {
+        if let transaction = automationToTransaction {
+            return transaction.subcategory
+        }
+        return nil
+    }
+    
+}
+
+extension Automation {
+    
+    static var preview: Automation {
+        let automation = Automation(context: previewViewContext)
+        automation.id = UUID()
+        automation.title = "Preview"
+        automation.date = Calendar.current.date(byAdding: .day, value: 10, to: Date()) ?? .now
+        automation.frenquently = 0
+        automation.automationToTransaction = Transaction.preview1
+        return automation
+    }
+    
+}

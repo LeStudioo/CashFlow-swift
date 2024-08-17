@@ -10,49 +10,37 @@ import SwiftUI
 
 struct SavingPlansHomeView: View {
     
-    //Custom type
-    @Binding var account: Account?
-    
-    //Environnements
-    @Environment(\.dismiss) private var dismiss
-    
-    //State or Binding String
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
+        
+    // String variables
     @State private var searchText: String = ""
-    
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Bool
-    @Binding var update: Bool
-    @State private var showAddSavingPlan: Bool = false
-    
-    //Enum
-    
-    //Computed var
+        
+    // Computed var
     private var searchResults: [SavingPlan] {
-        if let account {
-            if searchText.isEmpty {
-                return account.savingPlans
-            } else {
-                return account.savingPlans.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            }
-        } else { return [] }
+        if searchText.isEmpty {
+            return savingPlanRepo.savingPlans
+        } else {
+            return savingPlanRepo.savingPlans.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+        }
     }
     
-    //Other
+    // Other
     private let layout: [GridItem] = [GridItem(.flexible(minimum: 40), spacing: 20), GridItem(.flexible(minimum: 40), spacing: 20)]
     
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if let account, account.savingPlans.count != 0 {
+            if savingPlanRepo.savingPlans.count != 0 {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         LazyVGrid(columns: layout, alignment: .center) {
                             ForEach(searchResults) { savingPlan in
-                                NavigationLink(destination: {
-                                    SavingPlanDetailView(savingPlan: savingPlan, update: $update)
+                                Button(action: {
+                                    router.pushSavingPlansDetail(savingPlan: savingPlan)
                                 }, label: {
-                                    CellSavingPlanView(savingPlan: savingPlan, update: $update)
+                                    SavingsPlanRow(savingPlan: savingPlan)
                                 })
                                 .padding(.bottom)
                             }
@@ -65,43 +53,32 @@ struct SavingPlansHomeView: View {
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
                     image: "NoSavingPlan",
-                    text: NSLocalizedString("error_message_savingsplan", comment: "")
+                    text: "error_message_savingsplan".localized
                 )
             }
         }
-        .navigationTitle(NSLocalizedString("word_savingsplans", comment: ""))
+        .navigationTitle("word_savingsplans".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { showAddSavingPlan.toggle() }, label: {
+                Button(action: {
+                    router.presentCreateSavingPlans()
+                }, label: {
                     Image(systemName: "plus")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .sheet(isPresented: $showAddSavingPlan, onDismiss: { update.toggle() }) { AddSavingPlanView(account: $account) }
-    }//END body
-}//END struct
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+    } // End body
+} // End struct
 
 //MARK: - Preview
-struct SavingPlansHomeView_Previews: PreviewProvider {
-    
-    @State static var previewAccount: Account? = previewAccount1()
-    @State static var preveiwUpdate: Bool = false
-    
-    static var previews: some View {
-        SavingPlansHomeView(account: $previewAccount, update: $preveiwUpdate)
-    }
+#Preview {
+    SavingPlansHomeView()
 }

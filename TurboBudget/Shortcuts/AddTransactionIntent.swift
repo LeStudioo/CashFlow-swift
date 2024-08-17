@@ -99,25 +99,21 @@ struct AddTransactionIntent: AppIntent {
         newTransaction.title = title
         newTransaction.amount = -finalNumber
         newTransaction.date = Date()
+        newTransaction.comeFromApplePay = true
         newTransaction.predefCategoryID = "PREDEFCAT00"
-        newTransaction.transactionToAccount = allAccounts.first
         
         if let account = allAccounts.first {
-            account.balance += newTransaction.amount
-        }
-        
-        do {
-            try viewContext.save()
-            PredefinedObjectManager.shared.reloadTransactions()
-        } catch {
-            print("⚠️ Error for : \(error.localizedDescription)")
+            newTransaction.transactionToAccount = account
+            account.addNewTransaction(transaction: newTransaction)
+            // TODO: - Voir si reload
+//            PredefinedObjectManager.shared.reloadTransactions()
         }
         
         let amountString: String = extractNumberString(from: amount)
         let currencySymbol: String = Locale.current.currencySymbol ?? ""
         let title: String = newTransaction.title
         
-        let formatString = NSLocalizedString("shortcut_result", comment: "")
+        let formatString = "shortcut_result".localized
         let formattedText = String(format: formatString, amountString, currencySymbol, title)
         
         return  .result(dialog: IntentDialog(stringLiteral: formattedText))

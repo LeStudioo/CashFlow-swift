@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="23A344" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23D60" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="Account" representedClassName="Account" syncable="YES">
         <attribute name="balance" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="cardLimit" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
@@ -7,7 +7,6 @@
         <attribute name="position" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" customClassName="Int"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <relationship name="accountToAutomation" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Automation" inverseName="automationToAccount" inverseEntity="Automation"/>
-        <relationship name="accountToCard" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Card" inverseName="cardToAccount" inverseEntity="Card"/>
         <relationship name="accountToSavingPlan" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="SavingPlan" inverseName="savingPlansToAccount" inverseEntity="SavingPlan"/>
         <relationship name="accountToTransaction" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="transactionToAccount" inverseEntity="Transaction"/>
     </entity>
@@ -26,30 +25,6 @@
         <attribute name="predefCategoryID" optional="YES" attributeType="String"/>
         <attribute name="predefSubcategoryID" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
-        <relationship name="budgetToCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="categoryToBudget" inverseEntity="CategoryEntity"/>
-        <relationship name="budgetToSubcategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subcategory" inverseName="subCategoryToBudget" inverseEntity="Subcategory"/>
-    </entity>
-    <entity name="Card" representedClassName="Card" syncable="YES">
-        <attribute name="color" attributeType="String" defaultValueString=""/>
-        <attribute name="cvv" attributeType="String" defaultValueString=""/>
-        <attribute name="date" attributeType="String" defaultValueString=""/>
-        <attribute name="holder" attributeType="String" defaultValueString=""/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="limit" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="number" attributeType="String" defaultValueString=""/>
-        <attribute name="position" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="cardToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="accountToCard" inverseEntity="Account"/>
-    </entity>
-    <entity name="CategoryEntity" representedClassName="CategoryEntity" syncable="YES">
-        <attribute name="colorString" attributeType="String" defaultValueString=""/>
-        <attribute name="icon" attributeType="String" defaultValueString=""/>
-        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="idUnique" attributeType="String" defaultValueString=""/>
-        <attribute name="isPredefined" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="title" attributeType="String" defaultValueString=""/>
-        <relationship name="categoryToBudget" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Budget" inverseName="budgetToCategory" inverseEntity="Budget"/>
-        <relationship name="categoryToSubcategory" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Subcategory" inverseName="subCategoryToCategory" inverseEntity="Subcategory"/>
-        <relationship name="categoryToTransactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="transactionToCategory" inverseEntity="Transaction"/>
     </entity>
     <entity name="Contribution" representedClassName="Contribution" syncable="YES">
         <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
@@ -74,32 +49,35 @@
         <relationship name="savingPlansToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="accountToSavingPlan" inverseEntity="Account"/>
         <relationship name="savingPlansToContribution" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Contribution" inverseName="contributionToSavingPlan" inverseEntity="Contribution"/>
     </entity>
-    <entity name="Subcategory" representedClassName="Subcategory" syncable="YES">
-        <attribute name="colorString" attributeType="String" defaultValueString=""/>
-        <attribute name="icon" attributeType="String" defaultValueString=""/>
+    <entity name="SavingsAccount" representedClassName="SavingsAccount" syncable="YES">
+        <attribute name="balanceAtStart" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="idUnique" attributeType="String" defaultValueString=""/>
-        <attribute name="isPredefined" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="title" attributeType="String" defaultValueString=""/>
-        <relationship name="subCategoryToBudget" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Budget" inverseName="budgetToSubcategory" inverseEntity="Budget"/>
-        <relationship name="subCategoryToCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="categoryToSubcategory" inverseEntity="CategoryEntity"/>
-        <relationship name="subCategoryToTransactions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="transactionToSubCategory" inverseEntity="Transaction"/>
+        <attribute name="maxAmount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="savingsAccountToTransfer" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transfer" inverseName="transferToSavingsAccount" inverseEntity="Transfer"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES">
         <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="comeFromApplePay" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="comeFromAuto" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="date" attributeType="Date" defaultDateTimeInterval="-31626000" usesScalarValueType="NO"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isArchived" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="isAuto" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="nameFromApplePay" optional="YES" attributeType="String"/>
         <attribute name="note" attributeType="String" defaultValueString=""/>
         <attribute name="predefCategoryID" optional="YES" attributeType="String"/>
         <attribute name="predefSubcategoryID" optional="YES" attributeType="String"/>
         <attribute name="title" attributeType="String" defaultValueString=""/>
         <relationship name="transactionToAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="accountToTransaction" inverseEntity="Account"/>
         <relationship name="transactionToAutomation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Automation" inverseName="automationToTransaction" inverseEntity="Automation"/>
-        <relationship name="transactionToCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CategoryEntity" inverseName="categoryToTransactions" inverseEntity="CategoryEntity"/>
-        <relationship name="transactionToSubCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subcategory" inverseName="subCategoryToTransactions" inverseEntity="Subcategory"/>
+    </entity>
+    <entity name="Transfer" representedClassName="Transfer" syncable="YES">
+        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="note" optional="YES" attributeType="String"/>
+        <relationship name="transferToSavingsAccount" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SavingsAccount" inverseName="savingsAccountToTransfer" inverseEntity="SavingsAccount"/>
     </entity>
 </model>

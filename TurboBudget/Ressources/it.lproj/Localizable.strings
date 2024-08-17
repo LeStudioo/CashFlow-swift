@@ -127,6 +127,28 @@
 
 "word_continue" = "Continua";
 
+"word_cancel_changes" = "Non salvare le modifiche";
+
+"word_return" = "Indietro";
+
+"word_savings_account" = "Conti di risparmio";
+
+"by_month_word" = "Al mese";
+
+"only_expenses_word" = "Solo spesa";
+
+"only_incomes_word" = "Solo reddito";
+
+"sort_by_word" = "ordina per";
+
+"date_word" = "Data";
+
+"ascending_order_word" = "Ascendente";
+
+"descending_order_word" = "Ordine decrescente";
+
+"alphabetic_word" = "Alfabetico";
+
 //MARK: - Error Message
 "error_message_transaction" = "Fare clic sul pulsante più per creare una transazione.";
 
@@ -299,9 +321,15 @@
 
 "paywall_budgets_desc" = "Imposta limiti di spesa per una categoria specifica.";
 
+"paywall_detailled_budgets" = "I budget sono un'ottima funzionalità per limitare le tue spese. Con essi, puoi impostare una soglia da non superare e così continuare a prestare attenzione alle tue spese.";
+
 "paywall_statistics_desc" = "Visualizza più statistiche sulle tue transazioni.";
 
+"paywall_detailled_statistics" = "Tieni traccia delle tue spese meglio con statistiche dettagliate. Scopri istantaneamente i tuoi guadagni o perdite mensili con il widget sulla pagina del tuo account.";
+
 "paywall_category_desc" = "Ordina le tue categorie per giorno.";
+
+"paywall_detailled_category" = "Gestisci le tue transazioni con precisione ordinandole per giorno.";
 
 "paywall_automations_desc" = "Automatizza i contributi che fai a un piano di risparmio.";
 
@@ -314,6 +342,8 @@
 "paywall_prediction_title" = "Predizione";
 
 "paywall_prediction_desc" = "Predizione della categoria basata sulle tue abitudini per facilitare l'aggiunta di una spesa.";
+
+"paywall_detailled_prediction" = "Non preoccuparti di trovare la categoria giusta per la tua transazione, CashFlow può farlo per te!";
 
 "paywall_lifetime" = "A vita";
 

@@ -16,10 +16,10 @@ struct DetailOfExpensesAndIncomesByDay: View {
     var amountOfIncomes: Double
 
     //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var store: Store
 
     //State or Binding String
 
@@ -37,22 +37,22 @@ struct DetailOfExpensesAndIncomesByDay: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithDayMonthYear(date: day))
                     .font(.mediumCustom(size: 22))
-                if userDefaultsManager.isCashFlowProEnable {
+                if store.isLifetimeActive {
                     HStack {
                         if amountOfExpenses != 0 {
-                            Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
                         }
                         if amountOfExpenses != 0 && amountOfIncomes != 0 {
                             Text("|")
                         }
                         if amountOfIncomes != 0 {
-                            Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
                         }
                         Spacer()
                     }
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 }
             }

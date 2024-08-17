@@ -13,20 +13,8 @@ struct DetailOfCategory: View {
     //Builder
     var category: PredefinedCategory
 
-    //Custom type
-
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
 
     //MARK: - Body
     var body: some View {
@@ -36,27 +24,28 @@ struct DetailOfCategory: View {
                     .font(.mediumCustom(size: 22))
                 
                 if category.amountTotalOfExpenses != 0 {
-                    Text(NSLocalizedString("word_expenses", comment: "") + " : " + category.amountTotalOfExpenses.currency)
+                    Text("word_expenses".localized + " : " + category.amountTotalOfExpenses.currency)
                         .lineLimit(1)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfIncomes != 0 {
-                    Text(NSLocalizedString("word_incomes", comment: "") + " : " + category.amountTotalOfIncomes.currency)
+                    Text("word_incomes".localized + " : " + category.amountTotalOfIncomes.currency)
                         .lineLimit(1)
-                        .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
             }
             
             Spacer()
+            
             Circle()
                 .frame(width: 30, height: 30)
-                .foregroundColor(category.color)
+                .foregroundStyle(category.color)
                 .overlay {
                     Image(systemName: category.icon)
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundColor(.colorLabelInverse)
+                        .foregroundStyle(Color(uiColor: .systemBackground))
                 }
         }
         .padding([.horizontal, .top])
@@ -65,5 +54,5 @@ struct DetailOfCategory: View {
 
 //MARK: - Preview
 #Preview {
-    DetailOfCategory(category: categoryPredefined1)
+    DetailOfCategory(category: .PREDEFCAT1)
 }

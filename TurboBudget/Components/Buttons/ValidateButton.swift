@@ -18,16 +18,16 @@ struct ValidateButton: View {
         Button(action: action, label: {
             ZStack {
                 Capsule()
-                    .foregroundColor(HelperManager().getAppTheme().color)
+                    .foregroundStyle(HelperManager().getAppTheme().color)
                     .frame(height: isLittleIphone ? 50 : 60)
                     .if(validate, transform: { view in
                         view.shadow(color: HelperManager().getAppTheme().color, radius: 8)
                     })
                 HStack {
                     Spacer()
-                    Text(NSLocalizedString("word_validate", comment: ""))
+                    Text("word_validate".localized)
                         .font(.semiBoldCustom(size: 20))
-                        .foregroundColor(.primary0)
+                        .foregroundStyle(.primary0)
                     Spacer()
                 }
             }

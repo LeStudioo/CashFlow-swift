@@ -11,28 +11,27 @@ import SwiftUI
 
 struct BudgetsTransactionsView: View {
 
-    //Custom type
+    // Builder
     var subcategory: PredefinedSubcategory
 
-    //Environnements
+    // Environment
+    @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
 
-    //State or Binding String
+    // String variables
     @State private var searchText: String = ""
 
-    //State or Binding Int, Float and Double
+    // Number variables
     @State private var newAmount: Double = 0.0
     
-    //State or Binding Bool
+    // Boolean variables
     @State private var ascendingOrder: Bool = false
     @State private var showEditMaxAmount: Bool = false
     @State private var showDeleteBudget: Bool = false
 
-	//Enum
-	
-	//Computed var
+	// Computed variables
     var searchResults: [Transaction] {
         var array: [Transaction] = []
         if searchText.isEmpty {
@@ -46,7 +45,7 @@ struct BudgetsTransactionsView: View {
         return array.filter { $0.date > Date().startOfMonth && $0.date < Date().endOfMonth }
     }
     
-    //Other
+    // Other
     var numberFormatter: NumberFormatter {
         let numFor = NumberFormatter()
         numFor.numberStyle = .decimal
@@ -54,20 +53,17 @@ struct BudgetsTransactionsView: View {
         return numFor
     }
     
-    //Binding update
-    @Binding var update: Bool
-
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
         VStack {
             if subcategory.transactions.count != 0 && searchResults.count != 0{
                 ScrollView(showsIndicators: false) {
                     detailForExpenses()
                     ForEach(searchResults) { transaction in
-                        NavigationLink(destination: {
-                            TransactionDetailView(transaction: transaction, update: $update)
+                        Button(action: {
+                            router.pushTransactionDetail(transaction: transaction)
                         }, label: {
-                            CellTransactionView(transaction: transaction, update: $update)
+                            TransactionRow(transaction: transaction)
                         })
                     }
                 }
@@ -76,70 +72,59 @@ struct BudgetsTransactionsView: View {
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
                     image: "NoTransaction",
-                    text: NSLocalizedString("budgets_transactions_no_transaction", comment: "")
+                    text: "budgets_transactions_no_transaction".localized
                 )
             }
         }
-        .padding(update ? 0 : 0)
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .navigationTitle(NSLocalizedString("word_transactions", comment: ""))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .alert(NSLocalizedString("budgets_transactions_editing", comment: ""), isPresented: $showEditMaxAmount, actions: {
-            TextField(NSLocalizedString("budgets_transactions_amount", comment: ""), value: $newAmount, formatter: numberFormatter)
-            Button(role: .cancel, action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+        .alert("budgets_transactions_editing".localized, isPresented: $showEditMaxAmount, actions: {
+            TextField("budgets_transactions_amount".localized, value: $newAmount, formatter: numberFormatter)
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 if newAmount != 0 {
                     if let budget = subcategory.budget {
                         budget.amount = newAmount
                         persistenceController.saveContext()
-                        update.toggle()
                     }
                 }
-            }, label: { Text(NSLocalizedString("budgets_transactions_edit", comment: "")) })
-        }, message: { Text(NSLocalizedString("budgets_transactions_edit_desc", comment: "")) })
-        .alert(NSLocalizedString("budgets_transactions_delete_budget", comment: ""), isPresented: $showDeleteBudget, actions: {
-            Button(role: .cancel, action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+            }, label: { Text("budgets_transactions_edit".localized) })
+        }, message: { Text("budgets_transactions_edit_desc".localized) })
+        .alert("budgets_transactions_delete_budget".localized, isPresented: $showDeleteBudget, actions: {
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
                 DispatchQueue.main.async {
                     if let budget = subcategory.budget {
                         dismiss()
                         viewContext.delete(budget)
-                        update.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             persistenceController.saveContext()
-                            update.toggle()
                         }
                     }
                 }
-            }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
+            }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(NSLocalizedString("budgets_transactions_delete_budget_desc", comment: ""))
+            Text("budgets_transactions_delete_budget_desc".localized)
         })
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { showEditMaxAmount.toggle() }, label: { Label(NSLocalizedString("budgets_transactions_button_edit", comment: ""), systemImage: "pencil") })
-                    Button(role: .destructive, action: { showDeleteBudget.toggle() }, label: { Label(NSLocalizedString("word_delete", comment: ""), systemImage: "trash") })
+                    Button(action: { showEditMaxAmount.toggle() }, label: { Label("budgets_transactions_button_edit".localized, systemImage: "pencil") })
+                    Button(role: .destructive, action: { showDeleteBudget.toggle() }, label: { Label("word_delete".localized, systemImage: "trash") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
         }
-        .searchable(text: $searchText.animation(), prompt: NSLocalizedString("word_search", comment: ""))
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
-        .onDisappear { update.toggle() }
-    }//END body
+        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+    } // End body
     
     //MARK: ViewBuilder
     @ViewBuilder
@@ -151,12 +136,12 @@ struct BudgetsTransactionsView: View {
                 Spacer()
                 Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
                     HStack {
-                        Text(NSLocalizedString("word_expenses", comment: ""))
+                        Text("word_expenses".localized)
                         Image(systemName: "arrow.up")
                             .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                     }
                 })
-                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 .font(.semiBoldSmall())
             }
             .font(.mediumCustom(size: 22))
@@ -165,12 +150,9 @@ struct BudgetsTransactionsView: View {
         }
         .padding([.horizontal, .top])
     }
+} // End struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    BudgetsTransactionsView(subcategory: subCategory1Category1, update: Binding.constant(false))
+    BudgetsTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
 }

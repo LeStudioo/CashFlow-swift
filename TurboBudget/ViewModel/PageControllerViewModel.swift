@@ -6,16 +6,47 @@
 //
 
 import Foundation
+import LocalAuthentication
 
 class PageControllerViewModel: ObservableObject {
     static let shared = PageControllerViewModel()
+        
+    @Published var showAlertAccount: Bool = false
+    @Published var showOnboarding: Bool = false
+    @Published var isUnlocked: Bool = false
+    @Published var launchScreenEnd: Bool = false
+    @Published var showAlertPaywall: Bool = false
+    @Published var showPaywall: Bool = false
+    @Published var showUpdateView: Bool = false
+}
+
+extension PageControllerViewModel {
     
-    @Published var showAddAccount: Bool = false
-    @Published var showAddSavingPlan: Bool = false
-    @Published var showRecoverTransaction: Bool = false
-    @Published var showAddAutomation: Bool = false
-    @Published var showScanTransaction: Bool = false
-    @Published var showAddTransaction: Bool = false
-    
-    
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        // check whether biometric authentication is possible
+        if context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            // it's possible, so go ahead and use it
+            let reason = "alert_request_biometric".localized
+            
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+                // authentication has now completed
+                if success {
+                    DispatchQueue.main.async {
+                        self.isUnlocked = true
+                    }
+                    UserDefaults.standard.set(true, forKey: "appIsOpen")
+                } else {
+                    DispatchQueue.main.async {
+                        self.isUnlocked = false
+                    }
+                    UserDefaults.standard.set(false, forKey: "appIsOpen")
+                }
+            }
+        } else {
+            // no biometrics
+        }
+    }
 }

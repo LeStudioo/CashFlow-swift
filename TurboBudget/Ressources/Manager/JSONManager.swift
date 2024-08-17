@@ -21,20 +21,18 @@ class JSONManager {
         let date = transaction.date
         let dateString = dateFormatter.string(from: date)
         
-        let categoryTransaction = transaction.transactionToCategory
-        let subcategoryTransaction = transaction.transactionToSubCategory
+        let categoryTransaction = transaction.predefCategoryID
+        let subcategoryTransaction = transaction.predefSubcategoryID
         
         let jsonString = """
         {
             "id": "\(transaction.id)",
-            "predefCategoryID": "\(transaction.predefCategoryID)",
-            "predefSubcategoryID": "\(transaction.predefSubcategoryID)",
+            "predefCategoryID": "\(categoryTransaction)",
+            "predefSubcategoryID": "\(subcategoryTransaction)",
             "title": "\(transaction.title)",
             "amount": \(transaction.amount),
             "date": "\(dateString)",
             "transactionToAccount": "null",
-            "transactionToCategory": "\(categoryTransaction?.idUnique ?? "null")",
-            "transactionToSubCategory": "\(subcategoryTransaction?.idUnique ?? "null")"
         }
         """
         return jsonString
@@ -55,13 +53,16 @@ class JSONManager {
             newTransacation.date = recoverTransaction.date
             newTransacation.transactionToAccount = account
 
-            let category = PredefinedCategoryManager().categoryByUniqueID(idUnique: recoverTransaction.predefCategoryID)
-            let subcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: category?.subcategories ?? [], idUnique: recoverTransaction.predefSubcategoryID)
+            guard let category = PredefinedCategory.findByID(recoverTransaction.predefCategoryID) else {
+                return nil
+            }
             
-            newTransacation.predefCategoryID = category?.idUnique ?? ""
-            newTransacation.predefSubcategoryID = subcategory?.idUnique ?? ""
+            let subcategory = category.subcategories.findByID(recoverTransaction.predefSubcategoryID)
             
-            if category == nil || newTransacation.title.isEmpty || newTransacation.amount == 0 {
+            newTransacation.predefCategoryID = category.id
+            newTransacation.predefSubcategoryID = subcategory?.id ?? ""
+            
+            if newTransacation.title.isEmpty || newTransacation.amount == 0 {
                 return nil
             } else {
                 return newTransacation

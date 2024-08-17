@@ -16,22 +16,10 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     var amountOfExpenses: Double
     var amountOfIncomes: Double
     @Binding var ascendingOrder: Bool
-
-    //Custom type
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
     
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
+    @EnvironmentObject var store: Store
 
     //MARK: - Body
     var body: some View {
@@ -41,43 +29,45 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     VStack(alignment: .leading) {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
-                        if userDefaultsManager.isCashFlowProEnable {
-                            Text(NSLocalizedString("word_expenses", comment: "") + " : " + amountOfExpenses.currency)
+                            .foregroundStyle(Color(uiColor: .label))
+                        
+                        if store.isLifetimeActive {
+                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
                                 .lineLimit(1)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
                         }
                     }
                     Spacer()
                     Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
                         HStack {
-                            Text(NSLocalizedString("word_expenses", comment: ""))
+                            Text("word_expenses".localized)
                             Image(systemName: "arrow.up")
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 } else if filterTransactions == .incomes {
                     VStack(alignment: .leading) {
                         Text(HelperManager().formattedDateWithMonthYear(date: month))
                             .font(.mediumCustom(size: 22))
-                        if userDefaultsManager.isCashFlowProEnable {
-                            Text(NSLocalizedString("word_incomes", comment: "") + " : " + amountOfIncomes.currency)
+                        if store.isLifetimeActive {
+                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
                                 .lineLimit(1)
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
                         }
                     }
                     Spacer()
                     Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
                         HStack {
-                            Text(NSLocalizedString("word_incomes", comment: ""))
+                            Text("word_incomes".localized)
                             Image(systemName: "arrow.up")
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(.semiBoldSmall())
                 }
             }
@@ -85,7 +75,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
             
             Spacer()
         }
-        .padding([.horizontal, .top])
+        .padding(.horizontal)
     }//END body
 }//END struct
 

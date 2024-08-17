@@ -25,13 +25,13 @@ final class TextCreditCardRecognizer {
     func recognizeText(withCompletionHandler completionHandler: @escaping (_ cardNumber: String?, _ date: String?, _ errorMessage: String?) -> Void) {
         self.completion = completionHandler
         guard let image = self.cameraScan.imageOfPage(at: 0).cgImage else {
-            self.completion(nil, nil, NSLocalizedString("error_scan_noimage", comment: ""))
+            self.completion(nil, nil, "error_scan_noimage".localized)
             return
         }
 
         let request = VNRecognizeTextRequest { request, error in
             if let error = error {
-                self.completion(nil, nil, String(format: NSLocalizedString("error_scan", comment: ""), "\(error)"))
+                self.completion(nil, nil, String(format: "error_scan".localized, "\(error)"))
             } else {
                 self.handleDetectionResults(results: request.results)
             }
@@ -63,7 +63,7 @@ final class TextCreditCardRecognizer {
         var dateScanned: String? = nil
         
         guard let results = results, !results.isEmpty else {
-            self.completion(nil, nil, NSLocalizedString("error_scan_notext", comment: ""))
+            self.completion(nil, nil, "error_scan_notext".localized)
             return
         }
 
@@ -112,7 +112,7 @@ final class TextCreditCardRecognizer {
         }).first {
             cardcreditNumberScanned = detectedCreditCardNumber
         } else {
-            completion(nil, nil, NSLocalizedString("banner_scan_error", comment: ""))
+            completion(nil, nil, "banner_scan_error".localized)
         }
         
         completion(cardcreditNumberScanned, dateScanned, nil)

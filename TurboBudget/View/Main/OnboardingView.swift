@@ -10,37 +10,26 @@ import SwiftUI
 import CloudKit
 
 struct OnboardingView: View {
-
-    //Custom type
-    @Binding var account: Account?
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
+    
+    // Repo
+    @EnvironmentObject private var accountRepo: AccountRepository
 
     //State or Binding String
     @State private var accountTitle: String = ""
     @State private var textFieldEmptyString: String = ""
 
     //State or Binding Int, Float and Double
-    @State private var accountBalance: Double = 0.0
+    @State private var accountBalance: String = ""
     @State private var actualPage: Int = 1
     @State private var cardLimit: Double = 0.0
     @State private var textFieldEmptyDouble: Double = 0.0
-
-    //State or Binding Bool
-
-	//Enum
 	
-	//Computed var
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-    
+	// Computed var
     var sizeTitleOnboarding: CGFloat {
         if isLittleIphone {
             return 26
@@ -61,35 +50,32 @@ struct OnboardingView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $actualPage) {
-                //1
                 onboardingPage(
                     image: "TutorialPage1",
-                    title: NSLocalizedString("onboarding_page1_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page1_desc", comment: "")
+                    title: "onboarding_page1_title".localized,
+                    desc: "onboarding_page1_desc".localized
                 ).tag(1)
                 
-                //2
                 onboardingPage(
                     image: "TutorialPage2",
-                    title: NSLocalizedString("onboarding_page2_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page2_desc", comment: "")
+                    title: "onboarding_page2_title".localized,
+                    desc: "onboarding_page2_desc".localized
                 ).tag(2)
                 
-                //3
                 onboardingPage(
                     image: "TutorialPage3",
-                    title: NSLocalizedString("onboarding_page3_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page3_desc", comment: "")
+                    title: "onboarding_page3_title".localized,
+                    desc: "onboarding_page3_desc".localized
                 ).tag(3)
                 
-                //4
                 onboardingPage(
                     image: "TutorialPage4",
-                    title: NSLocalizedString("onboarding_page4_title", comment: ""),
-                    desc: NSLocalizedString("onboarding_page4_desc", comment: "")
+                    title: "onboarding_page4_title".localized,
+                    desc: "onboarding_page4_desc".localized
                 ).tag(4)
                 
-                addAccountPage().tag(5)
+                addAccountPage()
+                    .tag(5)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
@@ -101,18 +87,18 @@ struct OnboardingView: View {
                     DispatchQueue.main.async {
                         let firstTransaction = Transaction(context: viewContext)
                         firstTransaction.id = UUID()
-                        firstTransaction.title = NSLocalizedString("name_first_transaction", comment: "")
-                        firstTransaction.amount = accountBalance
+                        firstTransaction.title = "name_first_transaction".localized
+                        firstTransaction.amount = accountBalance.convertToDouble()
                         firstTransaction.date = .now
                         
                         let firstAccount = Account(context: viewContext)
                         firstAccount.id = UUID()
                         firstAccount.title = accountTitle
-                        firstAccount.balance = accountBalance
+                        firstAccount.balance = accountBalance.convertToDouble()
                         firstAccount.cardLimit = cardLimit
                         firstAccount.accountToTransaction?.insert(firstTransaction)
                         
-                        account = firstAccount
+                        accountRepo.mainAccount = firstAccount
                         
                         persistenceController.saveContext()
                     }
@@ -121,12 +107,12 @@ struct OnboardingView: View {
                 }
             }, label: {
                 Capsule()
-                    .foregroundColor(.primary400)
+                    .foregroundStyle(.primary400)
                     .frame(height: 60)
                     .overlay {
-                        Text(actualPage == 5 ? NSLocalizedString("onboarding_button_start", comment: "") : NSLocalizedString("onboarding_button_next", comment: ""))
+                        Text(actualPage == 5 ? "onboarding_button_start".localized : "onboarding_button_next".localized)
                             .font(.semiBoldCustom(size: 22))
-                            .foregroundColor(.primary0)
+                            .foregroundStyle(.primary0)
                     }
                     .padding()
                     .padding(.horizontal)
@@ -139,9 +125,9 @@ struct OnboardingView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-    }//END body
+    } // End body
     
-    //MARK: - ViewBuilder
+    // MARK: - ViewBuilder
     @ViewBuilder
     func onboardingPage(image: String, title: String, desc: String) -> some View {
         ZStack(alignment: .bottom) {
@@ -160,16 +146,16 @@ struct OnboardingView: View {
                 ZStack(alignment: .top) {
                     CustomShapeOnboarding()
                         .frame(height: UIScreen.main.bounds.height / 2 - 30)
-                        .foregroundColor(colorScheme == .light ? .primary0 : .secondary500)
+                        .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                     
                     VStack(spacing: isLittleIphone ? 20 : 40) {
                         Text(title)
                             .font(.boldCustom(size: sizeTitleOnboarding))
                             .multilineTextAlignment(.center)
-                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                            .foregroundStyle(Color(uiColor: .label))
                         
                         Text(desc)
-                            .foregroundColor(.secondary400)
+                            .foregroundStyle(.secondary400)
                             .font(.mediumCustom(size: sizeDescOnboarding))
                             .multilineTextAlignment(.center)
                     }
@@ -185,60 +171,57 @@ struct OnboardingView: View {
     @ViewBuilder
     func addAccountPage() -> some View {
         VStack {
-            Text(NSLocalizedString("account_new", comment: ""))
+            Text("account_new".localized)
                 .titleAdjustSize()
                 .padding(.top)
             
-            CellAddCardView(textHeader: NSLocalizedString("account_name", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_name", comment: ""),
-                            text: $accountTitle,
-                            value: $textFieldEmptyDouble,
-                            isNumberTextField: false)
-            .padding(8)
-            
-            CellAddCardView(textHeader: NSLocalizedString("account_balance", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_balance", comment: ""),
-                            text: $textFieldEmptyString,
-                            value: $accountBalance,
-                            isNumberTextField: true)
-            .padding(8)
-            .padding(.vertical)
-            
-            CellAddCardView(textHeader: NSLocalizedString("account_card_limit", comment: ""),
-                            placeholder: NSLocalizedString("account_placeholder_card_limit", comment: ""),
-                            text: $textFieldEmptyString,
-                            value: $cardLimit,
-                            isNumberTextField: true)
-            .padding(8)
-            
-            Text(NSLocalizedString("account_info_credit_card", comment: ""))
-                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
-                .multilineTextAlignment(.center)
-                .font(.semiBoldText16())
-                .padding()
+            VStack {
+                CellAddCardView(
+                    textHeader: "account_name".localized,
+                    placeholder: "account_placeholder_name".localized,
+                    text: $accountTitle
+                )
+                .padding(8)
+                
+                CellAddCardView(
+                    textHeader: "account_balance".localized,
+                    placeholder: "account_placeholder_balance".localized,
+                    text: $accountBalance
+                )
+                .keyboardType(.decimalPad)
+                .padding(8)
+                .padding(.vertical)
+                
+                Text("account_info_credit_card".localized)
+                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .multilineTextAlignment(.center)
+                    .font(.semiBoldText16())
+                    .padding()
+            }
+            .padding()
             
             Spacer()
         }
     }
 
-    //MARK: Fonctions
+    // MARK: Fonctions
     func validateNewAccount() -> Bool {
         if actualPage == 5 {
-            if !accountTitle.isEmpty && accountBalance != 0 {
+            if !accountTitle.isEmpty && accountBalance.convertToDouble() != 0 {
                 return true
             } else { return false }
         } else { return true }
     }
 
-}//END struct
+} // End struct
 
 //MARK: - Preview
 struct OnboardingView_Previews: PreviewProvider {
     
-    @State static var previewAccount: Account? = previewAccount1()
+    @State static var previewAccount: Account? = Account.preview
     
     static var previews: some View {
-        OnboardingView(account: $previewAccount)
+        OnboardingView()
     }
 }
 

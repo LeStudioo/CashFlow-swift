@@ -35,15 +35,18 @@ class TransactionDetailViewModel: ObservableObject {
 //MARK: - Utils
 extension TransactionDetailViewModel {
     
+    // TODO: Refaire
     func changeCategory(transaction: Transaction) {
-        if let selectedCategory, let newCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: selectedCategory.idUnique) {
-            transaction.predefCategoryID = newCategory.idUnique
+        if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
+            transaction.predefCategoryID = newCategory.id
             transaction.predefSubcategoryID = ""
-            PredefinedObjectManager.shared.addTransactionsToCategory()
-            PredefinedObjectManager.shared.addTransactionsToSubcategory()
-            if let selectedSubcategory, let newSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: newCategory.subcategories, idUnique: selectedSubcategory.idUnique) {
-                transaction.predefSubcategoryID = newSubcategory.idUnique
-                PredefinedObjectManager.shared.addTransactionsToSubcategory()
+            // TODO: Voir si auto update
+//            PredefinedObjectManager.shared.addTransactionsToCategory()
+//            PredefinedObjectManager.shared.addTransactionsToSubcategory()
+            if let selectedSubcategory, let newSubcategory = newCategory.subcategories.findByID(selectedSubcategory.id) {
+                transaction.predefSubcategoryID = newSubcategory.id
+                // TODO: Voir si auto update
+//                PredefinedObjectManager.shared.addTransactionsToSubcategory()
             }
             persistenceController.saveContext()
         }
@@ -54,42 +57,45 @@ extension TransactionDetailViewModel {
 
         if let account = mainAccount {
             for transaction in account.transactions {
-                if transaction.title.lowercased().trimmingCharacters(in: .whitespaces).contains(title.lowercased().trimmingCharacters(in: .whitespaces)) && title.count > 3 {
+                if transaction.title
+                    .lowercased()
+                    .trimmingCharacters(in: .whitespaces)
+                    .contains(title
+                        .lowercased()
+                        .trimmingCharacters(in: .whitespaces)
+                    ) && title.count > 3 {
                     arrayOfCandidate.append(transaction)
                 }
             }
         }
 
-        var categoryCount: [String: Int] = [:]
+        // Au lieu de compter les catégories, créez un dictionnaire pour stocker la transaction la plus récente de chaque catégorie
+        var mostRecentTransactionByCategory: [String: Transaction] = [:]
 
         for candidate in arrayOfCandidate {
-            if candidate.predefCategoryID != "" {
-                categoryCount[candidate.predefCategoryID, default: 0] += 1
+            if !candidate.predefCategoryID.isEmpty
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
+                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
+                // Vérifier si la transaction actuelle est plus récente que celle stockée
+                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
+                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+                } else if mostRecentTransactionByCategory[candidate.predefCategoryID] == nil {
+                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+                }
             }
         }
 
-        guard let mostCommonCategory = categoryCount.max(by: { $0.value < $1.value })?.key else {
-            return (nil, nil)  // No categories found
+        // Trouvez la transaction la plus récente toutes catégories confondues
+        guard let mostRecentTransaction = mostRecentTransactionByCategory.values.sorted(by: { $0.date > $1.date }).first else {
+            return (nil, nil)  // No transactions found
         }
 
-        let filteredTransactions = arrayOfCandidate.filter { $0.predefCategoryID == mostCommonCategory }
-        
-        guard !filteredTransactions.isEmpty else {
-            return (nil, nil)  // No transactions found for the most common category
+        guard let finalCategory = PredefinedCategory.findByID(mostRecentTransaction.predefCategoryID) else {
+            return (nil, nil)
         }
-        
-        let sortedTransactions = filteredTransactions.sorted { $0.date > $1.date }
-        
-        let mostRecentTransaction = sortedTransactions.first!
-        
-        let finalCategory = PredefinedCategoryManager().categoryByUniqueID(idUnique: mostRecentTransaction.predefCategoryID)
-        let finalSubcategory = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: finalCategory?.subcategories ?? [], idUnique: mostRecentTransaction.predefSubcategoryID)
+        let finalSubcategory = finalCategory.subcategories.findByID(mostRecentTransaction.predefSubcategoryID)
         
         return (finalCategory, finalSubcategory)
-    }
-    
-    func resetData() {
-
     }
     
 }

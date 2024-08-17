@@ -11,96 +11,70 @@ import Charts
 
 struct ExpensesFromAutomationsChosenMonthChart: View {
     
-    //Custom Type
-    @Binding var account: Account?
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
-    @ObservedObject var filter: Filter = sharedFilter
+    // Builder
+    @ObservedObject var account: Account
     
-    //Environnements
+    // Custom
+    @ObservedObject var filter = FilterManager.shared
+    
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
-    
-    //State or Binding Date
-    
-    //State or Binding Bool
-    @Binding var update: Bool
-    
-    //MARK: - Body
+    // MARK: - body
     var body: some View {
-        if let account {
-            let dailyExpensesAutomations = TransactionManager().dailyAutomatedExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date)
-            
-            // Money Expenses From Automations in chosen month Chart
-            if userDefaultsManager.isExpenseTransactionsWithAutomationChart && dailyExpensesAutomations.map({ $0.amount }).reduce(0, -) != 0 {
+        let dailyExpensesAutomations = TransactionManager().dailyAutomatedExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date)
+        
+        // Money Expenses From Automations in chosen month Chart
+        if dailyExpensesAutomations.map({ $0.amount }).reduce(0, -) != 0 {
+            VStack {
+                let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
+                
                 VStack {
-                    let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
-                    NavigationLink(destination: {
-                        RecentExpensesAutomationsView(account: $account, update: $update)
-                    }, label: {
-                        VStack {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 10) {
-                                    if let month = monthOfSelectedDate.month {
-                                        Text(NSLocalizedString("chart_auto_expenses_expenses_in", comment: "") + " " + Calendar.current.monthSymbols[month - 1])
-                                            .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
-                                            .font(Font.mediumSmall())
-                                    }
-                                    
-                                    Text(dailyExpensesAutomations.map { $0.amount }.reduce(0, +).currency )
-                                        .foregroundColor(.colorLabel)
-                                        .font(.semiBoldText18())
-                                }
-                                Spacer()
-                                
-                                Image(systemName: "chevron.right")
-                                    .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
-                                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    HStack {
+                        VStack(alignment: .leading, spacing: 10) {
+                            if let month = monthOfSelectedDate.month {
+                                Text("chart_auto_expenses_expenses_in".localized + " " + Calendar.current.monthSymbols[month - 1])
+                                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                                    .font(Font.mediumSmall())
                             }
-                            .padding(8)
                             
-                            Chart(dailyExpensesAutomations, id: \.self) { item in
-                                if let day = Calendar.current.dateComponents([.day], from: item.day).day {
-                                    LineMark(x: .value("", day),
-                                             y: .value("", item.amount))
-                                    .foregroundStyle(Color.error400)
-                                    .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-                                    .interpolationMethod(.catmullRom)
-                                    
-                                    AreaMark(x: .value("", day),
-                                             y: .value("", item.amount))
-                                    .interpolationMethod(.catmullRom)
-                                    .foregroundStyle(LinearGradient(colors: [.error400.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
-                                }
-                            }
-                            .chartXScale(domain: 0...31)
-                            
+                            Text(dailyExpensesAutomations.map { $0.amount }.reduce(0, +).currency )
+                                .foregroundStyle(Color(uiColor: .label))
+                                .font(.semiBoldText18())
                         }
-                        .padding(8)
-                        .background(Color.colorCell)
-                        .cornerRadius(15)
-                    })
+                        
+                        Spacer()
+                    }
+                    .padding(8)
+                    
+                    Chart(dailyExpensesAutomations, id: \.self) { item in
+                        if let day = Calendar.current.dateComponents([.day], from: item.day).day {
+                            LineMark(x: .value("", day),
+                                     y: .value("", item.amount))
+                            .foregroundStyle(Color.error400)
+                            .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                            .interpolationMethod(.catmullRom)
+                            
+                            AreaMark(x: .value("", day),
+                                     y: .value("", item.amount))
+                            .interpolationMethod(.catmullRom)
+                            .foregroundStyle(LinearGradient(colors: [.error400.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
+                        }
+                    }
+                    .chartXScale(domain: 0...31)
+                    
                 }
-                .padding(update ? 0 : 0)
-            } else {
-                EmptyView().frame(height: 0)
+                .padding(8)
+                .background(Color.colorCell)
+                .cornerRadius(15)
             }
+        } else {
+            EmptyView().frame(height: 0)
         }
-    }//END body
-    
-    //MARK: Fonctions
-    
-}//END struct
+    } // Edn body
+} // End struct
 
-//MARK: - Preview
-struct ExpensesFromAutomationsChosenMonthChart_Previews: PreviewProvider {
-    
-    @State static var updatePreview: Bool = false
-    @State static var previewAccount: Account? = previewAccount1()
-    
-    static var previews: some View {
-        ExpensesFromAutomationsChosenMonthChart(account: $previewAccount, update: $updatePreview)
-    }
+// MARK: - Preview
+#Preview {
+    ExpensesFromAutomationsChosenMonthChart(account: Account.preview)
 }

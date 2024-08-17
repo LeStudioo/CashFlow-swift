@@ -12,12 +12,15 @@ struct SavingPlanDetailView: View {
 
     //Custom type
     var savingPlan: SavingPlan
-    @ObservedObject var userDefaultsManager = UserDefaultsManager.shared
     
-    //Environnements
-    @Environment(\.managedObjectContext) private var viewContext
+    // Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var store: Store
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
+    
+    // Preferences
+    @Preference(\.hapticFeedback) private var hapticFeedback
 
     //State or Binding String
     @State private var savingPlanNote: String = ""
@@ -29,7 +32,6 @@ struct SavingPlanDetailView: View {
     @State private var stepSelection: Int = 1
 
     //State or Binding Bool
-    @Binding var update: Bool
     @State private var isDeleting: Bool = false
     @State private var isRenaming: Bool = false
     @State private var showAddContribution: Bool = false
@@ -43,9 +45,6 @@ struct SavingPlanDetailView: View {
 	
 	//Computed var
     
-    //Other
-    let hapticFeedback = UINotificationFeedbackGenerator()
-    
     //MARK: - Body
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -53,11 +52,11 @@ struct SavingPlanDetailView: View {
                 Spacer()
                 Circle()
                     .frame(width: 100, height: 100)
-                    .foregroundColor(.colorCell)
+                    .foregroundStyle(.colorCell)
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundColor(HelperManager().getAppTheme().color)
+                            .foregroundStyle(HelperManager().getAppTheme().color)
                             .shadow(color: HelperManager().getAppTheme().color, radius: 4, y: 2)
                             .overlay {
                                 VStack {
@@ -68,7 +67,7 @@ struct SavingPlanDetailView: View {
                                     } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
                                         Image(systemName: savingPlan.icon)
                                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                            .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                            .foregroundStyle(Color(uiColor: .label))
                                             .shadow(radius: 2, y: 2)
                                     }
                                 }
@@ -88,8 +87,8 @@ struct SavingPlanDetailView: View {
             }
             
             if let date = savingPlan.dateOfEnd {
-                let color: Color = (date < Date() && savingPlan.actualAmount != savingPlan.amountOfEnd) ? Color.red : Color.colorLabel
-                CellForDetailSavingPlan(leftText: NSLocalizedString("savingsplan_detail_end_date", comment: ""), rightText: date.formatted(date: .abbreviated, time: .omitted), rightTextColor: color)
+                let color: Color = (date < Date() && savingPlan.actualAmount != savingPlan.amountOfEnd) ? Color.red : Color(uiColor: .label)
+                CellForDetailSavingPlan(leftText: "savingsplan_detail_end_date".localized, rightText: date.formatted(date: .abbreviated, time: .omitted), rightTextColor: color)
             }
             
             HStack {
@@ -101,8 +100,8 @@ struct SavingPlanDetailView: View {
                     
                     if savingPlanNote.isEmpty {
                         HStack {
-                            Text(NSLocalizedString("savingsplan_detail_note", comment: ""))
-                                .foregroundColor(colorScheme == .dark ? .secondary300 : .secondary400)
+                            Text("savingsplan_detail_note".localized)
+                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(Font.mediumText16())
                             Spacer()
                         }
@@ -118,28 +117,27 @@ struct SavingPlanDetailView: View {
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             
-            archivedOrDeleteButton()
+//            archivedOrDeleteButton()
             
             HStack {
-                Text(NSLocalizedString("word_contributions", comment: ""))
+                Text("word_contributions".localized)
                     .font(.semiBoldCustom(size: 22))
                 Spacer()
                 Button(action: { showAddContribution.toggle() }, label: {
                     Image(systemName: "plus")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                 })
             }
             .padding(.top)
             .padding(.horizontal, 12)
             
             ForEach(savingPlan.contributions) { contribution in
-                CellContributionView(contribution: contribution, update: $update)
+                ContributionRow(contribution: contribution)
             }
             
             Spacer()
         }
-        .padding(update ? 0 : 0)
         .onAppear {
             savingPlanNote = savingPlan.note
             
@@ -170,38 +168,31 @@ struct SavingPlanDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 18, weight: .bold, design: .rounded))
-                        .foregroundColor(.colorLabel)
-                })
-            }
+            ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { isRenaming.toggle() }, label: { Label(NSLocalizedString("word_rename", comment: ""), systemImage: "pencil") })
+                    Button(action: { isRenaming.toggle() }, label: { Label("word_rename".localized, systemImage: "pencil") })
                     
                     Button(action: {
                         withAnimation {
                             savingPlan.isStepEnable.toggle()
                             persistenceController.saveContext()
-                            update.toggle()
                         }
                     }, label: { 
                         Label(savingPlan.isStepEnable 
-                              ? NSLocalizedString("savingsplan_detail_disable_steps", comment: "")
-                              : NSLocalizedString("savingsplan_detail_enable_steps", comment: ""),
+                              ? "savingsplan_detail_disable_steps".localized
+                              : "savingsplan_detail_enable_steps".localized,
                               systemImage: "chart.line.uptrend.xyaxis")
                     })
-                    .disabled(!userDefaultsManager.isCashFlowProEnable)
+                    .disabled(!store.isLifetimeActive)
                     
-                    Button(action: { showAddContribution.toggle() }, label: { Label(NSLocalizedString("savingsplan_detail_add_contribution", comment: ""), systemImage: "plus") })
+                    Button(action: { showAddContribution.toggle() }, label: { Label("savingsplan_detail_add_contribution".localized, systemImage: "plus") })
                     
-                    Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label(NSLocalizedString("word_delete", comment: ""), systemImage: "trash.fill") })
+                    Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
@@ -210,15 +201,14 @@ struct SavingPlanDetailView: View {
                 HStack {
                     EmptyView()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundColor(HelperManager().getAppTheme().color) })
+                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(HelperManager().getAppTheme().color) })
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
         }
-        .background(Color.colorBackground.edgesIgnoringSafeArea(.all))
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $showAddContribution, onDismiss: {
             withAnimation(.spring()) {
-                update.toggle()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                     if savingPlan.actualAmount == savingPlan.amountOfEnd {
                         savingPlan.dateOfEnd = Date()
@@ -234,30 +224,22 @@ struct SavingPlanDetailView: View {
                     increaseWidthAmount = 1.5
                 }
             }
-        }, content: { AddContributionView(savingPlan: savingPlan) })
-        .alert(NSLocalizedString("word_rename", comment: ""), isPresented: $isRenaming, actions: {
-            TextField(NSLocalizedString("word_new_name", comment: ""), text: $newName)
-            Button(role: .cancel, action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+        }, content: { CreateContributionView(savingPlan: savingPlan) })
+        .alert("word_rename".localized, isPresented: $isRenaming, actions: {
+            TextField("word_new_name".localized, text: $newName)
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 savingPlan.title = newName
                 persistenceController.saveContext()
-                update.toggle()
-            }, label: { Text(NSLocalizedString("word_rename", comment: "")) })
+            }, label: { Text("word_rename".localized) })
         })
-        .alert(NSLocalizedString("savingsplan_detail_delete_savingsplan", comment: ""), isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { return }, label: { Text(NSLocalizedString("word_cancel", comment: "")) })
+        .alert("savingsplan_detail_delete_savingsplan".localized, isPresented: $isDeleting, actions: {
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
-                DispatchQueue.main.async {
-                    withAnimation {
-                        viewContext.delete(savingPlan)
-                        dismiss()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            persistenceController.saveContext()
-                        }
-                    }
-                }
-            }, label: { Text(NSLocalizedString("word_delete", comment: "")) })
-        }, message: { Text(NSLocalizedString("savingsplan_detail_delete_savingsplan_desc", comment: "")) })
+                savingPlanRepo.deleteSavingsPlan(savingsPlan: savingPlan)
+                dismiss()
+            }, label: { Text("word_delete".localized) })
+        }, message: { Text("savingsplan_detail_delete_savingsplan_desc".localized) })
     }//END body
     
     //MARK: - ViewBuilder
@@ -294,7 +276,7 @@ struct SavingPlanDetailView: View {
                             }
                         }
                         .font(.semiBoldText16())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     } else {
                         HStack {
                             Text(0.currency)
@@ -302,24 +284,24 @@ struct SavingPlanDetailView: View {
                             Text(savingPlan.amountOfEnd.currency)
                         }
                         .font(.semiBoldText16())
-                        .foregroundColor(.colorLabel)
+                        .foregroundStyle(Color(uiColor: .label))
                     }
                     
                     let widthAmount = savingPlan.actualAmount.currency.widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
                     
                     Capsule()
                         .frame(height: 40)
-                        .foregroundColor(.colorCell)
+                        .foregroundStyle(.colorCell)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundColor(HelperManager().getAppTheme().color)
+                                .foregroundStyle(HelperManager().getAppTheme().color)
                                 .frame(width: widthCapsule(widthBar: geometry.size.width) < widthAmount ? widthAmount : widthCapsule(widthBar: geometry.size.width))
                                 .padding(4)
                                 .overlay(alignment: .trailing) {
                                     Text(savingPlan.actualAmount.currency)
                                         .padding(.trailing, 12)
                                         .font(.semiBoldText16())
-                                        .foregroundColor(.colorLabelInverse)
+                                        .foregroundStyle(Color(uiColor: .systemBackground))
                                 }
                         }
                 }
@@ -333,7 +315,7 @@ struct SavingPlanDetailView: View {
     func customSegmented() -> some View {
         HStack {
             HStack {
-                Text(stepSelection != 5 ? NSLocalizedString("savingsplan_detail_step", comment: "") + " " + String(stepSelection) : NSLocalizedString("savingsplan_detail_total", comment: ""))
+                Text(stepSelection != 5 ? "savingsplan_detail_step".localized + " " + String(stepSelection) : "savingsplan_detail_total".localized)
                 Spacer()
                 Text(percentageForStep())
             }
@@ -354,7 +336,7 @@ struct SavingPlanDetailView: View {
                                 } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
                                     Image(systemName: savingPlan.icon)
                                         .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                        .foregroundColor(colorScheme == .light ? .secondary500 : .primary0)
+                                        .foregroundStyle(Color(uiColor: .label))
                                 }
                             }
                         }
@@ -364,9 +346,9 @@ struct SavingPlanDetailView: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             stepSelection = num
-                            if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                            if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                         }
-                        if userDefaultsManager.hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                        if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                     }
                     .if(stepSelection == num) { view in
                         view
@@ -382,7 +364,7 @@ struct SavingPlanDetailView: View {
         }
         .padding(.horizontal, 12)
         .font(.semiBoldText16())
-        .foregroundColor(.colorLabel)
+        .foregroundStyle(Color(uiColor: .label))
     }
     
     @ViewBuilder
@@ -406,12 +388,12 @@ struct SavingPlanDetailView: View {
                         Spacer()
                         Image(systemName: savingPlan.isArchived ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
                             .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        Text(savingPlan.isArchived ? NSLocalizedString("word_unarchive", comment: "") : NSLocalizedString("word_archive", comment: ""))
+                        Text(savingPlan.isArchived ? "word_unarchive".localized : "word_archive".localized)
                             .font(Font.mediumText16())
                         Spacer()
                     }
                 })
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding(8)
                 .background(Color.blue)
                 .cornerRadius(100)
@@ -422,12 +404,12 @@ struct SavingPlanDetailView: View {
                         Spacer()
                         Image(systemName: "trash.fill")
                             .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        Text(NSLocalizedString("word_delete", comment: ""))
+                        Text("word_delete".localized)
                             .font(.semiBoldText16())
                         Spacer()
                     }
                 })
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
                 .padding(8)
                 .background(Color.red)
                 .cornerRadius(100)
@@ -501,13 +483,8 @@ struct SavingPlanDetailView: View {
 }//END struct
 
 //MARK: - Preview
-struct SavingPlanDetailView_Previews: PreviewProvider {
-    
-    @State static var preveiwUpdate: Bool = false
-    
-    static var previews: some View {
-        SavingPlanDetailView(savingPlan: previewSavingPlan1(), update: $preveiwUpdate)
-    }
+#Preview {
+    SavingPlanDetailView(savingPlan: SavingPlan.preview1)
 }
 
 private struct CellForDetailSavingPlan: View {
@@ -523,7 +500,7 @@ private struct CellForDetailSavingPlan: View {
             Spacer()
             Text(rightText)
                 .font(.semiBoldText16())
-                .foregroundColor(rightTextColor)
+                .foregroundStyle(rightTextColor)
         }
         .padding(12)
         .background(Color.colorCell)

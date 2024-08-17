@@ -16,20 +16,6 @@ struct ErrorView: View {
     var image: String
     var text: String
 
-    //Custom type
-
-    //Environnements
-
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
-
     //MARK: - Body
     var body: some View {
         if searchResultsCount == 0 && !searchText.isEmpty {
@@ -38,10 +24,13 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
+                    .frame(width: isIPad 
+                           ? UIScreen.main.bounds.width / 3
+                           : UIScreen.main.bounds.width / 1.5
+                    )
                 
                 if !searchText.isEmpty {
-                    Text(NSLocalizedString("word_no_results", comment: "") + " '\(searchText)'")
+                    Text("word_no_results".localized + " '\(searchText)'")
                         .font(Font.mediumText16())
                         .multilineTextAlignment(.center)
                 }
@@ -54,7 +43,10 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad ? (orientation.isLandscape ? UIScreen.main.bounds.width / 3 : UIScreen.main.bounds.width / 2) : UIScreen.main.bounds.width / 1.5 )
+                    .frame(width: isIPad 
+                           ? UIScreen.main.bounds.width / 3
+                           : UIScreen.main.bounds.width / 1.5
+                    )
                 
                 Text(text)
                         .font(Font.mediumText16())

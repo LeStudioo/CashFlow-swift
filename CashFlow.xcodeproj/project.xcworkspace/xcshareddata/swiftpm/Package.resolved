@@ -1,4 +1,5 @@
 {
+  "originHash" : "fa20abeb065df4b3ec79543584d7fddb14a8bf0b2aaddf06d4047759884ad06f",
   "pins" : [
     {
       "identity" : "confettiswiftui",
@@ -7,15 +8,6 @@
       "state" : {
         "revision" : "f45961f97bbae6fff6e2e64546fea0189425ad92",
         "version" : "1.1.0"
-      }
-    },
-    {
-      "identity" : "setting",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/aheze/Setting",
-      "state" : {
-        "revision" : "f506b13b2024fc3e7585b6e4f8290f6f1525127c",
-        "version" : "1.0.1"
       }
     },
     {
@@ -28,5 +20,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
