@@ -18,9 +18,6 @@ struct SavingPlanDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: Store
     @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
-    
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
 
     //State or Binding String
     @State private var savingPlanNote: String = ""
@@ -346,9 +343,8 @@ struct SavingPlanDetailView: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             stepSelection = num
-                            if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
                         }
-                        if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                        VibrationManager.vibration()
                     }
                     .if(stepSelection == num) { view in
                         view

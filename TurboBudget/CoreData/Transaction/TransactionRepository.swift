@@ -12,15 +12,12 @@ final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
     @Published var transactions: [Transaction] = []
-    
-    // Preferences
-    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
-    @Preference(\.budgetPercentage) private var budgetPercentage
 }
 
 // MARK: - C.R.U.D
 extension TransactionRepository {
     
+    /// Fetch all transactions
     func fetchTransactions() {
         let context = persistenceController.container.viewContext
         var allTransactions: [Transaction] = []
@@ -47,40 +44,32 @@ extension TransactionRepository {
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }
     }
     
-    func createNewTransaction(model: TransactionModel) {
-        guard let account = AccountRepository.shared.mainAccount else { return }
-        guard let subcategory = PredefinedSubcategory.findByID(model.predefSubcategoryID) else { return }
-        
+    /// Create a new transaction
+    func createNewTransaction(model: TransactionModel, withSave: Bool = true) throws -> Transaction {
+        guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
+        guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
+        guard let subcategory = PredefinedSubcategory.findByID(model.predefSubcategoryID) else { throw CustomError.subcategoryNotFound }
+                
         let newTransaction = Transaction(context: viewContext)
         newTransaction.id = UUID()
         newTransaction.title = model.title.trimmingCharacters(in: .whitespaces)
         newTransaction.amount = model.amount
         newTransaction.date = model.date
-        newTransaction.creationDate = Date()
-        newTransaction.comeFromAuto = false
-        newTransaction.predefCategoryID = model.predefCategoryID
-        newTransaction.predefSubcategoryID = model.predefSubcategoryID
+        newTransaction.isAuto = model.isAuto
+        newTransaction.creationDate = .now
+        newTransaction.predefCategoryID = category.id
+        newTransaction.predefSubcategoryID = subcategory.id
+        newTransaction.transactionToAccount = account
         
-        account.addNewTransaction(transaction: newTransaction)
-        
-        // Card Limit
-        // TODO: Faire un alert manager pour le isCardLimit
-        if account.cardLimit != 0 {
-            let percentage = account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
-            if percentage >= cardLimitPercentage / 100 && percentage <= 1 { isCardLimitSoonToBeExceeded = true }
-            if percentage > 1 { isCardLimitExceeded = true }
+        if withSave {
+            self.transactions.append(newTransaction)
+            try persistenceController.saveContextWithThrow()
         }
         
-        // Budget
-        if let budget = subcategory.budget {
-            let percentage = budget.actualAmountForMonth(month: .now) / budget.amount
-            if percentage >= budgetPercentage / 100 && percentage <= 1 {
-                isBudgetSoonToBeExceeded = true
-            }
-            if percentage > 1 { isBudgetExceed = true }
-        }
+        return newTransaction
     }
     
+    /// Delete a transaction
     func deleteTransaction(transaction: Transaction) {
         if let account = AccountRepository.shared.mainAccount {
             account.balance -= transaction.amount
@@ -96,16 +85,6 @@ extension TransactionRepository {
         }
     }
     
-    func deleteTransactions() {
-        for transaction in self.transactions {
-            viewContext.delete(transaction)
-        }
-        if let account = AccountRepository.shared.mainAccount {
-            account.balance = 0
-        }
-        self.transactions = []
-    }
-    
 }
 
 // MARK: - Utils
@@ -119,6 +98,21 @@ extension TransactionRepository {
     func getTransactionsForSubcategory(subcategoryID: String) -> [Transaction] {
         return self.transactions
             .filter { $0.predefSubcategoryID == subcategoryID }
+    }
+    
+}
+
+extension TransactionRepository {
+    
+    /// Delete all transactions
+    func deleteTransactions() {
+        for transaction in self.transactions {
+            viewContext.delete(transaction)
+        }
+        if let account = AccountRepository.shared.mainAccount {
+            account.balance = 0
+        }
+        self.transactions = []
     }
     
 }

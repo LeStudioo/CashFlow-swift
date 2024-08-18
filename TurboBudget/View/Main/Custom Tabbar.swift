@@ -27,9 +27,6 @@ struct TabbarView: View {
 
     // Environement
     @Environment(\.colorScheme) private var colorScheme
-    
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
 
     //MARK: - Body
     var body: some View {
@@ -149,7 +146,7 @@ struct TabbarView: View {
                     }
                 }
                 if viewModel.showMenu {
-                    if hapticFeedback { UIImpactFeedbackGenerator(style: .light).impactOccurred() }
+                    VibrationManager.vibration()
                 }
             }
             

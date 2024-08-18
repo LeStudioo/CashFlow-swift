@@ -19,9 +19,6 @@ struct CreateContributionView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
 
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-
     //MARK: - Body
     var body: some View {
         NavigationStack {
@@ -89,10 +86,8 @@ struct CreateContributionView: View {
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.isContributionValid()) {
+                    VibrationManager.vibration()
                     viewModel.createContribution()
-                    if hapticFeedback {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    }
                     dismiss()
                 }
                 

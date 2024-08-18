@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreData
 import SwiftUI
 
 enum AutomationFrequently: CaseIterable {
@@ -25,78 +24,68 @@ class AddAutomationViewModel: ObservableObject {
     @Published var dateAutomation: Date = .now
     @Published var typeTransaction: ExpenseOrIncome = .expense
     @Published var automationFrenquently: AutomationFrequently = .monthly
-    
-    @Published var allowNotification: Bool = false
-    @Published var addNotification: Bool = false
-    
-    @Published var theNewTransaction: Transaction? = nil
-    @Published var theNewAutomation: Automation? = nil
+        
     @Published var presentingConfirmationDialog: Bool = false
 
 }
 
 extension AddAutomationViewModel {
     
-    func createNewAutomation() {
+    func createNewAutomation(withError: @escaping (_ withError: CustomError?) -> Void) { 
+        let calendar = Calendar.current
+        var finalDate: Date
         
-        let finalDate: Date
         if automationFrenquently == .monthly {
-            var comps = Calendar.current.dateComponents([.day, .month, .year], from: Date())
+            var comps = calendar.dateComponents([.day, .month, .year], from: Date())
             comps.day = dayAutomation
-            finalDate = Calendar.current.date(from: comps) ?? .now
+            finalDate = calendar.date(from: comps) ?? .now
+            
+            if Date.day > dayAutomation {
+                finalDate = calendar.date(byAdding: .month, value: 1, to: finalDate) ?? .now
+            }
         } else {
             finalDate = dateAutomation
         }
         
-        let newTransaction = Transaction(context: viewContext)
-        newTransaction.id = UUID()
-        newTransaction.title = titleTransaction
-        newTransaction.amount = typeTransaction == .expense ? -amountTransaction.convertToDouble() : amountTransaction.convertToDouble()
-        newTransaction.date = finalDate
-        newTransaction.isAuto = true
-        newTransaction.predefCategoryID = typeTransaction == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? ""
-        newTransaction.predefSubcategoryID = typeTransaction == .income ? "" : selectedSubcategory?.id ?? ""
+        let transactionModel = TransactionModel(
+            predefCategoryID: typeTransaction == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
+            predefSubcategoryID: typeTransaction == .income ? "" : selectedSubcategory?.id ?? "",
+            title: titleTransaction,
+            amount: typeTransaction == .expense ? -amountTransaction.convertToDouble() : amountTransaction.convertToDouble(),
+            date: finalDate,
+            isAuto: true
+        )
         
-        let newAutomation = Automation(context: viewContext)
-        newAutomation.id = UUID()
-        newAutomation.title = titleTransaction
-        newAutomation.date = finalDate
-        newAutomation.frenquently = automationFrenquently == .monthly ? 0 : 1
-        newAutomation.automationToTransaction = newTransaction
-        newAutomation.automationToAccount = AccountRepository.shared.mainAccount
-        newTransaction.transactionToAutomation = newAutomation
+        var automationModel = AutomationModel(
+            title: titleTransaction,
+            date: finalDate,
+            frenquently: automationFrenquently == .monthly ? 0 : 1
+        )
         
         do {
+            let newTransaction = try TransactionRepository.shared.createNewTransaction(model: transactionModel, withSave: false)
+            automationModel.transaction = newTransaction
+            
+            let newAutomation = try AutomationRepository.shared.createAutomation(model: automationModel, withSave: false)
+            newTransaction.transactionToAutomation = newAutomation
+            
             try viewContext.save()
-            theNewTransaction = newTransaction
-            theNewAutomation = newAutomation
             AutomationRepository.shared.automations.append(newAutomation)
+            withError(nil)
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.successfullModalManager.isPresenting = true
             }
             successfullModalManager.title = "automation_successful".localized
             successfullModalManager.subtitle = "automation_successful_desc".localized
-            successfullModalManager.content = AnyView(
-                VStack {
-                    CellTransactionWithoutAction(transaction: newTransaction)
-                    
-                    HStack {
-                        Text("automation_successful_date".localized)
-                            .font(Font.mediumSmall())
-                            .foregroundStyle(.secondary400)
-                        Spacer()
-                        Text(newAutomation.date.formatted(date: .abbreviated, time: .omitted))
-                            .font(.semiBoldSmall())
-                            .foregroundStyle(Color(uiColor: .label))
-                    }
-                    .padding(.horizontal, 8)
-                }
-            )
+            successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
         } catch {
-            print("⚠️ Error for : \(error.localizedDescription)")
+            if let error = error as? CustomError {
+                withError(error)
+            }
         }
     }
-    
+        
 }
 
 // MARK: - Verification

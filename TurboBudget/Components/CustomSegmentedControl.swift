@@ -18,9 +18,6 @@ struct CustomSegmentedControl: View {
 
     // Environement
     @Environment(\.colorScheme) private var colorScheme
-    
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
 
     // Number variables
     @State private var newX: CGFloat = 0
@@ -59,7 +56,7 @@ struct CustomSegmentedControl: View {
                         newX = 0
                     }
                 }
-                if hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+                VibrationManager.vibration()
             }
             .onChange(of: selection) { _ in
                 withAnimation(.spring().speed(1.25)) {
@@ -69,7 +66,7 @@ struct CustomSegmentedControl: View {
                         newX = geo.size.width / 2 - 4
                     }
                 }
-                if hapticFeedback { UIImpactFeedbackGenerator(style: .medium).impactOccurred() }
+                VibrationManager.vibration()
             }
         }
         .frame(height: height)

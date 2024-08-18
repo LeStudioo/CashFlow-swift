@@ -14,7 +14,7 @@ struct CreateTransactionView: View {
     let router: NavigationManager = .init(isPresented: .constant(.createTransaction))
     
     // Custom
-    @StateObject private var viewModel = AddTransactionViewModel()
+    @StateObject private var viewModel = CreateTransactionViewModel()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -22,9 +22,6 @@ struct CreateTransactionView: View {
 
     // EnvironmentObject
     @EnvironmentObject var store: Store
-    
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
     
     // Number variables
     @State private var showCheckmark = -60
@@ -156,26 +153,27 @@ struct CreateTransactionView: View {
                 .padding(.horizontal)
             } // End GeometryReader
             .toolbar {
-                if !viewModel.showSuccessfulTransaction {
-                    ToolbarDismissButtonView {
-                        if viewModel.isTransactionInCreation() {
-                            viewModel.presentingConfirmationDialog.toggle()
-                        } else {
-                            dismiss()
-                        }
-                    }
-                    
-                    ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
-                        viewModel.createNewTransaction()
+                ToolbarDismissButtonView {
+                    if viewModel.isTransactionInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
                         dismiss()
-                        
-                        if hapticFeedback {
-                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    }
+                }
+                
+                ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
+                    VibrationManager.vibration()
+                    
+                    viewModel.createNewTransaction { withError in
+                        if withError == nil {
+                            dismiss()
+                        } else {
+                            // TODO: Show a error banner
                         }
                     }
-                    
-                    ToolbarDismissKeyboardButtonView()
                 }
+                
+                ToolbarDismissKeyboardButtonView()
             }
         } // End NavStack
         .interactiveDismissDisabled(viewModel.isTransactionInCreation()) {

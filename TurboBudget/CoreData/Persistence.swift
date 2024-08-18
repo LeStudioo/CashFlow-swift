@@ -78,13 +78,19 @@ struct PersistenceController {
     // Extra :
     //----------------------------------------------------------------------
     func saveContext() {
-        let context = container.viewContext
-        
         do {
-            try context.save()
+            try viewContext.save()
             print("✅ Successfully saved")
         } catch {
             print("⚠️ \(error.localizedDescription)")
+        }
+    }
+    
+    func saveContextWithThrow() throws {
+        do {
+            try viewContext.save()
+        } catch {
+            throw CustomError.failToSave
         }
     }
 }

@@ -22,7 +22,7 @@ struct PageControllerView: View {
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
-    @ObservedObject var viewModelAddTransaction = AddTransactionViewModel.shared
+    @ObservedObject var viewModelAddTransaction = CreateTransactionViewModel.shared
     
     // Capture NOTIFICATION changes
     var didRemoteChange = NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: RunLoop.main)

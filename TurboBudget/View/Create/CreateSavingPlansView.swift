@@ -17,9 +17,6 @@ struct CreateSavingPlansView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
     //Enum
     enum Field: CaseIterable {
         case emoji, title, amountOfStart, amountOfEnd
@@ -162,11 +159,9 @@ struct CreateSavingPlansView: View {
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {
+                    VibrationManager.vibration()
                     viewModel.createSavingPlan()
                     dismiss()
-                    if hapticFeedback {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()

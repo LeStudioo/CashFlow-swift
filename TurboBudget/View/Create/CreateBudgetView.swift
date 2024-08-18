@@ -17,9 +17,6 @@ struct CreateBudgetView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
     // MARK: - body
     var body: some View {
         NavStack(router: router) {
@@ -60,10 +57,8 @@ struct CreateBudgetView: View {
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateBudget()) {
+                    VibrationManager.vibration()
                     viewModel.createNewBudget()
-                    if hapticFeedback {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    }
                     dismiss()
                 }
                 

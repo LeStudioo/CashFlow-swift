@@ -15,8 +15,6 @@ let isLittleIphone = UIScreen.main.bounds.width < 380 ? true : false
 //
 let currencySymbol = Locale(identifier: Locale.current.identifier).currencySymbol ?? "x"
 
-//let hapticFeedback = UINotificationFeedbackGenerator()
-
 //Color available
 let colorsAvailable: [(Color, String)] = [
     (Color.red , "red"),

@@ -126,7 +126,7 @@
 		D96E2DE02A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E2DDF2A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift */; };
 		D96F7C7F2C6A5BBA0018D7C2 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */; };
 		D96F7C812C6A5FC60018D7C2 /* Array+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */; };
-		D96F8F232AEAE0AD0084F011 /* AddTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F8F222AEAE0AD0084F011 /* AddTransactionViewModel.swift */; };
+		D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */; };
 		D97468A02ADE48A000DD5C5B /* DetailOfCategoryForArchivedTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D974689F2ADE48A000DD5C5B /* DetailOfCategoryForArchivedTransaction.swift */; };
 		D974FAD92AECDEBE00CD8CFF /* TransactionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D974FAD82AECDEBE00CD8CFF /* TransactionDetailViewModel.swift */; };
 		D97553E92A6FFB8F0095D8F0 /* CarouselOfChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97553E82A6FFB8F0095D8F0 /* CarouselOfChartsView.swift */; };
@@ -141,6 +141,9 @@
 		D97BC5322A8D128100DA016A /* Saving Plan Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */; };
 		D97BC5342A8D148C00DA016A /* SubcategoryTransactionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */; };
 		D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D983683D2A6A9A1C00CB79B6 /* YearMonthPickerView.swift */; };
+		D9842EE02C71D78C00DA2795 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9842EDF2C71D78C00DA2795 /* CustomError.swift */; };
+		D9842EE22C71DB9600DA2795 /* VibrationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9842EE12C71DB9600DA2795 /* VibrationManager.swift */; };
+		D9842EE42C71E84700DA2795 /* AutomationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9842EE32C71E84700DA2795 /* AutomationModel.swift */; };
 		D985C4C92A703AAA0064F041 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985C4C82A703AAA0064F041 /* QRScannerController.swift */; };
 		D985C4CB2A7048640064F041 /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D985C4CA2A7048640064F041 /* QRCodeScannerView.swift */; };
 		D9879DAF2B8B1D7F00054FFC /* SettingsGeneralView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9879DAE2B8B1D7F00054FFC /* SettingsGeneralView.swift */; };
@@ -340,7 +343,7 @@
 		D96E2DDF2A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationsForHomeScreen.swift; sourceTree = "<group>"; };
 		D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Transaction.swift"; sourceTree = "<group>"; };
-		D96F8F222AEAE0AD0084F011 /* AddTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionViewModel.swift; sourceTree = "<group>"; };
+		D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
 		D974689F2ADE48A000DD5C5B /* DetailOfCategoryForArchivedTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOfCategoryForArchivedTransaction.swift; sourceTree = "<group>"; };
 		D974FAD82AECDEBE00CD8CFF /* TransactionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailViewModel.swift; sourceTree = "<group>"; };
 		D97553E82A6FFB8F0095D8F0 /* CarouselOfChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarouselOfChartsView.swift; sourceTree = "<group>"; };
@@ -355,6 +358,9 @@
 		D97BC5312A8D128100DA016A /* Saving Plan Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Saving Plan Manager.swift"; sourceTree = "<group>"; };
 		D97BC5332A8D148C00DA016A /* SubcategoryTransactionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcategoryTransactionsView.swift; sourceTree = "<group>"; };
 		D983683D2A6A9A1C00CB79B6 /* YearMonthPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthPickerView.swift; sourceTree = "<group>"; };
+		D9842EDF2C71D78C00DA2795 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
+		D9842EE12C71DB9600DA2795 /* VibrationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VibrationManager.swift; sourceTree = "<group>"; };
+		D9842EE32C71E84700DA2795 /* AutomationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationModel.swift; sourceTree = "<group>"; };
 		D985C4C82A703AAA0064F041 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		D985C4CA2A7048640064F041 /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
 		D9879DAE2B8B1D7F00054FFC /* SettingsGeneralView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGeneralView.swift; sourceTree = "<group>"; };
@@ -581,6 +587,7 @@
 				D92DAB122B8A74D800F01E48 /* URLManager.swift */,
 				D9E56B952BA58F6D0023B777 /* FilterManager.swift */,
 				D96AB0252C70F0D4000C49A5 /* AlertManager.swift */,
+				D9842EE12C71DB9600DA2795 /* VibrationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -594,6 +601,7 @@
 				D9F56A292A654D6000E6CCC6 /* ThemeColor.swift */,
 				D953FDF82C6920E100135C12 /* Catgeory */,
 				D953FDF42C6920E000135C12 /* Subcategory */,
+				D9842EDF2C71D78C00DA2795 /* CustomError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -784,7 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				D9463A982B8114C400AB8202 /* CreateAccountViewModel.swift */,
-				D96F8F222AEAE0AD0084F011 /* AddTransactionViewModel.swift */,
+				D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */,
 				D9A91CF52AF41B6B0018AD2D /* AddAutomationViewModel.swift */,
 				D9A91CF72AF42AA60018AD2D /* AddBudgetViewModel.swift */,
 				D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */,
@@ -1002,6 +1010,7 @@
 			children = (
 				D975BFA52A66762B004FFA9D /* Automation Entity.swift */,
 				D9C17FBF2C6B7B24006FD392 /* AutomationRepository.swift */,
+				D9842EE32C71E84700DA2795 /* AutomationModel.swift */,
 			);
 			path = Automation;
 			sourceTree = "<group>";
@@ -1167,6 +1176,7 @@
 				D9879DBF2B8B474300054FFC /* SettingsDangerZoneView.swift in Sources */,
 				81805B3A2A5AB72400FD47FB /* ContributionRow.swift in Sources */,
 				D975BFB02A66936A004FFA9D /* Automation Manager.swift in Sources */,
+				D9842EE22C71DB9600DA2795 /* VibrationManager.swift in Sources */,
 				81ACEBD02A48B7CD00493666 /* RecoverTransaction.swift in Sources */,
 				D99B86B42AF2364100C0EA03 /* NewUpdateView.swift in Sources */,
 				81A707BA2A3B727000BEB0BF /* Account Entity.swift in Sources */,
@@ -1188,7 +1198,7 @@
 				D9AB6FC72B852910007E0B07 /* SavingsAccountDetailView.swift in Sources */,
 				81AE98672A3CE83C0066AE94 /* Conditional Modifier.swift in Sources */,
 				D94E95922B0F380E00E965D7 /* SavingsAccountHomeView.swift in Sources */,
-				D96F8F232AEAE0AD0084F011 /* AddTransactionViewModel.swift in Sources */,
+				D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */,
 				81A707892A3B6B4C00BEB0BF /* Persistence.swift in Sources */,
 				D9C03D172B8E69AC0019BA7E /* SelectCategoryButtonView.swift in Sources */,
 				D953FDFA2C6920E100135C12 /* PredefinedSubcategoryUtils.swift in Sources */,
@@ -1249,6 +1259,7 @@
 				D96E2DDE2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift in Sources */,
 				815FC05C2A5D614800790718 /* LaunchScreen.swift in Sources */,
 				D9699F2B2A92482E0054924D /* PaywallScreenView.swift in Sources */,
+				D9842EE02C71D78C00DA2795 /* CustomError.swift in Sources */,
 				D94DDE6A2AC353080034E6E1 /* DetailOfExpensesAndIncomesByDay.swift in Sources */,
 				D94348922A87B122001F8D84 /* FilterDuplicate.swift in Sources */,
 				D94DDE6C2AC3550C0034E6E1 /* ErrorView.swift in Sources */,
@@ -1276,6 +1287,7 @@
 				D95067032C37116F00FFEFDF /* CategoriesHomeViewModel.swift in Sources */,
 				D99C9D182A6ED6CD00658056 /* Incomes Chart.swift in Sources */,
 				D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */,
+				D9842EE42C71E84700DA2795 /* AutomationModel.swift in Sources */,
 				D9529B032AEC3E25005E799D /* CustomTabBarViewModel.swift in Sources */,
 				D9B9B9D82C6A480900ABF506 /* CustomOrSystemImage.swift in Sources */,
 				D91834452AADE25C009BD53B /* Timer.swift in Sources */,

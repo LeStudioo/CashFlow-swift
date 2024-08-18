@@ -15,9 +15,6 @@ struct CreateSavingsAccountView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
     // MARK: - body
     var body: some View {
         NavigationStack {
@@ -60,11 +57,9 @@ struct CreateSavingsAccountView: View {
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.isSavingsAccountValid()) {
+                    VibrationManager.vibration()
                     viewModel.createSavingsAccount()
                     dismiss()
-                    if hapticFeedback {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()

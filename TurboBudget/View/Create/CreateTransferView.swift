@@ -15,9 +15,7 @@ struct CreateTransferView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
+    // MARK: -
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -113,10 +111,8 @@ struct CreateTransferView: View {
                 }
                 
 //                ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
+//                    VibrationManager.vibration()
 //                    viewModel.createNewTransaction()
-//                    if hapticFeedback {
-//                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
-//                    }
 //                }
                 
                 ToolbarDismissKeyboardButtonView()

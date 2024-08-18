@@ -19,9 +19,6 @@ struct CreateAutomationView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
     // Enum
     enum Field: CaseIterable {
         case amount, title
@@ -34,7 +31,6 @@ struct CreateAutomationView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack { //New Transaction
-                        
                         Text("automation_new".localized)
                             .titleAdjustSize()
                             .padding(.vertical, 24)
@@ -122,10 +118,14 @@ struct CreateAutomationView: View {
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateAutomation()) {
-                    viewModel.createNewAutomation()
-                    dismiss()
-                    if hapticFeedback {
-                        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                    VibrationManager.vibration()
+                    viewModel.createNewAutomation { withError in
+                        if withError == nil {
+                            dismiss()
+                            dismiss()
+                        } else {
+                            // TODO: Show a error banner
+                        }
                     }
                 }
                 

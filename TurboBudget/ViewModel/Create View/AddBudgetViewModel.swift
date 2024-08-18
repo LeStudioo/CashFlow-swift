@@ -22,12 +22,15 @@ class AddBudgetViewModel: ObservableObject {
             if let budget = selectedSubcategory.budget {
                 viewContext.delete(budget)
             }
+            
             let newBudget = Budget(context: viewContext)
             newBudget.id = UUID()
             newBudget.title = selectedSubcategory.title
             newBudget.amount = amountBudget.convertToDouble()
             newBudget.predefCategoryID = selectedCategory.id
             newBudget.predefSubcategoryID = selectedSubcategory.id
+            
+            BudgetRepository.shared.budgets.append(newBudget)
         }
         
         persistenceController.saveContext()

@@ -1,17 +1,15 @@
 //
-//  AddTransactionViewModel.swift
+//  CreateTransactionViewModel.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 26/10/2023.
 //
 
 import Foundation
-import CoreData
 import SwiftUI
 
-class AddTransactionViewModel: ObservableObject {
-    static let shared = AddTransactionViewModel()
-    let context = persistenceController.container.viewContext
+final class CreateTransactionViewModel: ObservableObject {
+    static let shared = CreateTransactionViewModel()
     let successfullModalManager = SuccessfullModalManager.shared
     
     @Published var transactionTitle: String = ""
@@ -24,8 +22,6 @@ class AddTransactionViewModel: ObservableObject {
     @Published var presentingConfirmationDialog: Bool = false
     
     // Prefrences
-    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
-    @Preference(\.budgetPercentage) private var budgetPercentage
     @Preference(\.accountCanBeNegative) private var accountCanBeNegative
     @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
     @Preference(\.blockExpensesIfBudgetAmountExceeds) private var blockExpensesIfBudgetAmountExceeds
@@ -44,76 +40,38 @@ class AddTransactionViewModel: ObservableObject {
         }
     }
     
-    //-------------------- createNewTransaction ----------------------
-    // Description : Create a new transaction
-    // Parameter : No
-    // Output : Void
-    // Extra :
-    //-----------------------------------------------------------
-    func createNewTransaction() {
-        if let mainAccount = AccountRepository.shared.mainAccount {
-            let newTransaction = Transaction(context: context)
-            newTransaction.id = UUID()
-            newTransaction.title = transactionTitle.trimmingCharacters(in: .whitespaces)
-            newTransaction.amount = transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble()
-            newTransaction.date = transactionDate
-            newTransaction.creationDate = Date()
-            newTransaction.comeFromAuto = false
-            newTransaction.predefCategoryID = transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? ""
-            newTransaction.predefSubcategoryID = transactionType == .income ? "" : selectedSubcategory?.id ?? ""
+    func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {
+        guard let account = AccountRepository.shared.mainAccount else { return }
+        
+        let model = TransactionModel(
+            predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
+            predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
+            title: transactionTitle.trimmingCharacters(in: .whitespaces),
+            amount: transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble(),
+            date: transactionDate
+        )
+        
+        do {
+            let newTransaction = try TransactionRepository.shared.createNewTransaction(model: model)
+            account.balance += model.amount
             
-            mainAccount.addNewTransaction(transaction: newTransaction)
-                        
-            // Card Limit
-            if mainAccount.cardLimit != 0 {
-                let percentage = mainAccount.amountOfExpensesInActualMonth() / Double(mainAccount.cardLimit)
-                if percentage >= cardLimitPercentage / 100 && percentage <= 1 { isCardLimitSoonToBeExceeded = true }
-                if percentage > 1 { isCardLimitExceeded = true }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.successfullModalManager.isPresenting = true
             }
-            
-            // Budget
-            if let selectedSubcategory, let budget = selectedSubcategory.budget {
-                let percentage = budget.actualAmountForMonth(month: .now) / budget.amount
-                if percentage >= budgetPercentage / 100 && percentage <= 1 {
-                    isBudgetSoonToBeExceeded = true
-                }
-                if percentage > 1 { isBudgetExceed = true }
-            }
-            
-            do {
-                try context.save()
-                TransactionRepository.shared.transactions.append(newTransaction)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.successfullModalManager.isPresenting = true
-                }
-                successfullModalManager.title = "transaction_successful".localized
-                successfullModalManager.subtitle = "transaction_successful_desc".localized
-                successfullModalManager.content = AnyView(
-                    VStack {
-                        CellTransactionWithoutAction(transaction: newTransaction)
-                        
-                        HStack {
-                            Text("transaction_successful_date".localized)
-                                .font(Font.mediumSmall())
-                                .foregroundStyle(.secondary400)
-                            Spacer()
-                            Text(newTransaction.date.formatted(date: .abbreviated, time: .omitted))
-                                .font(.semiBoldSmall())
-                                .foregroundStyle(Color(uiColor: .label))
-                        }
-                        .padding(.horizontal, 8)
-                    }
-                )
-            } catch {
-                print("⚠️ Error for : \(error.localizedDescription)")
+            successfullModalManager.title = "transaction_successful".localized
+            successfullModalManager.subtitle = "transaction_successful_desc".localized
+            successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
+        } catch {
+            if let error = error as? CustomError {
+                withError(error)
             }
         }
     }
-    
+        
 }
 
 //MARK: - Utils
-extension AddTransactionViewModel {
+extension CreateTransactionViewModel {
     
     func automaticCategorySearch() -> (PredefinedCategory?, PredefinedSubcategory?) {
         var arrayOfCandidate: [Transaction] = []
@@ -180,7 +138,7 @@ extension AddTransactionViewModel {
 }
 
 //MARK: - Verification
-extension AddTransactionViewModel {
+extension CreateTransactionViewModel {
     
     func isTransactionInCreation() -> Bool {
         if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.convertToDouble() != 0 {

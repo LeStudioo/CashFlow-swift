@@ -18,9 +18,6 @@ struct RecoverTransactionView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // Preferences
-    @Preference(\.hapticFeedback) private var hapticFeedback
-    
     //Photos
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
@@ -201,10 +198,8 @@ struct RecoverTransactionView: View {
                     }
                     
                     ToolbarCreateButtonView(isActive: !viewModel.jsonString.isEmpty) {
+                        VibrationManager.vibration()
                         viewModel.recoverTransaction()
-                        if hapticFeedback {
-                            UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                        }
                     }
                     
                     ToolbarDismissKeyboardButtonView()

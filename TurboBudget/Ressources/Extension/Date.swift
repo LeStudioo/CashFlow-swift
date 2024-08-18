@@ -8,6 +8,16 @@
 import Foundation
 
 extension Date {
+    
+    static var day: Int {
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
+        components.timeZone = Locale.current.timeZone
+        if let day = components.day { return day } else { return 0 }
+    }
+    
+}
+
+extension Date {
     var startOfMonth: Date {
         let comp: DateComponents = Calendar.current.dateComponents([.month, .year], from: self)
         return Calendar.current.date(from: comp)!
