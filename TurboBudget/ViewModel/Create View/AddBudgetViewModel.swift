@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AddBudgetViewModel: ObservableObject {
     static let shared = AddBudgetViewModel()
-    let viewContext = persistenceController.container.viewContext
+    let successfullModalManager = SuccessfullModalManager.shared
     
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
@@ -17,23 +18,30 @@ class AddBudgetViewModel: ObservableObject {
     
     @Published var presentingConfirmationDialog: Bool = false
     
-    func createNewBudget() {
-        if let selectedCategory, let selectedSubcategory { //Budget for Subcategory
-            if let budget = selectedSubcategory.budget {
-                viewContext.delete(budget)
-            }
-            
-            let newBudget = Budget(context: viewContext)
-            newBudget.id = UUID()
-            newBudget.title = selectedSubcategory.title
-            newBudget.amount = amountBudget.convertToDouble()
-            newBudget.predefCategoryID = selectedCategory.id
-            newBudget.predefSubcategoryID = selectedSubcategory.id
-            
-            BudgetRepository.shared.budgets.append(newBudget)
-        }
+    func createNewBudget(withError: @escaping (_ withError: CustomError?) -> Void) {
+        let budgetModel = BudgetModel(
+            title: selectedSubcategory?.title ?? "",
+            amount: amountBudget.convertToDouble(),
+            categoryID: selectedCategory?.id ?? "",
+            subcategoryID: selectedSubcategory?.id ?? ""
+        )
         
-        persistenceController.saveContext()
+        do {
+            let newBudget = try BudgetRepository.shared.createNewBudget(model: budgetModel)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.successfullModalManager.isPresenting = true
+            }
+            successfullModalManager.title = "budget_successful".localized
+            successfullModalManager.subtitle = "budget_successful_desc".localized
+            successfullModalManager.content = AnyView(BudgetRow(budget: newBudget, selectedDate: .constant(.now)))
+            
+            withError(nil)
+        } catch {
+            if let error = error as? CustomError {
+                withError(error)
+            }
+        }
     }
 }
 

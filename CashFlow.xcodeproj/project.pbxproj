@@ -83,6 +83,8 @@
 		D92C4CAA2C79A6B3003C9C49 /* SavingsPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CA92C79A6B3003C9C49 /* SavingsPlanModel.swift */; };
 		D92C4CAD2C79A8CC003C9C49 /* ContributionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CAC2C79A8CC003C9C49 /* ContributionRepository.swift */; };
 		D92C4CAF2C79A918003C9C49 /* ContributionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CAE2C79A918003C9C49 /* ContributionModel.swift */; };
+		D92C4CB12C79B113003C9C49 /* BudgetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CB02C79B113003C9C49 /* BudgetModel.swift */; };
+		D92C4CB42C79B642003C9C49 /* NavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CB32C79B642003C9C49 /* NavigationButton.swift */; };
 		D92DAB0F2B8A62C900F01E48 /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB0E2B8A62C900F01E48 /* SettingsHomeView.swift */; };
 		D92DAB112B8A63EA00F01E48 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB102B8A63EA00F01E48 /* SettingRow.swift */; };
 		D92DAB132B8A74D800F01E48 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB122B8A74D800F01E48 /* URLManager.swift */; };
@@ -301,6 +303,8 @@
 		D92C4CA92C79A6B3003C9C49 /* SavingsPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsPlanModel.swift; sourceTree = "<group>"; };
 		D92C4CAC2C79A8CC003C9C49 /* ContributionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionRepository.swift; sourceTree = "<group>"; };
 		D92C4CAE2C79A918003C9C49 /* ContributionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionModel.swift; sourceTree = "<group>"; };
+		D92C4CB02C79B113003C9C49 /* BudgetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetModel.swift; sourceTree = "<group>"; };
+		D92C4CB32C79B642003C9C49 /* NavigationButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationButton.swift; sourceTree = "<group>"; };
 		D92DAB0E2B8A62C900F01E48 /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
 		D92DAB102B8A63EA00F01E48 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		D92DAB122B8A74D800F01E48 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
@@ -716,6 +720,14 @@
 			path = Contribution;
 			sourceTree = "<group>";
 		};
+		D92C4CB22C79B62B003C9C49 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D92C4CB32C79B642003C9C49 /* NavigationButton.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		D931BD6B2AD3282500547AD1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -1009,6 +1021,7 @@
 			isa = PBXGroup;
 			children = (
 				D9EB24732A7BD71E00C12ADD /* Budget Entity.swift */,
+				D92C4CB02C79B113003C9C49 /* BudgetModel.swift */,
 				D9C17FB92C6B40A3006FD392 /* BudgetRepository.swift */,
 			);
 			path = Budget;
@@ -1044,6 +1057,7 @@
 		D9D2C0632B7E92870082715F /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				D92C4CB22C79B62B003C9C49 /* Components */,
 				D9428C332B7E932B0030DAC2 /* Router.swift */,
 				D9428C322B7E932B0030DAC2 /* NavigationStack.swift */,
 				D9428C312B7E932B0030DAC2 /* NavigationDirection.swift */,
@@ -1246,6 +1260,7 @@
 				D9E56B962BA58F6D0023B777 /* FilterManager.swift in Sources */,
 				D9E56B9A2BA5924E0023B777 /* RecentTransactionsViewModel.swift in Sources */,
 				81A707A62A3B6DBB00BEB0BF /* Colors.swift in Sources */,
+				D92C4CB12C79B113003C9C49 /* BudgetModel.swift in Sources */,
 				D9C03D132B8E5A8B0019BA7E /* ToolbarDismissKeyboardButtonView.swift in Sources */,
 				D9C17FC02C6B7B24006FD392 /* AutomationRepository.swift in Sources */,
 				D9B9B9D32C6A37A600ABF506 /* PieChart+Extensions.swift in Sources */,
@@ -1291,6 +1306,7 @@
 				D9D676B22AD29B0F000DBB42 /* BudgetManager.swift in Sources */,
 				D9879DB32B8B20ED00054FFC /* SettingsAppearenceView.swift in Sources */,
 				D99C9D1A2A6ED87A00658056 /* Expenses Chart.swift in Sources */,
+				D92C4CB42C79B642003C9C49 /* NavigationButton.swift in Sources */,
 				D979B0C02BA8A2600083F4A1 /* SuccessfullCreationView.swift in Sources */,
 				81A707A02A3B6D3B00BEB0BF /* Custom Tabbar.swift in Sources */,
 				D974FAD92AECDEBE00CD8CFF /* TransactionDetailViewModel.swift in Sources */,
