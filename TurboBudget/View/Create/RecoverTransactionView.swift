@@ -142,7 +142,7 @@ struct RecoverTransactionView: View {
                                             .font(Font.mediumSmall())
                                             .foregroundStyle(.secondary400)
                                         Spacer()
-                                        Text(transaction.date.formatted(date: .abbreviated, time: .omitted))
+                                        Text(transaction.date.withDefault.formatted(date: .abbreviated, time: .omitted))
                                             .font(.semiBoldSmall())
                                             .foregroundStyle(Color(uiColor: .label))
                                     }

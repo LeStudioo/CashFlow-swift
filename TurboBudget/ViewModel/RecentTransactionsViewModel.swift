@@ -18,7 +18,7 @@ class RecentTransactionsViewModel: ObservableObject {
     
     func searchResults(account: Account) -> [Transaction] {
         let filteredTransactions = account.transactions.filter { transaction in
-            let byMonthCondition = !filter.byMonth || transaction.date <= filter.date
+            let byMonthCondition = !filter.byMonth || transaction.date.withDefault <= filter.date
             let onlyIncomesCondition = !filter.onlyIncomes || transaction.amount > 0
             let onlyExpensesCondition = !filter.onlyExpenses || transaction.amount < 0
             return byMonthCondition && onlyIncomesCondition && onlyExpensesCondition
@@ -26,7 +26,7 @@ class RecentTransactionsViewModel: ObservableObject {
 
         switch filter.sortBy {
         case .date:
-            return filteredTransactions.sorted { $0.date > $1.date }
+            return filteredTransactions.sorted { $0.date.withDefault > $1.date.withDefault }
         case .ascendingOrder:
             return filteredTransactions.sorted { $0.amount > $1.amount }
         case .descendingOrder:

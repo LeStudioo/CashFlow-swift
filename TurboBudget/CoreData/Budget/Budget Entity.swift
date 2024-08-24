@@ -48,7 +48,7 @@ public class Budget: NSManagedObject, Identifiable {
 //                        let subcategoryOfTransaction = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: categoryOfTransaction.subcategories, idUnique: transaction.predefSubcategoryID)
 //                        
 //                        if let subcategoryOfTransaction {
-//                            if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+//                            if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
 //                                amount -= transaction.amount
 //                            }
 //                        }
@@ -70,7 +70,7 @@ public class Budget: NSManagedObject, Identifiable {
             if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID) {
                 let subcategoryOfTransaction = categoryOfTransaction.subcategories.findByID(transaction.predefSubcategoryID)
                 
-                if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+                if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                     amount -= transaction.amount
                 }
             }

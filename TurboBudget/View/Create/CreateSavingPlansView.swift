@@ -12,7 +12,6 @@ struct CreateSavingPlansView: View {
     
     // Custom
     @StateObject private var viewModel = AddSavingPlanViewModel()
-    private let router: NavigationManager = .init(isPresented: .constant(.createSavingPlans))
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -25,7 +24,7 @@ struct CreateSavingPlansView: View {
     
     //MARK: - Body
     var body: some View {
-        NavStack(router: router) {
+        NavigationStack {
             GeometryReader { geometry in
                 ScrollView {
                     VStack {
@@ -160,8 +159,13 @@ struct CreateSavingPlansView: View {
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {
                     VibrationManager.vibration()
-                    viewModel.createSavingPlan()
-                    dismiss()
+                    viewModel.createSavingsPlan { withError in
+                        if withError == nil {
+                            dismiss()
+                        } else {
+                            // TODO: Show a error banner
+                        }
+                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()

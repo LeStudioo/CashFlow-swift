@@ -30,7 +30,7 @@ public class Account: NSManagedObject, Identifiable {
     public var allTransactions: [Transaction] {
         if let transactions = accountToTransaction {
             return transactions
-                .sorted { $0.date > $1.date }
+                .sorted { $0.date.withDefault > $1.date.withDefault }
                 .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
         } else { return [] }
     }
@@ -43,7 +43,7 @@ public class Account: NSManagedObject, Identifiable {
                     if $0.date == $1.date {
                         return $0.title < $1.title
                     } else {
-                        return $0.date > $1.date
+                        return $0.date.withDefault > $1.date.withDefault
                     }
                 }
         } else { return [] }
@@ -60,7 +60,7 @@ public class Account: NSManagedObject, Identifiable {
     public var transactionsArchived: [Transaction] {
         if let transactions = accountToTransaction {
             return transactions
-                .sorted { $0.date > $1.date }
+                .sorted { $0.date.withDefault > $1.date.withDefault }
                 .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil && $0.isArchived })
         } else { return [] }
     }
@@ -141,7 +141,7 @@ extension Account {
         let dateOfEndOfTheMonth = Date().endOfMonth
         
         for transaction in transactions {
-            if transaction.date >= dateOfStartOfTheMonth && transaction.date <= dateOfEndOfTheMonth {
+            if transaction.date.withDefault >= dateOfStartOfTheMonth && transaction.date.withDefault <= dateOfEndOfTheMonth {
                 transactionsActualMonth.append(transaction)
             }
         }
@@ -183,7 +183,7 @@ extension Account {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsActualMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date)
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date)
                     && transaction.amount > 0
                     && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                     amountOfDay += transaction.amount
@@ -210,7 +210,7 @@ extension Account {
         
         for transaction in transactions {
             if transaction.amount > 0 
-                && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month)
+                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
                 && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                 transactionsIncomes.append(transaction)
             }
@@ -261,7 +261,7 @@ extension Account {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsActualMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) && transaction.amount < 0 {
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) && transaction.amount < 0 {
                     amountOfDay -= transaction.amount
                 }
             }
@@ -285,7 +285,7 @@ extension Account {
         var transactionsExpenses: [Transaction] = []
         
         for transaction in transactions {
-            if transaction.amount < 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
+            if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
                 transactionsExpenses.append(transaction)
             }
         }

@@ -39,9 +39,9 @@ class AutomationManager {
                         account.balance += newTransaction.amount
                         
                         if automation.frenquently == 0 {
-                            transactionOfAuto.date = Calendar.current.date(byAdding: .month, value: 1, to: transactionOfAuto.date)!
+                            transactionOfAuto.date = Calendar.current.date(byAdding: .month, value: 1, to: transactionOfAuto.date.withDefault)!
                         } else {
-                            transactionOfAuto.date = Calendar.current.date(byAdding: .year, value: 1, to: transactionOfAuto.date)!
+                            transactionOfAuto.date = Calendar.current.date(byAdding: .year, value: 1, to: transactionOfAuto.date.withDefault)!
                         }
                         
                         persistenceController.saveContext()
@@ -68,7 +68,10 @@ extension AutomationManager {
         var transactionsExpenses: [Transaction] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
-                if transaction.amount < 0 && Calendar.current.isDate(transaction.date, equalTo: day, toGranularity: .day) { transactionsExpenses.append(transaction) }
+                if transaction.amount < 0
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: day, toGranularity: .day) {
+                    transactionsExpenses.append(transaction)
+                }
             }
         }
         return transactionsExpenses.map({ $0.amount }).reduce(0, -)
@@ -79,7 +82,10 @@ extension AutomationManager {
         var transactionsExpenses: [Transaction] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
-                if transaction.amount < 0 && Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) { transactionsExpenses.append(transaction) }
+                if transaction.amount < 0 
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
+                    transactionsExpenses.append(transaction)
+                }
             }
         }
         return transactionsExpenses.map({ $0.amount }).reduce(0, -)
@@ -94,7 +100,10 @@ extension AutomationManager {
         var transactionsIncomes: [Transaction] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
-                if transaction.amount > 0 && Calendar.current.isDate(transaction.date, equalTo: day, toGranularity: .day) { transactionsIncomes.append(transaction) }
+                if transaction.amount > 0
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: day, toGranularity: .day) {
+                    transactionsIncomes.append(transaction)
+                }
             }
         }
         return transactionsIncomes.map({ $0.amount }).reduce(0, +)
@@ -105,7 +114,7 @@ extension AutomationManager {
         var transactionsExpenses: [Transaction] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
-                if transaction.amount > 0 && Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) { transactionsExpenses.append(transaction) }
+                if transaction.amount > 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) { transactionsExpenses.append(transaction) }
             }
         }
         return transactionsExpenses.map({ $0.amount }).reduce(0, +)

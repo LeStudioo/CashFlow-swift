@@ -18,7 +18,7 @@ class JSONManager {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
 
-        let date = transaction.date
+        let date = transaction.date.withDefault
         let dateString = dateFormatter.string(from: date)
         
         let categoryTransaction = transaction.predefCategoryID

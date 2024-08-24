@@ -32,7 +32,7 @@ struct CategoryTransactionsView: View {
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
         for transaction in category.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
+            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
             if !array.contains(components) { array.append(components) }
         }
         return array
@@ -66,10 +66,10 @@ struct CategoryTransactionsView: View {
             if category.transactions.count != 0 && searchResults.count != 0 {
                 List(getAllMonthForTransactions, id: \.self) { dateComponents in
                     if let month = Calendar.current.date(from: dateComponents) {
-                        if searchResults.map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
+                        if searchResults.map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+                                    if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                                         Button(action: {
                                             router.pushTransactionDetail(transaction: transaction)
                                         }, label: {
@@ -92,8 +92,8 @@ struct CategoryTransactionsView: View {
                                     DetailOfExpensesOrIncomesByMonth(
                                         filterTransactions: $filterTransactions,
                                         month: month,
-                                        amountOfExpenses: searchResults.filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth }).map({ $0.amount }).reduce(0, -),
-                                        amountOfIncomes: searchResults.filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
+                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, -),
+                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
                                         ascendingOrder: $ascendingOrder
                                     )
                                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))

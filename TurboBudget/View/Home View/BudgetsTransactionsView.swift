@@ -42,7 +42,7 @@ struct BudgetsTransactionsView: View {
             }
         } else { array = subcategory.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) } }
         
-        return array.filter { $0.date > Date().startOfMonth && $0.date < Date().endOfMonth }
+        return array.filter { $0.date.withDefault > Date().startOfMonth && $0.date.withDefault < Date().endOfMonth }
     }
     
     // Other

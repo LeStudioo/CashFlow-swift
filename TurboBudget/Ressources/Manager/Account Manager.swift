@@ -38,7 +38,7 @@ class AccountManager {
         let calendar = Calendar.current
         
         for transaction in allTransactions {
-            let month = calendar.component(.month, from: transaction.date)
+            let month = calendar.component(.month, from: transaction.date.withDefault)
             
             if groupedTransactions[month] == nil {
                 groupedTransactions[month] = []
@@ -48,7 +48,7 @@ class AccountManager {
         }
         
         for (month, transactions) in groupedTransactions {
-            groupedTransactions[month] = transactions.sorted(by: { $0.date < $1.date })
+            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
         }
         
         return groupedTransactions

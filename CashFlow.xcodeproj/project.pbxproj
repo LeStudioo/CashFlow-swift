@@ -80,6 +80,9 @@
 		D9263F8A2ACB1A03003518A9 /* QRCodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9263F892ACB1A03003518A9 /* QRCodeManager.swift */; };
 		D9263F8C2ACB1AE3003518A9 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9263F8B2ACB1AE3003518A9 /* JSONManager.swift */; };
 		D926536C2A7A7C7300935503 /* ArchivedSavingPlansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D926536B2A7A7C7300935503 /* ArchivedSavingPlansView.swift */; };
+		D92C4CAA2C79A6B3003C9C49 /* SavingsPlanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CA92C79A6B3003C9C49 /* SavingsPlanModel.swift */; };
+		D92C4CAD2C79A8CC003C9C49 /* ContributionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CAC2C79A8CC003C9C49 /* ContributionRepository.swift */; };
+		D92C4CAF2C79A918003C9C49 /* ContributionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92C4CAE2C79A918003C9C49 /* ContributionModel.swift */; };
 		D92DAB0F2B8A62C900F01E48 /* SettingsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB0E2B8A62C900F01E48 /* SettingsHomeView.swift */; };
 		D92DAB112B8A63EA00F01E48 /* SettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB102B8A63EA00F01E48 /* SettingRow.swift */; };
 		D92DAB132B8A74D800F01E48 /* URLManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92DAB122B8A74D800F01E48 /* URLManager.swift */; };
@@ -295,6 +298,9 @@
 		D9263F892ACB1A03003518A9 /* QRCodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeManager.swift; sourceTree = "<group>"; };
 		D9263F8B2ACB1AE3003518A9 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		D926536B2A7A7C7300935503 /* ArchivedSavingPlansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedSavingPlansView.swift; sourceTree = "<group>"; };
+		D92C4CA92C79A6B3003C9C49 /* SavingsPlanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsPlanModel.swift; sourceTree = "<group>"; };
+		D92C4CAC2C79A8CC003C9C49 /* ContributionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionRepository.swift; sourceTree = "<group>"; };
+		D92C4CAE2C79A918003C9C49 /* ContributionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionModel.swift; sourceTree = "<group>"; };
 		D92DAB0E2B8A62C900F01E48 /* SettingsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsHomeView.swift; sourceTree = "<group>"; };
 		D92DAB102B8A63EA00F01E48 /* SettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRow.swift; sourceTree = "<group>"; };
 		D92DAB122B8A74D800F01E48 /* URLManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLManager.swift; sourceTree = "<group>"; };
@@ -524,7 +530,7 @@
 				D96F7C7D2C6A5BAB0018D7C2 /* Account */,
 				D9C17FB82C6B4092006FD392 /* Budget */,
 				D9C17FBE2C6B7B13006FD392 /* Automation */,
-				81A707B02A3B727000BEB0BF /* Contribution Entity.swift */,
+				D92C4CAB2C79A8B2003C9C49 /* Contribution */,
 				D953FDFE2C6921C600135C12 /* Transaction */,
 				D9E905372C6D03F100DD1CCB /* SavingsAccount */,
 				D9C17FB32C6B3BB4006FD392 /* SavingsPlan */,
@@ -698,6 +704,16 @@
 				D9C17FC12C6B7E95006FD392 /* IsDisplayed.swift */,
 			);
 			path = Modifier;
+			sourceTree = "<group>";
+		};
+		D92C4CAB2C79A8B2003C9C49 /* Contribution */ = {
+			isa = PBXGroup;
+			children = (
+				81A707B02A3B727000BEB0BF /* Contribution Entity.swift */,
+				D92C4CAE2C79A918003C9C49 /* ContributionModel.swift */,
+				D92C4CAC2C79A8CC003C9C49 /* ContributionRepository.swift */,
+			);
+			path = Contribution;
 			sourceTree = "<group>";
 		};
 		D931BD6B2AD3282500547AD1 /* Utils */ = {
@@ -983,6 +999,7 @@
 			isa = PBXGroup;
 			children = (
 				81A707AC2A3B727000BEB0BF /* Saving Plan Entity.swift */,
+				D92C4CA92C79A6B3003C9C49 /* SavingsPlanModel.swift */,
 				D9C17FB42C6B3BD6006FD392 /* SavingPlanRepository.swift */,
 			);
 			path = SavingsPlan;
@@ -1168,6 +1185,7 @@
 				81AE984B2A3CB4F40066AE94 /* CreateAccountView.swift in Sources */,
 				81A707D62A3B7F5000BEB0BF /* Transaction Manager.swift in Sources */,
 				D953FE002C6921DA00135C12 /* TransactionRepository.swift in Sources */,
+				D92C4CAF2C79A918003C9C49 /* ContributionModel.swift in Sources */,
 				D92DAB112B8A63EA00F01E48 /* SettingRow.swift in Sources */,
 				D9388AD52A7294C8009C0B40 /* Filter.swift in Sources */,
 				D91834412AADE1F7009BD53B /* AdaptMyText.swift in Sources */,
@@ -1240,6 +1258,7 @@
 				D9879DB72B8B275500054FFC /* SettingsAccountView.swift in Sources */,
 				D95067052C3714BA00FFEFDF /* SubcategoryHomeViewModel.swift in Sources */,
 				D9B805BC2AADAC5200632449 /* OnboardingView.swift in Sources */,
+				D92C4CAA2C79A6B3003C9C49 /* SavingsPlanModel.swift in Sources */,
 				D9428C372B7E932C0030DAC2 /* Router.swift in Sources */,
 				8145ABDB2A5585B50085F233 /* Biometric Type.swift in Sources */,
 				81AE98562A3CB69D0066AE94 /* Global Variables.swift in Sources */,
@@ -1287,6 +1306,7 @@
 				D95067032C37116F00FFEFDF /* CategoriesHomeViewModel.swift in Sources */,
 				D99C9D182A6ED6CD00658056 /* Incomes Chart.swift in Sources */,
 				D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */,
+				D92C4CAD2C79A8CC003C9C49 /* ContributionRepository.swift in Sources */,
 				D9842EE42C71E84700DA2795 /* AutomationModel.swift in Sources */,
 				D9529B032AEC3E25005E799D /* CustomTabBarViewModel.swift in Sources */,
 				D9B9B9D82C6A480900ABF506 /* CustomOrSystemImage.swift in Sources */,

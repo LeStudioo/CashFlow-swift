@@ -23,7 +23,7 @@ public class Transaction: NSManagedObject, Identifiable {
     
     @NSManaged public var title: String
     @NSManaged public var amount: Double
-    @NSManaged public var date: Date
+    @NSManaged public var date: Date?
     @NSManaged public var creationDate: Date
     @NSManaged public var note: String
     @NSManaged public var isAuto: Bool

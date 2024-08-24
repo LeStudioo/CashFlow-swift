@@ -78,7 +78,7 @@ struct AutomationRow: View {
                             .font(.semiBoldText16())
                             .foregroundStyle(transaction.amount < 0 ? .error400 : .primary500)
                             .lineLimit(1)
-                        Text(transaction.date.formatted(date: .numeric, time: .omitted))
+                        Text(transaction.date.withDefault.formatted(date: .numeric, time: .omitted))
                             .font(Font.mediumSmall())
                             .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                             .lineLimit(1)

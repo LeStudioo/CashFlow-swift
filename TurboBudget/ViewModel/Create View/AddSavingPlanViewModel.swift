@@ -36,55 +36,39 @@ class AddSavingPlanViewModel: ObservableObject {
 
 extension AddSavingPlanViewModel {
     
-    func createSavingPlan() {
-        if let account = AccountRepository.shared.mainAccount {
-            let newSavingPlan = SavingPlan(context: viewContext)
-            newSavingPlan.id = UUID()
-            newSavingPlan.title = savingPlanTitle
-            newSavingPlan.icon = savingPlanEmoji
-            newSavingPlan.amountOfStart = savingPlanAmountOfStart.convertToDouble()
-            newSavingPlan.actualAmount = savingPlanAmountOfStart.convertToDouble()
-            newSavingPlan.amountOfEnd = savingPlanAmountOfEnd.convertToDouble()
-            newSavingPlan.isEndDate = isEndDate
-            newSavingPlan.dateOfStart = .now
-            newSavingPlan.savingPlansToAccount = account
+    func createSavingsPlan(withError: @escaping (_ withError: CustomError?) -> Void) {
+        guard let account = AccountRepository.shared.mainAccount else { return }
+        
+        let savingsPlanModel = SavingsPlanModel(
+            title: savingPlanTitle,
+            icon: savingPlanEmoji,
+            isEndDate: isEndDate,
+            dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
+            dateOfStart: .now,
+            amountOfStart: savingPlanAmountOfStart.convertToDouble(),
+            actualAmount: savingPlanAmountOfStart.convertToDouble(),
+            amountOfEnd: savingPlanAmountOfEnd.convertToDouble()
+        )
+        
+        do {
+            let newSavingsPlan = try SavingPlanRepository.shared.createSavingsPlan(model: savingsPlanModel)
+            account.balance -= savingsPlanModel.amountOfStart
             
-            if isEndDate { newSavingPlan.dateOfEnd = savingPlanDateOfEnd } else { newSavingPlan.dateOfEnd = nil }
-            
-            if savingPlanAmountOfStart.convertToDouble() > 0 {
-                let firstContribution = Contribution(context: viewContext)
-                firstContribution.id = UUID()
-                firstContribution.amount = savingPlanAmountOfStart.convertToDouble()
-                firstContribution.date = .now
-                firstContribution.contributionToSavingPlan = newSavingPlan
-                
-                account.balance -= savingPlanAmountOfStart.convertToDouble()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.successfullModalManager.isPresenting = true
             }
+            successfullModalManager.title = "savingsplan_successful".localized
+            successfullModalManager.subtitle = "savingsplan_successful_desc".localized
+            successfullModalManager.content = AnyView(SavingsPlanRow(savingPlan: newSavingsPlan))
             
-            if account.cardLimit != 0 {
-                let percentage = account.amountOfExpensesInActualMonth() / account.cardLimit
-                if percentage >= cardLimitPercentage / 100 && percentage <= 1 {
-                    isCardLimitSoonToBeExceeded = true
-                } else if percentage > 1 { isCardLimitExceeded = true }
-            }
-            
-            do {
-                try viewContext.save()
-                SavingPlanRepository.shared.savingPlans.append(newSavingPlan)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.successfullModalManager.isPresenting = true
-                }
-                successfullModalManager.title = "savingsplan_successful".localized
-                successfullModalManager.subtitle = "savingsplan_successful_desc".localized
-                successfullModalManager.content = AnyView(
-                    SavingsPlanRow(savingPlan: newSavingPlan)
-                )
-            } catch {
-                print("⚠️ Error for : \(error.localizedDescription)")
+            withError(nil)
+        } catch {
+            if let error = error as? CustomError {
+                withError(error)
             }
         }
     }
-    
+        
 }
 
 //MARK: Verification

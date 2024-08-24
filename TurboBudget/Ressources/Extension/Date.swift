@@ -7,6 +7,14 @@
 
 import Foundation
 
+extension Optional where Wrapped == Date {
+    
+    var withDefault: Date {
+        return self ?? .now
+    }
+    
+}
+
 extension Date {
     
     static var day: Int {

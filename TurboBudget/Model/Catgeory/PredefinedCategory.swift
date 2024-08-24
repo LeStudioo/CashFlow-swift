@@ -132,7 +132,7 @@ extension PredefinedCategory {
     
     var transactionsFiltered: [Transaction] {
         return self.transactions
-            .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }
+            .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
     }
     
     var automations: [Transaction] {
@@ -147,13 +147,13 @@ extension PredefinedCategory {
         
          for transaction in transactions {
              if filter.byDay {
-                 if Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .day) &&
-                        Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .month) &&
-                        Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .year) &&
+                 if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .day) &&
+                        Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
+                        Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
                         transaction.amount < 0 { array.append(transaction) }
              } else {
-                 if Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .month) &&
-                        Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .year) &&
+                 if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
+                        Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
                         transaction.amount < 0 { array.append(transaction) }
              }
          }
@@ -179,14 +179,14 @@ extension PredefinedCategory {
         var array: [Transaction] = []
         for transaction in transactions {
             if filter.byDay {
-                if Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .day) &&
-                    Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .month) &&
-                    Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .year) &&
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .day) &&
+                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
+                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
                     transaction.amount > 0 { array.append(transaction)
                 }
             } else {
-                if Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .month) &&
-                    Calendar.current.isDate(transaction.date, equalTo: filter.date, toGranularity: .year) &&
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
+                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
                     transaction.amount > 0 { array.append(transaction)
                 }
             }
@@ -205,7 +205,7 @@ extension PredefinedCategory {
         
         for transaction in transactions {
             if transaction.amount > 0
-                && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month)
+                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
                 && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
                 transactionsIncomes.append(transaction)
             }
@@ -249,7 +249,7 @@ extension PredefinedCategory {
         var transactionsExpenses: [Transaction] = []
         
         for transaction in transactions {
-            if transaction.amount < 0 && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
+            if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
                 transactionsExpenses.append(transaction)
             }
         }
@@ -280,7 +280,7 @@ extension PredefinedCategory {
         var array: [Transaction] = []
         
         for transaction in self.automations {
-            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .year) && transaction.amount > 0 {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .year) && transaction.amount > 0 {
                 array.append(transaction)
             }
         }
@@ -303,7 +303,7 @@ extension PredefinedCategory {
         var array: [Transaction] = []
         
         for transaction in self.automations {
-            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .year) && transaction.amount < 0 {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .year) && transaction.amount < 0 {
                 array.append(transaction)
             }
         }

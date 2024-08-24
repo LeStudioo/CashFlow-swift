@@ -38,7 +38,7 @@ struct RecentTransactionsView: View {
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
         for transaction in account.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date)
+            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
             if !array.contains(components) { array.append(components) }
         }
         return array
@@ -59,13 +59,13 @@ struct RecentTransactionsView: View {
                     return account.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
                 }
             } else if filterTransactions == .category {
-                return account.transactions.filter({ $0.date >= Date().startOfMonth && $0.date <= Date().endOfMonth })
+                return account.transactions.filter({ $0.date.withDefault >= Date().startOfMonth && $0.date.withDefault <= Date().endOfMonth })
             } else {
                 return account.transactions
             }
         } else { //Searching
             let transactionsFilterByTitle = account.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let transactionsFilterByDate = account.transactions.filter { HelperManager().formattedDateWithMonthYear(date: $0.date).localizedCaseInsensitiveContains(searchText) }
+            let transactionsFilterByDate = account.transactions.filter { HelperManager().formattedDateWithMonthYear(date: $0.date.withDefault).localizedCaseInsensitiveContains(searchText) }
             
             if transactionsFilterByTitle.isEmpty {
                 return transactionsFilterByDate
@@ -111,10 +111,10 @@ struct RecentTransactionsView: View {
                 } else {
                     List(getAllMonthForTransactions, id: \.self) { dateComponents in
                         if let month = Calendar.current.date(from: dateComponents) {
-                            if viewModel.searchResults(account: account).map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
+                            if viewModel.searchResults(account: account).map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                                 Section(content: {
                                     ForEach(viewModel.searchResults(account: account)) { transaction in
-                                        if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
+                                        if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                                             Button(action: {
                                                 router.pushTransactionDetail(transaction: transaction)
                                             }, label: {
@@ -138,10 +138,10 @@ struct RecentTransactionsView: View {
                                             filterTransactions: $filterTransactions,
                                             month: month,
                                             amountOfExpenses: searchResults
-                                                .filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth })
+                                                .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
                                                 .map({ $0.amount }).reduce(0, -),
                                             amountOfIncomes: searchResults
-                                                .filter({ $0.date >= month.startOfMonth && $0.date <= month.endOfMonth })
+                                                .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
                                                 .map({ $0.amount }).reduce(0, +),
                                             ascendingOrder: $ascendingOrder
                                         )

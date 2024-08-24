@@ -77,7 +77,7 @@ extension TransactionDetailViewModel {
                 && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
                 && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
                 // Vérifier si la transaction actuelle est plus récente que celle stockée
-                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date < candidate.date {
+                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date.withDefault < candidate.date.withDefault {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
                 } else if mostRecentTransactionByCategory[candidate.predefCategoryID] == nil {
                     mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
@@ -86,7 +86,7 @@ extension TransactionDetailViewModel {
         }
 
         // Trouvez la transaction la plus récente toutes catégories confondues
-        guard let mostRecentTransaction = mostRecentTransactionByCategory.values.sorted(by: { $0.date > $1.date }).first else {
+        guard let mostRecentTransaction = mostRecentTransactionByCategory.values.sorted(by: { $0.date.withDefault > $1.date.withDefault }).first else {
             return (nil, nil)  // No transactions found
         }
 

@@ -26,7 +26,7 @@ struct CashFlowChart: View {
     // Computed var
     var allTransactions: [Transaction] {
         return account.transactions
-            .filter { Calendar.current.isDate($0.date, equalTo: filter.date, toGranularity: .year) }
+            .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filter.date, toGranularity: .year) }
     }
     
     //MARK: - body

@@ -15,7 +15,7 @@ extension PredefinedCategory {
         
         for category in self.allCases {
             let transactionsFiltered = category.transactions
-                .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
+                .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filterManager.date, toGranularity: .month) }
             if transactionsFiltered.count != 0 {
                 array.append(category)
             }
@@ -53,7 +53,7 @@ extension PredefinedCategory {
         
         for subcategory in self.subcategories {
             let transactionsFiltered = subcategory.transactions
-                .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
+                .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filterManager.date, toGranularity: .month) }
             
             let amount = transactionsFiltered
                 .map(\.amount)

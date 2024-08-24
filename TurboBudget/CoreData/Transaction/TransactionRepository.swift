@@ -40,7 +40,7 @@ extension TransactionRepository {
         }
         
         self.transactions = allTransactions
-            .sorted { $0.date > $1.date }
+            .sorted { $0.date.withDefault > $1.date.withDefault }
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }
     }
     

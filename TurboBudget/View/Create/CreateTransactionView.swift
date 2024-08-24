@@ -163,7 +163,6 @@ struct CreateTransactionView: View {
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
                     VibrationManager.vibration()
-                    
                     viewModel.createNewTransaction { withError in
                         if withError == nil {
                             dismiss()
