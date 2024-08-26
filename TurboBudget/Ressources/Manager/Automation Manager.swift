@@ -17,10 +17,11 @@ class AutomationManager {
     //-----------------------------------------------------------
     func activateScheduledAutomations(automations: [Automation]) {
         for automation in automations {
-            if Calendar.current.isDate(automation.date, inSameDayAs: Date()) && Calendar.current.isDate(automation.date, equalTo: Date(), toGranularity: .month) || automation.date < Date() {
+            guard let automationDate = automation.date else { continue }
+            if Calendar.current.isDate(automationDate, inSameDayAs: Date()) && Calendar.current.isDate(automationDate, equalTo: Date(), toGranularity: .month) || automationDate < Date() {
                 if let account = automation.automationToAccount {
                     
-                    var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: automation.date)
+                    var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: automationDate)
                     dateComponents.year = Date().currentYearValue()
                     let finalDate = Calendar.current.date(from: dateComponents)
                     
@@ -49,9 +50,9 @@ class AutomationManager {
                 }
                 
                 if automation.frenquently == 0 {
-                    automation.date = Calendar.current.date(byAdding: .month, value: 1, to: automation.date)!
+                    automation.date = Calendar.current.date(byAdding: .month, value: 1, to: automationDate)!
                 } else {
-                    automation.date = Calendar.current.date(byAdding: .year, value: 1, to: automation.date)!
+                    automation.date = Calendar.current.date(byAdding: .year, value: 1, to: automationDate)!
                 }
                 
                 persistenceController.saveContext()

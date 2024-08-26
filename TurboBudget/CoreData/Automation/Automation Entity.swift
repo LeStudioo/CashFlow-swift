@@ -18,7 +18,7 @@ public class Automation: NSManagedObject, Identifiable {
 
     @NSManaged public var id: UUID
     @NSManaged public var title: String
-    @NSManaged public var date: Date
+    @NSManaged public var date: Date?
     @NSManaged public var isNotif: Bool
     @NSManaged public var frenquently: Int16
     @NSManaged public var automationToTransaction: Transaction?

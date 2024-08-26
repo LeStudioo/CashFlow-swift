@@ -18,7 +18,7 @@ public class Contribution: NSManagedObject, Identifiable {
 
     @NSManaged public var id: UUID
     @NSManaged public var amount: Double
-    @NSManaged public var date: Date
+    @NSManaged public var date: Date?
     @NSManaged public var contributionToSavingPlan: SavingPlan?
 
 }

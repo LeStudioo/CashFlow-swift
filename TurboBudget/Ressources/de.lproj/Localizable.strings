@@ -127,7 +127,7 @@
 
 "word_continue" = "Weiter";
 
-"word_cancel_changes" = "Änderungen verwerfen";
+"word_cancel_changes" = "Änderungen rückgängig machen";
 
 "word_return" = "Zurück";
 
@@ -135,15 +135,15 @@
 
 "by_month_word" = "Pro Monat";
 
-"only_expenses_word" = "Nur Ausgaben";
+"only_expenses_word" = "Nur Spesen";
 
 "only_incomes_word" = "Nur Einkommen";
 
-"sort_by_word" = "Sortieren nach";
+"sort_by_word" = "sortieren nach";
 
 "date_word" = "Datum";
 
-"ascending_order_word" = "Aufsteigend";
+"ascending_order_word" = "Aufsteigende Reihenfolge";
 
 "descending_order_word" = "Absteigende Reihenfolge";
 
@@ -226,6 +226,10 @@
 "budget_new" = "Neues Budget";
 
 "budget_placeholder_amount" = "0.00";
+
+"budget_successful" = "Budget erstellt";
+
+"budget_successful_desc" = "Ihr Budget wurde bearbeitet";
 
 //MARK: - AddCardView
 "card_no_cvv" = "Der CVV wird nicht abgefragt, um maximale Sicherheit zu gewährleisten.";

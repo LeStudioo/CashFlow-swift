@@ -34,8 +34,11 @@ struct AutomationsHomeView: View {
         if searchText.isEmpty {
             return automationRepo.automations
         } else { //Searching
-            let automationsFilterByTitle = automationRepo.automations.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let automationsFilterByDate = automationRepo.automations.filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date) .localizedCaseInsensitiveContains(searchText) }
+            let automationsFilterByTitle = automationRepo.automations
+                .filter { $0.title.localizedStandardContains(searchText) }
+            
+            let automationsFilterByDate = automationRepo.automations
+                .filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date.withDefault).localizedStandardContains(searchText) }
             
             if automationsFilterByTitle.isEmpty {
                 return automationsFilterByDate
@@ -50,7 +53,7 @@ struct AutomationsHomeView: View {
         var finalDict: [Date : [Automation]] = [:]
         
         for automation in searchResults {
-            let month = Calendar.current.dateComponents([.month, .year], from: automation.date)
+            let month = Calendar.current.dateComponents([.month, .year], from: automation.date.withDefault)
             let finalDate = Calendar.current.date(from: month)
             if let finalDate {
                 if !arrayDate.contains(finalDate) { arrayDate.append(finalDate) }
@@ -61,7 +64,7 @@ struct AutomationsHomeView: View {
             finalDict[date] = []
             
             for automation in searchResults {
-                let month = Calendar.current.dateComponents([.month, .year], from: automation.date)
+                let month = Calendar.current.dateComponents([.month, .year], from: automation.date.withDefault)
                 let finalDate = Calendar.current.date(from: month)
                 if let finalDate {
                     if Calendar.current.isDate(date, equalTo: finalDate, toGranularity: .month) && Calendar.current.isDate(date, equalTo: finalDate, toGranularity: .year) {

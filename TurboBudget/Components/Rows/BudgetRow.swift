@@ -13,24 +13,14 @@ struct BudgetRow: View {
     //Custom type
     @ObservedObject var budget: Budget
 
-    //Environnements
-
-    //State or Binding String
-
     //State or Binding Int, Float and Double
     @State var valueForCircle: Double = 0
 
-    //State or Binding Bool
-    
     //State or Binding Date
     @Binding var selectedDate: Date
-
-	//Enum
-	
-	//Computed var
     
+    // Computed
     var actualAmount: Double { return budget.actualAmountForMonth(month: selectedDate) }
-
     
     //MARK: - Body
     var body: some View {

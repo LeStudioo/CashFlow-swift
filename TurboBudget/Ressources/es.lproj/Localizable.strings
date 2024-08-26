@@ -127,25 +127,25 @@
 
 "word_continue" = "Continúe";
 
-"word_cancel_changes" = "Descartar los cambios";
+"word_cancel_changes" = "Deshacer cambios";
 
 "word_return" = "Atrás";
 
-"word_savings_account" = "Guardando cuentas";
+"word_savings_account" = "cuentas de ahorro";
 
 "by_month_word" = "Por mes";
 
-"only_expenses_word" = "Solo gasto";
+"only_expenses_word" = "Solo gastos";
 
 "only_incomes_word" = "Solo ingresos";
 
-"sort_by_word" = "ordenar por";
+"sort_by_word" = "Ordenar por";
 
 "date_word" = "Fecha";
 
-"ascending_order_word" = "Ascendente";
+"ascending_order_word" = "orden ascendente";
 
-"descending_order_word" = "Orden decreciente";
+"descending_order_word" = "orden descendente";
 
 "alphabetic_word" = "Alfabético";
 
@@ -226,6 +226,10 @@
 "budget_new" = "Nuevo presupuesto";
 
 "budget_placeholder_amount" = "0.00";
+
+"budget_successful" = "Presupuesto creado";
+
+"budget_successful_desc" = "Su presupuesto ha sido procesado.";
 
 //MARK: - AddCardView
 "card_no_cvv" = "El CVV no se le solicita para garantizar la máxima seguridad.";

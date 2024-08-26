@@ -227,6 +227,10 @@
 
 "budget_placeholder_amount" = "0.00";
 
+"budget_successful" = "Budget created";
+
+"budget_successful_desc" = "Your budget has been processed";
+
 //MARK: - AddCardView
 "card_no_cvv" = "CVV is not required for maximum security.";
 

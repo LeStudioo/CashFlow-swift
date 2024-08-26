@@ -135,9 +135,9 @@
 
 "by_month_word" = "Par mois";
 
-"only_expenses_word" = "Seules les dépenses";
+"only_expenses_word" = "Uniquement les dépenses";
 
-"only_incomes_word" = "Seuls les revenus";
+"only_incomes_word" = "Uniquement les revenus";
 
 "sort_by_word" = "Trier par";
 
@@ -226,6 +226,10 @@
 "budget_new" = "Nouveau budget";
 
 "budget_placeholder_amount" = "0.00";
+
+"budget_successful" = "Budget créé";
+
+"budget_successful_desc" = "Votre budget a été traité";
 
 //MARK: - AddCardView
 "card_no_cvv" = "Le CVV ne vous est pas demandé pour assurer une sécurité maximale.";

@@ -14,7 +14,7 @@ struct TransactionDetailView: View {
     @ObservedObject var transaction: Transaction
     
     // Custom type
-    @ObservedObject var viewModel = TransactionDetailViewModel.shared
+    @ObservedObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
     @Environment(\.dismiss) private var dismiss
@@ -90,9 +90,10 @@ struct TransactionDetailView: View {
             }
             
             if store.isLifetimeActive && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
-                if let categoryFound = viewModel.automaticCategorySearch(title: transaction.title).0,
-                   categoryFound != PredefinedCategory.PREDEFCAT0 {
-                    let subcategoryFound = viewModel.automaticCategorySearch(title: transaction.title).1
+                let bestCategory = Transaction.findBestCategory(for: transaction.title)
+                
+                if let categoryFound = bestCategory.0 {
+                    let subcategoryFound = bestCategory.1
                     VStack(spacing: 0) {
                         Text("transaction_recommended_category".localized + " : ")
                         HStack {
@@ -190,6 +191,8 @@ struct TransactionDetailView: View {
         })
         .onAppear { 
             transactionNote = transaction.note
+            viewModel.selectedCategory = PredefinedCategory.findByID(transaction.predefCategoryID)
+            viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.predefSubcategoryID)
         }
         .onDisappear {
             if transactionNote != transaction.note {

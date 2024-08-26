@@ -76,8 +76,10 @@ struct CreateTransactionView: View {
                                 }
                                 
                                 if store.isLifetimeActive && viewModel.selectedCategory == nil {
-                                    if let categoryFound = viewModel.automaticCategorySearch().0 {
-                                        let subcategoryFound = viewModel.automaticCategorySearch().1
+                                    let bestCategory = Transaction.findBestCategory(for: viewModel.transactionTitle)
+                                    
+                                    if let categoryFound = bestCategory.0 {
+                                        let subcategoryFound = bestCategory.1
                                         VStack(spacing: 4) {
                                             Text("transaction_recommended_category".localized + " : ")
                                             HStack {

@@ -12,7 +12,6 @@ struct SavingsPlanModel {
     var title: String
     var icon: String
     
-    var isEndDate: Bool
     var dateOfEnd: Date?
     var dateOfStart: Date
     

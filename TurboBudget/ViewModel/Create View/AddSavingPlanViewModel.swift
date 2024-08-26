@@ -42,7 +42,6 @@ extension AddSavingPlanViewModel {
         let savingsPlanModel = SavingsPlanModel(
             title: savingPlanTitle,
             icon: savingPlanEmoji,
-            isEndDate: isEndDate,
             dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
             dateOfStart: .now,
             amountOfStart: savingPlanAmountOfStart.convertToDouble(),

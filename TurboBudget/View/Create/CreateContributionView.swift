@@ -51,10 +51,15 @@ struct CreateContributionView: View {
                     
                     HStack {
                         Spacer()
-                        DatePicker("\(viewModel.dateContribution.formatted())", selection: $viewModel.dateContribution, in: savingPlan.dateOfStart..., displayedComponents: [.date])
-                            .labelsHidden()
-                            .clipped()
-                            .padding(.horizontal)
+                        DatePicker(
+                            "\(viewModel.dateContribution.formatted())",
+                            selection: $viewModel.dateContribution,
+                            in: (savingPlan.dateOfStart.withDefault)...,
+                            displayedComponents: [.date]
+                        )
+                        .labelsHidden()
+                        .clipped()
+                        .padding(.horizontal)
                     }
                 }
                 .padding(.bottom, 24)

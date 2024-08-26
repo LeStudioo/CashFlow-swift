@@ -67,7 +67,7 @@ public class Account: NSManagedObject, Identifiable {
     
     public var automations: [Automation] {
         if let automations = accountToAutomation {
-            return automations.sorted { $0.date < $1.date }
+            return automations.sorted { $0.date.withDefault < $1.date.withDefault }
         } else { return [] }
     }
     

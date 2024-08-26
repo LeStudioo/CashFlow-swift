@@ -8,7 +8,6 @@
 import SwiftUI
 import ConfettiSwiftUI
 
-// TODO: Implenter ceci pour valider des transactions etc ...
 struct SuccessfullCreationView: View {
     
     // Environment

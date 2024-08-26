@@ -40,8 +40,8 @@ extension BudgetRepository {
         newBudget.id = UUID()
         newBudget.title = model.title
         newBudget.amount = model.amount
-        newBudget.predefCategoryID = model.categoryID
-        newBudget.predefSubcategoryID = model.subcategoryID
+        newBudget.predefCategoryID = category.id
+        newBudget.predefSubcategoryID = subcategory.id
         
         if withSave {
             self.budgets.append(newBudget)

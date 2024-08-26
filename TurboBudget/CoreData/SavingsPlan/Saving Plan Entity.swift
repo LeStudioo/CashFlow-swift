@@ -21,9 +21,8 @@ public class SavingPlan: NSManagedObject, Identifiable {
     @NSManaged public var icon: String
     @NSManaged public var isArchived: Bool
     
-    @NSManaged public var isEndDate: Bool
     @NSManaged public var dateOfEnd: Date?
-    @NSManaged public var dateOfStart: Date
+    @NSManaged public var dateOfStart: Date?
     
     @NSManaged public var amountOfStart: Double
     @NSManaged public var actualAmount: Double
@@ -38,7 +37,7 @@ public class SavingPlan: NSManagedObject, Identifiable {
     
     public var contributions: [Contribution] {
         if let contributions = savingPlansToContribution {
-            return contributions.sorted { $0.date > $1.date }
+            return contributions.sorted { $0.date.withDefault > $1.date.withDefault }
         } else { return [] }
     }
 }

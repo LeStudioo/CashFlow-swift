@@ -36,7 +36,6 @@ extension SavingPlanRepository {
         newSavingPlan.amountOfStart = model.amountOfStart
         newSavingPlan.actualAmount = model.actualAmount
         newSavingPlan.amountOfEnd = model.amountOfEnd
-        newSavingPlan.isEndDate = model.isEndDate
         newSavingPlan.dateOfEnd = model.dateOfEnd
         newSavingPlan.dateOfStart = model.dateOfStart
         newSavingPlan.savingPlansToAccount = account
