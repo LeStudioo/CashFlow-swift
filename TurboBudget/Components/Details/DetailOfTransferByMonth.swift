@@ -16,7 +16,7 @@ struct DetailOfTransferByMonth: View {
 
     // Environnement
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
 
     //MARK: - Body
     var body: some View {
@@ -24,7 +24,7 @@ struct DetailOfTransferByMonth: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithMonthYear(date: month))
                     .font(.mediumCustom(size: 22))
-                if store.isLifetimeActive {
+                if store.isCashFlowPro {
                     HStack {
                         if amountOfSavings != 0 {
                             Text("word_savings".localized + " : " + amountOfSavings.currency)

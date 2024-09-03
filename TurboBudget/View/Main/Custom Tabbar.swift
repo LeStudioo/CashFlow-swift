@@ -41,78 +41,46 @@ struct TabbarView: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if accountRepo.mainAccount != nil {
-//                        Button(action: {
+//                        NavigationButton(present: router.presentCreateTransfer()) {
 //                            viewModel.showMenu = false
-//                            router.presentCreateTransfer()
-//                        }, label: {
-//                            HStack {
-//                                Image(systemName: "building.columns.fill")
-//                                Text("word_transfer".localized)
-//                            }
-//                        })
-//                        .foregroundStyle(Color(uiColor: .label))
+//                        } label: {
+//                            Label("word_transfer".localized, systemImage: "building.columns.fill")
+//                        }
                         
-                        Button(action: {
+                        NavigationButton(present: router.presentCreateSavingPlans()) {
                             viewModel.showMenu = false
-                            router.presentCreateSavingPlans()
-                        }, label: {
-                            HStack {
-                                Image(systemName: "dollarsign.square.fill")
-                                Text("word_savingsplan".localized)
-                            }
-                        })
-                        .foregroundStyle(Color(uiColor: .label))
+                        } label: {
+                            Label("word_savingsplan".localized, systemImage: "dollarsign.square.fill")
+                        }
                         
-                        Button(action: {
+                        NavigationButton(present: router.presentRecoverTransaction()) {
                             viewModel.showMenu = false
-                            router.presentRecoverTransaction()
-                        }, label: {
-                            HStack {
-                                Image(systemName: "tray.and.arrow.down.fill")
-                                Text("recover_button".localized)
-                            }
-                        })
-                        .foregroundStyle(Color(uiColor: .label))
+                        } label: {
+                            Label("recover_button".localized, systemImage: "tray.and.arrow.down.fill")
+                        }
                         
-                        Button(action: {
+                        NavigationButton(present: router.presentCreateAutomation()) {
                             viewModel.showMenu = false
-                            router.presentCreateAutomation()
-                        }, label: {
-                            HStack {
-                                Image(systemName: "clock.arrow.circlepath")
-                                Text("word_automation".localized)
-                            }
-                        })
-                        .foregroundStyle(Color(uiColor: .label))
+                        } label: {
+                            Label("word_automation".localized, systemImage: "clock.arrow.circlepath")
+                        }
                         
                         Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
-                            HStack {
-                                Image(systemName: "barcode.viewfinder")
-                                Text("word_scanner".localized)
-                            }
+                            Label("word_scanner".localized, systemImage: "barcode.viewfinder")
                         })
-                        .foregroundStyle(Color(uiColor: .label))
                         
-                        Button(action: {
+                        NavigationButton(present: router.presentCreateTransaction()) {
                             viewModel.showMenu = false
-                            router.presentCreateTransaction()
-                        }, label: {
-                            HStack {
-                                Image(systemName: "creditcard.and.123")
-                                Text("word_transaction".localized)
-                            }
-                        })
-                        .foregroundStyle(Color(uiColor: .label))
+                        } label: {
+                            Label("word_transaction".localized, systemImage: "creditcard.and.123")
+                        }
                     } else {
                         Button(action: { viewModel.showAddAccountSheet() }, label: {
-                            HStack {
-                                Image(systemName: "person")
-                                Text("word_account".localized)
-                            }
+                            Label("word_account".localized, systemImage: "person")
                         })
-                        .foregroundStyle(Color(uiColor: .label))
                     }
                 }
+                .foregroundStyle(Color.label)
                 .padding()
                 .background(colorScheme == .light ? Color.primary0 : Color.secondary500)
                 .cornerRadius(15)

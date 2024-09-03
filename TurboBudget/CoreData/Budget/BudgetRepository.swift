@@ -53,6 +53,18 @@ extension BudgetRepository {
     
 }
 
+// MARK: - Utils
+extension BudgetRepository {
+    
+    func findBySubcategoryID(_ id: String) -> Budget? {
+        if let budget = self.budgets.first(where: { $0.predefSubcategoryID == id }) {
+            return budget
+        }
+        return nil
+    }
+    
+}
+
 extension BudgetRepository {
     
     func deleteBudgets() {

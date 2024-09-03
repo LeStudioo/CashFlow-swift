@@ -1,0 +1,128 @@
+{
+  "identifier" : "738AB2EB",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "9.99",
+      "familyShareable" : true,
+      "internalID" : "6464156296",
+      "localizations" : [
+        {
+          "description" : "+ de fonctionnalités pour gérer votre argent!",
+          "displayName" : "CashFlow Pro",
+          "locale" : "fr"
+        },
+        {
+          "description" : "New features to help you manage your money!",
+          "displayName" : "CashFlow Pro",
+          "locale" : "en_GB"
+        },
+        {
+          "description" : "Nuevas funciones para gestionar tu dinero ",
+          "displayName" : "CashFlow Pro",
+          "locale" : "es_ES"
+        }
+      ],
+      "productID" : "com.Sementa.CashFlow.lifetime",
+      "referenceName" : "Lifetime CashFlow Pro",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6450913423",
+    "_developerTeamID" : "8TMMB69WBG",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 747038351.20538902,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21532358",
+      "localizations" : [
+
+      ],
+      "name" : "CashFlow Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "1.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6670423565",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "All pro features",
+              "displayName" : "All pro features",
+              "locale" : "en_GB"
+            }
+          ],
+          "productID" : "cashflow_199_1m_3d0",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly, 1.99€",
+          "subscriptionGroupID" : "21532358",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

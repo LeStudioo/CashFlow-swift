@@ -21,7 +21,7 @@ struct CreateTransactionView: View {
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
 
     // EnvironmentObject
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
     
     // Number variables
     @State private var showCheckmark = -60
@@ -75,7 +75,7 @@ struct CreateTransactionView: View {
                                     }
                                 }
                                 
-                                if store.isLifetimeActive && viewModel.selectedCategory == nil {
+                                if store.isCashFlowPro && viewModel.selectedCategory == nil {
                                     let bestCategory = Transaction.findBestCategory(for: viewModel.transactionTitle)
                                     
                                     if let categoryFound = bestCategory.0 {

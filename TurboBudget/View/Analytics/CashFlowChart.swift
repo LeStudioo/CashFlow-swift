@@ -16,18 +16,13 @@ struct CashFlowChart: View {
     
     // Custom
     @ObservedObject var filter = FilterManager.shared
+    @EnvironmentObject private var transactionRepo: TransactionRepository
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     
     // Boolean variables
     @State private var showAlert: Bool = false
-    
-    // Computed var
-    var allTransactions: [Transaction] {
-        return account.transactions
-            .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filter.date, toGranularity: .year) }
-    }
     
     //MARK: - body
     var body: some View {
@@ -54,14 +49,13 @@ struct CashFlowChart: View {
                 .padding(8)
             }
             Chart {
-                ForEach(Array(AccountManager().groupAndSortTransactionsByMonth(allTransactions: allTransactions)).sorted(by: { $0.key < $1.key }).indices, id: \.self) { index in
+                let transactionsByMonth = transactionRepo.transactionsByMonth.sorted(by: { $0.key < $1.key })
+                ForEach(transactionsByMonth.indices, id: \.self) { index in
                     
                     let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
                     
-                    let sortedTransactionsByMonth = AccountManager().groupAndSortTransactionsByMonth(allTransactions: allTransactions)
-                    let sortedMonthsAndTransactions = Array(sortedTransactionsByMonth).sorted(by: { $0.key < $1.key })
-                    let month = sortedMonthsAndTransactions[index].key
-                    let transactions = TransactionManager().totalCashFlowForSpecificMonthYear(transactions: allTransactions, month: month, year: components.year ?? 0)
+                    let month = transactionsByMonth[index].key
+                    let transactions = transactionRepo.totalCashFlowForSpecificMonthYear(month: month, year: components.year ?? 0)
                     
                     BarMark(x: .value("x", "\(index)"),
                             y: .value("y", transactions))

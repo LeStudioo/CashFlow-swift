@@ -1,5 +1,5 @@
 //
-//  Store.swift
+//  SubscriptionManager.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 03/09/2023.
@@ -10,16 +10,15 @@ import StoreKit
 typealias FetchCompletionHandler = (([SKProduct]) -> Void)
 typealias PurchaseCompletionHandler = ((SKPaymentTransaction?) -> Void)
 
-class Store: NSObject, ObservableObject {
+class SubscriptionManager: NSObject, ObservableObject {
+    static let shared = SubscriptionManager()
     
     @Published var allRecipes = [Purchase]()
     
-    var isLifetimeActive: Bool {
-        return allRecipes.filter({ !$0.isLocked }).count == 1
-    }
+    @Published var isCashFlowPro: Bool = false
     
     private let allProductIdentifiers = Set([
-        "com.Sementa.CashFlow.lifetime"
+        "cashflow_199_1m_3d0"
     ])
     
     private var completedPurchases = [String]() {
@@ -77,7 +76,7 @@ class Store: NSObject, ObservableObject {
     }
 }
 
-extension Store {
+extension SubscriptionManager {
     
     func product(for identifier: String) -> SKProduct? {
         return fetchedProducts.first(where: { $0.productIdentifier == identifier })
@@ -95,7 +94,7 @@ extension Store {
     }
 }
 
-extension Store: SKPaymentTransactionObserver {
+extension SubscriptionManager: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         for transaction in transactions {
             var shouldFinishTransaction = false
@@ -103,6 +102,7 @@ extension Store: SKPaymentTransactionObserver {
             case .purchased, .restored:
                 completedPurchases.append(transaction.payment.productIdentifier)
                 shouldFinishTransaction = true
+                isCashFlowPro = true
             case .failed:
                 shouldFinishTransaction = true
             case .deferred, .purchasing:
@@ -128,7 +128,7 @@ extension Store: SKPaymentTransactionObserver {
     }
 }
 
-extension Store: SKProductsRequestDelegate {
+extension SubscriptionManager: SKProductsRequestDelegate {
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         let loadedProducts = response.products
         let invalidProducts = response.invalidProductIdentifiers
@@ -153,4 +153,50 @@ extension Store: SKProductsRequestDelegate {
             self.productsRequest = nil
         }
     }
+}
+
+extension SubscriptionManager {
+    func getSubscriptionStatus(product: Product) async {
+            guard let subscription = product.subscription else {
+                // Not a subscription
+                return
+            }
+        
+            do {
+                
+                let statuses = try await subscription.status
+
+                for status in statuses {
+                    let info = try status.renewalInfo.payloadValue
+                    
+                    switch status.state {
+                    case .subscribed:
+                        if info.willAutoRenew {
+                            debugPrint("getSubscriptionStatus user subscription is active.")
+                            return
+                        } else {
+                            debugPrint("getSubscriptionStatus user subscription is expiring.")
+                            return
+                        }
+                    case .inBillingRetryPeriod:
+                        debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
+                        return
+                    case .inGracePeriod:
+                        debugPrint("getSubscriptionStatus user subscription is in grace period.")
+                        return
+                    case .expired:
+                        debugPrint("getSubscriptionStatus user subscription is expired.")
+                        return
+                    case .revoked:
+                        debugPrint("getSubscriptionStatus user subscription was revoked.")
+                        return
+                    default:
+                        fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
+                    }
+                }
+            } catch {
+                // do nothing
+            }
+            return
+        }
 }

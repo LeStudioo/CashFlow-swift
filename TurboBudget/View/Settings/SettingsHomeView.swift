@@ -14,7 +14,7 @@ struct SettingsHomeView: View {
     @Environment(\.dismiss) private var dismiss
     
     // EnvironementObject
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
     
     // Boolean variables
     @State private var isSharing: Bool = false
@@ -95,7 +95,7 @@ struct SettingsHomeView: View {
                     )
                 })
                 
-                if store.isLifetimeActive {
+                if store.isCashFlowPro {
                     Button(action: { router.pushSettingsBudget() }, label: {
                         SettingRow(
                             icon: "chart.pie.fill",

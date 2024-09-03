@@ -22,7 +22,7 @@ struct TransactionDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
 
     // String variables
     @State private var transactionNote: String = ""
@@ -89,7 +89,7 @@ struct TransactionDetailView: View {
                 Spacer()
             }
             
-            if store.isLifetimeActive && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
+            if store.isCashFlowPro && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
                 let bestCategory = Transaction.findBestCategory(for: transaction.title)
                 
                 if let categoryFound = bestCategory.0 {

@@ -12,7 +12,7 @@ struct TurboBudgetApp: App {
     
     // Custom type
     @StateObject private var csManager = ColorSchemeManager()
-    @StateObject private var store = Store()
+    @StateObject private var store = SubscriptionManager()
     @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     
     // Repository

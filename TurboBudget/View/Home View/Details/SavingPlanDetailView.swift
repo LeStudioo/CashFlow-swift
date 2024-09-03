@@ -16,7 +16,7 @@ struct SavingPlanDetailView: View {
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
     @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
 
     //State or Binding String
@@ -182,7 +182,7 @@ struct SavingPlanDetailView: View {
                               : "savingsplan_detail_enable_steps".localized,
                               systemImage: "chart.line.uptrend.xyaxis")
                     })
-                    .disabled(!store.isLifetimeActive)
+                    .disabled(!store.isCashFlowPro)
                     
                     Button(action: { showAddContribution.toggle() }, label: { Label("savingsplan_detail_add_contribution".localized, systemImage: "plus") })
                     

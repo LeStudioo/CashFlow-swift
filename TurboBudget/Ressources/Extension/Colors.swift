@@ -80,3 +80,13 @@ extension Color {
                      opacity: Double(self.components.opacity))
     }
 }
+
+extension Color {
+    
+    public static var label: Color {
+        return Color(uiColor: UIColor { traitCollection in
+            return traitCollection.userInterfaceStyle == .dark ? UIColor(Color.white) : UIColor(Color.black)
+        })
+    }
+    
+}

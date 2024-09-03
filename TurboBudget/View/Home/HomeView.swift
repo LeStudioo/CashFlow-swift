@@ -18,7 +18,7 @@ struct HomeView: View {
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
     
     // Preferences
     @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen
@@ -57,19 +57,19 @@ struct HomeView: View {
                 
                 Spacer()
                 
-                if !store.isLifetimeActive {
-                    Button(action: { router.presentPaywall() }, label: {
+                if !store.isCashFlowPro {
+                    NavigationButton(present: router.presentPaywall()) {
                         Image(systemName: "crown.fill")
                             .foregroundStyle(.primary500)
                             .font(.system(size: 18, weight: .medium, design: .rounded))
-                    })
+                    }
                 }
                 
-                Button(action: { router.pushSettings() }, label: {
+                NavigationButton(push: router.pushSettings()) {
                     Image(systemName: "gearshape.fill")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.label)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
+                }
             }
             .padding([.horizontal, .bottom])
             // End Header

@@ -100,6 +100,54 @@ extension TransactionRepository {
             .filter { $0.predefSubcategoryID == subcategoryID }
     }
     
+    var transactionsByMonth: [Int : [Transaction]] {
+        var groupedTransactions: [Int: [Transaction]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
+        
+        let calendar = Calendar.current
+        
+        for transaction in self.transactions {
+            let month = calendar.component(.month, from: transaction.date.withDefault)
+            
+            if groupedTransactions[month] == nil {
+                groupedTransactions[month] = []
+            }
+            
+            groupedTransactions[month]?.append(transaction)
+        }
+        
+        for (month, transactions) in groupedTransactions {
+            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
+        }
+        
+        return groupedTransactions
+    }
+    
+    func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
+        var amount: Double = 0.0
+        
+        var components = DateComponents()
+        components.day = 01
+        components.month = month
+        components.year = year
+        
+        let dateOfMonthSelected = Calendar.current.date(from: components)
+        
+        for transaction in self.transactions {
+            if let dateOfMonthSelected {
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
+                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                    if transaction.amount < 0 {
+                        amount -= transaction.amount
+                    } else {
+                        amount += transaction.amount
+                    }
+                }
+            } else { print("⚠️ dateOfMonthSelected is NIL") }
+        }
+        
+        return amount
+    }
+    
 }
 
 extension TransactionRepository {

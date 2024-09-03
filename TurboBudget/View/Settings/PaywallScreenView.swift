@@ -14,7 +14,7 @@ struct PaywallScreenView: View {
     @Environment(\.dismiss) private var dismiss
     
     // EnvironmentObject
-    @EnvironmentObject private var store: Store
+    @EnvironmentObject private var store: SubscriptionManager
 
     // MARK: - body
     var body: some View {
@@ -104,9 +104,9 @@ struct PaywallScreenView: View {
                 Spacer()
                 
                 VStack(spacing: 8) {
-                    if !store.isLifetimeActive {
+                    if !store.isCashFlowPro {
                         Button(action: {
-                            if let product = store.product(for: "com.Sementa.CashFlow.lifetime") {
+                            if let product = store.product(for: "cashflow_199_1m_3d0") {
                                 store.purchaseProduct(product)
                             }
                         }, label: {

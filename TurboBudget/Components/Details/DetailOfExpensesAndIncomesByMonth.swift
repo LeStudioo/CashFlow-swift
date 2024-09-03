@@ -17,7 +17,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
 
     //MARK: - Body
     var body: some View {
@@ -27,7 +27,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
                     .font(.mediumCustom(size: 22))
                     .foregroundStyle(Color(uiColor: .label))
                 
-                if store.isLifetimeActive {
+                if store.isCashFlowPro {
                     HStack {
                         if amountOfExpenses != 0 {
                             Text("word_expenses".localized + " : " + amountOfExpenses.currency)

@@ -15,7 +15,7 @@ struct FilterView: View {
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
 
     //State or Binding String
 
@@ -71,7 +71,7 @@ struct FilterView: View {
                     .background(Color.background)
                     .cornerRadius(15)
                     .padding(8)
-                    .if(!store.isLifetimeActive) { view in
+                    .if(!store.isCashFlowPro) { view in
                         view
                             .opacity(0.5)
                             .disabled(true)

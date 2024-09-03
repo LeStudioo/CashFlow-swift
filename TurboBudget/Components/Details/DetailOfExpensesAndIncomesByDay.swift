@@ -19,7 +19,7 @@ struct DetailOfExpensesAndIncomesByDay: View {
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
 
     //State or Binding String
 
@@ -37,7 +37,7 @@ struct DetailOfExpensesAndIncomesByDay: View {
             VStack(alignment: .leading) {
                 Text(HelperManager().formattedDateWithDayMonthYear(date: day))
                     .font(.mediumCustom(size: 22))
-                if store.isLifetimeActive {
+                if store.isCashFlowPro {
                     HStack {
                         if amountOfExpenses != 0 {
                             Text("word_expenses".localized + " : " + amountOfExpenses.currency)

@@ -20,7 +20,7 @@ struct AccountDashboardView: View {
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: Store
+    @EnvironmentObject var store: SubscriptionManager
     
     @EnvironmentObject private var budgetRepo: BudgetRepository
     
@@ -95,7 +95,7 @@ struct AccountDashboardView: View {
                 }
                 .padding(.vertical, 12)
                 
-                if store.isLifetimeActive {
+                if store.isCashFlowPro {
                     let amountExpenses: Double = account.amountExpensesByMonth(month: .now)
                     let amountIncomes: Double = account.amountIncomesByMonth(month: .now)
                     let amountCashFlow: Double = account.amountCashFlowByMonth(month: .now)
@@ -172,7 +172,7 @@ struct AccountDashboardView: View {
                         )
                     })
                     
-                    if store.isLifetimeActive {
+                    if store.isCashFlowPro {
                         Button(action: {
                             router.pushAllBudgets()
                         }, label: {
@@ -224,7 +224,7 @@ struct AccountDashboardView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
-                        if !store.isLifetimeActive {
+                        if !store.isCashFlowPro {
                             Button(action: { showPaywall.toggle() }, label: {
                                 Image(systemName: "crown.fill")
                                     .foregroundStyle(.primary500)
