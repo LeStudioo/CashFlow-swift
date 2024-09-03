@@ -233,16 +233,16 @@ extension PredefinedSubcategory {
         }
     }
     
-    var transactions: [Transaction] {
+    var transactions: [TransactionEntity] {
         return TransactionRepository.shared.getTransactionsForSubcategory(subcategoryID: self.rawValue)
     }
     
-    var transactionsFiltered: [Transaction] {
+    var transactionsFiltered: [TransactionEntity] {
         return self.transactions
             .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
     }
     
-    var automations: [Transaction] {
+    var automations: [TransactionEntity] {
         return transactions.filter({ $0.comeFromAuto })
     }
     

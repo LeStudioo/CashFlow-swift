@@ -99,7 +99,7 @@ struct RecoverTransactionView: View {
                         }
                         .frame(minHeight: geometry.size.height)
                     } else if viewModel.transaction != nil && viewModel.jsonStatus == .success {
-                        VStack { // Successful Transaction
+                        VStack { // Successful TransactionEntity
                             Circle()
                                 .frame(width: 100, height: 100)
                                 .foregroundStyle(HelperManager().getAppTheme().color)

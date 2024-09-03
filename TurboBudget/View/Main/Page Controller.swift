@@ -195,7 +195,6 @@ struct PageControllerView: View {
             withAnimation { update.toggle() }
         }
         .onAppear {
-            store.loadStoredPurchases()
             if !alreadyOpen {
                 icloudManager.checkDataInCloudKit { success in
                     icloudManager.fetchTransactionFromCloudKit { records, error in

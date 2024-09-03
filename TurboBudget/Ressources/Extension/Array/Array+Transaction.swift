@@ -7,10 +7,10 @@
 
 import Foundation
 
-extension Array where Element == Transaction {
+extension Array where Element == TransactionEntity {
     
     // TODO: Faire avec ChatGPT
-//    func searchFor(_ searchText: String) -> [Transaction] {
+//    func searchFor(_ searchText: String) -> [TransactionEntity] {
 //        if searchText.isEmpty {
 //            if filterTransactions == .expenses {
 //                if ascendingOrder {

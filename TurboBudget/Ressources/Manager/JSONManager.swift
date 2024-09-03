@@ -13,7 +13,7 @@ enum DecodeJSONStatus {
 
 class JSONManager {
     
-    func generateJSONForTransaction(transaction: Transaction) -> String {
+    func generateJSONForTransaction(transaction: TransactionEntity) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
@@ -38,7 +38,7 @@ class JSONManager {
         return jsonString
     }
     
-    func decodeJSON(account: Account, jsonString: String) -> Transaction? {
+    func decodeJSON(account: Account, jsonString: String) -> TransactionEntity? {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
@@ -46,7 +46,7 @@ class JSONManager {
             let jsonData = jsonString.data(using: .utf8)!
             let recoverTransaction = try decoder.decode(RecoverTransaction.self, from: jsonData)
             
-            let newTransacation = Transaction(context: persistenceController.container.viewContext)
+            let newTransacation = TransactionEntity(context: persistenceController.container.viewContext)
             newTransacation.id = UUID()
             newTransacation.title = recoverTransaction.title
             newTransacation.amount = recoverTransaction.amount

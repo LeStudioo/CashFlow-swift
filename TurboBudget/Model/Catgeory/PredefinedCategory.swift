@@ -126,16 +126,16 @@ extension PredefinedCategory {
         }
     }
     
-    var transactions: [Transaction] {
+    var transactions: [TransactionEntity] {
         return TransactionRepository.shared.getTransactionsForCategory(categoryID: self.rawValue)
     }
     
-    var transactionsFiltered: [Transaction] {
+    var transactionsFiltered: [TransactionEntity] {
         return self.transactions
             .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
     }
     
-    var automations: [Transaction] {
+    var automations: [TransactionEntity] {
         return transactions.filter({ $0.comeFromAuto })
     }
 }
@@ -143,7 +143,7 @@ extension PredefinedCategory {
 extension PredefinedCategory {
     
     func expensesTransactionsAmountForSelectedDate(filter: Filter) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
          for transaction in transactions {
              if filter.byDay {
@@ -176,7 +176,7 @@ extension PredefinedCategory {
 //    }
     
     func incomesTransactionsAmountForSelectedDate(filter: Filter) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         for transaction in transactions {
             if filter.byDay {
                 if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .day) &&
@@ -197,11 +197,11 @@ extension PredefinedCategory {
     //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
     // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsIncomes: [Transaction] = []
+    func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsIncomes: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount > 0
@@ -216,7 +216,7 @@ extension PredefinedCategory {
     //-------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     func amountIncomesByMonth(month: Date) -> Double {
@@ -242,11 +242,11 @@ extension PredefinedCategory {
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsExpenses: [Transaction] = []
+    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsExpenses: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
@@ -259,7 +259,7 @@ extension PredefinedCategory {
     //-------------------- amountExpensesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     func amountExpensesByMonth(month: Date) -> Double {
@@ -277,7 +277,7 @@ extension PredefinedCategory {
     }
     
     public func incomesAutomationsTransactionsAmountForSelectedDate(selectedDate: Date) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
         for transaction in self.automations {
             if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .year) && transaction.amount > 0 {
@@ -300,7 +300,7 @@ extension PredefinedCategory {
     }
     
     public func expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: Date) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
         for transaction in self.automations {
             if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .year) && transaction.amount < 0 {

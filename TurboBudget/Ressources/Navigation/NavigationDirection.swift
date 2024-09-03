@@ -29,7 +29,7 @@ enum NavigationDirection: Identifiable {
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
     case allTransactions(account: Account)
-    case transactionDetail(transaction: Transaction)
+    case transactionDetail(transaction: TransactionEntity)
     
     case savingPlansDetail(savingPlan: SavingPlan)
     

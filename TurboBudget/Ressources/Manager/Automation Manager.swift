@@ -26,7 +26,7 @@ class AutomationManager {
                     let finalDate = Calendar.current.date(from: dateComponents)
                     
                     if let transactionOfAuto = automation.automationToTransaction {
-                        let newTransaction = Transaction(context: persistenceController.container.viewContext)
+                        let newTransaction = TransactionEntity(context: persistenceController.container.viewContext)
                         newTransaction.id = UUID()
                         newTransaction.title = transactionOfAuto.title
                         newTransaction.amount = transactionOfAuto.amount
@@ -66,7 +66,7 @@ extension AutomationManager {
     
     //By day
     func amountExpensesByDay(day: Date, automations: [Automation]) -> Double {
-        var transactionsExpenses: [Transaction] = []
+        var transactionsExpenses: [TransactionEntity] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
                 if transaction.amount < 0
@@ -80,7 +80,7 @@ extension AutomationManager {
     
     //By month
     func amountExpensesByMonth(month: Date, automations: [Automation]) -> Double {
-        var transactionsExpenses: [Transaction] = []
+        var transactionsExpenses: [TransactionEntity] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
                 if transaction.amount < 0 
@@ -98,7 +98,7 @@ extension AutomationManager {
     
     //By day
     func amountIncomesByDay(day: Date, automations: [Automation]) -> Double {
-        var transactionsIncomes: [Transaction] = []
+        var transactionsIncomes: [TransactionEntity] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
                 if transaction.amount > 0
@@ -112,7 +112,7 @@ extension AutomationManager {
     
     //By month
     func amountIncomesByMonth(month: Date, automations: [Automation]) -> Double {
-        var transactionsExpenses: [Transaction] = []
+        var transactionsExpenses: [TransactionEntity] = []
         for auto in automations {
             if let transaction = auto.automationToTransaction {
                 if transaction.amount > 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) { transactionsExpenses.append(transaction) }

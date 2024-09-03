@@ -12,7 +12,7 @@ import SwipeActions
 struct TransactionRow: View {
     
     // Builder
-    @ObservedObject var transaction: Transaction
+    @ObservedObject var transaction: TransactionEntity
     
     // Repo
     @EnvironmentObject private var transactionRepo: TransactionRepository
@@ -190,8 +190,8 @@ struct TransactionRow: View {
 // MARK: - Preview
 #Preview {
     Group {
-        TransactionRow(transaction: Transaction.preview1)
-        TransactionRow(transaction: Transaction.preview1)
+        TransactionRow(transaction: TransactionEntity.preview1)
+        TransactionRow(transaction: TransactionEntity.preview1)
     }
     .previewLayout(.sizeThatFits)
 }

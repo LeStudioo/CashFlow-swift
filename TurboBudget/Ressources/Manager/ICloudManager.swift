@@ -72,10 +72,10 @@ class ICloudManager: ObservableObject {
         let container = CKContainer(identifier: "iCloud.Sementa.CashFlow")
         let privateDatabase = container.privateCloudDatabase
         
-        var results: [Transaction] = []
-        var array: [Transaction] = []
+        var results: [TransactionEntity] = []
+        var array: [TransactionEntity] = []
         
-        let request = NSFetchRequest<Transaction>(entityName: "Transaction")
+        let request = NSFetchRequest<TransactionEntity>(entityName: "Transaction")
         do {
             results = try context.fetch(request)
 //            print("🔥 RESULTS : \(results.count)")
@@ -84,7 +84,7 @@ class ICloudManager: ObservableObject {
         }
                 
         for record in records {
-            let newManagedObject = Transaction(context: context)
+            let newManagedObject = TransactionEntity(context: context)
             // Map attributes from CKRecord to CoreData entity
             newManagedObject.id = UUID(uuidString: record["CD_id"] as? String ?? "") ?? UUID()
             newManagedObject.title = record["CD_title"] as? String ?? ""

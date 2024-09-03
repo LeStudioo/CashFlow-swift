@@ -94,7 +94,7 @@ struct AddTransactionIntent: AppIntent {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
         
-        let newTransaction = Transaction(context: viewContext)
+        let newTransaction = TransactionEntity(context: viewContext)
         newTransaction.id = UUID()
         newTransaction.title = title
         newTransaction.amount = -finalNumber

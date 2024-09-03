@@ -85,7 +85,7 @@ struct OnboardingView: View {
                 } else {
                     UserDefaults.standard.set(true, forKey: "alreadyOpen")
                     DispatchQueue.main.async {
-                        let firstTransaction = Transaction(context: viewContext)
+                        let firstTransaction = TransactionEntity(context: viewContext)
                         firstTransaction.id = UUID()
                         firstTransaction.title = "name_first_transaction".localized
                         firstTransaction.amount = accountBalance.convertToDouble()

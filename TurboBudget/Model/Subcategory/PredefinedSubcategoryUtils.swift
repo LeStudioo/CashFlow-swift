@@ -22,7 +22,7 @@ extension PredefinedSubcategory {
 extension PredefinedSubcategory {
     
     func expensesTransactionsAmountForSelectedDate(filter: Filter) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
         for transaction in self.transactions {
             if filter.byDay {
@@ -40,7 +40,7 @@ extension PredefinedSubcategory {
     }
     
     func expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: Date) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
         for transaction in self.automations {
             if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .year) && transaction.amount < 0 {
@@ -84,7 +84,7 @@ extension Array where Element == PredefinedSubcategory {
 extension PredefinedSubcategory {
     
     public func transactionsInSelectedMonthAndYear(month: Int, year: Int) -> Double {
-        var array: [Transaction] = []
+        var array: [TransactionEntity] = []
         
         var components = DateComponents()
         components.day = 01
@@ -115,11 +115,11 @@ extension PredefinedSubcategory {
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsExpenses: [Transaction] = []
+    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsExpenses: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
@@ -136,11 +136,11 @@ extension PredefinedSubcategory {
     //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
     // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsIncomes: [Transaction] = []
+    func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsIncomes: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount > 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) && PredefinedCategory.findByID(transaction.predefCategoryID) != nil { transactionsIncomes.append(transaction) }
@@ -151,7 +151,7 @@ extension PredefinedSubcategory {
         //-------------------- amountIncomesByMonth() ----------------------
         // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
         // Parameter : (month: Date)
-        // Output : return [Transaction]
+        // Output : return [TransactionEntity]
         // Extra : No
         //-----------------------------------------------------------
         func amountIncomesByMonth(month: Date) -> Double {

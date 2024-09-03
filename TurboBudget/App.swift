@@ -71,14 +71,19 @@ struct TurboBudgetApp: App {
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
-                store.restorePurchases()
-                
+               
                 accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
                 savingsAccountRepo.fetchSavingsAccounts()
+            }
+            .task {
+                await store.loadProducts()
+                if let sub = store.subscription {
+                    await store.getSubscriptionStatus(product: sub)
+                }
             }
         }
     } // End body

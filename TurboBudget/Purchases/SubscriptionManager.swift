@@ -1,202 +1,160 @@
 //
-//  SubscriptionManager.swift
+//  NewSubscriptionManager.swift
 //  CashFlow
 //
-//  Created by KaayZenn on 03/09/2023.
+//  Created by Theo Sementa on 03/09/2024.
 //
 
+import Foundation
 import StoreKit
 
-typealias FetchCompletionHandler = (([SKProduct]) -> Void)
-typealias PurchaseCompletionHandler = ((SKPaymentTransaction?) -> Void)
-
+@MainActor
 class SubscriptionManager: NSObject, ObservableObject {
-    static let shared = SubscriptionManager()
-    
-    @Published var allRecipes = [Purchase]()
+    let productIDs: [String] = ["cashflow_199_1m_3d0"]
+    var purchasedProductIDs: Set<String> = []
+
+    @Published var products: [Product] = []
     
     @Published var isCashFlowPro: Bool = false
+    private var updates: Task<Void, Never>? = nil
     
-    private let allProductIdentifiers = Set([
-        "cashflow_199_1m_3d0"
-    ])
+    override init() {
+        super.init()
+        self.updates = observeTransactionUpdates()
+        SKPaymentQueue.default().add(self)
+    }
     
-    private var completedPurchases = [String]() {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                for index in self.allRecipes.indices {
-                    self.allRecipes[index].isLocked = !self.completedPurchases.contains(self.allRecipes[index].id)
-                }
+    deinit {
+        updates?.cancel()
+    }
+    
+    func observeTransactionUpdates() -> Task<Void, Never> {
+        Task(priority: .background) { [unowned self] in
+            for await _ in Transaction.updates {
+                await self.updatePurchasedProducts()
             }
         }
     }
     
-    private var productsRequest: SKProductsRequest?
-    private var fetchedProducts = [SKProduct]()
-    private var fetchedCompletionHandler: FetchCompletionHandler?
-    private var purchaseCompletionHandler: PurchaseCompletionHandler?
-    
-    private let userDefaultsKey = "completedPurchases2"
-    
-    override init() {
-        super.init()
-        
-        startObservingPaymentQueue()
-        
-        fetchProducts { products in
-            self.allRecipes = products.map { Purchase(product: $0) }
-        }
-    }
-    
-    func loadStoredPurchases() {
-        if let storedPurchases = UserDefaults.standard.object(forKey: userDefaultsKey) as? [String] {
-            self.completedPurchases = storedPurchases
-        }
-    }
-    
-    private func startObservingPaymentQueue() {
-        SKPaymentQueue.default().add(self)
-    }
-    
-    private func fetchProducts(_ completion: @escaping FetchCompletionHandler) {
-        guard self.productsRequest == nil else { return }
-        fetchedCompletionHandler = completion
-        
-        productsRequest = SKProductsRequest(productIdentifiers: allProductIdentifiers)
-        productsRequest?.delegate = self
-        productsRequest?.start()
-    }
-    
-    private func buy(_ product: SKProduct, completion: @escaping PurchaseCompletionHandler) {
-        purchaseCompletionHandler = completion
-        
-        let payment = SKPayment(product: product)
-        SKPaymentQueue.default().add(payment)
+    var subscription: Product? {
+        return self.products.first
     }
 }
 
+// MARK: StoreKit2 API
 extension SubscriptionManager {
-    
-    func product(for identifier: String) -> SKProduct? {
-        return fetchedProducts.first(where: { $0.productIdentifier == identifier })
-    }
-    
-    func purchaseProduct(_ product: SKProduct) {
-        startObservingPaymentQueue()
-        buy(product) { _ in
-            
+    func loadProducts() async {
+        do {
+            self.products = try await Product.products(for: productIDs)
+                .sorted(by: { $0.price > $1.price })
+        } catch {
+            print("Failed to fetch products!")
         }
     }
     
-    func restorePurchases() {
-        SKPaymentQueue.default().restoreCompletedTransactions()
+    func buyProduct(_ product: Product) async {
+        do {
+            let result = try await product.purchase()
+            
+            switch result {
+            case let .success(.verified(transaction)):
+                // Successful purhcase
+                await transaction.finish()
+                await self.updatePurchasedProducts()
+            case let .success(.unverified(_, error)):
+                // Successful purchase but transaction/receipt can't be verified
+                // Could be a jailbroken phone
+                print("Unverified purchase. Might be jailbroken. Error: \(error)")
+                break
+            case .pending:
+                // Transaction waiting on SCA (Strong Customer Authentication) or
+                // approval from Ask to Buy
+                break
+            case .userCancelled:
+                print("User cancelled!")
+                break
+            @unknown default:
+                print("Failed to purchase the product!")
+                break
+            }
+        } catch {
+            print("Failed to purchase the product!")
+        }
     }
+    
+    func updatePurchasedProducts() async {
+        for await result in Transaction.currentEntitlements {
+            guard case .verified(let transaction) = result else {
+                continue
+            }
+            if transaction.revocationDate == nil {
+                self.purchasedProductIDs.insert(transaction.productID)
+            } else {
+                self.purchasedProductIDs.remove(transaction.productID)
+            }
+        }
+        
+        self.isCashFlowPro = !self.purchasedProductIDs.isEmpty
+    }
+    
+    func restorePurchases() async {
+        do {
+            try await AppStore.sync()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getSubscriptionStatus(product: Product) async {
+        guard let subscription = product.subscription else {
+            return
+        }
+        
+        do {
+            let statuses = try await subscription.status
+            
+            for status in statuses {
+                let info = try status.renewalInfo.payloadValue
+                
+                switch status.state {
+                case .subscribed:
+                    if info.willAutoRenew {
+                        isCashFlowPro = true
+                        return
+                    } else {
+                        debugPrint("getSubscriptionStatus user subscription is expiring.")
+                        return
+                    }
+                case .inBillingRetryPeriod:
+                    debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
+                    return
+                case .inGracePeriod:
+                    debugPrint("getSubscriptionStatus user subscription is in grace period.")
+                    return
+                case .expired:
+                    debugPrint("getSubscriptionStatus user subscription is expired.")
+                    return
+                case .revoked:
+                    debugPrint("getSubscriptionStatus user subscription was revoked.")
+                    return
+                default:
+                    fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
+                }
+            }
+        } catch {
+            // do nothing
+        }
+        return
+        }
 }
 
 extension SubscriptionManager: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
-            var shouldFinishTransaction = false
-            switch transaction.transactionState {
-            case .purchased, .restored:
-                completedPurchases.append(transaction.payment.productIdentifier)
-                shouldFinishTransaction = true
-                isCashFlowPro = true
-            case .failed:
-                shouldFinishTransaction = true
-            case .deferred, .purchasing:
-                break
-            @unknown default:
-                break
-            }
-            
-            if shouldFinishTransaction {
-                SKPaymentQueue.default().finishTransaction(transaction)
-                DispatchQueue.main.async {
-                    self.purchaseCompletionHandler?(transaction)
-                    self.purchaseCompletionHandler = nil
-                }
-            }
-            
-        }
         
-        if !completedPurchases.isEmpty {
-            UserDefaults.standard.setValue(completedPurchases, forKey: userDefaultsKey)
-        }
-        
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        return true
     }
 }
 
-extension SubscriptionManager: SKProductsRequestDelegate {
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        let loadedProducts = response.products
-        let invalidProducts = response.invalidProductIdentifiers
-        
-        guard !loadedProducts.isEmpty else {
-            print("Could not load the products !")
-            if !invalidProducts.isEmpty {
-                print("Invalid products found : \(invalidProducts)")
-            }
-            productsRequest = nil
-            return
-        }
-        
-        //Cache the fetched products
-        fetchedProducts = loadedProducts
-        
-        //Notify anyone waiting on the product load
-        DispatchQueue.main.async {
-            self.fetchedCompletionHandler?(loadedProducts)
-            
-            self.fetchedCompletionHandler = nil
-            self.productsRequest = nil
-        }
-    }
-}
-
-extension SubscriptionManager {
-    func getSubscriptionStatus(product: Product) async {
-            guard let subscription = product.subscription else {
-                // Not a subscription
-                return
-            }
-        
-            do {
-                
-                let statuses = try await subscription.status
-
-                for status in statuses {
-                    let info = try status.renewalInfo.payloadValue
-                    
-                    switch status.state {
-                    case .subscribed:
-                        if info.willAutoRenew {
-                            debugPrint("getSubscriptionStatus user subscription is active.")
-                            return
-                        } else {
-                            debugPrint("getSubscriptionStatus user subscription is expiring.")
-                            return
-                        }
-                    case .inBillingRetryPeriod:
-                        debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
-                        return
-                    case .inGracePeriod:
-                        debugPrint("getSubscriptionStatus user subscription is in grace period.")
-                        return
-                    case .expired:
-                        debugPrint("getSubscriptionStatus user subscription is expired.")
-                        return
-                    case .revoked:
-                        debugPrint("getSubscriptionStatus user subscription was revoked.")
-                        return
-                    default:
-                        fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
-                    }
-                }
-            } catch {
-                // do nothing
-            }
-            return
-        }
-}

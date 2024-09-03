@@ -11,7 +11,7 @@ import SwiftUI
 struct TransactionDetailView: View {
 
     // Builder
-    @ObservedObject var transaction: Transaction
+    @ObservedObject var transaction: TransactionEntity
     
     // Custom type
     @ObservedObject var viewModel: TransactionDetailViewModel = .init()
@@ -90,7 +90,7 @@ struct TransactionDetailView: View {
             }
             
             if store.isCashFlowPro && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
-                let bestCategory = Transaction.findBestCategory(for: transaction.title)
+                let bestCategory = TransactionEntity.findBestCategory(for: transaction.title)
                 
                 if let categoryFound = bestCategory.0 {
                     let subcategoryFound = bestCategory.1
@@ -261,7 +261,7 @@ struct TransactionDetailView: View {
 
 //MARK: - Preview
 #Preview {
-    TransactionDetailView(transaction: Transaction.preview1)
+    TransactionDetailView(transaction: TransactionEntity.preview1)
 }
 
 private struct CellForDetailTransaction: View {

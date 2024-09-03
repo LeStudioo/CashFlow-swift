@@ -30,7 +30,7 @@ struct CreateAutomationView: View {
         NavStack(router: router) {
             GeometryReader { geometry in
                 ScrollView {
-                    VStack { //New Transaction
+                    VStack { //New TransactionEntity
                         Text("automation_new".localized)
                             .titleAdjustSize()
                             .padding(.vertical, 24)
@@ -102,7 +102,7 @@ struct CreateAutomationView: View {
                             }
                             .padding(.leading)
                         }
-                    } // End New Transaction
+                    } // End New TransactionEntity
                 } // End ScrollView
                 .scrollIndicators(.hidden)
                 .scrollDismissesKeyboard(.immediately)

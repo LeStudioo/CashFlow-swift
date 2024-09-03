@@ -42,7 +42,7 @@ struct CreateTransactionView: View {
         NavStack(router: router) {
             GeometryReader { geometry in
                 ScrollView {
-                        VStack { //New Transaction
+                        VStack { //New TransactionEntity
                             
                             Text("transaction_new".localized)
                                 .titleAdjustSize()
@@ -76,7 +76,7 @@ struct CreateTransactionView: View {
                                 }
                                 
                                 if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                                    let bestCategory = Transaction.findBestCategory(for: viewModel.transactionTitle)
+                                    let bestCategory = TransactionEntity.findBestCategory(for: viewModel.transactionTitle)
                                     
                                     if let categoryFound = bestCategory.0 {
                                         let subcategoryFound = bestCategory.1
@@ -148,7 +148,7 @@ struct CreateTransactionView: View {
                             }
                             .padding(.bottom, 24)
                             
-                        } // End New Transaction
+                        } // End New TransactionEntity
                 } // End ScrollView
                 .scrollIndicators(.hidden)
                 .scrollDismissesKeyboard(.immediately)

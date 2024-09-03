@@ -11,9 +11,9 @@ struct AutomationModel {
     var title: String
     var date: Date
     var frenquently: Int
-    var transaction: Transaction?
+    var transaction: TransactionEntity?
     
-    init(title: String, date: Date, frenquently: Int, transaction: Transaction? = nil) {
+    init(title: String, date: Date, frenquently: Int, transaction: TransactionEntity? = nil) {
         self.title = title
         self.date = date
         self.frenquently = frenquently

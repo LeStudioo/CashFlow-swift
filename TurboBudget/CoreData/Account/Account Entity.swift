@@ -23,11 +23,11 @@ public class Account: NSManagedObject, Identifiable {
     @NSManaged public var balance: Double
     @NSManaged public var cardLimit: Double
     @NSManaged public var position: Int64
-    @NSManaged public var accountToTransaction: Set<Transaction>?
+    @NSManaged public var accountToTransaction: Set<TransactionEntity>?
     @NSManaged public var accountToSavingPlan: Set<SavingPlan>?
     @NSManaged public var accountToAutomation: Set<Automation>?
     
-    public var allTransactions: [Transaction] {
+    public var allTransactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
                 .sorted { $0.date.withDefault > $1.date.withDefault }
@@ -35,7 +35,7 @@ public class Account: NSManagedObject, Identifiable {
         } else { return [] }
     }
 
-    public var transactions: [Transaction] {
+    public var transactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
                 .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
@@ -49,15 +49,15 @@ public class Account: NSManagedObject, Identifiable {
         } else { return [] }
     }
     
-    public var transactionsWithOnlyAutomations: [Transaction] {
+    public var transactionsWithOnlyAutomations: [TransactionEntity] {
         return transactions.filter({ $0.comeFromAuto })
     }
     
-    public var transactionsFromApplePay: [Transaction] {
+    public var transactionsFromApplePay: [TransactionEntity] {
         return transactions.filter({ $0.comeFromApplePay })
     }
     
-    public var transactionsArchived: [Transaction] {
+    public var transactionsArchived: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
                 .sorted { $0.date.withDefault > $1.date.withDefault }
@@ -88,7 +88,7 @@ public class Account: NSManagedObject, Identifiable {
 // MARK: - Accessors for Transactions
 extension Account {
     
-    public func addNewTransaction(transaction: Transaction) {
+    public func addNewTransaction(transaction: TransactionEntity) {
         self.accountToTransaction?.insert(transaction)
         
         self.balance += transaction.amount
@@ -96,7 +96,7 @@ extension Account {
         self.persistenceController.saveContext()
     }
     
-    public func deleteTransaction(transaction: Transaction) {
+    public func deleteTransaction(transaction: TransactionEntity) {
         let context = persistenceController.container.viewContext
         
         self.balance -= transaction.amount
@@ -135,8 +135,8 @@ extension Account {
     // Output :
     // Extra :
     //-----------------------------------------------------------
-    private var transactionsActualMonth: [Transaction] {
-        var transactionsActualMonth: [Transaction] = []
+    private var transactionsActualMonth: [TransactionEntity] {
+        var transactionsActualMonth: [TransactionEntity] = []
         let dateOfStartOfTheMonth = Date().startOfMonth
         let dateOfEndOfTheMonth = Date().endOfMonth
         
@@ -205,8 +205,8 @@ extension Account {
     // Output : return [Transaction]
     // Extra : No
     //-----------------------------------------------------------
-    public func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsIncomes: [Transaction] = []
+    public func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsIncomes: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount > 0 
@@ -221,7 +221,7 @@ extension Account {
     //-------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     public func amountIncomesByMonth(month: Date) -> Double {
@@ -278,11 +278,11 @@ extension Account {
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (selectedDate: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
-    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [Transaction] {
-        var transactionsExpenses: [Transaction] = []
+    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
+        var transactionsExpenses: [TransactionEntity] = []
         
         for transaction in transactions {
             if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
@@ -295,7 +295,7 @@ extension Account {
     //-------------------- amountExpensesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     func amountExpensesByMonth(month: Date) -> Double {
@@ -310,7 +310,7 @@ extension Account {
     //-------------------- amountCashFlowByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des dépenses et des revenus, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     func amountCashFlowByMonth(month: Date) -> Double {
@@ -327,7 +327,7 @@ extension Account {
     //-------------------- amountGainOrLossByMonth() ----------------------
     // Description : Calcule si des gains ou des pertes on était fait, pour un mois donné
     // Parameter : (month: Date)
-    // Output : return [Transaction]
+    // Output : return [TransactionEntity]
     // Extra : No
     //-----------------------------------------------------------
     func amountGainOrLossByMonth(month: Date) -> Double {

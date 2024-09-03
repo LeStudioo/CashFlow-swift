@@ -18,7 +18,7 @@ class TransactionManager {
     // Extra :
     //-----------------------------------------------------------
     func dailyIncomeAmountsForSelectedMonth(account: Account, selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsForTheChoosenMonth: [Transaction] = account.getAllTransactionsIncomeForChosenMonth(selectedDate: selectedDate).filter { !$0.comeFromAuto }
+        let transactionsForTheChoosenMonth: [TransactionEntity] = account.getAllTransactionsIncomeForChosenMonth(selectedDate: selectedDate).filter { !$0.comeFromAuto }
         
         var array: [AmountOfTransactionsByDay] = []
 
@@ -51,7 +51,7 @@ class TransactionManager {
     // Extra :
     //-----------------------------------------------------------
     func dailyExpenseAmountsForSelectedMonth(account: Account, selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsForTheChoosenMonth: [Transaction] = account.getAllExpensesTransactionsForChosenMonth(selectedDate: selectedDate).filter { !$0.comeFromAuto }
+        let transactionsForTheChoosenMonth: [TransactionEntity] = account.getAllExpensesTransactionsForChosenMonth(selectedDate: selectedDate).filter { !$0.comeFromAuto }
                 
         var array: [AmountOfTransactionsByDay] = []
         
@@ -84,7 +84,7 @@ extension TransactionManager {
     // Extra : Cette fonction filtre spécifiquement les transactions provenant d'automatisations et calcule la dépense totale pour chaque jour du mois sélectionné.
     //--------------------------------------------------------------------------------------------------
     func dailyAutomatedExpenseAmountsForSelectedMonth(account: Account, selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsFromAutomationForTheChoosenMonth: [Transaction] = account.getAllExpensesTransactionsForChosenMonth(selectedDate: selectedDate).filter { $0.comeFromAuto }
+        let transactionsFromAutomationForTheChoosenMonth: [TransactionEntity] = account.getAllExpensesTransactionsForChosenMonth(selectedDate: selectedDate).filter { $0.comeFromAuto }
         
         var array: [AmountOfTransactionsByDay] = []
         
@@ -113,7 +113,7 @@ extension TransactionManager {
     // Extra : Cette fonction filtre spécifiquement les transactions provenant d'automatisations et calcule le revenu total pour chaque jour du mois sélectionné.
     //--------------------------------------------------------------------------------------------------
     func dailyAutomatedIncomeAmountsForSelectedMonth(account: Account, selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsFromAutomationForTheChoosenMonth: [Transaction] = account.getAllTransactionsIncomeForChosenMonth(selectedDate: selectedDate).filter { $0.comeFromAuto }
+        let transactionsFromAutomationForTheChoosenMonth: [TransactionEntity] = account.getAllTransactionsIncomeForChosenMonth(selectedDate: selectedDate).filter { $0.comeFromAuto }
         
         var array: [AmountOfTransactionsByDay] = []
         
@@ -161,11 +161,11 @@ extension TransactionManager {
     
     //-------------------- totalCashFlowForSpecificMonthYear ----------------------
     // Description : Calcule le flux de trésorerie total (somme des transactions négatives et positives) pour un mois et une année spécifiques.
-    // Parameter : (transactions: [Transaction], month: Int, year: Int)
+    // Parameter : (transactions: [TransactionEntity], month: Int, year: Int)
     // Output : return Double
     // Extra : Cette fonction prend en compte une liste de transactions et renvoie le flux de trésorerie total pour le mois et l'année spécifiés.
     //-----------------------------------------------------------
-    func totalCashFlowForSpecificMonthYear(transactions: [Transaction], month: Int, year: Int) -> Double {
+    func totalCashFlowForSpecificMonthYear(transactions: [TransactionEntity], month: Int, year: Int) -> Double {
         var amount: Double = 0.0
         
         var components = DateComponents()

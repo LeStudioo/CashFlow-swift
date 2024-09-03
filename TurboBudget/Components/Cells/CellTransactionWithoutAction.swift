@@ -12,7 +12,7 @@ import SwiftUI
 struct CellTransactionWithoutAction: View {
 
     // Builder
-    @ObservedObject var transaction: Transaction
+    @ObservedObject var transaction: TransactionEntity
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
@@ -85,5 +85,5 @@ struct CellTransactionWithoutAction: View {
 
 // MARK: - Preview
 #Preview {
-    CellTransactionWithoutAction(transaction: Transaction.preview1)
+    CellTransactionWithoutAction(transaction: TransactionEntity.preview1)
 }

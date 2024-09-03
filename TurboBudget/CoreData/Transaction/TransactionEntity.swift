@@ -1,5 +1,5 @@
 //
-//  Transaction+CoreDataProperties.swift
+//  TransactionEntity+CoreDataProperties.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 15/06/2023.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 @objc(Transaction)
-public class Transaction: NSManagedObject, Identifiable {
+public class TransactionEntity: NSManagedObject, Identifiable {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Transaction> {
-        return NSFetchRequest<Transaction>(entityName: "Transaction")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<TransactionEntity> {
+        return NSFetchRequest<TransactionEntity>(entityName: "Transaction")
     }
 
     @NSManaged public var id: UUID
@@ -36,7 +36,7 @@ public class Transaction: NSManagedObject, Identifiable {
 
 } // End class
 
-extension Transaction {
+extension TransactionEntity {
     
     var category: PredefinedCategory? {
         return PredefinedCategory.findByID(self.predefCategoryID)
@@ -50,7 +50,7 @@ extension Transaction {
     
 }
 
-extension Transaction {
+extension TransactionEntity {
     
     static private func levenshteinDistance(_ s1: String, _ s2: String) -> Int {
         if s1.isEmpty || s2.isEmpty { return 0 }
@@ -100,7 +100,7 @@ extension Transaction {
             .lowercased()
             .trimmingCharacters(in: .whitespaces)
         
-        var arrayOfCandidate: [Transaction] = []
+        var arrayOfCandidate: [TransactionEntity] = []
 
         for transaction in transactions {
             let formattedTitle = transaction.title
@@ -115,7 +115,7 @@ extension Transaction {
         }
 
         // Au lieu de compter les catégories, créez un dictionnaire pour stocker la transaction la plus récente de chaque catégorie
-        var mostRecentTransactionByCategory: [String: Transaction] = [:]
+        var mostRecentTransactionByCategory: [String: TransactionEntity] = [:]
 
         for candidate in arrayOfCandidate {
             if !candidate.predefCategoryID.isEmpty
@@ -146,14 +146,14 @@ extension Transaction {
 
 }
 
-extension Transaction {
+extension TransactionEntity {
     
-    static var preview1: Transaction {
-        let transaction = Transaction(context: previewViewContext)
+    static var preview1: TransactionEntity {
+        let transaction = TransactionEntity(context: previewViewContext)
         transaction.id = UUID()
         transaction.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
         transaction.predefSubcategoryID = PredefinedCategory.PREDEFCAT1.subcategories[1].id
-        transaction.title = "Preview Transaction"
+        transaction.title = "Preview TransactionEntity"
         transaction.amount = -40.51
         transaction.date = Date()
         transaction.creationDate = Date()

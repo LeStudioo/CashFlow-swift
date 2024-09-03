@@ -17,7 +17,7 @@ class TransactionDetailViewModel: ObservableObject {
 extension TransactionDetailViewModel {
     
     // TODO: Refaire
-    func changeCategory(transaction: Transaction) {
+    func changeCategory(transaction: TransactionEntity) {
         if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
             transaction.predefCategoryID = newCategory.id
             transaction.predefSubcategoryID = ""

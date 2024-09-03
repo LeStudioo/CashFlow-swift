@@ -21,7 +21,7 @@ public class Automation: NSManagedObject, Identifiable {
     @NSManaged public var date: Date?
     @NSManaged public var isNotif: Bool
     @NSManaged public var frenquently: Int16
-    @NSManaged public var automationToTransaction: Transaction?
+    @NSManaged public var automationToTransaction: TransactionEntity?
     @NSManaged public var automationToAccount: Account?
 }
 
@@ -51,7 +51,7 @@ extension Automation {
         automation.title = "Preview"
         automation.date = Calendar.current.date(byAdding: .day, value: 10, to: Date()) ?? .now
         automation.frenquently = 0
-        automation.automationToTransaction = Transaction.preview1
+        automation.automationToTransaction = TransactionEntity.preview1
         return automation
     }
     

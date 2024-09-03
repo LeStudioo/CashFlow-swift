@@ -11,7 +11,7 @@ import CoreData
 final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
-    @Published var transactions: [Transaction] = []
+    @Published var transactions: [TransactionEntity] = []
 }
 
 // MARK: - C.R.U.D
@@ -20,10 +20,10 @@ extension TransactionRepository {
     /// Fetch all transactions
     func fetchTransactions() {
         let context = persistenceController.container.viewContext
-        var allTransactions: [Transaction] = []
+        var allTransactions: [TransactionEntity] = []
         
         do {
-            allTransactions = try context.fetch(Transaction.fetchRequest())
+            allTransactions = try context.fetch(TransactionEntity.fetchRequest())
         } catch {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
@@ -45,12 +45,12 @@ extension TransactionRepository {
     }
     
     /// Create a new transaction
-    func createNewTransaction(model: TransactionModel, withSave: Bool = true) throws -> Transaction {
+    func createNewTransaction(model: TransactionModel, withSave: Bool = true) throws -> TransactionEntity {
         guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
         guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
         guard let subcategory = PredefinedSubcategory.findByID(model.predefSubcategoryID) else { throw CustomError.subcategoryNotFound }
                 
-        let newTransaction = Transaction(context: viewContext)
+        let newTransaction = TransactionEntity(context: viewContext)
         newTransaction.id = UUID()
         newTransaction.title = model.title.trimmingCharacters(in: .whitespaces)
         newTransaction.amount = model.amount
@@ -70,7 +70,7 @@ extension TransactionRepository {
     }
     
     /// Delete a transaction
-    func deleteTransaction(transaction: Transaction) {
+    func deleteTransaction(transaction: TransactionEntity) {
         if let account = AccountRepository.shared.mainAccount {
             account.balance -= transaction.amount
         }
@@ -90,18 +90,18 @@ extension TransactionRepository {
 // MARK: - Utils
 extension TransactionRepository {
     
-    func getTransactionsForCategory(categoryID: String) -> [Transaction] {
+    func getTransactionsForCategory(categoryID: String) -> [TransactionEntity] {
         return self.transactions
             .filter { $0.predefCategoryID == categoryID }
     }
     
-    func getTransactionsForSubcategory(subcategoryID: String) -> [Transaction] {
+    func getTransactionsForSubcategory(subcategoryID: String) -> [TransactionEntity] {
         return self.transactions
             .filter { $0.predefSubcategoryID == subcategoryID }
     }
     
-    var transactionsByMonth: [Int : [Transaction]] {
-        var groupedTransactions: [Int: [Transaction]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
+    var transactionsByMonth: [Int : [TransactionEntity]] {
+        var groupedTransactions: [Int: [TransactionEntity]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
         
         let calendar = Calendar.current
         

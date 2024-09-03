@@ -10,7 +10,7 @@ import SwiftUI
 
 class QRCodeManager {
     
-    func generateQRCode(transaction: Transaction) -> Data? {
+    func generateQRCode(transaction: TransactionEntity) -> Data? {
         let json = JSONManager().generateJSONForTransaction(transaction: transaction)
         guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
         let data = json.data(using: .ascii, allowLossyConversion: false)

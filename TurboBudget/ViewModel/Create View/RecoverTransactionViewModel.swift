@@ -13,7 +13,7 @@ class RecoverTransactionViewModel: ObservableObject {
         
     // Custom
     @Published var account: Account? = nil
-    @Published var transaction: Transaction? = nil
+    @Published var transaction: TransactionEntity? = nil
     @Published var jsonStatus: DecodeJSONStatus = .none
     
     // String variables

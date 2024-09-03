@@ -106,8 +106,10 @@ struct PaywallScreenView: View {
                 VStack(spacing: 8) {
                     if !store.isCashFlowPro {
                         Button(action: {
-                            if let product = store.product(for: "cashflow_199_1m_3d0") {
-                                store.purchaseProduct(product)
+                            Task {
+                                if let product = store.products.first {
+                                    await store.buyProduct(product)
+                                }
                             }
                         }, label: {
                             cellForPayement(
@@ -133,7 +135,11 @@ struct PaywallScreenView: View {
                     
                     HStack {
                         Spacer()
-                        Button(action: { store.restorePurchases() }, label: {
+                        Button(action: {
+                            Task {
+                                await store.restorePurchases()
+                            }
+                        }, label: {
                             Text("paywall_restore".localized)
                                 .font(Font.mediumSmall())
                                 .foregroundStyle(Color.primary500)

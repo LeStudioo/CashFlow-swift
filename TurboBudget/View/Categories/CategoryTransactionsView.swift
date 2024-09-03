@@ -38,7 +38,7 @@ struct CategoryTransactionsView: View {
         return array
     }
     
-    var searchResults: [Transaction] {
+    var searchResults: [TransactionEntity] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
                 if ascendingOrder {

@@ -32,8 +32,8 @@ struct BudgetsTransactionsView: View {
     @State private var showDeleteBudget: Bool = false
 
 	// Computed variables
-    var searchResults: [Transaction] {
-        var array: [Transaction] = []
+    var searchResults: [TransactionEntity] {
+        var array: [TransactionEntity] = []
         if searchText.isEmpty {
             if ascendingOrder {
                 array = subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
@@ -67,7 +67,7 @@ struct BudgetsTransactionsView: View {
                         })
                     }
                 }
-            } else { // No Transaction
+            } else { // No TransactionEntity
                 ErrorView(
                     searchResultsCount: searchResults.count,
                     searchText: searchText,

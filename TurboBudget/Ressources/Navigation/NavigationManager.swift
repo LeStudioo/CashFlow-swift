@@ -36,7 +36,7 @@ class NavigationManager: Router {
         navigateTo(.allTransactions(account: account))
     }
     
-    func pushTransactionDetail(transaction: Transaction) {
+    func pushTransactionDetail(transaction: TransactionEntity) {
         navigateTo(.transactionDetail(transaction: transaction))
     }
     
