@@ -15,7 +15,7 @@ struct FilterView: View {
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
 
     //State or Binding String
 

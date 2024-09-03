@@ -18,7 +18,7 @@ struct HomeView: View {
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
     
     // Preferences
     @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen

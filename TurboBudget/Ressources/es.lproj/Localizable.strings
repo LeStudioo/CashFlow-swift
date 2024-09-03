@@ -349,15 +349,11 @@
 
 "paywall_detailled_prediction" = "No te molestes en encontrar la categoría adecuada para tu transacción, ¡CashFlow puede hacerlo por ti!";
 
-"paywall_lifetime" = "De por vida";
-
-"paywall_price_in_promo" = "9.99€";
-
-"paywall_price_without_promo" = "34.99€";
-
 "paywall_thanks" = "¡Gracias por su apoyo!";
 
 "paywall_restore" = "Restaurar CashFlow Pro";
+
+"paywall_monthly_subscription" = "Suscripción mensual";
 
 //MARK: - SettingAccountView
 "setting_account_negative_desc" = "Elija si su cuenta puede tener saldo negativo o no.";

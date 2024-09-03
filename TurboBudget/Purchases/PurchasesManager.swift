@@ -9,44 +9,39 @@ import Foundation
 import StoreKit
 
 @MainActor
-class SubscriptionManager: NSObject, ObservableObject {
-    let productIDs: [String] = ["cashflow_199_1m_3d0"]
+class PurchasesManager: NSObject, ObservableObject {
+    let productIDs: [String] = ["cashflow_199_1m_3d0", "com.Sementa.CashFlow.lifetime"]
     var purchasedProductIDs: Set<String> = []
-
+    
     @Published var products: [Product] = []
     
     @Published var isCashFlowPro: Bool = false
     private var updates: Task<Void, Never>? = nil
     
+    var subscription: Product? {
+        return self.products.first
+    }
+    
+    var lifetime: Product? {
+        return self.products.last
+    }
+    
+    // init
     override init() {
         super.init()
         self.updates = observeTransactionUpdates()
         SKPaymentQueue.default().add(self)
     }
     
-    deinit {
-        updates?.cancel()
-    }
-    
-    func observeTransactionUpdates() -> Task<Void, Never> {
-        Task(priority: .background) { [unowned self] in
-            for await _ in Transaction.updates {
-                await self.updatePurchasedProducts()
-            }
-        }
-    }
-    
-    var subscription: Product? {
-        return self.products.first
-    }
+    deinit { updates?.cancel() }
 }
 
-// MARK: StoreKit2 API
-extension SubscriptionManager {
+// MARK: - C.R.U.D
+extension PurchasesManager {
     func loadProducts() async {
         do {
             self.products = try await Product.products(for: productIDs)
-                .sorted(by: { $0.price > $1.price })
+                .sorted(by: { $0.price < $1.price })
         } catch {
             print("Failed to fetch products!")
         }
@@ -104,11 +99,20 @@ extension SubscriptionManager {
             print(error)
         }
     }
-    
-    func getSubscriptionStatus(product: Product) async {
-        guard let subscription = product.subscription else {
-            return
+}
+
+// MARK: - Utils
+extension PurchasesManager {
+    func observeTransactionUpdates() -> Task<Void, Never> {
+        Task(priority: .background) { [unowned self] in
+            for await _ in Transaction.updates {
+                await self.updatePurchasedProducts()
+            }
         }
+    }
+    
+    func getSubscriptionStatus() async {
+        guard let subscription = subscription?.subscription else { return }
         
         do {
             let statuses = try await subscription.status
@@ -132,6 +136,7 @@ extension SubscriptionManager {
                     debugPrint("getSubscriptionStatus user subscription is in grace period.")
                     return
                 case .expired:
+                    isCashFlowPro = false
                     debugPrint("getSubscriptionStatus user subscription is expired.")
                     return
                 case .revoked:
@@ -141,14 +146,25 @@ extension SubscriptionManager {
                     fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
                 }
             }
-        } catch {
-            // do nothing
-        }
+        } catch { }
         return
+    }
+    
+    func getLifetimeStatus() async {
+        guard let lifetime else { return }
+        
+        do {
+            if try await lifetime.currentEntitlement?.payloadValue != nil {
+                isCashFlowPro = true
+            }
+        } catch {
+            
         }
+    }
 }
 
-extension SubscriptionManager: SKPaymentTransactionObserver {
+// MARK: - SKPaymentTransactionObserver
+extension PurchasesManager: SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         
     }
@@ -157,4 +173,3 @@ extension SubscriptionManager: SKPaymentTransactionObserver {
         return true
     }
 }
-

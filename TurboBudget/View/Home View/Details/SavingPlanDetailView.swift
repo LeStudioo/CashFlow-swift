@@ -16,7 +16,7 @@ struct SavingPlanDetailView: View {
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
     @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
 
     //State or Binding String

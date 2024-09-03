@@ -14,7 +14,7 @@ struct SettingsHomeView: View {
     @Environment(\.dismiss) private var dismiss
     
     // EnvironementObject
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
     
     // Boolean variables
     @State private var isSharing: Bool = false

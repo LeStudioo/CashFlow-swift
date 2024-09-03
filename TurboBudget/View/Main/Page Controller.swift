@@ -32,7 +32,7 @@ struct PageControllerView: View {
     
     // EnvironmentObject
     @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject private var store: SubscriptionManager
+    @EnvironmentObject private var store: PurchasesManager
     
     // Preferences
     @Preference(\.isFaceIDEnabled) private var isFaceIDEnabled

@@ -19,7 +19,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
 
     //MARK: - Body
     var body: some View {

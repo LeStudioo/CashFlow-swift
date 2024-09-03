@@ -22,7 +22,7 @@ struct TransactionDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
 
     // String variables
     @State private var transactionNote: String = ""

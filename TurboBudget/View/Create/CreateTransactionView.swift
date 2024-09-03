@@ -21,7 +21,7 @@ struct CreateTransactionView: View {
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
 
     // EnvironmentObject
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
     
     // Number variables
     @State private var showCheckmark = -60

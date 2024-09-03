@@ -20,7 +20,7 @@ struct AccountDashboardView: View {
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: SubscriptionManager
+    @EnvironmentObject var store: PurchasesManager
     
     @EnvironmentObject private var budgetRepo: BudgetRepository
     

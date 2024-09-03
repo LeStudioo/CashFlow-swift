@@ -12,7 +12,7 @@ struct TurboBudgetApp: App {
     
     // Custom type
     @StateObject private var csManager = ColorSchemeManager()
-    @StateObject private var store = SubscriptionManager()
+    @StateObject private var purchasesManager = PurchasesManager()
     @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     
     // Repository
@@ -57,7 +57,7 @@ struct TurboBudgetApp: App {
             .environment(\.managedObjectContext, viewContext)
             .environmentObject(router)
             .environmentObject(csManager)
-            .environmentObject(store)
+            .environmentObject(purchasesManager)
             
             .environmentObject(accountRepo)
             .environmentObject(transactionRepo)
@@ -80,10 +80,9 @@ struct TurboBudgetApp: App {
                 savingsAccountRepo.fetchSavingsAccounts()
             }
             .task {
-                await store.loadProducts()
-                if let sub = store.subscription {
-                    await store.getSubscriptionStatus(product: sub)
-                }
+                await purchasesManager.loadProducts()
+                await purchasesManager.getSubscriptionStatus()
+                await purchasesManager.getLifetimeStatus()
             }
         }
     } // End body

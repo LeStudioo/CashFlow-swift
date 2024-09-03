@@ -14,7 +14,7 @@ struct PaywallScreenView: View {
     @Environment(\.dismiss) private var dismiss
     
     // EnvironmentObject
-    @EnvironmentObject private var store: SubscriptionManager
+    @EnvironmentObject private var store: PurchasesManager
 
     // MARK: - body
     var body: some View {
@@ -104,7 +104,7 @@ struct PaywallScreenView: View {
                 Spacer()
                 
                 VStack(spacing: 8) {
-                    if !store.isCashFlowPro {
+                    if let subscription = store.subscription, !store.isCashFlowPro {
                         Button(action: {
                             Task {
                                 if let product = store.products.first {
@@ -112,12 +112,12 @@ struct PaywallScreenView: View {
                                 }
                             }
                         }, label: {
+                            let fakePrice = subscription.price * 2
                             cellForPayement(
-                                text: "paywall_lifetime".localized,
-                                price: "paywall_price_in_promo".localized,
-                                promo: true,
-                                promoText: "paywall_price_without_promo".localized,
-                                promoPerc: "-70%".localized
+                                text: "paywall_monthly_subscription".localized,
+                                price: subscription.price.currency + " / " + "word_month".localized.lowercased(),
+                                promoText: fakePrice.currency,
+                                promoPerc: "-50%".localized
                             )
                         })
                     } else {
@@ -236,22 +236,22 @@ struct PaywallScreenView: View {
         .padding(.horizontal, 8)
     }
     
-    func cellForPayement(text: String, price: String, promo: Bool, promoText: String, promoPerc: String) -> some View {
+    func cellForPayement(text: String, price: String, promoText: String, promoPerc: String) -> some View {
         HStack {
             Text(text)
                 .font(Font.mediumText16())
-            Spacer()
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             Text(promoText)
                 .font(.semiBoldText16())
-                .foregroundStyle(.secondary400)
-                .if(promo) { view in
-                    view
-                        .overlay {
-                            Rectangle()
-                                .frame(height: 2)
-                                .foregroundStyle(.secondary400)
-                        }
+                .foregroundStyle(.black)
+                .overlay {
+                    Rectangle()
+                        .frame(height: 2)
+                        .foregroundStyle(.black)
                 }
+            
             Text(price)
                 .font(.semiBoldText16())
         }
@@ -259,17 +259,15 @@ struct PaywallScreenView: View {
         .padding()
         .background(Color.primary500)
         .cornerRadius(12)
-        .if(promo) { view in
-            view
-                .overlay(alignment: .topTrailing) {
-                    Text(promoPerc)
-                        .font(.semiBoldVerySmall())
-                        .foregroundStyle(.white)
-                        .padding(4)
-                        .background(Color.red)
-                        .cornerRadius(30)
-                        .offset(x: 6, y: -10)
-                }
+        .overlay(alignment: .topTrailing) {
+            Text(promoPerc)
+                .font(.semiBoldVerySmall())
+                .foregroundStyle(.white)
+                .padding(4)
+                .background(Color.red)
+                .cornerRadius(30)
+                .offset(x: 6, y: -10)
+            
         }
     }
 } // END struct
@@ -278,3 +276,5 @@ struct PaywallScreenView: View {
 #Preview {
     PaywallScreenView()
 }
+
+
