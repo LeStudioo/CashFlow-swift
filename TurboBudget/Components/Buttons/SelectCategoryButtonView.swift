@@ -21,12 +21,7 @@ struct SelectCategoryButtonView: View {
     
     // MARK: - body
     var body: some View {
-        Button(action: {
-            router.presentSelectCategory(
-                category: $selectedCategory,
-                subcategory: $selectedSubcategory
-            )
-        }, label: {
+        NavigationButton(present: router.presentSelectCategory(category: $selectedCategory, subcategory: $selectedSubcategory)) {
             if let selectedCategory, let selectedSubcategory {
                 ZStack {
                     Circle()
@@ -60,7 +55,7 @@ struct SelectCategoryButtonView: View {
                         .foregroundStyle(Color(uiColor: .label))
                 }
             }
-        })
+        }
     } // End body
 } // End struct
 

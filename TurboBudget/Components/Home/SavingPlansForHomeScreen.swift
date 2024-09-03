@@ -28,7 +28,7 @@ struct SavingPlansForHomeScreen: View {
     // MARK: - body
     var body: some View {
         VStack {
-            Button(action: { router.pushHomeSavingPlans() }, label: {
+            NavigationButton(push: router.pushHomeSavingPlans()) {
                 HStack {
                     Text("savingsplans_for_home_title".localized)
                         .foregroundStyle(Color.customGray)
@@ -40,7 +40,7 @@ struct SavingPlansForHomeScreen: View {
                         .foregroundStyle(HelperManager().getAppTheme().color)
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                 }
-            })
+            }
             .padding(.horizontal)
             .padding(.top)
             
@@ -48,11 +48,9 @@ struct SavingPlansForHomeScreen: View {
                 HStack {
                     LazyVGrid(columns: layout, alignment: .center) {
                         ForEach(savingPlanRepo.savingPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingPlan in
-                            Button(action: {
-                                router.pushSavingPlansDetail(savingPlan: savingPlan)
-                            }, label: {
+                            NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
                                 SavingsPlanRow(savingPlan: savingPlan)
-                            })
+                            }
                             .padding(.bottom)
                         }
                     }

@@ -105,13 +105,11 @@ struct PaywallScreenView: View {
                 
                 VStack(spacing: 8) {
                     if let subscription = store.subscription, !store.isCashFlowPro {
-                        Button(action: {
-                            Task {
-                                if let product = store.products.first {
-                                    await store.buyProduct(product)
-                                }
+                        AsyncButton {
+                            if let product = store.products.first {
+                                await store.buyProduct(product)
                             }
-                        }, label: {
+                        } label: {
                             let fakePrice = subscription.price * 2
                             cellForPayement(
                                 text: "paywall_monthly_subscription".localized,
@@ -119,7 +117,7 @@ struct PaywallScreenView: View {
                                 promoText: fakePrice.currency,
                                 promoPerc: "-50%".localized
                             )
-                        })
+                        }
                     } else {
                         HStack {
                             Spacer()
@@ -133,18 +131,12 @@ struct PaywallScreenView: View {
                         .cornerRadius(15)
                     }
                     
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            Task {
-                                await store.restorePurchases()
-                            }
-                        }, label: {
-                            Text("paywall_restore".localized)
-                                .font(Font.mediumSmall())
-                                .foregroundStyle(Color.primary500)
-                        })
+                    AsyncButton { await store.restorePurchases() } label: {
+                        Text("paywall_restore".localized)
+                            .font(Font.mediumSmall())
+                            .foregroundStyle(Color.primary500)
                     }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(.trailing, 8)
                 }
                 .padding(.horizontal)

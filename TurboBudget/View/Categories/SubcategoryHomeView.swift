@@ -65,11 +65,9 @@ struct SubcategoryHomeView: View {
                     }
                     
                     ForEach(searchResults) { subcategory in
-                        Button(action: {
-                            router.pushSubcategoryTransactions(subcategory: subcategory)
-                        }, label: {
+                        NavigationButton(push: router.pushSubcategoryTransactions(subcategory: subcategory)) {
                             SubcategoryRow(subcategory: subcategory)
-                        })
+                        }
                         .padding(.bottom, 8)
                         .disabled(!dataAvailableForSubcategoryWithFilter(subcategory: subcategory))
                     }

@@ -86,11 +86,9 @@ struct RecentTransactionsView: View {
                                 ForEach(searchResults) { transaction in
                                     if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID),
                                        categoryOfTransaction == category {
-                                        Button(action: {
-                                            router.pushTransactionDetail(transaction: transaction)
-                                        }, label: {
+                                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                             TransactionRow(transaction: transaction)
-                                        })
+                                        }
                                     }
                                 }
                                 .listRowSeparator(.hidden)
@@ -115,11 +113,9 @@ struct RecentTransactionsView: View {
                                 Section(content: {
                                     ForEach(viewModel.searchResults(account: account)) { transaction in
                                         if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                            Button(action: {
-                                                router.pushTransactionDetail(transaction: transaction)
-                                            }, label: {
+                                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                                 TransactionRow(transaction: transaction)
-                                            })
+                                            }
                                         }
                                     }
                                     .listRowSeparator(.hidden)
@@ -174,13 +170,11 @@ struct RecentTransactionsView: View {
             ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    router.pushFilter()
-                }, label: {
+                NavigationButton(push: router.pushFilter()) {
                     Image(systemName: "line.3.horizontal.decrease.circle")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
+                }
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)

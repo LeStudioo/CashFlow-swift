@@ -23,105 +23,92 @@ struct SettingsHomeView: View {
     var body: some View {
         Form {
             Section {
-                Button(action: { router.presentPaywall() }, label: {
+                NavigationButton(present: router.presentPaywall()) {
                     SettingRow(
                         icon: "crown.fill",
                         backgroundColor: Color.primary500,
                         text: "setting_home_cashflow_pro".localized,
                         isButton: true
                     )
-                })
+                }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsGeneral() }, label: {
+                NavigationButton(push: router.pushSettingsGeneral()) {
                     SettingRow(
                         icon: "gearshape.fill",
                         backgroundColor: Color.gray,
                         text: "setting_general_title".localized,
                         isButton: false
                     )
-                })
+                }
                 
-                Button(action: { router.pushSettingsSecurity() }, label: {
+                NavigationButton(push: router.pushSettingsSecurity()) {
                     SettingRow(
                         icon: "lock.fill",
                         backgroundColor: Color.green,
                         text: "setting_security_title".localized,
                         isButton: false
                     )
-                })
+                }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsAppearence() }, label: {
+                NavigationButton(push: router.pushSettingsAppearence()) {
                     SettingRow(
                         icon: "sun.max.fill",
                         backgroundColor: Color.indigo,
                         text: "setting_home_appearance".localized,
                         isButton: false
                     )
-                })
+                }
                 
-                Button(action: { router.pushSettingsDisplay() }, label: {
+                NavigationButton(push: router.pushSettingsDisplay()) {
                     SettingRow(
                         icon: "apps.iphone",
                         backgroundColor: Color.blue,
                         text: "setting_display_title".localized,
                         isButton: false
                     )
-                })
+                }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsAccount() }, label: {
+                NavigationButton(push: router.pushSettingsAccount()) {
                     SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.blue,
                         text: "word_account".localized,
                         isButton: false
                     )
-                })
+                }
                 
-                Button(action: { router.pushSettingsSavingPlans() }, label: {
+                NavigationButton(push: router.pushSettingsSavingPlans()) {
                     SettingRow(
                         icon: "dollarsign.square.fill",
                         backgroundColor: Color.pink,
                         text: "word_savingsplans".localized,
                         isButton: false
                     )
-                })
+                }
                 
-                if store.isCashFlowPro {
-                    Button(action: { router.pushSettingsBudget() }, label: {
-                        SettingRow(
-                            icon: "chart.pie.fill",
-                            backgroundColor: Color.purple,
-                            text: "word_budgets".localized,
-                            isButton: false
-                        )
-                    })
-                } else {
-                    Button(action: { router.presentPaywall() }, label: {
-                        SettingRow(
-                            icon: "chart.pie.fill",
-                            backgroundColor: Color.purple,
-                            text: "word_budgets".localized,
-                            isButton: false,
-                            isLocked: true
-                        )
-                    })
+                NavigationButton(push: store.isCashFlowPro ? router.pushSettingsBudget() : router.presentPaywall()) {
+                    SettingRow(
+                        icon: "chart.pie.fill",
+                        backgroundColor: Color.purple,
+                        text: "word_budgets".localized,
+                        isButton: false,
+                        isLocked: store.isCashFlowPro ? false : true
+                    )
                 }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: {
-                    URLManager.Setting.writeReview()
-                }, label: {
+                Button(action: { URLManager.Setting.writeReview() }, label: {
                     SettingRow(
                         icon: "star.fill",
                         backgroundColor: Color.orange,
@@ -160,14 +147,14 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsCredits() }, label: {
+                NavigationButton(push: router.pushSettingsCredits()) {
                     SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.indigo,
                         text: "setting_credits_title".localized,
                         isButton: false
                     )
-                })
+                }
                 
                 Button(action: { URLManager.Setting.showDeveloperAccount() }, label: {
                     SettingRow(
@@ -202,25 +189,22 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button(action: { router.pushSettingsDangerZone() }, label: {
+                NavigationButton(push: router.pushSettingsDangerZone()) {
                     SettingRow(
                         icon: "trash.fill",
                         backgroundColor: Color.red,
                         text: "setting_home_danger".localized,
                         isButton: false
                     )
-                })
+                }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                HStack {
-                    Spacer()
-                    Text("setting_home_made_by".localized)
-                        .foregroundStyle(Color(uiColor: .label))
-                        .font(.semiBoldText16())
-                    Spacer()
-                }
+                Text("setting_home_made_by".localized)
+                    .foregroundStyle(Color(uiColor: .label))
+                    .font(.semiBoldText16())
+                    .frame(maxWidth: .infinity)
             }
             .listRowBackground(Color.clear)
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))

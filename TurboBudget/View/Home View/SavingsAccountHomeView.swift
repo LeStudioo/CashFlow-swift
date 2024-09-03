@@ -49,11 +49,9 @@ struct SavingsAccountHomeView: View {
             
             LazyVGrid(columns: columns, spacing: 12, content: {
                 ForEach(savingsAccountRepo.savingsAccounts) { account in
-                    Button(action: {
-                        router.pushSavingsAccountDetail(savingsAccount: account)
-                    }, label: {
+                    NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
                         cellForOnglet(savingsAccount: account)
-                    })
+                    }
                 }
             })
             .padding(.horizontal, 8)
@@ -66,13 +64,11 @@ struct SavingsAccountHomeView: View {
             ToolbarDismissPushButton()
                         
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    router.presentCreateSavingsAccount()
-                }, label: {
+                NavigationButton(present: router.presentCreateSavingsAccount()) {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
+                }
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))

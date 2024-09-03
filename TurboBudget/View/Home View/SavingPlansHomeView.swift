@@ -37,11 +37,9 @@ struct SavingPlansHomeView: View {
                     VStack {
                         LazyVGrid(columns: layout, alignment: .center) {
                             ForEach(searchResults) { savingPlan in
-                                Button(action: {
-                                    router.pushSavingPlansDetail(savingPlan: savingPlan)
-                                }, label: {
+                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
                                     SavingsPlanRow(savingPlan: savingPlan)
-                                })
+                                }
                                 .padding(.bottom)
                             }
                         }
@@ -65,13 +63,11 @@ struct SavingPlansHomeView: View {
             ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: {
-                    router.presentCreateSavingPlans()
-                }, label: {
+                NavigationButton(present: router.presentCreateSavingPlans()) {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
+                }
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))

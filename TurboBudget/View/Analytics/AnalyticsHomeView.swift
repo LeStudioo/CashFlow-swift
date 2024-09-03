@@ -112,13 +112,11 @@ struct AnalyticsHomeView: View {
         .toolbar {
             if account.transactions.count > 0 {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        router.pushFilter()
-                    }, label: {
+                    NavigationButton(push: router.pushFilter()) {
                         Image(systemName: "line.3.horizontal.decrease.circle")
                             .foregroundStyle(Color(uiColor: .label))
                             .font(.system(size: 18, weight: .medium, design: .rounded))
-                    })
+                    }
                 }
             }
         }

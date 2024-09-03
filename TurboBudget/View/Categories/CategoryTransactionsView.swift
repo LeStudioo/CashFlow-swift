@@ -70,11 +70,9 @@ struct CategoryTransactionsView: View {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
                                     if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                        Button(action: {
-                                            router.pushTransactionDetail(transaction: transaction)
-                                        }, label: {
+                                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                             TransactionRow(transaction: transaction)
-                                        })
+                                        }
                                     }
                                 }
                                 .listRowSeparator(.hidden)

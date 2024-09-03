@@ -133,7 +133,7 @@ extension PurchasesManager {
                     debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
                     return
                 case .inGracePeriod:
-                    debugPrint("getSubscriptionStatus user subscription is in grace period.")
+                    isCashFlowPro = true
                     return
                 case .expired:
                     isCashFlowPro = false

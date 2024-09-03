@@ -22,7 +22,7 @@ struct AutomationsForHomeScreen: View {
     // MARK: - body
     var body: some View {
         VStack {
-            Button(action: { router.pushHomeAutomations() }, label: {
+            NavigationButton(push: router.pushHomeAutomations()) {
                 HStack {
                     Text("automations_for_home_title".localized)
                         .foregroundStyle(Color.customGray)
@@ -34,7 +34,7 @@ struct AutomationsForHomeScreen: View {
                         .foregroundStyle(HelperManager().getAppTheme().color)
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                 }
-            })
+            }
             .padding(.horizontal)
             .padding(.top)
             

@@ -112,11 +112,9 @@ struct BudgetsHomeView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: {
-                        router.presentCreateBudget()
-                    }, label: {
+                    NavigationButton(present: router.presentCreateBudget()) {
                         Label("word_add".localized, systemImage: "plus")
-                    })
+                    }
                     Button(action: {
                         filter.fromBudget = true; filter.showMenu = true
                     }, label: {

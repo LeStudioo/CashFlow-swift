@@ -77,11 +77,9 @@ struct SubcategoryTransactionsView: View {
                                 ForEach(searchResults) { transaction in
                                     if !transaction.isFault {
                                         if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                            Button(action: {
-                                                router.pushTransactionDetail(transaction: transaction)
-                                            }, label: {
+                                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                                 TransactionRow(transaction: transaction)
-                                            })
+                                            }
                                         }
                                     }
                                 }

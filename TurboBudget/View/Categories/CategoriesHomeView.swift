@@ -46,21 +46,17 @@ struct CategoriesHomeView: View {
                         
                         ForEach(viewModel.categoriesFiltered) { category in
                             if category.subcategories.count != 0 {
-                                Button(action: {
-                                    router.pushHomeSubcategories(category: category)
-                                }, label: {
+                                NavigationButton(push: router.pushHomeSubcategories(category: category)) {
                                     CategoryRow(category: category, showChevron: true)
-                                        .foregroundStyle(Color(uiColor: .label))
-                                })
+                                        .foregroundStyle(Color.label)
+                                }
                                 .padding(.bottom, 8)
                             } else {
-                                Button(action: {
-                                    router.pushCategoryTransactions(category: category)
-                                }, label: {
+                                NavigationButton(push: router.pushCategoryTransactions(category: category)) {
                                     CategoryRow(category: category, showChevron: true)
-                                })
+                                }
                                 .padding(.bottom, 8)
-                                .foregroundStyle(Color(uiColor: .label))
+                                .foregroundStyle(Color.label)
                                 .disabled(!(category.transactions.count != 0))
                             }
                         }

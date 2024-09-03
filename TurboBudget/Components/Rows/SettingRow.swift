@@ -31,7 +31,7 @@ struct SettingRow: View {
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            if isLocked != nil {
+            if let isLocked, isLocked {
                 Image(systemName: "lock.fill")
                     .foregroundStyle(Color.secondary)
             } else {

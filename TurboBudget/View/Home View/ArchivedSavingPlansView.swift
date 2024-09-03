@@ -41,11 +41,9 @@ struct ArchivedSavingPlansView: View {
                     VStack {
                         LazyVGrid(columns: layout, alignment: .center) {
                             ForEach(searchResults) { savingPlan in
-                                Button(action: {
-                                    router.pushSavingPlansDetail(savingPlan: savingPlan)
-                                }, label: {
+                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
                                     SavingsPlanRow(savingPlan: savingPlan)
-                                })
+                                }
                                 .padding(.bottom)
                             }
                         }

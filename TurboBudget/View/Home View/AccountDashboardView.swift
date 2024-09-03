@@ -142,46 +142,38 @@ struct AccountDashboardView: View {
                     //                            )
                     //                        })
                     
-                    Button(action: {
-                        router.pushAllTransactions(account: account)
-                    }, label: {
+                    NavigationButton(push: router.pushAllTransactions(account: account)) {
                         cellForOnglet(
                             text: "word_transactions".localized,
                             num: account.transactions.count,
                             systemImage: "banknote.fill"
                         )
-                    })
+                    }
                     
-                    Button(action: {
-                        router.pushHomeAutomations()
-                    }, label: {
+                    NavigationButton(push: router.pushHomeAutomations()) {
                         cellForOnglet(
                             text: "word_automations".localized,
                             num: account.automations.count,
                             systemImage: "gearshape.2.fill"
                         )
-                    })
+                    }
                     
-                    Button(action: {
-                        router.pushHomeSavingPlans()
-                    }, label: {
+                    NavigationButton(push: router.pushHomeSavingPlans()) {
                         cellForOnglet(
                             text: "word_savingsplans".localized,
                             num: account.savingPlans.count,
                             systemImage: "dollarsign.square.fill"
                         )
-                    })
-                    
+                    }
+
                     if store.isCashFlowPro {
-                        Button(action: {
-                            router.pushAllBudgets()
-                        }, label: {
+                        NavigationButton(push: router.pushAllBudgets()) {
                             cellForOnglet(
                                 text: "word_budgets".localized,
                                 num: budgetRepo.budgets.count,
                                 systemImage: "chart.pie.fill"
                             )
-                        })
+                        }
                     } else {
                         cellForOnglet(text: "word_budgets".localized, num: budgetRepo.budgets.count, systemImage: "chart.pie.fill")
                             .opacity(0.5)
@@ -190,15 +182,13 @@ struct AccountDashboardView: View {
                     }
                     
                     if account.savingPlansArchived.count != 0 {
-                        Button(action: {
-                            router.pushArchivedSavingPlans(account: account)
-                        }, label: {
+                        NavigationButton(push: router.pushArchivedSavingPlans(account: account)) {
                             cellForOnglet(
                                 text: "word_archived_savingsplans".localized,
                                 num: account.savingPlansArchived.count,
                                 systemImage: "archivebox.fill"
                             )
-                        })
+                        }
                     }
                 })
                 .padding(.horizontal, 8)
@@ -232,13 +222,11 @@ struct AccountDashboardView: View {
                             })
                         }
                         
-                        Button(action: {
-                            router.pushSettings()
-                        }, label: {
+                        NavigationButton(push: router.pushSettings()) {
                             Image(systemName: "gearshape.fill")
                                 .foregroundStyle(Color(uiColor: .label))
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
-                        })
+                        }
                     }
                 }
             }

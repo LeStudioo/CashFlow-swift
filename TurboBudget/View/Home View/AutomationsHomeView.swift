@@ -120,11 +120,11 @@ struct AutomationsHomeView: View {
             ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: { router.presentCreateAutomation()  }, label: {
+                NavigationButton(present: router.presentCreateAutomation()) {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
+                }
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))

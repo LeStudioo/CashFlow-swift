@@ -84,7 +84,7 @@ struct HomeView: View {
                 // Recent Transactions
                 if isRecentTransactionsDisplayedHomeScreen {
                     VStack {
-                        Button(action: { router.pushAllTransactions(account: account) }, label: {
+                        NavigationButton(push: router.pushAllTransactions(account: account)) {
                             HStack {
                                 Text("word_recent_transactions".localized)
                                     .foregroundStyle(Color.customGray)
@@ -95,17 +95,15 @@ struct HomeView: View {
                                     .foregroundStyle(HelperManager().getAppTheme().color)
                                     .font(.system(size: 20, weight: .medium, design: .rounded))
                             }
-                        })
+                        }
                         .padding(.horizontal)
                         .padding(.top)
                         
                         if account.transactions.count != 0 {
                             ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
-                                Button(action: {
-                                    router.pushTransactionDetail(transaction: transaction)
-                                }, label: {
+                                NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                     TransactionRow(transaction: transaction)
-                                })
+                                }
                             }
                         } else {
                             VStack(spacing: 20) {

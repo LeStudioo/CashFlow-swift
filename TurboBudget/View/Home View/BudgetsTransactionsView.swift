@@ -60,11 +60,9 @@ struct BudgetsTransactionsView: View {
                 ScrollView(showsIndicators: false) {
                     detailForExpenses()
                     ForEach(searchResults) { transaction in
-                        Button(action: {
-                            router.pushTransactionDetail(transaction: transaction)
-                        }, label: {
+                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)
-                        })
+                        }
                     }
                 }
             } else { // No TransactionEntity
