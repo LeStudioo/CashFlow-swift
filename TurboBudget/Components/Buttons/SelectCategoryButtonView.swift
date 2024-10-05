@@ -10,7 +10,7 @@ import SwiftUI
 struct SelectCategoryButtonView: View {
     
     // Builder
-    var router: NavigationManager
+    @ObservedObject var router: NavigationManager
     @Binding var selectedCategory: PredefinedCategory?
     @Binding var selectedSubcategory: PredefinedSubcategory?
     

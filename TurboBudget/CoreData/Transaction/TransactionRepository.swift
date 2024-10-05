@@ -48,7 +48,6 @@ extension TransactionRepository {
     func createNewTransaction(model: TransactionModel, withSave: Bool = true) throws -> TransactionEntity {
         guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
         guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
-        guard let subcategory = PredefinedSubcategory.findByID(model.predefSubcategoryID) else { throw CustomError.subcategoryNotFound }
                 
         let newTransaction = TransactionEntity(context: viewContext)
         newTransaction.id = UUID()
@@ -58,7 +57,7 @@ extension TransactionRepository {
         newTransaction.isAuto = model.isAuto
         newTransaction.creationDate = .now
         newTransaction.predefCategoryID = category.id
-        newTransaction.predefSubcategoryID = subcategory.id
+        newTransaction.predefSubcategoryID = PredefinedSubcategory.findByID(model.predefSubcategoryID)?.id ?? ""
         newTransaction.transactionToAccount = account
         
         if withSave {

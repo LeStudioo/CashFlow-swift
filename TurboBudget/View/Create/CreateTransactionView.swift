@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateTransactionView: View {
     
     // Builder
-    let router: NavigationManager = .init(isPresented: .constant(.createTransaction))
+    @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createTransaction))
     
     // Custom
     @StateObject private var viewModel = CreateTransactionViewModel()
