@@ -19,6 +19,9 @@ struct Word {
         static let expense: String = "word_expense".localized
         static let income: String = "word_income".localized
         static let dayOfAutomation: String = "word_dayOfAutomation".localized
+        static let initialAmount: String = "word_initialAmount".localized
+        static let amountToReach: String = "word_amountToReach".localized
+        static let finalTargetDate: String = "word_finalTargetDate".localized
     }
     
     struct Create {
@@ -28,6 +31,7 @@ struct Word {
     struct Title {
         static let newTransaction: String = "title_new_transaction".localized
         static let newAutomation: String = "title_new_automation".localized
+        static let newSavingsPlan: String = "title_new_savingsPlan".localized
     }
     
 }

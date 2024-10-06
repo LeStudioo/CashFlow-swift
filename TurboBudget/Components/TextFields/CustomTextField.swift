@@ -25,7 +25,7 @@ struct CustomTextField: View {
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title.capitalized)
+            Text(title)
                 .padding(.leading, 8)
                 .font(.system(size: 12, weight: .regular))
             

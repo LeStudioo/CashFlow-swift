@@ -137,6 +137,8 @@
 		D96F3C912CB28A5000CBABB8 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */; };
 		D96F3C932CB2B9E900CBABB8 /* CustomIntPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */; };
 		D96F3C952CB2D6B200CBABB8 /* RecommendedCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C942CB2D6B200CBABB8 /* RecommendedCategoryButton.swift */; };
+		D96F3C972CB2DE4500CBABB8 /* CustomDatePickerWithToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C962CB2DE4500CBABB8 /* CustomDatePickerWithToggle.swift */; };
+		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D96F7C7F2C6A5BBA0018D7C2 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */; };
 		D96F7C812C6A5FC60018D7C2 /* Array+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */; };
 		D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */; };
@@ -363,6 +365,7 @@
 		D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntPicker.swift; sourceTree = "<group>"; };
 		D96F3C942CB2D6B200CBABB8 /* RecommendedCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedCategoryButton.swift; sourceTree = "<group>"; };
+		D96F3C962CB2DE4500CBABB8 /* CustomDatePickerWithToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePickerWithToggle.swift; sourceTree = "<group>"; };
 		D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Transaction.swift"; sourceTree = "<group>"; };
 		D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -465,6 +468,7 @@
 				D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */,
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
+				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -931,6 +935,7 @@
 			isa = PBXGroup;
 			children = (
 				D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */,
+				D96F3C962CB2DE4500CBABB8 /* CustomDatePickerWithToggle.swift */,
 				D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */,
 			);
 			path = Pickers;
@@ -1130,6 +1135,7 @@
 			packageProductDependencies = (
 				8129E7502A483A7400FF23E5 /* ConfettiSwiftUI */,
 				81D990B32A49F03000EF13A3 /* SwipeActions */,
+				D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -1166,6 +1172,7 @@
 			packageReferences = (
 				8129E74F2A483A7400FF23E5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */,
+				D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -1320,6 +1327,7 @@
 				D96E2DDE2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift in Sources */,
 				815FC05C2A5D614800790718 /* LaunchScreen.swift in Sources */,
 				D9699F2B2A92482E0054924D /* PaywallScreenView.swift in Sources */,
+				D96F3C972CB2DE4500CBABB8 /* CustomDatePickerWithToggle.swift in Sources */,
 				D9842EE02C71D78C00DA2795 /* CustomError.swift in Sources */,
 				D94DDE6A2AC353080034E6E1 /* DetailOfExpensesAndIncomesByDay.swift in Sources */,
 				D94348922A87B122001F8D84 /* FilterDuplicate.swift in Sources */,
@@ -1705,6 +1713,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1717,6 +1733,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
+		};
+		D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
+			productName = MCEmojiPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 

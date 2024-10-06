@@ -7,147 +7,87 @@
 // Localizations 30/09/2023
 
 import SwiftUI
+import MCEmojiPicker
 
 struct CreateSavingPlansView: View {
     
     // Custom
-    @StateObject private var viewModel = AddSavingPlanViewModel()
+    @StateObject private var viewModel: AddSavingPlanViewModel = .init()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
     
     //Enum
     enum Field: CaseIterable {
-        case emoji, title, amountOfStart, amountOfEnd
+        case title, amountOfStart, amountOfEnd
     }
-    @FocusState var focusedField: Field?
+    @FocusState private var focusedField: Field?
     
     //MARK: - Body
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                ScrollView {
-                    VStack {
-                        
-                        Text("savingsplan_new".localized)
-                            .titleAdjustSize()
-                            .padding(.vertical, 24)
-                        
-                        VStack {
-                            ZStack {
-                                Circle()
-                                    .foregroundStyle(Color.backgroundComponentSheet)
-                                
-                                if viewModel.savingPlanEmoji.isEmpty && focusedField != .emoji {
-                                    Image(systemName: "plus")
-                                        .font(.system(size: isLittleIphone ? 26 : 32, weight: .regular, design: .rounded))
-                                        .foregroundStyle(Color(uiColor: .label))
-                                } else {
-                                    Text(viewModel.savingPlanEmoji)
-                                        .font(.system(size: 42))
-                                }
-                            }
-                            .frame(width: 100, height: 100)
-                            .onTapGesture {
-                                withAnimation {
-                                    viewModel.isEmoji.toggle()
-                                    focusedField = .emoji
-                                }
-                            }
-                            
-                            if viewModel.isEmoji {
-                                ZStack {
-                                    Capsule()
-                                        .foregroundStyle(Color.backgroundComponentSheet)
-                                    EmojiTextField(text: $viewModel.savingPlanEmoji.max(1), placeholder: "savingsplan_emoji".localized)
-                                        .focused($focusedField, equals: .emoji)
-                                        .padding(.horizontal)
-                                }
-                                .frame(width: 100, height: 40)
-                            }
+            ScrollView {
+                VStack(spacing: 24) {
+                    HStack(alignment: .bottom, spacing: 8) {
+                        CustomTextField(
+                            title: Word.Classic.name,
+                            placeholder: "MacBook Pro",
+                            text: $viewModel.savingPlanTitle
+                        )
+                        .focused($focusedField, equals: .title)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            focusedField = .amountOfStart
                         }
-                        .padding(.bottom, 24)
                         
-                        TextField("savingsplan_title".localized, text: $viewModel.savingPlanTitle)
-                            .multilineTextAlignment(.center)
-                            .font(.semiBoldCustom(size: isLittleIphone ? 24 : 30))
-                            .padding(8)
-                            .background(Color.backgroundComponentSheet.cornerRadius(100))
-                            .padding(.bottom, 24)
-                            .focused($focusedField, equals: .title)
-                            .submitLabel(.next)
-                            .onSubmit {
-                                focusedField = .amountOfStart
-                            }
-                        
-                        HStack(spacing: 16) {
-                            VStack(alignment: .center, spacing: 4) {
-                                Text("savingsplan_start".localized)
-                                    .font(Font.mediumText16())
-                                TextField("0.00", text: $viewModel.savingPlanAmountOfStart.max(9).animation())
-                                    .focused($focusedField, equals: .amountOfStart)
-                                    .font(.semiBoldCustom(size: 30))
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(1)
-                                    .padding(8)
-                                    .background(Color.backgroundComponentSheet.cornerRadius(100))
-                                    .keyboardType(.decimalPad)
-                            }
-                            
-                            VStack(alignment: .center, spacing: 4) {
-                                Text("savingsplan_end".localized)
-                                    .font(Font.mediumText16())
-                                TextField("0.00", text: $viewModel.savingPlanAmountOfEnd.max(9).animation())
-                                    .focused($focusedField, equals: .amountOfEnd)
-                                    .font(.semiBoldCustom(size: 30))
-                                    .multilineTextAlignment(.center)
-                                    .lineLimit(1)
-                                    .padding(8)
-                                    .background(Color.backgroundComponentSheet.cornerRadius(100))
-                                    .keyboardType(.decimalPad)
-                            }
-                        }
-                        .padding(.bottom, 24)
-                        
-                        VStack {
-                            ZStack {
-                                Capsule()
-                                    .frame(height: 50)
-                                    .foregroundStyle(Color.backgroundComponentSheet)
-                                
-                                HStack {
-                                    Spacer()
-                                    Toggle("savingsplan_end_date".localized, isOn: $viewModel.isEndDate.animation())
-                                        .font(Font.mediumText16())
-                                        .padding(.horizontal)
+                        Button(action: { viewModel.showEmojiPicker.toggle() }, label: {
+                            Text(viewModel.savingPlanEmoji)
+                                .font(.system(size: 16))
+                                .padding(15)
+                                .background {
+                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                        .fill(Color.backgroundComponentSheet)
                                 }
-                            }
-                            .padding(.bottom, 24)
-                            
-                            if viewModel.isEndDate {
-                                ZStack {
-                                    Capsule()
-                                        .frame(height: 50)
-                                        .foregroundStyle(Color.backgroundComponentSheet)
-                                    
-                                    HStack {
-                                        Spacer()
-                                        DatePicker("savingsplan_end_date_picker".localized, selection: $viewModel.savingPlanDateOfEnd, in: Date()..., displayedComponents: [.date])
-                                            .font(Font.mediumText16())
-                                            .padding(.horizontal)
-                                    }
-                                }
-                            }
-                        }
+                        })
+                        .emojiPicker(
+                            isPresented: $viewModel.showEmojiPicker,
+                            selectedEmoji: $viewModel.savingPlanEmoji
+                        )
                     }
-                } // End ScrollView
-                .scrollIndicators(.hidden)
-                .scrollDismissesKeyboard(.immediately)
-                .padding(.horizontal)
-                .onChange(of: focusedField, perform: { newValue in
-                    if newValue != .emoji { withAnimation { viewModel.isEmoji = false } }
-                })
-            } // End GeometryReader
+                    
+                    CustomTextField(
+                        title: Word.Classic.initialAmount,
+                        placeholder: "0.00",
+                        text: $viewModel.savingPlanAmountOfStart,
+                        style: .amount
+                    )
+                    .focused($focusedField, equals: .amountOfStart)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amountOfEnd
+                    }
+                    
+                    CustomTextField(
+                        title: Word.Classic.amountToReach,
+                        placeholder: "1 000",
+                        text: $viewModel.savingPlanAmountOfEnd,
+                        style: .amount
+                    )
+                    .focused($focusedField, equals: .amountOfEnd)
+                    .submitLabel(.done)
+                    
+                    CustomDatePickerWithToggle(
+                        title: Word.Classic.finalTargetDate,
+                        date: $viewModel.savingPlanDateOfEnd,
+                        isEnabled: $viewModel.isEndDate
+                    )
+                }
+                .padding(.horizontal, 24)
+                .padding(.top)
+            } // End ScrollView
+            .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.immediately)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarDismissButtonView {
                     if viewModel.isSavingPlansInCreation() {
@@ -155,6 +95,11 @@ struct CreateSavingPlansView: View {
                     } else {
                         dismiss()
                     }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text(Word.Title.newSavingsPlan)
+                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {

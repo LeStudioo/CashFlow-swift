@@ -14,16 +14,18 @@ class AddSavingPlanViewModel: ObservableObject {
     let successfullModalManager: SuccessfullModalManager = .shared
         
     @Published var savingPlanTitle: String = ""
-    @Published var savingPlanEmoji: String = ""
+    @Published var savingPlanEmoji: String = "💻"
     @Published var savingPlanAmountOfStart: String = ""
     @Published var savingPlanAmountOfEnd: String = ""
     @Published var savingPlanDateOfEnd: Date = .now
+    @Published var textFieldHeight: CGFloat = 0
         
     @Published var isCardLimitSoonToBeExceeded: Bool = false
     @Published var isCardLimitExceeded: Bool = false
     
     @Published var isEndDate: Bool = false
     @Published var isEmoji: Bool = false
+    @Published var showEmojiPicker: Bool = false
     
     @Published var presentingConfirmationDialog: Bool = false
     

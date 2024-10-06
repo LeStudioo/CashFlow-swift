@@ -17,6 +17,12 @@
 
 "word_dayOfAutomation" = "Automation Day";
 
+"word_initialAmount" = "Starting amount";
+
+"word_amountToReach" = "Amount to reach";
+
+"word_finalTargetDate" = "Goal end date";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 
@@ -24,6 +30,8 @@
 "title_new_transaction" = "New transaction";
 
 "title_new_automation" = "New automation";
+
+"title_new_savingsPlan" = "New savings plan";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";
