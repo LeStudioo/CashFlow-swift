@@ -11,76 +11,65 @@ import SwiftUI
 struct CustomSegmentedControl: View {
 
     // Builder
+    var title: String
     @Binding var selection: ExpenseOrIncome
     var textLeft: String
     var textRight: String
-    var height: CGFloat
 
     // Environement
     @Environment(\.colorScheme) private var colorScheme
 
-    // Number variables
-    @State private var newX: CGFloat = 0
-
-    // MARK: - body
+    // MARK: -
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                RoundedRectangle(cornerRadius: 50)
-                    .frame(height: height)
-                    .foregroundStyle(Color.backgroundComponentSheet)
-                    .overlay(alignment: .leading) {
-                        RoundedRectangle(cornerRadius: 50)
-                            .foregroundStyle(HelperManager().getAppTheme().color)
-                            .frame(width: (geo.size.width / 2))
-                            .padding(2)
-                            .offset(x: newX)
-                        
-                        Text(textLeft)
-                            .font(.semiBoldText18())
-                            .foregroundStyle(selection == .expense ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
-                    }
-                
-                Text(textRight)
-                    .font(.semiBoldText18())
-                    .foregroundStyle(selection == .income ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
-                    .offset(x: geo.size.width / 4)
-            }
-            .onTapGesture {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .padding(.leading, 8)
+                .font(.system(size: 12, weight: .regular))
+            
+            Button(action: {
                 withAnimation(.spring().speed(1.25)) {
-                    if selection == .expense {
-                        selection = .income
-                        newX = geo.size.width / 2 - 4
-                    } else if selection == .income {
-                        selection = .expense
-                        newX = 0
-                    }
+                    selection = (selection == .expense ? .income : .expense)
                 }
                 VibrationManager.vibration()
-            }
-            .onChange(of: selection) { _ in
-                withAnimation(.spring().speed(1.25)) {
-                    if selection == .expense {
-                        newX = 0
-                    } else if selection == .income {
-                        newX = geo.size.width / 2 - 4
+            }, label: {
+                HStack(spacing: 0) {
+                    Text(textLeft)
+                        .font(.semiBoldText16())
+                        .foregroundStyle(selection == .expense ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
+                        .frame(maxWidth: .infinity)
+                    
+                    Text(textRight)
+                        .font(.semiBoldText16())
+                        .foregroundStyle(selection == .income ? .white : (colorScheme == .light ? .secondary400 : .secondary300) )
+                        .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background {
+                    GeometryReader { geo in
+                        RoundedRectangle(cornerRadius: 16, style: .continuous)
+                            .foregroundStyle(Color.backgroundComponentSheet)
+                            .overlay(alignment: .leading) {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .frame(width: (geo.size.width / 2))
+                                    .offset(x: selection == .income ? (geo.size.width / 2) : 0)
+                            }
                     }
                 }
-                VibrationManager.vibration()
-            }
+            })
         }
-        .frame(height: height)
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    @State var selectionPreview: ExpenseOrIncome = .expense
+    @State var selectionPreview: ExpenseOrIncome = .income
     return CustomSegmentedControl(
+        title: "Segmented Control",
         selection: $selectionPreview,
         textLeft: "Left",
-        textRight: "Right",
-        height: 30
+        textRight: "Right"
     )
     .padding()
 }

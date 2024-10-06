@@ -19,7 +19,7 @@ struct CreateTransactionView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
-
+    
     // EnvironmentObject
     @EnvironmentObject var store: PurchasesManager
     
@@ -40,120 +40,82 @@ struct CreateTransactionView: View {
     // MARK: - body
     var body: some View {
         NavStack(router: router) {
-            GeometryReader { geometry in
-                ScrollView {
-                        VStack { //New TransactionEntity
+            ScrollView {
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        title: Word.Classic.name,
+                        placeholder: "category11_subcategory3_name".localized,
+                        text: $viewModel.transactionTitle
+                    )
+                    .focused($focusedField, equals: .title)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amount
+                    }
+                    
+                    CustomTextField(
+                        title: Word.Classic.price,
+                        placeholder: "64,87",
+                        text: $viewModel.transactionAmount,
+                        style: .amount
+                    )
+                    .focused($focusedField, equals: .amount)
+                    
+                    CustomSegmentedControl(
+                        title: Word.Classic.typeOfTransaction,
+                        selection: $viewModel.transactionType,
+                        textLeft: Word.Classic.expense,
+                        textRight: Word.Classic.income
+                    )
+                    
+                    VStack(spacing: 6) {
+                        SelectCategoryButton(
+                            router: router,
+                            transactionType: $viewModel.transactionType,
+                            selectedCategory: $viewModel.selectedCategory,
+                            selectedSubcategory: $viewModel.selectedSubcategory
+                        )
+                        
+                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                            let bestCategory = TransactionEntity.findBestCategory(for: viewModel.transactionTitle)
                             
-                            Text("transaction_new".localized)
-                                .titleAdjustSize()
-                                .padding(.vertical, 24)
-                            
-                            VStack {
-                                if viewModel.transactionType == .expense {
-                                    HStack {
-                                        Spacer()
-                                        SelectCategoryButtonView(
-                                            router: router,
-                                            selectedCategory: $viewModel.selectedCategory,
-                                            selectedSubcategory: $viewModel.selectedSubcategory
-                                        )
-                                        Spacer()
-                                    }
-                                } else {
-                                    HStack {
-                                        Spacer()
-                                        ZStack {
-                                            Circle()
-                                                .frame(width: widthCircleCategory, height: widthCircleCategory)
-                                                .foregroundStyle(.green)
-                                            
-                                            Image(systemName: "tray.and.arrow.down")
-                                                .font(.system(size: isLittleIphone ? 26 : 32, weight: .bold, design: .rounded))
-                                                .foregroundStyle(Color(uiColor: .systemBackground))
-                                        }
-                                        Spacer()
-                                    }
-                                }
-                                
-                                if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                                    let bestCategory = TransactionEntity.findBestCategory(for: viewModel.transactionTitle)
-                                    
-                                    if let categoryFound = bestCategory.0 {
-                                        let subcategoryFound = bestCategory.1
-                                        VStack(spacing: 4) {
-                                            Text("transaction_recommended_category".localized + " : ")
-                                            HStack {
-                                                Image(systemName: categoryFound.icon)
-                                                Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
-                                            }
-                                            .foregroundStyle(categoryFound.color)
-                                        }
-                                        .font(.mediumText16())
-                                        .onTapGesture {
-                                            if categoryFound == PredefinedCategory.PREDEFCAT0 {
-                                                withAnimation { viewModel.transactionType = .income }
-                                            } else {
-                                                viewModel.selectedCategory = categoryFound
-                                                withAnimation { viewModel.transactionType = .expense }
-                                            }
-                                            if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                                        }
-                                        .padding(.top, 8)
-                                    }
-                                }
-                            } // End Select Category
-                            .padding(.bottom, 24)
-                            
-                            TextField("transaction_title".localized, text: $viewModel.transactionTitle.animation())
-                                .focused($focusedField, equals: .title)
-                                .multilineTextAlignment(.center)
-                                .font(.semiBoldCustom(size: isLittleIphone ? 24 : 30))
-                                .padding(8)
-                                .background(Color.backgroundComponentSheet.cornerRadius(100))
-                                .padding(.bottom, 24)
-                                .submitLabel(.next)
-                                .onSubmit {
-                                    focusedField = .amount
-                                }
-                            
-                            TextField("0.00", text: $viewModel.transactionAmount.max(9).animation())
-                                .focused($focusedField, equals: .amount)
-                                .font(.boldCustom(size: isLittleIphone ? 24 : 30))
-                                .multilineTextAlignment(.center)
-                                .keyboardType(.decimalPad)
-                                .padding(isLittleIphone ? 8 : 16)
-                                .background(Color.backgroundComponentSheet.cornerRadius(100))
-                                .padding(.bottom, 24)
-                            
-                            CustomSegmentedControl(
-                                selection: $viewModel.transactionType,
-                                textLeft: "word_expense".localized,
-                                textRight: "word_income".localized,
-                                height: isLittleIphone ? 40 : 50
-                            )
-                            .padding(.bottom, 24)
-                            
-                            ZStack {
-                                Capsule()
-                                    .frame(height: isLittleIphone ? 40 : 50)
-                                    .foregroundStyle(Color.backgroundComponentSheet)
-                                
+                            if let categoryFound = bestCategory.0 {
+                                let subcategoryFound = bestCategory.1
                                 HStack {
+                                    Text(Word.Classic.recommended + " : ")
                                     Spacer()
-                                    DatePicker("\(viewModel.transactionDate.formatted())", selection: $viewModel.transactionDate.animation(), displayedComponents: [.date])
-                                        .labelsHidden()
-                                        .clipped()
-                                        .padding(.horizontal)
+                                    HStack(spacing: 4) {
+                                        Image(systemName: categoryFound.icon)
+                                        Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
+                                    }
+                                    .foregroundStyle(categoryFound.color)
+                                }
+                                .font(.system(size: 14, weight: .medium))
+                                .padding(.horizontal, 8)
+                                .onTapGesture {
+                                    if categoryFound == PredefinedCategory.PREDEFCAT0 {
+                                        withAnimation { viewModel.transactionType = .income }
+                                    } else {
+                                        viewModel.selectedCategory = categoryFound
+                                        withAnimation { viewModel.transactionType = .expense }
+                                    }
+                                    if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
                                 }
                             }
-                            .padding(.bottom, 24)
-                            
-                        } // End New TransactionEntity
-                } // End ScrollView
-                .scrollIndicators(.hidden)
-                .scrollDismissesKeyboard(.immediately)
-                .padding(.horizontal)
-            } // End GeometryReader
+                        }
+                    } // End Select Category
+                    
+                    CustomDatePicker(
+                        title: Word.Classic.date,
+                        date: $viewModel.transactionDate
+                    )
+                }
+                .padding(.horizontal, 24)
+                .padding(.top)                
+            } // End ScrollView
+            .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.immediately)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarDismissButtonView {
                     if viewModel.isTransactionInCreation() {
@@ -161,6 +123,11 @@ struct CreateTransactionView: View {
                     } else {
                         dismiss()
                     }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text(Word.Title.newTransaction)
+                        .font(.system(size: isLittleIphone ? 16 : 18))
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {

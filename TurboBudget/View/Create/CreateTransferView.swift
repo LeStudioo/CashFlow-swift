@@ -28,10 +28,10 @@ struct CreateTransferView: View {
                         .background(Color.backgroundComponentSheet.cornerRadius(100))
                     
                     CustomSegmentedControl(
+                        title: "notext".localized,
                         selection: $viewModel.typeTransfer,
                         textLeft: "contribution_add".localized,
-                        textRight: "contribution_withdraw".localized,
-                        height: isLittleIphone ? 40 : 50
+                        textRight: "contribution_withdraw".localized
                     )
                     
                     ZStack {

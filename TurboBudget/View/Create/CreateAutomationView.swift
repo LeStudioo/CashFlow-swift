@@ -68,10 +68,10 @@ struct CreateAutomationView: View {
                             .padding(.bottom, 24)
                         
                         CustomSegmentedControl(
+                            title: "notext".localized,
                             selection: $viewModel.typeTransaction,
                             textLeft: "word_expense".localized,
-                            textRight: "word_income".localized,
-                            height: isLittleIphone ? 40 : 50
+                            textRight: "word_income".localized
                         )
                         .padding(.bottom, 24)
                         

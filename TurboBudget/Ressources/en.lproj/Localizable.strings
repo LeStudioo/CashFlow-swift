@@ -1,3 +1,26 @@
+//MARK: - Classic
+"word_category" = "Category";
+
+"word_name" = "Name";
+
+"word_price" = "Price";
+
+"word_typeOfTransaction" = "Transaction Type";
+
+"word_date" = "Date";
+
+"word_recommended" = "Recommended";
+
+"word_expense" = "Expense";
+
+"word_income" = "Income";
+
+//MARK: - Create
+"create_add_category" = "Add a category";
+
+//MARK: - Title
+"title_new_transaction" = "New transaction";
+
 //MARK: - General Words
 "word_transaction" = "Transaction";
 
@@ -22,8 +45,6 @@
 "word_statistics" = "Statistics";
 
 "word_type" = "Type";
-
-"word_category" = "Category";
 
 "word_categories" = "Categories";
 

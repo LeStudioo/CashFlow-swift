@@ -131,6 +131,10 @@
 		D96B9E342ADF0848003AC4E5 /* ScannerCreditCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96B9E332ADF0848003AC4E5 /* ScannerCreditCardView.swift */; };
 		D96E2DDE2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E2DDD2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift */; };
 		D96E2DE02A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96E2DDF2A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift */; };
+		D96F3C8A2CB2613900CBABB8 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C892CB2613900CBABB8 /* CustomTextField.swift */; };
+		D96F3C8C2CB2671300CBABB8 /* SelectCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */; };
+		D96F3C8E2CB26F5D00CBABB8 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C8D2CB26F5900CBABB8 /* Word.swift */; };
+		D96F3C912CB28A5000CBABB8 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */; };
 		D96F7C7F2C6A5BBA0018D7C2 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */; };
 		D96F7C812C6A5FC60018D7C2 /* Array+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */; };
 		D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */; };
@@ -351,6 +355,10 @@
 		D96B9E332ADF0848003AC4E5 /* ScannerCreditCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerCreditCardView.swift; sourceTree = "<group>"; };
 		D96E2DDD2A6ABC1800661AC0 /* SavingPlansForHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingPlansForHomeScreen.swift; sourceTree = "<group>"; };
 		D96E2DDF2A6ABDAF00661AC0 /* AutomationsForHomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutomationsForHomeScreen.swift; sourceTree = "<group>"; };
+		D96F3C892CB2613900CBABB8 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryButton.swift; sourceTree = "<group>"; };
+		D96F3C8D2CB26F5900CBABB8 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
 		D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Transaction.swift"; sourceTree = "<group>"; };
 		D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -540,6 +548,7 @@
 		81A7079C2A3B6CC300BEB0BF /* Ressources */ = {
 			isa = PBXGroup;
 			children = (
+				D96F3C8D2CB26F5900CBABB8 /* Word.swift */,
 				D94DD40E2A61299500F0CBBC /* Localizable.strings */,
 				D9A625352AD5CEBE00A2DCAE /* InfoPlist.strings */,
 				D9D2C0632B7E92870082715F /* Navigation */,
@@ -844,6 +853,7 @@
 				81AE985E2A3CBC570066AE94 /* DismissButtonInSheet.swift */,
 				D9C03D162B8E69AC0019BA7E /* SelectCategoryButtonView.swift */,
 				D958EFB92C87008100631B7E /* AsyncButton.swift */,
+				D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -904,6 +914,22 @@
 			path = Purchases;
 			sourceTree = "<group>";
 		};
+		D96F3C882CB2611B00CBABB8 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				D96F3C892CB2613900CBABB8 /* CustomTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		D96F3C8F2CB28A3800CBABB8 /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */,
+			);
+			path = Pickers;
+			sourceTree = "<group>";
+		};
 		D96F7C7D2C6A5BAB0018D7C2 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -939,6 +965,8 @@
 		D9989D1A2AC1FF7F00A4912A /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				D96F3C882CB2611B00CBABB8 /* TextFields */,
+				D96F3C8F2CB28A3800CBABB8 /* Pickers */,
 				D93F9FEA2C6E16B800FD85B7 /* Home */,
 				D93F9FED2C6E178800FD85B7 /* Rows */,
 				D9C03D0D2B8E59530019BA7E /* Toolbar */,
@@ -1167,6 +1195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D96F3C912CB28A5000CBABB8 /* CustomDatePicker.swift in Sources */,
 				D9C03D0C2B8E529D0019BA7E /* InteractiveDismissableView.swift in Sources */,
 				8182DC5E2A40C59500D45979 /* SubcategoryHomeView.swift in Sources */,
 				D9C03D0A2B8E52600019BA7E /* Bundle.swift in Sources */,
@@ -1222,6 +1251,7 @@
 				81AE98672A3CE83C0066AE94 /* Conditional Modifier.swift in Sources */,
 				D94E95922B0F380E00E965D7 /* SavingsAccountHomeView.swift in Sources */,
 				D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */,
+				D96F3C8C2CB2671300CBABB8 /* SelectCategoryButton.swift in Sources */,
 				81A707892A3B6B4C00BEB0BF /* Persistence.swift in Sources */,
 				D9C03D172B8E69AC0019BA7E /* SelectCategoryButtonView.swift in Sources */,
 				D953FDFA2C6920E100135C12 /* PredefinedSubcategoryUtils.swift in Sources */,
@@ -1232,6 +1262,7 @@
 				8182DC602A40C5B300D45979 /* SubcategoryRow.swift in Sources */,
 				D9B9B9D52C6A37A600ABF506 /* PieSlice.swift in Sources */,
 				D92DAB0F2B8A62C900F01E48 /* SettingsHomeView.swift in Sources */,
+				D96F3C8A2CB2613900CBABB8 /* CustomTextField.swift in Sources */,
 				81AE985A2A3CBB970066AE94 /* CreateTransactionView.swift in Sources */,
 				81AE985D2A3CBC140066AE94 /* CustomSegmentedControl.swift in Sources */,
 				D97553EB2A6FFC0B0095D8F0 /* PageControlView.swift in Sources */,
@@ -1312,6 +1343,7 @@
 				D92C4CAD2C79A8CC003C9C49 /* ContributionRepository.swift in Sources */,
 				D9842EE42C71E84700DA2795 /* AutomationModel.swift in Sources */,
 				D9529B032AEC3E25005E799D /* CustomTabBarViewModel.swift in Sources */,
+				D96F3C8E2CB26F5D00CBABB8 /* Word.swift in Sources */,
 				D9B9B9D82C6A480900ABF506 /* CustomOrSystemImage.swift in Sources */,
 				D91834452AADE25C009BD53B /* Timer.swift in Sources */,
 				D94E95962B0F41E300E965D7 /* DetailOfTransferByMonth.swift in Sources */,

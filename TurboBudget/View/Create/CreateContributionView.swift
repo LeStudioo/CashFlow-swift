@@ -37,10 +37,10 @@ struct CreateContributionView: View {
                     .padding(.bottom, 24)
                 
                 CustomSegmentedControl(
+                    title: "notext".localized,
                     selection: $viewModel.typeContribution,
                     textLeft: "contribution_add".localized,
-                    textRight: "contribution_withdraw".localized,
-                    height: isLittleIphone ? 40 : 50
+                    textRight: "contribution_withdraw".localized
                 )
                 .padding(.bottom, 24)
                 
