@@ -4,27 +4,16 @@
 //
 //  Created by Théo Sementa on 16/06/2023.
 //
-// Localizations 30/09/2023
 
 import SwiftUI
 
 struct CreateTransactionView: View {
     
-    // Builder
     @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createTransaction))
+    @StateObject private var viewModel: CreateTransactionViewModel = .init()
     
-    // Custom
-    @StateObject private var viewModel = CreateTransactionViewModel()
-    
-    // Environment
     @Environment(\.dismiss) private var dismiss
-    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
-    
-    // EnvironmentObject
-    @EnvironmentObject var store: PurchasesManager
-    
-    // Number variables
-    @State private var showCheckmark = -60
+    @EnvironmentObject private var store: PurchasesManager
     
     // Enum
     enum Field: CaseIterable {
@@ -32,12 +21,7 @@ struct CreateTransactionView: View {
     }
     @FocusState var focusedField: Field?
     
-    // Computed var
-    var widthCircleCategory: CGFloat {
-        return isLittleIphone ? 80 : 100
-    }
-    
-    // MARK: - body
+    // MARK: -
     var body: some View {
         NavStack(router: router) {
             ScrollView {
@@ -77,33 +61,15 @@ struct CreateTransactionView: View {
                         )
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                            let bestCategory = TransactionEntity.findBestCategory(for: viewModel.transactionTitle)
-                            
-                            if let categoryFound = bestCategory.0 {
-                                let subcategoryFound = bestCategory.1
-                                HStack {
-                                    Text(Word.Classic.recommended + " : ")
-                                    Spacer()
-                                    HStack(spacing: 4) {
-                                        Image(systemName: categoryFound.icon)
-                                        Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
-                                    }
-                                    .foregroundStyle(categoryFound.color)
-                                }
-                                .font(.system(size: 14, weight: .medium))
-                                .padding(.horizontal, 8)
-                                .onTapGesture {
-                                    if categoryFound == PredefinedCategory.PREDEFCAT0 {
-                                        withAnimation { viewModel.transactionType = .income }
-                                    } else {
-                                        viewModel.selectedCategory = categoryFound
-                                        withAnimation { viewModel.transactionType = .expense }
-                                    }
-                                    if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                                }
-                            }
+                            RecommendedCategoryButton(
+                                transactionTitle: viewModel.transactionTitle,
+                                transactionType: $viewModel.transactionType,
+                                selectedCategory: $viewModel.selectedCategory,
+                                selectedSubcategory: $viewModel.selectedSubcategory
+                            )
                         }
-                    } // End Select Category
+                    }
+                    .animation(.smooth, value: viewModel.transactionTitle)
                     
                     CustomDatePicker(
                         title: Word.Classic.date,
@@ -127,7 +93,7 @@ struct CreateTransactionView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(Word.Title.newTransaction)
-                        .font(.system(size: isLittleIphone ? 16 : 18))
+                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {

@@ -135,6 +135,8 @@
 		D96F3C8C2CB2671300CBABB8 /* SelectCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */; };
 		D96F3C8E2CB26F5D00CBABB8 /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C8D2CB26F5900CBABB8 /* Word.swift */; };
 		D96F3C912CB28A5000CBABB8 /* CustomDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */; };
+		D96F3C932CB2B9E900CBABB8 /* CustomIntPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */; };
+		D96F3C952CB2D6B200CBABB8 /* RecommendedCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F3C942CB2D6B200CBABB8 /* RecommendedCategoryButton.swift */; };
 		D96F7C7F2C6A5BBA0018D7C2 /* AccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */; };
 		D96F7C812C6A5FC60018D7C2 /* Array+Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */; };
 		D96F8F232AEAE0AD0084F011 /* CreateTransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */; };
@@ -359,6 +361,8 @@
 		D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryButton.swift; sourceTree = "<group>"; };
 		D96F3C8D2CB26F5900CBABB8 /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDatePicker.swift; sourceTree = "<group>"; };
+		D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomIntPicker.swift; sourceTree = "<group>"; };
+		D96F3C942CB2D6B200CBABB8 /* RecommendedCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendedCategoryButton.swift; sourceTree = "<group>"; };
 		D96F7C7E2C6A5BBA0018D7C2 /* AccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountRepository.swift; sourceTree = "<group>"; };
 		D96F7C802C6A5FC60018D7C2 /* Array+Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Transaction.swift"; sourceTree = "<group>"; };
 		D96F8F222AEAE0AD0084F011 /* CreateTransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateTransactionViewModel.swift; sourceTree = "<group>"; };
@@ -854,6 +858,7 @@
 				D9C03D162B8E69AC0019BA7E /* SelectCategoryButtonView.swift */,
 				D958EFB92C87008100631B7E /* AsyncButton.swift */,
 				D96F3C8B2CB2671300CBABB8 /* SelectCategoryButton.swift */,
+				D96F3C942CB2D6B200CBABB8 /* RecommendedCategoryButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -926,6 +931,7 @@
 			isa = PBXGroup;
 			children = (
 				D96F3C902CB28A5000CBABB8 /* CustomDatePicker.swift */,
+				D96F3C922CB2B9E900CBABB8 /* CustomIntPicker.swift */,
 			);
 			path = Pickers;
 			sourceTree = "<group>";
@@ -1286,6 +1292,7 @@
 				D9C17FC02C6B7B24006FD392 /* AutomationRepository.swift in Sources */,
 				D9B9B9D32C6A37A600ABF506 /* PieChart+Extensions.swift in Sources */,
 				D9989D202AC204FE00A4912A /* DetailOfExpensesOrIncomesByMonth.swift in Sources */,
+				D96F3C952CB2D6B200CBABB8 /* RecommendedCategoryButton.swift in Sources */,
 				D918343E2AADE164009BD53B /* Binding String.swift in Sources */,
 				D9B9B9D42C6A37A600ABF506 /* PieChartStyle.swift in Sources */,
 				D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */,
@@ -1337,6 +1344,7 @@
 				D9A91CF62AF41B6B0018AD2D /* AddAutomationViewModel.swift in Sources */,
 				D9261C152A6D1145006A6FD8 /* SharingViewController.swift in Sources */,
 				8182DC642A40C8B100D45979 /* Multiple Alert.swift in Sources */,
+				D96F3C932CB2B9E900CBABB8 /* CustomIntPicker.swift in Sources */,
 				D95067032C37116F00FFEFDF /* CategoriesHomeViewModel.swift in Sources */,
 				D99C9D182A6ED6CD00658056 /* Incomes Chart.swift in Sources */,
 				D983683E2A6A9A1C00CB79B6 /* YearMonthPickerView.swift in Sources */,

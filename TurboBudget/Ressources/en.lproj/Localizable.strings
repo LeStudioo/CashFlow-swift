@@ -15,11 +15,15 @@
 
 "word_income" = "Income";
 
+"word_dayOfAutomation" = "Automation Day";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 
 //MARK: - Title
 "title_new_transaction" = "New transaction";
+
+"title_new_automation" = "New automation";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";

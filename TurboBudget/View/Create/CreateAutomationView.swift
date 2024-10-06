@@ -10,104 +10,80 @@ import SwiftUI
 
 struct CreateAutomationView: View {
     
-    // Builder
-    let router: NavigationManager = .init(isPresented: .constant(.createAutomation))
-    
-    // Custom
-    @StateObject private var viewModel = AddAutomationViewModel()
+    @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createAutomation))
+    @StateObject private var viewModel: AddAutomationViewModel = .init()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var store: PurchasesManager
     
     // Enum
     enum Field: CaseIterable {
         case amount, title
     }
-    @FocusState var focusedField: Field?
+    @FocusState private var focusedField: Field?
     
-    //MARK: - Body
+    //MARK: -
     var body: some View {
         NavStack(router: router) {
-            GeometryReader { geometry in
-                ScrollView {
-                    VStack { //New TransactionEntity
-                        Text("automation_new".localized)
-                            .titleAdjustSize()
-                            .padding(.vertical, 24)
+            ScrollView {
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        title: Word.Classic.name,
+                        placeholder: "Netflix",
+                        text: $viewModel.transactionTitle
+                    )
+                    .focused($focusedField, equals: .title)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amount
+                    }
+                    
+                    CustomTextField(
+                        title: Word.Classic.price,
+                        placeholder: "14,99",
+                        text: $viewModel.transactionAmount,
+                        style: .amount
+                    )
+                    .focused($focusedField, equals: .amount)
+                    
+                    CustomSegmentedControl(
+                        title: Word.Classic.typeOfTransaction,
+                        selection: $viewModel.transactionType,
+                        textLeft: Word.Classic.expense,
+                        textRight: Word.Classic.income
+                    )
+                    
+                    VStack(spacing: 6) {
+                        SelectCategoryButton(
+                            router: router,
+                            transactionType: $viewModel.transactionType,
+                            selectedCategory: $viewModel.selectedCategory,
+                            selectedSubcategory: $viewModel.selectedSubcategory
+                        )
                         
-                        HStack {
-                            Spacer()
-                            SelectCategoryButtonView(
-                                router: router,
+                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                            RecommendedCategoryButton(
+                                transactionTitle: viewModel.transactionTitle,
+                                transactionType: $viewModel.transactionType,
                                 selectedCategory: $viewModel.selectedCategory,
                                 selectedSubcategory: $viewModel.selectedSubcategory
                             )
-                            Spacer()
                         }
-                        .padding(.bottom, 24)
-                        
-                        TextField("automation_title".localized, text: $viewModel.titleTransaction)
-                            .font(.semiBoldCustom(size: isLittleIphone ? 24 : 30))
-                            .multilineTextAlignment(.center)
-                            .padding(8)
-                            .background(Color.backgroundComponentSheet.cornerRadius(100))
-                            .padding(.bottom, 24)
-                            .focused($focusedField, equals: .title)
-                            .submitLabel(.next)
-                            .onSubmit {
-                                focusedField = .amount
-                            }
-                        
-                        TextField("automation_placeholder_amount".localized, text: $viewModel.amountTransaction.max(9).animation())
-                            .focused($focusedField, equals: .amount)
-                            .font(.boldCustom(size: isLittleIphone ? 24 : 30))
-                            .multilineTextAlignment(.center)
-                            .keyboardType(.decimalPad)
-                            .padding(isLittleIphone ? 8 : 16)
-                            .background(Color.backgroundComponentSheet.cornerRadius(100))
-                            .padding(.bottom, 24)
-                        
-                        CustomSegmentedControl(
-                            title: "notext".localized,
-                            selection: $viewModel.typeTransaction,
-                            textLeft: "word_expense".localized,
-                            textRight: "word_income".localized
-                        )
-                        .padding(.bottom, 24)
-                        
-                        // Sélection d'une date
-                        ZStack {
-                            Capsule()
-                                .frame(height: isLittleIphone ? 40 : 50)
-                                .foregroundStyle(Color.backgroundComponentSheet)
-                            
-                            HStack {
-                                Text(viewModel.automationFrenquently == .monthly ? "word_day".localized : "word_date".localized)
-                                    .font(Font.mediumText16())
-                                Spacer()
-                                
-                                if viewModel.automationFrenquently == .monthly {
-                                    Picker("", selection: $viewModel.dayAutomation, content: {
-                                        ForEach(1..<32) { i in
-                                            Text("\(i)").tag(i)
-                                        }
-                                    })
-                                    .labelsHidden()
-                                } else {
-                                    DatePicker("\(viewModel.dateAutomation.formatted())", selection: $viewModel.dateAutomation, displayedComponents: [.date])
-                                        .labelsHidden()
-                                        .clipped()
-                                        .padding(.horizontal)
-                                }
-                            }
-                            .padding(.leading)
-                        }
-                    } // End New TransactionEntity
-                } // End ScrollView
-                .scrollIndicators(.hidden)
-                .scrollDismissesKeyboard(.immediately)
-                .padding(.horizontal)
-            } // End GeometryReader
+                    }
+                    .animation(.smooth, value: viewModel.transactionTitle)
+                    
+                    CustomIntPicker(
+                        title: Word.Classic.dayOfAutomation,
+                        number: $viewModel.dayAutomation
+                    )
+                }
+                .padding(.horizontal, 24)
+                .padding(.top)
+            } // End ScrollView
+            .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.immediately)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarDismissButtonView {
                     if viewModel.isAutomationInCreation() {
@@ -117,11 +93,15 @@ struct CreateAutomationView: View {
                     }
                 }
                 
+                ToolbarItem(placement: .principal) {
+                    Text(Word.Title.newAutomation)
+                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                }
+                
                 ToolbarCreateButtonView(isActive: viewModel.validateAutomation()) {
                     VibrationManager.vibration()
                     viewModel.createNewAutomation { withError in
                         if withError == nil {
-                            dismiss()
                             dismiss()
                         } else {
                             // TODO: Show a error banner
@@ -130,19 +110,6 @@ struct CreateAutomationView: View {
                 }
                 
                 ToolbarDismissKeyboardButtonView()
-            }
-            .onChange(of: viewModel.typeTransaction, perform: { newValue in
-                if newValue == .income {
-                    viewModel.selectedCategory = .PREDEFCAT0
-                    viewModel.selectedSubcategory = nil
-                } else {
-                    viewModel.selectedCategory = nil
-                    viewModel.selectedSubcategory = nil
-                }
-            })
-            .onAppear {
-                let comps = Calendar.current.dateComponents([.day], from: Date())
-                if let day = comps.day { viewModel.dayAutomation = day }
             }
         } // End NavigationStack
         .interactiveDismissDisabled(viewModel.isAutomationInCreation()) {

@@ -18,14 +18,19 @@ class AddAutomationViewModel: ObservableObject {
     
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
-    @Published var titleTransaction: String = ""
-    @Published var amountTransaction: String = ""
+    @Published var transactionTitle: String = ""
+    @Published var transactionAmount: String = ""
     @Published var dayAutomation: Int = 1
     @Published var dateAutomation: Date = .now
-    @Published var typeTransaction: ExpenseOrIncome = .expense
+    @Published var transactionType: ExpenseOrIncome = .expense
     @Published var automationFrenquently: AutomationFrequently = .monthly
         
     @Published var presentingConfirmationDialog: Bool = false
+    
+    init() {
+        let comps = Calendar.current.dateComponents([.day], from: Date())
+        if let day = comps.day { dayAutomation = day }
+    }
 
 }
 
@@ -48,16 +53,16 @@ extension AddAutomationViewModel {
         }
         
         let transactionModel = TransactionModel(
-            predefCategoryID: typeTransaction == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
-            predefSubcategoryID: typeTransaction == .income ? "" : selectedSubcategory?.id ?? "",
-            title: titleTransaction,
-            amount: typeTransaction == .expense ? -amountTransaction.convertToDouble() : amountTransaction.convertToDouble(),
+            predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
+            predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
+            title: transactionTitle,
+            amount: transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble(),
             date: finalDate,
             isAuto: true
         )
         
         var automationModel = AutomationModel(
-            title: titleTransaction,
+            title: transactionTitle,
             date: finalDate,
             frenquently: automationFrenquently == .monthly ? 0 : 1
         )
@@ -92,14 +97,14 @@ extension AddAutomationViewModel {
 extension AddAutomationViewModel {
     
     func isAutomationInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || !titleTransaction.isEmpty || amountTransaction.convertToDouble() != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.convertToDouble() != 0 {
             return true
         }
         return false
     }
     
     func validateAutomation() -> Bool {
-        if !titleTransaction.isEmptyWithoutSpace() && amountTransaction.convertToDouble() != 0.0 && selectedCategory != nil {
+        if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil {
             return true
         }
         return false
