@@ -59,7 +59,7 @@ struct CashFlowChart: View {
                     
                     BarMark(x: .value("x", "\(index)"),
                             y: .value("y", transactions))
-                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : HelperManager().getAppTheme().color.gradient)
+                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : ThemeManager.theme.color.gradient)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 }
             }

@@ -34,8 +34,8 @@ struct SavingsAccountDetailView: View {
                         .overlay {
                             Circle()
                                 .frame(width: 80, height: 80)
-                                .foregroundStyle(HelperManager().getAppTheme().color)
-                                .shadow(color:HelperManager().getAppTheme().color, radius: 4, y: 2)
+                                .foregroundStyle(ThemeManager.theme.color)
+                                .shadow(color:ThemeManager.theme.color, radius: 4, y: 2)
                                 .overlay {
                                     VStack {
                                         Image(systemName: "building.columns.fill")

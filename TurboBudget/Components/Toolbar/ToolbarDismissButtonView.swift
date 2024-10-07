@@ -18,7 +18,7 @@ struct ToolbarDismissButtonView: ToolbarContent {
             Button(action: action, label: {
                 Text("word_cancel".localized)
                     .font(.regularText16())
-                    .foregroundStyle(HelperManager().getAppTheme().color)
+                    .foregroundStyle(ThemeManager.theme.color)
             })
         }
     } // End body

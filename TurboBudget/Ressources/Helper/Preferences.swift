@@ -28,9 +28,6 @@ final class Preferences {
     // MARK: Normal
     @UserDefault("numberOfOpenings")
     var numberOfOpenings: Int = 0
-    
-    @UserDefault("colorSelected")
-    var colorSelected: String = "green"
 
     @UserDefault("alreadyOpen")
     var alreadyOpen: Bool = false

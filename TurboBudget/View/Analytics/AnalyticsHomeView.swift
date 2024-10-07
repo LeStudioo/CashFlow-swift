@@ -47,7 +47,7 @@ struct AnalyticsHomeView: View {
                                 HStack {
                                     Spacer()
                                     VStack(spacing: 20) {
-                                        Image("NoIncome\(themeSelected)")
+                                        Image("NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)
@@ -86,7 +86,7 @@ struct AnalyticsHomeView: View {
                     HStack {
                         Spacer()
                         VStack(spacing: 20) {
-                            Image("NoIncome\(themeSelected)")
+                            Image("NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .shadow(radius: 4, y: 4)

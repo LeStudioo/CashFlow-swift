@@ -67,7 +67,7 @@ struct YearMonthPickerView: View {
                             .font(Font.mediumText16())
                             .frame(width: 60, height: 33)
                             .bold()
-                            .background(item == Calendar.current.monthSymbols[(dateComponentsYearAndMonth.month ?? 0) - 1] ?  HelperManager().getAppTheme().color : Color.clear)
+                            .background(item == Calendar.current.monthSymbols[(dateComponentsYearAndMonth.month ?? 0) - 1] ?  ThemeManager.theme.color : Color.clear)
                             .cornerRadius(8)
                             .onTapGesture {
                                 var dateComponent = DateComponents()

@@ -102,7 +102,7 @@ struct RecoverTransactionView: View {
                         VStack { // Successful TransactionEntity
                             Circle()
                                 .frame(width: 100, height: 100)
-                                .foregroundStyle(HelperManager().getAppTheme().color)
+                                .foregroundStyle(ThemeManager.theme.color)
                                 .overlay {
                                     Image(systemName: "checkmark")
                                         .foregroundStyle(.primary0)

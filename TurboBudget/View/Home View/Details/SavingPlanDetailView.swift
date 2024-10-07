@@ -53,8 +53,8 @@ struct SavingPlanDetailView: View {
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundStyle(HelperManager().getAppTheme().color)
-                            .shadow(color: HelperManager().getAppTheme().color, radius: 4, y: 2)
+                            .foregroundStyle(ThemeManager.theme.color)
+                            .shadow(color: ThemeManager.theme.color, radius: 4, y: 2)
                             .overlay {
                                 VStack {
                                     if savingPlan.icon.count == 1 {
@@ -198,7 +198,7 @@ struct SavingPlanDetailView: View {
                 HStack {
                     EmptyView()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(HelperManager().getAppTheme().color) })
+                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(ThemeManager.theme.color) })
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
@@ -291,7 +291,7 @@ struct SavingPlanDetailView: View {
                         .foregroundStyle(.colorCell)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundStyle(HelperManager().getAppTheme().color)
+                                .foregroundStyle(ThemeManager.theme.color)
                                 .frame(width: widthCapsule(widthBar: geometry.size.width) < widthAmount ? widthAmount : widthCapsule(widthBar: geometry.size.width))
                                 .padding(4)
                                 .overlay(alignment: .trailing) {
@@ -348,7 +348,7 @@ struct SavingPlanDetailView: View {
                     }
                     .if(stepSelection == num) { view in
                         view
-                            .background(HelperManager().getAppTheme().color)
+                            .background(ThemeManager.theme.color)
                             .clipShape(Circle())
                     }
                 }

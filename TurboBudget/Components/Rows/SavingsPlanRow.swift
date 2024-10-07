@@ -107,7 +107,7 @@ struct SavingsPlanRow: View {
                         .foregroundStyle(.color2Apple)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundStyle(HelperManager().getAppTheme().color)
+                                .foregroundStyle(ThemeManager.theme.color)
                                 .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
                                 .padding(3)
                                 .overlay(alignment: .trailing) {

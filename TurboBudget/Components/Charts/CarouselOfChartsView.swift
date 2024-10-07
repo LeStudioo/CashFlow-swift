@@ -46,7 +46,7 @@ struct CarouselOfChartsView: View {
                         }
                         .padding(8)
                     } else {
-                        Image("NoSpend\(themeSelected)")
+                        Image("NoSpend\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(1, contentMode: .fit)
                             .padding(.bottom, 8)
@@ -78,7 +78,7 @@ struct CarouselOfChartsView: View {
                         }
                         .padding(8)
                     } else {
-                        Image("NoAccount\(themeSelected)")
+                        Image("NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(1, contentMode: .fit)
                             .padding(.bottom, 8)

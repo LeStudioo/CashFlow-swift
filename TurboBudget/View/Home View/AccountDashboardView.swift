@@ -72,7 +72,7 @@ struct AccountDashboardView: View {
             ScrollView(showsIndicators: false) {
                 Text(account.title)
                     .titleAdjustSize()
-                    .foregroundStyle(HelperManager().getAppTheme().color)
+                    .foregroundStyle(ThemeManager.theme.color)
                     .multilineTextAlignment(.center)
                     .lineLimit(2)
                 
@@ -257,7 +257,7 @@ struct AccountDashboardView: View {
             //                    HStack {
             //                        Spacer()
             //                        VStack(spacing: 20) {
-            //                            Image("NoCards\(themeSelected)")
+            //                            Image("NoCards\(ThemeManager.theme.nameNotLocalized.capitalized)")
             //                                .resizable()
             //                                .aspectRatio(contentMode: .fit)
             //                                .shadow(radius: 4, y: 4)

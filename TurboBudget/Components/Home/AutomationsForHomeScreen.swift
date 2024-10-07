@@ -31,7 +31,7 @@ struct AutomationsForHomeScreen: View {
                     Spacer()
                     
                     Image(systemName: "arrow.right")
-                        .foregroundStyle(HelperManager().getAppTheme().color)
+                        .foregroundStyle(ThemeManager.theme.color)
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                 }
             }
@@ -58,7 +58,7 @@ struct AutomationsForHomeScreen: View {
                         
                         Spacer(minLength: 20)
                         
-                        Image("NoAutomation\(themeSelected)")
+                        Image("NoAutomation\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)

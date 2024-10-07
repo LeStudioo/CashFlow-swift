@@ -92,7 +92,7 @@ struct HomeView: View {
                                 
                                 Spacer()
                                 Image(systemName: "arrow.right")
-                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(ThemeManager.theme.color)
                                     .font(.system(size: 20, weight: .medium, design: .rounded))
                             }
                         }
@@ -107,7 +107,7 @@ struct HomeView: View {
                             }
                         } else {
                             VStack(spacing: 20) {
-                                Image("NoTransaction\(themeSelected)")
+                                Image("NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
                                     .shadow(radius: 4, y: 4)

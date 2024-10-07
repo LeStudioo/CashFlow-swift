@@ -20,7 +20,7 @@ struct PageControl: UIViewRepresentable {
         let control = UIPageControl()
         control.backgroundStyle = .minimal
         control.pageIndicatorTintColor = UIColor(Color.colorCell)
-        control.currentPageIndicatorTintColor = UIColor(HelperManager().getAppTheme().color)
+        control.currentPageIndicatorTintColor = UIColor(ThemeManager.theme.color)
         control.numberOfPages = maxPages
         control.currentPage = currentPage
         

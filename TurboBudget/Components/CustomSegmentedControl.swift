@@ -51,7 +51,7 @@ struct CustomSegmentedControl: View {
                             .foregroundStyle(Color.backgroundComponentSheet)
                             .overlay(alignment: .leading) {
                                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(ThemeManager.theme.color)
                                     .frame(width: (geo.size.width / 2))
                                     .offset(x: selection == .income ? (geo.size.width / 2) : 0)
                             }

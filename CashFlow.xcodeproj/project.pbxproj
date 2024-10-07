@@ -212,6 +212,7 @@
 		D9C17FC42C6B81C2006FD392 /* Array+PredefinedCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C17FC32C6B81C2006FD392 /* Array+PredefinedCategory.swift */; };
 		D9C5C2262AF769400084B542 /* AddSavingPlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */; };
 		D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */; };
+		D9DEB47C2CB39E9E00CF1C95 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DEB47B2CB39E9E00CF1C95 /* ThemeManager.swift */; };
 		D9E509C22A7D2A06003A6A6A /* BudgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E509C12A7D2A06003A6A6A /* BudgetRow.swift */; };
 		D9E56B962BA58F6D0023B777 /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E56B952BA58F6D0023B777 /* FilterManager.swift */; };
 		D9E56B982BA590340023B777 /* NewFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9E56B972BA590340023B777 /* NewFilterView.swift */; };
@@ -446,6 +447,7 @@
 		D9C17FC32C6B81C2006FD392 /* Array+PredefinedCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+PredefinedCategory.swift"; sourceTree = "<group>"; };
 		D9C5C2252AF769400084B542 /* AddSavingPlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSavingPlanViewModel.swift; sourceTree = "<group>"; };
 		D9C5C2272AF76F850084B542 /* AddContributionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContributionViewModel.swift; sourceTree = "<group>"; };
+		D9DEB47B2CB39E9E00CF1C95 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		D9E509C12A7D2A06003A6A6A /* BudgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetRow.swift; sourceTree = "<group>"; };
 		D9E56B952BA58F6D0023B777 /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		D9E56B972BA590340023B777 /* NewFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFilterView.swift; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				D96AB0252C70F0D4000C49A5 /* AlertManager.swift */,
 				D9842EE12C71DB9600DA2795 /* VibrationManager.swift */,
 				D958EFBB2C87885700631B7E /* SavingsPlanManager.swift */,
+				D9DEB47B2CB39E9E00CF1C95 /* ThemeManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1303,6 +1306,7 @@
 				D918343E2AADE164009BD53B /* Binding String.swift in Sources */,
 				D9B9B9D42C6A37A600ABF506 /* PieChartStyle.swift in Sources */,
 				D9C5C2282AF76F850084B542 /* AddContributionViewModel.swift in Sources */,
+				D9DEB47C2CB39E9E00CF1C95 /* ThemeManager.swift in Sources */,
 				D975BFAA2A667941004FFA9D /* AutomationsHomeView.swift in Sources */,
 				D9C17FB72C6B3D48006FD392 /* ToolbarDismissPushButton.swift in Sources */,
 				D9879DB72B8B275500054FFC /* SettingsAccountView.swift in Sources */,

@@ -31,21 +31,6 @@ let colorsAvailable: [(Color, String)] = [
     (Color.brown , "brown")
 ]
 
-//Theme Selected
-var themeSelected: String {
-    @Preference(\.colorSelected) var colorSelected
-    
-    if colorSelected == "111" {
-        return "Green"
-    } else if colorSelected == "222" {
-        return "Blue"
-    } else if colorSelected == "333" {
-        return "Purple"
-    } else if colorSelected == "444" {
-        return "Red"
-    } else { return "Green" }
-}
-
 //MARK: - Enum
 enum ExpenseOrIncome: Int, CaseIterable {
     case expense, income

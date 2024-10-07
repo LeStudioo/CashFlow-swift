@@ -18,10 +18,10 @@ struct CreateButton: View {
         Button(action: action, label: {
             ZStack {
                 Capsule()
-                    .foregroundStyle(HelperManager().getAppTheme().color)
+                    .foregroundStyle(ThemeManager.theme.color)
                     .frame(height: isLittleIphone ? 50 : 60)
                     .if(validate, transform: { view in
-                        view.shadow(color: HelperManager().getAppTheme().color, radius: 8)
+                        view.shadow(color: ThemeManager.theme.color, radius: 8)
                     })
                 HStack {
                     Spacer()

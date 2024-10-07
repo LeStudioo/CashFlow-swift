@@ -37,7 +37,7 @@ struct SavingPlansForHomeScreen: View {
                     Spacer()
                     
                     Image(systemName: "arrow.right")
-                        .foregroundStyle(HelperManager().getAppTheme().color)
+                        .foregroundStyle(ThemeManager.theme.color)
                         .font(.system(size: 20, weight: .medium, design: .rounded))
                 }
             }
@@ -64,7 +64,7 @@ struct SavingPlansForHomeScreen: View {
                         
                         Spacer()
                         
-                        Image("NoSavingPlan\(themeSelected)")
+                        Image("NoSavingPlan\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)

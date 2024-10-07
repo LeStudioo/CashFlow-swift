@@ -15,9 +15,7 @@ final class SettingsDangerZoneViewModel: ObservableObject {
     
     @Preference(\.isFaceIDEnabled) var isFaceIDEnabled
     @Preference(\.isSecurityPlusEnabled) var isSecurityPlusEnabled
-    
-    @Preference(\.colorSelected) var colorSelected
-    
+        
     @Preference(\.isSavingPlansDisplayedHomeScreen) var isSavingPlansDisplayedHomeScreen
     @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) var numberOfSavingPlansDisplayedInHomeScreen
     @Preference(\.isAutomationsDisplayedHomeScreen) var isAutomationsDisplayedHomeScreen
@@ -58,7 +56,7 @@ extension SettingsDangerZoneViewModel {
         numberOfRecentTransactionDisplayedInHomeScreen = 5
         
         // Setting - Appearance
-        colorSelected = "green"
+        ThemeManager.theme = .green
         
         // Setting - Account
         accountCanBeNegative = false

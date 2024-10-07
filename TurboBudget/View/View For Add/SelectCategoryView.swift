@@ -70,7 +70,7 @@ struct SelectCategoryView: View {
                                                     ZStack {
                                                         Circle()
                                                             .frame(width: 25, height: 25)
-                                                            .foregroundStyle(HelperManager().getAppTheme().color)
+                                                            .foregroundStyle(ThemeManager.theme.color)
                                                         Image(systemName: "checkmark")
                                                             .font(.system(size: 12, weight: .heavy, design: .rounded))
                                                             .foregroundStyle(.white)
@@ -102,7 +102,7 @@ struct SelectCategoryView: View {
                                                             ZStack {
                                                                 Circle()
                                                                     .frame(width: 25, height: 25)
-                                                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                                                    .foregroundStyle(ThemeManager.theme.color)
                                                                 Image(systemName: "checkmark")
                                                                     .font(.system(size: 12, weight: .heavy, design: .rounded))
                                                                     .foregroundStyle(.white)
@@ -127,7 +127,7 @@ struct SelectCategoryView: View {
                     .scrollIndicators(.hidden)
                 } else {
                     VStack(spacing: 20) {
-                        Image("NoResults\(themeSelected)")
+                        Image("NoResults\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)

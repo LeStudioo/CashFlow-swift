@@ -90,9 +90,9 @@ struct TabbarView: View {
                 .opacity(viewModel.showMenu ? 1 : 0)
                 
                 Circle()
-                    .foregroundStyle(HelperManager().getAppTheme().color)
+                    .foregroundStyle(ThemeManager.theme.color)
                     .frame(width: 80)
-                    .shadow(color: HelperManager().getAppTheme().color, radius: 12, y: 10)
+                    .shadow(color: ThemeManager.theme.color, radius: 12, y: 10)
                 
                 Image(systemName: "plus")
                     .font(.system(size: 34, weight: .regular, design: .rounded))

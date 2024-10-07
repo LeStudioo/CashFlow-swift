@@ -99,7 +99,7 @@ struct PageControllerView: View {
                                 HStack {
                                     Spacer()
                                     VStack(spacing: 20) {
-                                        Image("NoAccount\(themeSelected)")
+                                        Image("NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .shadow(radius: 4, y: 4)

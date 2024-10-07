@@ -19,7 +19,7 @@ struct ToolbarCreateButtonView: ToolbarContent {
             Button(action: action, label: {
                 Text("word_create".localized)
                     .font(.boldText16())
-                    .foregroundStyle(HelperManager().getAppTheme().color)
+                    .foregroundStyle(ThemeManager.theme.color)
             })
             .disabled(!isActive)
             .opacity(isActive ? 1 : 0.5)

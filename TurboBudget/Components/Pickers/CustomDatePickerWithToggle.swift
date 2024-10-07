@@ -52,7 +52,7 @@ struct CustomDatePickerWithToggle: View {
                             .padding(8)
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(isEnabled ? HelperManager().getAppTheme().color : Color.componentInComponent)
+                                    .fill(isEnabled ? ThemeManager.theme.color : Color.componentInComponent)
                             }
                     }
                 }
@@ -61,7 +61,7 @@ struct CustomDatePickerWithToggle: View {
                 if isDatePickerShowing {
                     DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
                         .datePickerStyle(.graphical)
-                        .tint(HelperManager().getAppTheme().color)
+                        .tint(ThemeManager.theme.color)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

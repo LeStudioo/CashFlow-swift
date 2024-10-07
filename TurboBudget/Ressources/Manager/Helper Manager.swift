@@ -54,16 +54,4 @@ struct HelperManager {
         }
         return number / 10
     }
-    
-    //MARK: - OTHER
-    //Get App Theme
-    func getAppTheme() -> ThemeColor {
-        
-        @Preference(\.colorSelected) var colorSelected
-        
-        for theme in themes {
-            if theme.idUnique == colorSelected { return theme }
-        }
-        return themes[0] //Theme de base
-    }
-} //END struct
+} // End struct

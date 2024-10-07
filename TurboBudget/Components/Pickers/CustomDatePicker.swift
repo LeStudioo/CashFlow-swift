@@ -39,7 +39,7 @@ struct CustomDatePicker: View {
                 if isDatePickerShowing {
                     DatePicker("", selection: $date, displayedComponents: [.date])
                         .datePickerStyle(.graphical)
-                        .tint(HelperManager().getAppTheme().color)
+                        .tint(ThemeManager.theme.color)
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

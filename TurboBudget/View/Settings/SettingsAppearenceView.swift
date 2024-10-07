@@ -26,9 +26,8 @@ struct SettingsAppearenceView: View {
     // EnvironmentsObject
     @EnvironmentObject var csManager: ColorSchemeManager
     
-    // Preferences
-    @Preference(\.colorSelected) private var colorSelected
-
+    @State private var localTheme: ThemeColor = ThemeManager.theme
+    
     //MARK: - Body
     var body: some View {
         ScrollView {
@@ -54,9 +53,9 @@ struct SettingsAppearenceView: View {
                 }
                 .padding(.leading)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(.horizontal) {
                     HStack {
-                        ForEach(themes) { theme in
+                        ForEach(Array(ThemeColor.allCases), id: \.self) { theme in
                             VStack {
                                 Circle()
                                     .frame(width: 30)
@@ -72,21 +71,21 @@ struct SettingsAppearenceView: View {
                             .shadow(radius: 2, x: -2, y: 2)
                             .padding(4)
                             .overlay {
-                                VStack {
-                                    if colorSelected == theme.idUnique {
-                                        RoundedRectangle(cornerRadius: 15)
-                                            .stroke(style: StrokeStyle(lineWidth: 3))
-                                            .foregroundStyle(theme.color)
-                                            .padding(4)
-                                    }
+                                if localTheme == theme {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(style: StrokeStyle(lineWidth: 3))
+                                        .foregroundStyle(theme.color)
+                                        .padding(4)
                                 }
                             }
                             .onTapGesture {
-                                colorSelected = theme.idUnique
+                                localTheme = theme
+                                ThemeManager.theme = theme
                             }
                         }
                     }
-                }
+                } // End ScrollView
+                .scrollIndicators(.hidden)
             }
             .padding(.horizontal)
             
@@ -114,7 +113,7 @@ struct SettingsAppearenceView: View {
                                             if selectedPeople == people {
                                                 RoundedRectangle(cornerRadius: 12)
                                                     .stroke(style: StrokeStyle(lineWidth: 3))
-                                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                                    .foregroundStyle(ThemeManager.theme.color)
                                             }
                                         }
                                         .padding(4)
@@ -157,11 +156,11 @@ struct SettingsAppearenceView: View {
                             if iconName == UIApplication.shared.alternateIconName {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(ThemeManager.theme.color)
                             } else if iconName == "AppIconMainLight" && UIApplication.shared.alternateIconName == nil {
                                 Image(systemName: "checkmark")
                                     .font(.system(size: 22, weight: .semibold, design: .rounded))
-                                    .foregroundStyle(HelperManager().getAppTheme().color)
+                                    .foregroundStyle(ThemeManager.theme.color)
                             }
                         }
                         .foregroundStyle(Color(uiColor: .label))
@@ -199,7 +198,7 @@ struct SettingsAppearenceView: View {
                         VStack {
                             if csManager.colorScheme == .unspecified {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
+                                    .stroke(ThemeManager.theme.color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(Color(uiColor: .label), lineWidth: 1)
@@ -225,7 +224,7 @@ struct SettingsAppearenceView: View {
                         VStack {
                             if csManager.colorScheme == .light {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
+                                    .stroke(ThemeManager.theme.color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(Color(uiColor: .label), lineWidth: 1)
@@ -256,7 +255,7 @@ struct SettingsAppearenceView: View {
                         VStack {
                             if csManager.colorScheme == .dark {
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(HelperManager().getAppTheme().color, lineWidth: 3)
+                                    .stroke(ThemeManager.theme.color, lineWidth: 3)
                             } else {
                                 RoundedRectangle(cornerRadius: 15)
                                     .stroke(Color(uiColor: .label), lineWidth: 1)
