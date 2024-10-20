@@ -90,6 +90,7 @@ struct PersistenceController {
         do {
             try viewContext.save()
         } catch {
+            
             throw CustomError.failToSave
         }
     }

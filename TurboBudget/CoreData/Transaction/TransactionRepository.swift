@@ -61,8 +61,7 @@ extension TransactionRepository {
         newTransaction.transactionToAccount = account
         
         if withSave {
-            self.transactions.append(newTransaction)
-            try persistenceController.saveContextWithThrow()
+            account.addNewTransaction(transaction: newTransaction)
         }
         
         return newTransaction

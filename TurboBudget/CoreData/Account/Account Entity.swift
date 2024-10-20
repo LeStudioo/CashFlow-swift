@@ -90,9 +90,7 @@ extension Account {
     
     public func addNewTransaction(transaction: TransactionEntity) {
         self.accountToTransaction?.insert(transaction)
-        
         self.balance += transaction.amount
-        
         self.persistenceController.saveContext()
     }
     

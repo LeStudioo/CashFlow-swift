@@ -5,31 +5,22 @@
 //  Created by KaayZenn on 25/07/2023.
 //
 
-import Foundation
 import SwiftUI
 
-struct PageControl: UIViewRepresentable {
+struct PageControl: View {
     
-    @Environment(\.colorScheme) private var colorScheme
-
+    // Builder
     var maxPages: Int
     var currentPage: Int
     
-    func makeUIView(context: Context) -> UIPageControl {
-        
-        let control = UIPageControl()
-        control.backgroundStyle = .minimal
-        control.pageIndicatorTintColor = UIColor(Color.colorCell)
-        control.currentPageIndicatorTintColor = UIColor(ThemeManager.theme.color)
-        control.numberOfPages = maxPages
-        control.currentPage = currentPage
-        
-        return control
-    }
-    
-    func updateUIView(_ uiView: UIPageControl, context: Context) {
-        
-        // updating current Page...
-        uiView.currentPage = currentPage
+    // MARK: -
+    var body: some View {
+        HStack(spacing: 6) {
+            ForEach(0...(min(1, maxPages)), id: \.self) { index in
+                Circle()
+                    .frame(width: 10, height: 10)
+                    .foregroundStyle(index == currentPage ? ThemeManager.theme.color : Color.colorCell)
+            }
+        }
     }
 }

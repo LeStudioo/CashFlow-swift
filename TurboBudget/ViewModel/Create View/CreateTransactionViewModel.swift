@@ -40,9 +40,7 @@ final class CreateTransactionViewModel: ObservableObject {
         }
     }
     
-    func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {
-        guard let account = AccountRepository.shared.mainAccount else { return }
-        
+    func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {        
         let model = TransactionModel(
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
             predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
@@ -53,7 +51,6 @@ final class CreateTransactionViewModel: ObservableObject {
         
         do {
             let newTransaction = try TransactionRepository.shared.createNewTransaction(model: model)
-            account.balance += model.amount
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.successfullModalManager.isPresenting = true
@@ -61,7 +58,7 @@ final class CreateTransactionViewModel: ObservableObject {
             successfullModalManager.title = "transaction_successful".localized
             successfullModalManager.subtitle = "transaction_successful_desc".localized
             successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
-            
+                        
             withError(nil)
         } catch {
             if let error = error as? CustomError {

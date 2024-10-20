@@ -25,6 +25,7 @@ struct CustomDatePicker: View {
             VStack(alignment: .trailing, spacing: 0) {
                 Button(action: {
                     withAnimation { isDatePickerShowing.toggle() }
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }, label: {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
                         .foregroundStyle(Color.label)
