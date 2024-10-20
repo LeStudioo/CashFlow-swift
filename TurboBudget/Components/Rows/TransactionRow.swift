@@ -111,7 +111,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.yellow)
             })
-            .onChange(of: isSharingJSON) { _ in
+            .onChange(of: isSharingJSON) {
                 context.state.wrappedValue = .closed
             }
             
@@ -129,7 +129,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.green)
             })
-            .onChange(of: isSharingQRCode) { _ in
+            .onChange(of: isSharingQRCode) {
                 context.state.wrappedValue = .closed
             }
             
@@ -147,7 +147,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.error400)
             })
-            .onChange(of: cancelDeleting) { _ in
+            .onChange(of: cancelDeleting) {
                 context.state.wrappedValue = .closed
             }
         })

@@ -25,29 +25,13 @@ struct HomeView: View {
     @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen
     @Preference(\.isStepsEnbaledForAllSavingsPlans) private var isStepsEnbaledForAllSavingsPlans
     
-    // Number variables
-    @State private var accountBalanceInt: Int = 0
-    @State private var accountBalanceDouble: Double = 0.0
-    
-    // Boolean variables
-    @State private var busy: Bool = false
-    
     // MARK: - body
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
-                    HStack {
-                        if accountBalanceDouble == 0 { Text(accountBalanceInt.currency) } else {
-                            Text(currencySymbol)
-                            HStack(spacing: -1) {
-                                Text(accountBalanceInt.formatted(style: .decimal))
-                                if accountBalanceDouble != 1 {
-                                    Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: "").replacingOccurrences(of: "-", with: ""))
-                                }
-                            }
-                        }
-                    }
+                    Text(currencySymbol + " " + String(format: "%.2f", account.balance))
+                        .contentTransition(.numericText(value: account.balance))
                     .titleAdjustSize()
                     
                     Text("home_screen_available_balance".localized)
@@ -89,15 +73,13 @@ struct HomeView: View {
                                 Text("word_recent_transactions".localized)
                                     .foregroundStyle(Color.customGray)
                                     .font(.semiBoldCustom(size: 22))
-                                
-                                Spacer()
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 Image(systemName: "arrow.right")
                                     .foregroundStyle(ThemeManager.theme.color)
                                     .font(.system(size: 20, weight: .medium, design: .rounded))
                             }
                         }
-                        .padding(.horizontal)
-                        .padding(.top)
+                        .padding([.horizontal, .top])
                         
                         if account.transactions.count != 0 {
                             ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
@@ -138,23 +120,11 @@ struct HomeView: View {
                 persistenceController.saveContext()
             }
         }
-        .onChange(of: account.balance, perform: { _ in
-            Timer.animateNumber(number: $accountBalanceInt, busy: $busy, start: accountBalanceInt, end: Int(account.balance))
-            withAnimation {
-                accountBalanceDouble = account.balance.splitDecimal().1
-                if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
-            }
-        })
-        .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
             AutomationManager().activateScheduledAutomations(automations: account.automations)
             SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
-            
-            accountBalanceInt = account.balance.splitDecimal().0
-            accountBalanceDouble = account.balance.splitDecimal().1
-            if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
             
             //Notification Counter
             UserDefaults.standard.set(0, forKey: "counterOfNotif")
