@@ -27,9 +27,11 @@ struct CreateTransactionView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     CustomTextField(
-                        title: Word.Classic.name,
-                        placeholder: "category11_subcategory3_name".localized,
-                        text: $viewModel.transactionTitle
+                        text: $viewModel.transactionTitle,
+                        config: .init(
+                            title: Word.Classic.name,
+                            placeholder: "category11_subcategory3_name".localized
+                        )
                     )
                     .focused($focusedField, equals: .title)
                     .submitLabel(.next)
@@ -38,10 +40,12 @@ struct CreateTransactionView: View {
                     }
                     
                     CustomTextField(
-                        title: Word.Classic.price,
-                        placeholder: "64,87",
                         text: $viewModel.transactionAmount,
-                        style: .amount
+                        config: .init(
+                            title: Word.Classic.price,
+                            placeholder: "64,87",
+                            style: .amount
+                        )
                     )
                     .focused($focusedField, equals: .amount)
                     

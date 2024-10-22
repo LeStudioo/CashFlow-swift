@@ -19,7 +19,7 @@ struct HomeView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: PurchasesManager
-    
+        
     // Preferences
     @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen
     @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen

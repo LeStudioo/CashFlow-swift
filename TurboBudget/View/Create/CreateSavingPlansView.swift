@@ -30,9 +30,11 @@ struct CreateSavingPlansView: View {
                 VStack(spacing: 24) {
                     HStack(alignment: .bottom, spacing: 8) {
                         CustomTextField(
-                            title: Word.Classic.name,
-                            placeholder: "MacBook Pro",
-                            text: $viewModel.savingPlanTitle
+                            text: $viewModel.savingPlanTitle,
+                            config: .init(
+                                title: Word.Classic.name,
+                                placeholder: "MacBook Pro"
+                            )
                         )
                         .focused($focusedField, equals: .title)
                         .submitLabel(.next)
@@ -56,10 +58,12 @@ struct CreateSavingPlansView: View {
                     }
                     
                     CustomTextField(
-                        title: Word.Classic.initialAmount,
-                        placeholder: "0.00",
                         text: $viewModel.savingPlanAmountOfStart,
-                        style: .amount
+                        config: .init(
+                            title: Word.Classic.initialAmount,
+                            placeholder: "0.00",
+                            style: .amount
+                        )
                     )
                     .focused($focusedField, equals: .amountOfStart)
                     .submitLabel(.next)
@@ -68,10 +72,12 @@ struct CreateSavingPlansView: View {
                     }
                     
                     CustomTextField(
-                        title: Word.Classic.amountToReach,
-                        placeholder: "1 000",
                         text: $viewModel.savingPlanAmountOfEnd,
-                        style: .amount
+                        config: .init(
+                            title: Word.Classic.amountToReach,
+                            placeholder: "1 000",
+                            style: .amount
+                        )
                     )
                     .focused($focusedField, equals: .amountOfEnd)
                     .submitLabel(.done)

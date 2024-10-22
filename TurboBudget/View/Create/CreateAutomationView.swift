@@ -29,9 +29,11 @@ struct CreateAutomationView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     CustomTextField(
-                        title: Word.Classic.name,
-                        placeholder: "Netflix",
-                        text: $viewModel.transactionTitle
+                        text: $viewModel.transactionTitle,
+                        config: .init(
+                            title: Word.Classic.name,
+                            placeholder: "Netflix"
+                        )
                     )
                     .focused($focusedField, equals: .title)
                     .submitLabel(.next)
@@ -40,10 +42,12 @@ struct CreateAutomationView: View {
                     }
                     
                     CustomTextField(
-                        title: Word.Classic.price,
-                        placeholder: "14,99",
                         text: $viewModel.transactionAmount,
-                        style: .amount
+                        config: .init(
+                            title: Word.Classic.price,
+                            placeholder: "14,99",
+                            style: .amount
+                        )
                     )
                     .focused($focusedField, equals: .amount)
                     

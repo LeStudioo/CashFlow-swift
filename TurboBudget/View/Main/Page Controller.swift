@@ -94,29 +94,10 @@ struct PageControllerView: View {
                                 withAnimation { viewModelCustomBar.showMenu = false }
                             }
                         } else {
-                            VStack {
-                                Spacer()
-                                HStack {
-                                    Spacer()
-                                    VStack(spacing: 20) {
-                                        Image("NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .shadow(radius: 4, y: 4)
-                                            .frame(width: isIPad
-                                                   ? UIScreen.main.bounds.width / 3
-                                                   : UIScreen.main.bounds.width / 1.5)
-                                        
-                                        Text("home_screen_no_account".localized)
-                                            .font(.semiBoldText16())
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    .offset(y: -50)
-                                    Spacer()
-                                }
-                                
-                                Spacer()
-                            }
+                            CustomEmptyView(
+                                imageName: "NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)",
+                                description: "home_screen_no_account".localized
+                            )
                         }
                         
                         TabbarView(
@@ -124,7 +105,7 @@ struct PageControllerView: View {
                             offsetYMenu: $offsetYMenu
                         )
                     }
-                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
+                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue, oldValue in //Keep for nice animation
                         withAnimation {
                             if newValue {
                                 if accountRepo.mainAccount != nil {
