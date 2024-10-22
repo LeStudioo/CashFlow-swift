@@ -105,7 +105,7 @@ struct PageControllerView: View {
                             offsetYMenu: $offsetYMenu
                         )
                     }
-                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue, oldValue in //Keep for nice animation
+                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
                         withAnimation {
                             if newValue {
                                 if accountRepo.mainAccount != nil {

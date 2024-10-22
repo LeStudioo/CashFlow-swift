@@ -246,6 +246,7 @@ struct AccountDashboardView: View {
                     if account.title == accountNameForDeleting {
                         withAnimation {
                             viewContext.delete(account)
+                            AccountRepository.shared.mainAccount = nil
                             persistenceController.saveContext()
                         }
                     }

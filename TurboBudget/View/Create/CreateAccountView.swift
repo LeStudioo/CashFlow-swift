@@ -10,71 +10,66 @@
 import SwiftUI
 
 struct CreateAccountView: View {
-
+    
     // Custom type
-    @StateObject private var viewModel: CreateAccountViewModel = CreateAccountViewModel()
+    @StateObject private var viewModel: CreateAccountViewModel = .init()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
-
+    
     // MARK: - body
     var body: some View {
-        NavigationStack {
-            GeometryReader { geometry in
-                ScrollView {
-                    VStack {
-                        HStack {
-                            Text("account_new".localized)
-                                .titleAdjustSize()
-                            
-                            Spacer()
-                            
-                            Button(action: { dismiss() }, label: {
-                                Image(systemName: "xmark")
-                                    .foregroundStyle(Color(uiColor: .label))
-                                    .font(.system(size: 18, weight: .semibold))
-                            })
-                        }
-                        .padding([.horizontal, .top])
-                        
-                        CellAddCardView(
-                            textHeader: "account_name".localized,
-                            placeholder: "account_placeholder_name".localized,
-                            text: $viewModel.accountTitle
+        ScrollView {
+            VStack(spacing: 40) {
+                HStack {
+                    Text("account_new".localized)
+                        .titleAdjustSize()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        
+                    Button(action: { dismiss() }, label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(Color(uiColor: .label))
+                            .font(.system(size: 18, weight: .semibold))
+                    })
+                }
+                .padding(.top)
+                
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        text: $viewModel.accountTitle,
+                        config: .init(
+                            title: "account_name".localized,
+                            placeholder: "account_placeholder_name".localized
                         )
-                        .padding(8)
-                        
-                        CellAddCardView(
-                            textHeader: "account_balance".localized,
+                    )
+                    
+                    CustomTextField(
+                        text: $viewModel.accountBalance,
+                        config: .init(
+                            title: "account_balance".localized,
                             placeholder: "account_placeholder_balance".localized,
-                            text: $viewModel.accountBalance
+                            style: .amount
                         )
-                        .keyboardType(.decimalPad)
-                        .padding(8)
-                        .padding(.vertical)
-                        
-                        Text("account_info_credit_card".localized)
-                            .foregroundStyle(Color.customGray)
-                            .multilineTextAlignment(.center)
-                            .font(.semiBoldText16())
-                            .padding()
-                        
-                        Spacer()
-                        
-                        CreateButton(action: {
-                            viewModel.createNewAccount()
-                            dismiss()
-                        }, validate: viewModel.valideAccount())
-                        .padding(.bottom)
-                    }
-                    .frame(minHeight: geometry.size.height)
-                } // End ScrollView
-                .scrollIndicators(.hidden)
-                .scrollDismissesKeyboard(.immediately)
-                .ignoresSafeArea(.keyboard)
-                .padding(.horizontal)
-            } // End GeometryReader
-        } // End NavigationStack
+                    )
+                }
+                
+                Text("account_info_credit_card".localized)
+                    .foregroundStyle(Color.customGray)
+                    .multilineTextAlignment(.center)
+                    .font(.semiBoldText16())
+            }
+        } // End ScrollView
+        .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.immediately)
+        .ignoresSafeArea(.keyboard)
+        .overlay(alignment: .bottom) {
+            CreateButton(action: {
+                viewModel.createNewAccount()
+                dismiss()
+            }, validate: viewModel.valideAccount())
+            .padding(.bottom)
+        }
+        .padding(.horizontal, 24)
         .interactiveDismissDisabled(viewModel.isAccountInCreation()) {
             viewModel.presentingConfirmationDialog.toggle()
         }

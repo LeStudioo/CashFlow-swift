@@ -120,7 +120,6 @@ struct OnboardingView: View {
             .disabled(!validateNewAccount())
             .opacity(validateNewAccount() ? 1 : 0.5)
         }
-        .ignoresSafeArea(.keyboard)
         .background(colorScheme == .light ? Color.primary0.edgesIgnoringSafeArea(.all) : Color.secondary500.edgesIgnoringSafeArea(.all))
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -170,44 +169,44 @@ struct OnboardingView: View {
     
     @ViewBuilder
     func addAccountPage() -> some View {
-        VStack {
+        VStack(spacing: 32) {
             Text("account_new".localized)
                 .titleAdjustSize()
                 .padding(.top)
             
-            VStack {
-                CellAddCardView(
-                    textHeader: "account_name".localized,
-                    placeholder: "account_placeholder_name".localized,
-                    text: $accountTitle
-                )
-                .padding(8)
-                
-                CellAddCardView(
-                    textHeader: "account_balance".localized,
-                    placeholder: "account_placeholder_balance".localized,
-                    text: $accountBalance
-                )
-                .keyboardType(.decimalPad)
-                .padding(8)
-                .padding(.vertical)
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        text: $accountTitle,
+                        config: .init(
+                            title: "account_name".localized,
+                            placeholder: "account_placeholder_name".localized
+                        )
+                    )
+                    
+                    CustomTextField(
+                        text: $accountBalance,
+                        config: .init(
+                            title: "account_balance".localized,
+                            placeholder: "account_placeholder_balance".localized,
+                            style: .amount
+                        )
+                    )
+                }
                 
                 Text("account_info_credit_card".localized)
                     .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .multilineTextAlignment(.center)
                     .font(.semiBoldText16())
-                    .padding()
-            }
-            .padding()
             
             Spacer()
         }
+        .padding(.horizontal, 24)
     }
 
     // MARK: Fonctions
     func validateNewAccount() -> Bool {
         if actualPage == 5 {
-            if !accountTitle.isEmpty && accountBalance.convertToDouble() != 0 {
+            if !accountTitle.isEmpty && !accountBalance.isEmpty {
                 return true
             } else { return false }
         } else { return true }
