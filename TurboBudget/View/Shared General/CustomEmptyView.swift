@@ -27,8 +27,8 @@ struct CustomEmptyView: View {
                 .multilineTextAlignment(.center)
         }
         .padding(32)
+        .offset(y: -50)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        
     } // body
 } // struct
 

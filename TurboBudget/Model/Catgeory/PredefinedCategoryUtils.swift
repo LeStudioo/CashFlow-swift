@@ -15,7 +15,13 @@ extension PredefinedCategory {
         
         for category in self.allCases {
             let transactionsFiltered = category.transactions
-                .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filterManager.date, toGranularity: .month) }
+                .filter {
+                    Calendar.current.isDate(
+                        $0.date.withDefault,
+                        equalTo: filterManager.date,
+                        toGranularity: .month
+                    )
+                }
             if transactionsFiltered.count != 0 {
                 array.append(category)
             }
@@ -33,7 +39,7 @@ extension PredefinedCategory {
     static var categoriesSlices: [PieSliceData] {
         var array: [PieSliceData] = []
         
-        for category in self.categoriesWithTransactions {
+        for category in self.categoriesWithTransactions.filter({ $0.id != PredefinedCategory.PREDEFCAT0.id }) {
             array.append(
                 .init(
                     categoryID: category.id,

@@ -35,36 +35,16 @@ struct AnalyticsHomeView: View {
     var body: some View {
         VStack {
             if account.transactions.count > 0 {
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack(spacing: 20) {
                         // Cash Flow Chart
                         CashFlowChart(account: account)
                         
                         if account.amountCashFlowByMonth(month: filter.date) == 0 {
-                            VStack {
-                                Spacer()
-                                
-                                HStack {
-                                    Spacer()
-                                    VStack(spacing: 20) {
-                                        Image("NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .shadow(radius: 4, y: 4)
-                                            .frame(width: isIPad
-                                                   ? UIScreen.main.bounds.width / 3
-                                                   : UIScreen.main.bounds.width / 1.5
-                                            )
-                                        
-                                        Text("analytic_home_no_stats".localized)
-                                            .font(.semiBoldText16())
-                                            .multilineTextAlignment(.center)
-                                    }
-                                    Spacer()
-                                }
-                                
-                                Spacer()
-                            }
+                            CustomEmptyView(
+                                imageName: "NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)",
+                                description: "analytic_home_no_stats".localized
+                            )
                         } else {
                             ForEach(chartsView.indices, id: \.self) { index in
                                 chartsView[index]
@@ -79,32 +59,12 @@ struct AnalyticsHomeView: View {
                         .opacity(0)
                     
                 } // End ScrollView
+                .scrollIndicators(.hidden)
             } else {
-                VStack {
-                    Spacer()
-                    
-                    HStack {
-                        Spacer()
-                        VStack(spacing: 20) {
-                            Image("NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .shadow(radius: 4, y: 4)
-                                .frame(width: isIPad 
-                                       ? UIScreen.main.bounds.width / 3
-                                       : UIScreen.main.bounds.width / 1.5
-                                )
-                            
-                            Text("analytic_home_no_stats".localized)
-                                .font(.semiBoldText16())
-                                .multilineTextAlignment(.center)
-                        }
-                        .offset(y: -50)
-                        Spacer()
-                    }
-                    
-                    Spacer()
-                }
+                CustomEmptyView(
+                    imageName: "NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)",
+                    description: "analytic_home_no_stats".localized
+                )
             } // End account
         } // End VStack
         .navigationTitle("word_analytic".localized)
