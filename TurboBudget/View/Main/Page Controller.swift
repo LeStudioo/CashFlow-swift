@@ -23,10 +23,7 @@ struct PageControllerView: View {
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
     @ObservedObject var viewModelAddTransaction = CreateTransactionViewModel.shared
-    
-    // Capture NOTIFICATION changes
-    var didRemoteChange = NotificationCenter.default.publisher(for: .NSPersistentStoreRemoteChange).receive(on: RunLoop.main)
-    
+        
     // Environement
     @Environment(\.scenePhase) private var scenePhase
     
@@ -52,31 +49,7 @@ struct PageControllerView: View {
         ZStack(alignment: .top) {
             VStack {
                 if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
-                if !pageControllerVM.isUnlocked && icloudManager.icloudDataStatus == .found {
-                    VStack {
-                        Spacer()
-                        ProgressView()
-                        Text("alert_recover_data".localized)
-                            .multilineTextAlignment(.center)
-                            .font(.mediumText16())
-                        Spacer()
-                    }
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-                            let request = Account.fetchRequest()
-                            
-                            do {
-                                let results = try viewContext.fetch(request)
-                                if let accoutRetrieve = results.first {
-                                    accountRepo.mainAccount = accoutRetrieve
-                                    pageControllerVM.isUnlocked = true
-                                }
-                            } catch {
-                                print("⚠️ Error for : \(error.localizedDescription)")
-                            }
-                        }
-                    }
-                } else if pageControllerVM.isUnlocked {
+                if pageControllerVM.isUnlocked {
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
                         if let account = accountRepo.mainAccount {
                             Group {
@@ -161,36 +134,7 @@ struct PageControllerView: View {
                 }
             }
             
-            //            FilterView(showAlertPaywall: $pageControllerVM.showAlertPaywall, update: $update)
-            //                .offset(y: offsetYFilterView)
-            //                .edgesIgnoringSafeArea(.top)
-            //                .onChange(of: filter.showMenu) { newValue in
-            //                    withAnimation {
-            //                        if newValue { offsetYFilterView = 0 } else { offsetYFilterView = -UIScreen.main.bounds.height }
-            //                        update.toggle()
-            //                    }
-            //                }
-            
         } //END ZStack
-        .onReceive(self.didRemoteChange){ _ in
-            withAnimation { update.toggle() }
-        }
-        .onAppear {
-            if !alreadyOpen {
-                icloudManager.checkDataInCloudKit { success in
-                    icloudManager.fetchTransactionFromCloudKit { records, error in
-                        if let records {
-                            icloudManager.saveRecordsToCoreData(records: records)
-                        } else {
-                            print("🔥 RECORDS FAIL")
-                        }
-                    }
-                    if success {
-                        pageControllerVM.isUnlocked = true
-                    }
-                }
-            }
-        }
         .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: { pageControllerVM.showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
@@ -198,17 +142,6 @@ struct PageControllerView: View {
             Text("alert_cashflow_pro_desc".localized)
         })
         .sheet(isPresented: $pageControllerVM.showPaywall) { PaywallScreenView() }
-        .onChange(of: icloudManager.icloudDataStatus) { newValue in
-            if newValue == .found {
-                DispatchQueue.main.async {
-                    if !alreadyOpen {
-                        pageControllerVM.showOnboarding = false
-                        pageControllerVM.isUnlocked = true
-                        alreadyOpen = true
-                    }
-                }
-            }
-        }
     } // End body
 } // End struct
 

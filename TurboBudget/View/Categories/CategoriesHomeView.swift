@@ -17,7 +17,7 @@ struct CategoriesHomeView: View {
     //Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
         
-    //MARK: - Body
+    //MARK: -
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.categoriesFiltered.count != 0 {

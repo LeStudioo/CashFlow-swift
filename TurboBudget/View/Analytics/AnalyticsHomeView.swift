@@ -21,17 +21,7 @@ struct AnalyticsHomeView: View {
     // Custom
     @ObservedObject var filter = FilterManager.shared
     
-    // Computed var
-    private var chartsView: [AnyView] {
-        return [
-            AnyView(IncomesChosenMonthChart(account: account)),
-            AnyView(ExpensesChosenMonthChart(account: account)),
-            AnyView(IncomesFromAutomationsChosenMonthChart(account: account)),
-            AnyView(ExpensesFromAutomationsChosenMonthChart(account: account))
-        ]
-    }
-    
-    //MARK: - body
+    // MARK: -
     var body: some View {
         VStack {
             if account.transactions.count > 0 {
@@ -46,12 +36,36 @@ struct AnalyticsHomeView: View {
                                 description: "analytic_home_no_stats".localized
                             )
                         } else {
-                            ForEach(chartsView.indices, id: \.self) { index in
-                                chartsView[index]
-                            }
+                            AnalyticsLineChart(
+                                values: TransactionManager().dailyIncomeAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                config: .init(
+                                    title: "chart_incomes_incomes_in".localized,
+                                    mainColor: Color.primary500
+                                )
+                            )
+                            AnalyticsLineChart(
+                                values: TransactionManager().dailyExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                config: .init(
+                                    title: "chart_expenses_expenses_in".localized,
+                                    mainColor: Color.error400
+                                )
+                            )
+                            AnalyticsLineChart(
+                                values: TransactionManager().dailyAutomatedIncomeAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                config: .init(
+                                    title: "chart_auto_incomes_incomes_in".localized,
+                                    mainColor: Color.primary500
+                                )
+                            )
+                            AnalyticsLineChart(
+                                values: TransactionManager().dailyAutomatedExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                config: .init(
+                                    title: "chart_auto_expenses_expenses_in".localized,
+                                    mainColor: Color.error400
+                                )
+                            )
                         }
-                        
-                    } // END VSTACK CHARTS
+                    }
                     .padding(.horizontal)
                     
                     Rectangle()
