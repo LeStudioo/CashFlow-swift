@@ -40,7 +40,7 @@ extension CreateAccountViewModel {
         newAccount.title = accountTitle
         newAccount.balance = accountBalance.convertToDouble()
         
-        AccountRepository.shared.mainAccount = newAccount
+        AccountRepositoryOld.shared.mainAccount = newAccount
         
         persistenceController.saveContext()
     }

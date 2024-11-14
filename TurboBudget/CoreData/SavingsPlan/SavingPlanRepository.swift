@@ -32,7 +32,7 @@ extension SavingPlanRepository {
     
     /// Create a new Savings Plan
     func createSavingsPlan(model: SavingsPlanModelOld, withSave: Bool = true) throws -> SavingPlan {
-        guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
+        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
         
         let newSavingPlan = SavingPlan(context: viewContext)
         newSavingPlan.id = UUID()

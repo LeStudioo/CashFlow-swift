@@ -43,4 +43,51 @@ struct NetworkPath {
         }
     }
     
+    struct Subscription {
+        static let base: String = "/subscription"
+        static func update(id: Int) -> String {
+            return "/subscription/\(id)"
+        }
+        static func delete(id: Int) -> String {
+            return "/subscription/\(id)"
+        }
+    }
+    
+    struct SavingsPlan {
+        static let base: String = "/savingsplan"
+        static func update(id: Int) -> String {
+            return "/savingsplan/\(id)"
+        }
+        static func delete(id: Int) -> String {
+            return "/savingsplan/\(id)"
+        }
+    }
+    
+    struct Contribution {
+        static let base: String = "/contribution"
+        static func update(id: Int) -> String {
+            return "/contribution/\(id)"
+        }
+        static func delete(id: Int) -> String {
+            return "/contribution/\(id)"
+        }
+    }
+    
+    struct Budget {
+        static let base: String = "/budget"
+        static func update(id: Int) -> String {
+            return "/budget/\(id)"
+        }
+        static func delete(id: Int) -> String {
+            return "/budget/\(id)"
+        }
+    }
+    
+    struct CreditCard {
+        static let base: String = "/creditcard"
+        static func delete(id: Int) -> String {
+            return "/creditcard/\(id)"
+        }
+    }
+    
 }

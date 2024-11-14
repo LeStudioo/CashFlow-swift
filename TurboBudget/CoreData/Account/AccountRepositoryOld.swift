@@ -1,5 +1,5 @@
 //
-//  AccountRepository.swift
+//  AccountRepositoryOld.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 12/08/2024.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class AccountRepository: ObservableObject {
-    static let shared = AccountRepository()
+final class AccountRepositoryOld: ObservableObject {
+    static let shared = AccountRepositoryOld()
     
     @Published var mainAccount: Account? = nil
 }
 
-extension AccountRepository {
+extension AccountRepositoryOld {
     
     func fetchMainAccount() {
         let request = Account.fetchRequest()

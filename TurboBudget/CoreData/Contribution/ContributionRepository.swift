@@ -15,7 +15,7 @@ extension ContributionRepository {
     
     /// Create a new contribution
     func createNewContribution(model: ContributionModelOld, withSave: Bool = true) throws -> Contribution {
-        guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
+        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
         
         let newContribution = Contribution(context: viewContext)
         newContribution.id = UUID()

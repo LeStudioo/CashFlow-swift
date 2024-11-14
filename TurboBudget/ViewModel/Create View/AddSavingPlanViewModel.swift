@@ -39,7 +39,7 @@ class AddSavingPlanViewModel: ObservableObject {
 extension AddSavingPlanViewModel {
     
     func createSavingsPlan(withError: @escaping (_ withError: CustomError?) -> Void) {
-        guard let account = AccountRepository.shared.mainAccount else { return }
+        guard let account = AccountRepositoryOld.shared.mainAccount else { return }
         
         let savingsPlanModel = SavingsPlanModelOld(
             title: savingPlanTitle,
@@ -98,14 +98,14 @@ extension AddSavingPlanViewModel {
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount = AccountRepository.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount = AccountRepository.shared.mainAccount, !accountCanBeNegative {
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount, !accountCanBeNegative {
             if mainAccount.balance - savingPlanAmountOfStart.convertToDouble() < 0 { return true }
         }
         return false

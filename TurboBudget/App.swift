@@ -16,7 +16,7 @@ struct TurboBudgetApp: App {
     @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     
     // Repository
-    @StateObject private var accountRepo: AccountRepository = .shared
+    @StateObject private var accountRepo: AccountRepositoryOld = .shared
     @StateObject private var transactionRepo: TransactionRepositoryOld = .shared
     @StateObject private var automationRepo: AutomationRepository = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepository = .shared

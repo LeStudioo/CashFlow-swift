@@ -16,7 +16,7 @@ struct TabbarView: View {
     
     // Repo
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepo: AccountRepository
+    @EnvironmentObject private var accountRepo: AccountRepositoryOld
     
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     

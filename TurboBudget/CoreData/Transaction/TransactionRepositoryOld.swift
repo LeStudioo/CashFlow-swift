@@ -55,7 +55,7 @@ extension TransactionRepositoryOld {
     
     /// Create a new transaction
     func createNewTransaction(model: TransactionModelOld, withSave: Bool = true) throws -> TransactionEntity {
-        guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
+        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
         guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
                 
         let newTransaction = TransactionEntity(context: viewContext)
@@ -79,7 +79,7 @@ extension TransactionRepositoryOld {
     
     /// Delete a transaction
     func deleteTransaction(transaction: TransactionEntity) {
-        if let account = AccountRepository.shared.mainAccount {
+        if let account = AccountRepositoryOld.shared.mainAccount {
             account.balance -= transaction.amount
         }
         
@@ -165,7 +165,7 @@ extension TransactionRepositoryOld {
         for transaction in self.transactions {
             viewContext.delete(transaction)
         }
-        if let account = AccountRepository.shared.mainAccount {
+        if let account = AccountRepositoryOld.shared.mainAccount {
             account.balance = 0
         }
         self.transactions = []

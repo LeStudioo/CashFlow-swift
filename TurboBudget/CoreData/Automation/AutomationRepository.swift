@@ -34,7 +34,7 @@ extension AutomationRepository {
     
     /// Create a new automation
     func createAutomation(model: AutomationModel, withSave: Bool = true) throws -> Automation {
-        guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
+        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
         
         let newAutomation = Automation(context: viewContext)
         newAutomation.id = UUID()

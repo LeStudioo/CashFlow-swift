@@ -13,7 +13,7 @@ struct SettingsDangerZoneView: View {
     @StateObject private var viewModel: SettingsDangerZoneViewModel = .init()
     
     // Repo
-    @EnvironmentObject private var accountRepo: AccountRepository
+    @EnvironmentObject private var accountRepo: AccountRepositoryOld
     @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
     @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
     @EnvironmentObject private var budgetRepo: BudgetRepository

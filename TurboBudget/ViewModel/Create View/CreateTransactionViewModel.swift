@@ -100,13 +100,13 @@ extension CreateTransactionViewModel {
     }
     
     var isAccountWillBeNegative: Bool {
-        if let mainAccount = AccountRepository.shared.mainAccount, !accountCanBeNegative {
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount, !accountCanBeNegative {
             if mainAccount.balance - transactionAmount.convertToDouble() < 0 && transactionType == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
-        if let mainAccount = AccountRepository.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
             let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.convertToDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
@@ -124,7 +124,7 @@ extension CreateTransactionViewModel {
     }
     
     var isDuplicateTransactions: Bool {
-        if let mainAccount = AccountRepository.shared.mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
             let accountFilteredByTitle = mainAccount.allTransactions.filter { $0.title == transactionTitle }
             let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.id ?? "" && selectedSubcategory != nil }
             if accountFilteredBySubcategory.count != 0 { return true } else { return false }
@@ -143,7 +143,7 @@ extension CreateTransactionViewModel {
     var numberOfAlertsForSuccessful: Int {
         var num: Int = 0
         if isCardLimitSoonToBeExceeded { num += 1 }
-        if let mainAccount = AccountRepository.shared.mainAccount { if mainAccount.amountOfExpensesInActualMonth() > mainAccount.cardLimit && mainAccount.cardLimit != 0 { num += 1 } }
+        if let mainAccount = AccountRepositoryOld.shared.mainAccount { if mainAccount.amountOfExpensesInActualMonth() > mainAccount.cardLimit && mainAccount.cardLimit != 0 { num += 1 } }
         if isBudgetSoonToBeExceeded { num += 1 }
         if isBudgetExceed { num += 1 }
         return num
