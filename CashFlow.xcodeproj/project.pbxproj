@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8129E7502A483A7400FF23E5 /* ConfettiSwiftUI */; };
 		81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 81D990B32A49F03000EF13A3 /* SwipeActions */; };
+		D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF72CE63B4100194630 /* GoogleSignIn */; };
+		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
@@ -39,8 +41,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */,
 				D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */,
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
+				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
 				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
 			);
@@ -97,6 +101,8 @@
 				8129E7502A483A7400FF23E5 /* ConfettiSwiftUI */,
 				81D990B32A49F03000EF13A3 /* SwipeActions */,
 				D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */,
+				D9300BF72CE63B4100194630 /* GoogleSignIn */,
+				D9300BF92CE63B4100194630 /* GoogleSignInSwift */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -134,6 +140,7 @@
 				8129E74F2A483A7400FF23E5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
+				D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -317,7 +324,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -365,7 +372,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -422,6 +429,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -442,6 +457,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
+		};
+		D9300BF72CE63B4100194630 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		D9300BF92CE63B4100194630 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 		D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;

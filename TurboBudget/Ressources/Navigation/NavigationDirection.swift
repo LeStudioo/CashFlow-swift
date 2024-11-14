@@ -18,6 +18,7 @@ enum NavigationDirection: Identifiable {
     
     case analytics(account: Account)
     
+    case createAccount
     case createAutomation
     case createBudget
     case createSavingPlans
@@ -58,96 +59,7 @@ enum NavigationDirection: Identifiable {
     case settingsCredits
     case settingsDangerZone
     
-    var id: String {
-        switch self {
-        case .pageController:
-            return "pageController"
-        case .filter:
-            return "filter"
-            
-        case .home(let account):
-            return "home_\(account.id)"
-        case .homeSavingPlans:
-            return "homeSavingPlans"
-        case .homeAutomations:
-            return "homeAutomations"
-            
-        case .analytics(let account):
-            return "analytics_\(account.id)"
-            
-        case .createAutomation:
-            return "createAutomation"
-        case .createBudget:
-            return "createBudget"
-        case .createSavingPlans:
-            return "createSavingPlans"
-        case .createTransaction:
-            return "createTransaction"
-        case .recoverTransaction:
-            return "recoverTransaction"
-        case .createSavingsAccount:
-            return "createSavingsAccount"
-        case .createTransfer:
-            return "createTransfer"
-            
-        case .selectCategory(let category, let subcategory):
-            return "selectCategory_\(category.wrappedValue?.id ?? "")_\(subcategory.wrappedValue?.id ?? "")"
-            
-        case .savingPlansDetail(let savingPlan):
-            return "savingPlansDetail_\(savingPlan.id)"
-            
-        case .allTransactions(let account):
-            return "allTransactions_\(account.id)"
-        case .transactionDetail(let transaction):
-            return "transactionDetail_\(transaction.id)"
-            
-        case .accountDashboard(let account):
-            return "accountDashboard_\(account.id)"
-        case .allSavingsAccount:
-            return "allSavingsAccount"
-        case .savingsAccountDetail(let savingsAccount):
-            return "savingsAccountDetail_\(savingsAccount.id)"
-        case .allBudgets:
-            return "allBudgets"
-        case .budgetTransactions(let subcategory):
-            return "budgetTransactions_\(subcategory.id)"
-        case .allArchivedSavingPlans(let account):
-            return "allArchivedSavingPlans_\(account.id)"
-
-        case .homeCategories:
-            return "homeCategories"
-        case .categoryTransactions(let category):
-            return "categoryTransactions_\(category.id)"
-        case .homeSubcategories(let category):
-            return "homeSubcategories_\(category.id)"
-        case .subcategoryTransactions(let subcategory):
-            return "subcategoryTransactions_\(subcategory.id)"
-            
-        case .paywall:
-            return "paywall"
-            
-        case .settings:
-            return "settings"
-        case .settingsGeneral:
-            return "settingsGeneral"
-        case .settingsSecurity:
-            return "settingsSecurity"
-        case .settingsAppearence:
-            return "settingsAppearence"
-        case .settingsDisplay:
-            return "settingsDisplay"
-        case .settingsAccount:
-            return "settingsAccount"
-        case .settingsSavingPlans:
-            return "settingsSavingPlans"
-        case .settingsBudget:
-            return "settingsBudget"
-        case .settingsCredits:
-            return "settingsCredits"
-        case .settingsDangerZone:
-            return "settingsDangerZone"
-        }
-    }
+    var id: Self { self }
 }
 
 extension NavigationDirection: Equatable {
@@ -160,6 +72,7 @@ extension NavigationDirection: Equatable {
             (.homeCategories, .homeCategories),
             (.homeSavingPlans, .homeSavingPlans),
             (.homeAutomations, .homeAutomations),
+            (.createAccount, .createAccount),
             (.createAutomation, .createAutomation),
             (.createBudget, .createBudget),
             (.createSavingPlans, .createSavingPlans),

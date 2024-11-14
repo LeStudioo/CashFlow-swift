@@ -234,7 +234,7 @@ extension PredefinedSubcategory {
     }
     
     var transactions: [TransactionEntity] {
-        return TransactionRepository.shared.getTransactionsForSubcategory(subcategoryID: self.rawValue)
+        return TransactionRepositoryOld.shared.getTransactionsForSubcategory(subcategoryID: self.rawValue)
     }
     
     var transactionsFiltered: [TransactionEntity] {

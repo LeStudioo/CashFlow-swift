@@ -20,7 +20,7 @@ struct RecentTransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepo: TransactionRepository
+    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
     
     // Custom
     @StateObject private var viewModel = RecentTransactionsViewModel()

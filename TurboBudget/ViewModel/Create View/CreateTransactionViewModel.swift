@@ -41,7 +41,7 @@ final class CreateTransactionViewModel: ObservableObject {
     }
     
     func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {        
-        let model = TransactionModel(
+        let model = TransactionModelOld(
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
             predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
             title: transactionTitle.trimmingCharacters(in: .whitespaces),
@@ -50,7 +50,7 @@ final class CreateTransactionViewModel: ObservableObject {
         )
         
         do {
-            let newTransaction = try TransactionRepository.shared.createNewTransaction(model: model)
+            let newTransaction = try TransactionRepositoryOld.shared.createNewTransaction(model: model)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.successfullModalManager.isPresenting = true

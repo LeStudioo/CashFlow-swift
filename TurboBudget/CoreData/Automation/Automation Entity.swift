@@ -9,6 +9,30 @@
 import Foundation
 import CoreData
 
+extension Automation: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case title = "name"
+        case amount
+        case type
+        case frequency
+        case frequencyDay
+        case creationDate
+        case predefCategoryID = "categoryID"
+        case predefSubcategoryID = "subcategoryID"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(automationToTransaction?.amount, forKey: .amount)
+        try container.encode((automationToTransaction?.amount ?? 0) >= 0 ? 1 : 0, forKey: .type)
+        try container.encode(0, forKey: .frequency)
+        try container.encode(date?.day, forKey: .frequencyDay)
+        try container.encode(automationToTransaction?.predefCategoryID, forKey: .predefCategoryID)
+        try container.encode(automationToTransaction?.predefSubcategoryID, forKey: .predefSubcategoryID)
+    }
+}
+
 @objc(Automation)
 public class Automation: NSManagedObject, Identifiable {
 

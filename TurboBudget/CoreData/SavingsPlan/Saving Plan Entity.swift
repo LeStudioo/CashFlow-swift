@@ -9,6 +9,31 @@
 import Foundation
 import CoreData
 
+extension SavingPlan: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case emoji
+        case startDate
+        case endDate
+        case currentAmount
+        case goalAmount
+        case note
+        case contributions
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .name)
+        try container.encode(icon, forKey: .emoji)
+        try container.encode(dateOfStart?.ISO8601Format(), forKey: .startDate)
+        try container.encode(dateOfEnd?.ISO8601Format(), forKey: .endDate)
+        try container.encode(actualAmount, forKey: .currentAmount)
+        try container.encode(amountOfEnd, forKey: .goalAmount)
+        try container.encode(note, forKey: .note)
+        try container.encode(contributions, forKey: .contributions)
+    }
+}
+
 @objc(SavingPlan)
 public class SavingPlan: NSManagedObject, Identifiable {
 

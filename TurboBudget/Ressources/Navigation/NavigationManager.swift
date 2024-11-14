@@ -134,6 +134,10 @@ class NavigationManager: Router {
         presentSheet(.paywall)
     }
     
+    func presentCreateAccount() {
+        presentSheet(.createAccount)
+    }
+    
     func presentCreateAutomation() {
         presentSheet(.createAutomation)
     }
@@ -193,6 +197,8 @@ private extension NavigationManager {
             case .analytics(let account):
                 AnalyticsHomeView(account: account)
                 
+            case .createAccount:
+                CreateAccountView()
             case .createAutomation:
                 CreateAutomationView()
             case .createBudget:

@@ -10,6 +10,19 @@ import Foundation
 import CoreData
 import CloudKit
 
+extension Account: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case title = "name"
+        case balance
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(balance, forKey: .balance)
+    }
+}
+
 @objc(Account)
 public class Account: NSManagedObject, Identifiable {
     private let persistenceController = PersistenceController.shared

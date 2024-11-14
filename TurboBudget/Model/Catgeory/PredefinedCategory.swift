@@ -127,7 +127,7 @@ extension PredefinedCategory {
     }
     
     var transactions: [TransactionEntity] {
-        return TransactionRepository.shared.getTransactionsForCategory(categoryID: self.rawValue)
+        return TransactionRepositoryOld.shared.getTransactionsForCategory(categoryID: self.rawValue)
     }
     
     var transactionsFiltered: [TransactionEntity] {

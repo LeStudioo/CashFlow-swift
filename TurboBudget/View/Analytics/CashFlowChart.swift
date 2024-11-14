@@ -16,7 +16,7 @@ struct CashFlowChart: View {
     
     // Custom
     @ObservedObject var filter = FilterManager.shared
-    @EnvironmentObject private var transactionRepo: TransactionRepository
+    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme

@@ -14,7 +14,7 @@ struct SubcategoryTransactionsView: View {
     var subcategory: PredefinedSubcategory
     
     // Repo
-    @EnvironmentObject private var transactionRepo: TransactionRepository
+    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
     
     //Environnements
     @EnvironmentObject private var router: NavigationManager

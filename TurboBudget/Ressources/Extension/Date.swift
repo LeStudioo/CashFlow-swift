@@ -17,7 +17,7 @@ extension Optional where Wrapped == Date {
 
 extension Date {
     
-    static var day: Int {
+    var day: Int {
         var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
         components.timeZone = Locale.current.timeZone
         if let day = components.day { return day } else { return 0 }

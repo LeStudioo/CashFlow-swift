@@ -20,13 +20,18 @@ extension SavingPlanRepository {
         do {
             let results = try viewContext.fetch(request)
             self.savingPlans = results
+            
+            let savingsPlanData = try JSONEncoder().encode(savingPlans.filter { $0.dateOfStart != nil })
+            let json = "\"savingsplan\":" + (String(data: savingsPlanData, encoding: .utf8) ?? "")
+            DataForServer.shared.savingsPlanJSON = json
+            print(json)
         } catch {
             print("⚠️ \(error.localizedDescription)")
         }
     }
     
     /// Create a new Savings Plan
-    func createSavingsPlan(model: SavingsPlanModel, withSave: Bool = true) throws -> SavingPlan {
+    func createSavingsPlan(model: SavingsPlanModelOld, withSave: Bool = true) throws -> SavingPlan {
         guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
         
         let newSavingPlan = SavingPlan(context: viewContext)
@@ -41,7 +46,7 @@ extension SavingPlanRepository {
         newSavingPlan.savingPlansToAccount = account
         
         if model.amountOfStart > 0 {
-            let contributionModel = ContributionModel(
+            let contributionModel = ContributionModelOld(
                 amount: model.amountOfStart,
                 date: .now,
                 savingsPlan: newSavingPlan

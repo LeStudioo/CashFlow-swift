@@ -1,5 +1,5 @@
 //
-//  TransactionModel.swift
+//  TransactionModelOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/08/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TransactionModel {
+struct TransactionModelOld {
     var predefCategoryID: String
     var predefSubcategoryID: String
     

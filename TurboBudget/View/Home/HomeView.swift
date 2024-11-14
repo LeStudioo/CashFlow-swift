@@ -30,9 +30,8 @@ struct HomeView: View {
         VStack(spacing: 0) {
             HStack {
                 VStack(alignment: .leading) {
-                    Text(currencySymbol + " " + String(format: "%.2f", account.balance))
-                        .contentTransition(.numericText(value: account.balance))
-                    .titleAdjustSize()
+                    Text(currencySymbol + " " + account.balance.formatWith(2))
+                        .titleAdjustSize()
                     
                     Text("home_screen_available_balance".localized)
                         .foregroundStyle(Color.customGray)

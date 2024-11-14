@@ -10,6 +10,23 @@ import Foundation
 import CoreData
 import SwiftUI
 
+extension Budget: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case name
+        case amount
+        case categoryID
+        case subcategoryID
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .name)
+        try container.encode(amount, forKey: .amount)
+        try container.encode(predefCategoryID, forKey: .categoryID)
+        try container.encode(predefSubcategoryID, forKey: .subcategoryID)
+    }
+}
+
 @objc(Budget)
 public class Budget: NSManagedObject, Identifiable {
 

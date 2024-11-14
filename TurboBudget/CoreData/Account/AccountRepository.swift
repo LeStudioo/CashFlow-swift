@@ -21,6 +21,13 @@ extension AccountRepository {
         do {
             let accounts = try persistenceController.container.viewContext.fetch(request)
             self.mainAccount = accounts.first
+            if let mainAccount {
+                let accountData = try JSONEncoder().encode(mainAccount)
+                let json = "\"account\":" + (String(data: accountData, encoding: .utf8) ?? "")
+                DataForServer.shared.accountJSON = json
+                print(json)
+            }
+            
         } catch {
             print("⚠️ \(error.localizedDescription)")
         }

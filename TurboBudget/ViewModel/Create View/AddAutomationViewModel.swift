@@ -45,14 +45,14 @@ extension AddAutomationViewModel {
             comps.day = dayAutomation
             finalDate = calendar.date(from: comps) ?? .now
             
-            if Date.day > dayAutomation {
+            if Date().day > dayAutomation {
                 finalDate = calendar.date(byAdding: .month, value: 1, to: finalDate) ?? .now
             }
         } else {
             finalDate = dateAutomation
         }
         
-        let transactionModel = TransactionModel(
+        let transactionModel = TransactionModelOld(
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
             predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
             title: transactionTitle,
@@ -68,7 +68,7 @@ extension AddAutomationViewModel {
         )
         
         do {
-            let newTransaction = try TransactionRepository.shared.createNewTransaction(model: transactionModel, withSave: false)
+            let newTransaction = try TransactionRepositoryOld.shared.createNewTransaction(model: transactionModel, withSave: false)
             automationModel.transaction = newTransaction
             
             let newAutomation = try AutomationRepository.shared.createAutomation(model: automationModel, withSave: false)

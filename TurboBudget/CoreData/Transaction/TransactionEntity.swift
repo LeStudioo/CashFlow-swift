@@ -9,6 +9,38 @@
 import Foundation
 import CoreData
 
+extension TransactionEntity: Encodable {
+    enum CodingKeys: String, CodingKey {
+        case title = "name"
+        case amount
+        case type
+        case date
+        case creationDate
+        case predefCategoryID = "categoryID"
+        case predefSubcategoryID = "subcategoryID"
+        case note
+        
+        case comeFromAuto = "isFromSubscription"
+        case comeFromApplePay = "isFromApplePay"
+        case nameFromApplePay
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(title, forKey: .title)
+        try container.encode(amount, forKey: .amount)
+        try container.encode(amount >= 0 ? 1 : 0, forKey: .type)
+        try container.encode(date?.ISO8601Format(), forKey: .date)
+        try container.encode(creationDate.ISO8601Format(), forKey: .creationDate)
+        try container.encode(predefCategoryID, forKey: .predefCategoryID)
+        try container.encode(predefSubcategoryID, forKey: .predefSubcategoryID)
+        try container.encode(note, forKey: .note)
+        try container.encode(comeFromAuto, forKey: .comeFromAuto)
+        try container.encode(comeFromApplePay, forKey: .comeFromApplePay)
+        try container.encode(nameFromApplePay, forKey: .nameFromApplePay)
+    }
+}
+
 @objc(Transaction)
 public class TransactionEntity: NSManagedObject, Identifiable {
 
@@ -94,7 +126,7 @@ extension TransactionEntity {
     }
     
     static func findBestCategory(for title: String) -> (PredefinedCategory?, PredefinedSubcategory?) {
-        let transactions = TransactionRepository.shared.transactions
+        let transactions = TransactionRepositoryOld.shared.transactions
         
         let transactionTitle = title
             .lowercased()

@@ -1,0 +1,54 @@
+//
+//  ContributionModel.swift
+//  FixBounce
+//
+//  Created by Theo Sementa on 12/11/2024.
+//
+
+import Foundation
+
+class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
+    @Published var id: Int?
+    @Published var amount: Double?
+    @Published var date: String?
+
+    // Initialiseur
+    init(id: Int? = nil, amount: Double? = nil, date: String? = nil) {
+        self.id = id
+        self.amount = amount
+        self.date = date
+    }
+
+    // Conformance au protocole Codable
+    private enum CodingKeys: String, CodingKey {
+        case id, amount, date
+    }
+
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(Int.self, forKey: .id)
+        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
+        date = try container.decodeIfPresent(String.self, forKey: .date)
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(id, forKey: .id)
+        try container.encodeIfPresent(amount, forKey: .amount)
+        try container.encodeIfPresent(date, forKey: .date)
+    }
+
+    // Fonction pour le protocole Equatable
+    static func == (lhs: ContributionModel, rhs: ContributionModel) -> Bool {
+        return lhs.id == rhs.id &&
+               lhs.amount == rhs.amount &&
+               lhs.date == rhs.date
+    }
+
+    // Fonction pour le protocole Hashable
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(amount)
+        hasher.combine(date)
+    }
+}

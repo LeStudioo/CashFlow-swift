@@ -15,7 +15,7 @@ struct TransactionRow: View {
     @ObservedObject var transaction: TransactionEntity
     
     // Repo
-    @EnvironmentObject private var transactionRepo: TransactionRepository
+    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
         
     // State or Binding Bool
     @State private var isEditing: Bool = false
@@ -111,7 +111,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.yellow)
             })
-            .onChange(of: isSharingJSON) {
+            .onChange(of: isSharingJSON) { _ in
                 context.state.wrappedValue = .closed
             }
             
@@ -129,7 +129,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.green)
             })
-            .onChange(of: isSharingQRCode) {
+            .onChange(of: isSharingQRCode) { _ in
                 context.state.wrappedValue = .closed
             }
             
@@ -147,7 +147,7 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.error400)
             })
-            .onChange(of: cancelDeleting) {
+            .onChange(of: cancelDeleting) { _ in
                 context.state.wrappedValue = .closed
             }
         })

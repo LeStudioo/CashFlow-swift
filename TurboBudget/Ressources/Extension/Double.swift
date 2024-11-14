@@ -10,6 +10,10 @@ import SwiftUI
 
 extension Double {
     
+    func formatWith(_ digit: Int) -> String {
+        return String(format: "%.\(digit)f", self)
+    }
+    
     func splitDecimal() -> (Int, Double) {
         guard self <= Double(Int.max), self >= Double(Int.min) else {
             print("Double value cannot be converted to Int because it is out of bounds.")

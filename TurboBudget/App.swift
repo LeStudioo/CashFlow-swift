@@ -17,7 +17,7 @@ struct TurboBudgetApp: App {
     
     // Repository
     @StateObject private var accountRepo: AccountRepository = .shared
-    @StateObject private var transactionRepo: TransactionRepository = .shared
+    @StateObject private var transactionRepo: TransactionRepositoryOld = .shared
     @StateObject private var automationRepo: AutomationRepository = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepository = .shared
     @StateObject private var budgetRepo: BudgetRepository = .shared
@@ -77,7 +77,9 @@ struct TurboBudgetApp: App {
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
-                savingsAccountRepo.fetchSavingsAccounts()
+//                savingsAccountRepo.fetchSavingsAccounts()
+                
+                print(DataForServer.shared.json)
             }
             .task {
                 await purchasesManager.loadProducts()

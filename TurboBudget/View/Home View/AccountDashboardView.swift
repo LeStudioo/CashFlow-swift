@@ -14,7 +14,6 @@ struct AccountDashboardView: View {
     @ObservedObject var account: Account
     
     //Environement
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
@@ -24,52 +23,29 @@ struct AccountDashboardView: View {
     
     @EnvironmentObject private var budgetRepo: BudgetRepository
     
-    // Preferences
-    @Preference(\.cardLimitPercentage) private var cardLimitPercentage
-    
     //State or Binding String
     @State private var accountName: String = ""
     @State private var accountNameForDeleting: String = ""
     
-    //State or Binding Int, Float and Double
-    @State private var cardLimit: Double = 0.0
-    @State private var accountBalanceInt: Int = 0
-    @State private var accountBalanceDouble: Double = 0.0
-    
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var isEditingAccountName: Bool = false
-    @State private var busy: Bool = false
     @State private var showAlertPaywall: Bool = false
     @State private var showPaywall: Bool = false
     
     // Computed var
-    var widthOfChart: CGFloat {
-        return UIScreen.main.bounds.width / (isIPad ? 5 : 3)
-    }
-    
-    var percentage: Double {
-        if account.amountOfExpensesInActualMonth() / Double(account.cardLimit) >= 1 { return 0.98 } else {
-            return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
-        }
-    }
-    
-    var realPercentage: Double {
-        return account.amountOfExpensesInActualMonth() / Double(account.cardLimit)
-    }
-    
     var columns: [GridItem] {
         if isIPad {
-            return [GridItem(), GridItem(), GridItem(), GridItem()]
+            return [GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16)]
         } else {
-            return [GridItem(), GridItem()]
+            return [GridItem(spacing: 16), GridItem(spacing: 16)]
         }
     }
     
     // MARK: - body
     var body: some View {
-        VStack {
-            ScrollView(showsIndicators: false) {
+        ScrollView {
+            VStack {
                 Text(account.title)
                     .titleAdjustSize()
                     .foregroundStyle(ThemeManager.theme.color)
@@ -80,207 +56,162 @@ struct AccountDashboardView: View {
                     Text("account_detail_avail_balance".localized)
                         .font(Font.mediumText16())
                         .foregroundStyle(Color.customGray)
-                    HStack {
-                        if accountBalanceDouble == 0 { Text(accountBalanceInt.currency) } else {
-                            Text(currencySymbol)
-                            HStack(spacing: -1) {
-                                Text(accountBalanceInt.formatted(style: .decimal))
-                                if accountBalanceDouble != 1 {
-                                    Text(String(format: "%.2f", accountBalanceDouble).replacingOccurrences(of: "0", with: "").replacingOccurrences(of: "-", with: ""))
-                                }
-                            }
-                        }
-                    }
-                    .font(.boldH1())
+                    
+                    Text(currencySymbol + " " + account.balance.formatWith(2))
+                        .titleAdjustSize()
                 }
                 .padding(.vertical, 12)
-                
+            }
+            
+            VStack(spacing: 16) {
                 if store.isCashFlowPro {
-                    let amountExpenses: Double = account.amountExpensesByMonth(month: .now)
-                    let amountIncomes: Double = account.amountIncomesByMonth(month: .now)
-                    let amountCashFlow: Double = account.amountCashFlowByMonth(month: .now)
-                    let amountGainOrLoss: Double = account.amountGainOrLossByMonth(month: .now)
-                    if amountExpenses != 0 {
-                        VStack(alignment: .leading) {
-                            Text(HelperManager().formattedDateWithMonthYear(date: .now))
-                                .font(.semiBoldH3())
-                                .padding(.leading, 8)
-                            HStack {
-                                PieChart(
-                                    slices: PredefinedCategory.categoriesSlices,
-                                    backgroundColor: Color.colorCell,
-                                    configuration: .init(style: .category, space: 0.2, hole: 0.75, isInteractive: false)
-                                )
-                                .frame(height: 180)
-                                .padding(.horizontal, 8)
-                                VStack {
-                                    cellForChart(text: "word_expenses".localized, amount: amountExpenses.currency)
-                                    cellForChart(text: "word_incomes".localized, amount: amountIncomes.currency)
-                                    cellForChart(text: "account_detail_cashflow".localized, amount: amountCashFlow.currency)
-                                    cellForChart(text: amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss".localized, amount: amountGainOrLoss.currency)
-                                }
-                            }
-                        }
-                        .padding(8)
-                        .foregroundStyle(Color(uiColor: .label))
-                        .background(Color.colorCell)
-                        .cornerRadius(15)
-                        .padding(.horizontal, 8)
-                        .padding(.bottom, 4)
-                    }
+                    DashboardChart(account: account)
                 }
                 
-                LazyVGrid(columns: columns, spacing: 12, content: {
-                    
-                    //                        Button(action: {
-                    //                            router.pushAllSavingsAccount()
-                    //                        }, label: {
-                    //                            cellForOnglet(
-                    //                                text: "word_savings_account".localized,
-                    //                                num: savingsAccounts.count,
-                    //                                systemImage: "building.columns.fill"
-                    //                            )
-                    //                        })
-                    
+                LazyVGrid(columns: columns, spacing: 16, content: {
                     NavigationButton(push: router.pushAllTransactions(account: account)) {
-                        cellForOnglet(
-                            text: "word_transactions".localized,
-                            num: account.transactions.count,
-                            systemImage: "banknote.fill"
+                        DashboardRow(
+                            config: .init(
+                                icon: "banknote.fill",
+                                text: "word_transactions".localized,
+                                num: account.transactions.count
+                            )
                         )
                     }
                     
                     NavigationButton(push: router.pushHomeAutomations()) {
-                        cellForOnglet(
-                            text: "word_automations".localized,
-                            num: account.automations.count,
-                            systemImage: "gearshape.2.fill"
+                        DashboardRow(
+                            config: .init(
+                                icon: "gearshape.2.fill",
+                                text: "word_automations".localized,
+                                num: account.automations.count
+                            )
                         )
                     }
                     
                     NavigationButton(push: router.pushHomeSavingPlans()) {
-                        cellForOnglet(
-                            text: "word_savingsplans".localized,
-                            num: account.savingPlans.count,
-                            systemImage: "dollarsign.square.fill"
+                        DashboardRow(
+                            config: .init(
+                                icon: "dollarsign.square.fill",
+                                text: "word_savingsplans".localized,
+                                num: account.savingPlans.count
+                            )
                         )
                     }
-
-                    if store.isCashFlowPro {
-                        NavigationButton(push: router.pushAllBudgets()) {
-                            cellForOnglet(
+                    
+                    NavigationButton(push: router.pushAllBudgets()) {
+                        DashboardRow(
+                            config: .init(
+                                icon: "chart.pie.fill",
                                 text: "word_budgets".localized,
                                 num: budgetRepo.budgets.count,
-                                systemImage: "chart.pie.fill"
+                                isLocked: !store.isCashFlowPro
                             )
+                        )
+                    }
+                    .disabled(!store.isCashFlowPro)
+                    .onTapGesture {
+                        if !store.isCashFlowPro {
+                            showAlertPaywall.toggle()
                         }
-                    } else {
-                        cellForOnglet(text: "word_budgets".localized, num: budgetRepo.budgets.count, systemImage: "chart.pie.fill")
-                            .opacity(0.5)
-                            .overlay { Image(systemName: "lock.fill") }
-                            .onTapGesture { showAlertPaywall.toggle() }
                     }
                     
                     if account.savingPlansArchived.count != 0 {
                         NavigationButton(push: router.pushArchivedSavingPlans(account: account)) {
-                            cellForOnglet(
-                                text: "word_archived_savingsplans".localized,
-                                num: account.savingPlansArchived.count,
-                                systemImage: "archivebox.fill"
+                            DashboardRow(
+                                config: .init(
+                                    icon: "archivebox.fill",
+                                    text: "word_archived_savingsplans".localized,
+                                    num: account.savingPlansArchived.count
+                                )
                             )
                         }
                     }
                 })
-                .padding(.horizontal, 8)
-                
-                Rectangle()
-                    .frame(height: 120)
-                    .opacity(0)
             }
-            .navigationTitle("")
-            .navigationBarTitleDisplayMode(.large)
-            .padding(.top, -40)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Menu(content: {
-                        Button(action: { isEditingAccountName.toggle() }, label: { Label("account_detail_rename".localized, systemImage: "pencil") })
-                        Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
-                    }, label: {
-                        Image(systemName: "ellipsis")
-                            .foregroundStyle(Color(uiColor: .label))
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
-                    })
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack {
-                        if !store.isCashFlowPro {
-                            Button(action: { showPaywall.toggle() }, label: {
-                                Image(systemName: "crown.fill")
-                                    .foregroundStyle(.primary500)
-                                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                            })
-                        }
-                        
-                        NavigationButton(push: router.pushSettings()) {
-                            Image(systemName: "gearshape.fill")
-                                .foregroundStyle(Color(uiColor: .label))
-                                .font(.system(size: 14, weight: .medium, design: .rounded))
-                        }
-                    }
-                }
-            }
-            .background(Color.background.edgesIgnoringSafeArea(.all))
-            .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
-                TextField("account_detail_new_name".localized, text: $accountName)
-                Button(action: { return }, label: { Text("word_cancel".localized) })
-                Button(action: {
-                    account.title = accountName
-                    persistenceController.saveContext()
-                }, label: { Text("word_validate".localized) })
-            })
-            .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
-                TextField(account.title, text: $accountNameForDeleting)
-                Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-                Button(role: .destructive, action: {
-                    if account.title == accountNameForDeleting {
-                        withAnimation {
-                            viewContext.delete(account)
-                            AccountRepository.shared.mainAccount = nil
-                            persistenceController.saveContext()
-                        }
-                    }
-                }, label: { Text("word_delete".localized) })
-            }, message: { Text("account_detail_delete_account_desc".localized) })
-            //                VStack {
-            //                    Spacer()
-            //
-            //                    HStack {
-            //                        Spacer()
-            //                        VStack(spacing: 20) {
-            //                            Image("NoCards\(ThemeManager.theme.nameNotLocalized.capitalized)")
-            //                                .resizable()
-            //                                .aspectRatio(contentMode: .fit)
-            //                                .shadow(radius: 4, y: 4)
-            //                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
-            //
-            //                            Text("account_detail_no_account".localized)
-            //                                .font(.semiBoldText16())
-            //                                .multilineTextAlignment(.center)
-            //                        }
-            //                        .offset(y: -50)
-            //                        Spacer()
-            //                    }
-            //
-            //                    Spacer()
-            //                }
+            .padding(.horizontal)
             
-        } // Main VStack
-        .onAppear {
-            accountBalanceInt = account.balance.splitDecimal().0
-            accountBalanceDouble = account.balance.splitDecimal().1
-            if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
+            Rectangle()
+                .frame(height: 120)
+                .opacity(0)
         }
+        .scrollIndicators(.hidden)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Menu(content: {
+                    Button(action: { isEditingAccountName.toggle() }, label: { Label("account_detail_rename".localized, systemImage: "pencil") })
+                    Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
+                }, label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(Color.label)
+                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                })
+            }
+            
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    if !store.isCashFlowPro {
+                        Button(action: { showPaywall.toggle() }, label: {
+                            Image(systemName: "crown.fill")
+                                .foregroundStyle(.primary500)
+                                .font(.system(size: 14, weight: .medium, design: .rounded))
+                        })
+                    }
+                    
+                    NavigationButton(push: router.pushSettings()) {
+                        Image(systemName: "gearshape.fill")
+                            .foregroundStyle(Color.label)
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                    }
+                }
+            }
+        }
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
+            TextField("account_detail_new_name".localized, text: $accountName)
+            Button(action: { return }, label: { Text("word_cancel".localized) })
+            Button(action: {
+                account.title = accountName
+                persistenceController.saveContext()
+            }, label: { Text("word_validate".localized) })
+        })
+        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+            TextField(account.title, text: $accountNameForDeleting)
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: {
+                if account.title == accountNameForDeleting {
+                    withAnimation {
+                        viewContext.delete(account)
+                        AccountRepository.shared.mainAccount = nil
+                        persistenceController.saveContext()
+                    }
+                }
+            }, label: { Text("word_delete".localized) })
+        }, message: { Text("account_detail_delete_account_desc".localized) })
+        //                VStack {
+        //                    Spacer()
+        //
+        //                    HStack {
+        //                        Spacer()
+        //                        VStack(spacing: 20) {
+        //                            Image("NoCards\(ThemeManager.theme.nameNotLocalized.capitalized)")
+        //                                .resizable()
+        //                                .aspectRatio(contentMode: .fit)
+        //                                .shadow(radius: 4, y: 4)
+        //                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
+        //
+        //                            Text("account_detail_no_account".localized)
+        //                                .font(.semiBoldText16())
+        //                                .multilineTextAlignment(.center)
+        //                        }
+        //                        .offset(y: -50)
+        //                        Spacer()
+        //                    }
+        //
+        //                    Spacer()
+        //                }
+        
         .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
@@ -288,67 +219,7 @@ struct AccountDashboardView: View {
             Text("alert_cashflow_pro_desc".localized)
         })
         .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
-        .onChange(of: account.balance, perform: { _ in
-            Timer.animateNumber(number: $accountBalanceInt, busy: $busy, start: accountBalanceInt, end: Int(account.balance))
-            withAnimation {
-                accountBalanceDouble = account.balance.splitDecimal().1
-                if accountBalanceDouble.rounded(places: 2) == 1 { accountBalanceDouble = 0 }
-            }
-        })
     } // End body
-    
-    // MARK: - ViewBuilder
-    @ViewBuilder
-    func cellForOnglet(text: String, num: Int, systemImage: String) -> some View {
-        let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
-        
-        VStack(alignment: .leading) {
-            HStack {
-                Rectangle()
-                    .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.componentInComponent)
-                    .cornerRadius(12)
-                    .overlay {
-                        Image(systemName: systemImage)
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(uiColor: .label))
-                            .shadow(radius: 2, y: 2)
-                    }
-                Spacer()
-                
-                if num != 0 {
-                    Text(String(num))
-                        .font(.semiBoldText16())
-                }
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 18, weight: .semibold))
-            }
-            Spacer(minLength: 0)
-            Text(text)
-                .font(.semiBoldText16())
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-        }
-        .padding()
-        .foregroundStyle(Color(uiColor: .label))
-        .frame(width: width, height: width / 2 + 40)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-    }
-    
-    @ViewBuilder
-    func cellForChart(text: String, amount: String) -> some View {
-        HStack {
-            Text(text)
-            Spacer()
-            Text(amount)
-        }
-        .padding(8)
-        .background(Color.componentInComponent)
-        .cornerRadius(12)
-        .font(.mediumSmall())
-    }
-    
 } // End struct
 
 // MARK: - Preview

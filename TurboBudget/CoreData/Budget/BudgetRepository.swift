@@ -22,13 +22,18 @@ extension BudgetRepository {
         do {
             let budgets = try viewContext.fetch(request)
             self.budgets = budgets
+            
+            let budgetsData = try JSONEncoder().encode(budgets)
+            let json = "\"budgets\":" + (String(data: budgetsData, encoding: .utf8) ?? "")
+            DataForServer.shared.budgetsJSON = json
+            print(json)
         } catch {
             print("⚠️ \(error.localizedDescription)")
         }
     }
     
     /// Create a new Budget
-    func createNewBudget(model: BudgetModel, withSave: Bool = true) throws -> Budget {
+    func createNewBudget(model: BudgetModelOld, withSave: Bool = true) throws -> Budget {
         guard let category = PredefinedCategory.findByID(model.categoryID) else { throw CustomError.categoryNotFound }
         guard let subcategory = PredefinedSubcategory.findByID(model.subcategoryID) else { throw CustomError.subcategoryNotFound }
         

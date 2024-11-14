@@ -1,5 +1,5 @@
 //
-//  TransactionRepository.swift
+//  TransactionRepositoryOld.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 11/08/2024.
@@ -8,14 +8,14 @@
 import Foundation
 import CoreData
 
-final class TransactionRepository: ObservableObject {
-    static let shared = TransactionRepository()
+final class TransactionRepositoryOld: ObservableObject {
+    static let shared = TransactionRepositoryOld()
     
     @Published var transactions: [TransactionEntity] = []
 }
 
 // MARK: - C.R.U.D
-extension TransactionRepository {
+extension TransactionRepositoryOld {
     
     /// Fetch all transactions
     func fetchTransactions() {
@@ -42,10 +42,19 @@ extension TransactionRepository {
         self.transactions = allTransactions
             .sorted { $0.date.withDefault > $1.date.withDefault }
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }
+        
+        do {
+            let transactionData = try JSONEncoder().encode(transactions)
+            let json = "\"transactions\":" + (String(data: transactionData, encoding: .utf8) ?? "")
+            DataForServer.shared.transactionJSON = json
+            print(json)
+        } catch {
+            
+        }
     }
     
     /// Create a new transaction
-    func createNewTransaction(model: TransactionModel, withSave: Bool = true) throws -> TransactionEntity {
+    func createNewTransaction(model: TransactionModelOld, withSave: Bool = true) throws -> TransactionEntity {
         guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
         guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
                 
@@ -62,6 +71,7 @@ extension TransactionRepository {
         
         if withSave {
             account.addNewTransaction(transaction: newTransaction)
+            self.transactions.append(newTransaction)
         }
         
         return newTransaction
@@ -86,7 +96,7 @@ extension TransactionRepository {
 }
 
 // MARK: - Utils
-extension TransactionRepository {
+extension TransactionRepositoryOld {
     
     func getTransactionsForCategory(categoryID: String) -> [TransactionEntity] {
         return self.transactions
@@ -148,7 +158,7 @@ extension TransactionRepository {
     
 }
 
-extension TransactionRepository {
+extension TransactionRepositoryOld {
     
     /// Delete all transactions
     func deleteTransactions() {

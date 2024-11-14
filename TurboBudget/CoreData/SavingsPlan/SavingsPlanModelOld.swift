@@ -1,5 +1,5 @@
 //
-//  SavingsPlanModel.swift
+//  SavingsPlanModelOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 24/08/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SavingsPlanModel {
+struct SavingsPlanModelOld {
     
     var title: String
     var icon: String

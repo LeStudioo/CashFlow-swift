@@ -37,12 +37,6 @@ struct PageControllerView: View {
     
     // Number variables
     @State private var selectedTab: Int = 0
-    @State private var offsetY: CGFloat = 0
-    @State private var offsetYMenu: CGFloat = 0
-    @State private var offsetYFilterView: CGFloat = -UIScreen.main.bounds.height
-    
-    // Boolean variables
-    @State private var update: Bool = false
     
     // MARK: - body
     var body: some View {
@@ -63,9 +57,7 @@ struct PageControllerView: View {
                             }
                             .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
                             .disabled(viewModelCustomBar.showMenu)
-                            .onTapGesture {
-                                withAnimation { viewModelCustomBar.showMenu = false }
-                            }
+                            .onTapGesture { viewModelCustomBar.showMenu = false }
                         } else {
                             CustomEmptyView(
                                 imageName: "NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)",
@@ -73,24 +65,8 @@ struct PageControllerView: View {
                             )
                         }
                         
-                        TabbarView(
-                            selectedTab: $selectedTab,
-                            offsetYMenu: $offsetYMenu
-                        )
+                        TabbarView(selectedTab: $selectedTab)
                     }
-                    .onChange(of: viewModelCustomBar.showMenu, perform: { newValue in //Keep for nice animation
-                        withAnimation {
-                            if newValue {
-                                if accountRepo.mainAccount != nil {
-                                    offsetYMenu = -180
-                                } else { offsetYMenu = -80 }
-                            } else { offsetYMenu = 0 }
-                        }
-                    })
-                    .sheet(isPresented: $viewModelCustomBar.showAddAccount, onDismiss: {
-                        selectedTab = 3;
-                        withAnimation { update.toggle() }
-                    }, content: {  CreateAccountView() })
                     .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
                         viewModelAddTransaction.makeScannerView()
                     }
@@ -104,7 +80,6 @@ struct PageControllerView: View {
             .overlay(alignment: .bottom) {
                 SuccessfullCreationView()
             }
-            .padding(update ? 0 : 0)
             .padding(pageControllerVM.isUnlocked ? 0 : 0)
             .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
                 // LaunchScreen ended and no data in iCloud
@@ -133,7 +108,6 @@ struct PageControllerView: View {
                     UserDefaults.standard.set(false, forKey: "appIsOpen")
                 }
             }
-            
         } //END ZStack
         .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
             Button(action: { return }, label: { Text("word_cancel".localized) })

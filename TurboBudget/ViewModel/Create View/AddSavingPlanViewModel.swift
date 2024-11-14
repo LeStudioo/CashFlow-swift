@@ -41,7 +41,7 @@ extension AddSavingPlanViewModel {
     func createSavingsPlan(withError: @escaping (_ withError: CustomError?) -> Void) {
         guard let account = AccountRepository.shared.mainAccount else { return }
         
-        let savingsPlanModel = SavingsPlanModel(
+        let savingsPlanModel = SavingsPlanModelOld(
             title: savingPlanTitle,
             icon: savingPlanEmoji,
             dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
@@ -76,21 +76,24 @@ extension AddSavingPlanViewModel {
 extension AddSavingPlanViewModel {
     
     func isSavingPlansInCreation() -> Bool {
-        if !savingPlanEmoji.isEmpty || !savingPlanTitle.isEmpty || savingPlanAmountOfStart.convertToDouble() != 0 || savingPlanAmountOfEnd.convertToDouble() != 0 || isEndDate {
+        if !savingPlanTitle.isEmpty || savingPlanAmountOfStart.convertToDouble() != 0 || savingPlanAmountOfEnd.convertToDouble() != 0 || isEndDate {
             return true
         }
         return false
     }
     
     func validateSavingPlan() -> Bool {
-        if isAccountWillBeNegative { return false }
-        if blockExpensesIfCardLimitExceeds {
-            if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 && !isCardLimitExceeds {
-                return true
-            }
-        } else if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 {
+        if !savingPlanAmountOfEnd.isEmpty && !savingPlanTitle.isEmpty {
             return true
         }
+//        if isAccountWillBeNegative { return false }
+//        if blockExpensesIfCardLimitExceeds {
+//            if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 && !isCardLimitExceeds {
+//                return true
+//            }
+//        } else if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 {
+//            return true
+//        }
         return false
     }
     

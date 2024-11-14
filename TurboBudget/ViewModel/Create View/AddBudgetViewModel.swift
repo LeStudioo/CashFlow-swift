@@ -19,7 +19,7 @@ class AddBudgetViewModel: ObservableObject {
     @Published var presentingConfirmationDialog: Bool = false
     
     func createNewBudget(withError: @escaping (_ withError: CustomError?) -> Void) {
-        let budgetModel = BudgetModel(
+        let budgetModel = BudgetModelOld(
             title: selectedSubcategory?.title ?? "",
             amount: amountBudget.convertToDouble(),
             categoryID: selectedCategory?.id ?? "",

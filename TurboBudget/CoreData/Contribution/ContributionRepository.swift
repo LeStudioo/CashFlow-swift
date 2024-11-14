@@ -14,7 +14,7 @@ final class ContributionRepository: ObservableObject {
 extension ContributionRepository {
     
     /// Create a new contribution
-    func createNewContribution(model: ContributionModel, withSave: Bool = true) throws -> Contribution {
+    func createNewContribution(model: ContributionModelOld, withSave: Bool = true) throws -> Contribution {
         guard let account = AccountRepository.shared.mainAccount else { throw CustomError.noAccount }
         
         let newContribution = Contribution(context: viewContext)
