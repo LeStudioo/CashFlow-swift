@@ -1,5 +1,5 @@
 //
-//  TransationAPIRequester.swift
+//  TransactionAPIRequester.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 14/11/2024.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-enum TransationAPIRequester: APIRequestBuilder {
+enum TransactionAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)
     case create(accountID: Int, body: TransactionModel)
     case update(id: Int, body: TransactionModel)
     case delete(id: Int)
 }
 
-extension TransationAPIRequester {
+extension TransactionAPIRequester {
     var path: String {
         switch self {
         case .fetch:                return NetworkPath.Transaction.base
