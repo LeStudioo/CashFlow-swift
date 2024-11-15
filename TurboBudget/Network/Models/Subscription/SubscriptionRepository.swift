@@ -44,6 +44,9 @@ extension SubscriptionRepository {
                 apiBuilder: SubscriptionAPIRequester.update(subscriptionID: subscriptionID, body: body),
                 responseModel: SubscriptionModel.self
             )
+            if let index = self.subscriptions.map(\.id).firstIndex(of: subscriptionID) {
+                self.subscriptions[index] = subscription
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     

@@ -12,7 +12,7 @@ struct SavingPlansHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepositoryOld
         
     // String variables
     @State private var searchText: String = ""

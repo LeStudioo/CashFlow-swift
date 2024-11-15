@@ -19,7 +19,7 @@ struct TurboBudgetApp: App {
     @StateObject private var accountRepo: AccountRepositoryOld = .shared
     @StateObject private var transactionRepo: TransactionRepositoryOld = .shared
     @StateObject private var automationRepo: AutomationRepository = .shared
-    @StateObject private var savingPlanRepo: SavingPlanRepository = .shared
+    @StateObject private var savingPlanRepo: SavingPlanRepositoryOld = .shared
     @StateObject private var budgetRepo: BudgetRepository = .shared
     @StateObject private var savingsAccountRepo: SavingsAccountRepo = .shared
 

@@ -15,7 +15,7 @@ struct SettingsDangerZoneView: View {
     // Repo
     @EnvironmentObject private var accountRepo: AccountRepositoryOld
     @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
-    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepositoryOld
     @EnvironmentObject private var budgetRepo: BudgetRepository
     
     // MARK: -

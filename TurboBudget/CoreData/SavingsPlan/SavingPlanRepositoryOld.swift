@@ -1,5 +1,5 @@
 //
-//  SavingPlanRepository.swift
+//  SavingPlanRepositoryOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 13/08/2024.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class SavingPlanRepository: ObservableObject {
-    static let shared = SavingPlanRepository()
+final class SavingPlanRepositoryOld: ObservableObject {
+    static let shared = SavingPlanRepositoryOld()
     
     @Published var savingPlans: [SavingPlan] = []
 }
 
-extension SavingPlanRepository {
+extension SavingPlanRepositoryOld {
     
     func fetchSavingsPlans() {
         let request = SavingPlan.fetchRequest()
@@ -73,7 +73,7 @@ extension SavingPlanRepository {
     
 }
 
-extension SavingPlanRepository {
+extension SavingPlanRepositoryOld {
     
     func deleteSavingsPlans() {
         for savingPlan in self.savingPlans {

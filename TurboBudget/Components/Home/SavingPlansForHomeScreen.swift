@@ -13,7 +13,7 @@ struct SavingPlansForHomeScreen: View {
         
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingPlanRepo: SavingPlanRepository
+    @EnvironmentObject private var savingPlanRepo: SavingPlanRepositoryOld
     
     // Preferences
     @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen

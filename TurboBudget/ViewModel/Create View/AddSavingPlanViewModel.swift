@@ -52,7 +52,7 @@ extension AddSavingPlanViewModel {
         )
         
         do {
-            let newSavingsPlan = try SavingPlanRepository.shared.createSavingsPlan(model: savingsPlanModel)
+            let newSavingsPlan = try SavingPlanRepositoryOld.shared.createSavingsPlan(model: savingsPlanModel)
             account.balance -= savingsPlanModel.amountOfStart
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
