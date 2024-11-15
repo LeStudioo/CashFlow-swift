@@ -11,6 +11,10 @@ final class AccountRepository: ObservableObject {
     static let shared = AccountRepository()
     
     @Published var accounts: [AccountModel] = []
+    
+    var mainAccount: AccountModel? {
+        return accounts.first
+    }
 }
 
 extension AccountRepository {

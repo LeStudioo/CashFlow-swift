@@ -21,7 +21,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: PurchasesManager
     
-    @EnvironmentObject private var budgetRepo: BudgetRepository
+    @EnvironmentObject private var budgetRepo: BudgetRepositoryOld
     
     //State or Binding String
     @State private var accountName: String = ""

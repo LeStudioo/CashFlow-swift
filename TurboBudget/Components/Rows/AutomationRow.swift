@@ -15,7 +15,7 @@ struct AutomationRow: View {
     @ObservedObject var automation: Automation
 
     // Environement
-    @EnvironmentObject private var automationRepo: AutomationRepository
+    @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     @Environment(\.colorScheme) private var colorScheme
     
     // Boolean variables

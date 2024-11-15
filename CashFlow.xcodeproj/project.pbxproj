@@ -25,7 +25,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
-				Model/Catgeory/CategoryAndSubcategory.md,
+				Model/Category/Old/CategoryAndSubcategory.md,
 				Purchases/StoreKitConfiguration.storekit,
 			);
 			target = 81A707822A3B6B4C00BEB0BF /* CashFlow */;

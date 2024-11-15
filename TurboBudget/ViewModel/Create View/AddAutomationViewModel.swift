@@ -56,7 +56,7 @@ extension AddAutomationViewModel {
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
             predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
             title: transactionTitle,
-            amount: transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble(),
+            amount: transactionType == .expense ? -transactionAmount.toDouble() : transactionAmount.toDouble(),
             date: finalDate,
             isAuto: true
         )
@@ -71,11 +71,11 @@ extension AddAutomationViewModel {
             let newTransaction = try TransactionRepositoryOld.shared.createNewTransaction(model: transactionModel, withSave: false)
             automationModel.transaction = newTransaction
             
-            let newAutomation = try AutomationRepository.shared.createAutomation(model: automationModel, withSave: false)
+            let newAutomation = try AutomationRepositoryOld.shared.createAutomation(model: automationModel, withSave: false)
             newTransaction.transactionToAutomation = newAutomation
             
             try viewContext.save()
-            AutomationRepository.shared.automations.append(newAutomation)
+            AutomationRepositoryOld.shared.automations.append(newAutomation)
             withError(nil)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -97,14 +97,14 @@ extension AddAutomationViewModel {
 extension AddAutomationViewModel {
     
     func isAutomationInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.convertToDouble() != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.toDouble() != 0 {
             return true
         }
         return false
     }
     
     func validateAutomation() -> Bool {
-        if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil {
+        if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil {
             return true
         }
         return false

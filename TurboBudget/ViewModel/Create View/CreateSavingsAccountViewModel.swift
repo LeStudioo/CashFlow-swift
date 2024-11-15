@@ -24,8 +24,8 @@ extension CreateSavingsAccountViewModel {
         let newSavingsAccount = SavingsAccount(context: persistenceController.container.viewContext)
         newSavingsAccount.id = UUID()
         newSavingsAccount.name = accountTitle
-        newSavingsAccount.balanceAtStart = accountBalance.convertToDouble()
-        newSavingsAccount.maxAmount = accountMaxAmount.convertToDouble()
+        newSavingsAccount.balanceAtStart = accountBalance.toDouble()
+        newSavingsAccount.maxAmount = accountMaxAmount.toDouble()
         
         persistenceController.saveContext()
     }

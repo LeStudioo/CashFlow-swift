@@ -21,13 +21,13 @@ class AddBudgetViewModel: ObservableObject {
     func createNewBudget(withError: @escaping (_ withError: CustomError?) -> Void) {
         let budgetModel = BudgetModelOld(
             title: selectedSubcategory?.title ?? "",
-            amount: amountBudget.convertToDouble(),
+            amount: amountBudget.toDouble(),
             categoryID: selectedCategory?.id ?? "",
             subcategoryID: selectedSubcategory?.id ?? ""
         )
         
         do {
-            let newBudget = try BudgetRepository.shared.createNewBudget(model: budgetModel)
+            let newBudget = try BudgetRepositoryOld.shared.createNewBudget(model: budgetModel)
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.successfullModalManager.isPresenting = true
@@ -67,14 +67,14 @@ extension AddBudgetViewModel {
 //MARK: - Verification
 extension AddBudgetViewModel {
     func isBudgetInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || amountBudget.convertToDouble() != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || amountBudget.toDouble() != 0 {
             return true
         }
         return false
     }
     
     func validateBudget() -> Bool {
-        if amountBudget.convertToDouble() != 0 && selectedCategory != nil && selectedSubcategory != nil {
+        if amountBudget.toDouble() != 0 && selectedCategory != nil && selectedSubcategory != nil {
             return true
         } else { return false }
     } 

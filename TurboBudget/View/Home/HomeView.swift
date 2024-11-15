@@ -27,35 +27,15 @@ struct HomeView: View {
     
     // MARK: - body
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                VStack(alignment: .leading) {
-                    Text(currencySymbol + " " + account.balance.formatWith(2))
-                        .titleAdjustSize()
-                    
-                    Text("home_screen_available_balance".localized)
-                        .foregroundStyle(Color.customGray)
-                        .font(Font.mediumText16())
-                }
-                
-                Spacer()
-                
-                if !store.isCashFlowPro {
-                    NavigationButton(present: router.presentPaywall()) {
-                        Image(systemName: "crown.fill")
-                            .foregroundStyle(.primary500)
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
-                    }
-                }
-                
-                NavigationButton(push: router.pushSettings()) {
-                    Image(systemName: "gearshape.fill")
-                        .foregroundStyle(Color.label)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
+        VStack(spacing: 16) {
+            HomeHeader()
+                .padding(.horizontal)
+            
+            Button {
+                KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: "")
+            } label: {
+                Text("Reset Refresh Token")
             }
-            .padding([.horizontal, .bottom])
-            // End Header
             
             ScrollView {
                 CarouselOfChartsView(account: account)
@@ -110,15 +90,9 @@ struct HomeView: View {
                         Spacer()
                     }
                 } // End Recent Transactions
-            } // End ScrollView
+            } // ScrollView
             .scrollIndicators(.hidden)
         } // End VStack
-        .onChange(of: isStepsEnbaledForAllSavingsPlans) { newValue in // TODO: Ne devrait pas etre ici ??
-            for savingPlan in account.savingPlans {
-                savingPlan.isStepEnable = newValue
-                persistenceController.saveContext()
-            }
-        }
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {

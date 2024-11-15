@@ -11,7 +11,7 @@ struct SavingsAccountHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsAccountRepo: SavingsAccountRepo
+    @EnvironmentObject private var savingsAccountRepo: SavingsAccountRepositoryOld
     @Environment(\.dismiss) private var dismiss
     
     // String variables

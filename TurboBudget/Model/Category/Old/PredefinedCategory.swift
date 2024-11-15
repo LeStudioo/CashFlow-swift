@@ -26,11 +26,7 @@ enum PredefinedCategory: String, CaseIterable, Identifiable {
 
 extension PredefinedCategory {
     
-    var id: String {
-        return self.rawValue
-//        case .PREDEFCAT11: return "PREDEFCAT11" // PREDEF11 <- Mettre un if une transaction relier à cette ID alors on met le nouvelle ID
-//        case .PREDEFCAT12: return "PREDEFCAT12" // PREDEF12 <- idem
-    }
+    var id: String { return self.rawValue }
     
     var title: String {
         switch self {

@@ -88,13 +88,13 @@ struct OnboardingView: View {
                         let firstTransaction = TransactionEntity(context: viewContext)
                         firstTransaction.id = UUID()
                         firstTransaction.title = "name_first_transaction".localized
-                        firstTransaction.amount = accountBalance.convertToDouble()
+                        firstTransaction.amount = accountBalance.toDouble()
                         firstTransaction.date = .now
                         
                         let firstAccount = Account(context: viewContext)
                         firstAccount.id = UUID()
                         firstAccount.title = accountTitle
-                        firstAccount.balance = accountBalance.convertToDouble()
+                        firstAccount.balance = accountBalance.toDouble()
                         firstAccount.cardLimit = cardLimit
                         firstAccount.accountToTransaction?.insert(firstTransaction)
                         

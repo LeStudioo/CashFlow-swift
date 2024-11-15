@@ -21,9 +21,6 @@ struct SubcategoryHomeView: View {
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
-    //State or Binding Int, Float and Double
-    @State private var height: CGFloat = 0
-    
     // Computed
     var searchResults: [PredefinedSubcategory] {
         if viewModel.searchText.isEmpty {
@@ -69,7 +66,6 @@ struct SubcategoryHomeView: View {
                             SubcategoryRow(subcategory: subcategory)
                         }
                         .padding(.bottom, 8)
-                        .disabled(!dataAvailableForSubcategoryWithFilter(subcategory: subcategory))
                     }
                 }
                 .padding()
@@ -97,12 +93,6 @@ struct SubcategoryHomeView: View {
     } // End body
     
     // MARK: - Functions
-    func dataAvailableForSubcategoryWithFilter(subcategory: PredefinedSubcategory) -> Bool {
-        if viewModel.filter.total && subcategory.transactions.count != 0 { return true }
-        if subcategory.expensesTransactionsAmountForSelectedDate(filter: viewModel.filter) != 0 { return true }
-        return false
-    }
-    
     func alertMessageIfEmpty() -> String {
         if viewModel.filter.byDay && !viewModel.isDisplayChart(category: category) {
             return "⚠️" + " " + "error_message_no_data_day".localized

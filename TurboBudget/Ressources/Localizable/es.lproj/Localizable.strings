@@ -33,6 +33,15 @@
 
 "title_new_savingsPlan" = "Nuevo plan de ahorro";
 
+//MARK: - Login
+"login_connection" = "Acceso";
+
+"login_message" = "Para no perder nunca tus datos de un dispositivo a otro, conéctate ahora con Apple o Google.\n\n¡Es simple, conveniente y recomendado!";
+
+"login_google" = "Iniciar sesión con Google";
+
+"login_apple" = "Iniciar sesión con Apple";
+
 //MARK: - General Words
 "word_transaction" = "Transacción";
 

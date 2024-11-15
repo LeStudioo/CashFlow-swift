@@ -7,68 +7,63 @@
 
 import Foundation
 import Security
-import LocalAuthentication
 
-struct Credentials {
-    var email: String
-    var password: String
+enum KeychainService: String {
+    case refreshToken
 }
 
-enum KeychainError: Error {
-    case noPassword
-    case unexpectedPasswordData
-    case unhandledError(status: OSStatus)
-}
-
-enum KeychainServiceManager: String {
-    case refreshToken = "refreshToken"
-}
-
-class KeychainManager {
+final class KeychainManager {
     static let shared = KeychainManager()
-}
-
-extension KeychainManager {
+    private init() {}
     
-    func retrieveItem(service: KeychainServiceManager) -> String? {
-        let query = [
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: service.rawValue,
-            kSecReturnAttributes: true,
-            kSecReturnData: true
-        ] as CFDictionary
-                
-        var result: AnyObject?
-        let status = SecItemCopyMatching(query, &result)
-        
-        if let result = result as? NSDictionary {
-            if let itemData = result[kSecValueData] as? Data {
-                let item = String(data: itemData, encoding: .utf8)!
-                return item
+    func setItemToKeychain<T: Codable>(id: String, data: T) {
+        do {
+            let encodedData = try JSONEncoder().encode(data)
+            
+            let query: [CFString: Any] = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrAccount: id,
+                kSecAttrSynchronizable: kSecAttrSynchronizableAny,
+                kSecValueData: encodedData
+            ]
+            
+            // Essayer d'abord de supprimer l'item existant
+            SecItemDelete(query as CFDictionary)
+            
+            // Puis ajouter le nouvel item
+            let status = SecItemAdd(query as CFDictionary, nil)
+            
+            if status != errSecSuccess {
+                print("Erreur lors de l'enregistrement dans le Keychain: \(status)")
             }
+        } catch {
+            print("Erreur d'encodage: \(error)")
         }
-        
-        return nil
     }
     
-    func setItemToKeychain(newValue: String, service: KeychainServiceManager) {
-        let query = [
+    func retrieveItemFromKeychain<T: Decodable>(id: String, type: T.Type) -> T? {
+        let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrAccount: service.rawValue,
-            kSecValueData: newValue.data(using: .utf8)!,
-        ] as CFDictionary
+            kSecAttrAccount: id,
+            kSecAttrSynchronizable: kSecAttrSynchronizableAny,
+            kSecReturnData: true,
+            kSecMatchLimit: kSecMatchLimitOne
+        ]
         
-        var status = SecItemAdd(query, nil)
-                
-        if status == errSecDuplicateItem {
-            // Item already exist, thus update it.
-            let updateQuery = [
-                kSecClass: kSecClassGenericPassword,
-                kSecAttrAccount as String: service.rawValue
-            ] as CFDictionary
-            
-            let attributesToUpdate = [kSecValueData: newValue.data(using: .utf8)!] as CFDictionary
-            status = SecItemUpdate(updateQuery, attributesToUpdate)
+        var result: AnyObject?
+        let status = SecItemCopyMatching(query as CFDictionary, &result)
+        
+        guard status == errSecSuccess,
+              let data = result as? Data else {
+            return nil
+        }
+        
+        do {
+            let item = try JSONDecoder().decode(T.self, from: data)
+            return item
+        } catch {
+            print("Erreur de décodage: \(error)")
+            return nil
         }
     }
 }

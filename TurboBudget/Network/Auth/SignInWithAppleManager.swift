@@ -38,8 +38,15 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
                 
                 if let token = user.token, let refreshToken = user.refreshToken {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-                    AppManager.shared.viewState = .success
                     UserRepository.shared.currentUser = user
+
+                    do {
+                        try await DataForServer.shared.syncOldDataToServer()
+                        PersistenceController.clearOldDatabase()
+                        AppManager.shared.viewState = .success
+                    } catch {
+                        AppManager.shared.viewState = .notSynced
+                    }
                 }
             }
         }

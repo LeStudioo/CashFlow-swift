@@ -1,6 +1,6 @@
 //
 //  AccountModel.swift
-//  FixBounce
+//  CashFlow
 //
 //  Created by Theo Sementa on 12/11/2024.
 //
@@ -19,7 +19,7 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
     @Published var type: Int?
     @Published var maxAmount: Double?
 
-    // Classic Account Initialiseur
+    /// Classic Account Initialiseur
     init(
         id: Int? = nil,
         name: String? = nil,
@@ -32,7 +32,7 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         self.type = type
     }
     
-    // Savings Account Initialiseur
+    /// Savings Account Initialiseur
     init(
         id: Int? = nil,
         name: String? = nil,
@@ -45,6 +45,17 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         self.balance = balance
         self.type = type
         self.maxAmount = maxAmount
+    }
+    
+    /// Classic Account Body
+    init(
+        name: String,
+        balance: Double,
+        type: Int = AccountType.classic.rawValue
+    ) {
+        self.name = name
+        self.balance = balance
+        self.type = type
     }
 
     // Conformance au protocole Codable

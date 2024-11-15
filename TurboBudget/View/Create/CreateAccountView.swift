@@ -11,8 +11,8 @@ import SwiftUI
 
 struct CreateAccountView: View {
     
-    // Custom type
     @StateObject private var viewModel: CreateAccountViewModel = .init()
+    @EnvironmentObject private var accountRepository: AccountRepository
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -36,7 +36,7 @@ struct CreateAccountView: View {
                 
                 VStack(spacing: 24) {
                     CustomTextField(
-                        text: $viewModel.accountTitle,
+                        text: $viewModel.name,
                         config: .init(
                             title: "account_name".localized,
                             placeholder: "account_placeholder_name".localized
@@ -44,7 +44,7 @@ struct CreateAccountView: View {
                     )
                     
                     CustomTextField(
-                        text: $viewModel.accountBalance,
+                        text: $viewModel.balance,
                         config: .init(
                             title: "account_balance".localized,
                             placeholder: "account_placeholder_balance".localized,
@@ -63,10 +63,20 @@ struct CreateAccountView: View {
         .scrollDismissesKeyboard(.immediately)
         .ignoresSafeArea(.keyboard)
         .overlay(alignment: .bottom) {
-            CreateButton(action: {
-                viewModel.createNewAccount()
-                dismiss()
-            }, validate: viewModel.valideAccount())
+            CreateButton(
+                action: {
+                    Task {
+                        await accountRepository.createAccount(
+                            body: .init(
+                                name: viewModel.name,
+                                balance: viewModel.balance.toDouble()
+                            )
+                        )
+                        dismiss()
+                    }
+                },
+                validate: viewModel.isAccountValid()
+            )
             .padding(.bottom)
         }
         .padding(.horizontal, 24)
@@ -83,4 +93,5 @@ struct CreateAccountView: View {
 // MARK: - Preview
 #Preview {
     CreateAccountView()
+        .environmentObject(AccountRepository())
 }

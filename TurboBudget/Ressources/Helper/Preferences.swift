@@ -24,6 +24,9 @@ final class Preferences {
     
     // MARK: AppGroup
    
+    // MARK: Normal New
+    @UserDefault("isDataSynced")
+    var isDataSynced: Bool = false
         
     // MARK: Normal
     @UserDefault("numberOfOpenings")

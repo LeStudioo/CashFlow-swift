@@ -11,17 +11,22 @@ import SwiftUI
 struct TurboBudgetApp: App {
     
     // Custom type
+    @StateObject private var appManager: AppManager = .shared
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var purchasesManager = PurchasesManager()
     @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
     
+    // New Repository
+    @StateObject private var userRepository: UserRepository = .shared
+    @StateObject private var accountRepository: AccountRepository = .shared
+    
     // Repository
     @StateObject private var accountRepo: AccountRepositoryOld = .shared
     @StateObject private var transactionRepo: TransactionRepositoryOld = .shared
-    @StateObject private var automationRepo: AutomationRepository = .shared
+    @StateObject private var automationRepo: AutomationRepositoryOld = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepositoryOld = .shared
-    @StateObject private var budgetRepo: BudgetRepository = .shared
-    @StateObject private var savingsAccountRepo: SavingsAccountRepo = .shared
+    @StateObject private var budgetRepo: BudgetRepositoryOld = .shared
+    @StateObject private var savingsAccountRepo: SavingsAccountRepositoryOld = .shared
 
     @StateObject private var filterManager: FilterManager = .shared
     @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
@@ -41,17 +46,33 @@ struct TurboBudgetApp: App {
     // MARK: -
     var body: some Scene {
         WindowGroup {
-            NavStack(router: router) {
-                if isSecurityPlusEnabled {
-                    if scenePhase == .active {
-                        PageControllerView()
-                    } else {
-                        Image("LaunchScreen")
-                            .resizable()
-                            .edgesIgnoringSafeArea([.bottom, .top])
+            Group {
+                switch appManager.viewState {
+                case .idle:
+                    SplashScreenView()
+                case .loading:
+                    SplashScreenView()
+                case .success:
+                    NavStack(router: router) {
+                        if isSecurityPlusEnabled {
+                            if scenePhase == .active {
+                                PageControllerView()
+                            } else {
+                                Image("LaunchScreen")
+                                    .resizable()
+                                    .edgesIgnoringSafeArea([.bottom, .top])
+                            }
+                        } else {
+                            PageControllerView()
+                        }
                     }
-                } else {
-                    PageControllerView()
+                    .task {
+                        await accountRepository.fetchAccounts()
+                    }
+                case .notSynced:
+                    Text("Not synced")
+                case .failed:
+                    LoginView()
                 }
             }
             .environment(\.managedObjectContext, viewContext)
@@ -59,6 +80,10 @@ struct TurboBudgetApp: App {
             .environmentObject(csManager)
             .environmentObject(purchasesManager)
             
+            // New Repository
+            .environmentObject(accountRepository)
+            
+            // Old Repository
             .environmentObject(accountRepo)
             .environmentObject(transactionRepo)
             .environmentObject(automationRepo)
@@ -71,13 +96,12 @@ struct TurboBudgetApp: App {
             .onAppear {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
-               
+                
                 accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
-//                savingsAccountRepo.fetchSavingsAccounts()
                 
                 print(DataForServer.shared.json)
             }
@@ -85,6 +109,13 @@ struct TurboBudgetApp: App {
                 await purchasesManager.loadProducts()
                 await purchasesManager.getSubscriptionStatus()
                 await purchasesManager.getLifetimeStatus()
+                                
+                do {
+                    try await userRepository.loginWithToken()
+                    appManager.viewState = .success
+                } catch {
+                    appManager.viewState = .failed
+                }
             }
         }
     } // End body

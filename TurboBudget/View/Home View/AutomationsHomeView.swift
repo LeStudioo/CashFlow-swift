@@ -17,7 +17,7 @@ struct AutomationsHomeView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var automationRepo: AutomationRepository
+    @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     @Environment(\.dismiss) private var dismiss
     
     // String variables

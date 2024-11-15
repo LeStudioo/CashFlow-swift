@@ -45,7 +45,7 @@ final class CreateTransactionViewModel: ObservableObject {
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
             predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
             title: transactionTitle.trimmingCharacters(in: .whitespaces),
-            amount: transactionType == .expense ? -transactionAmount.convertToDouble() : transactionAmount.convertToDouble(),
+            amount: transactionType == .expense ? -transactionAmount.toDouble() : transactionAmount.toDouble(),
             date: transactionDate
         )
         
@@ -93,7 +93,7 @@ extension CreateTransactionViewModel {
 extension CreateTransactionViewModel {
     
     func isTransactionInCreation() -> Bool {
-        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.convertToDouble() != 0 {
+        if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.toDouble() != 0 {
             return true
         }
         return false
@@ -101,13 +101,13 @@ extension CreateTransactionViewModel {
     
     var isAccountWillBeNegative: Bool {
         if let mainAccount = AccountRepositoryOld.shared.mainAccount, !accountCanBeNegative {
-            if mainAccount.balance - transactionAmount.convertToDouble() < 0 && transactionType == .expense { return true } else { return false }
+            if mainAccount.balance - transactionAmount.toDouble() < 0 && transactionType == .expense { return true } else { return false }
         } else { return false }
     }
     
     var isCardLimitExceeds: Bool {
         if let mainAccount = AccountRepositoryOld.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
-            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.convertToDouble()
+            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.toDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
@@ -116,7 +116,7 @@ extension CreateTransactionViewModel {
         if let selectedSubcategory, blockExpensesIfBudgetAmountExceeds {
             if let budget = selectedSubcategory.budget {
                 if budget.isExceeded(month: transactionDate) { return true }
-                if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.convertToDouble()) > budget.amount { return true }
+                if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.toDouble()) > budget.amount { return true }
             }
             return false
         }
@@ -152,14 +152,14 @@ extension CreateTransactionViewModel {
     func validateTrasaction() -> Bool {
         if isAccountWillBeNegative { return false }
         
-        if transactionType == .income && !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 { return true }
+        if transactionType == .income && !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 { return true }
 
         
         if blockExpensesIfCardLimitExceeds && transactionType == .expense {
-            if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
+            if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
                 return true
             }
-        } else if !transactionTitle.isEmptyWithoutSpace() && transactionAmount.convertToDouble() != 0.0 && selectedCategory != nil && !isBudgetIsExceededAfterThisTransaction {
+        } else if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil && !isBudgetIsExceededAfterThisTransaction {
             return true
         }
         return false

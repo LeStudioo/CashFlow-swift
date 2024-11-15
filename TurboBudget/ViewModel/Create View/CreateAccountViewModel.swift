@@ -11,8 +11,8 @@ import SwiftUI
 class CreateAccountViewModel: ObservableObject {
     let viewContext = PersistenceController.shared.container.viewContext
     
-    @Published var accountTitle: String = ""
-    @Published var accountBalance: String = ""
+    @Published var name: String = ""
+    @Published var balance: String = ""
     
     @Published var presentingConfirmationDialog: Bool = false
     
@@ -21,14 +21,14 @@ class CreateAccountViewModel: ObservableObject {
 extension CreateAccountViewModel {
     
     func isAccountInCreation() -> Bool {
-        if !accountTitle.isEmpty || accountBalance.convertToDouble() != 0 {
+        if !name.isBlank || balance.toDouble() != 0 {
             return true
         }
         return false
     }
     
-    func valideAccount() -> Bool {
-        if !accountTitle.isEmptyWithoutSpace() {
+    func isAccountValid() -> Bool {
+        if !name.isBlank {
             return true
         }
         return false
@@ -37,8 +37,8 @@ extension CreateAccountViewModel {
     func createNewAccount() {
         let newAccount = Account(context: viewContext)
         newAccount.id = UUID()
-        newAccount.title = accountTitle
-        newAccount.balance = accountBalance.convertToDouble()
+        newAccount.title = name
+        newAccount.balance = balance.toDouble()
         
         AccountRepositoryOld.shared.mainAccount = newAccount
         

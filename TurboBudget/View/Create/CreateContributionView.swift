@@ -65,12 +65,12 @@ struct CreateContributionView: View {
                 .padding(.bottom, 24)
                 
                 VStack {
-                    if (viewModel.amountContribution.convertToDouble() > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
+                    if (viewModel.amountContribution.toDouble() > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
                         Text("contribution_alert_more_final_amount".localized)
-                    } else if (viewModel.amountContribution.convertToDouble() < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
+                    } else if (viewModel.amountContribution.toDouble() < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
                         Text("💰" + viewModel.moneyForFinish.currency + " " + "contribution_alert_for_finish".localized)
                     }
-                    if (savingPlan.actualAmount - viewModel.amountContribution.convertToDouble() < 0) && viewModel.typeContribution == .income {
+                    if (savingPlan.actualAmount - viewModel.amountContribution.toDouble() < 0) && viewModel.typeContribution == .income {
                         Text("contribution_alert_take_more_amount".localized)
                     }
                 }

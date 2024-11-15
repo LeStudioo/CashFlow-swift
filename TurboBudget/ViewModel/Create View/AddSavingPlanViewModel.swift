@@ -46,9 +46,9 @@ extension AddSavingPlanViewModel {
             icon: savingPlanEmoji,
             dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
             dateOfStart: .now,
-            amountOfStart: savingPlanAmountOfStart.convertToDouble(),
-            actualAmount: savingPlanAmountOfStart.convertToDouble(),
-            amountOfEnd: savingPlanAmountOfEnd.convertToDouble()
+            amountOfStart: savingPlanAmountOfStart.toDouble(),
+            actualAmount: savingPlanAmountOfStart.toDouble(),
+            amountOfEnd: savingPlanAmountOfEnd.toDouble()
         )
         
         do {
@@ -76,7 +76,7 @@ extension AddSavingPlanViewModel {
 extension AddSavingPlanViewModel {
     
     func isSavingPlansInCreation() -> Bool {
-        if !savingPlanTitle.isEmpty || savingPlanAmountOfStart.convertToDouble() != 0 || savingPlanAmountOfEnd.convertToDouble() != 0 || isEndDate {
+        if !savingPlanTitle.isEmpty || savingPlanAmountOfStart.toDouble() != 0 || savingPlanAmountOfEnd.toDouble() != 0 || isEndDate {
             return true
         }
         return false
@@ -88,10 +88,10 @@ extension AddSavingPlanViewModel {
         }
 //        if isAccountWillBeNegative { return false }
 //        if blockExpensesIfCardLimitExceeds {
-//            if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 && !isCardLimitExceeds {
+//            if !savingPlanTitle.isBlank && !savingPlanEmoji.isBlank && savingPlanAmountOfStart.toDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.toDouble() != 0 && !isCardLimitExceeds {
 //                return true
 //            }
-//        } else if !savingPlanTitle.isEmptyWithoutSpace() && !savingPlanEmoji.isEmptyWithoutSpace() && savingPlanAmountOfStart.convertToDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.convertToDouble() != 0 {
+//        } else if !savingPlanTitle.isBlank && !savingPlanEmoji.isBlank && savingPlanAmountOfStart.toDouble() >= 0 && savingPlanAmountOfStart < savingPlanAmountOfEnd && savingPlanAmountOfEnd.toDouble() != 0 {
 //            return true
 //        }
         return false
@@ -99,14 +99,14 @@ extension AddSavingPlanViewModel {
     
     var isCardLimitExceeds: Bool {
         if let mainAccount = AccountRepositoryOld.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds {
-            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart.convertToDouble()
+            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + savingPlanAmountOfStart.toDouble()
             if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
         } else { return false }
     }
     
     var isAccountWillBeNegative: Bool {
         if let mainAccount = AccountRepositoryOld.shared.mainAccount, !accountCanBeNegative {
-            if mainAccount.balance - savingPlanAmountOfStart.convertToDouble() < 0 { return true }
+            if mainAccount.balance - savingPlanAmountOfStart.toDouble() < 0 { return true }
         }
         return false
     }

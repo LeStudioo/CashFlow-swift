@@ -102,7 +102,7 @@ struct SubcategoryTransactionsView: View {
                                         amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
                                         ascendingOrder: $ascendingOrder
                                     )
-                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                                    .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                                 }
                             })
                             .foregroundStyle(Color(uiColor: .label))

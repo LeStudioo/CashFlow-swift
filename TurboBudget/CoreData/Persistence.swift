@@ -90,10 +90,58 @@ struct PersistenceController {
         do {
             try viewContext.save()
         } catch {
-            
             throw CustomError.failToSave
         }
     }
+    
+    enum CoreDataError: Error {
+        case entityNotFound(String)
+        case batchDeleteFailed(String, Error)
+    }
+
+    static func clearOldDatabase() {
+        deleteAllDataInBatch("Account")
+        deleteAllDataInBatch("Automation")
+        deleteAllDataInBatch("Budget")
+        deleteAllDataInBatch("Contribution")
+        deleteAllDataInBatch("SavingPlan")
+        deleteAllDataInBatch("SavingsAccount")
+        deleteAllDataInBatch("Transaction")
+        deleteAllDataInBatch("Transfer")
+    }
+
+    private static func deleteAllDataInBatch(_ entity: String) {
+        do {
+            try deleteAllDataInBatchImpl(entity)
+        } catch CoreDataError.entityNotFound(let entityName) {
+            print("⚠️ Entité \(entityName) non trouvée, ignorer.")
+        } catch {
+            
+        }
+    }
+
+    private static func deleteAllDataInBatchImpl(_ entity: String) throws {
+        guard let entityDescription = NSEntityDescription.entity(forEntityName: entity, in: persistenceController.container.viewContext) else {
+            throw CoreDataError.entityNotFound(entity)
+        }
+        
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: entity))
+        batchDeleteRequest.resultType = .resultTypeCount
+        
+        var batchDeleteResult: NSBatchDeleteResult?
+        do {
+            batchDeleteResult = try persistenceController.container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult
+        } catch {
+            throw error
+        }
+        
+        guard let deletedCount = batchDeleteResult?.result as? Int else {
+            throw CoreDataError.batchDeleteFailed(entity, NSError(domain: "com.example.BatchDeleteError", code: -1, userInfo: nil))
+        }
+        
+        print("Deleted \(deletedCount) objects of entity \(entity)")
+    }
+
 }
 
 // MARK: - GLOBAL

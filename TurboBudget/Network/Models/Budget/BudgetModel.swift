@@ -1,6 +1,6 @@
 //
 //  BudgetModel.swift
-//  FixBounce
+//  CashFlow
 //
 //  Created by Theo Sementa on 12/11/2024.
 //

@@ -61,11 +61,9 @@ struct SubcategoryRow: View {
             
             Spacer()
             
-            if subcategory.transactions.count != 0 && stringAmount != 0.currency {
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(Color(uiColor: .label))
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-            }
+            Image(systemName: "chevron.right")
+                .foregroundStyle(Color(uiColor: .label))
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .padding()
         .background(Color.colorCell)

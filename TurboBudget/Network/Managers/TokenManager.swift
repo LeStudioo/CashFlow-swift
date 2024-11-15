@@ -21,12 +21,12 @@ extension TokenManager {
     
     func setTokenAndRefreshToken(token: String, refreshToken: String) {
         self.token = token
-        KeychainManager.shared.setItemToKeychain(newValue: refreshToken, service: .refreshToken)
+        KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: refreshToken)
     }
     
     @MainActor
     func refreshToken() async throws {
-        if let refreshTokenInKeychain = KeychainManager.shared.retrieveItem(service: .refreshToken) {
+        if let refreshTokenInKeychain = KeychainManager.shared.retrieveItemFromKeychain(id: KeychainService.refreshToken.rawValue, type: String.self), !refreshTokenInKeychain.isEmpty {
             do {
                 let user = try await NetworkService.shared.sendRequest(
                     apiBuilder: UserAPIRequester.refreshToken(refreshToken: refreshTokenInKeychain),
@@ -35,10 +35,7 @@ extension TokenManager {
                 
                 if let refreshToken = user.refreshToken, let token = user.token {
                     self.token = token
-                    KeychainManager.shared.setItemToKeychain(
-                        newValue: refreshToken,
-                        service: .refreshToken
-                    )
+                    KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: refreshToken)
                     
                     UserRepository.shared.currentUser = user
                 } else {

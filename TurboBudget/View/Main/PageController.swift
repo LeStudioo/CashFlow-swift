@@ -14,9 +14,14 @@ struct PageControllerView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
+
+    // New Repository
+    @EnvironmentObject private var accountRepository: AccountRepository
+    
+    // Old Reposiyory
     @EnvironmentObject private var accountRepo: AccountRepositoryOld
     
-    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
     // Custom
     @StateObject private var icloudManager: ICloudManager = ICloudManager()

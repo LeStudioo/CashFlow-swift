@@ -247,6 +247,6 @@ extension PredefinedSubcategory {
     }
     
     var budget: Budget? {
-        return BudgetRepository.shared.findBySubcategoryID(self.id)
+        return BudgetRepositoryOld.shared.findBySubcategoryID(self.id)
     }
 }

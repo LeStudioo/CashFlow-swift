@@ -1,5 +1,5 @@
 //
-//  ContributionRepository.swift
+//  ContributionRepositoryOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 24/08/2024.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class ContributionRepository: ObservableObject {
-    static let shared = ContributionRepository()
+final class ContributionRepositoryOld: ObservableObject {
+    static let shared = ContributionRepositoryOld()
 }
 
-extension ContributionRepository {
+extension ContributionRepositoryOld {
     
     /// Create a new contribution
     func createNewContribution(model: ContributionModelOld, withSave: Bool = true) throws -> Contribution {

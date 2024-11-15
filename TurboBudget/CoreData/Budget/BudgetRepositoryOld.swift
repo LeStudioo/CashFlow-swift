@@ -1,5 +1,5 @@
 //
-//  BudgetRepository.swift
+//  BudgetRepositoryOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 13/08/2024.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class BudgetRepository: ObservableObject {
-    static let shared = BudgetRepository()
+final class BudgetRepositoryOld: ObservableObject {
+    static let shared = BudgetRepositoryOld()
     
     @Published var budgets: [Budget] = []
 }
 
 // MARK: - C.R.U.D
-extension BudgetRepository {
+extension BudgetRepositoryOld {
     
     func fetchBudgets() {
         let request = Budget.fetchRequest()
@@ -59,7 +59,7 @@ extension BudgetRepository {
 }
 
 // MARK: - Utils
-extension BudgetRepository {
+extension BudgetRepositoryOld {
     
     func findBySubcategoryID(_ id: String) -> Budget? {
         if let budget = self.budgets.first(where: { $0.predefSubcategoryID == id }) {
@@ -70,7 +70,7 @@ extension BudgetRepository {
     
 }
 
-extension BudgetRepository {
+extension BudgetRepositoryOld {
     
     func deleteBudgets() {
         for budget in self.budgets {

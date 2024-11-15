@@ -15,17 +15,9 @@ struct SavingsPlanRow: View {
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
 
-    //State or Binding String
-
     //State or Binding Int, Float and Double
     @State private var percentage: Double = 0
     @State private var increaseWidthAmount: Double = 0
-
-    //State or Binding Bool
-
-	//Enum
-	
-	//Computed var
 
     //MARK: - Body
     var body: some View {

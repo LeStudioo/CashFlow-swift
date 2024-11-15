@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class SavingsAccountRepo: ObservableObject {
-    static let shared = SavingsAccountRepo()
+final class SavingsAccountRepositoryOld: ObservableObject {
+    static let shared = SavingsAccountRepositoryOld()
     
     @Published var savingsAccounts: [SavingsAccount] = []
 }
 
-extension SavingsAccountRepo {
+extension SavingsAccountRepositoryOld {
     
     func fetchSavingsAccounts() {
         let request = SavingsAccount.fetchRequest()

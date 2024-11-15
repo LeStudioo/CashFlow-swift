@@ -14,22 +14,25 @@ extension String {
         return NSLocalizedString(self, comment: "")
     }
     
+    var isBlank: Bool {
+        return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+    
+    func toDouble() -> Double {
+        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
+        return Double(stringFormated) ?? 0
+    }
+    
+    
+    
+    
     func widthOfString(usingFont font: UIFont) -> CGFloat {
          let fontAttributes = [NSAttributedString.Key.font: font]
          let size = self.size(withAttributes: fontAttributes)
          return size.width
      }
     
-    func convertToDouble() -> Double {
-        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
-        return Double(stringFormated) ?? 0
-    }
     
-    func isEmptyWithoutSpace() -> Bool {
-        if self.replacingOccurrences(of: " ", with: "", options: NSString.CompareOptions.literal, range: nil).isEmpty {
-            return true
-        } else { return false }
-    }
     
     func matches(for regex: String) -> [String] {
         do {

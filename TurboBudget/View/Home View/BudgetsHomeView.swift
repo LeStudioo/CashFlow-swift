@@ -16,7 +16,7 @@ struct BudgetsHomeView: View {
     
     //Environnements
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var budgetRepo: BudgetRepository
+    @EnvironmentObject private var budgetRepo: BudgetRepositoryOld
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String

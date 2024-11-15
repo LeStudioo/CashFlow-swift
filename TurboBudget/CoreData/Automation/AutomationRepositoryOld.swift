@@ -1,5 +1,5 @@
 //
-//  AutomationRepository.swift
+//  AutomationRepositoryOld.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 13/08/2024.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class AutomationRepository: ObservableObject {
-    static let shared = AutomationRepository()
+final class AutomationRepositoryOld: ObservableObject {
+    static let shared = AutomationRepositoryOld()
     
     @Published var automations: [Automation] = []
 }
 
 // MARK: - C.R.U.D
-extension AutomationRepository {
+extension AutomationRepositoryOld {
     
     /// Fetch all automations
     func fetchAutomations() {

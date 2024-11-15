@@ -52,7 +52,7 @@ extension SavingPlanRepositoryOld {
                 savingsPlan: newSavingPlan
             )
             
-            let newContribution = try ContributionRepository.shared.createNewContribution(model: contributionModel)
+            let newContribution = try ContributionRepositoryOld.shared.createNewContribution(model: contributionModel)
         }
         
         if withSave {

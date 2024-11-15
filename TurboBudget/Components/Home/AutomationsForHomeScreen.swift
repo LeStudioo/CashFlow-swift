@@ -13,7 +13,7 @@ struct AutomationsForHomeScreen: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var automationRepo: AutomationRepository
+    @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences
     @Preference(\.isAutomationsDisplayedHomeScreen) private var isAutomationsDisplayedHomeScreen

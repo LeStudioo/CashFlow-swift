@@ -6,6 +6,7 @@
 //
 
 // https://paulallies.medium.com/google-sign-in-swiftui-2909e01ea4ed
+// https://github.com/google/GoogleSignIn-iOS/issues/378
 import SwiftUI
 import GoogleSignIn
 
@@ -14,11 +15,6 @@ class SignInWithGoogleManager: ObservableObject {
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
     
-    // init
-    init() {
-        check()
-    }
-    
 }
 
 extension SignInWithGoogleManager {
@@ -26,7 +22,7 @@ extension SignInWithGoogleManager {
     func getUserInfo() async {
         if (GIDSignIn.sharedInstance.currentUser != nil) {
             let user = GIDSignIn.sharedInstance.currentUser
-            guard let user = user else { return }
+            guard (user != nil) else { return }
             
             self.isLoggedIn = true
         } else {
@@ -34,26 +30,13 @@ extension SignInWithGoogleManager {
         }
     }
     
-    func check() {
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
-            if let error {
-                self.errorMessage = "error: \(error.localizedDescription)"
-            }
-            
-            Task {
-                await self.getUserInfo()
-            }
-        }
-    }
-    
     @MainActor
-    func signIn(router: NavigationManager) {
-        
-       guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
+    func signIn() {
+       guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.keyWindow?.rootViewController else { return }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { user, error in
             if let error {
-                self.errorMessage = "error: \(error.localizedDescription)"
+                self.errorMessage = "Google Error: \(error.localizedDescription)"
                 return
             }
             
@@ -70,8 +53,15 @@ extension SignInWithGoogleManager {
                 
                 if let token = user.token, let refreshToken = user.refreshToken {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-                    AppManager.shared.viewState = .success
                     UserRepository.shared.currentUser = user
+
+                    do {
+                        try await DataForServer.shared.syncOldDataToServer()
+                        PersistenceController.clearOldDatabase()
+                        AppManager.shared.viewState = .success
+                    } catch {
+                        AppManager.shared.viewState = .notSynced
+                    }
                 }
             }
         }
@@ -83,5 +73,5 @@ extension SignInWithGoogleManager {
             await self.getUserInfo() // Pourquoi faire ?
         }
     }
-    
+
 }
