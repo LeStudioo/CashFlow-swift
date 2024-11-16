@@ -72,9 +72,11 @@ struct CategoryRow: View {
             
             Spacer()
             
-            Image(systemName: "chevron.right")
-                .foregroundStyle(Color(uiColor: .label))
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+            if let showChevron, showChevron {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(Color(uiColor: .label))
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+            }
         }
         .padding()
         .background(Color.colorCell)

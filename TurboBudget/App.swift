@@ -20,6 +20,9 @@ struct TurboBudgetApp: App {
     @StateObject private var userRepository: UserRepository = .shared
     @StateObject private var accountRepository: AccountRepository = .shared
     @StateObject private var transactionRepository: TransactionRepository = .shared
+    @StateObject private var subscriptionRepository: SubscriptionRepository = .shared
+    @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
+    @StateObject private var budgetRepository: BudgetRepository = .shared
     
     // Repository
     @StateObject private var accountRepo: AccountRepositoryOld = .shared
@@ -72,6 +75,9 @@ struct TurboBudgetApp: App {
                         accountRepository.selectedAccount = accountRepository.mainAccount
                         if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
                             await transactionRepository.fetchTransactions(accountID: accountID)
+                            await subscriptionRepository.fetchSubscriptions(accountID: accountID)
+                            await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
+                            await budgetRepository.fetchBudgets(accountID: accountID)
                         }
                     }
                 case .notSynced:
@@ -88,6 +94,9 @@ struct TurboBudgetApp: App {
             // New Repository
             .environmentObject(accountRepository)
             .environmentObject(transactionRepository)
+            .environmentObject(subscriptionRepository)
+            .environmentObject(savingsPlanRepository)
+            .environmentObject(budgetRepository)
             
             // Old Repository
             .environmentObject(accountRepo)

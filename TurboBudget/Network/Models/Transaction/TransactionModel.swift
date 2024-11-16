@@ -160,7 +160,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         lhs.isFromApplePay == rhs.isFromApplePay &&
         lhs.nameFromApplePay == rhs.nameFromApplePay &&
         lhs.senderAccountID == rhs.senderAccountID &&
-        lhs.receiverAccountID == rhs.receiverAccountID
+        lhs.receiverAccountID == rhs.receiverAccountID &&
         lhs.note == rhs.note
     }
     

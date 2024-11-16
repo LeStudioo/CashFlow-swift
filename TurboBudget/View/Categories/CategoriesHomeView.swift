@@ -45,11 +45,13 @@ struct CategoriesHomeView: View {
                         }
                         
                         ForEach(viewModel.categoriesFiltered) { category in
+                            let hasSubcategories = !category.subcategories.isEmpty
                             NavigationButton(push: router.pushHomeSubcategories(category: category)) {
-                                CategoryRow(category: category, showChevron: true)
+                                CategoryRow(category: category, showChevron: hasSubcategories)
                                     .foregroundStyle(Color.label)
                             }
                             .padding(.bottom, 8)
+                            .disabled(!hasSubcategories)
                         }
                         
                         Rectangle().frame(height: 100).opacity(0)

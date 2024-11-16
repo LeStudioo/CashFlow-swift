@@ -19,6 +19,28 @@ final class TransactionRepository: ObservableObject {
     var incomes: [TransactionModel] {
         return transactions.filter { $0.type == .income }
     }
+
+    var transactionsByMonth: [Int : [TransactionModel]] {
+        var groupedTransactions: [Int: [TransactionModel]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
+        
+        let calendar = Calendar.current
+        
+        for transaction in self.transactions {
+            let month = calendar.component(.month, from: transaction.date.withDefault)
+            
+            if groupedTransactions[month] == nil {
+                groupedTransactions[month] = []
+            }
+            
+            groupedTransactions[month]?.append(transaction)
+        }
+        
+        for (month, transactions) in groupedTransactions {
+            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
+        }
+        
+        return groupedTransactions
+    }
 }
 
 extension TransactionRepository {

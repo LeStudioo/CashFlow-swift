@@ -10,13 +10,10 @@ import SwiftUI
 import Charts
 
 struct CashFlowChart: View {
-    
-    // Builder
-    @ObservedObject var account: Account
-    
+        
     // Custom
     @ObservedObject var filter = FilterManager.shared
-    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
@@ -33,7 +30,7 @@ struct CashFlowChart: View {
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(Font.mediumSmall())
                     
-                    Text(TransactionManager().totalCashFlowForSelectedMonth(account: account, selectedDate: filter.date).currency)
+                    Text(transactionRepository.totalCashFlowForSelectedMonth(selectedDate: filter.date).currency)
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.semiBoldH3())
                 }
@@ -49,13 +46,13 @@ struct CashFlowChart: View {
                 .padding(8)
             }
             Chart {
-                let transactionsByMonth = transactionRepo.transactionsByMonth.sorted(by: { $0.key < $1.key })
+                let transactionsByMonth = transactionRepository.transactionsByMonth.sorted(by: { $0.key < $1.key })
                 ForEach(transactionsByMonth.indices, id: \.self) { index in
                     
                     let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
                     
                     let month = transactionsByMonth[index].key
-                    let transactions = transactionRepo.totalCashFlowForSpecificMonthYear(month: month, year: components.year ?? 0)
+                    let transactions = transactionRepository.totalCashFlowForSpecificMonthYear(month: month, year: components.year ?? 0)
                     
                     BarMark(x: .value("x", "\(index)"),
                             y: .value("y", transactions))
@@ -83,5 +80,5 @@ struct CashFlowChart: View {
 
 // MARK: - Preview
 #Preview {
-    CashFlowChart(account: Account.preview)
+    CashFlowChart()
 }

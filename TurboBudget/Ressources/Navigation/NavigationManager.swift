@@ -27,8 +27,8 @@ class NavigationManager: Router {
     }
     
     
-    func pushAnalytics(account: Account) {
-        navigateTo(.analytics(account: account))
+    func pushAnalytics() {
+        navigateTo(.analytics)
     }
     
     
@@ -46,8 +46,8 @@ class NavigationManager: Router {
     }
     
     
-    func pushAccountDashboard(account: Account) {
-        navigateTo(.accountDashboard(account: account))
+    func pushAccountDashboard() {
+        navigateTo(.accountDashboard)
     }
     
     func pushSavingsAccountDetail(savingsAccount: SavingsAccount) {
@@ -194,8 +194,8 @@ private extension NavigationManager {
             case .homeAutomations:
                 AutomationsHomeView()
                 
-            case .analytics(let account):
-                AnalyticsHomeView(account: account)
+            case .analytics:
+                AnalyticsHomeView()
                 
             case .createAccount:
                 CreateAccountView()
@@ -229,8 +229,8 @@ private extension NavigationManager {
                 SavingPlanDetailView(savingPlan: savingPlan)
                 
                 
-            case .accountDashboard(let account):
-                AccountDashboardView(account: account)
+            case .accountDashboard:
+                AccountDashboardView()
             case .savingsAccountDetail(let savingsAccount):
                 SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:

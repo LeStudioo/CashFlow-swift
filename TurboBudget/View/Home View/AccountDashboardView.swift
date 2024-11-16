@@ -10,9 +10,6 @@ import SwiftUI
 
 struct AccountDashboardView: View {
     
-    // Builder
-    @ObservedObject var account: Account
-    
     //Environement
     @Environment(\.managedObjectContext) private var viewContext
     
@@ -22,6 +19,12 @@ struct AccountDashboardView: View {
     @EnvironmentObject var store: PurchasesManager
     
     @EnvironmentObject private var budgetRepo: BudgetRepositoryOld
+    
+    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
+    @EnvironmentObject private var budgetRepository: BudgetRepository
     
     //State or Binding String
     @State private var accountName: String = ""
@@ -45,27 +48,29 @@ struct AccountDashboardView: View {
     // MARK: - body
     var body: some View {
         ScrollView {
-            VStack {
-                Text(account.title)
-                    .titleAdjustSize()
-                    .foregroundStyle(ThemeManager.theme.color)
-                    .multilineTextAlignment(.center)
-                    .lineLimit(2)
-                
-                VStack(spacing: -2) {
-                    Text("account_detail_avail_balance".localized)
-                        .font(Font.mediumText16())
-                        .foregroundStyle(Color.customGray)
-                    
-                    Text(currencySymbol + " " + account.balance.formatWith(2))
+            if let account = accountRepository.selectedAccount {
+                VStack {
+                    Text(account.name ?? "")
                         .titleAdjustSize()
+                        .foregroundStyle(ThemeManager.theme.color)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                    
+                    VStack(spacing: -2) {
+                        Text("account_detail_avail_balance".localized)
+                            .font(Font.mediumText16())
+                            .foregroundStyle(Color.customGray)
+                        
+                        Text(currencySymbol + " " + (account.balance?.formatWith(2) ?? ""))
+                            .titleAdjustSize()
+                    }
+                    .padding(.vertical, 12)
                 }
-                .padding(.vertical, 12)
             }
             
             VStack(spacing: 16) {
                 if store.isCashFlowPro {
-                    DashboardChart(account: account)
+                    DashboardChart()
                 }
                 
                 LazyVGrid(columns: columns, spacing: 16, content: {
@@ -74,7 +79,7 @@ struct AccountDashboardView: View {
                             config: .init(
                                 icon: "banknote.fill",
                                 text: "word_transactions".localized,
-                                num: account.transactions.count
+                                num: transactionRepository.transactions.count
                             )
                         )
                     }
@@ -84,7 +89,7 @@ struct AccountDashboardView: View {
                             config: .init(
                                 icon: "gearshape.2.fill",
                                 text: "word_automations".localized,
-                                num: account.automations.count
+                                num: subscriptionRepository.subscriptions.count
                             )
                         )
                     }
@@ -94,7 +99,7 @@ struct AccountDashboardView: View {
                             config: .init(
                                 icon: "dollarsign.square.fill",
                                 text: "word_savingsplans".localized,
-                                num: account.savingPlans.count
+                                num: savingsPlanRepository.savingsPlans.count
                             )
                         )
                     }
@@ -104,7 +109,7 @@ struct AccountDashboardView: View {
                             config: .init(
                                 icon: "chart.pie.fill",
                                 text: "word_budgets".localized,
-                                num: budgetRepo.budgets.count,
+                                num: budgetRepository.budgets.count,
                                 isLocked: !store.isCashFlowPro
                             )
                         )
@@ -113,18 +118,6 @@ struct AccountDashboardView: View {
                     .onTapGesture {
                         if !store.isCashFlowPro {
                             showAlertPaywall.toggle()
-                        }
-                    }
-                    
-                    if account.savingPlansArchived.count != 0 {
-                        NavigationButton(push: router.pushArchivedSavingPlans(account: account)) {
-                            DashboardRow(
-                                config: .init(
-                                    icon: "archivebox.fill",
-                                    text: "word_archived_savingsplans".localized,
-                                    num: account.savingPlansArchived.count
-                                )
-                            )
                         }
                     }
                 })
@@ -172,23 +165,25 @@ struct AccountDashboardView: View {
             TextField("account_detail_new_name".localized, text: $accountName)
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
-                account.title = accountName
-                persistenceController.saveContext()
+//                account?.name = accountName
+//                 TODO: Save name
+                //                    persistenceController.saveContext()
             }, label: { Text("word_validate".localized) })
         })
-        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
-            TextField(account.title, text: $accountNameForDeleting)
-            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: {
-                if account.title == accountNameForDeleting {
-                    withAnimation {
-                        viewContext.delete(account)
-                        AccountRepositoryOld.shared.mainAccount = nil
-                        persistenceController.saveContext()
-                    }
-                }
-            }, label: { Text("word_delete".localized) })
-        }, message: { Text("account_detail_delete_account_desc".localized) })
+//        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+//            TextField(account?.name ?? "", text: $accountNameForDeleting)
+//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+//            Button(role: .destructive, action: {
+//                if account?.name == accountNameForDeleting {
+                    //                        withAnimation {
+                    //                            viewContext.delete(account)
+                    //                            AccountRepositoryOld.shared.mainAccount = nil
+                    //                            persistenceController.saveContext()
+                    //                        }
+                    // TODO: Delete account
+//                }
+//            }, label: { Text("word_delete".localized) })
+//        }, message: { Text("account_detail_delete_account_desc".localized) })
         //                VStack {
         //                    Spacer()
         //
@@ -219,10 +214,11 @@ struct AccountDashboardView: View {
             Text("alert_cashflow_pro_desc".localized)
         })
         .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
+        
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    AccountDashboardView(account: Account.preview)
+    AccountDashboardView()
 }

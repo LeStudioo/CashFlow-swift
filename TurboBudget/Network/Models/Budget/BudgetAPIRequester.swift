@@ -34,12 +34,7 @@ extension BudgetAPIRequester {
     }
     
     var parameters: [URLQueryItem]? {
-        switch self {
-        case .fetch(let accountID):     return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .create(let accountID, _): return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .update:                   return nil
-        case .delete:                   return nil
-        }
+        return nil
     }
     
     var isTokenNeeded: Bool {

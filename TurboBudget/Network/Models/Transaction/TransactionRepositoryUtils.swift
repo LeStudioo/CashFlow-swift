@@ -140,3 +140,170 @@ extension TransactionRepository {
             .reduce(0, +)
     }
 }
+
+extension TransactionRepository {
+    
+    func amountCashFlowByMonth(month: Date) -> Double {
+        let amountOfExpenses = amountExpensesForSelectedMonth(month: month)
+        let amountOfIncomes = amountIncomesForSelectedMonth(month: month)
+        
+        return amountOfExpenses + amountOfIncomes
+    }
+
+    func amountGainOrLossByMonth(month: Date) -> Double {
+        let amountOfExpenses = amountExpensesForSelectedMonth(month: month)
+        let amountOfIncomes = amountIncomesForSelectedMonth(month: month)
+        
+        return amountOfIncomes - amountOfExpenses
+    }
+    
+}
+
+extension TransactionRepository {
+    
+    func dailyIncomeAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
+        let transactionsForTheChoosenMonth: [TransactionModel] = incomesForSelectedMonth(selectedDate: selectedDate)
+            .filter { !($0.isFromSubscription ?? false) }
+        
+        var array: [AmountOfTransactionsByDay] = []
+
+        let dates = selectedDate.allDateOfMonth
+        
+        for date in dates {
+            var amountOfDay: Double = 0.0
+            
+            for transaction in transactionsForTheChoosenMonth {
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date)
+                    && PredefinedCategory.findByID(transaction.categoryID ?? "") != nil {
+                    amountOfDay += transaction.amount ?? 0
+                }
+            }
+            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        }
+        
+        var sortedArray = array.sorted { $0.day < $1.day }
+        sortedArray.removeLast()
+        return sortedArray
+    }
+    
+    func dailyExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
+        let transactionsForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)
+            .filter { !($0.isFromSubscription ?? false) }
+                
+        var array: [AmountOfTransactionsByDay] = []
+        
+        let dates = selectedDate.allDateOfMonth
+        
+        for date in dates {
+            var amountOfDay: Double = 0.0
+            
+            for transaction in transactionsForTheChoosenMonth {
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                    amountOfDay += transaction.amount ?? 0
+                }
+            }
+            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        }
+        
+        var sortedArray = array.sorted { $0.day < $1.day }
+        sortedArray.removeLast()
+        return sortedArray
+    }
+    
+}
+
+extension TransactionRepository {
+    
+    
+    func dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
+        let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)
+            .filter { $0.isFromSubscription == true }
+        
+        var array: [AmountOfTransactionsByDay] = []
+        
+        let dates = selectedDate.allDateOfMonth
+        
+        for date in dates {
+            var amountOfDay: Double = 0.0
+            
+            for transaction in transactionsFromAutomationForTheChoosenMonth {
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                    amountOfDay += transaction.amount ?? 0
+                }
+            }
+            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        }
+        
+        var sortedArray = array.sorted { $0.day < $1.day }
+        sortedArray.removeLast()
+        return sortedArray
+    }
+    
+    
+    func dailyAutomatedIncomeAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
+        let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = incomesForSelectedMonth(selectedDate: selectedDate)
+            .filter { $0.isFromSubscription == true }
+        
+        var array: [AmountOfTransactionsByDay] = []
+        
+        let dates = selectedDate.allDateOfMonth
+        
+        for date in dates {
+            var amountOfDay: Double = 0.0
+            
+            for transaction in transactionsFromAutomationForTheChoosenMonth {
+                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                    amountOfDay += transaction.amount ?? 0
+                }
+            }
+            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        }
+        
+        var sortedArray = array.sorted { $0.day < $1.day }
+        sortedArray.removeLast()
+        return sortedArray
+    }
+}
+
+extension TransactionRepository {
+    
+    func totalCashFlowForSelectedMonth(selectedDate: Date) -> Double {
+        var amount: Double = 0.0
+        
+        for transaction in self.transactions {
+            if let _ = PredefinedCategory.findByID(transaction.categoryID ?? "") {
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+                    amount += transaction.amount ?? 0
+                }
+            }
+        }
+        
+        return amount
+    }
+    
+    func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
+        var amount: Double = 0.0
+        
+        var components = DateComponents()
+        components.day = 01
+        components.month = month
+        components.year = year
+        
+        let dateOfMonthSelected = Calendar.current.date(from: components)
+        
+        for transaction in self.transactions {
+            if let dateOfMonthSelected {
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
+                    && PredefinedCategory.findByID(transaction.categoryID ?? "") != nil {
+                    if transaction.type == .expense {
+                        amount -= transaction.amount ?? 0
+                    } else if transaction.type == .income {
+                        amount += transaction.amount ?? 0
+                    }
+                }
+            } else { print("⚠️ dateOfMonthSelected is NIL") }
+        }
+        
+        return amount
+    }
+}

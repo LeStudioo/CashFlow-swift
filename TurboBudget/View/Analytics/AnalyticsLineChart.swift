@@ -24,7 +24,7 @@ struct AnalyticsLineChart: View {
     
     // MARK: -
     var body: some View {
-        if amounts.reduce(0, -) != 0 {
+        if amounts.reduce(0, +) != 0 {
             VStack {
                 let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
                 

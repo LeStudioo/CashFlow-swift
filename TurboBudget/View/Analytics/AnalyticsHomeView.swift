@@ -13,7 +13,7 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
-    @ObservedObject var account: Account
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -24,41 +24,41 @@ struct AnalyticsHomeView: View {
     // MARK: -
     var body: some View {
         VStack {
-            if account.transactions.count > 0 {
+            if transactionRepository.transactions.count > 0 {
                 ScrollView {
                     VStack(spacing: 20) {
                         // Cash Flow Chart
-                        CashFlowChart(account: account)
+                        CashFlowChart()
                         
-                        if account.amountCashFlowByMonth(month: filter.date) == 0 {
+                        if transactionRepository.amountCashFlowByMonth(month: filter.date) == 0 {
                             CustomEmptyView(
                                 imageName: "NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)",
                                 description: "analytic_home_no_stats".localized
                             )
                         } else {
                             AnalyticsLineChart(
-                                values: TransactionManager().dailyIncomeAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                values: transactionRepository.dailyIncomeAmountsForSelectedMonth(selectedDate: filter.date),
                                 config: .init(
                                     title: "chart_incomes_incomes_in".localized,
                                     mainColor: Color.primary500
                                 )
                             )
                             AnalyticsLineChart(
-                                values: TransactionManager().dailyExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                values: transactionRepository.dailyExpenseAmountsForSelectedMonth(selectedDate: filter.date),
                                 config: .init(
                                     title: "chart_expenses_expenses_in".localized,
                                     mainColor: Color.error400
                                 )
                             )
                             AnalyticsLineChart(
-                                values: TransactionManager().dailyAutomatedIncomeAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                values: transactionRepository.dailyAutomatedIncomeAmountsForSelectedMonth(selectedDate: filter.date),
                                 config: .init(
                                     title: "chart_auto_incomes_incomes_in".localized,
                                     mainColor: Color.primary500
                                 )
                             )
                             AnalyticsLineChart(
-                                values: TransactionManager().dailyAutomatedExpenseAmountsForSelectedMonth(account: account, selectedDate: filter.date),
+                                values: transactionRepository.dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: filter.date),
                                 config: .init(
                                     title: "chart_auto_expenses_expenses_in".localized,
                                     mainColor: Color.error400
@@ -84,7 +84,7 @@ struct AnalyticsHomeView: View {
         .navigationTitle("word_analytic".localized)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            if account.transactions.count > 0 {
+            if !transactionRepository.transactions.isEmpty {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     NavigationButton(push: router.pushFilter()) {
                         Image(systemName: "line.3.horizontal.decrease.circle")
@@ -100,7 +100,7 @@ struct AnalyticsHomeView: View {
 
 //MARK: - Preview
 #Preview {
-    AnalyticsHomeView(account: Account.preview)
+    AnalyticsHomeView()
 }
 
 

@@ -54,8 +54,8 @@ struct PageControllerView: View {
                             Group {
                                 switch selectedTab {
                                 case 0: HomeView()
-//                                case 1: AnalyticsHomeView(account: account)
-//                                case 3: AccountDashboardView(account: account)
+                                case 1: AnalyticsHomeView()
+                                case 3: AccountDashboardView()
                                 case 4: CategoriesHomeView()
                                 default: EmptyView() //Can't arrived
                                 }

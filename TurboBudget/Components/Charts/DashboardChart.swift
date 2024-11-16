@@ -9,20 +9,20 @@ import SwiftUI
 
 struct DashboardChart: View {
     
-    // builder
-    @ObservedObject var account: Account
+    // Repository
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     
     var amountExpenses: Double {
-        return account.amountExpensesByMonth(month: .now)
+        return transactionRepository.amountExpensesForSelectedMonth(month: .now)
     }
     var amountIncomes: Double {
-        return account.amountIncomesByMonth(month: .now)
+        return transactionRepository.amountIncomesForSelectedMonth(month: .now)
     }
     var amountCashFlow: Double {
-        return account.amountCashFlowByMonth(month: .now)
+        return transactionRepository.amountCashFlowByMonth(month: .now)
     }
     var amountGainOrLoss: Double {
-        return account.amountGainOrLossByMonth(month: .now)
+        return transactionRepository.amountGainOrLossByMonth(month: .now)
     }
     
     // MARK: -
@@ -59,10 +59,10 @@ struct DashboardChart: View {
                             text: "account_detail_cashflow".localized,
                             amount: amountCashFlow.currency
                         )
-                        CustomRow(
-                            text: amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss".localized,
-                            amount: amountGainOrLoss.currency
-                        )
+//                        CustomRow(
+//                            text: amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss".localized,
+//                            amount: amountGainOrLoss.currency
+//                        )
                     }
                 }
             }
@@ -93,6 +93,6 @@ struct DashboardChart: View {
 
 // MARK: - Preview
 #Preview {
-    DashboardChart(account: .preview)
+    DashboardChart()
         .padding()
 }
