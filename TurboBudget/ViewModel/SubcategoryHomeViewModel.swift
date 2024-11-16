@@ -18,7 +18,7 @@ extension SubcategoryHomeViewModel {
     
     func isDisplayChart(category: PredefinedCategory) -> Bool {
         if !filter.automation && !filter.total {
-            if category.subcategories.map({ $0.expensesTransactionsAmountForSelectedDate(filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
+            if category.subcategories.map({ $0.transactionsAmount(type: .expense, filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
         } else if filter.automation && !filter.total {
             if category.subcategories.map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
         } else if !filter.automation && filter.total {

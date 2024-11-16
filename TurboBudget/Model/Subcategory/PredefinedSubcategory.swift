@@ -233,17 +233,30 @@ extension PredefinedSubcategory {
         }
     }
     
-    var transactions: [TransactionEntity] {
-        return TransactionRepositoryOld.shared.getTransactionsForSubcategory(subcategoryID: self.rawValue)
+    var transactions: [TransactionModel] {
+        return TransactionRepository.shared.transactionsBySubcategory(self.rawValue)
     }
     
-    var transactionsFiltered: [TransactionEntity] {
+    /// Transactions of type expense in a Subategory
+    var expenses: [TransactionModel] {
+        return transactions.filter { $0.type == .expense }
+    }
+    
+    /// Transactions of type income in a Subategory
+    var incomes: [TransactionModel] {
+        return transactions.filter { $0.type == .income }
+    }
+    
+    /// Transactions from Subscription in a Subategory
+    var subscriptions: [TransactionModel] {
+        return transactions.filter { $0.isFromSubscription == true }
+    }
+    
+    
+    
+    var transactionsFiltered: [TransactionModel] {
         return self.transactions
             .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
-    }
-    
-    var automations: [TransactionEntity] {
-        return transactions.filter({ $0.comeFromAuto })
     }
     
     var budget: Budget? {

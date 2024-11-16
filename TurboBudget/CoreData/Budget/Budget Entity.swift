@@ -48,34 +48,6 @@ public class Budget: NSManagedObject, Identifiable {
         }
     }
     
-//    public func actualAmountForMonth(month: Date) -> Double {
-//        var amount: Double = 0.0
-//        
-//        let categoryOfBudget = PredefinedCategoryManager().categoryByUniqueID(idUnique: predefCategoryID)
-//        
-//        if let categoryOfBudget {
-//            let subcategoryOfBudget = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: categoryOfBudget.subcategories, idUnique: predefSubcategoryID)
-//            
-//            if let subcategoryOfBudget {
-//                for transaction in subcategoryOfBudget.transactions {
-//                    
-//                    let categoryOfTransaction = PredefinedCategoryManager().categoryByUniqueID(idUnique: transaction.predefCategoryID)
-//                    
-//                    if let categoryOfTransaction {
-//                        let subcategoryOfTransaction = PredefinedSubcategoryManager().subcategoryByUniqueID(subcategories: categoryOfTransaction.subcategories, idUnique: transaction.predefSubcategoryID)
-//                        
-//                        if let subcategoryOfTransaction {
-//                            if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-//                                amount -= transaction.amount
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return amount
-//    }
-    
     public func actualAmountForMonth(month: Date) -> Double {
         var amount: Double = 0.0
         
@@ -84,11 +56,11 @@ public class Budget: NSManagedObject, Identifiable {
         }
         
         for transaction in subcategoryOfBudget.transactions {
-            if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID) {
-                let subcategoryOfTransaction = categoryOfTransaction.subcategories.findByID(transaction.predefSubcategoryID)
+            if let categoryOfTransaction = PredefinedCategory.findByID(transaction.categoryID ?? "") {
+                let subcategoryOfTransaction = categoryOfTransaction.subcategories.findByID(transaction.subcategoryID ?? "")
                 
-                if transaction.amount < 0 && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                    amount -= transaction.amount
+                if transaction.type == .expense && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
+                    amount += transaction.amount ?? 0
                 }
             }
         }

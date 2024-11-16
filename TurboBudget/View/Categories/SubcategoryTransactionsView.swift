@@ -14,7 +14,7 @@ struct SubcategoryTransactionsView: View {
     var subcategory: PredefinedSubcategory
     
     // Repo
-    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     
     //Environnements
     @EnvironmentObject private var router: NavigationManager
@@ -33,36 +33,34 @@ struct SubcategoryTransactionsView: View {
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
         for transaction in subcategory.transactions {
-            if !transaction.isFault {
-                let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
-                if !array.contains(components) {
-                    array.append(components)
-                }
+            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
+            if !array.contains(components) {
+                array.append(components)
             }
         }
         
         return array
     }
     
-    var searchResults: [TransactionEntity] {
+    var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
                 if ascendingOrder {
-                    return subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
+                    return subcategory.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
                 } else {
-                    return subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
+                    return subcategory.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
                 }
             } else if filterTransactions == .incomes {
                 if ascendingOrder {
-                    return subcategory.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }.reversed()
+                    return subcategory.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }.reversed()
                 } else {
-                    return subcategory.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
+                    return subcategory.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
                 }
             } else {
                 return subcategory.transactions
             }
         } else {
-            return subcategory.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return subcategory.transactions.filter { $0.name?.localizedStandardContains(searchText) ?? false }
         }
     }
     
@@ -75,11 +73,9 @@ struct SubcategoryTransactionsView: View {
                         if searchResults.map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if !transaction.isFault {
-                                        if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                                TransactionRow(transaction: transaction)
-                                            }
+                                    if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
+                                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
+                                            TransactionRow(transaction: transaction)
                                         }
                                     }
                                 }
@@ -98,8 +94,8 @@ struct SubcategoryTransactionsView: View {
                                     DetailOfExpensesOrIncomesByMonth(
                                         filterTransactions: $filterTransactions,
                                         month: month,
-                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, -),
-                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
+                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
+                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
                                         ascendingOrder: $ascendingOrder
                                     )
                                     .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
@@ -113,7 +109,7 @@ struct SubcategoryTransactionsView: View {
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
                 .background(Color.background.edgesIgnoringSafeArea(.all))
-                .animation(.smooth, value: transactionRepo.transactions.count)
+                .animation(.smooth, value: transactionRepository.transactions.count)
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,

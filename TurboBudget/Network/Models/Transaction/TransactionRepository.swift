@@ -11,6 +11,14 @@ final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
     @Published var transactions: [TransactionModel] = []
+    
+    var expenses: [TransactionModel] {
+        return transactions.filter { $0.type == .expense }
+    }
+    
+    var incomes: [TransactionModel] {
+        return transactions.filter { $0.type == .income }
+    }
 }
 
 extension TransactionRepository {

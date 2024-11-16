@@ -32,15 +32,17 @@ struct BudgetsTransactionsView: View {
     @State private var showDeleteBudget: Bool = false
 
 	// Computed variables
-    var searchResults: [TransactionEntity] {
-        var array: [TransactionEntity] = []
+    var searchResults: [TransactionModel] {
+        var array: [TransactionModel] = []
         if searchText.isEmpty {
             if ascendingOrder {
-                array = subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
+                array = subcategory.expenses
+                    .sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
             } else {
-                array = subcategory.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
+                array = subcategory.expenses
+                    .sorted { $0.amount ?? 0 < $1.amount ?? 0 }
             }
-        } else { array = subcategory.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) } }
+        } else { array = subcategory.transactions.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false } }
         
         return array.filter { $0.date.withDefault > Date().startOfMonth && $0.date.withDefault < Date().endOfMonth }
     }
@@ -129,7 +131,7 @@ struct BudgetsTransactionsView: View {
     func detailForExpenses() -> some View {
         HStack {
             HStack(alignment: .bottom) {
-                Text(searchResults.map({ $0.amount }).reduce(0, -).currency)
+                Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).currency)
                     .font(.mediumCustom(size: 22))
                 Spacer()
                 Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {

@@ -38,25 +38,25 @@ struct CategoryTransactionsView: View {
         return array
     }
     
-    var searchResults: [TransactionEntity] {
+    var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
                 if ascendingOrder {
-                    return category.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
+                    return category.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
                 } else {
-                    return category.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
+                    return category.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
                 }
             } else if filterTransactions == .incomes {
                 if ascendingOrder {
-                    return category.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }.reversed()
+                    return category.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }.reversed()
                 } else {
-                    return category.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
+                    return category.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
                 }
             } else {
                 return category.transactions
             }
         } else {
-            return category.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return category.transactions.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false }
         }
     }
     
@@ -90,8 +90,8 @@ struct CategoryTransactionsView: View {
                                     DetailOfExpensesOrIncomesByMonth(
                                         filterTransactions: $filterTransactions,
                                         month: month,
-                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, -),
-                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount }).reduce(0, +),
+                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
+                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
                                         ascendingOrder: $ascendingOrder
                                     )
                                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))

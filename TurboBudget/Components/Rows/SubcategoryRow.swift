@@ -16,7 +16,7 @@ struct SubcategoryRow: View {
     //Computed var
     var stringAmount: String {
         if !filter.automation && !filter.total {
-            return subcategory.expensesTransactionsAmountForSelectedDate(filter: filter).currency
+            return subcategory.transactionsAmount(type: .expense, filter: filter).currency
         } else if filter.automation && !filter.total {
             return subcategory.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
         } else if !filter.automation && filter.total {

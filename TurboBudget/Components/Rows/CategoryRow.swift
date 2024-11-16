@@ -22,7 +22,7 @@ struct CategoryRow: View {
             if category.id == PredefinedCategory.PREDEFCAT0.id {
                 return category.incomesTransactionsAmountForSelectedDate(filter: filter).currency
             } else {
-                return category.expensesTransactionsAmountForSelectedDate(filter: filter).currency
+                return category.transactionsAmount(type: .expense, filter: filter).currency
             }
         } else if filter.automation && !filter.total {
             if category.id == PredefinedCategory.PREDEFCAT0.id {

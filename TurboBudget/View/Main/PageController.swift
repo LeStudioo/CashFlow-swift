@@ -56,7 +56,7 @@ struct PageControllerView: View {
                                 case 0: HomeView()
 //                                case 1: AnalyticsHomeView(account: account)
 //                                case 3: AccountDashboardView(account: account)
-//                                case 4: CategoriesHomeView()
+                                case 4: CategoriesHomeView()
                                 default: EmptyView() //Can't arrived
                                 }
                             }

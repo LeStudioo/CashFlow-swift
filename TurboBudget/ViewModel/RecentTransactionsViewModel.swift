@@ -16,11 +16,11 @@ class RecentTransactionsViewModel: ObservableObject {
     // String variables
     @Published var searchText: String = ""
     
-    func searchResults(account: Account) -> [TransactionEntity] {
-        let filteredTransactions = account.transactions.filter { transaction in
+    func searchResults(account: Account) -> [TransactionModel] {
+        let filteredTransactions = TransactionRepository.shared.transactions.filter { transaction in
             let byMonthCondition = !filter.byMonth || transaction.date.withDefault <= filter.date
-            let onlyIncomesCondition = !filter.onlyIncomes || transaction.amount > 0
-            let onlyExpensesCondition = !filter.onlyExpenses || transaction.amount < 0
+            let onlyIncomesCondition = !filter.onlyIncomes || transaction.type == .income
+            let onlyExpensesCondition = !filter.onlyExpenses || transaction.type == .expense
             return byMonthCondition && onlyIncomesCondition && onlyExpensesCondition
         }
 
@@ -28,11 +28,11 @@ class RecentTransactionsViewModel: ObservableObject {
         case .date:
             return filteredTransactions.sorted { $0.date.withDefault > $1.date.withDefault }
         case .ascendingOrder:
-            return filteredTransactions.sorted { $0.amount > $1.amount }
+            return filteredTransactions.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
         case .descendingOrder:
-            return filteredTransactions.sorted { $0.amount < $1.amount }
+            return filteredTransactions.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
         case .alphabetic:
-            return filteredTransactions.sorted { $0.title < $1.title }
+            return filteredTransactions.sorted { $0.name ?? "" < $1.name ?? "" }
         }
     }
 }

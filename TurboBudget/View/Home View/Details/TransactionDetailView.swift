@@ -11,7 +11,7 @@ import SwiftUI
 struct TransactionDetailView: View {
 
     // Builder
-    @ObservedObject var transaction: TransactionEntity
+    @ObservedObject var transaction: TransactionModel
     
     // Custom type
     @ObservedObject var viewModel: TransactionDetailViewModel = .init()
@@ -41,9 +41,6 @@ struct TransactionDetailView: View {
     }
     @FocusState var focusedField: Field?
 	
-	//Computed var
-    var isAnExpense: Bool { if transaction.amount < 0 { return true } else { return false} }
-
     //MARK: - Body
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -72,8 +69,7 @@ struct TransactionDetailView: View {
                             }
                             .onTapGesture {
                                 if let category = transaction.category,
-                                   category.id != PredefinedCategory.PREDEFCAT0.id,
-                                   !transaction.isAuto {
+                                   category.id != PredefinedCategory.PREDEFCAT0.id {
                                     showWhatCategory.toggle()
                                 }
                             }
@@ -89,8 +85,8 @@ struct TransactionDetailView: View {
                 Spacer()
             }
             
-            if store.isCashFlowPro && transaction.predefCategoryID == PredefinedCategory.PREDEFCAT00.id {
-                let bestCategory = TransactionEntity.findBestCategory(for: transaction.title)
+            if store.isCashFlowPro && transaction.categoryID == PredefinedCategory.PREDEFCAT00.id {
+                let bestCategory = TransactionEntity.findBestCategory(for: transaction.name ?? "")
                 
                 if let categoryFound = bestCategory.0 {
                     let subcategoryFound = bestCategory.1
@@ -112,24 +108,22 @@ struct TransactionDetailView: View {
                 }
             }
             
-            Text(transaction.title)
+            Text(transaction.name ?? "")
                 .titleAdjustSize()
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
             CellForDetailTransaction(
                 leftText: "transaction_detail_amount".localized,
-                rightText: transaction.amount.currency,
-                rightTextColor: isAnExpense ? .error400 : .primary500
+                rightText: transaction.amount?.currency ?? "",
+                rightTextColor: transaction.type == .expense ? .error400 : .primary500
             )
             
-            if !transaction.isFault {
-                CellForDetailTransaction(
-                    leftText: "transaction_detail_date".localized,
-                    rightText: transaction.date.withDefault.formatted(date: .abbreviated, time: .omitted),
-                    rightTextColor: Color(uiColor: .label)
-                )
-            }
+            CellForDetailTransaction(
+                leftText: "transaction_detail_date".localized,
+                rightText: transaction.date.withDefault.formatted(date: .abbreviated, time: .omitted),
+                rightTextColor: Color(uiColor: .label)
+            )
             
             if let category = transaction.category {
                 CellForDetailTransaction(
@@ -179,20 +173,20 @@ struct TransactionDetailView: View {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel") })
             Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text("word_delete") })
         }, message: {
-            Text(transaction.amount < 0 ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
+            Text(transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
         })
         .alert("word_rename".localized, isPresented: $isEditingTransactionName, actions: {
             TextField("word_new_name".localized, text: $newTransactionName)
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
-                transaction.title = newTransactionName
+                transaction.name = newTransactionName
                 persistenceController.saveContext()
             }, label: { Text("word_validate".localized) })
         })
         .onAppear { 
-            transactionNote = transaction.note
-            viewModel.selectedCategory = PredefinedCategory.findByID(transaction.predefCategoryID)
-            viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.predefSubcategoryID)
+            transactionNote = transaction.note ?? ""
+            viewModel.selectedCategory = PredefinedCategory.findByID(transaction.categoryID ?? "")
+            viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.subcategoryID ?? "")
         }
         .onDisappear {
             if transactionNote != transaction.note {
@@ -232,28 +226,24 @@ struct TransactionDetailView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .background(SharingViewController(isPresenting: $isSharingJSON) {
-            let json = JSONManager().generateJSONForTransaction(transaction: transaction)
-            let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
-            
-            // For iPad
-            if UIDevice.current.userInterfaceIdiom == .pad { av.popoverPresentationController?.sourceView = UIView() }
-            
-            av.completionWithItemsHandler = { _, _, _, _ in
-                isSharingJSON = false // required for re-open !!!
-            }
-            return av
-        })
-        .sheet(isPresented: $isSharingQRCode) { QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!) }
+//        .background(SharingViewController(isPresenting: $isSharingJSON) {
+//            let json = JSONManager().generateJSONForTransaction(transaction: transaction)
+//            let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
+//            
+//            // For iPad
+//            if UIDevice.current.userInterfaceIdiom == .pad { av.popoverPresentationController?.sourceView = UIView() }
+//            
+//            av.completionWithItemsHandler = { _, _, _, _ in
+//                isSharingJSON = false // required for re-open !!!
+//            }
+//            return av
+//        })
+//        .sheet(isPresented: $isSharingQRCode) { QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!) }
     }//END body
 
     //MARK: Fonctions
     func deleteTransaction() {
-        if let account = transaction.transactionToAccount {
-            account.deleteTransaction(transaction: transaction)
-        }
-        // TODO: Voir si auto reload
-//        PredefinedObjectManager.shared.reloadTransactions()
+        // TODO: Delete transaction
         dismiss()
     }
     
@@ -261,7 +251,7 @@ struct TransactionDetailView: View {
 
 //MARK: - Preview
 #Preview {
-    TransactionDetailView(transaction: TransactionEntity.preview1)
+    TransactionDetailView(transaction: .mockClassicTransaction)
 }
 
 private struct CellForDetailTransaction: View {

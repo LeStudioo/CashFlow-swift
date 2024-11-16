@@ -20,7 +20,7 @@ struct RecentTransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepo: TransactionRepositoryOld
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     
     // Custom
     @StateObject private var viewModel = RecentTransactionsViewModel()
@@ -37,35 +37,39 @@ struct RecentTransactionsView: View {
     // Computed var
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
-        for transaction in account.transactions {
+        for transaction in transactionRepository.transactions {
             let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
             if !array.contains(components) { array.append(components) }
         }
         return array
     }
     
-    var searchResults: [TransactionEntity] {
+    var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
                 if ascendingOrder {
-                    return account.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }.reversed()
+                    return transactionRepository.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
                 } else {
-                    return account.transactions.filter { $0.amount < 0 }.sorted { $0.amount < $1.amount }
+                    return transactionRepository.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
                 }
             } else if filterTransactions == .incomes {
                 if ascendingOrder {
-                    return account.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }.reversed()
+                    return transactionRepository.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }.reversed()
                 } else {
-                    return account.transactions.filter { $0.amount > 0 }.sorted { $0.amount > $1.amount }
+                    return transactionRepository.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
                 }
             } else if filterTransactions == .category {
-                return account.transactions.filter({ $0.date.withDefault >= Date().startOfMonth && $0.date.withDefault <= Date().endOfMonth })
+                return transactionRepository.transactions
+                    .filter({ $0.date.withDefault >= Date().startOfMonth && $0.date.withDefault <= Date().endOfMonth })
             } else {
-                return account.transactions
+                return transactionRepository.transactions
             }
         } else { //Searching
-            let transactionsFilterByTitle = account.transactions.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
-            let transactionsFilterByDate = account.transactions.filter { HelperManager().formattedDateWithMonthYear(date: $0.date.withDefault).localizedCaseInsensitiveContains(searchText) }
+            let transactionsFilterByTitle = transactionRepository.transactions
+                .filter { $0.name?.localizedStandardContains(searchText) ?? false }
+            
+            let transactionsFilterByDate = transactionRepository.transactions
+                .filter { HelperManager().formattedDateWithMonthYear(date: $0.date.withDefault).localizedStandardContains(searchText) }
             
             if transactionsFilterByTitle.isEmpty {
                 return transactionsFilterByDate
@@ -78,13 +82,13 @@ struct RecentTransactionsView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if transactionRepo.transactions.count != 0 && searchResults.count != 0 {
+            if transactionRepository.transactions.count != 0 && searchResults.count != 0 {
                 if filterTransactions == .category {
                     List(PredefinedCategory.categoriesWithTransactions, id: \.self) { category in
-                        if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
+                        if searchResults.map({ PredefinedCategory.findByID($0.categoryID ?? "") }).contains(category) {
                             Section(content: {
                                 ForEach(searchResults) { transaction in
-                                    if let categoryOfTransaction = PredefinedCategory.findByID(transaction.predefCategoryID),
+                                    if let categoryOfTransaction = PredefinedCategory.findByID(transaction.categoryID ?? ""),
                                        categoryOfTransaction == category {
                                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                             TransactionRow(transaction: transaction)
@@ -105,7 +109,7 @@ struct RecentTransactionsView: View {
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
                     .background(Color.background.edgesIgnoringSafeArea(.all))
-                    .animation(.smooth, value: transactionRepo.transactions.count)
+                    .animation(.smooth, value: transactionRepository.transactions.count)
                 } else {
                     List(getAllMonthForTransactions, id: \.self) { dateComponents in
                         if let month = Calendar.current.date(from: dateComponents) {
@@ -135,10 +139,10 @@ struct RecentTransactionsView: View {
                                             month: month,
                                             amountOfExpenses: searchResults
                                                 .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-                                                .map({ $0.amount }).reduce(0, -),
+                                                .map({ $0.amount ?? 0 }).reduce(0, +),
                                             amountOfIncomes: searchResults
                                                 .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-                                                .map({ $0.amount }).reduce(0, +),
+                                                .map({ $0.amount ?? 0 }).reduce(0, +),
                                             ascendingOrder: $ascendingOrder
                                         )
                                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
@@ -151,7 +155,7 @@ struct RecentTransactionsView: View {
                     .scrollContentBackground(.hidden)
                     .scrollIndicators(.hidden)
                     .background(Color.background.edgesIgnoringSafeArea(.all))
-                    .animation(.smooth, value: transactionRepo.transactions.count)
+                    .animation(.smooth, value: transactionRepository.transactions.count)
                 }
             } else { // No Transactions
                 ErrorView(

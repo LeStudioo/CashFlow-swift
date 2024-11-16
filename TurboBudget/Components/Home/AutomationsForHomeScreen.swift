@@ -42,9 +42,9 @@ struct AutomationsForHomeScreen: View {
                 VStack {
                     ForEach(automationRepo.automations.prefix(numberOfAutomationsDisplayedInHomeScreen)) { automation in
                         Button(action: {
-                            if let transaction = automation.automationToTransaction {
-                                router.pushTransactionDetail(transaction: transaction)
-                            }
+//                            if let transaction = automation.automationToTransaction {
+//                                router.pushTransactionDetail(transaction: transaction)
+//                            }
                         }, label: {
                             AutomationRow(automation: automation)
                         })

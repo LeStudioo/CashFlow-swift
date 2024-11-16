@@ -8,6 +8,19 @@
 import Foundation
 
 extension TransactionRepository {
+    
+    func transactionsByCategory(_ categoryID: String) -> [TransactionModel] {
+        return self.transactions
+            .filter { $0.categoryID == categoryID }
+    }
+    
+    func transactionsBySubcategory(_ subcategoryID: String) -> [TransactionModel] {
+        return self.transactions
+            .filter { $0.subcategoryID == subcategoryID }
+    }
+}
+
+extension TransactionRepository {
     // MARK: - Private Properties
     
     private var transactionsActualMonth: [TransactionModel] {

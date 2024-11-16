@@ -30,7 +30,7 @@ enum NavigationDirection: Identifiable {
     case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
     
     case allTransactions(account: Account)
-    case transactionDetail(transaction: TransactionEntity)
+    case transactionDetail(transaction: TransactionModel)
     
     case savingPlansDetail(savingPlan: SavingPlan)
     
@@ -72,6 +72,7 @@ extension NavigationDirection: Equatable {
             (.homeCategories, .homeCategories),
             (.homeSavingPlans, .homeSavingPlans),
             (.homeAutomations, .homeAutomations),
+            (.transactionDetail, .transactionDetail),
             (.createAccount, .createAccount),
             (.createAutomation, .createAutomation),
             (.createBudget, .createBudget),
@@ -110,13 +111,6 @@ extension NavigationDirection: Equatable {
 
         case let (.allTransactions(lhsAccount), .allTransactions(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
-            
-        case let (.transactionDetail(lhsTransaction), .transactionDetail(rhsTransaction)):
-            if !lhsTransaction.isFault && !rhsTransaction.isFault {
-                return lhsTransaction.id == rhsTransaction.id
-            } else {
-                return false
-            }
             
         case let (.accountDashboard(lhsAccount), .accountDashboard(rhsAccount)):
             return lhsAccount.id == rhsAccount.id

@@ -44,7 +44,9 @@ extension PredefinedCategory {
                 .init(
                     categoryID: category.id,
                     iconName: category.icon,
-                    value: category.transactionsFiltered.map(\.amount).reduce(0, -),
+                    value: category.transactionsFiltered
+                        .map { $0.amount ?? 0 }
+                        .reduce(0, +),
                     color: category.color
                 )
             )
@@ -62,8 +64,8 @@ extension PredefinedCategory {
                 .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filterManager.date, toGranularity: .month) }
             
             let amount = transactionsFiltered
-                .map(\.amount)
-                .reduce(0, -)
+                .map { $0.amount ?? 0 }
+                .reduce(0, +)
             
             if amount != 0 {
                 array.append(
@@ -71,7 +73,9 @@ extension PredefinedCategory {
                         categoryID: subcategory.category.id,
                         subcategoryID: subcategory.id,
                         iconName: subcategory.icon,
-                        value: subcategory.transactionsFiltered.map(\.amount).reduce(0, -),
+                        value: subcategory.transactionsFiltered
+                            .map { $0.amount ?? 0 }
+                            .reduce(0, +),
                         color: subcategory.category.color
                     )
                 )

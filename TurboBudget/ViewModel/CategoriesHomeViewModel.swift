@@ -21,13 +21,17 @@ extension CategoriesHomeViewModel {
     
     var dataWithFilterChoosen: Bool {
         if !filter.automation && !filter.total {
-            if categories.map({ $0.expensesTransactionsAmountForSelectedDate(filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
+            if categories
+                .map({ $0.transactionsAmount(type: .expense, filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
         } else if filter.automation && !filter.total {
-            if categories.map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
+            if categories
+                .map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
         } else if !filter.automation && filter.total {
-            if categories.map({ $0.amountTotalOfExpenses }).reduce(0, +) > 0 { return true } else { return false }
+            if categories
+                .map({ $0.amountTotalOfExpenses }).reduce(0, +) > 0 { return true } else { return false }
         } else if filter.automation && filter.total {
-            if categories.map({ $0.amountTotalOfExpensesAutomations }).reduce(0, +) > 0 { return true } else { return false }
+            if categories
+                .map({ $0.amountTotalOfExpensesAutomations }).reduce(0, +) > 0 { return true } else { return false }
         }
         return false
     }

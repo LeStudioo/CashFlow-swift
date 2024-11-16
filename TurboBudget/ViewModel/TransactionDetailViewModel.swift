@@ -17,19 +17,20 @@ class TransactionDetailViewModel: ObservableObject {
 extension TransactionDetailViewModel {
     
     // TODO: Refaire
-    func changeCategory(transaction: TransactionEntity) {
+    func changeCategory(transaction: TransactionModel) {
         if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
-            transaction.predefCategoryID = newCategory.id
-            transaction.predefSubcategoryID = ""
+            transaction.categoryID = newCategory.id
+            transaction.subcategoryID = ""
             // TODO: Voir si auto update
 //            PredefinedObjectManager.shared.addTransactionsToCategory()
 //            PredefinedObjectManager.shared.addTransactionsToSubcategory()
             if let selectedSubcategory, let newSubcategory = newCategory.subcategories.findByID(selectedSubcategory.id) {
-                transaction.predefSubcategoryID = newSubcategory.id
+                transaction.subcategoryID = newSubcategory.id
                 // TODO: Voir si auto update
 //                PredefinedObjectManager.shared.addTransactionsToSubcategory()
             }
-            persistenceController.saveContext()
+//            persistenceController.saveContext()
+            // TODO: Repository update
         }
     }
     

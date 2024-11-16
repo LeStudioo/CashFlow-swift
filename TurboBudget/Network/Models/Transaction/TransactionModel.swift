@@ -23,6 +23,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var creationDate: String?
     @Published var categoryID: String?
     @Published var subcategoryID: String?
+    @Published var note: String?
     
     @Published var isFromSubscription: Bool?
     @Published var isFromApplePay: Bool?
@@ -43,7 +44,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         subcategoryID: String? = nil,
         isFromSubscription: Bool? = nil,
         isFromApplePay: Bool? = nil,
-        nameFromApplePay: String? = nil
+        nameFromApplePay: String? = nil,
+        note: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -56,6 +58,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.isFromSubscription = isFromSubscription
         self.isFromApplePay = isFromApplePay
         self.nameFromApplePay = nameFromApplePay
+        self.note = note
     }
     
     /// Classic Transaction Body
@@ -86,7 +89,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         dateISO: String? = nil,
         creationDate: String? = nil,
         senderAccountID: Int? = nil,
-        receiverAccountID: Int? = nil
+        receiverAccountID: Int? = nil,
+        note: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -96,11 +100,12 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.creationDate = creationDate
         self.senderAccountID = senderAccountID
         self.receiverAccountID = receiverAccountID
+        self.note = note
     }
     
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID
+        case id, name, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID, note
         case typeNum = "type"
         case dateISO = "date"
     }
@@ -120,6 +125,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         nameFromApplePay = try container.decodeIfPresent(String.self, forKey: .nameFromApplePay)
         senderAccountID = try container.decodeIfPresent(Int.self, forKey: .senderAccountID)
         receiverAccountID = try container.decodeIfPresent(Int.self, forKey: .receiverAccountID)
+        note = try container.decodeIfPresent(String.self, forKey: .note)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -137,6 +143,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(nameFromApplePay, forKey: .nameFromApplePay)
         try container.encodeIfPresent(senderAccountID, forKey: .senderAccountID)
         try container.encodeIfPresent(receiverAccountID, forKey: .receiverAccountID)
+        try container.encodeIfPresent(note, forKey: .note)
     }
     
     // Fonction pour le protocole Equatable
@@ -154,6 +161,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         lhs.nameFromApplePay == rhs.nameFromApplePay &&
         lhs.senderAccountID == rhs.senderAccountID &&
         lhs.receiverAccountID == rhs.receiverAccountID
+        lhs.note == rhs.note
     }
     
     // Fonction pour le protocole Hashable
@@ -171,10 +179,19 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         hasher.combine(nameFromApplePay)
         hasher.combine(senderAccountID)
         hasher.combine(receiverAccountID)
+        hasher.combine(note)
     }
 }
 
 extension TransactionModel {
+    
+    var category: PredefinedCategory? {
+        return PredefinedCategory(rawValue: categoryID ?? "")
+    }
+    
+    var subcategory: PredefinedSubcategory? {
+        return PredefinedSubcategory(rawValue: subcategoryID ?? "")
+    }
     
     var type: TransactionType {
         return TransactionType(rawValue: typeNum ?? 0) ?? .none
