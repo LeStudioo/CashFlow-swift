@@ -36,6 +36,10 @@ class AddAutomationViewModel: ObservableObject {
 
 extension AddAutomationViewModel {
     
+    func createNewAutomation() {
+        
+    }
+    
     func createNewAutomation(withError: @escaping (_ withError: CustomError?) -> Void) { 
         let calendar = Calendar.current
         var finalDate: Date

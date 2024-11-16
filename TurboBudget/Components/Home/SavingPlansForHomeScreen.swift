@@ -14,6 +14,7 @@ struct SavingPlansForHomeScreen: View {
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
+    @EnvironmentObject private var contributionRepository: ContributionRepository
     
     // Preferences
     @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
@@ -48,7 +49,13 @@ struct SavingPlansForHomeScreen: View {
                 HStack {
                     LazyVGrid(columns: layout, alignment: .center) {
                         ForEach(savingsPlanRepository.savingsPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingsPlan in
-                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan)) {
+                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
+                                Task {
+                                    if let savingsPlanID = savingsPlan.id {
+                                        await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
+                                    }
+                                }
+                            }) {
                                 SavingsPlanRow(savingsPlan: savingsPlan)
                             }
                             .padding(.bottom)

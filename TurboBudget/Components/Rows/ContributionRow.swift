@@ -12,7 +12,7 @@ import SwipeActions
 struct ContributionRow: View {
 
     //Custom type
-    var contribution: Contribution
+    var contribution: ContributionModel
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
@@ -25,15 +25,15 @@ struct ContributionRow: View {
     var body: some View {
         SwipeView(label: {
             HStack {
-                Text(contribution.amount < 0 ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
+                Text(contribution.amount ?? 0 < 0 ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
                     .font(Font.mediumText16())
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text(contribution.amount.currency)
+                    Text(contribution.amount?.currency ?? "")
                         .font(.semiBoldText16())
-                        .foregroundStyle(contribution.amount < 0 ? .error400 : .primary500)
+                        .foregroundStyle(contribution.amount ?? 0 < 0 ? .error400 : .primary500)
                     
-                    Text(HelperManager().stringDateDay(date: contribution.date.withDefault))
+                    Text(HelperManager().stringDateDay(date: contribution.date?.toDate() ?? Date()))
                         .font(Font.mediumSmall())
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 }
@@ -69,33 +69,34 @@ struct ContributionRow: View {
         .padding(.vertical, 2)
         .alert("contribution_cell_delete".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: { withAnimation { deleteContribution() } }, label: { Text("word_delete".localized) })
+//            Button(role: .destructive, action: { withAnimation { deleteContribution() } }, label: { Text("word_delete".localized) })
         }, message: {
             Text("contribution_cell_delete_desc".localized)
         })
     }//END body
 
     //MARK: Fonctions
-    func deleteContribution() {
-        DispatchQueue.main.async {
-            if let account = contribution.contributionToSavingPlan?.savingPlansToAccount {
-                account.balance = contribution.amount < 0 ? account.balance + contribution.amount : account.balance + contribution.amount
-            }
-            
-            if let savingPlan = contribution.contributionToSavingPlan {
-                savingPlan.actualAmount = contribution.amount < 0 ? savingPlan.actualAmount - contribution.amount : savingPlan.actualAmount - contribution.amount
-            }
-            
-            viewContext.delete(contribution)
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            persistenceController.saveContext()
-        }
-    }
+    // TODO: DELETE
+//    func deleteContribution() {
+//        DispatchQueue.main.async {
+//            if let account = contribution.contributionToSavingPlan?.savingPlansToAccount {
+//                account.balance = contribution.amount < 0 ? account.balance + contribution.amount : account.balance + contribution.amount
+//            }
+//            
+//            if let savingPlan = contribution.contributionToSavingPlan {
+//                savingPlan.actualAmount = contribution.amount < 0 ? savingPlan.actualAmount - contribution.amount : savingPlan.actualAmount - contribution.amount
+//            }
+//            
+//            viewContext.delete(contribution)
+//        }
+//        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//            persistenceController.saveContext()
+//        }
+//    }
 }//END struct
 
 //MARK: - Preview
 #Preview {
-    ContributionRow(contribution: Contribution.preview1)
+    ContributionRow(contribution: .mockContribution)
 }

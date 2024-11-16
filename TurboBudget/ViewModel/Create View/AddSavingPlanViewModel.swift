@@ -44,7 +44,7 @@ extension AddSavingPlanViewModel {
             name: savingPlanTitle,
             emoji: savingPlanEmoji,
             startDate: savingPlanStartDate.toISO(),
-            endDate: savingPlanDateOfEnd.toISO(),
+            endDate: isEndDate ? savingPlanDateOfEnd.toISO() : nil,
             currentAmount: savingPlanAmountOfStart.toDouble(),
             goalAmount: savingPlanAmountOfEnd.toDouble()
         )
