@@ -13,7 +13,7 @@ struct SavingPlansForHomeScreen: View {
         
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingPlanRepo: SavingPlanRepositoryOld
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
     
     // Preferences
     @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
@@ -44,12 +44,12 @@ struct SavingPlansForHomeScreen: View {
             .padding(.horizontal)
             .padding(.top)
             
-            if savingPlanRepo.savingPlans.count != 0 {
+            if !savingsPlanRepository.savingsPlans.isEmpty {
                 HStack {
                     LazyVGrid(columns: layout, alignment: .center) {
-                        ForEach(savingPlanRepo.savingPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingPlan in
-                            NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
-                                SavingsPlanRow(savingPlan: savingPlan)
+                        ForEach(savingsPlanRepository.savingsPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingsPlan in
+                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan)) {
+                                SavingsPlanRow(savingsPlan: savingsPlan)
                             }
                             .padding(.bottom)
                         }
@@ -81,7 +81,7 @@ struct SavingPlansForHomeScreen: View {
                 }
             }
         }
-        .animation(.smooth, value: savingPlanRepo.savingPlans.count)
+        .animation(.smooth, value: savingsPlanRepository.savingsPlans.count)
         .isDisplayed(isSavingPlansDisplayedHomeScreen)
     } // End body
 } // End struct

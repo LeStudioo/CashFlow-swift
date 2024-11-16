@@ -83,8 +83,8 @@ extension TransactionRepository {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
                     self.transactions[index] = transaction
                     sortTransactionsByDate()
+                    AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
                 }
-                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }
     }

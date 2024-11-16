@@ -36,14 +36,14 @@ extension CreateSavingsAccountViewModel {
 extension CreateSavingsAccountViewModel {
     
     func isSavingsAccountInCreation() -> Bool {
-        if !accountTitle.isEmpty || !accountBalance.isEmpty || !accountMaxAmount.isEmpty {
+        if !accountTitle.isBlank || !accountBalance.isEmpty || !accountMaxAmount.isEmpty {
             return true
         }
         return false
     }
     
     func isSavingsAccountValid() -> Bool {
-        if !accountTitle.isEmpty && !accountBalance.isEmpty && !accountMaxAmount.isEmpty {
+        if !accountTitle.isBlank && !accountBalance.isEmpty && !accountMaxAmount.isEmpty {
             return true
         }
         return false

@@ -147,7 +147,7 @@ extension TransactionRepository {
         let amountOfExpenses = amountExpensesForSelectedMonth(month: month)
         let amountOfIncomes = amountIncomesForSelectedMonth(month: month)
         
-        return amountOfExpenses + amountOfIncomes
+        return amountOfIncomes - amountOfExpenses
     }
 
     func amountGainOrLossByMonth(month: Date) -> Double {
@@ -266,20 +266,6 @@ extension TransactionRepository {
 }
 
 extension TransactionRepository {
-    
-    func totalCashFlowForSelectedMonth(selectedDate: Date) -> Double {
-        var amount: Double = 0.0
-        
-        for transaction in self.transactions {
-            if let _ = PredefinedCategory.findByID(transaction.categoryID ?? "") {
-                if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
-                    amount += transaction.amount ?? 0
-                }
-            }
-        }
-        
-        return amount
-    }
     
     func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
         var amount: Double = 0.0

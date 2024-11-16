@@ -32,7 +32,7 @@ enum NavigationDirection: Identifiable {
     case allTransactions
     case transactionDetail(transaction: TransactionModel)
     
-    case savingPlansDetail(savingPlan: SavingPlan)
+    case savingPlansDetail(savingsPlan: SavingsPlanModel)
     
     case accountDashboard
     case allSavingsAccount
@@ -74,6 +74,7 @@ extension NavigationDirection: Equatable {
             (.homeAutomations, .homeAutomations),
             (.analytics, .analytics),
             (.transactionDetail, .transactionDetail),
+            (.savingPlansDetail, .savingPlansDetail),
             (.allTransactions, .allTransactions),
             (.createAccount, .createAccount),
             (.createAutomation, .createAutomation),
@@ -102,10 +103,6 @@ extension NavigationDirection: Equatable {
             
         case let (.selectCategory(lhsCategory, lhsSubcategory), .selectCategory(rhsCategory, rhsSubcategory)):
             return (lhsCategory.wrappedValue?.id == rhsCategory.wrappedValue?.id) && (lhsSubcategory.wrappedValue?.id == rhsSubcategory.wrappedValue?.id)
-            
-            
-        case let (.savingPlansDetail(lhsSavingPlan), .savingPlansDetail(rhsSavingPlan)):
-            return lhsSavingPlan.id == rhsSavingPlan.id
             
         case let (.savingsAccountDetail(lhsSavingsAccount), .savingsAccountDetail(rhsSavingsAccount)):
             return lhsSavingsAccount.id == rhsSavingsAccount.id

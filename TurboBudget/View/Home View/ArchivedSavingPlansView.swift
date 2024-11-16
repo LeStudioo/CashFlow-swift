@@ -39,15 +39,15 @@ struct ArchivedSavingPlansView: View {
             if searchResults.count != 0 {
                 ScrollView(showsIndicators: false) {
                     VStack {
-                        LazyVGrid(columns: layout, alignment: .center) {
-                            ForEach(searchResults) { savingPlan in
-                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
-                                    SavingsPlanRow(savingPlan: savingPlan)
-                                }
-                                .padding(.bottom)
-                            }
-                        }
-                        .padding()
+//                        LazyVGrid(columns: layout, alignment: .center) {
+//                            ForEach(searchResults) { savingPlan in
+//                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
+//                                    SavingsPlanRow(savingPlan: savingPlan)
+//                                }
+//                                .padding(.bottom)
+//                            }
+//                        }
+//                        .padding()
                     }
                 } //End ScrollView
             } else { //SearchResult == 0

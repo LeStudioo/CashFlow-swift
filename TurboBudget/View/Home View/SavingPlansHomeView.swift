@@ -12,17 +12,17 @@ struct SavingPlansHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingPlanRepo: SavingPlanRepositoryOld
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
         
     // String variables
     @State private var searchText: String = ""
         
     // Computed var
-    private var searchResults: [SavingPlan] {
+    private var searchResults: [SavingsPlanModel] {
         if searchText.isEmpty {
-            return savingPlanRepo.savingPlans
+            return savingsPlanRepository.savingsPlans
         } else {
-            return savingPlanRepo.savingPlans.filter { $0.title.localizedCaseInsensitiveContains(searchText) }
+            return savingsPlanRepository.savingsPlans.filter { $0.name?.localizedStandardContains(searchText) ?? false }
         }
     }
     
@@ -32,13 +32,13 @@ struct SavingPlansHomeView: View {
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if savingPlanRepo.savingPlans.count != 0 {
+            if !savingsPlanRepository.savingsPlans.isEmpty {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         LazyVGrid(columns: layout, alignment: .center) {
-                            ForEach(searchResults) { savingPlan in
-                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
-                                    SavingsPlanRow(savingPlan: savingPlan)
+                            ForEach(searchResults) { savingsPlan in
+                                NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan)) {
+                                    SavingsPlanRow(savingsPlan: savingsPlan)
                                 }
                                 .padding(.bottom)
                             }

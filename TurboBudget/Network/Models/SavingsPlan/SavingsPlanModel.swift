@@ -28,6 +28,23 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.goalAmount = goalAmount
         self.note = note
     }
+    
+    /// Body
+    init(
+        name: String,
+        emoji: String,
+        startDate: String,
+        endDate: String? = nil,
+        currentAmount: Double,
+        goalAmount: Double
+    ) {
+        self.name = name
+        self.emoji = emoji
+        self.startDate = startDate
+        self.endDate = endDate
+        self.currentAmount = currentAmount
+        self.goalAmount = goalAmount
+    }
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {

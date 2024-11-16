@@ -11,12 +11,13 @@ import SwiftUI
 
 class AddSavingPlanViewModel: ObservableObject {
     static let shared = AddSavingPlanViewModel()
-    let successfullModalManager: SuccessfullModalManager = .shared
+   
         
     @Published var savingPlanTitle: String = ""
     @Published var savingPlanEmoji: String = "💻"
     @Published var savingPlanAmountOfStart: String = ""
     @Published var savingPlanAmountOfEnd: String = ""
+    @Published var savingPlanStartDate: Date = .now
     @Published var savingPlanDateOfEnd: Date = .now
     @Published var textFieldHeight: CGFloat = 0
         
@@ -38,37 +39,83 @@ class AddSavingPlanViewModel: ObservableObject {
 
 extension AddSavingPlanViewModel {
     
-    func createSavingsPlan(withError: @escaping (_ withError: CustomError?) -> Void) {
-        guard let account = AccountRepositoryOld.shared.mainAccount else { return }
-        
-        let savingsPlanModel = SavingsPlanModelOld(
-            title: savingPlanTitle,
-            icon: savingPlanEmoji,
-            dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
-            dateOfStart: .now,
-            amountOfStart: savingPlanAmountOfStart.toDouble(),
-            actualAmount: savingPlanAmountOfStart.toDouble(),
-            amountOfEnd: savingPlanAmountOfEnd.toDouble()
+    func bodyForCreation() -> SavingsPlanModel {
+        return SavingsPlanModel(
+            name: savingPlanTitle,
+            emoji: savingPlanEmoji,
+            startDate: savingPlanStartDate.toISO(),
+            endDate: savingPlanDateOfEnd.toISO(),
+            currentAmount: savingPlanAmountOfStart.toDouble(),
+            goalAmount: savingPlanAmountOfEnd.toDouble()
         )
+    }
+    
+    func createSavingsPlan(dismiss: DismissAction) {
+        let accountRepository: AccountRepository = .shared
+        let savingsPlanRepository: SavingsPlanRepository = .shared
+        let contributionRepository: ContributionRepository = .shared
+        let successfullModalManager: SuccessfullModalManager = .shared
         
-        do {
-            let newSavingsPlan = try SavingPlanRepositoryOld.shared.createSavingsPlan(model: savingsPlanModel)
-            account.balance -= savingsPlanModel.amountOfStart
+        Task {
+            guard let account = accountRepository.selectedAccount else { return }
+            guard let accountID = account.id else { return }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.successfullModalManager.isPresenting = true
-            }
-            successfullModalManager.title = "savingsplan_successful".localized
-            successfullModalManager.subtitle = "savingsplan_successful_desc".localized
-            successfullModalManager.content = AnyView(SavingsPlanRow(savingPlan: newSavingsPlan))
-            
-            withError(nil)
-        } catch {
-            if let error = error as? CustomError {
-                withError(error)
+            if let savingsPlan = await savingsPlanRepository.createSavingsPlan(accountID: accountID, body: bodyForCreation()) {
+                if let savingsPlanID = savingsPlan.id {
+                    if savingPlanAmountOfStart.toDouble() != 0 {
+                        await contributionRepository.createContribution(
+                            savingsplanID: savingsPlanID,
+                            body: .init(
+                                amount: savingPlanAmountOfStart.toDouble(),
+                                date: savingPlanStartDate.toISO())
+                        )
+                    }
+                }
+                
+                dismiss()
+                
+                successfullModalManager.title = "savingsplan_successful".localized
+                successfullModalManager.subtitle = "savingsplan_successful_desc".localized
+                successfullModalManager.content = AnyView(SavingsPlanRow(savingsPlan: savingsPlan))
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    successfullModalManager.isPresenting = true
+                }
             }
         }
     }
+    
+//    func createSavingsPlan(withError: @escaping (_ withError: CustomError?) -> Void) {
+//        guard let account = AccountRepositoryOld.shared.mainAccount else { return }
+//        
+//        let savingsPlanModel = SavingsPlanModelOld(
+//            title: savingPlanTitle,
+//            icon: savingPlanEmoji,
+//            dateOfEnd: isEndDate ? savingPlanDateOfEnd : nil,
+//            dateOfStart: .now,
+//            amountOfStart: savingPlanAmountOfStart.toDouble(),
+//            actualAmount: savingPlanAmountOfStart.toDouble(),
+//            amountOfEnd: savingPlanAmountOfEnd.toDouble()
+//        )
+//        
+//        do {
+//            let newSavingsPlan = try SavingPlanRepositoryOld.shared.createSavingsPlan(model: savingsPlanModel)
+//            account.balance -= savingsPlanModel.amountOfStart
+//            
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                self.successfullModalManager.isPresenting = true
+//            }
+//            successfullModalManager.title = "savingsplan_successful".localized
+//            successfullModalManager.subtitle = "savingsplan_successful_desc".localized
+//            successfullModalManager.content = AnyView(SavingsPlanRow(savingsPlan: newSavingsPlan))
+//            
+//            withError(nil)
+//        } catch {
+//            if let error = error as? CustomError {
+//                withError(error)
+//            }
+//        }
+//    }
         
 }
 
@@ -83,7 +130,7 @@ extension AddSavingPlanViewModel {
     }
     
     func validateSavingPlan() -> Bool {
-        if !savingPlanAmountOfEnd.isEmpty && !savingPlanTitle.isEmpty {
+        if !savingPlanAmountOfEnd.isEmpty && !savingPlanTitle.isBlank && !savingPlanEmoji.isBlank {
             return true
         }
 //        if isAccountWillBeNegative { return false }

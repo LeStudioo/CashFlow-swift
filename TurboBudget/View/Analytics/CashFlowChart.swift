@@ -30,7 +30,7 @@ struct CashFlowChart: View {
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(Font.mediumSmall())
                     
-                    Text(transactionRepository.totalCashFlowForSelectedMonth(selectedDate: filter.date).currency)
+                    Text(transactionRepository.amountCashFlowByMonth(month: filter.date).currency)
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.semiBoldH3())
                 }

@@ -29,23 +29,29 @@ extension ContributionRepository {
     @MainActor
     func createContribution(savingsplanID: Int, body: ContributionModel) async {
         do {
-            let contribution = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: ContributionAPIRequester.create(savingsplanID: savingsplanID, body: body),
-                responseModel: ContributionModel.self
+                responseModel: ContributionResponseWithAmount.self
             )
-            self.contributions.append(contribution)
+            if let contribution = response.contribution, let newAmount = response.newAmount {
+                self.contributions.append(contribution)
+                SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     
     @MainActor
     func updateContribution(savingsplanID: Int, contributionID: Int, body: ContributionModel) async {
         do {
-            let contribution = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: ContributionAPIRequester.update(savingsplanID: savingsplanID, contributionID: contributionID, body: body),
-                responseModel: ContributionModel.self
+                responseModel: ContributionResponseWithAmount.self
             )
-            if let index = self.contributions.map(\.id).firstIndex(of: contributionID) {
-                self.contributions[index] = contribution
+            if let contribution = response.contribution, let newAmount = response.newAmount {
+                if let index = self.contributions.map(\.id).firstIndex(of: contributionID) {
+                    self.contributions[index] = contribution
+                    SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                }
             }
         } catch { NetworkService.handleError(error: error) }
     }

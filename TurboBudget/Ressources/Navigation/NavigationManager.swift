@@ -41,8 +41,8 @@ class NavigationManager: Router {
     }
     
     
-    func pushSavingPlansDetail(savingPlan: SavingPlan) {
-        navigateTo(.savingPlansDetail(savingPlan: savingPlan))
+    func pushSavingPlansDetail(savingsPlan: SavingsPlanModel) {
+        navigateTo(.savingPlansDetail(savingsPlan: savingsPlan))
     }
     
     
@@ -225,8 +225,8 @@ private extension NavigationManager {
                 TransactionDetailView(transaction: transaction)
                 
                 
-            case .savingPlansDetail(let savingPlan):
-                SavingPlanDetailView(savingPlan: savingPlan)
+            case .savingPlansDetail(let savingsPlan):
+                SavingPlanDetailView(savingsPlan: savingsPlan)
                 
                 
             case .accountDashboard:

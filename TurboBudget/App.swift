@@ -22,6 +22,7 @@ struct TurboBudgetApp: App {
     @StateObject private var transactionRepository: TransactionRepository = .shared
     @StateObject private var subscriptionRepository: SubscriptionRepository = .shared
     @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
+    @StateObject private var contributionRepository: ContributionRepository = .shared
     @StateObject private var budgetRepository: BudgetRepository = .shared
     
     // Repository
@@ -96,6 +97,7 @@ struct TurboBudgetApp: App {
             .environmentObject(transactionRepository)
             .environmentObject(subscriptionRepository)
             .environmentObject(savingsPlanRepository)
+            .environmentObject(contributionRepository)
             .environmentObject(budgetRepository)
             
             // Old Repository

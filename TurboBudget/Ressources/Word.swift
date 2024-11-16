@@ -22,6 +22,7 @@ struct Word {
         static let initialAmount: String = "word_initialAmount".localized
         static let amountToReach: String = "word_amountToReach".localized
         static let finalTargetDate: String = "word_finalTargetDate".localized
+        static let startTargetDate: String = "word_startTargetDate".localized
     }
     
     struct Create {

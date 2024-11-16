@@ -13,6 +13,9 @@ struct CreateSavingPlansView: View {
     
     // Custom
     @StateObject private var viewModel: AddSavingPlanViewModel = .init()
+    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
+    @EnvironmentObject private var contributionRepository: ContributionRepository
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -83,9 +86,16 @@ struct CreateSavingPlansView: View {
                     .submitLabel(.done)
                     
                     CustomDatePickerWithToggle(
+                        title: Word.Classic.startTargetDate,
+                        date: $viewModel.savingPlanStartDate,
+                        isEnabled: .constant(true)
+                    )
+                    
+                    CustomDatePickerWithToggle(
                         title: Word.Classic.finalTargetDate,
                         date: $viewModel.savingPlanDateOfEnd,
-                        isEnabled: $viewModel.isEndDate
+                        isEnabled: $viewModel.isEndDate,
+                        withRange: true
                     )
                 }
                 .padding(.horizontal, 24)
@@ -110,13 +120,7 @@ struct CreateSavingPlansView: View {
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {
                     VibrationManager.vibration()
-                    viewModel.createSavingsPlan { withError in
-                        if withError == nil {
-                            dismiss()
-                        } else {
-                            // TODO: Show a error banner
-                        }
-                    }
+                    viewModel.createSavingsPlan(dismiss: dismiss)
                 }
                 
                 ToolbarDismissKeyboardButtonView()

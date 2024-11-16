@@ -17,9 +17,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: PurchasesManager
-    
-    @EnvironmentObject private var budgetRepo: BudgetRepositoryOld
-    
+        
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
@@ -165,9 +163,11 @@ struct AccountDashboardView: View {
             TextField("account_detail_new_name".localized, text: $accountName)
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
-//                account?.name = accountName
-//                 TODO: Save name
-                //                    persistenceController.saveContext()
+                Task {
+                    if let account = accountRepository.selectedAccount, let accountID = account.id {
+                        await accountRepository.updateAccount(accountID: accountID, body: .init(name: accountName))
+                    }
+                }
             }, label: { Text("word_validate".localized) })
         })
 //        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {

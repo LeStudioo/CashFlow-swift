@@ -23,6 +23,8 @@
 
 "word_finalTargetDate" = "Date final de l'objectif";
 
+"word_startTargetDate" = "Date du début de l'objectif";
+
 //MARK: - Create
 "create_add_category" = "Ajouter une catégorie";
 

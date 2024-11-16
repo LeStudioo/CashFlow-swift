@@ -28,7 +28,6 @@ extension AccountRepository {
                 responseModel: [AccountModel].self
             )
             self.accounts = accounts
-            print("🔥 ACCOUNTS : \(accounts)")
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -51,7 +50,11 @@ extension AccountRepository {
                 responseModel: AccountModel.self
             )
             if let index = self.accounts.map(\.id).firstIndex(of: account.id) {
-                self.accounts[index] = account
+                self.accounts[index].name = account.name
+                if selectedAccount?.id == accountID {
+                    selectedAccount = nil
+                    selectedAccount = self.accounts[index]
+                }
             }
         } catch { NetworkService.handleError(error: error) }
     }

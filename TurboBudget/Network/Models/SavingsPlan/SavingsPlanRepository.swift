@@ -38,6 +38,21 @@ extension SavingsPlanRepository {
     }
     
     @MainActor
+    func createSavingsPlan(accountID: Int, body: SavingsPlanModel) async -> SavingsPlanModel? {
+        do {
+            let savingsPlan = try await NetworkService.shared.sendRequest(
+                apiBuilder: SavingsPlanAPIRequester.create(accountID: accountID, body: body),
+                responseModel: SavingsPlanModel.self
+            )
+            self.savingsPlans.append(savingsPlan)
+            return savingsPlan
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
+    }
+    
+    @MainActor
     func updateSavingsPlan(savingsPlanID: Int, body: SavingsPlanModel) async {
         do {
             let savingsPlan = try await NetworkService.shared.sendRequest(
@@ -59,4 +74,14 @@ extension SavingsPlanRepository {
             self.savingsPlans.removeAll { $0.id == savingsPlanID } 
         } catch { NetworkService.handleError(error: error) }
     }
+}
+
+extension SavingsPlanRepository {
+    
+    func setNewAmount(savingsPlanID: Int, newAmount: Double) {
+        if let savingsPlan = savingsPlans.first(where: { $0.id == savingsPlanID }) {
+            savingsPlan.currentAmount = newAmount
+        }
+    }
+    
 }

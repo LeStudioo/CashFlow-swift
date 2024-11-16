@@ -10,7 +10,7 @@ import SwiftUI
 struct SavingsPlanRow: View {
 
     //Custom type
-    var savingPlan: SavingPlan
+    var savingsPlan: SavingsPlanModel
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
@@ -28,16 +28,9 @@ struct SavingsPlanRow: View {
                     .foregroundStyle(Color.componentInComponent)
                     .cornerRadius(12)
                     .overlay {
-                        if savingPlan.icon.count == 1 {
-                            Text(savingPlan.icon)
-                                .font(.system(size: 24, weight: .semibold, design: .rounded))
-                                .shadow(radius: 2, y: 2)
-                        } else if savingPlan.icon.count != 0 && savingPlan.icon.count != 1 {
-                            Image(systemName: savingPlan.icon)
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundStyle(Color(uiColor: .label))
-                                .shadow(radius: 2, y: 2)
-                        }
+                        Text(savingsPlan.emoji ?? "")
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
+                            .shadow(radius: 2, y: 2)
                     }
                 
                 Spacer()
@@ -48,7 +41,7 @@ struct SavingsPlanRow: View {
             }
             .padding(.top)
             
-            Text(savingPlan.title)
+            Text(savingsPlan.name ?? "")
                 .font(.semiBoldText16())
                 .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
@@ -66,10 +59,11 @@ struct SavingsPlanRow: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 withAnimation(.spring()) {
-                    if savingPlan.actualAmount / savingPlan.amountOfEnd >= 0.96 {
+                    guard let currentAmount = savingsPlan.currentAmount, let goalAmount = savingsPlan.goalAmount else { return }
+                    if currentAmount / goalAmount >= 0.96 {
                         percentage = 0.96
                     } else {
-                        percentage = savingPlan.actualAmount / savingPlan.amountOfEnd
+                        percentage = currentAmount / goalAmount
                     }
                     increaseWidthAmount = 1.1
                 }
@@ -86,13 +80,13 @@ struct SavingsPlanRow: View {
                 VStack(spacing: 5) {
                     HStack {
                         Spacer()
-                        Text(formatNumber(savingPlan.amountOfEnd))
+                        Text(formatNumber(savingsPlan.goalAmount ?? 0))
                     }
                     .font(.semiBoldVerySmall())
                     .foregroundStyle(Color(uiColor: .label))
                     
                     let widthCapsule = geometry.size.width * percentage
-                    let widthAmount = formatNumber(savingPlan.actualAmount).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
+                    let widthAmount = formatNumber(savingsPlan.currentAmount ?? 0).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
                     
                     Capsule()
                         .frame(height: 24)
@@ -103,7 +97,7 @@ struct SavingsPlanRow: View {
                                 .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
                                 .padding(3)
                                 .overlay(alignment: .trailing) {
-                                    Text(formatNumber(savingPlan.actualAmount))
+                                    Text(formatNumber(savingsPlan.currentAmount ?? 0))
                                         .padding(.trailing, 12)
                                         .font(.semiBoldVerySmall())
                                         .foregroundStyle(Color(uiColor: .systemBackground))
@@ -120,7 +114,7 @@ struct SavingsPlanRow: View {
 //MARK: - Preview
 struct SavingPlanCellView_Previews: PreviewProvider {
     static var previews: some View {
-        SavingsPlanRow(savingPlan: SavingPlan.preview1)
+        SavingsPlanRow(savingsPlan: .mockClassicSavingsPlan)
             .frame(width: 180, height: 150)
     }
 }

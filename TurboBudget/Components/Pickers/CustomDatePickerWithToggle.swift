@@ -13,6 +13,7 @@ struct CustomDatePickerWithToggle: View {
     var title: String
     @Binding var date: Date
     @Binding var isEnabled: Bool
+    var withRange: Bool = false
     
     @State private var isDatePickerShowing: Bool = false
     
@@ -59,9 +60,15 @@ struct CustomDatePickerWithToggle: View {
                 .padding(8)
                 
                 if isDatePickerShowing {
-                    DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
-                        .datePickerStyle(.graphical)
-                        .tint(ThemeManager.theme.color)
+                    if withRange {
+                        DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
+                            .datePickerStyle(.graphical)
+                            .tint(ThemeManager.theme.color)
+                    } else {
+                        DatePicker("", selection: $date, displayedComponents: [.date])
+                            .datePickerStyle(.graphical)
+                            .tint(ThemeManager.theme.color)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
