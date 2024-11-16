@@ -14,10 +14,7 @@ enum FilterForRecentTransaction: Int, CaseIterable {
 }
 
 struct RecentTransactionsView: View {
-    
-    // Builder
-    @ObservedObject var account: Account
-    
+        
     // Environement
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
@@ -113,9 +110,9 @@ struct RecentTransactionsView: View {
                 } else {
                     List(getAllMonthForTransactions, id: \.self) { dateComponents in
                         if let month = Calendar.current.date(from: dateComponents) {
-                            if viewModel.searchResults(account: account).map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
+                            if viewModel.searchResults().map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
                                 Section(content: {
-                                    ForEach(viewModel.searchResults(account: account)) { transaction in
+                                    ForEach(viewModel.searchResults()) { transaction in
                                         if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                                 TransactionRow(transaction: transaction)
@@ -129,8 +126,8 @@ struct RecentTransactionsView: View {
                                     if filterTransactions == .month {
                                         DetailOfExpensesAndIncomesByMonth(
                                             month: month,
-                                            amountOfExpenses: account.amountExpensesByMonth(month: month),
-                                            amountOfIncomes: account.amountIncomesByMonth(month: month)
+                                            amountOfExpenses: transactionRepository.amountExpensesForSelectedMonth(month: month),
+                                            amountOfIncomes: transactionRepository.amountIncomesForSelectedMonth(month: month)
                                         )
                                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                                     } else if filterTransactions == .expenses || filterTransactions == .incomes {
@@ -188,5 +185,5 @@ struct RecentTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    RecentTransactionsView(account: Account.preview)
+    RecentTransactionsView()
 }

@@ -45,20 +45,11 @@ struct CategoriesHomeView: View {
                         }
                         
                         ForEach(viewModel.categoriesFiltered) { category in
-                            if category.subcategories.count != 0 {
-                                NavigationButton(push: router.pushHomeSubcategories(category: category)) {
-                                    CategoryRow(category: category, showChevron: true)
-                                        .foregroundStyle(Color.label)
-                                }
-                                .padding(.bottom, 8)
-                            } else {
-                                NavigationButton(push: router.pushCategoryTransactions(category: category)) {
-                                    CategoryRow(category: category, showChevron: true)
-                                }
-                                .padding(.bottom, 8)
-                                .foregroundStyle(Color.label)
-                                .disabled(!(category.transactions.count != 0))
+                            NavigationButton(push: router.pushHomeSubcategories(category: category)) {
+                                CategoryRow(category: category, showChevron: true)
+                                    .foregroundStyle(Color.label)
                             }
+                            .padding(.bottom, 8)
                         }
                         
                         Rectangle().frame(height: 100).opacity(0)

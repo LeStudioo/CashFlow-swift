@@ -69,7 +69,7 @@ struct AccountDashboardView: View {
                 }
                 
                 LazyVGrid(columns: columns, spacing: 16, content: {
-                    NavigationButton(push: router.pushAllTransactions(account: account)) {
+                    NavigationButton(push: router.pushAllTransactions()) {
                         DashboardRow(
                             config: .init(
                                 icon: "banknote.fill",

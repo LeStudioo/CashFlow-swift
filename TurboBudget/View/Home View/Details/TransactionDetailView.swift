@@ -191,7 +191,8 @@ struct TransactionDetailView: View {
         .onDisappear {
             if transactionNote != transaction.note {
                 transaction.note = transactionNote
-                persistenceController.saveContext()
+                // TODO: TransactionRepository update
+//                persistenceController.saveContext()
             }
         }
         .navigationBarTitleDisplayMode(.inline)

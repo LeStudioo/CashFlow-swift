@@ -16,7 +16,7 @@ class RecentTransactionsViewModel: ObservableObject {
     // String variables
     @Published var searchText: String = ""
     
-    func searchResults(account: Account) -> [TransactionModel] {
+    func searchResults() -> [TransactionModel] {
         let filteredTransactions = TransactionRepository.shared.transactions.filter { transaction in
             let byMonthCondition = !filter.byMonth || transaction.date.withDefault <= filter.date
             let onlyIncomesCondition = !filter.onlyIncomes || transaction.type == .income

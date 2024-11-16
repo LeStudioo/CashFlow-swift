@@ -72,13 +72,9 @@ struct CategoryRow: View {
             
             Spacer()
             
-            if let showChevron {
-                if (category.subcategories.count != 0 || category.transactions.count != 0) && showChevron {
-                    Image(systemName: "chevron.right")
-                        .foregroundStyle(Color(uiColor: .label))
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                }
-            }
+            Image(systemName: "chevron.right")
+                .foregroundStyle(Color(uiColor: .label))
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .padding()
         .background(Color.colorCell)

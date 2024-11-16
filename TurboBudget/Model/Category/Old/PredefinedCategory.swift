@@ -177,25 +177,24 @@ extension PredefinedCategory {
 extension PredefinedCategory {
     
     public var amountTotalOfIncomes: Double {
-        let array = transactions
-            .filter { $0.type == .income }
+        let array = incomes
             .map { $0.amount ?? 0 }
         return array.reduce(0, +)
     }
     
     func incomesTransactionsAmountForSelectedDate(filter: Filter) -> Double {
         var array: [TransactionModel] = []
-        for transaction in transactions {
+        for transaction in incomes {
             if filter.byDay {
-                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .day) &&
-                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
-                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
-                    transaction.type == .income { array.append(transaction)
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .day)
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month)
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) {
+                    array.append(transaction)
                 }
             } else {
-                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month) &&
-                    Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) &&
-                    transaction.type == .income { array.append(transaction)
+                if Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .month)
+                    && Calendar.current.isDate(transaction.date.withDefault, equalTo: filter.date, toGranularity: .year) {
+                    array.append(transaction)
                 }
             }
         }
@@ -211,9 +210,8 @@ extension PredefinedCategory {
     func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
         
-        for transaction in transactions {
-            if transaction.type == .income
-                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
+        for transaction in incomes {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
                 && PredefinedCategory.findByID(transaction.categoryID ?? "") != nil {
                 transactionsIncomes.append(transaction)
             }
@@ -240,8 +238,7 @@ extension PredefinedCategory {
     
     //Return TOTAL expense (return positif number)
     public var amountTotalOfExpenses: Double {
-        let array = transactions
-            .filter({ $0.type == .expense })
+        let array = expenses
             .map { $0.amount ?? 0 }
         return array.reduce(0, +)
     }
@@ -255,9 +252,8 @@ extension PredefinedCategory {
     func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
         
-        for transaction in transactions {
-            if transaction.type == .expense
-                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+        for transaction in expenses {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
                     transactionsExpenses.append(transaction)
             }
         }

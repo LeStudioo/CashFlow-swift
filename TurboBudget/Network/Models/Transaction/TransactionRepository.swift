@@ -31,6 +31,7 @@ extension TransactionRepository {
                 responseModel: [TransactionModel].self
             )
             self.transactions = transactions
+            sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -43,6 +44,7 @@ extension TransactionRepository {
             )
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 self.transactions.append(transaction)
+                sortTransactionsByDate()
                 AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }
@@ -58,6 +60,7 @@ extension TransactionRepository {
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
                     self.transactions[index] = transaction
+                    sortTransactionsByDate()
                 }
                 AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }

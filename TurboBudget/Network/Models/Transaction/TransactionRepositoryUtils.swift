@@ -18,6 +18,10 @@ extension TransactionRepository {
         return self.transactions
             .filter { $0.subcategoryID == subcategoryID }
     }
+    
+    func sortTransactionsByDate() {
+        self.transactions.sort { ($0.date ?? .now) > ($1.date ?? .now) }
+    }
 }
 
 extension TransactionRepository {
@@ -92,5 +96,47 @@ extension TransactionRepository {
             transaction.type == .income &&
             PredefinedCategory.findByID(transaction.categoryID ?? "") != nil
         }
+    }
+}
+
+// TODO: To refacto
+extension TransactionRepository {
+    
+    func expensesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
+        var transactionsExpenses: [TransactionModel] = []
+        
+        for transaction in expenses {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+                transactionsExpenses.append(transaction)
+            }
+        }
+        return transactionsExpenses
+    }
+    
+    
+    func amountExpensesForSelectedMonth(month: Date) -> Double {
+        return expensesForSelectedMonth(selectedDate: month)
+            .map({ $0.amount ?? 0 })
+            .reduce(0, +)
+    }
+    
+    
+    
+    
+    func incomesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
+        var transactionsIncomes: [TransactionModel] = []
+        
+        for transaction in incomes {
+            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+                transactionsIncomes.append(transaction)
+            }
+        }
+        return transactionsIncomes
+    }
+    
+    func amountIncomesForSelectedMonth(month: Date) -> Double {
+        return incomesForSelectedMonth(selectedDate: month)
+            .map({ $0.amount ?? 0 })
+            .reduce(0, +)
     }
 }

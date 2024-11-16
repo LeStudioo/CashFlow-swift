@@ -32,8 +32,8 @@ class NavigationManager: Router {
     }
     
     
-    func pushAllTransactions(account: Account) {
-        navigateTo(.allTransactions(account: account))
+    func pushAllTransactions() {
+        navigateTo(.allTransactions)
     }
     
     func pushTransactionDetail(transaction: TransactionModel) {
@@ -219,8 +219,8 @@ private extension NavigationManager {
                 SelectCategoryView(selectedCategory: category, selectedSubcategory: subcategory)
                 
                 
-            case .allTransactions(let account):
-                RecentTransactionsView(account: account)
+            case .allTransactions:
+                RecentTransactionsView()
             case .transactionDetail(let transaction):
                 TransactionDetailView(transaction: transaction)
                 
