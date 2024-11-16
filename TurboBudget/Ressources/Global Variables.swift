@@ -33,5 +33,6 @@ let colorsAvailable: [(Color, String)] = [
 
 //MARK: - Enum
 enum ExpenseOrIncome: Int, CaseIterable {
-    case expense, income
+    case expense = 0
+    case income = 1
 }

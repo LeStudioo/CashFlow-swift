@@ -16,7 +16,7 @@ struct TabbarView: View {
     
     // Repo
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepo: AccountRepositoryOld
+    @EnvironmentObject private var accountRepository: AccountRepository
     
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
@@ -43,7 +43,7 @@ struct TabbarView: View {
             
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
-                    if accountRepo.mainAccount != nil {
+                    if accountRepository.mainAccount != nil {
                         NavigationButton(present: router.presentCreateSavingPlans()) {
                             viewModel.showMenu = false
                         } label: {
@@ -109,7 +109,7 @@ struct TabbarView: View {
             }
             .onChange(of: viewModel.showMenu) { newValue in
                 if newValue {
-                    if accountRepo.mainAccount != nil {
+                    if accountRepository.mainAccount != nil {
                         offsetYMenu = -180
                     } else { offsetYMenu = -80 }
                 } else {

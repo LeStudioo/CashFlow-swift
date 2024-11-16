@@ -11,10 +11,8 @@ import Charts
 
 struct CarouselOfChartsView: View {
     
-    // Custom
-    @ObservedObject var account: Account
-    
     // Environement
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     @Environment(\.colorScheme) private var colorScheme
     
     // Number variables
@@ -27,11 +25,14 @@ struct CarouselOfChartsView: View {
                 
                 // CHART of expenses in actual month
                 VStack {
-                    titleOfChart(text: "carousel_charts_expenses_current_month".localized, amount: account.amountOfExpensesInActualMonth())
+                    titleOfChart(
+                        text: "carousel_charts_expenses_current_month".localized,
+                        amount: transactionRepository.amountOfExpensesInActualMonth()
+                    )
                     
-                    if account.dailyAmountOfExpensesInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
+                    if transactionRepository.dailyAmountOfExpensesInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
                         Chart {
-                            ForEach(account.dailyAmountOfExpensesInActualMonth(), id: \.self) { item in
+                            ForEach(transactionRepository.dailyAmountOfExpensesInActualMonth(), id: \.self) { item in
                                 LineMark(x: .value("Day", item.day),
                                          y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
@@ -59,11 +60,14 @@ struct CarouselOfChartsView: View {
                 
                 //CHART of incomes in actual month
                 VStack {
-                    titleOfChart(text: "carousel_charts_incomes_current_month".localized, amount: account.amountIncomeInActualMonth())
+                    titleOfChart(
+                        text: "carousel_charts_incomes_current_month".localized,
+                        amount: transactionRepository.amountIncomeInActualMonth()
+                    )
                     
-                    if account.amountIncomePerDayInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
+                    if transactionRepository.amountIncomePerDayInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
                         Chart {
-                            ForEach(account.amountIncomePerDayInActualMonth(), id: \.self) { item in
+                            ForEach(transactionRepository.amountIncomePerDayInActualMonth(), id: \.self) { item in
                                 LineMark(x: .value("Day", item.day),
                                          y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
@@ -117,5 +121,5 @@ struct CarouselOfChartsView: View {
 
 // MARK: - Preview
 #Preview {
-    CarouselOfChartsView(account: Account.preview)
+    CarouselOfChartsView()
 }

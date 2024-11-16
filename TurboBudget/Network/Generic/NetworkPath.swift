@@ -34,7 +34,9 @@ struct NetworkPath {
     }
     
     struct Transaction {
-        static let base: String = "/transaction"
+        static func base(accountID: Int) -> String {
+            return "/transaction/\(accountID)"
+        }
         static func update(id: Int) -> String {
             return "/transaction/\(id)"
         }
@@ -54,7 +56,9 @@ struct NetworkPath {
     }
     
     struct SavingsPlan {
-        static let base: String = "/savingsplan"
+        static func base(accountID: Int) -> String {
+            return "/savingsplan/\(accountID)"
+        }
         static func update(id: Int) -> String {
             return "/savingsplan/\(id)"
         }
@@ -64,12 +68,14 @@ struct NetworkPath {
     }
     
     struct Contribution {
-        static let base: String = "/contribution"
-        static func update(id: Int) -> String {
-            return "/contribution/\(id)"
+        static func base(savingsplanID: Int) -> String {
+            return "/savingsplan/\(savingsplanID)/contribution"
         }
-        static func delete(id: Int) -> String {
-            return "/contribution/\(id)"
+        static func update(savingsplanID: Int, id: Int) -> String {
+            return "/contribution/\(savingsplanID)/contribution/\(id)"
+        }
+        static func delete(savingsplanID: Int, id: Int) -> String {
+            return "/contribution/\(savingsplanID)/contribution/\(id)"
         }
     }
     

@@ -187,8 +187,8 @@ private extension NavigationManager {
             case .filter:
                 NewFilterView()
                 
-            case .home(let account):
-                HomeView(account: account)
+            case .home:
+                HomeView()
             case .homeSavingPlans:
                 SavingPlansHomeView()
             case .homeAutomations:

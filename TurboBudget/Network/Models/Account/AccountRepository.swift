@@ -11,6 +11,7 @@ final class AccountRepository: ObservableObject {
     static let shared = AccountRepository()
     
     @Published var accounts: [AccountModel] = []
+    @Published var selectedAccount: AccountModel? = nil
     
     var mainAccount: AccountModel? {
         return accounts.first
@@ -27,6 +28,7 @@ extension AccountRepository {
                 responseModel: [AccountModel].self
             )
             self.accounts = accounts
+            print("🔥 ACCOUNTS : \(accounts)")
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -63,4 +65,14 @@ extension AccountRepository {
             self.accounts.removeAll { $0.id == accountID }
         } catch { NetworkService.handleError(error: error) }
     }
+}
+
+extension AccountRepository {
+    
+    func setNewBalance(accountID: Int, newBalance: Double) {
+        if let account = accounts.first(where: { $0.id == accountID }) {
+            account.balance = newBalance
+        }
+    }
+    
 }

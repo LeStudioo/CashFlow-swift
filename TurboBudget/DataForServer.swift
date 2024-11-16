@@ -33,7 +33,12 @@ final class DataForServer: ObservableObject {
         return "{\(accountJSON),\(transactionJSON),\(automationJSON),\(savingsPlanJSON),\(budgetsJSON)}"
     }
     
+    var isJsonValid: Bool {
+        return !accountJSON.isEmpty && !transactionJSON.isEmpty && !automationJSON.isEmpty && !savingsPlanJSON.isEmpty && !budgetsJSON.isEmpty
+    }
+    
     func syncOldDataToServer() async throws {
+        guard isJsonValid else { return }
         guard let url = URL(string: NetworkPath.baseURL + "/sync/old") else { return }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"

@@ -40,6 +40,18 @@ final class CreateTransactionViewModel: ObservableObject {
         }
     }
     
+    func bodyForCreation() -> TransactionModel {
+        return TransactionModel(
+            name: transactionTitle.trimmingCharacters(in: .whitespaces),
+            amount: transactionAmount.toDouble(),
+            typeNum: transactionType.rawValue,
+            dateISO: transactionDate.toISO(),
+            creationDate: Date().toISO(),
+            categoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
+            subcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? ""
+        )
+    }
+    
     func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {        
         let model = TransactionModelOld(
             predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",

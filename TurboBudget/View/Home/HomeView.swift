@@ -12,9 +12,6 @@ import CoreData
 
 struct HomeView: View {
     
-    // Repo
-    @ObservedObject var account: Account
-    
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
@@ -31,73 +28,67 @@ struct HomeView: View {
             HomeHeader()
                 .padding(.horizontal)
             
-            Button {
-                KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: "")
-            } label: {
-                Text("Reset Refresh Token")
-            }
-            
             ScrollView {
-                CarouselOfChartsView(account: account)
+                CarouselOfChartsView()
                 
                 SavingPlansForHomeScreen()
                 
                 AutomationsForHomeScreen()
                 
                 // Recent Transactions
-                if isRecentTransactionsDisplayedHomeScreen {
-                    VStack {
-                        NavigationButton(push: router.pushAllTransactions(account: account)) {
-                            HStack {
-                                Text("word_recent_transactions".localized)
-                                    .foregroundStyle(Color.customGray)
-                                    .font(.semiBoldCustom(size: 22))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                Image(systemName: "arrow.right")
-                                    .foregroundStyle(ThemeManager.theme.color)
-                                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                            }
-                        }
-                        .padding([.horizontal, .top])
-                        
-                        if account.transactions.count != 0 {
-                            ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
-                                NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                    TransactionRow(transaction: transaction)
-                                }
-                            }
-                        } else {
-                            VStack(spacing: 20) {
-                                Image("NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .shadow(radius: 4, y: 4)
-                                    .frame(width: isIPad
-                                           ? UIScreen.main.bounds.width / 3
-                                           : UIScreen.main.bounds.width / 1.5
-                                    )
-                                
-                                Text("home_screen_no_transaction".localized)
-                                    .font(.semiBoldText16())
-                                    .multilineTextAlignment(.center)
-                            }
-                            .offset(y: -20)
-                        }
-                        Rectangle()
-                            .frame(height: 100)
-                            .opacity(0)
-                        
-                        Spacer()
-                    }
-                } // End Recent Transactions
+//                if isRecentTransactionsDisplayedHomeScreen {
+//                    VStack {
+//                        NavigationButton(push: router.pushAllTransactions(account: account)) {
+//                            HStack {
+//                                Text("word_recent_transactions".localized)
+//                                    .foregroundStyle(Color.customGray)
+//                                    .font(.semiBoldCustom(size: 22))
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                Image(systemName: "arrow.right")
+//                                    .foregroundStyle(ThemeManager.theme.color)
+//                                    .font(.system(size: 20, weight: .medium, design: .rounded))
+//                            }
+//                        }
+//                        .padding([.horizontal, .top])
+//                        
+//                        if account.transactions.count != 0 {
+//                            ForEach(account.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
+//                                NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
+//                                    TransactionRow(transaction: transaction)
+//                                }
+//                            }
+//                        } else {
+//                            VStack(spacing: 20) {
+//                                Image("NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)")
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .shadow(radius: 4, y: 4)
+//                                    .frame(width: isIPad
+//                                           ? UIScreen.main.bounds.width / 3
+//                                           : UIScreen.main.bounds.width / 1.5
+//                                    )
+//                                
+//                                Text("home_screen_no_transaction".localized)
+//                                    .font(.semiBoldText16())
+//                                    .multilineTextAlignment(.center)
+//                            }
+//                            .offset(y: -20)
+//                        }
+//                        Rectangle()
+//                            .frame(height: 100)
+//                            .opacity(0)
+//                        
+//                        Spacer()
+//                    }
+//                } // End Recent Transactions
             } // ScrollView
             .scrollIndicators(.hidden)
         } // End VStack
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
-            AutomationManager().activateScheduledAutomations(automations: account.automations)
-            SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
+//            AutomationManager().activateScheduledAutomations(automations: account.automations)
+//            SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
             
             //Notification Counter
             UserDefaults.standard.set(0, forKey: "counterOfNotif")
@@ -108,5 +99,5 @@ struct HomeView: View {
 
 // MARK: - Preview
 #Preview {
-    HomeView(account: .preview)
+    HomeView()
 }

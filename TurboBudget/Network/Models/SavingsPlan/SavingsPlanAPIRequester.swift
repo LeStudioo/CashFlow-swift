@@ -17,8 +17,8 @@ enum SavingsPlanAPIRequester: APIRequestBuilder {
 extension SavingsPlanAPIRequester {
     var path: String {
         switch self {
-        case .fetch:                            return NetworkPath.SavingsPlan.base
-        case .create:                           return NetworkPath.SavingsPlan.base
+        case .fetch(let accountID):             return NetworkPath.SavingsPlan.base(accountID: accountID)
+        case .create(let accountID, _):         return NetworkPath.SavingsPlan.base(accountID: accountID)
         case .update(let savingsplanID, _):     return NetworkPath.SavingsPlan.update(id: savingsplanID)
         case .delete(let savingsplanID):        return NetworkPath.SavingsPlan.delete(id: savingsplanID)
         }
@@ -34,12 +34,7 @@ extension SavingsPlanAPIRequester {
     }
     
     var parameters: [URLQueryItem]? {
-        switch self {
-        case .fetch(let accountID):         return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .create(let accountID, _):     return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .update:                       return nil
-        case .delete:                       return nil
-        }
+        return nil
     }
     
     var isTokenNeeded: Bool {

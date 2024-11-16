@@ -23,6 +23,12 @@ extension String {
         return Double(stringFormated) ?? 0
     }
     
+    func toDate() -> Date? {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return isoFormatter.date(from: self)
+    }
+    
     
     
     

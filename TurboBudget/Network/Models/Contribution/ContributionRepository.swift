@@ -38,10 +38,10 @@ extension ContributionRepository {
     }
     
     @MainActor
-    func updateContribution(contributionID: Int, body: ContributionModel) async {
+    func updateContribution(savingsplanID: Int, contributionID: Int, body: ContributionModel) async {
         do {
             let contribution = try await NetworkService.shared.sendRequest(
-                apiBuilder: ContributionAPIRequester.update(contributionID: contributionID, body: body),
+                apiBuilder: ContributionAPIRequester.update(savingsplanID: savingsplanID, contributionID: contributionID, body: body),
                 responseModel: ContributionModel.self
             )
             if let index = self.contributions.map(\.id).firstIndex(of: contributionID) {
@@ -51,10 +51,10 @@ extension ContributionRepository {
     }
     
     @MainActor
-    func deleteContribution(contributionID: Int) async {
+    func deleteContribution(savingsplanID: Int, contributionID: Int) async {
         do {
             try await NetworkService.shared.sendRequest(
-                apiBuilder: ContributionAPIRequester.delete(contributionID: contributionID)
+                apiBuilder: ContributionAPIRequester.delete(savingsplanID: savingsplanID, contributionID: contributionID)
             )
             self.contributions.removeAll(where: { $0.id == contributionID })
         } catch { NetworkService.handleError(error: error) }

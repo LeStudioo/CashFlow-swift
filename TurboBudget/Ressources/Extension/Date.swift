@@ -17,6 +17,16 @@ extension Optional where Wrapped == Date {
 
 extension Date {
     
+    func toISO() -> String {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter.string(from: self)
+    }
+    
+}
+
+extension Date {
+    
     var day: Int {
         var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
         components.timeZone = Locale.current.timeZone

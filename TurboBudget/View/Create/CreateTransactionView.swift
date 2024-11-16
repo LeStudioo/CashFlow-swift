@@ -15,6 +15,9 @@ struct CreateTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
     
+    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var transactionRepository: TransactionRepository
+    
     // Enum
     enum Field: CaseIterable {
         case amount, title
@@ -102,12 +105,16 @@ struct CreateTransactionView: View {
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
                     VibrationManager.vibration()
-                    viewModel.createNewTransaction { withError in
-                        if withError == nil {
-                            dismiss()
-                        } else {
-                            // TODO: Show a error banner
-                        }
+                    Task {
+                        guard let account = accountRepository.selectedAccount else { return }
+                        guard let accountID = account.id else { return }
+                            
+                        await transactionRepository.createTransaction(
+                            accountID: accountID,
+                            body: viewModel.bodyForCreation()
+                        )
+                        
+                        dismiss()
                     }
                 }
                 

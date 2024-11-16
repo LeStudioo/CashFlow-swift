@@ -8,7 +8,8 @@
 import Foundation
 
 enum TransactionType: Int, CaseIterable {
-    case expenses = 0
+    case none = -1
+    case expense = 0
     case income = 1
     case transfer = 2
 }
@@ -17,8 +18,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var id: Int?
     @Published var name: String?
     @Published var amount: Double?
-    @Published var type: Int? // TransactionType
-    @Published var date: String?
+    @Published var typeNum: Int? // TransactionType
+    @Published var dateISO: String?
     @Published var creationDate: String?
     @Published var categoryID: String?
     @Published var subcategoryID: String?
@@ -30,13 +31,13 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var senderAccountID: Int?
     @Published var receiverAccountID: Int?
     
-    // Transaction init
+    /// Transaction init
     init(
         id: Int? = nil,
         name: String? = nil,
         amount: Double? = nil,
-        type: Int? = nil,
-        date: String? = nil,
+        typeNum: Int? = nil,
+        dateISO: String? = nil,
         creationDate: String? = nil,
         categoryID: String? = nil,
         subcategoryID: String? = nil,
@@ -47,8 +48,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.id = id
         self.name = name
         self.amount = amount
-        self.type = type
-        self.date = date
+        self.typeNum = typeNum
+        self.dateISO = dateISO
         self.creationDate = creationDate
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
@@ -57,12 +58,32 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.nameFromApplePay = nameFromApplePay
     }
     
-    // Transfer init
+    /// Classic Transaction Body
+    init(
+        name: String,
+        amount: Double,
+        typeNum: Int,
+        dateISO: String,
+        creationDate: String,
+        categoryID: String,
+        subcategoryID: String? = nil
+    ) {
+        self.name = name
+        self.amount = amount
+        self.typeNum = typeNum
+        self.dateISO = dateISO
+        self.creationDate = creationDate
+        self.categoryID = categoryID
+        self.subcategoryID = subcategoryID
+    }
+    
+    
+    /// Transfer init
     init(
         id: Int? = nil,
         amount: Double? = nil,
-        type: Int? = nil,
-        date: String? = nil,
+        typeNum: Int? = nil,
+        dateISO: String? = nil,
         creationDate: String? = nil,
         senderAccountID: Int? = nil,
         receiverAccountID: Int? = nil
@@ -70,8 +91,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.id = id
         self.name = name
         self.amount = amount
-        self.type = type
-        self.date = date
+        self.typeNum = typeNum
+        self.dateISO = dateISO
         self.creationDate = creationDate
         self.senderAccountID = senderAccountID
         self.receiverAccountID = receiverAccountID
@@ -79,7 +100,9 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, amount, type, date, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID
+        case id, name, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID
+        case typeNum = "type"
+        case dateISO = "date"
     }
     
     required init(from decoder: Decoder) throws {
@@ -87,8 +110,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        type = try container.decodeIfPresent(Int.self, forKey: .type)
-        date = try container.decodeIfPresent(String.self, forKey: .date)
+        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
+        dateISO = try container.decodeIfPresent(String.self, forKey: .dateISO)
         creationDate = try container.decodeIfPresent(String.self, forKey: .creationDate)
         categoryID = try container.decodeIfPresent(String.self, forKey: .categoryID)
         subcategoryID = try container.decodeIfPresent(String.self, forKey: .subcategoryID)
@@ -104,8 +127,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(amount, forKey: .amount)
-        try container.encodeIfPresent(type, forKey: .type)
-        try container.encodeIfPresent(date, forKey: .date)
+        try container.encodeIfPresent(typeNum, forKey: .typeNum)
+        try container.encodeIfPresent(dateISO, forKey: .dateISO)
         try container.encodeIfPresent(creationDate, forKey: .creationDate)
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
@@ -121,8 +144,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         return lhs.id == rhs.id &&
         lhs.name == rhs.name &&
         lhs.amount == rhs.amount &&
-        lhs.type == rhs.type &&
-        lhs.date == rhs.date &&
+        lhs.typeNum == rhs.typeNum &&
+        lhs.dateISO == rhs.dateISO &&
         lhs.creationDate == rhs.creationDate &&
         lhs.categoryID == rhs.categoryID &&
         lhs.subcategoryID == rhs.subcategoryID &&
@@ -138,8 +161,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         hasher.combine(id)
         hasher.combine(name)
         hasher.combine(amount)
-        hasher.combine(type)
-        hasher.combine(date)
+        hasher.combine(typeNum)
+        hasher.combine(dateISO)
         hasher.combine(creationDate)
         hasher.combine(categoryID)
         hasher.combine(subcategoryID)
@@ -151,3 +174,14 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     }
 }
 
+extension TransactionModel {
+    
+    var type: TransactionType {
+        return TransactionType(rawValue: typeNum ?? 0) ?? .none
+    }
+    
+    var date: Date? {
+        return self.dateISO?.toDate() ?? .now
+    }
+    
+}

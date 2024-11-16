@@ -50,13 +50,13 @@ struct PageControllerView: View {
                 if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
                 if pageControllerVM.isUnlocked {
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
-                        if let account = accountRepo.mainAccount {
+                        if accountRepository.mainAccount != nil {
                             Group {
                                 switch selectedTab {
-                                case 0: HomeView(account: account)
-                                case 1: AnalyticsHomeView(account: account)
-                                case 3: AccountDashboardView(account: account)
-                                case 4: CategoriesHomeView()
+                                case 0: HomeView()
+//                                case 1: AnalyticsHomeView(account: account)
+//                                case 3: AccountDashboardView(account: account)
+//                                case 4: CategoriesHomeView()
                                 default: EmptyView() //Can't arrived
                                 }
                             }

@@ -29,23 +29,29 @@ extension TransactionRepository {
     @MainActor
     func createTransaction(accountID: Int, body: TransactionModel) async {
         do {
-            let transaction = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
-                responseModel: TransactionModel.self
+                responseModel: TransactionResponseWithBalance.self
             )
-            self.transactions.append(transaction)
+            if let transaction = response.transaction, let newBalance = response.newBalance {
+                self.transactions.append(transaction)
+                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     
     @MainActor
-    func updateTransaction(transactionID: Int, body: TransactionModel) async {
+    func updateTransaction(accountID: Int, transactionID: Int, body: TransactionModel) async {
         do {
-            let transaction = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.update(id: transactionID, body: body),
-                responseModel: TransactionModel.self
+                responseModel: TransactionResponseWithBalance.self
             )
-            if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
-                self.transactions[index] = transaction
+            if let transaction = response.transaction, let newBalance = response.newBalance {
+                if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
+                    self.transactions[index] = transaction
+                }
+                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }
     }

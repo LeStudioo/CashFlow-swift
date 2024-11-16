@@ -73,11 +73,11 @@ func processResponse(response: URLResponse, method: String?) throws -> HTTPURLRe
 func mapResponse(response: (data: Data?, response: URLResponse, method: String?)) throws -> Data? {
     let httpResponse = try processResponse(response: response.response, method: response.method)
     
-//#if DEBUG
-//    if let data = response.data {
-//        print("🛜 DATA : \(String(data: data, encoding: .utf8))")
-//    }
-//#endif
+    #if DEBUG
+    if let data = response.data {
+        print("🛜 DATA : \(String(data: data, encoding: .utf8))")
+    }
+    #endif
     
     return try handleStatusCode(httpResponse.statusCode, data: response.data)
 }

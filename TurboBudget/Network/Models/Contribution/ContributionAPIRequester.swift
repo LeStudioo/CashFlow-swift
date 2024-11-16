@@ -10,17 +10,21 @@ import Foundation
 enum ContributionAPIRequester: APIRequestBuilder {
     case fetch(savingsplanID: Int)
     case create(savingsplanID: Int, body: ContributionModel)
-    case update(contributionID: Int, body: ContributionModel)
-    case delete(contributionID: Int)
+    case update(savingsplanID: Int, contributionID: Int, body: ContributionModel)
+    case delete(savingsplanID: Int, contributionID: Int)
 }
 
 extension ContributionAPIRequester {
     var path: String {
         switch self {
-        case .fetch:                            return NetworkPath.Contribution.base
-        case .create:                           return NetworkPath.Contribution.base
-        case .update(let contributionID, _):    return NetworkPath.Contribution.update(id: contributionID)
-        case .delete(let contributionID):       return NetworkPath.Contribution.delete(id: contributionID)
+        case .fetch(let savingsplanID):
+            return NetworkPath.Contribution.base(savingsplanID: savingsplanID)
+        case .create(let savingsplanID, _):
+            return NetworkPath.Contribution.base(savingsplanID: savingsplanID)
+        case .update(let savingsplanID, let contributionID, _):
+            return NetworkPath.Contribution.update(savingsplanID: savingsplanID, id: contributionID)
+        case .delete(let savingsplanID, let contributionID):
+            return NetworkPath.Contribution.delete(savingsplanID: savingsplanID, id: contributionID)
         }
     }
     
@@ -34,12 +38,7 @@ extension ContributionAPIRequester {
     }
     
     var parameters: [URLQueryItem]? {
-        switch self {
-        case .fetch(let savingsplanID):     return [URLQueryItem(name: "savingsplanID", value: String(savingsplanID))]
-        case .create(let savingsplanID, _): return [URLQueryItem(name: "savingsplanID", value: String(savingsplanID))]
-        case .update:                       return nil
-        case .delete:                       return nil
-        }
+        return nil
     }
     
     var isTokenNeeded: Bool {
@@ -48,10 +47,10 @@ extension ContributionAPIRequester {
     
     var body: Data? {
         switch self {
-        case .fetch:                return nil
-        case .create(_, let body):  return try? JSONEncoder().encode(body)
-        case .update(_, let body):  return try? JSONEncoder().encode(body)
-        case .delete:               return nil
+        case .fetch:                    return nil
+        case .create(_, let body):      return try? JSONEncoder().encode(body)
+        case .update(_, _, let body):   return try? JSONEncoder().encode(body)
+        case .delete:                   return nil
         }
     }
 }
