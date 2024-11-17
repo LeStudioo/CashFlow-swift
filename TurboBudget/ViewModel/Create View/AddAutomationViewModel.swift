@@ -87,7 +87,7 @@ extension AddAutomationViewModel {
             }
             successfullModalManager.title = "automation_successful".localized
             successfullModalManager.subtitle = "automation_successful_desc".localized
-            successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
+            //successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
         } catch {
             if let error = error as? CustomError {
                 withError(error)

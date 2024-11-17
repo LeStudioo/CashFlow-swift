@@ -110,7 +110,7 @@ struct CreateTransferView: View {
                     }
                 }
                 
-//                ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
+//                ToolbarValidationButtonView(isActive: viewModel.validateTrasaction()) {
 //                    VibrationManager.vibration()
 //                    viewModel.createNewTransaction()
 //                }

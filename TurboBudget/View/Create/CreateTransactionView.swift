@@ -9,8 +9,10 @@ import SwiftUI
 
 struct CreateTransactionView: View {
     
-    @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createTransaction))
-    @StateObject private var viewModel: CreateTransactionViewModel = .init()
+    // builder
+    var transaction: TransactionModel? = nil
+    @StateObject private var viewModel: CreateTransactionViewModel
+    @StateObject private var router: NavigationManager
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
@@ -23,6 +25,13 @@ struct CreateTransactionView: View {
         case amount, title
     }
     @FocusState var focusedField: Field?
+    
+    // init
+    init(transaction: TransactionModel? = nil) {
+        self.transaction = transaction
+        self._viewModel = StateObject(wrappedValue: CreateTransactionViewModel(transaction: transaction))
+        self._router = StateObject(wrappedValue: NavigationManager(isPresented: .constant(.createTransaction(transaction: transaction))))
+    }
     
     // MARK: -
     var body: some View {
@@ -99,22 +108,19 @@ struct CreateTransactionView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text(Word.Title.newTransaction)
+                    Text(transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update)
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.validateTrasaction()) {
+                ToolbarValidationButtonView(
+                    type: transaction == nil ? .creation : .edition,
+                    isActive: viewModel.validateTrasaction()
+                ) {
                     VibrationManager.vibration()
-                    Task {
-                        guard let account = accountRepository.selectedAccount else { return }
-                        guard let accountID = account.id else { return }
-                            
-                        await transactionRepository.createTransaction(
-                            accountID: accountID,
-                            body: viewModel.bodyForCreation()
-                        )
-                        
-                        dismiss()
+                    if transaction == nil {
+                        viewModel.createTransaction(dismiss: dismiss)
+                    } else {
+                        viewModel.updateTransaction(dismiss: dismiss)
                     }
                 }
                 

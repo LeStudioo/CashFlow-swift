@@ -32,7 +32,6 @@ struct SavingPlanDetailView: View {
     
     //State or Binding Bool
     @State private var isDeleting: Bool = false
-    @State private var isRenaming: Bool = false
     @State private var showAddContribution: Bool = false
     
     //Enum
@@ -158,11 +157,7 @@ struct SavingPlanDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
-                        action: { router.presentCreateSavingsPlan(savingsPlan: savingsPlan) {
-//                            if let index = savingsPlanRepository.savingsPlans.firstIndex(where: { $0.id == savingsPlan.id }) {
-//                                self.savingsPlan.goalAmount = savingsPlanRepository.savingsPlans[index].goalAmount
-//                            }
-                        } },
+                        action: { router.presentCreateSavingsPlan(savingsPlan: savingsPlan) },
                         label: { Label(Word.Classic.edit.localized, systemImage: "pencil") }
                     )
                     

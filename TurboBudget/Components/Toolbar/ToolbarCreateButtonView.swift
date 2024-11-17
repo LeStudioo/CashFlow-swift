@@ -7,9 +7,15 @@
 
 import SwiftUI
 
-struct ToolbarCreateButtonView: ToolbarContent {
+enum ValidationButtonType {
+    case creation
+    case edition
+}
+
+struct ToolbarValidationButtonView: ToolbarContent {
     
     // Builder
+    var type: ValidationButtonType = .creation
     var isActive: Bool
     var action: () -> Void
     
@@ -17,7 +23,7 @@ struct ToolbarCreateButtonView: ToolbarContent {
     var body: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button(action: action, label: {
-                Text("word_create".localized)
+                Text(type == .creation ? Word.Classic.create : Word.Classic.edit)
                     .font(.boldText16())
                     .foregroundStyle(ThemeManager.theme.color)
             })

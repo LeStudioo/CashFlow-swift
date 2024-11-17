@@ -45,6 +45,7 @@ struct SuccessfullCreationView: View {
                         Text(succesfullModalManager.subtitle)
                             .font(.mediumSmall())
                             .foregroundStyle(.secondary400)
+                            .multilineTextAlignment(.center)
                     }
 
                     AnyView(succesfullModalManager.content)

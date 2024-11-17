@@ -57,8 +57,10 @@ extension TransactionRepository {
         } catch { NetworkService.handleError(error: error) }
     }
     
+    /// Create transaction, add it to repository and optionally return it
+    @discardableResult
     @MainActor
-    func createTransaction(accountID: Int, body: TransactionModel) async {
+    func createTransaction(accountID: Int, body: TransactionModel, shouldReturn: Bool = false) async -> TransactionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
@@ -68,12 +70,19 @@ extension TransactionRepository {
                 self.transactions.append(transaction)
                 sortTransactionsByDate()
                 AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                return shouldReturn ? transaction : nil
             }
-        } catch { NetworkService.handleError(error: error) }
+            return nil
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
+    /// Create transaction and optionally return it
+    @discardableResult
     @MainActor
-    func updateTransaction(accountID: Int, transactionID: Int, body: TransactionModel) async {
+    func updateTransaction(accountID: Int, transactionID: Int, body: TransactionModel, shouldReturn: Bool = false) async -> TransactionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.update(id: transactionID, body: body),
@@ -81,12 +90,22 @@ extension TransactionRepository {
             )
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
-                    self.transactions[index] = transaction
+                    self.transactions[index].name = transaction.name
+                    self.transactions[index].amount = transaction.amount
+                    self.transactions[index].typeNum = transaction.typeNum
+                    self.transactions[index].categoryID = transaction.categoryID
+                    self.transactions[index].subcategoryID = transaction.subcategoryID
+                    self.transactions[index].dateISO = transaction.dateISO
                     sortTransactionsByDate()
                     AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                    return shouldReturn ? transaction : nil
                 }
             }
-        } catch { NetworkService.handleError(error: error) }
+            return nil
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
     @MainActor

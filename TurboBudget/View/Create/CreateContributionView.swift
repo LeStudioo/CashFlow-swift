@@ -90,7 +90,7 @@ struct CreateContributionView: View {
                     }
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.isContributionValid()) {
+                ToolbarValidationButtonView(isActive: viewModel.isContributionValid()) {
                     VibrationManager.vibration()
                     viewModel.createContribution()
                     dismiss()

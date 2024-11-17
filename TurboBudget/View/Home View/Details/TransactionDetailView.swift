@@ -14,6 +14,7 @@ struct TransactionDetailView: View {
     @ObservedObject var transaction: TransactionModel
     
     // Custom type
+    @EnvironmentObject private var router: NavigationManager
     @ObservedObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
@@ -202,7 +203,11 @@ struct TransactionDetailView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { isEditingTransactionName.toggle() }, label: { Label("word_rename".localized, systemImage: "pencil") })
+                    Button(
+                        action: { router.presentCreateTransaction(transaction: transaction) },
+                        label: { Label(Word.Classic.edit, systemImage: "pencil") }
+                    )
+                    
                     Menu(content: {
                         Button(action: { isSharingJSON.toggle() }, label: { Label("word_json".localized, systemImage: "curlybraces") })
                         Button(action: { isSharingQRCode.toggle() }, label: { Label("word_qrcode".localized, systemImage: "qrcode") })

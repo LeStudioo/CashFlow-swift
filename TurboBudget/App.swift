@@ -87,6 +87,10 @@ struct TurboBudgetApp: App {
                     LoginView()
                 }
             }
+            .overlay(alignment: .bottom) {
+                SuccessfullCreationView()
+                    .environmentObject(successfullModalManager)
+            }
             .environment(\.managedObjectContext, viewContext)
             .environmentObject(router)
             .environmentObject(csManager)

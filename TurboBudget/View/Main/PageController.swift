@@ -14,7 +14,6 @@ struct PageControllerView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
 
     // New Repository
     @EnvironmentObject private var accountRepository: AccountRepository
@@ -82,9 +81,7 @@ struct PageControllerView: View {
                     .ignoresSafeArea(.keyboard)
                 } // End if unlocked
             }
-            .overlay(alignment: .bottom) {
-                SuccessfullCreationView()
-            }
+            
             .padding(pageControllerVM.isUnlocked ? 0 : 0)
             .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
                 // LaunchScreen ended and no data in iCloud

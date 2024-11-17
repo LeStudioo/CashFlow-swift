@@ -33,6 +33,8 @@
 //MARK: - Title
 "title_new_transaction" = "Nueva transacción";
 
+"title_update_transaction" = "Actualizar transacción";
+
 "title_new_automation" = "Nueva automatización";
 
 "title_new_savingsPlan" = "Nuevo plan de ahorro";
@@ -45,6 +47,15 @@
 "login_google" = "Iniciar sesión con Google";
 
 "login_apple" = "Iniciar sesión con Apple";
+
+//MARK: - SuccessfulManager
+"successful_transaction_new_title" = "¡Transacción creada!";
+
+"successful_transaction_new_desc" = "Su transacción ha sido procesada y agregada a su lista de transacciones.";
+
+"successful_transaction_update_title" = "¡Transacción modificada!";
+
+"successful_transaction_update_desc" = "Su transacción ha sido actualizada en su lista de transacciones.";
 
 //MARK: - General Words
 "word_transaction" = "Transacción";

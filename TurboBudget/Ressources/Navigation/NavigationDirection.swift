@@ -22,7 +22,7 @@ enum NavigationDirection: Identifiable {
     case createAutomation
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
-    case createTransaction
+    case createTransaction(transaction: TransactionModel? = nil)
     case recoverTransaction
     case createSavingsAccount
     case createTransfer

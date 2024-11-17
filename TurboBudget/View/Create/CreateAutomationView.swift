@@ -102,7 +102,7 @@ struct CreateAutomationView: View {
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.validateAutomation()) {
+                ToolbarValidationButtonView(isActive: viewModel.validateAutomation()) {
                     VibrationManager.vibration()
                     viewModel.createNewAutomation { withError in
                         if withError == nil {

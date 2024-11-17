@@ -129,7 +129,7 @@ struct CreateSavingPlansView: View {
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {
+                ToolbarValidationButtonView(isActive: viewModel.validateSavingPlan()) {
                     VibrationManager.vibration()
                     if savingsPlan == nil {
                         viewModel.createSavingsPlan(dismiss: dismiss)

@@ -135,7 +135,7 @@ struct RecoverTransactionView: View {
                             
                             if let transaction = viewModel.transaction {
                                 VStack {
-                                    CellTransactionWithoutAction(transaction: transaction)
+                                    // CellTransactionWithoutAction(transaction: transaction)
                                     
                                     HStack {
                                         Text("recover_successful_date".localized)
@@ -197,7 +197,7 @@ struct RecoverTransactionView: View {
                         }
                     }
                     
-                    ToolbarCreateButtonView(isActive: !viewModel.jsonString.isEmpty) {
+                    ToolbarValidationButtonView(isActive: !viewModel.jsonString.isEmpty) {
                         VibrationManager.vibration()
                         viewModel.recoverTransaction()
                     }

@@ -24,6 +24,7 @@ struct Word {
         static let finalTargetDate: String = "word_finalTargetDate".localized
         static let startTargetDate: String = "word_startTargetDate".localized
         static let edit: String = "word_edit".localized
+        static let create: String = "word_create".localized
     }
     
     struct Create {
@@ -31,9 +32,22 @@ struct Word {
     }
     
     struct Title {
-        static let newTransaction: String = "title_new_transaction".localized
+        struct Transaction {
+            static let new: String = "title_new_transaction".localized
+            static let update: String = "title_update_transaction".localized
+        }
+       
         static let newAutomation: String = "title_new_automation".localized
         static let newSavingsPlan: String = "title_new_savingsPlan".localized
+    }
+    
+    struct Successful {
+        static func transactionTitle(type: SuccessfulType) -> String {
+            return type == .new ? "successful_transaction_new_title".localized : "successful_transaction_update_title".localized
+        }
+        static func transactionDesc(type: SuccessfulType) -> String {
+            return type == .new ? "successful_transaction_new_desc".localized : "successful_transaction_update_desc".localized
+        }
     }
     
 }

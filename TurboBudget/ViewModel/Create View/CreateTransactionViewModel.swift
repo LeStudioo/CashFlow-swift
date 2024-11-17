@@ -10,7 +10,9 @@ import SwiftUI
 
 final class CreateTransactionViewModel: ObservableObject {
     static let shared = CreateTransactionViewModel()
-    let successfullModalManager = SuccessfullModalManager.shared
+    
+    
+    var transaction: TransactionModel? = nil
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
@@ -20,6 +22,19 @@ final class CreateTransactionViewModel: ObservableObject {
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
             
     @Published var presentingConfirmationDialog: Bool = false
+    
+    // init
+    init(transaction: TransactionModel? = nil) {
+        if let transaction {
+            self.transaction = transaction
+            self.transactionTitle = transaction.name ?? ""
+            self.transactionAmount = transaction.amount?.formatted() ?? ""
+            self.transactionType = ExpenseOrIncome(rawValue: transaction.typeNum ?? 0) ?? .expense
+            self.transactionDate = transaction.date ?? .now
+            self.selectedCategory = transaction.category
+            self.selectedSubcategory = transaction.subcategory
+        }
+    }
     
     // Prefrences
     @Preference(\.accountCanBeNegative) private var accountCanBeNegative
@@ -52,29 +67,46 @@ final class CreateTransactionViewModel: ObservableObject {
         )
     }
     
-    func createNewTransaction(withError: @escaping (_ withError: CustomError?) -> Void) {        
-        let model = TransactionModelOld(
-            predefCategoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
-            predefSubcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? "",
-            title: transactionTitle.trimmingCharacters(in: .whitespaces),
-            amount: transactionType == .expense ? -transactionAmount.toDouble() : transactionAmount.toDouble(),
-            date: transactionDate
-        )
+    func createTransaction(dismiss: DismissAction) {
+        let accountRepository: AccountRepository = .shared
+        let transactionRepository: TransactionRepository = .shared
+        let successfullModalManager: SuccessfullModalManager = .shared
         
-        do {
-            let newTransaction = try TransactionRepositoryOld.shared.createNewTransaction(model: model)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.successfullModalManager.isPresenting = true
-            }
-            successfullModalManager.title = "transaction_successful".localized
-            successfullModalManager.subtitle = "transaction_successful_desc".localized
-            successfullModalManager.content = AnyView(CellTransactionWithoutAction(transaction: newTransaction))
+        Task {
+            guard let account = accountRepository.selectedAccount else { return }
+            guard let accountID = account.id else { return }
                         
-            withError(nil)
-        } catch {
-            if let error = error as? CustomError {
-                withError(error)
+            if let transaction = await transactionRepository.createTransaction(
+                accountID: accountID,
+                body: bodyForCreation(),
+                shouldReturn: true
+            ) {
+                dismiss()
+                
+                successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
+            }
+        }
+    }
+    
+    func updateTransaction(dismiss: DismissAction) {
+        let accountRepository: AccountRepository = .shared
+        let transactionRepository: TransactionRepository = .shared
+        let successfullModalManager: SuccessfullModalManager = .shared
+        
+        Task {
+            guard let account = accountRepository.selectedAccount else { return }
+            guard let accountID = account.id else { return }
+            guard let transactionID = transaction?.id else { return }
+            
+            if let transaction = await transactionRepository.updateTransaction(
+                accountID: accountID,
+                transactionID: transactionID,
+                body: bodyForCreation(),
+                shouldReturn: true
+            ) {
+                dismiss()
+                
+                successfullModalManager.showSuccessfulTransaction(type: .update, transaction: transaction)
             }
         }
     }

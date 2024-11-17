@@ -57,7 +57,7 @@ struct CreateBudgetView: View {
                     }
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.validateBudget()) {
+                ToolbarValidationButtonView(isActive: viewModel.validateBudget()) {
                     VibrationManager.vibration()
                     viewModel.createNewBudget { withError in
                         if withError == nil {

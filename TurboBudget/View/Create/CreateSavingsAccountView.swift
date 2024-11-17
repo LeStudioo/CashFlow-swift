@@ -56,7 +56,7 @@ struct CreateSavingsAccountView: View {
                     }
                 }
                 
-                ToolbarCreateButtonView(isActive: viewModel.isSavingsAccountValid()) {
+                ToolbarValidationButtonView(isActive: viewModel.isSavingsAccountValid()) {
                     VibrationManager.vibration()
                     viewModel.createSavingsAccount()
                     dismiss()
