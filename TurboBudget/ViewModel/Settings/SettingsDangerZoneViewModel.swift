@@ -10,19 +10,7 @@ import Foundation
 final class SettingsDangerZoneViewModel: ObservableObject {
     
     @Published var info: MultipleAlert? = nil
-    
-    @Preference(\.hapticFeedback) var hapticFeedback
-    
-    @Preference(\.isFaceIDEnabled) var isFaceIDEnabled
-    @Preference(\.isSecurityPlusEnabled) var isSecurityPlusEnabled
-        
-    @Preference(\.isSavingPlansDisplayedHomeScreen) var isSavingPlansDisplayedHomeScreen
-    @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) var numberOfSavingPlansDisplayedInHomeScreen
-    @Preference(\.isAutomationsDisplayedHomeScreen) var isAutomationsDisplayedHomeScreen
-    @Preference(\.numberOfAutomationsDisplayedInHomeScreen) var numberOfAutomationsDisplayedInHomeScreen
-    @Preference(\.isRecentTransactionsDisplayedHomeScreen) var isRecentTransactionsDisplayedHomeScreen
-    @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) var numberOfRecentTransactionDisplayedInHomeScreen
-    
+                
     @Preference(\.accountCanBeNegative) var accountCanBeNegative
     @Preference(\.blockExpensesIfCardLimitExceeds) var blockExpensesIfCardLimitExceeds
     @Preference(\.cardLimitPercentage) var cardLimitPercentage
@@ -39,21 +27,21 @@ extension SettingsDangerZoneViewModel {
     func resetSettings() {
         
         // Setting - General
-        hapticFeedback = true
+        PreferencesGeneral.shared.hapticFeedback = true
         
         // Setting - Security
-        isFaceIDEnabled = false
-        isSecurityPlusEnabled = false
+        PreferencesSecurity.shared.isBiometricEnabled = false
+        PreferencesSecurity.shared.isSecurityReinforced = false
         
         // Setting - Display
-        isAutomationsDisplayedHomeScreen = true
-        numberOfAutomationsDisplayedInHomeScreen = 2
+        PreferencesDisplayHome.shared.subscription_isDisplayed = true
+        PreferencesDisplayHome.shared.subscription_value = 2
         
-        isSavingPlansDisplayedHomeScreen = true
-        numberOfSavingPlansDisplayedInHomeScreen = 4
+        PreferencesDisplayHome.shared.savingsPlan_isDisplayed = true
+        PreferencesDisplayHome.shared.savingsPlan_value = 4
         
-        isRecentTransactionsDisplayedHomeScreen = true
-        numberOfRecentTransactionDisplayedInHomeScreen = 5
+        PreferencesDisplayHome.shared.transaction_isDisplayed = true
+        PreferencesDisplayHome.shared.transaction_value = 6
         
         // Setting - Appearance
         ThemeManager.theme = .green

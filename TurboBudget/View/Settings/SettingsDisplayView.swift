@@ -10,58 +10,55 @@ import SwiftUI
 struct SettingsDisplayView: View {
     
     // Preferences
-    @Preference(\.isAutomationsDisplayedHomeScreen) var isAutomationsDisplayedHomeScreen
-    @Preference(\.numberOfAutomationsDisplayedInHomeScreen) var numberOfAutomationsDisplayedInHomeScreen
-    
-    @Preference(\.isSavingPlansDisplayedHomeScreen) var isSavingPlansDisplayedHomeScreen
-    @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) var numberOfSavingPlansDisplayedInHomeScreen
-    
-    @Preference(\.isRecentTransactionsDisplayedHomeScreen) var isRecentTransactionsDisplayedHomeScreen
-    @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) var numberOfRecentTransactionDisplayedInHomeScreen
+    @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
     
     // Number variables
     let automationsNumber: [Int] = [2, 4, 6]
     let savingPlansNumber: [Int] = [2, 4, 6]
     let recentTransactionsNumber: [Int] = [5, 6, 7, 8, 9, 10]
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $isAutomationsDisplayedHomeScreen, label: {
+                Toggle(isOn: $preferencesDisplayHome.subscription_isDisplayed, label: {
                     Text("word_automations".localized)
                 })
-                if isAutomationsDisplayedHomeScreen {
-                    Picker("setting_display_nbr_automations".localized, selection: $numberOfAutomationsDisplayedInHomeScreen) {
+                if preferencesDisplayHome.subscription_isDisplayed {
+                    Picker("setting_display_nbr_automations".localized, selection: $preferencesDisplayHome.subscription_value) {
                         ForEach(automationsNumber, id: \.self) { num in
-                            Text(num.formatted()).tag(num)
-                        }
-                    }
-                }
-                
-                Toggle(isOn: $isSavingPlansDisplayedHomeScreen, label: {
-                    Text("word_savingsplans".localized)
-                })
-                if isSavingPlansDisplayedHomeScreen {
-                    Picker("setting_display_nbr_savingsplans".localized, selection: $numberOfSavingPlansDisplayedInHomeScreen) {
-                        ForEach(savingPlansNumber, id: \.self) { num in
-                            Text(num.formatted()).tag(num)
-                        }
-                    }
-                }
- 
-                Toggle(isOn: $isRecentTransactionsDisplayedHomeScreen, label: {
-                    Text("setting_display_recent_transactions".localized)
-                })
-                if isRecentTransactionsDisplayedHomeScreen {
-                    Picker("setting_display_nbr_transactions".localized, selection: $numberOfRecentTransactionDisplayedInHomeScreen) {
-                        ForEach(recentTransactionsNumber, id: \.self) { num in
                             Text(num.formatted()).tag(num)
                         }
                     }
                 }
             } header: {
                 Text("setting_display_displayed_home_screen".localized)
+            }
+            
+            Section {
+                Toggle(isOn: $preferencesDisplayHome.savingsPlan_isDisplayed, label: {
+                    Text("word_savingsplans".localized)
+                })
+                if preferencesDisplayHome.savingsPlan_isDisplayed {
+                    Picker("setting_display_nbr_savingsplans".localized, selection: $preferencesDisplayHome.savingsPlan_value) {
+                        ForEach(savingPlansNumber, id: \.self) { num in
+                            Text(num.formatted()).tag(num)
+                        }
+                    }
+                }
+            }
+            
+            Section {
+                Toggle(isOn: $preferencesDisplayHome.transaction_isDisplayed, label: {
+                    Text("setting_display_recent_transactions".localized)
+                })
+                if preferencesDisplayHome.transaction_isDisplayed {
+                    Picker("setting_display_nbr_transactions".localized, selection: $preferencesDisplayHome.transaction_value) {
+                        ForEach(recentTransactionsNumber, id: \.self) { num in
+                            Text(num.formatted()).tag(num)
+                        }
+                    }
+                }
             }
         }
         .navigationTitle("setting_display_title".localized)

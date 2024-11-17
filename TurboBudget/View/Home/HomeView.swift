@@ -12,18 +12,12 @@ import CoreData
 
 struct HomeView: View {
     
-//    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
-    
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: PurchasesManager
+    @EnvironmentObject private var transactionRepository: TransactionRepository
         
     // Preferences
-    @Preference(\.isRecentTransactionsDisplayedHomeScreen) private var isRecentTransactionsDisplayedHomeScreen
-    @Preference(\.numberOfRecentTransactionDisplayedInHomeScreen) private var numberOfRecentTransactionDisplayedInHomeScreen
-    @Preference(\.isStepsEnbaledForAllSavingsPlans) private var isStepsEnbaledForAllSavingsPlans
+    @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
     
     // MARK: - body
     var body: some View {
@@ -39,7 +33,7 @@ struct HomeView: View {
                 AutomationsForHomeScreen()
                 
                 // Recent Transactions
-                if isRecentTransactionsDisplayedHomeScreen {
+                if preferencesDisplayHome.transaction_isDisplayed {
                     VStack {
                         NavigationButton(push: router.pushAllTransactions()) {
                             HStack {
@@ -55,7 +49,7 @@ struct HomeView: View {
                         .padding([.horizontal, .top])
                         
                         if transactionRepository.transactions.count != 0 {
-                            ForEach(transactionRepository.transactions.prefix(numberOfRecentTransactionDisplayedInHomeScreen)) { transaction in
+                            ForEach(transactionRepository.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
                                 NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                     TransactionRow(transaction: transaction)
                                 }

@@ -10,13 +10,13 @@ import SwiftUI
 struct SettingsGeneralView: View {
     
     // Preferences
-    @Preference(\.hapticFeedback) var hapticFeedback
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
     // MARK: - body
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $hapticFeedback) {
+                Toggle(isOn: $preferencesGeneral.hapticFeedback) {
                     Text("setting_general_haptic_feedback".localized)
                 }
             }

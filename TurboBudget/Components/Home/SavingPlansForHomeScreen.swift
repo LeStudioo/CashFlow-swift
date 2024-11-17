@@ -17,8 +17,7 @@ struct SavingPlansForHomeScreen: View {
     @EnvironmentObject private var contributionRepository: ContributionRepository
     
     // Preferences
-    @Preference(\.isSavingPlansDisplayedHomeScreen) private var isSavingPlansDisplayedHomeScreen
-    @Preference(\.numberOfSavingPlansDisplayedInHomeScreen) private var numberOfSavingPlansDisplayedInHomeScreen
+    @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
 
     // Other
     private let layout: [GridItem] = [
@@ -48,7 +47,7 @@ struct SavingPlansForHomeScreen: View {
             if !savingsPlanRepository.savingsPlans.isEmpty {
                 HStack {
                     LazyVGrid(columns: layout, alignment: .center) {
-                        ForEach(savingsPlanRepository.savingsPlans.prefix(numberOfSavingPlansDisplayedInHomeScreen)) { savingsPlan in
+                        ForEach(savingsPlanRepository.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
                             NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
                                 Task {
                                     if let savingsPlanID = savingsPlan.id {
@@ -89,7 +88,7 @@ struct SavingPlansForHomeScreen: View {
             }
         }
         .animation(.smooth, value: savingsPlanRepository.savingsPlans.count)
-        .isDisplayed(isSavingPlansDisplayedHomeScreen)
+        .isDisplayed(preferencesDisplayHome.savingsPlan_isDisplayed)
     } // End body
 } // End struct
 

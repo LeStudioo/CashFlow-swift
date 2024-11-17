@@ -12,7 +12,7 @@ import SwiftUI
 final class Preferences {
 
     static let standard = Preferences(userDefaults: .standard)
-    static let appGroup = Preferences(userDefaults: .init(suiteName: "group.sementa.cashflow")!)
+//    static let appGroup = Preferences(userDefaults: .init(suiteName: "group.sementa.cashflow")!)
     fileprivate let userDefaults: UserDefaults
 
     /// Sends through the changed key path whenever a change occurs.
@@ -23,53 +23,8 @@ final class Preferences {
     }
     
     // MARK: AppGroup
-   
-    // MARK: Normal New
-    @UserDefault("isDataSynced")
-    var isDataSynced: Bool = false
-        
-    // MARK: Normal
-    @UserDefault("numberOfOpenings")
-    var numberOfOpenings: Int = 0
 
-    @UserDefault("alreadyOpen")
-    var alreadyOpen: Bool = false
     
-    // Setting - General
-    @UserDefault("hapticFeedback")
-    var hapticFeedback: Bool = true
-    
-    @UserDefault("isSuccessfulModalSwhowing")
-    var isSuccessfulModalSwhowing: Bool = false
-    
-    // Setting - Security
-    @UserDefault("isFaceIDEnabled")
-    var isFaceIDEnabled: Bool = false
-    
-    @UserDefault("isSecurityPlusEnabled")
-    var isSecurityPlusEnabled: Bool = false
-    
-    
-    // Setting - Display - Home Screen
-    @UserDefault("isSavingPlansDisplayedHomeScreen")
-    var isSavingPlansDisplayedHomeScreen: Bool = true
-    
-    @UserDefault("numberOfSavingPlansDisplayedInHomeScreen")
-    var numberOfSavingPlansDisplayedInHomeScreen: Int = 4
-
-    @UserDefault("isAutomationsDisplayedHomeScreen")
-    var isAutomationsDisplayedHomeScreen: Bool = true
-    
-    @UserDefault("numberOfAutomationsDisplayedInHomeScreen")
-    var numberOfAutomationsDisplayedInHomeScreen: Int = 4
-    
-    @UserDefault("isRecentTransactionsDisplayedHomeScreen")
-    var isRecentTransactionsDisplayedHomeScreen: Bool = true
-    
-    @UserDefault("numberOfRecentTransactionDisplayedInHomeScreen") // PREVIOUS = recentTransactionNumber
-    var numberOfRecentTransactionDisplayedInHomeScreen: Int = 5
-    
-
     //Setting - Account
     @UserDefault("accountCanBeNegative")
     var accountCanBeNegative: Bool = false
@@ -95,23 +50,6 @@ final class Preferences {
     
     @UserDefault("budgetPercentage")
     var budgetPercentage: Double = 80
-    
-    
-    //Setting - Financial Advice
-    @UserDefault("isStepsEnbaledForAllSavingsPlans") //FA4
-    var isStepsEnbaledForAllSavingsPlans: Bool = false
-    
-    @UserDefault("isNoSpendChallengeEnbaled") //FA5
-    var isNoSpendChallengeEnbaled: Bool = false
-
-    @UserDefault("isBuyingQualityEnabled") //FA6
-    var isBuyingQualityEnabled: Bool = false
-    
-    @UserDefault("isPayingYourselfFirstEnabled") //FA7
-    var isPayingYourselfFirstEnabled: Bool = false
-    
-    @UserDefault("isSearchDuplicateEnabled") //FA9
-    var isSearchDuplicateEnabled: Bool = false
 }
 
 @propertyWrapper
@@ -181,37 +119,37 @@ struct Preference<Value>: DynamicProperty {
     }
 }
 
-@propertyWrapper
-struct PreferenceWithAppGroup<Value>: DynamicProperty {
-
-    @ObservedObject private var preferencesObserver: PublisherObservableObject
-    private let keyPath: ReferenceWritableKeyPath<Preferences, Value>
-    private let preferences: Preferences
-
-    init(_ keyPath: ReferenceWritableKeyPath<Preferences, Value>, preferences: Preferences = .appGroup) {
-        self.keyPath = keyPath
-        self.preferences = preferences
-        let publisher = preferences
-            .preferencesChangedSubject
-            .filter { changedKeyPath in
-                changedKeyPath == keyPath
-            }.map { _ in () }
-            .eraseToAnyPublisher()
-        self.preferencesObserver = .init(publisher: publisher)
-    }
-
-    var wrappedValue: Value {
-        get { preferences[keyPath: keyPath] }
-        nonmutating set { preferences[keyPath: keyPath] = newValue }
-    }
-
-    var projectedValue: Binding<Value> {
-        Binding(
-            get: { wrappedValue },
-            set: { wrappedValue = $0 }
-        )
-    }
-}
+//@propertyWrapper
+//struct PreferenceWithAppGroup<Value>: DynamicProperty {
+//
+//    @ObservedObject private var preferencesObserver: PublisherObservableObject
+//    private let keyPath: ReferenceWritableKeyPath<Preferences, Value>
+//    private let preferences: Preferences
+//
+//    init(_ keyPath: ReferenceWritableKeyPath<Preferences, Value>, preferences: Preferences = .appGroup) {
+//        self.keyPath = keyPath
+//        self.preferences = preferences
+//        let publisher = preferences
+//            .preferencesChangedSubject
+//            .filter { changedKeyPath in
+//                changedKeyPath == keyPath
+//            }.map { _ in () }
+//            .eraseToAnyPublisher()
+//        self.preferencesObserver = .init(publisher: publisher)
+//    }
+//
+//    var wrappedValue: Value {
+//        get { preferences[keyPath: keyPath] }
+//        nonmutating set { preferences[keyPath: keyPath] = newValue }
+//    }
+//
+//    var projectedValue: Binding<Value> {
+//        Binding(
+//            get: { wrappedValue },
+//            set: { wrappedValue = $0 }
+//        )
+//    }
+//}
 
 final class PublisherObservableObject: ObservableObject {
 

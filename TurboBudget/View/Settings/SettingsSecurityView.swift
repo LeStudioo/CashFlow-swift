@@ -11,14 +11,13 @@ import LocalAuthentication
 struct SettingsSecurityView: View {
     
     // Preferences
-    @Preference(\.isFaceIDEnabled) var isFaceIDEnabled
-    @Preference(\.isSecurityPlusEnabled) var isSecurityPlusEnabled
+    @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     
     // MARK: - body
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $isFaceIDEnabled) {
+                Toggle(isOn: $preferencesSecurity.isBiometricEnabled) {
                     Text("word_enable".localized + " " + stringBiometric())
                 }
             } footer: {
@@ -26,7 +25,7 @@ struct SettingsSecurityView: View {
             }
 
             Section {
-                Toggle(isOn: $isSecurityPlusEnabled) {
+                Toggle(isOn: $preferencesSecurity.isSecurityReinforced) {
                     Text("setting_security_plus".localized)
                 }
             } footer: {

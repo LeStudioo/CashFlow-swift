@@ -40,7 +40,7 @@ struct TurboBudgetApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
     // Preferences
-    @Preference(\.isSecurityPlusEnabled) private var isSecurityPlusEnabled
+    @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     
     // init
     init() {
@@ -59,7 +59,7 @@ struct TurboBudgetApp: App {
                     SplashScreenView()
                 case .success:
                     NavStack(router: router) {
-                        if isSecurityPlusEnabled {
+                        if preferencesSecurity.isSecurityReinforced {
                             if scenePhase == .active {
                                 PageControllerView()
                             } else {

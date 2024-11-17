@@ -11,7 +11,6 @@ import SwiftUI
 final class CreateTransactionViewModel: ObservableObject {
     static let shared = CreateTransactionViewModel()
     
-    
     var transaction: TransactionModel? = nil
     
     @Published var transactionTitle: String = ""
@@ -35,18 +34,6 @@ final class CreateTransactionViewModel: ObservableObject {
             self.selectedSubcategory = transaction.subcategory
         }
     }
-    
-    // Prefrences
-    @Preference(\.accountCanBeNegative) private var accountCanBeNegative
-    @Preference(\.blockExpensesIfCardLimitExceeds) private var blockExpensesIfCardLimitExceeds
-    @Preference(\.blockExpensesIfBudgetAmountExceeds) private var blockExpensesIfBudgetAmountExceeds
-    @Preference(\.isSearchDuplicateEnabled) private var isSearchDuplicateEnabled
-    
-    // Alerts
-    @Published var isCardLimitSoonToBeExceeded: Bool = false
-    @Published var isCardLimitExceeded: Bool = false
-    @Published var isBudgetSoonToBeExceeded: Bool = false
-    @Published var isBudgetExceed: Bool = false
         
     func makeScannerView() -> ScannerTicketView {
         ScannerTicketView { amount, date, errorMessage in
@@ -81,9 +68,8 @@ final class CreateTransactionViewModel: ObservableObject {
                 body: bodyForCreation(),
                 shouldReturn: true
             ) {
-                dismiss()
-                
-                successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
+                await dismiss()
+                await successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
             }
         }
     }
@@ -104,9 +90,8 @@ final class CreateTransactionViewModel: ObservableObject {
                 body: bodyForCreation(),
                 shouldReturn: true
             ) {
-                dismiss()
-                
-                successfullModalManager.showSuccessfulTransaction(type: .update, transaction: transaction)
+                await dismiss()
+                await successfullModalManager.showSuccessfulTransaction(type: .update, transaction: transaction)
             }
         }
     }
@@ -123,17 +108,11 @@ extension CreateTransactionViewModel {
         transactionDate = Date()
         selectedCategory = nil
         selectedSubcategory = nil
-                        
-        // Alerts
-        isCardLimitSoonToBeExceeded = false
-        isCardLimitExceeded = false
-        isBudgetSoonToBeExceeded = false
-        isBudgetExceed = false
     }
     
 }
 
-//MARK: - Verification
+// MARK: - Verification
 extension CreateTransactionViewModel {
     
     func isTransactionInCreation() -> Bool {
@@ -143,67 +122,8 @@ extension CreateTransactionViewModel {
         return false
     }
     
-    var isAccountWillBeNegative: Bool {
-        if let mainAccount = AccountRepositoryOld.shared.mainAccount, !accountCanBeNegative {
-            if mainAccount.balance - transactionAmount.toDouble() < 0 && transactionType == .expense { return true } else { return false }
-        } else { return false }
-    }
-    
-    var isCardLimitExceeds: Bool {
-        if let mainAccount = AccountRepositoryOld.shared.mainAccount, mainAccount.cardLimit != 0, blockExpensesIfCardLimitExceeds, transactionType == .expense {
-            let cardLimitAfterTransaction = mainAccount.amountOfExpensesInActualMonth() + transactionAmount.toDouble()
-            if cardLimitAfterTransaction <= mainAccount.cardLimit { return false } else { return true }
-        } else { return false }
-    }
-    
-    var isBudgetIsExceededAfterThisTransaction: Bool {
-        if let selectedSubcategory, blockExpensesIfBudgetAmountExceeds {
-            if let budget = selectedSubcategory.budget {
-                if budget.isExceeded(month: transactionDate) { return true }
-                if (budget.actualAmountForMonth(month: transactionDate) + transactionAmount.toDouble()) > budget.amount { return true }
-            }
-            return false
-        }
-        return false
-    }
-    
-    var isDuplicateTransactions: Bool {
-        if let mainAccount = AccountRepositoryOld.shared.mainAccount, isSearchDuplicateEnabled, transactionType == .expense {
-            let accountFilteredByTitle = mainAccount.allTransactions.filter { $0.title == transactionTitle }
-            let accountFilteredBySubcategory = accountFilteredByTitle.filter { $0.predefSubcategoryID == selectedSubcategory?.id ?? "" && selectedSubcategory != nil }
-            if accountFilteredBySubcategory.count != 0 { return true } else { return false }
-        } else { return false }
-    }
-    
-    var numberOfAlerts: Int {
-        var num: Int = 0
-        if isCardLimitExceeds { num += 1 }
-        if isAccountWillBeNegative { num += 1 }
-        if isBudgetIsExceededAfterThisTransaction { num += 1 }
-        if isDuplicateTransactions { num += 1}
-        return num
-    }
-    
-    var numberOfAlertsForSuccessful: Int {
-        var num: Int = 0
-        if isCardLimitSoonToBeExceeded { num += 1 }
-        if let mainAccount = AccountRepositoryOld.shared.mainAccount { if mainAccount.amountOfExpensesInActualMonth() > mainAccount.cardLimit && mainAccount.cardLimit != 0 { num += 1 } }
-        if isBudgetSoonToBeExceeded { num += 1 }
-        if isBudgetExceed { num += 1 }
-        return num
-    }
-    
     func validateTrasaction() -> Bool {
-        if isAccountWillBeNegative { return false }
-        
-        if transactionType == .income && !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 { return true }
-
-        
-        if blockExpensesIfCardLimitExceeds && transactionType == .expense {
-            if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil && !isCardLimitExceeds && !isBudgetIsExceededAfterThisTransaction {
-                return true
-            }
-        } else if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil && !isBudgetIsExceededAfterThisTransaction {
+        if !transactionTitle.isBlank && transactionAmount.toDouble() != 0.0 && selectedCategory != nil {
             return true
         }
         return false

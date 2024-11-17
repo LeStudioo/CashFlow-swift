@@ -8,16 +8,12 @@
 import Foundation
 import UIKit
 
-final class VibrationManager {
-    
-}
+final class VibrationManager { }
 
 extension VibrationManager {
     
     static func vibration() {
-        @Preference(\.hapticFeedback) var hapticFeedback
-        
-        if hapticFeedback {
+        if PreferencesGeneral.shared.hapticFeedback {
             UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }
     }

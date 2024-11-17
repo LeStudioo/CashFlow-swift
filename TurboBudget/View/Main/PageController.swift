@@ -36,8 +36,8 @@ struct PageControllerView: View {
     @EnvironmentObject private var store: PurchasesManager
     
     // Preferences
-    @Preference(\.isFaceIDEnabled) private var isFaceIDEnabled
-    @Preference(\.alreadyOpen) private var alreadyOpen
+    @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
     // Number variables
     @State private var selectedTab: Int = 0
@@ -87,13 +87,13 @@ struct PageControllerView: View {
                 // LaunchScreen ended and no data in iCloud
                 if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
                     // First open + no data in iCloud
-                    if !UserDefaults.standard.bool(forKey: "alreadyOpen") && accountRepo.mainAccount == nil {
+                    if !preferencesGeneral.isAlreadyOpen && accountRepo.mainAccount == nil {
                         pageControllerVM.showOnboarding.toggle()
                         // First open + no iCloud
                     }
                     // Already open + app close
-                    if !UserDefaults.standard.bool(forKey: "appIsOpen") && UserDefaults.standard.bool(forKey: "alreadyOpen") {
-                        if isFaceIDEnabled {
+                    if !UserDefaults.standard.bool(forKey: "appIsOpen") && preferencesGeneral.isAlreadyOpen {
+                        if preferencesSecurity.isBiometricEnabled {
                             pageControllerVM.authenticate()
                         } else {
                             withAnimation { pageControllerVM.isUnlocked = true }

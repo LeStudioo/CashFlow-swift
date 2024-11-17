@@ -16,10 +16,9 @@ struct AutomationsForHomeScreen: View {
     @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences
-    @Preference(\.isAutomationsDisplayedHomeScreen) private var isAutomationsDisplayedHomeScreen
-    @Preference(\.numberOfAutomationsDisplayedInHomeScreen) private var numberOfAutomationsDisplayedInHomeScreen
+    @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         VStack {
             NavigationButton(push: router.pushHomeAutomations()) {
@@ -40,7 +39,7 @@ struct AutomationsForHomeScreen: View {
             
             if automationRepo.automations.count != 0 {
                 VStack {
-                    ForEach(automationRepo.automations.prefix(numberOfAutomationsDisplayedInHomeScreen)) { automation in
+                    ForEach(automationRepo.automations.prefix(preferencesDisplayHome.subscription_value)) { automation in
                         Button(action: {
 //                            if let transaction = automation.automationToTransaction {
 //                                router.pushTransactionDetail(transaction: transaction)
@@ -75,7 +74,7 @@ struct AutomationsForHomeScreen: View {
                 }
             }
         }
-        .isDisplayed(isAutomationsDisplayedHomeScreen)
+        .isDisplayed(preferencesDisplayHome.subscription_isDisplayed)
     } // End body
 } // End struct
 
