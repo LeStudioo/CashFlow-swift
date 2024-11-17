@@ -146,8 +146,8 @@ class NavigationManager: Router {
         presentSheet(.createBudget)
     }
     
-    func presentCreateSavingPlans(dismissAction: (() -> Void)? = nil) {
-        presentSheet(.createSavingPlans, dismissAction)
+    func presentCreateSavingsPlan(savingsPlan: SavingsPlanModel? = nil, dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createSavingsPlan(savingsPlan: savingsPlan), dismissAction)
     }
     
     func presentCreateTransaction(dismissAction: (() -> Void)? = nil) {
@@ -203,8 +203,8 @@ private extension NavigationManager {
                 CreateAutomationView()
             case .createBudget:
                 CreateBudgetView()
-            case .createSavingPlans:
-                CreateSavingPlansView()
+            case .createSavingsPlan(let savingsPlan):
+                CreateSavingPlansView(savingsPlan: savingsPlan)
             case .createTransaction:
                 CreateTransactionView()
             case .recoverTransaction:

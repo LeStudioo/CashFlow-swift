@@ -11,8 +11,11 @@ import MCEmojiPicker
 
 struct CreateSavingPlansView: View {
     
+    // builder
+    var savingsPlan: SavingsPlanModel?
+    @StateObject private var viewModel: CreateSavingsPlanViewModel
+    
     // Custom
-    @StateObject private var viewModel: AddSavingPlanViewModel = .init()
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
     @EnvironmentObject private var contributionRepository: ContributionRepository
@@ -26,14 +29,20 @@ struct CreateSavingPlansView: View {
     }
     @FocusState private var focusedField: Field?
     
-    //MARK: - Body
+    // init
+    init(savingsPlan: SavingsPlanModel? = nil) {
+        self.savingsPlan = savingsPlan
+        self._viewModel = StateObject(wrappedValue: CreateSavingsPlanViewModel(savingsPlan: savingsPlan))
+    }
+    
+    // MARK: -
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
                     HStack(alignment: .bottom, spacing: 8) {
                         CustomTextField(
-                            text: $viewModel.savingPlanTitle,
+                            text: $viewModel.name,
                             config: .init(
                                 title: Word.Classic.name,
                                 placeholder: "MacBook Pro"
@@ -46,7 +55,7 @@ struct CreateSavingPlansView: View {
                         }
                         
                         Button(action: { viewModel.showEmojiPicker.toggle() }, label: {
-                            Text(viewModel.savingPlanEmoji)
+                            Text(viewModel.emoji)
                                 .font(.system(size: 16))
                                 .padding(15)
                                 .background {
@@ -56,26 +65,28 @@ struct CreateSavingPlansView: View {
                         })
                         .emojiPicker(
                             isPresented: $viewModel.showEmojiPicker,
-                            selectedEmoji: $viewModel.savingPlanEmoji
+                            selectedEmoji: $viewModel.emoji
                         )
                     }
                     
-                    CustomTextField(
-                        text: $viewModel.savingPlanAmountOfStart,
-                        config: .init(
-                            title: Word.Classic.initialAmount,
-                            placeholder: "0.00",
-                            style: .amount
+                    if savingsPlan == nil {
+                        CustomTextField(
+                            text: $viewModel.savingPlanAmountOfStart,
+                            config: .init(
+                                title: Word.Classic.initialAmount,
+                                placeholder: "0.00",
+                                style: .amount
+                            )
                         )
-                    )
-                    .focused($focusedField, equals: .amountOfStart)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .amountOfEnd
+                        .focused($focusedField, equals: .amountOfStart)
+                        .submitLabel(.next)
+                        .onSubmit {
+                            focusedField = .amountOfEnd
+                        }
                     }
                     
                     CustomTextField(
-                        text: $viewModel.savingPlanAmountOfEnd,
+                        text: $viewModel.goalAmount,
                         config: .init(
                             title: Word.Classic.amountToReach,
                             placeholder: "1 000",
@@ -87,13 +98,13 @@ struct CreateSavingPlansView: View {
                     
                     CustomDatePickerWithToggle(
                         title: Word.Classic.startTargetDate,
-                        date: $viewModel.savingPlanStartDate,
+                        date: $viewModel.startDate,
                         isEnabled: .constant(true)
                     )
                     
                     CustomDatePickerWithToggle(
                         title: Word.Classic.finalTargetDate,
-                        date: $viewModel.savingPlanDateOfEnd,
+                        date: $viewModel.endDate,
                         isEnabled: $viewModel.isEndDate,
                         withRange: true
                     )
@@ -120,7 +131,11 @@ struct CreateSavingPlansView: View {
                 
                 ToolbarCreateButtonView(isActive: viewModel.validateSavingPlan()) {
                     VibrationManager.vibration()
-                    viewModel.createSavingsPlan(dismiss: dismiss)
+                    if savingsPlan == nil {
+                        viewModel.createSavingsPlan(dismiss: dismiss)
+                    } else {
+                        viewModel.updateSavingsPlan(dismiss: dismiss)
+                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()

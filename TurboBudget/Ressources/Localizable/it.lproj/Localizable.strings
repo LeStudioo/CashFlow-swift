@@ -25,6 +25,8 @@
 
 "word_startTargetDate" = "Data di inizio prevista";
 
+"word_edit" = "Modificare";
+
 //MARK: - Create
 "create_add_category" = "Aggiungi una categoria";
 
@@ -171,7 +173,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 

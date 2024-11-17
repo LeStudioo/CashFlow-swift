@@ -60,7 +60,11 @@ extension SavingsPlanRepository {
                 responseModel: SavingsPlanModel.self
             )
             if let index = self.savingsPlans.map(\.id).firstIndex(of: savingsPlanID) {
-                self.savingsPlans[index] = savingsPlan
+                self.savingsPlans[index].name = savingsPlan.name
+                self.savingsPlans[index].emoji = savingsPlan.emoji
+                self.savingsPlans[index].goalAmount = savingsPlan.goalAmount
+                self.savingsPlans[index].startDate = savingsPlan.startDate
+                self.savingsPlans[index].endDate = savingsPlan.endDate
             }
         } catch { NetworkService.handleError(error: error) }
     }

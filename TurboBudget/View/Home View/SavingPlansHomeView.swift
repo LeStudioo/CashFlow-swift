@@ -70,7 +70,7 @@ struct SavingPlansHomeView: View {
             ToolbarDismissPushButton()
             
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(present: router.presentCreateSavingPlans()) {
+                NavigationButton(present: router.presentCreateSavingsPlan()) {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))

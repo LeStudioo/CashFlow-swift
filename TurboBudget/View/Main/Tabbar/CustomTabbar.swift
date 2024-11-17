@@ -44,7 +44,7 @@ struct TabbarView: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if accountRepository.mainAccount != nil {
-                        NavigationButton(present: router.presentCreateSavingPlans()) {
+                        NavigationButton(present: router.presentCreateSavingsPlan()) {
                             viewModel.showMenu = false
                         } label: {
                             Label("word_savingsplan".localized, systemImage: "dollarsign.square.fill")

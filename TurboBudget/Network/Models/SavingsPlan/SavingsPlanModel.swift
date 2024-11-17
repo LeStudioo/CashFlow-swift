@@ -16,9 +16,10 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var currentAmount: Double?
     @Published var goalAmount: Double?
     @Published var note: String?
+    @Published var isArchived: Bool?
 
     // Initialiseur
-    init(id: Int? = nil, name: String? = nil, emoji: String? = nil, startDate: String? = nil, endDate: String? = nil, currentAmount: Double? = nil, goalAmount: Double? = nil, note: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, emoji: String? = nil, startDate: String? = nil, endDate: String? = nil, currentAmount: Double? = nil, goalAmount: Double? = nil, note: String? = nil, isArchived: Bool? = nil) {
         self.id = id
         self.name = name
         self.emoji = emoji
@@ -27,6 +28,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.currentAmount = currentAmount
         self.goalAmount = goalAmount
         self.note = note
+        self.isArchived = isArchived
     }
     
     /// Body
@@ -48,7 +50,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, emoji, startDate, endDate, currentAmount, goalAmount, note
+        case id, name, emoji, startDate, endDate, currentAmount, goalAmount, note, isArchived
     }
 
     required init(from decoder: Decoder) throws {
@@ -61,6 +63,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         currentAmount = try container.decodeIfPresent(Double.self, forKey: .currentAmount)
         goalAmount = try container.decodeIfPresent(Double.self, forKey: .goalAmount)
         note = try container.decodeIfPresent(String.self, forKey: .note)
+        isArchived = try container.decodeIfPresent(Bool.self, forKey: .isArchived)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -73,6 +76,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(currentAmount, forKey: .currentAmount)
         try container.encodeIfPresent(goalAmount, forKey: .goalAmount)
         try container.encodeIfPresent(note, forKey: .note)
+        try container.encodeIfPresent(isArchived, forKey: .isArchived)
     }
 
     // Fonction pour le protocole Equatable
@@ -84,7 +88,8 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
                lhs.endDate == rhs.endDate &&
                lhs.currentAmount == rhs.currentAmount &&
                lhs.goalAmount == rhs.goalAmount &&
-               lhs.note == rhs.note
+               lhs.note == rhs.note &&
+               lhs.isArchived == rhs.isArchived
     }
 
     // Fonction pour le protocole Hashable
@@ -97,6 +102,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         hasher.combine(currentAmount)
         hasher.combine(goalAmount)
         hasher.combine(note)
+        hasher.combine(isArchived)
     }
 }
 

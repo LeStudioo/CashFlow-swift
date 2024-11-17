@@ -84,7 +84,7 @@ struct SavingPlansForHomeScreen: View {
                 .cornerRadius(20)
                 .padding(.horizontal)
                 .onTapGesture {
-                    router.presentCreateSavingPlans()
+                    router.presentCreateSavingsPlan()
                 }
             }
         }

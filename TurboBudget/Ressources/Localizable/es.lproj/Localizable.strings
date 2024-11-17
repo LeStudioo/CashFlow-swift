@@ -25,6 +25,8 @@
 
 "word_startTargetDate" = "Fecha de inicio del objetivo";
 
+"word_edit" = "Editar";
+
 //MARK: - Create
 "create_add_category" = "Añadir una categoría";
 

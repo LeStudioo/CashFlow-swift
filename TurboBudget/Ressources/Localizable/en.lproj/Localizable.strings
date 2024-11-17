@@ -25,6 +25,8 @@
 
 "word_startTargetDate" = "Goal start date";
 
+"word_edit" = "Edit";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 

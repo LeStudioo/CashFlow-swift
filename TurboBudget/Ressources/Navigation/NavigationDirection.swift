@@ -21,7 +21,7 @@ enum NavigationDirection: Identifiable {
     case createAccount
     case createAutomation
     case createBudget
-    case createSavingPlans
+    case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
     case createTransaction
     case recoverTransaction
     case createSavingsAccount
@@ -79,7 +79,7 @@ extension NavigationDirection: Equatable {
             (.createAccount, .createAccount),
             (.createAutomation, .createAutomation),
             (.createBudget, .createBudget),
-            (.createSavingPlans, .createSavingPlans),
+            (.createSavingsPlan, .createSavingsPlan),
             (.createTransaction, .createTransaction),
             (.recoverTransaction, .recoverTransaction),
             (.createSavingsAccount, .createSavingsAccount),

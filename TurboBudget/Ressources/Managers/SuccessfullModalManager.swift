@@ -19,6 +19,21 @@ final class SuccessfullModalManager: ObservableObject {
 }
 
 extension SuccessfullModalManager {
+ 
+    @MainActor
+    func showSuccessfullSavingsPlan(savingsPlan: SavingsPlanModel) {
+        self.title = "savingsplan_successful".localized
+        self.subtitle = "savingsplan_successful_desc".localized
+        self.content = AnyView(SavingsPlanRow(savingsPlan: savingsPlan))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isPresenting = true
+        }
+    }
+    
+}
+
+extension SuccessfullModalManager {
     
     func resetData() {
         self.title = ""
