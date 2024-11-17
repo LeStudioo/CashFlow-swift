@@ -12,5 +12,6 @@ enum ViewState {
     case loading
     case success
     case failed
+    case syncing
     case notSynced
 }

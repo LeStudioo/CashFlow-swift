@@ -38,6 +38,7 @@ final class DataForServer: ObservableObject {
     }
     
     func syncOldDataToServer() async throws {
+        print(json)
         guard isJsonValid else { return }
         guard let url = URL(string: NetworkPath.baseURL + "/sync/old") else { return }
         var urlRequest = URLRequest(url: url)

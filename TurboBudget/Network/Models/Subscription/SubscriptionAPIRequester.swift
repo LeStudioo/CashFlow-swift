@@ -17,8 +17,8 @@ enum SubscriptionAPIRequester: APIRequestBuilder {
 extension SubscriptionAPIRequester {
     var path: String {
         switch self {
-        case .fetch:                            return NetworkPath.Subscription.base
-        case .create:                           return NetworkPath.Subscription.base
+        case .fetch(let accountID):             return NetworkPath.Subscription.base(accountID: accountID)
+        case .create(let accountID, _):         return NetworkPath.Subscription.base(accountID: accountID)
         case .update(let subscriptionID, _):    return NetworkPath.Subscription.update(id: subscriptionID)
         case .delete(let subscriptionID):       return NetworkPath.Subscription.delete(id: subscriptionID)
         }

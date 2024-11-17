@@ -53,46 +53,6 @@ extension TransactionRepositoryOld {
         }
     }
     
-    /// Create a new transaction
-    func createNewTransaction(model: TransactionModelOld, withSave: Bool = true) throws -> TransactionEntity {
-        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
-        guard let category = PredefinedCategory.findByID(model.predefCategoryID) else { throw CustomError.categoryNotFound }
-                
-        let newTransaction = TransactionEntity(context: viewContext)
-        newTransaction.id = UUID()
-        newTransaction.title = model.title.trimmingCharacters(in: .whitespaces)
-        newTransaction.amount = model.amount
-        newTransaction.date = model.date
-        newTransaction.isAuto = model.isAuto
-        newTransaction.creationDate = .now
-        newTransaction.predefCategoryID = category.id
-        newTransaction.predefSubcategoryID = PredefinedSubcategory.findByID(model.predefSubcategoryID)?.id ?? ""
-        newTransaction.transactionToAccount = account
-        
-        if withSave {
-            account.addNewTransaction(transaction: newTransaction)
-            self.transactions.append(newTransaction)
-        }
-        
-        return newTransaction
-    }
-    
-    /// Delete a transaction
-    func deleteTransaction(transaction: TransactionEntity) {
-        if let account = AccountRepositoryOld.shared.mainAccount {
-            account.balance -= transaction.amount
-        }
-        
-        viewContext.delete(transaction)
-
-        // TODO: Voir si pas possible de faire autrement
-        self.transactions.removeAll(where: { $0.id == transaction.id })
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            persistenceController.saveContext()
-        }
-    }
-    
 }
 
 // MARK: - Utils

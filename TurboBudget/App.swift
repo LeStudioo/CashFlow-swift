@@ -75,12 +75,14 @@ struct TurboBudgetApp: App {
                         await accountRepository.fetchAccounts()
                         accountRepository.selectedAccount = accountRepository.mainAccount
                         if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
-                            await transactionRepository.fetchTransactions(accountID: accountID)
+                            await transactionRepository.fetchTransactionsWithPagination(accountID: accountID, perPage: 50)
                             await subscriptionRepository.fetchSubscriptions(accountID: accountID)
                             await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
                             await budgetRepository.fetchBudgets(accountID: accountID)
                         }
                     }
+                case .syncing:
+                    Text("Syncing")
                 case .notSynced:
                     Text("Not synced")
                 case .failed:

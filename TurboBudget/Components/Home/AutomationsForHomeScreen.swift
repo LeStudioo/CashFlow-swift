@@ -13,6 +13,7 @@ struct AutomationsForHomeScreen: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
     @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences
@@ -37,15 +38,15 @@ struct AutomationsForHomeScreen: View {
             .padding(.horizontal)
             .padding(.top)
             
-            if automationRepo.automations.count != 0 {
+            if !subscriptionRepository.subscriptions.isEmpty {
                 VStack {
-                    ForEach(automationRepo.automations.prefix(preferencesDisplayHome.subscription_value)) { automation in
+                    ForEach(subscriptionRepository.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
                         Button(action: {
 //                            if let transaction = automation.automationToTransaction {
 //                                router.pushTransactionDetail(transaction: transaction)
 //                            }
                         }, label: {
-                            AutomationRow(automation: automation)
+                            AutomationRow(subscription: subscription)
                         })
                     }
                 }

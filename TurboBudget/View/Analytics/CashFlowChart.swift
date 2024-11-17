@@ -46,7 +46,7 @@ struct CashFlowChart: View {
                 .padding(8)
             }
             Chart {
-                let transactionsByMonth = transactionRepository.transactionsByMonth.sorted(by: { $0.key < $1.key })
+                let transactionsByMonth = transactionRepository.transactionsByMonthCashFlow.sorted(by: { $0.key < $1.key })
                 ForEach(transactionsByMonth.indices, id: \.self) { index in
                     
                     let components = Calendar.current.dateComponents([.month, .year], from: filter.date)

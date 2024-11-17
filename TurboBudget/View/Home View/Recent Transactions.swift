@@ -14,26 +14,47 @@ enum FilterForRecentTransaction: Int, CaseIterable {
 }
 
 struct RecentTransactionsView: View {
-        
+    
     // Environement
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var transactionRepository: TransactionRepository
     
     // Custom
     @StateObject private var viewModel = RecentTransactionsViewModel()
-        
+    
     // String variables
     @State private var searchText: String = ""
-        
+    
     // Boolean variables
     @State private var ascendingOrder: Bool = false
-        
+    
     // Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
-    // Computed var
     var getAllMonthForTransactions: [DateComponents] {
         var array: [DateComponents] = []
+        //        let dates: [Date] = transactionRepository.transactions.compactMap { $0.date }
+        //        let dateFormatter = DateFormatter()
+        //            dateFormatter.dateFormat = "yyyy-MM"
+        //
+        //        var uniqueMonths = Set<String>()
+        //
+        //            // Filtre les dates
+        //            let firstDays = dates.filter { date in
+        //                // Obtenir l'année et le mois sous forme de chaîne (par exemple, "2024-01")
+        //                let monthKey = dateFormatter.string(from: date)
+        //
+        //                // Vérifie si le mois a déjà été rencontré
+        //                if !uniqueMonths.contains(monthKey) {
+        //                    uniqueMonths.insert(monthKey)
+        //
+        //                    return true
+        //                }
+        //                return false
+        //            }
+        //
+        //            return firstDays
         for transaction in transactionRepository.transactions {
             let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
             if !array.contains(components) { array.append(components) }
@@ -41,6 +62,7 @@ struct RecentTransactionsView: View {
         return array
     }
     
+    // Computed var
     var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
@@ -75,7 +97,7 @@ struct RecentTransactionsView: View {
             }
         }
     }
-        
+    
     // MARK: - body
     var body: some View {
         VStack {
@@ -108,11 +130,11 @@ struct RecentTransactionsView: View {
                     .background(Color.background.edgesIgnoringSafeArea(.all))
                     .animation(.smooth, value: transactionRepository.transactions.count)
                 } else {
-                    List(getAllMonthForTransactions, id: \.self) { dateComponents in
-                        if let month = Calendar.current.date(from: dateComponents) {
-                            if viewModel.searchResults().map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
+                    List {
+                        ForEach(getAllMonthForTransactions, id: \.self) { dateComponents in
+                            if let month = Calendar.current.date(from: dateComponents) {
                                 Section(content: {
-                                    ForEach(viewModel.searchResults()) { transaction in
+                                    ForEach(transactionRepository.transactions) { transaction in
                                         if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                                 TransactionRow(transaction: transaction)
@@ -145,8 +167,17 @@ struct RecentTransactionsView: View {
                                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
                                     }
                                 })
-                            }
+                            }                            
                         }
+                        
+                        Section(content: { }, footer: { ProgressView() })
+                            .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
+                            .listRowSeparator(.hidden)
+                            .task {
+                                if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
+                                    await transactionRepository.fetchTransactionsWithPagination(accountID: accountID)
+                                }
+                            }
                     } // End List
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)

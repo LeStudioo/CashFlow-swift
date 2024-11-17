@@ -16,9 +16,9 @@ enum CreditCardAPIRequester: APIRequestBuilder {
 extension CreditCardAPIRequester {
     var path: String {
         switch self {
-        case .fetch:                return NetworkPath.CreditCard.base
-        case .create:               return NetworkPath.CreditCard.base
-        case .delete(let cardID):   return NetworkPath.CreditCard.delete(id: cardID)
+        case .fetch(let accountID):     return NetworkPath.CreditCard.base(accountID: accountID)
+        case .create(let accountID, _): return NetworkPath.CreditCard.base(accountID: accountID)
+        case .delete(let cardID):       return NetworkPath.CreditCard.delete(id: cardID)
         }
     }
     
@@ -31,11 +31,7 @@ extension CreditCardAPIRequester {
     }
     
     var parameters: [URLQueryItem]? {
-        switch self {
-        case .fetch(let accountID):     return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .create(let accountID, _): return [URLQueryItem(name: "accountID", value: String(accountID))]
-        case .delete:                   return nil
-        }
+        return nil
     }
     
     var isTokenNeeded: Bool {

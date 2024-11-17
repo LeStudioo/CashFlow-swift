@@ -31,7 +31,6 @@ extension TransactionEntity: Encodable {
         try container.encode(amount, forKey: .amount)
         try container.encode(amount >= 0 ? 1 : 0, forKey: .type)
         try container.encode(date?.ISO8601Format(), forKey: .date)
-        try container.encode(creationDate.ISO8601Format(), forKey: .creationDate)
         try container.encode(predefCategoryID, forKey: .predefCategoryID)
         try container.encode(predefSubcategoryID, forKey: .predefSubcategoryID)
         try container.encode(note, forKey: .note)

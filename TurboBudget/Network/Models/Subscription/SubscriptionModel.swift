@@ -16,22 +16,29 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     @Published var id: Int?
     @Published var name: String?
     @Published var amount: Double?
-    @Published var type: Int?
+    @Published var typeNum: Int?
     @Published var frequency: Int? // SubscriptionFrequency
     @Published var frequencyDate: String? // if frequency == 1
-    @Published var frequencyDay: String? // if frequency == 0
     @Published var categoryID: String?
     @Published var subcategoryID: String?
 
     // Initialiseur
-    init(id: Int? = nil, name: String? = nil, amount: Double? = nil, type: Int? = nil, frequency: Int? = nil, frequencyDate: String? = nil, frequencyDay: String? = nil, categoryID: String? = nil, subcategoryID: String? = nil) {
+    init(
+        id: Int? = nil,
+        name: String? = nil,
+        amount: Double? = nil,
+        typeNum: Int? = nil,
+        frequency: Int? = nil,
+        frequencyDate: String? = nil,
+        categoryID: String? = nil,
+        subcategoryID: String? = nil
+    ) {
         self.id = id
         self.name = name
         self.amount = amount
-        self.type = type
+        self.typeNum = typeNum
         self.frequency = frequency
         self.frequencyDate = frequencyDate
-        self.frequencyDay = frequencyDay
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
     }
@@ -46,14 +53,15 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     ) {
         self.name = name
         self.amount = amount
-        self.type = type.rawValue
+        self.typeNum = type.rawValue
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
     }
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, amount, type, frequency, frequencyDate, frequencyDay, categoryID, subcategoryID
+        case id, name, amount, frequency, frequencyDate, frequencyDay, categoryID, subcategoryID
+        case typeNum = "type"
     }
 
     required init(from decoder: Decoder) throws {
@@ -61,10 +69,9 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        type = try container.decodeIfPresent(Int.self, forKey: .type)
+        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         frequency = try container.decodeIfPresent(Int.self, forKey: .frequency)
         frequencyDate = try container.decodeIfPresent(String.self, forKey: .frequencyDate)
-        frequencyDay = try container.decodeIfPresent(String.self, forKey: .frequencyDay)
         categoryID = try container.decodeIfPresent(String.self, forKey: .categoryID)
         subcategoryID = try container.decodeIfPresent(String.self, forKey: .subcategoryID)
     }
@@ -74,10 +81,9 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(name, forKey: .name)
         try container.encodeIfPresent(amount, forKey: .amount)
-        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(frequency, forKey: .frequency)
         try container.encodeIfPresent(frequencyDate, forKey: .frequencyDate)
-        try container.encodeIfPresent(frequencyDay, forKey: .frequencyDay)
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
     }
@@ -87,10 +93,9 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         return lhs.id == rhs.id &&
                lhs.name == rhs.name &&
                lhs.amount == rhs.amount &&
-               lhs.type == rhs.type &&
+               lhs.typeNum == rhs.typeNum &&
                lhs.frequency == rhs.frequency &&
                lhs.frequencyDate == rhs.frequencyDate &&
-               lhs.frequencyDay == rhs.frequencyDay &&
                lhs.categoryID == rhs.categoryID &&
                lhs.subcategoryID == rhs.subcategoryID
     }
@@ -100,11 +105,30 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         hasher.combine(id)
         hasher.combine(name)
         hasher.combine(amount)
-        hasher.combine(type)
+        hasher.combine(typeNum)
         hasher.combine(frequency)
         hasher.combine(frequencyDate)
-        hasher.combine(frequencyDay)
         hasher.combine(categoryID)
         hasher.combine(subcategoryID)
     }
+}
+
+extension SubscriptionModel {
+    
+    var category: PredefinedCategory? {
+        return PredefinedCategory(rawValue: categoryID ?? "")
+    }
+    
+    var subcategory: PredefinedSubcategory? {
+        return PredefinedSubcategory(rawValue: subcategoryID ?? "")
+    }
+    
+    var type: TransactionType {
+        return TransactionType(rawValue: typeNum ?? 0) ?? .none
+    }
+    
+    var date: Date? {
+        return self.frequencyDate?.toDate() ?? .now
+    }
+    
 }

@@ -46,7 +46,9 @@ struct NetworkPath {
     }
     
     struct Subscription {
-        static let base: String = "/subscription"
+        static func base(accountID: Int) -> String {
+            return "/subscription/\(accountID)"
+        }
         static func update(id: Int) -> String {
             return "/subscription/\(id)"
         }
@@ -80,7 +82,9 @@ struct NetworkPath {
     }
     
     struct Budget {
-        static let base: String = "/budget"
+        static func base(accountID: Int) -> String {
+            return "/budget/\(accountID)"
+        }
         static func update(id: Int) -> String {
             return "/budget/\(id)"
         }
@@ -90,7 +94,9 @@ struct NetworkPath {
     }
     
     struct CreditCard {
-        static let base: String = "/creditcard"
+        static func base(accountID: Int) -> String {
+            return "/creditcard/\(accountID)"
+        }
         static func delete(id: Int) -> String {
             return "/creditcard/\(id)"
         }

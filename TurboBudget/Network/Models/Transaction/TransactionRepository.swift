@@ -11,7 +11,7 @@ final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
     @Published var transactions: [TransactionModel] = []
-    
+        
     var expenses: [TransactionModel] {
         return transactions.filter { $0.type == .expense }
     }
@@ -19,29 +19,9 @@ final class TransactionRepository: ObservableObject {
     var incomes: [TransactionModel] {
         return transactions.filter { $0.type == .income }
     }
-
-    var transactionsByMonth: [Int : [TransactionModel]] {
-        var groupedTransactions: [Int: [TransactionModel]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
-        
-        let calendar = Calendar.current
-        
-        for transaction in self.transactions {
-            let month = calendar.component(.month, from: transaction.date.withDefault)
-            
-            if groupedTransactions[month] == nil {
-                groupedTransactions[month] = []
-            }
-            
-            groupedTransactions[month]?.append(transaction)
-        }
-        
-        for (month, transactions) in groupedTransactions {
-            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
-        }
-        
-        return groupedTransactions
-    }
+    
 }
+
 
 extension TransactionRepository {
     
@@ -53,6 +33,22 @@ extension TransactionRepository {
                 responseModel: [TransactionModel].self
             )
             self.transactions = transactions
+            sortTransactionsByDate()
+        } catch { NetworkService.handleError(error: error) }
+    }
+    
+    @MainActor
+    func fetchTransactionsWithPagination(accountID: Int, perPage: Int = 50) async {
+        do {
+            let transactions = try await NetworkService.shared.sendRequest(
+                apiBuilder: TransactionAPIRequester.fetchWithPagination(
+                    accountID: accountID,
+                    perPage: perPage,
+                    skip: self.transactions.count
+                ),
+                responseModel: [TransactionModel].self
+            )
+            self.transactions += transactions
             sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
@@ -117,4 +113,31 @@ extension TransactionRepository {
             self.transactions.removeAll { $0.id == transactionID }
         } catch { NetworkService.handleError(error: error) }
     }
+}
+
+// TODO: To delete
+extension TransactionRepository {
+    
+    var transactionsByMonthCashFlow: [Int : [TransactionModel]] {
+        var groupedTransactions: [Int: [TransactionModel]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
+        
+        let calendar = Calendar.current
+        
+        for transaction in self.transactions {
+            let month = calendar.component(.month, from: transaction.date.withDefault)
+            
+            if groupedTransactions[month] == nil {
+                groupedTransactions[month] = []
+            }
+            
+            groupedTransactions[month]?.append(transaction)
+        }
+        
+        for (month, transactions) in groupedTransactions {
+            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
+        }
+        
+        return groupedTransactions
+    }
+    
 }

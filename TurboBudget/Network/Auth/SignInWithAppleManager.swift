@@ -41,6 +41,7 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
                     UserRepository.shared.currentUser = user
 
                     do {
+                        AppManager.shared.viewState = .syncing
                         try await DataForServer.shared.syncOldDataToServer()
                         PersistenceController.clearOldDatabase()
                         AppManager.shared.viewState = .success

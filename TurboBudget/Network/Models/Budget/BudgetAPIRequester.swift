@@ -17,8 +17,8 @@ enum BudgetAPIRequester: APIRequestBuilder {
 extension BudgetAPIRequester {
     var path: String {
         switch self {
-        case .fetch:                    return NetworkPath.Budget.base
-        case .create:                   return NetworkPath.Budget.base
+        case .fetch(let accountID):     return NetworkPath.Budget.base(accountID: accountID)
+        case .create(let accountID, _): return NetworkPath.Budget.base(accountID: accountID)
         case .update(let budgetID, _):  return NetworkPath.Budget.update(id: budgetID)
         case .delete(let budgetID):     return NetworkPath.Budget.delete(id: budgetID)
         }

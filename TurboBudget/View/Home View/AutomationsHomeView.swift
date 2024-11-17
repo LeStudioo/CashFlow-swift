@@ -17,6 +17,7 @@ struct AutomationsHomeView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
     @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     @Environment(\.dismiss) private var dismiss
     
@@ -30,14 +31,14 @@ struct AutomationsHomeView: View {
     @State private var orientation = UIDeviceOrientation.unknown
     
     // Computed var
-    private var searchResults: [Automation] {
+    private var searchResults: [SubscriptionModel] {
         if searchText.isEmpty {
-            return automationRepo.automations
+            return subscriptionRepository.subscriptions
         } else { //Searching
-            let automationsFilterByTitle = automationRepo.automations
-                .filter { $0.title.localizedStandardContains(searchText) }
+            let automationsFilterByTitle = subscriptionRepository.subscriptions
+                .filter { $0.name?.localizedStandardContains(searchText) ?? false }
             
-            let automationsFilterByDate = automationRepo.automations
+            let automationsFilterByDate = subscriptionRepository.subscriptions
                 .filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date.withDefault).localizedStandardContains(searchText) }
             
             if automationsFilterByTitle.isEmpty {
@@ -48,9 +49,9 @@ struct AutomationsHomeView: View {
         }
     }
     
-    public var automationsByMonth: [Date: [Automation]] {
+    public var automationsByMonth: [Date: [SubscriptionModel]] {
         var arrayDate: [Date] = []
-        var finalDict: [Date : [Automation]] = [:]
+        var finalDict: [Date : [SubscriptionModel]] = [:]
         
         for automation in searchResults {
             let month = Calendar.current.dateComponents([.month, .year], from: automation.date.withDefault)
@@ -79,19 +80,19 @@ struct AutomationsHomeView: View {
     // MARK: - body
     var body: some View {
         VStack(spacing: 0) {
-            if automationRepo.automations.count != 0 && searchResults.count != 0  {
+            if !subscriptionRepository.subscriptions.isEmpty && searchResults.count != 0  {
                 List {
-                    ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, automations in
+                    ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
                         Section {
-                            ForEach(automations, id: \.self) { automation in
-                                AutomationRow(automation: automation)
+                            ForEach(subscriptions, id: \.self) { subscription in
+                                AutomationRow(subscription: subscription)
                             }
                         } header: {
-                            DetailOfExpensesAndIncomesByMonth(
-                                month: month,
-                                amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
-                                amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
-                            )
+//                            DetailOfExpensesAndIncomesByMonth(
+//                                month: month,
+//                                amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
+//                                amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
+//                            )
                         }
                     }
                     .listRowSeparator(.hidden)

@@ -15,7 +15,7 @@ extension Automation: Encodable {
         case amount
         case type
         case frequency
-        case frequencyDay
+        case frequencyDate
         case creationDate
         case predefCategoryID = "categoryID"
         case predefSubcategoryID = "subcategoryID"
@@ -27,7 +27,7 @@ extension Automation: Encodable {
         try container.encode(automationToTransaction?.amount, forKey: .amount)
         try container.encode((automationToTransaction?.amount ?? 0) >= 0 ? 1 : 0, forKey: .type)
         try container.encode(0, forKey: .frequency)
-        try container.encode(date?.day, forKey: .frequencyDay)
+        try container.encode(date?.toISO(), forKey: .frequencyDate)
         try container.encode(automationToTransaction?.predefCategoryID, forKey: .predefCategoryID)
         try container.encode(automationToTransaction?.predefSubcategoryID, forKey: .predefSubcategoryID)
     }
