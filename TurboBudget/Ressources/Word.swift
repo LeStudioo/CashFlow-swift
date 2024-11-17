@@ -36,18 +36,33 @@ struct Word {
             static let new: String = "title_new_transaction".localized
             static let update: String = "title_update_transaction".localized
         }
+        struct SavingsPlan {
+            static let new: String = "title_new_savingsPlan".localized
+            static let update: String = "title_update_savingsPlan".localized
+        }
        
         static let newAutomation: String = "title_new_automation".localized
         static let newSavingsPlan: String = "title_new_savingsPlan".localized
     }
     
     struct Successful {
-        static func transactionTitle(type: SuccessfulType) -> String {
-            return type == .new ? "successful_transaction_new_title".localized : "successful_transaction_update_title".localized
+        struct Transaction {
+            static func title(type: SuccessfulType) -> String {
+                return "successful_transaction_\(type.rawValue)_title".localized
+            }
+            static func description(type: SuccessfulType) -> String {
+                return "successful_transaction_\(type.rawValue)_desc".localized
+            }
         }
-        static func transactionDesc(type: SuccessfulType) -> String {
-            return type == .new ? "successful_transaction_new_desc".localized : "successful_transaction_update_desc".localized
+        struct SavingsPlan {
+            static func title(type: SuccessfulType) -> String {
+                return "successful_savingsplan_\(type.rawValue)_title".localized
+            }
+            static func description(type: SuccessfulType) -> String {
+                return "successful_savingsplan_\(type.rawValue)_desc".localized
+            }
         }
+        
     }
     
 }

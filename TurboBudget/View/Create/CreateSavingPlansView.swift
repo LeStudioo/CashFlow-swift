@@ -125,11 +125,14 @@ struct CreateSavingPlansView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text(Word.Title.newSavingsPlan)
+                    Text(savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update)
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
-                ToolbarValidationButtonView(isActive: viewModel.validateSavingPlan()) {
+                ToolbarValidationButtonView(
+                    type: savingsPlan == nil ? .creation : .edition,
+                    isActive: viewModel.validateSavingPlan()
+                ) {
                     VibrationManager.vibration()
                     if savingsPlan == nil {
                         viewModel.createSavingsPlan(dismiss: dismiss)

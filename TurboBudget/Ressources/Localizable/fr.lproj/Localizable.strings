@@ -27,17 +27,21 @@
 
 "word_edit" = "Modifier";
 
+"word_create" = "Créer";
+
 //MARK: - Create
 "create_add_category" = "Ajouter une catégorie";
 
 //MARK: - Title
 "title_new_transaction" = "Nouvelle transaction";
 
-"title_update_transaction" = "Mise à jour de la transaction";
+"title_update_transaction" = "Modifier la transaction";
 
 "title_new_automation" = "Nouvelle automatisation";
 
 "title_new_savingsPlan" = "Nouveau plan d'épargne";
+
+"title_update_savingsPlan" = "Modifier le plan d'épargne";
 
 //MARK: - Login
 "login_connection" = "Connexion";
@@ -56,6 +60,14 @@
 "successful_transaction_update_title" = "Transaction modifiée !";
 
 "successful_transaction_update_desc" = "Votre transaction a été mise à jour dans votre liste de transactions.";
+
+"successful_savingsplan_new_title" = "Plan d'épargne créé !";
+
+"successful_savingsplan_new_desc" = "Votre plan d'épargne a été traité et ajouté à votre liste de plans d'épargne.";
+
+"successful_savingsplan_update_title" = "Plan d'épargne modifié !";
+
+"successful_savingsplan_update_desc" = "Votre plan d'épargne a été mise à jour dans votre liste de plans d'épargne.";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";
@@ -175,8 +187,6 @@
 "word_total" = "Total";
 
 "word_total_auto" = "Automatisations totales";
-
-"word_create" = "Créer";
 
 "word_scanner" = "Scanner";
 

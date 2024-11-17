@@ -27,6 +27,8 @@
 
 "word_edit" = "Edit";
 
+"word_create" = "Create";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 
@@ -38,6 +40,8 @@
 "title_new_automation" = "New automation";
 
 "title_new_savingsPlan" = "New savings plan";
+
+"title_update_savingsPlan" = "Update savings plan";
 
 //MARK: - Login
 "login_connection" = "Login";
@@ -56,6 +60,14 @@
 "successful_transaction_update_title" = "Transaction modified!";
 
 "successful_transaction_update_desc" = "Your transaction has been updated in your transaction list.";
+
+"successful_savingsplan_new_title" = "Savings plan created!";
+
+"successful_savingsplan_new_desc" = "Your savings plan has been processed and added to your list of savings plans.";
+
+"successful_savingsplan_update_title" = "Savings plan modified!";
+
+"successful_savingsplan_update_desc" = "Your savings plan has been updated in your list of savings plans.";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";
@@ -175,8 +187,6 @@
 "word_total" = "Total";
 
 "word_total_auto" = "Total automations";
-
-"word_create" = "Create";
 
 "word_scanner" = "Scan";
 

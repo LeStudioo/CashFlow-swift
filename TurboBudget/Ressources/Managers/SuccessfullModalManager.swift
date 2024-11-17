@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum SuccessfulType {
+enum SuccessfulType: String {
     case new
     case update
 }
@@ -27,8 +27,8 @@ extension SuccessfullModalManager {
     
     @MainActor
     func showSuccessfulTransaction(type: SuccessfulType, transaction: TransactionModel) {
-        self.title = Word.Successful.transactionTitle(type: type)
-        self.subtitle = Word.Successful.transactionDesc(type: type)
+        self.title = Word.Successful.Transaction.title(type: type)
+        self.subtitle = Word.Successful.Transaction.description(type: type)
         self.content = AnyView(TransactionRow(transaction: transaction).disabled(true))
             
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -37,9 +37,9 @@ extension SuccessfullModalManager {
     }
  
     @MainActor
-    func showSuccessfullSavingsPlan(savingsPlan: SavingsPlanModel) {
-        self.title = "savingsplan_successful".localized
-        self.subtitle = "savingsplan_successful_desc".localized
+    func showSuccessfulSavingsPlan(type: SuccessfulType, savingsPlan: SavingsPlanModel) {
+        self.title = Word.Successful.SavingsPlan.title(type: type)
+        self.subtitle = Word.Successful.SavingsPlan.description(type: type)
         self.content = AnyView(SavingsPlanRow(savingsPlan: savingsPlan))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

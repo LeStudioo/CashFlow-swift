@@ -74,27 +74,27 @@ extension CreateSavingsPlanViewModel {
                 
                 await dismiss()
                 
-                await successfullModalManager.showSuccessfullSavingsPlan(savingsPlan: savingsPlan)
+                await successfullModalManager.showSuccessfulSavingsPlan(type: .new, savingsPlan: savingsPlan)
             }
         }
     }
     
     func updateSavingsPlan(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
         let savingsPlanRepository: SavingsPlanRepository = .shared
+        let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
-            guard let account = accountRepository.selectedAccount else { return }
-            guard let accountID = account.id else { return }
+            guard let savingsPlan else { return }
+            guard let savingsPlanID = savingsPlan.id else { return }
             
-            if let savingsPlan = savingsPlan, let savingsPlanID = savingsPlan.id {
-                await savingsPlanRepository.updateSavingsPlan(
-                    savingsPlanID: savingsPlanID,
-                    body: bodyForCreation()
-                )
-                
-                await dismiss()
-            }
+            await savingsPlanRepository.updateSavingsPlan(
+                savingsPlanID: savingsPlanID,
+                body: bodyForCreation()
+            )
+            
+            await dismiss()
+            
+            await successfullModalManager.showSuccessfulSavingsPlan(type: .update, savingsPlan: savingsPlan)
         }
     }
     
