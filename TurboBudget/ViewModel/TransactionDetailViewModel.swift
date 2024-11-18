@@ -16,21 +16,28 @@ class TransactionDetailViewModel: ObservableObject {
 //MARK: - Utils
 extension TransactionDetailViewModel {
     
-    // TODO: Refaire
-    func changeCategory(transaction: TransactionModel) {
+    func updateCategory(transactionID: Int) {
+        let accountRepository: AccountRepository = .shared
+        let transactionRepository: TransactionRepository = .shared
+        guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
+        
+        let body: TransactionModel = .init()
+        
         if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
-            transaction.categoryID = newCategory.id
-            transaction.subcategoryID = ""
-            // TODO: Voir si auto update
-//            PredefinedObjectManager.shared.addTransactionsToCategory()
-//            PredefinedObjectManager.shared.addTransactionsToSubcategory()
+            body.categoryID = newCategory.id
+            body.subcategoryID = ""
+            
             if let selectedSubcategory, let newSubcategory = newCategory.subcategories.findByID(selectedSubcategory.id) {
-                transaction.subcategoryID = newSubcategory.id
-                // TODO: Voir si auto update
-//                PredefinedObjectManager.shared.addTransactionsToSubcategory()
+                body.subcategoryID = newSubcategory.id
             }
-//            persistenceController.saveContext()
-            // TODO: Repository update
+            
+            Task {
+                await transactionRepository.updateTransaction(
+                    accountID: accountID,
+                    transactionID: transactionID,
+                    body: body
+                )
+            }
         }
     }
     

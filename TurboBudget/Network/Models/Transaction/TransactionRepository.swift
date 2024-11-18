@@ -59,7 +59,7 @@ extension TransactionRepository {
                 responseModel: [TransactionModel].self
             )
             self.transactions += transactions
-//            sortTransactionsByDate()
+            sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
     

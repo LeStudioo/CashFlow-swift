@@ -75,7 +75,9 @@ struct TransactionDetailView: View {
                                 }
                             }
                             .sheet(isPresented: $showWhatCategory, onDismiss: {
-                                viewModel.changeCategory(transaction: transaction)
+                                if let transactionID = transaction.id {
+                                    viewModel.updateCategory(transactionID: transactionID)
+                                }
                             }) {
                                 SelectCategoryView(
                                     selectedCategory: $viewModel.selectedCategory,
@@ -103,7 +105,9 @@ struct TransactionDetailView: View {
                     .onTapGesture {
                         viewModel.selectedCategory = categoryFound
                         if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                        viewModel.changeCategory(transaction: transaction)
+                        if let transactionID = transaction.id {
+                            viewModel.updateCategory(transactionID: transactionID)
+                        }
                     }
                     .padding(.top, 8)
                 }
