@@ -24,9 +24,7 @@ struct AddTransactionIntent: AppIntent {
     }
     
     func perform() async throws -> some IntentResult & ProvidesDialog {
-        
-        let viewContext = PersistenceController.shared.container.viewContext
-        
+                
         func extractNumberString(from string: String) -> String {
             var numberString: String = ""
             var finalNumber: Double = 0.0
@@ -86,38 +84,38 @@ struct AddTransactionIntent: AppIntent {
         
         let finalNumber = extractNumber(from: amount)
         
-        let fetchRequest: NSFetchRequest<Account> = Account.fetchRequest()
-        var allAccounts: [Account] = []
+        let userRepository: UserRepository = .shared
+        let accountRepository: AccountRepository = .shared
+        let transactionRepository: TransactionRepository = .shared
+        
+        let body: TransactionModel = .init(
+            name: title,
+            amount: finalNumber,
+            typeNum: TransactionType.expense.rawValue,
+            dateISO: Date().toISO(),
+            categoryID: PredefinedCategory.PREDEFCAT00.id
+        )
+        
+        // TODO: Main envoyer sur main account et expliquer que ça sera fait sur main acount exclusivement
+        // TODO: Si fonctionne pas, a cause du token
         do {
-            allAccounts = try viewContext.fetch(fetchRequest)
+            try await userRepository.loginWithToken()
+            await accountRepository.fetchAccounts()
+            if let account = accountRepository.selectedAccount, let accountID = account.id {
+                await transactionRepository.createTransaction(accountID: accountID, body: body)
+            }
+            
+            let amountString: String = extractNumberString(from: amount)
+            let currencySymbol: String = Locale.current.currencySymbol ?? ""
+            let title: String = title
+            
+            let formatString = "shortcut_result".localized
+            let formattedText = String(format: formatString, amountString, currencySymbol, title)
+            
+            return .result(dialog: IntentDialog(stringLiteral: formattedText))
         } catch {
-            print("⚠️ Error for : \(error.localizedDescription)")
+            return .result(dialog: IntentDialog(stringLiteral: "Fail to add transaction."))
         }
-        
-        let newTransaction = TransactionEntity(context: viewContext)
-        newTransaction.id = UUID()
-        newTransaction.title = title
-        newTransaction.amount = -finalNumber
-        newTransaction.date = Date()
-        newTransaction.comeFromApplePay = true
-        newTransaction.predefCategoryID = "PREDEFCAT00"
-        
-        if let account = allAccounts.first {
-            newTransaction.transactionToAccount = account
-            account.addNewTransaction(transaction: newTransaction)
-            // TODO: - Voir si reload
-//            PredefinedObjectManager.shared.reloadTransactions()
-        }
-        
-        let amountString: String = extractNumberString(from: amount)
-        let currencySymbol: String = Locale.current.currencySymbol ?? ""
-        let title: String = newTransaction.title
-        
-        let formatString = "shortcut_result".localized
-        let formattedText = String(format: formatString, amountString, currencySymbol, title)
-        
-        return  .result(dialog: IntentDialog(stringLiteral: formattedText))
-        
     }
     
 }

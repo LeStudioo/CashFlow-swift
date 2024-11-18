@@ -25,64 +25,11 @@ struct RecentTransactionsView: View {
     
     // String variables
     @State private var searchText: String = ""
-    
-    // Boolean variables
-    @State private var ascendingOrder: Bool = false
-    
-    // Enum
-    @State private var filterTransactions: FilterForRecentTransaction = .month
-    
-    var getAllMonthForTransactions: [DateComponents] {
-        var array: [DateComponents] = []
-        //        let dates: [Date] = transactionRepository.transactions.compactMap { $0.date }
-        //        let dateFormatter = DateFormatter()
-        //            dateFormatter.dateFormat = "yyyy-MM"
-        //
-        //        var uniqueMonths = Set<String>()
-        //
-        //            // Filtre les dates
-        //            let firstDays = dates.filter { date in
-        //                // Obtenir l'année et le mois sous forme de chaîne (par exemple, "2024-01")
-        //                let monthKey = dateFormatter.string(from: date)
-        //
-        //                // Vérifie si le mois a déjà été rencontré
-        //                if !uniqueMonths.contains(monthKey) {
-        //                    uniqueMonths.insert(monthKey)
-        //
-        //                    return true
-        //                }
-        //                return false
-        //            }
-        //
-        //            return firstDays
-        for transaction in transactionRepository.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
-            if !array.contains(components) { array.append(components) }
-        }
-        return array
-    }
-    
+        
     // Computed var
     var searchResults: [TransactionModel] {
         if searchText.isEmpty {
-            if filterTransactions == .expenses {
-                if ascendingOrder {
-                    return transactionRepository.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
-                } else {
-                    return transactionRepository.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
-                }
-            } else if filterTransactions == .incomes {
-                if ascendingOrder {
-                    return transactionRepository.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }.reversed()
-                } else {
-                    return transactionRepository.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
-                }
-            } else if filterTransactions == .category {
-                return transactionRepository.transactions
-                    .filter({ $0.date.withDefault >= Date().startOfMonth && $0.date.withDefault <= Date().endOfMonth })
-            } else {
-                return transactionRepository.transactions
-            }
+            return transactionRepository.transactions
         } else { //Searching
             let transactionsFilterByTitle = transactionRepository.transactions
                 .filter { $0.name?.localizedStandardContains(searchText) ?? false }
@@ -98,93 +45,11 @@ struct RecentTransactionsView: View {
         }
     }
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         VStack {
             if transactionRepository.transactions.count != 0 && searchResults.count != 0 {
-                if filterTransactions == .category {
-                    List(PredefinedCategory.categoriesWithTransactions, id: \.self) { category in
-                        if searchResults.map({ PredefinedCategory.findByID($0.categoryID ?? "") }).contains(category) {
-                            Section(content: {
-                                ForEach(searchResults) { transaction in
-                                    if let categoryOfTransaction = PredefinedCategory.findByID(transaction.categoryID ?? ""),
-                                       categoryOfTransaction == category {
-                                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                            TransactionRow(transaction: transaction)
-                                        }
-                                    }
-                                }
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                                .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                            }, header: {
-                                DetailOfCategory(category: category)
-                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                            })
-                            .foregroundStyle(Color(uiColor: .label))
-                        }
-                    } // End List
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .scrollIndicators(.hidden)
-                    .background(Color.background.edgesIgnoringSafeArea(.all))
-                    .animation(.smooth, value: transactionRepository.transactions.count)
-                } else {
-                    List {
-                        ForEach(getAllMonthForTransactions, id: \.self) { dateComponents in
-                            if let month = Calendar.current.date(from: dateComponents) {
-                                Section(content: {
-                                    ForEach(transactionRepository.transactions) { transaction in
-                                        if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                                TransactionRow(transaction: transaction)
-                                            }
-                                        }
-                                    }
-                                    .listRowSeparator(.hidden)
-                                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                                    .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                                }, header: {
-                                    if filterTransactions == .month {
-                                        DetailOfExpensesAndIncomesByMonth(
-                                            month: month,
-                                            amountOfExpenses: transactionRepository.amountExpensesForSelectedMonth(month: month),
-                                            amountOfIncomes: transactionRepository.amountIncomesForSelectedMonth(month: month)
-                                        )
-                                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                                    } else if filterTransactions == .expenses || filterTransactions == .incomes {
-                                        DetailOfExpensesOrIncomesByMonth(
-                                            filterTransactions: $filterTransactions,
-                                            month: month,
-                                            amountOfExpenses: searchResults
-                                                .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-                                                .map({ $0.amount ?? 0 }).reduce(0, +),
-                                            amountOfIncomes: searchResults
-                                                .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-                                                .map({ $0.amount ?? 0 }).reduce(0, +),
-                                            ascendingOrder: $ascendingOrder
-                                        )
-                                        .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-                                    }
-                                })
-                            }                            
-                        }
-                        
-                        Section(content: { }, footer: { ProgressView() })
-                            .frame(idealWidth: .infinity, maxWidth: .infinity, alignment: .center)
-                            .listRowSeparator(.hidden)
-                            .task {
-                                if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                                    await transactionRepository.fetchTransactionsWithPagination(accountID: accountID)
-                                }
-                            }
-                    } // End List
-                    .listStyle(.plain)
-                    .scrollContentBackground(.hidden)
-                    .scrollIndicators(.hidden)
-                    .background(Color.background.edgesIgnoringSafeArea(.all))
-                    .animation(.smooth, value: transactionRepository.transactions.count)
-                }
+                TransactionsListView()
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,

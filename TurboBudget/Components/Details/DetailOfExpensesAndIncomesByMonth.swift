@@ -14,6 +14,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
     var month: Date
     var amountOfExpenses: Double
     var amountOfIncomes: Double
+    var isPinned: Bool = false
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
@@ -49,6 +50,15 @@ struct DetailOfExpensesAndIncomesByMonth: View {
             Spacer()
         }
         .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background {
+            if isPinned {
+                Rectangle().fill(Material.regular)
+            } else {
+                Color.clear
+            }
+        }
+        .compositingGroup()
     }//END body
 }//END struct
 

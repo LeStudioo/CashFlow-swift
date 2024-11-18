@@ -20,6 +20,16 @@ final class TransactionRepository: ObservableObject {
         return transactions.filter { $0.type == .income }
     }
     
+    var monthsOfTransactions: [Date] {
+        var array: [DateComponents] = []
+        for transaction in self.transactions {
+            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
+            if !array.contains(components) {
+                array.append(components)
+            }
+        }
+        return array.compactMap { Calendar.current.date(from: $0) }
+    }
 }
 
 
@@ -49,7 +59,7 @@ extension TransactionRepository {
                 responseModel: [TransactionModel].self
             )
             self.transactions += transactions
-            sortTransactionsByDate()
+//            sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
     

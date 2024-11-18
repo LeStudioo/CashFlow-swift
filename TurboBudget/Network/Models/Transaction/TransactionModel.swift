@@ -67,7 +67,6 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         amount: Double,
         typeNum: Int,
         dateISO: String,
-        creationDate: String,
         categoryID: String,
         subcategoryID: String? = nil
     ) {
@@ -75,7 +74,6 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.amount = amount
         self.typeNum = typeNum
         self.dateISO = dateISO
-        self.creationDate = creationDate
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
     }
