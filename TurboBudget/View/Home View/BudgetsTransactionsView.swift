@@ -64,6 +64,7 @@ struct BudgetsTransactionsView: View {
                     ForEach(searchResults) { transaction in
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)
+                                .padding(.horizontal)
                         }
                     }
                 }

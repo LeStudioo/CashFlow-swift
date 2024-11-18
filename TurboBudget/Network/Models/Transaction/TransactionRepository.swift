@@ -11,7 +11,7 @@ final class TransactionRepository: ObservableObject {
     static let shared = TransactionRepository()
     
     @Published var transactions: [TransactionModel] = []
-        
+            
     var expenses: [TransactionModel] {
         return transactions.filter { $0.type == .expense }
     }
@@ -21,17 +21,16 @@ final class TransactionRepository: ObservableObject {
     }
     
     var monthsOfTransactions: [Date] {
-        var array: [DateComponents] = []
-        for transaction in self.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
-            if !array.contains(components) {
-                array.append(components)
-            }
-        }
-        return array.compactMap { Calendar.current.date(from: $0) }
+        let calendar = Calendar.current
+        
+        let uniqueMonths = Set(transactions.map {
+            calendar.dateComponents([.month, .year], from: $0.date.withDefault)
+        })
+        
+        return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted()
     }
+    
 }
-
 
 extension TransactionRepository {
     

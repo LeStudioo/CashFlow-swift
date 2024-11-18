@@ -1,5 +1,5 @@
 //
-//  TabbarShape.swift
+//  TabBarShape.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 14/11/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TabbarShape: Shape {
+struct TabBarShape: Shape {
     func path(in rect: CGRect) -> Path {
         return Path { path in
             path.move(to: .zero)

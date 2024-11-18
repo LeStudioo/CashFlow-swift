@@ -243,7 +243,7 @@ private extension NavigationManager {
                 ArchivedSavingPlansView(account: account)
                 
             case .homeCategories:
-                CategoriesHomeView()
+                CategoryHomeView()
             case .categoryTransactions(let category):
                 CategoryTransactionsView(category: category)
             case .homeSubcategories(let category):

@@ -1,5 +1,5 @@
 //
-//  CategoriesHomeView.swift
+//  CategoryHomeView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 18/06/2023.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct CategoriesHomeView: View {
+struct CategoryHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -96,5 +96,5 @@ struct CategoriesHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoriesHomeView()
+    CategoryHomeView()
 }

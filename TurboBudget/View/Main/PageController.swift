@@ -13,6 +13,7 @@ import CoreData
 struct PageControllerView: View {
     
     // Environment
+    @EnvironmentObject private var appManager: AppManager
     @EnvironmentObject private var router: NavigationManager
 
     // New Repository
@@ -20,7 +21,6 @@ struct PageControllerView: View {
     
     // Old Reposiyory
     @EnvironmentObject private var accountRepo: AccountRepositoryOld
-    
     
     // Custom
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
@@ -39,23 +39,20 @@ struct PageControllerView: View {
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
-    // Number variables
-    @State private var selectedTab: Int = 0
-    
     // MARK: - body
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
                 if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
                 if pageControllerVM.isUnlocked {
-                    ZStack(alignment: Alignment(horizontal: .center, vertical: .bottom)) {
+                    ZStack(alignment: .bottom) {
                         if accountRepository.mainAccount != nil {
                             Group {
-                                switch selectedTab {
+                                switch appManager.selectedTab {
                                 case 0: HomeView()
                                 case 1: AnalyticsHomeView()
                                 case 3: AccountDashboardView()
-                                case 4: CategoriesHomeView()
+                                case 4: CategoryHomeView()
                                 default: EmptyView() //Can't arrived
                                 }
                             }
@@ -69,7 +66,7 @@ struct PageControllerView: View {
                             )
                         }
                         
-                        TabbarView(selectedTab: $selectedTab)
+                        CustomTabBar()
                     }
                     .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
                         viewModelAddTransaction.makeScannerView()

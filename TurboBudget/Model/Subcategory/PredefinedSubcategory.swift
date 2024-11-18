@@ -252,7 +252,16 @@ extension PredefinedSubcategory {
         return transactions.filter { $0.isFromSubscription == true }
     }
     
-    
+    var currentMonthTransactions: [TransactionModel] {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        return transactions.filter { transaction in
+            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date.withDefault)
+            let currentMonth = calendar.dateComponents([.month, .year], from: now)
+            return transactionMonth == currentMonth && transaction.subcategoryID == self.id
+        }
+    }
     
     var transactionsFiltered: [TransactionModel] {
         return self.transactions

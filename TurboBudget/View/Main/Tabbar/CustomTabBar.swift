@@ -1,5 +1,5 @@
 //
-//  TabbarView.swift
+//  CustomTabBar.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 15/06/2023.
@@ -9,10 +9,7 @@
 
 import SwiftUI
 
-struct TabbarView: View {
-    
-    // Builder
-    @Binding var selectedTab: Int
+struct CustomTabBar: View {
     
     // Repo
     @EnvironmentObject private var router: NavigationManager
@@ -21,7 +18,6 @@ struct TabbarView: View {
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
     // Custom type
-    @ObservedObject var filter: Filter = sharedFilter
     @ObservedObject var viewModel = CustomTabBarViewModel.shared
 
     // Environement
@@ -32,14 +28,14 @@ struct TabbarView: View {
     // MARK: -
     var body: some View {
         ZStack(alignment: .top) {
-            TabbarShape()
+            TabBarShape()
                 .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                 .cornerRadius(10, corners: .topLeft)
                 .cornerRadius(10, corners: .topRight)
                 .frame(height: 100)
                 .shadow(radius: 64, y: -3)
             
-            ItemsForTabBar(selectedTab: $selectedTab, showMenu: $viewModel.showMenu)
+            TabBarContent()
             
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
@@ -104,7 +100,6 @@ struct TabbarView: View {
             .animation(.interpolatingSpring(stiffness: 150, damping: 12), value: viewModel.showMenu)
             .animation(.interpolatingSpring(stiffness: 150, damping: 12), value: offsetYMenu)
             .onTapGesture {
-                filter.showMenu = false
                 viewModel.showMenu.toggle()
             }
             .onChange(of: viewModel.showMenu) { newValue in
@@ -125,9 +120,9 @@ struct TabbarView: View {
 
 // MARK: - Preview
 #Preview {
-    TabbarView(selectedTab: .constant(0))
+    CustomTabBar()
     
-    TabbarShape()
+    TabBarShape()
         .cornerRadius(15, corners: [.topLeft, .topRight])
         .frame(width: UIScreen.main.bounds.width, height: 100)
         .padding()

@@ -28,6 +28,7 @@ struct TransactionsListView: View {
                                 if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
                                     NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                         TransactionRow(transaction: transaction)
+                                            .padding(.horizontal)
                                     }
                                     .id(transaction.id)
                                     .onAppear {

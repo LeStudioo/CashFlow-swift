@@ -20,15 +20,14 @@ struct HomeView: View {
             
             ScrollView {
                 CarouselOfChartsView()
+                    .padding(.bottom)
                 
-                HomeScreenSavingsPlan()
-                    .padding(.horizontal)
-                
-                HomeScreenSubscription()
-                    .padding(.horizontal)
-                
-                HomeScreenRecentTransactions()
-                    .padding(.horizontal)
+                VStack(spacing: 16) {
+                    HomeScreenSavingsPlan()
+                    HomeScreenSubscription()
+                    HomeScreenRecentTransactions()
+                }
+                .padding(.horizontal)
                 
                 Rectangle()
                     .frame(height: 100)

@@ -94,6 +94,7 @@ struct TurboBudgetApp: App {
                     .environmentObject(successfullModalManager)
             }
             .environment(\.managedObjectContext, viewContext)
+            .environmentObject(appManager)
             .environmentObject(router)
             .environmentObject(csManager)
             .environmentObject(purchasesManager)

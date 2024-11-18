@@ -21,23 +21,14 @@ struct CategoryTransactionsView: View {
     
     // String variables
     @State private var searchText: String = ""
-        
+    
     // Boolean variables
     @State private var ascendingOrder: Bool = false
-        
+    
     // Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
     // Computed var
-    var getAllMonthForTransactions: [DateComponents] {
-        var array: [DateComponents] = []
-        for transaction in category.transactions {
-            let components = Calendar.current.dateComponents([.month, .year], from: transaction.date.withDefault)
-            if !array.contains(components) { array.append(components) }
-        }
-        return array
-    }
-    
     var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
@@ -63,43 +54,38 @@ struct CategoryTransactionsView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if category.transactions.count != 0 && searchResults.count != 0 {
-                List(getAllMonthForTransactions, id: \.self) { dateComponents in
-                    if let month = Calendar.current.date(from: dateComponents) {
-                        if searchResults.map({ $0.date.withDefault }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
-                            Section(content: {
-                                ForEach(searchResults) { transaction in
-                                    if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                            TransactionRow(transaction: transaction)
-                                        }
-                                    }
-                                }
-                                .listRowSeparator(.hidden)
-                                .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                                .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                            }, header: {
-                                if filterTransactions == .month {
-                                    DetailOfExpensesAndIncomesByMonth(
-                                        month: month,
-                                        amountOfExpenses: category.amountExpensesByMonth(month: month),
-                                        amountOfIncomes: category.amountIncomesByMonth(month: month)
-                                    )
-                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                                } else if filterTransactions == .expenses || filterTransactions == .incomes {
-                                    DetailOfExpensesOrIncomesByMonth(
-                                        filterTransactions: $filterTransactions,
-                                        month: month,
-                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
-                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
-                                        ascendingOrder: $ascendingOrder
-                                    )
-                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                                }
-                            })
-                            .foregroundStyle(Color(uiColor: .label))
+            if category.transactions.count != 0 {
+                List {
+                    Section(content: {
+                        ForEach(category.currentMonthTransactions) { transaction in
+                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
+                                TransactionRow(transaction: transaction)
+                                    .padding(.horizontal)
+                            }
                         }
-                    }
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                        .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                    }, header: {
+                        //                                if filterTransactions == .month {
+                        DetailOfExpensesAndIncomesByMonth(
+                            month: .now,
+                            amountOfExpenses: category.amountExpensesByMonth(month: .now),
+                            amountOfIncomes: category.amountIncomesByMonth(month: .now)
+                        )
+                        .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                        //                                } else if filterTransactions == .expenses || filterTransactions == .incomes {
+                        //                                    DetailOfExpensesOrIncomesByMonth(
+                        //                                        filterTransactions: $filterTransactions,
+                        //                                        month: month,
+                        //                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
+                        //                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
+                        //                                        ascendingOrder: $ascendingOrder
+                        //                                    )
+                        //                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                        //                                }
+                    })
+                    .foregroundStyle(Color(uiColor: .label))
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
