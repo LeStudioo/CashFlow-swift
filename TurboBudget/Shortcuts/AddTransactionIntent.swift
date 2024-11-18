@@ -93,7 +93,9 @@ struct AddTransactionIntent: AppIntent {
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),
-            categoryID: PredefinedCategory.PREDEFCAT00.id
+            categoryID: PredefinedCategory.PREDEFCAT00.id,
+            isFromApplePay: true,
+            nameFromApplePay: title
         )
         
         // TODO: Main envoyer sur main account et expliquer que ça sera fait sur main acount exclusivement
@@ -101,7 +103,7 @@ struct AddTransactionIntent: AppIntent {
         do {
             try await userRepository.loginWithToken()
             await accountRepository.fetchAccounts()
-            if let account = accountRepository.selectedAccount, let accountID = account.id {
+            if let account = accountRepository.mainAccount, let accountID = account.id {
                 await transactionRepository.createTransaction(accountID: accountID, body: body)
             }
             

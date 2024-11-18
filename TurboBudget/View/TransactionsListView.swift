@@ -4,6 +4,7 @@
 //
 //  Created by Theo Sementa on 18/11/2024.
 //
+// https://stackoverflow.com/questions/72647382/customise-section-headers-only-when-headers-are-pinned-otherwise-not-swiftui
 
 import SwiftUI
 
