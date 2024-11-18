@@ -1,0 +1,61 @@
+//
+//  HomeScreenComponentHeader.swift
+//  CashFlow
+//
+//  Created by Theo Sementa on 18/11/2024.
+//
+
+import SwiftUI
+
+struct HomeScreenComponentHeader: View {
+    
+    // Builder
+    var type: HomeScreenComponentHeaderType
+    
+    @EnvironmentObject private var router: NavigationManager
+    
+    // MARK: -
+    var body: some View {
+        NavigationButton(push: type.route(router: router)()) {
+            HStack {
+                Text(type.title)
+                    .foregroundStyle(Color.customGray)
+                    .font(.semiBoldCustom(size: 22))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Image(systemName: "arrow.right")
+                    .foregroundStyle(ThemeManager.theme.color)
+                    .font(.system(size: 20, weight: .medium, design: .rounded))
+            }
+        }
+        .padding([.horizontal, .top])
+    } // body
+} // struct
+
+// MARK: -
+enum HomeScreenComponentHeaderType {
+    case recentTransactions
+    case savingsPlan
+    case subscription
+    
+    var title: String {
+        switch self {
+        case .recentTransactions:   return "word_recent_transactions".localized
+        case .savingsPlan:          return "savingsplans_for_home_title".localized
+        case .subscription:         return "automations_for_home_title".localized
+        }
+    }
+    
+    func route(router: NavigationManager) -> (() -> Void) {
+        switch self {
+        case .recentTransactions:   return router.pushAllTransactions
+        case .savingsPlan:          return router.pushHomeSavingPlans
+        case .subscription:         return router.pushHomeAutomations
+        }
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    HomeScreenComponentHeader(type: .recentTransactions)
+}

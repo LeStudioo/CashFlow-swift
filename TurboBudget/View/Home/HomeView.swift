@@ -12,14 +12,7 @@ import CoreData
 
 struct HomeView: View {
     
-    // EnvironmentObject
-    @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionRepository
-        
-    // Preferences
-    @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
-    
-    // MARK: - body
+    // MARK: -
     var body: some View {
         VStack(spacing: 16) {
             HomeHeader()
@@ -28,71 +21,18 @@ struct HomeView: View {
             ScrollView {
                 CarouselOfChartsView()
                 
-                SavingPlansForHomeScreen()
+                HomeScreenSavingsPlan()
                 
-                AutomationsForHomeScreen()
+                HomeScreenSubscription()
                 
-                // Recent Transactions
-                if preferencesDisplayHome.transaction_isDisplayed {
-                    VStack {
-                        NavigationButton(push: router.pushAllTransactions()) {
-                            HStack {
-                                Text("word_recent_transactions".localized)
-                                    .foregroundStyle(Color.customGray)
-                                    .font(.semiBoldCustom(size: 22))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                Image(systemName: "arrow.right")
-                                    .foregroundStyle(ThemeManager.theme.color)
-                                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                            }
-                        }
-                        .padding([.horizontal, .top])
-                        
-                        if transactionRepository.transactions.count != 0 {
-                            ForEach(transactionRepository.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
-                                NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                    TransactionRow(transaction: transaction)
-                                }
-                            }
-                        } else {
-                            VStack(spacing: 20) {
-                                Image("NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .shadow(radius: 4, y: 4)
-                                    .frame(width: isIPad
-                                           ? UIScreen.main.bounds.width / 3
-                                           : UIScreen.main.bounds.width / 1.5
-                                    )
-                                
-                                Text("home_screen_no_transaction".localized)
-                                    .font(.semiBoldText16())
-                                    .multilineTextAlignment(.center)
-                            }
-                            .offset(y: -20)
-                        }
-                        Rectangle()
-                            .frame(height: 100)
-                            .opacity(0)
-                        
-                        Spacer()
-                    }
-                } // End Recent Transactions
+                HomeScreenRecentTransactions()
             } // ScrollView
             .scrollIndicators(.hidden)
-        } // End VStack
+        }
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .onAppear {
-//            AutomationManager().activateScheduledAutomations(automations: account.automations)
-//            SavingPlanManager().archiveCompletedSavingPlansAutomatically(account: account)
-            
-            //Notification Counter
-            UserDefaults.standard.set(0, forKey: "counterOfNotif")
-            UIApplication.shared.applicationIconBadgeNumber = 0
-        }
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

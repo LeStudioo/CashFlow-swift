@@ -34,25 +34,24 @@ struct SavingPlansHomeView: View {
     var body: some View {
         VStack(spacing: 0) {
             if !savingsPlanRepository.savingsPlans.isEmpty {
-                ScrollView(showsIndicators: false) {
-                    VStack {
-                        LazyVGrid(columns: layout, alignment: .center) {
-                            ForEach(searchResults) { savingsPlan in
-                                NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
-                                    Task {
-                                        if let savingsPlanID = savingsPlan.id {
-                                            await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
-                                        }
+                ScrollView {
+                    LazyVGrid(columns: layout, alignment: .center) {
+                        ForEach(searchResults) { savingsPlan in
+                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
+                                Task {
+                                    if let savingsPlanID = savingsPlan.id {
+                                        await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
                                     }
-                                }) {
-                                    SavingsPlanRow(savingsPlan: savingsPlan)
                                 }
-                                .padding(.bottom)
+                            }) {
+                                SavingsPlanRow(savingsPlan: savingsPlan)
                             }
+                            .padding(.bottom)
                         }
-                        .padding()
                     }
+                    .padding()
                 } //End ScrollView
+                .scrollIndicators(.hidden)
             } else {
                 ErrorView(
                     searchResultsCount: searchResults.count,

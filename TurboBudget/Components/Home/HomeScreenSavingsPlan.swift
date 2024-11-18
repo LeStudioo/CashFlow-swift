@@ -1,5 +1,5 @@
 //
-//  SavingPlansForHomeScreen.swift
+//  HomeScreenSavingsPlan.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 21/07/2023.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct SavingPlansForHomeScreen: View {
+struct HomeScreenSavingsPlan: View {
         
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -28,21 +28,7 @@ struct SavingPlansForHomeScreen: View {
     // MARK: - body
     var body: some View {
         VStack {
-            NavigationButton(push: router.pushHomeSavingPlans()) {
-                HStack {
-                    Text("savingsplans_for_home_title".localized)
-                        .foregroundStyle(Color.customGray)
-                        .font(.semiBoldCustom(size: 22))
-                    
-                    Spacer()
-                    
-                    Image(systemName: "arrow.right")
-                        .foregroundStyle(ThemeManager.theme.color)
-                        .font(.system(size: 20, weight: .medium, design: .rounded))
-                }
-            }
-            .padding(.horizontal)
-            .padding(.top)
+            HomeScreenComponentHeader(type: .savingsPlan)
             
             if !savingsPlanRepository.savingsPlans.isEmpty {
                 HStack {
@@ -94,5 +80,5 @@ struct SavingPlansForHomeScreen: View {
 
 // MARK: - Preview
 #Preview {
-    SavingPlansForHomeScreen()
+    HomeScreenSavingsPlan()
 }
