@@ -154,7 +154,6 @@ struct TransactionRow: View {
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
-        .padding(.horizontal)
         .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
             Button(
                 role: .cancel,

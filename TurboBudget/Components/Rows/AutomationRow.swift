@@ -111,7 +111,6 @@ struct AutomationRow: View {
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
-        .padding(.horizontal)
         .alert("transaction_cell_delete_auto".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
             Button(

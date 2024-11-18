@@ -22,10 +22,17 @@ struct HomeView: View {
                 CarouselOfChartsView()
                 
                 HomeScreenSavingsPlan()
+                    .padding(.horizontal)
                 
                 HomeScreenSubscription()
+                    .padding(.horizontal)
                 
                 HomeScreenRecentTransactions()
+                    .padding(.horizontal)
+                
+                Rectangle()
+                    .frame(height: 100)
+                    .opacity(0)
             } // ScrollView
             .scrollIndicators(.hidden)
         }

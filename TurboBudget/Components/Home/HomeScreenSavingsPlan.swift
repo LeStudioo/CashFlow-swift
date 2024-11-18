@@ -31,46 +31,25 @@ struct HomeScreenSavingsPlan: View {
             HomeScreenComponentHeader(type: .savingsPlan)
             
             if !savingsPlanRepository.savingsPlans.isEmpty {
-                HStack {
-                    LazyVGrid(columns: layout, alignment: .center) {
-                        ForEach(savingsPlanRepository.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
-                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
+                LazyVGrid(columns: layout, alignment: .center) {
+                    ForEach(savingsPlanRepository.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
+                        NavigationButton(
+                            push: router.pushSavingPlansDetail(savingsPlan: savingsPlan),
+                            action: {
                                 Task {
                                     if let savingsPlanID = savingsPlan.id {
                                         await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
                                     }
                                 }
-                            }) {
+                            }, label: {
                                 SavingsPlanRow(savingsPlan: savingsPlan)
                             }
-                            .padding(.bottom)
-                        }
+                        )
+                        .padding(.bottom)
                     }
-                    .padding(.horizontal)
                 }
             } else {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("savingsplans_for_home_no_savings_plan".localized)
-                            .font(Font.mediumText16())
-                        
-                        Spacer()
-                        
-                        Image("NoSavingPlan\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .shadow(radius: 4, y: 4)
-                    }
-                    .padding(.vertical)
-                }
-                .padding(.horizontal)
-                .frame(height: 160)
-                .background(Color.colorCell)
-                .cornerRadius(20)
-                .padding(.horizontal)
-                .onTapGesture {
-                    router.presentCreateSavingsPlan()
-                }
+                HomeScreenEmptyRow(type: .savingsPlan)
             }
         }
         .animation(.smooth, value: savingsPlanRepository.savingsPlans.count)

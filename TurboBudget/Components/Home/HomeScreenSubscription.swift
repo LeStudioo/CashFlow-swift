@@ -37,28 +37,7 @@ struct HomeScreenSubscription: View {
                     }
                 }
             } else {
-                VStack(alignment: .leading, spacing: 10) {
-                    HStack {
-                        Text("automations_for_home_no_auto".localized)
-                            .font(Font.mediumText16())
-                        
-                        Spacer(minLength: 20)
-                        
-                        Image("NoAutomation\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .shadow(radius: 4, y: 4)
-                    }
-                    .padding(.vertical)
-                }
-                .padding(.horizontal)
-                .frame(height: 160)
-                .background(Color.colorCell)
-                .cornerRadius(20)
-                .padding(.horizontal)
-                .onTapGesture {
-                    router.presentCreateAutomation()
-                }
+                HomeScreenEmptyRow(type: .subscription)
             }
         }
         .isDisplayed(preferencesDisplayHome.subscription_isDisplayed)

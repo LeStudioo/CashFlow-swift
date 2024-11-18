@@ -16,7 +16,7 @@ struct HomeScreenComponentHeader: View {
     
     // MARK: -
     var body: some View {
-        NavigationButton(push: type.route(router: router)()) {
+        NavigationButton(push: type.route(router: router)) {
             HStack {
                 Text(type.title)
                     .foregroundStyle(Color.customGray)
@@ -28,7 +28,6 @@ struct HomeScreenComponentHeader: View {
                     .font(.system(size: 20, weight: .medium, design: .rounded))
             }
         }
-        .padding([.horizontal, .top])
     } // body
 } // struct
 
@@ -38,6 +37,7 @@ enum HomeScreenComponentHeaderType {
     case savingsPlan
     case subscription
     
+    // TODO: Localized + ISO
     var title: String {
         switch self {
         case .recentTransactions:   return "word_recent_transactions".localized
@@ -46,11 +46,11 @@ enum HomeScreenComponentHeaderType {
         }
     }
     
-    func route(router: NavigationManager) -> (() -> Void) {
+    func route(router: NavigationManager) -> () {
         switch self {
-        case .recentTransactions:   return router.pushAllTransactions
-        case .savingsPlan:          return router.pushHomeSavingPlans
-        case .subscription:         return router.pushHomeAutomations
+        case .recentTransactions:   return router.pushAllTransactions()
+        case .savingsPlan:          return router.pushHomeSavingPlans()
+        case .subscription:         return router.pushHomeAutomations()
         }
     }
 }

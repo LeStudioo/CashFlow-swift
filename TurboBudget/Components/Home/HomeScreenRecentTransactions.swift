@@ -29,27 +29,8 @@ struct HomeScreenRecentTransactions: View {
                         }
                     }
                 } else {
-                    VStack(spacing: 20) {
-                        Image("NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .shadow(radius: 4, y: 4)
-                            .frame(width: isIPad
-                                   ? UIScreen.main.bounds.width / 3
-                                   : UIScreen.main.bounds.width / 1.5
-                            )
-                        
-                        Text("home_screen_no_transaction".localized)
-                            .font(.semiBoldText16())
-                            .multilineTextAlignment(.center)
-                    }
-                    .offset(y: -20)
+                    HomeScreenEmptyRow(type: .recentTransactions)
                 }
-                Rectangle()
-                    .frame(height: 100)
-                    .opacity(0)
-                
-                Spacer()
             }
         }
     } // body
