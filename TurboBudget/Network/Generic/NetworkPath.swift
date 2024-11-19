@@ -37,6 +37,13 @@ struct NetworkPath {
         static func base(accountID: Int) -> String {
             return "/transaction/\(accountID)"
         }
+        static func fetchByPeriod(accountID: Int, startDate: String, endDate: String, type: Int? = nil) -> String {
+            if let type {
+                return "/transaction/\(accountID)/\(startDate)/\(endDate)/\(type)"
+            } else {
+                return "/transaction/\(accountID)/\(startDate)/\(endDate)"
+            }
+        }
         static func update(id: Int) -> String {
             return "/transaction/\(id)"
         }

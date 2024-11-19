@@ -27,7 +27,7 @@ final class TransactionRepository: ObservableObject {
             calendar.dateComponents([.month, .year], from: $0.date.withDefault)
         })
         
-        return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted()
+        return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted(by: >)
     }
     
 }
@@ -59,6 +59,22 @@ extension TransactionRepository {
             )
             self.transactions += transactions
             sortTransactionsByDate()
+        } catch { NetworkService.handleError(error: error) }
+    }
+    
+    @MainActor
+    private func fetchTransactionsByPeriod(accountID: Int, startDate: String, endDate: String, type: TransactionType? = nil) async  {
+        do {
+            let transactions = try await NetworkService.shared.sendRequest(
+                apiBuilder: TransactionAPIRequester.fetchByPeriod(
+                    accountID: accountID,
+                    startDate: startDate,
+                    endDate: endDate,
+                    type: type?.rawValue
+                ),
+                responseModel: [TransactionModel].self
+            )
+            self.transactions = transactions
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -122,6 +138,18 @@ extension TransactionRepository {
             self.transactions.removeAll { $0.id == transactionID }
         } catch { NetworkService.handleError(error: error) }
     }
+}
+
+extension TransactionRepository {
+    
+    func fetchTransactionsOfCurrentMonth(accountID: Int) async {
+        await self.fetchTransactionsByPeriod(
+            accountID: accountID,
+            startDate: Date().startOfMonth.toISO(),
+            endDate: Date().toISO()
+        )
+    }
+    
 }
 
 // TODO: To delete

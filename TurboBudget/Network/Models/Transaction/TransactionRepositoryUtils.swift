@@ -61,41 +61,21 @@ extension TransactionRepository {
                 .filter(transactionFilter)
                 .reduce(0.0) { $0 + ($1.amount ?? 0) }
             
-            // Correction du bug de date (-1 jour)
-            let correctedDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
-            return AmountOfTransactionsByDay(day: correctedDate, amount: amountOfDay)
+            return AmountOfTransactionsByDay(day: date, amount: amountOfDay)
         }
         
         var sortedAmounts = amounts.sorted { $0.day < $1.day }
-        sortedAmounts.removeLast() // Correction du nombre de valeurs
         return sortedAmounts
     }
     
     // MARK: - Public Methods
-    
-    func amountOfExpensesInActualMonth() -> Double {
-        let expenses = filterTransactions(byType: .expense)
-        return calculateTotal(for: expenses)
-    }
-    
-    func dailyAmountOfExpensesInActualMonth() -> [AmountOfTransactionsByDay] {
+    func dailyAmountOfTransactionsInCurrentMonth(type: TransactionType) -> [AmountOfTransactionsByDay] {
         let dates = Date().allDateOfMonth
-        return createDailyAmounts(for: dates) { $0.type == .expense }
+        return createDailyAmounts(for: dates) { $0.type == type }
     }
     
-    func amountIncomeInActualMonth() -> Double {
-        let incomes = filterTransactions(byType: .income) {
-            PredefinedCategory.findByID($0.categoryID ?? "") != nil
-        }
-        return calculateTotal(for: incomes)
-    }
-    
-    func amountIncomePerDayInActualMonth() -> [AmountOfTransactionsByDay] {
-        let dates = Date().allDateOfMonth
-        return createDailyAmounts(for: dates) { transaction in
-            transaction.type == .income &&
-            PredefinedCategory.findByID(transaction.categoryID ?? "") != nil
-        }
+    func amountOfTransactionsForCurrentMonth(type: TransactionType) -> Double {
+        return dailyAmountOfTransactionsInCurrentMonth(type: type).map(\.amount).reduce(0, +)
     }
 }
 

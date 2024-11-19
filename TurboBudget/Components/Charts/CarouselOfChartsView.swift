@@ -20,6 +20,9 @@ struct CarouselOfChartsView: View {
     
     // MARK: - body
     var body: some View {
+        let expenseAmount = transactionRepository.amountOfTransactionsForCurrentMonth(type: .expense)
+        let incomeAmount = transactionRepository.amountOfTransactionsForCurrentMonth(type: .income)
+
         VStack {
             TabView(selection: $selectedChart) {
                 
@@ -27,12 +30,12 @@ struct CarouselOfChartsView: View {
                 VStack {
                     titleOfChart(
                         text: "carousel_charts_expenses_current_month".localized,
-                        amount: transactionRepository.amountOfExpensesInActualMonth()
+                        amount: expenseAmount
                     )
                     
-                    if transactionRepository.dailyAmountOfExpensesInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
+                    if expenseAmount != 0 {
                         Chart {
-                            ForEach(transactionRepository.dailyAmountOfExpensesInActualMonth(), id: \.self) { item in
+                            ForEach(transactionRepository.dailyAmountOfTransactionsInCurrentMonth(type: .expense)) { item in
                                 LineMark(x: .value("Day", item.day),
                                          y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
@@ -62,12 +65,12 @@ struct CarouselOfChartsView: View {
                 VStack {
                     titleOfChart(
                         text: "carousel_charts_incomes_current_month".localized,
-                        amount: transactionRepository.amountIncomeInActualMonth()
+                        amount: incomeAmount
                     )
                     
-                    if transactionRepository.amountIncomePerDayInActualMonth().map({ $0.amount }).reduce(0, +) != 0 {
+                    if incomeAmount != 0 {
                         Chart {
-                            ForEach(transactionRepository.amountIncomePerDayInActualMonth(), id: \.self) { item in
+                            ForEach(transactionRepository.dailyAmountOfTransactionsInCurrentMonth(type: .income)) { item in
                                 LineMark(x: .value("Day", item.day),
                                          y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)

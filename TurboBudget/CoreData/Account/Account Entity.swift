@@ -163,52 +163,7 @@ extension Account {
 
 //MARK: - Extension Incomes
 extension Account {
-    
-    //-------------------- amountIncomeInActualMonth() ----------------------
-    // Description : Montant des revenus sur le mois actuel
-    // Parameter : No
-    // Output : return Double
-    // Extra : transactionsActualMonth = Account.transactionsActualMonth
-    //-----------------------------------------------------------
-    public func amountIncomeInActualMonth() -> Double {
-        var total: Double = 0
-        for transaction in transactionsActualMonth {
-            if transaction.amount > 0 && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
-                total += transaction.amount
-            }
-        }
-        return total
-    }
-    
-    //-------------------- amountIncomePerDayInActualMonth() ----------------------
-    // Description : Montant des revenus sur le mois actuel par jour
-    // Parameter : No
-    // Output : return [AmountOfTransactionsByDay]
-    // Extra : transactionsActualMonth = Account.transactionsActualMonth
-    //-----------------------------------------------------------
-    public func amountIncomePerDayInActualMonth() -> [AmountOfTransactionsByDay] {
-        var array: [AmountOfTransactionsByDay] = []
-        let dates = Date().allDateOfMonth
-        
-        for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsActualMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date)
-                    && transaction.amount > 0
-                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
-                    amountOfDay += transaction.amount
-                }
-            }
-            let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) // Bug date -1
-            array.append(AmountOfTransactionsByDay(day: newDate!, amount: amountOfDay))
-        }
-    
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast() //One value too many
-        
-        return sortedArray
-    }
+
     
     //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
@@ -258,34 +213,6 @@ extension Account {
         return total
     }
     
-    //-------------------- dailyAmountOfExpensesInActualMonth() ----------------------
-    // Description : Montant des dépenses dans le mois actuel par jour
-    // Parameter : No
-    // Output : return [AmountOfTransactionsByDay]
-    // Extra : transactionsActualMonth = Account.transactionsActualMonth
-    //-----------------------------------------------------------
-    func dailyAmountOfExpensesInActualMonth() -> [AmountOfTransactionsByDay] {
-        var array: [AmountOfTransactionsByDay] = []
-        let dates = Date().allDateOfMonth
-        
-        for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsActualMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) && transaction.amount < 0 {
-                    amountOfDay -= transaction.amount
-                }
-            }
-            let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) // Bug date -1
-            array.append(AmountOfTransactionsByDay(day: newDate!, amount: amountOfDay))
-        }
-    
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast() //One value too many
-        
-        return sortedArray
-    }
-    
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
     // Parameter : (selectedDate: Date)
@@ -315,22 +242,6 @@ extension Account {
     
 } // End Extension Expenses
 
-//MARK: - Extension CashFlow
-extension Account {
-
-    //-------------------- amountCashFlowByMonth() ----------------------
-    // Description : Retourne la somme de toutes les transactions qui sont des dépenses et des revenus, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
-    //-----------------------------------------------------------
-    func amountCashFlowByMonth(month: Date) -> Double {
-        let amountOfExpenses = getAllExpensesTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, -)
-        let amountOfIncomes = getAllTransactionsIncomeForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
-        
-        return amountOfExpenses + amountOfIncomes
-    }
-} //END Extension CashFlow
 
 //MARK: - Extension Gain or Loss
 extension Account {

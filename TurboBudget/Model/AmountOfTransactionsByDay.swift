@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct AmountOfTransactionsByDay: Hashable {
+struct AmountOfTransactionsByDay: Hashable, Identifiable {
+    let id: UUID = UUID()
     var day: Date
     var amount: Double
 }
