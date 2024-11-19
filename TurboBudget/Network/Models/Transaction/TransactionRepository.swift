@@ -75,6 +75,7 @@ extension TransactionRepository {
                 responseModel: [TransactionModel].self
             )
             self.transactions = transactions
+            sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
     

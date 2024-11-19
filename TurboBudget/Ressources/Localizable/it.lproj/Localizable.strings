@@ -61,6 +61,14 @@
 
 "successful_transaction_update_desc" = "La tua transazione è stata aggiornata nell'elenco delle transazioni.";
 
+"successful_subscription_new_title" = "Abbonamento creato!";
+
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
+
+"successful_subscription_update_title" = "Abbonamento cambiato!";
+
+"successful_subscription_update_desc" = "La tua iscrizione è stata aggiornata nell'elenco delle tue iscrizioni.";
+
 "successful_savingsplan_new_title" = "Piano di risparmio creato!";
 
 "successful_savingsplan_new_desc" = "Il tuo piano di risparmio è stato modificato e aggiunto all'elenco dei piani di risparmio.";

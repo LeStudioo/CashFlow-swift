@@ -8,10 +8,17 @@
 import Foundation
 
 enum TransactionType: Int, CaseIterable {
-    case none = -1
     case expense = 0
     case income = 1
     case transfer = 2
+    
+    var name: String {
+        switch self {
+        case .expense: return "TBL Expense" // TODO: Localized
+        case .income: return "TBL Income"
+        case .transfer: return "TBL Transfer"
+        }
+    }
 }
 
 class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
@@ -192,7 +199,7 @@ extension TransactionModel {
     }
     
     var type: TransactionType {
-        return TransactionType(rawValue: typeNum ?? 0) ?? .none
+        return TransactionType(rawValue: typeNum ?? 0) ?? .expense
     }
     
     var date: Date? {

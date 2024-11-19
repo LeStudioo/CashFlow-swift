@@ -32,8 +32,8 @@ struct AnalyticsHomeView: View {
                         
                         if transactionRepository.amountCashFlowByMonth(month: filter.date) == 0 {
                             CustomEmptyView(
-                                imageName: "NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)",
-                                description: "analytic_home_no_stats".localized
+                                type: .empty(situation: .analytics),
+                                isDisplayed: true
                             )
                         } else {
                             AnalyticsLineChart(
@@ -76,8 +76,8 @@ struct AnalyticsHomeView: View {
                 .scrollIndicators(.hidden)
             } else {
                 CustomEmptyView(
-                    imageName: "NoIncome\(ThemeManager.theme.nameNotLocalized.capitalized)",
-                    description: "analytic_home_no_stats".localized
+                    type: .empty(situation: .analytics),
+                    isDisplayed: true
                 )
             } // End account
         } // End VStack

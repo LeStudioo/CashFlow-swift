@@ -25,51 +25,49 @@ struct AnalyticsLineChart: View {
     // MARK: -
     var body: some View {
         if amounts.reduce(0, +) != 0 {
+            let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
+            
             VStack {
-                let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
-                
-                VStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        if let month = monthOfSelectedDate.month {
-                            Text(config.title + " " + Calendar.current.monthSymbols[month - 1])
-                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                                .font(Font.mediumSmall())
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        
-                        Text(amounts.reduce(0, +).currency )
-                            .foregroundStyle(Color(uiColor: .label))
-                            .font(.semiBoldText18())
+                VStack(alignment: .leading, spacing: 10) {
+                    if let month = monthOfSelectedDate.month {
+                        Text(config.title + " " + Calendar.current.monthSymbols[month - 1])
+                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .font(Font.mediumSmall())
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(8)
                     
-                    Chart(values, id: \.self) { item in
-                        if let day = Calendar.current.dateComponents([.day], from: item.day).day {
-                            LineMark(x: .value("", day),
-                                     y: .value("", item.amount))
-                            .foregroundStyle(config.mainColor)
-                            .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
-                            .interpolationMethod(.catmullRom)
-                            
-                            AreaMark(x: .value("", day),
-                                     y: .value("", item.amount))
-                            .interpolationMethod(.catmullRom)
-                            .foregroundStyle(
-                                LinearGradient(
-                                    colors: [config.mainColor.opacity(0.6), .clear],
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                        }
-                    }
-                    .chartXScale(domain: 0...31)                    
+                    Text(amounts.reduce(0, +).currency )
+                        .foregroundStyle(Color(uiColor: .label))
+                        .font(.semiBoldText18())
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(8)
-                .background(Color.colorCell)
-                .cornerRadius(15)
+                
+                Chart(values, id: \.self) { item in
+                    if let day = Calendar.current.dateComponents([.day], from: item.day).day {
+                        LineMark(x: .value("", day),
+                                 y: .value("", item.amount))
+                        .foregroundStyle(config.mainColor)
+                        .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                        .interpolationMethod(.catmullRom)
+                        
+                        AreaMark(x: .value("", day),
+                                 y: .value("", item.amount))
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [config.mainColor.opacity(0.6), .clear],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                    }
+                }
+                .chartXScale(domain: 0...31)
             }
+            .padding(8)
+            .background(Color.colorCell)
+            .cornerRadius(15)
         } else {
             EmptyView()
                 .frame(height: 0)

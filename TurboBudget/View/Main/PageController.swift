@@ -61,8 +61,8 @@ struct PageControllerView: View {
                             .onTapGesture { viewModelCustomBar.showMenu = false }
                         } else {
                             CustomEmptyView(
-                                imageName: "NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)",
-                                description: "home_screen_no_account".localized
+                                type: .empty(situation: .account),
+                                isDisplayed: true
                             )
                         }
                         

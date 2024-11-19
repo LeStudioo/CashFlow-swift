@@ -26,15 +26,20 @@ extension SubscriptionRepository {
         } catch { NetworkService.handleError(error: error) }
     }
     
+    @discardableResult
     @MainActor
-    func createSubscription(accountID: Int, body: SubscriptionModel) async {
+    func createSubscription(accountID: Int, body: SubscriptionModel, shouldReturn: Bool = false) async -> SubscriptionModel?  {
         do {
             let subscription = try await NetworkService.shared.sendRequest(
                 apiBuilder: SubscriptionAPIRequester.create(accountID: accountID, body: body),
                 responseModel: SubscriptionModel.self
             )
             self.subscriptions.append(subscription)
-        } catch { NetworkService.handleError(error: error) }
+            return shouldReturn ? subscription : nil
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
     @MainActor

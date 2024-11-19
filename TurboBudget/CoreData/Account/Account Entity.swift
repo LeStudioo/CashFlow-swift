@@ -241,21 +241,3 @@ extension Account {
     }
     
 } // End Extension Expenses
-
-
-//MARK: - Extension Gain or Loss
-extension Account {
-
-    //-------------------- amountGainOrLossByMonth() ----------------------
-    // Description : Calcule si des gains ou des pertes on était fait, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
-    //-----------------------------------------------------------
-    func amountGainOrLossByMonth(month: Date) -> Double {
-        let amountOfExpenses = getAllExpensesTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
-        let amountOfIncomes = getAllTransactionsIncomeForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
-        
-        return amountOfExpenses + amountOfIncomes
-    }
-} //END Extension CashFlow

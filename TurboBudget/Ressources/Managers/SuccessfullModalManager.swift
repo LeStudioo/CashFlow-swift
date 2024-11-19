@@ -35,6 +35,17 @@ extension SuccessfullModalManager {
             self.isPresenting = true
         }
     }
+    
+    @MainActor
+    func showSuccessfulSubscription(type: SuccessfulType, subscription: SubscriptionModel) {
+        self.title = Word.Successful.Subscription.title(type: type)
+        self.subtitle = Word.Successful.Subscription.description(type: type)
+        self.content = AnyView(AutomationRow(subscription: subscription).disabled(true))
+            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isPresenting = true
+        }
+    }
  
     @MainActor
     func showSuccessfulSavingsPlan(type: SuccessfulType, savingsPlan: SavingsPlanModel) {

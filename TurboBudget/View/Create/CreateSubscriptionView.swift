@@ -8,10 +8,13 @@
 
 import SwiftUI
 
-struct CreateAutomationView: View {
+struct CreateSubscriptionView: View {
     
-    @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createAutomation))
-    @StateObject private var viewModel: AddAutomationViewModel = .init()
+    // builder
+    var subscription: SubscriptionModel? = nil
+    
+    @StateObject private var router: NavigationManager
+    @StateObject private var viewModel: CreateSubscriptionViewModel = .init()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -23,13 +26,19 @@ struct CreateAutomationView: View {
     }
     @FocusState private var focusedField: Field?
     
+    // init
+    init(subscription: SubscriptionModel? = nil) {
+        self.subscription = subscription
+        self._router = StateObject(wrappedValue: NavigationManager(isPresented: .constant(.createAutomation)))
+    }
+    
     //MARK: -
     var body: some View {
         NavStack(router: router) {
             ScrollView {
                 VStack(spacing: 24) {
                     CustomTextField(
-                        text: $viewModel.transactionTitle,
+                        text: $viewModel.name,
                         config: .init(
                             title: Word.Classic.name,
                             placeholder: "Netflix"
@@ -42,7 +51,7 @@ struct CreateAutomationView: View {
                     }
                     
                     CustomTextField(
-                        text: $viewModel.transactionAmount,
+                        text: $viewModel.amount,
                         config: .init(
                             title: Word.Classic.price,
                             placeholder: "14,99",
@@ -51,35 +60,30 @@ struct CreateAutomationView: View {
                     )
                     .focused($focusedField, equals: .amount)
                     
-                    CustomSegmentedControl(
-                        title: Word.Classic.typeOfTransaction,
-                        selection: $viewModel.transactionType,
-                        textLeft: Word.Classic.expense,
-                        textRight: Word.Classic.income
-                    )
+                    TransactionTypePicker(selected: $viewModel.type)
                     
-                    VStack(spacing: 6) {
-                        SelectCategoryButton(
-                            router: router,
-                            transactionType: $viewModel.transactionType,
-                            selectedCategory: $viewModel.selectedCategory,
-                            selectedSubcategory: $viewModel.selectedSubcategory
-                        )
-                        
-                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                            RecommendedCategoryButton(
-                                transactionTitle: viewModel.transactionTitle,
-                                transactionType: $viewModel.transactionType,
-                                selectedCategory: $viewModel.selectedCategory,
-                                selectedSubcategory: $viewModel.selectedSubcategory
-                            )
-                        }
-                    }
-                    .animation(.smooth, value: viewModel.transactionTitle)
+//                    VStack(spacing: 6) {
+//                        SelectCategoryButton(
+//                            router: router,
+//                            transactionType: $viewModel.type,
+//                            selectedCategory: $viewModel.selectedCategory,
+//                            selectedSubcategory: $viewModel.selectedSubcategory
+//                        )
+//                        
+//                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
+//                            RecommendedCategoryButton(
+//                                transactionTitle: viewModel.name,
+//                                transactionType: $viewModel.type,
+//                                selectedCategory: $viewModel.selectedCategory,
+//                                selectedSubcategory: $viewModel.selectedSubcategory
+//                            )
+//                        }
+//                    }
+//                    .animation(.smooth, value: viewModel.name)
                     
-                    CustomIntPicker(
-                        title: Word.Classic.dayOfAutomation,
-                        number: $viewModel.dayAutomation
+                    CustomDatePicker(
+                        title: Word.Classic.dayOfAutomation, // TODO: Date subscription
+                        date: $viewModel.frequencyDate
                     )
                 }
                 .padding(.horizontal, 24)
@@ -104,13 +108,7 @@ struct CreateAutomationView: View {
                 
                 ToolbarValidationButtonView(isActive: viewModel.validateAutomation()) {
                     VibrationManager.vibration()
-                    viewModel.createNewAutomation { withError in
-                        if withError == nil {
-                            dismiss()
-                        } else {
-                            // TODO: Show a error banner
-                        }
-                    }
+                    viewModel.createNewSubscription(dismiss: dismiss)
                 }
                 
                 ToolbarDismissKeyboardButtonView()
@@ -128,5 +126,5 @@ struct CreateAutomationView: View {
 
 //MARK: - Preview
 #Preview {
-    CreateAutomationView()
+    CreateSubscriptionView()
 }

@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction Type";
+"word_typeOfTransaction" = "Transaction type";
 
 "word_date" = "Date";
 
@@ -60,6 +60,14 @@
 "successful_transaction_update_title" = "Transaction modified!";
 
 "successful_transaction_update_desc" = "Your transaction has been updated in your transaction list.";
+
+"successful_subscription_new_title" = "Subscription created!";
+
+"successful_subscription_new_desc" = "Your subscription has been processed and added to your list of subscriptions.";
+
+"successful_subscription_update_title" = "Subscription modified!";
+
+"successful_subscription_update_desc" = "Your subscription has been updated in your list of subscriptions.";
 
 "successful_savingsplan_new_title" = "Savings plan created!";
 

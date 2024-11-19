@@ -61,6 +61,14 @@
 
 "successful_transaction_update_desc" = "Su transacción ha sido actualizada en su lista de transacciones.";
 
+"successful_subscription_new_title" = "¡Suscripción creada!";
+
+"successful_subscription_new_desc" = "Su suscripción ha sido procesada y agregada a su lista de suscripciones.";
+
+"successful_subscription_update_title" = "¡Suscripción modificada!";
+
+"successful_subscription_update_desc" = "Tu suscripción ha sido actualizada en tu lista de suscripciones.";
+
 "successful_savingsplan_new_title" = "¡Plan de ahorro creado!";
 
 "successful_savingsplan_new_desc" = "Su plan de ahorro ha sido procesado y agregado a su lista de planes de ahorro.";

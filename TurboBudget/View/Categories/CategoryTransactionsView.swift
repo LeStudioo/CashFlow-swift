@@ -67,25 +67,14 @@ struct CategoryTransactionsView: View {
                         .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
                         .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                     }, header: {
-                        //                                if filterTransactions == .month {
                         DetailOfExpensesAndIncomesByMonth(
                             month: .now,
                             amountOfExpenses: category.amountExpensesByMonth(month: .now),
                             amountOfIncomes: category.amountIncomesByMonth(month: .now)
                         )
                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                        //                                } else if filterTransactions == .expenses || filterTransactions == .incomes {
-                        //                                    DetailOfExpensesOrIncomesByMonth(
-                        //                                        filterTransactions: $filterTransactions,
-                        //                                        month: month,
-                        //                                        amountOfExpenses: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
-                        //                                        amountOfIncomes: searchResults.filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth }).map({ $0.amount ?? 0 }).reduce(0, +),
-                        //                                        ascendingOrder: $ascendingOrder
-                        //                                    )
-                        //                                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                        //                                }
                     })
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.label)
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)

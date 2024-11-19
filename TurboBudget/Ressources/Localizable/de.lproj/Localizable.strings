@@ -61,6 +61,14 @@
 
 "successful_transaction_update_desc" = "Ihre Transaktion wurde in Ihrer Transaktionsliste aktualisiert.";
 
+"successful_subscription_new_title" = "Abonnement erstellt!";
+
+"successful_subscription_new_desc" = "Ihr Abonnement wurde bearbeitet und Ihrer Abonnementliste hinzugefügt.";
+
+"successful_subscription_update_title" = "Geändertes Abonnement!";
+
+"successful_subscription_update_desc" = "Ihr Abonnement wurde in Ihrer Abonnementliste aktualisiert.";
+
 "successful_savingsplan_new_title" = "Sparplan erstellt!";
 
 "successful_savingsplan_new_desc" = "Ihr Sparplan wurde bearbeitet und zu Ihrer Sparplanliste hinzugefügt.";

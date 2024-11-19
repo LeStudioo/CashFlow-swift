@@ -14,7 +14,7 @@ extension SubscriptionModel {
         name: "Mock Subscription Expense",
         amount: 45,
         typeNum: TransactionType.expense.rawValue,
-        frequency: SubscriptionFrequency.monthly.rawValue,
+        frequencyNum: SubscriptionFrequency.monthly.rawValue,
         categoryID: PredefinedCategory.PREDEFCAT1.rawValue,
         subcategoryID: PredefinedSubcategory.PREDEFSUBCAT1CAT1.rawValue
     )

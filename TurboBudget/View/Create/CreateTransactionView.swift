@@ -11,6 +11,7 @@ struct CreateTransactionView: View {
     
     // builder
     var transaction: TransactionModel? = nil
+    
     @StateObject private var viewModel: CreateTransactionViewModel
     @StateObject private var router: NavigationManager
     

@@ -42,34 +42,19 @@ struct TransactionsListView: View {
                             .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
                             .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                         } header: {
-//                            if filterTransactions == .month {
-                                DetailOfExpensesAndIncomesByMonth(
-                                    month: month,
-                                    amountOfExpenses: transactionRepository.amountExpensesForSelectedMonth(month: month),
-                                    amountOfIncomes: transactionRepository.amountIncomesForSelectedMonth(month: month),
-                                    isPinned: index == pinned
+                            DetailOfExpensesAndIncomesByMonth(
+                                month: month,
+                                amountOfExpenses: transactionRepository.amountExpensesForSelectedMonth(month: month),
+                                amountOfIncomes: transactionRepository.amountIncomesForSelectedMonth(month: month),
+                                isPinned: index == pinned
+                            )
+                            .background(GeometryReader {
+                                // detect current position of header
+                                Color.clear.preference(
+                                    key: ViewOffsetKey.self,
+                                    value: $0.frame(in: .named("transactionsList")).origin.y
                                 )
-                                .background(GeometryReader {
-                                    // detect current position of header
-                                    Color.clear.preference(
-                                        key: ViewOffsetKey.self,
-                                        value: $0.frame(in: .named("transactionsList")).origin.y
-                                    )
-                                })
-//                            } else if filterTransactions == .expenses || filterTransactions == .incomes {
-//                                DetailOfExpensesOrIncomesByMonth(
-//                                    filterTransactions: $filterTransactions,
-//                                    month: month,
-//                                    amountOfExpenses: searchResults
-//                                        .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-//                                        .map({ $0.amount ?? 0 }).reduce(0, +),
-//                                    amountOfIncomes: searchResults
-//                                        .filter({ $0.date.withDefault >= month.startOfMonth && $0.date.withDefault <= month.endOfMonth })
-//                                        .map({ $0.amount ?? 0 }).reduce(0, +),
-//                                    ascendingOrder: $ascendingOrder
-//                                )
-//                                .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 8, trailing: 0))
-//                            }
+                            })
                         } // Section
                         .onPreferenceChange(ViewOffsetKey.self) {
                             if $0 == 0 || $0 >= 0.01 {

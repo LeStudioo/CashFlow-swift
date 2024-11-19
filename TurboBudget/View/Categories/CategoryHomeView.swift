@@ -54,7 +54,9 @@ struct CategoryHomeView: View {
                             .disabled(!hasSubcategories)
                         }
                         
-                        Rectangle().frame(height: 100).opacity(0)
+                        Rectangle()
+                            .frame(height: 100)
+                            .opacity(0)
                     }
                     .padding()
                 } //End ScrollView

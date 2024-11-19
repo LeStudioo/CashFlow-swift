@@ -62,6 +62,14 @@ struct Word {
                 return "successful_savingsplan_\(type.rawValue)_desc".localized
             }
         }
+        struct Subscription {
+            static func title(type: SuccessfulType) -> String {
+                return "successful_subscription_\(type.rawValue)_title".localized
+            }
+            static func description(type: SuccessfulType) -> String {
+                return "successful_subscription_\(type.rawValue)_desc".localized
+            }
+        }
         
     }
     

@@ -200,7 +200,7 @@ private extension NavigationManager {
             case .createAccount:
                 CreateAccountView()
             case .createAutomation:
-                CreateAutomationView()
+                CreateSubscriptionView()
             case .createBudget:
                 CreateBudgetView()
             case .createSavingsPlan(let savingsPlan):

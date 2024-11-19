@@ -52,6 +52,12 @@ struct SavingPlansHomeView: View {
                     .padding()
                 } //End ScrollView
                 .scrollIndicators(.hidden)
+                .overlay {
+                    CustomEmptyView(
+                        type: .empty(situation: .savingsPlan),
+                        isDisplayed: savingsPlanRepository.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
+                    )
+                }
             } else {
                 ErrorView(
                     searchResultsCount: searchResults.count,

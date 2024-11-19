@@ -45,16 +45,6 @@ extension SavingPlanRepositoryOld {
         newSavingPlan.dateOfStart = model.dateOfStart
         newSavingPlan.savingPlansToAccount = account
         
-        if model.amountOfStart > 0 {
-            let contributionModel = ContributionModelOld(
-                amount: model.amountOfStart,
-                date: .now,
-                savingsPlan: newSavingPlan
-            )
-            
-            let newContribution = try ContributionRepositoryOld.shared.createNewContribution(model: contributionModel)
-        }
-        
         if withSave {
             self.savingPlans.append(newSavingPlan)
             try persistenceController.saveContextWithThrow()
