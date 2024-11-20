@@ -99,7 +99,6 @@ struct AddTransactionIntent: AppIntent {
         )
         
         // TODO: Main envoyer sur main account et expliquer que ça sera fait sur main acount exclusivement
-        // TODO: Si fonctionne pas, a cause du token
         do {
             try await userRepository.loginWithToken()
             await accountRepository.fetchAccounts()

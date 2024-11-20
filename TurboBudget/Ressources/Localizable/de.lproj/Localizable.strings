@@ -37,11 +37,24 @@
 
 "title_update_transaction" = "Transaktion aktualisieren";
 
+"title_home_recentTransactions" = "Meine letzten Transaktionen";
+
 "title_new_automation" = "Neue Automatisierung";
+
+"title_home_subscriptions" = "Neue Automatisierung";
 
 "title_new_savingsPlan" = "Neuer Sparplan";
 
 "title_update_savingsPlan" = "Sparplan aktualisieren";
+
+"title_home_savingsPlans" = "Meine Sparpläne";
+
+//MARK: - Empty
+"empty_transactions_desc" = "Fügen Sie Ihre erste Transaktion hinzu, indem Sie auf die Schaltfläche '+' klicken";
+
+"empty_subscriptions_desc" = "Fügen Sie Ihr erstes Abonnement hinzu, indem Sie auf die Schaltfläche '+' klicken";
+
+"empty_savingsPlans_desc" = "Fügen Sie Ihren ersten Sparplan hinzu, indem Sie auf die Schaltfläche '+' klicken";
 
 //MARK: - Login
 "login_connection" = "Zugang";

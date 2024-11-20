@@ -37,11 +37,24 @@
 
 "title_update_transaction" = "Aggiorna transazione";
 
+"title_home_recentTransactions" = "Le mie transazioni recenti";
+
 "title_new_automation" = "Nuova automazione";
+
+"title_home_subscriptions" = "Nuova automazione";
 
 "title_new_savingsPlan" = "Nuovo piano di risparmio";
 
 "title_update_savingsPlan" = "Aggiorna il piano di risparmio";
+
+"title_home_savingsPlans" = "I miei piani di risparmio";
+
+//MARK: - Empty
+"empty_transactions_desc" = "Aggiungi la tua prima transazione facendo clic sul pulsante '+'";
+
+"empty_subscriptions_desc" = "Aggiungi il tuo primo abbonamento facendo clic sul pulsante '+'";
+
+"empty_savingsPlans_desc" = "Aggiungi il tuo primo piano di risparmio facendo clic sul pulsante '+'";
 
 //MARK: - Login
 "login_connection" = "Accesso";
@@ -202,7 +215,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 

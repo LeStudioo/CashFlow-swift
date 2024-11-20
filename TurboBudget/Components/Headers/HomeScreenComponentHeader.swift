@@ -37,12 +37,11 @@ enum HomeScreenComponentHeaderType {
     case savingsPlan
     case subscription
     
-    // TODO: Localized + ISO
     var title: String {
         switch self {
-        case .recentTransactions:   return "word_recent_transactions".localized
-        case .savingsPlan:          return "savingsplans_for_home_title".localized
-        case .subscription:         return "automations_for_home_title".localized
+        case .recentTransactions:   return Word.Title.Transaction.home
+        case .savingsPlan:          return Word.Title.SavingsPlan.home
+        case .subscription:         return Word.Title.Subscription.home
         }
     }
     

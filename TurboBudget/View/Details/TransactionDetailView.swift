@@ -20,20 +20,13 @@ struct TransactionDetailView: View {
     // Environement
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.managedObjectContext) private var viewContext
     
     // EnvironmentObject
     @EnvironmentObject var store: PurchasesManager
-
-    // String variables
-    @State private var transactionNote: String = ""
-    @State private var newTransactionName: String = ""
     
     // Boolean variables
-    @State private var isDeleting: Bool = false
     @State private var isSharingJSON: Bool = false
     @State private var isSharingQRCode: Bool = false
-    @State private var isEditingTransactionName: Bool = false
     @State private var showWhatCategory: Bool = false
 
 	// Enum
@@ -148,12 +141,12 @@ struct TransactionDetailView: View {
             
             HStack {
                 ZStack(alignment: .topLeading) {
-                    TextEditor(text: $transactionNote)
+                    TextEditor(text: $viewModel.note)
                         .focused($focusedField, equals: .note)
                         .scrollContentBackground(.hidden)
                         .font(Font.mediumText16())
                     
-                    if transactionNote.isEmpty {
+                    if viewModel.note.isEmpty {
                         HStack {
                             Text("transaction_detail_note".localized)
                                 .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
@@ -174,30 +167,22 @@ struct TransactionDetailView: View {
             
             Spacer()
         }
-        .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
+        .alert("transaction_detail_delete_transac".localized, isPresented: $viewModel.isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel") })
-            Button(role: .destructive, action: { withAnimation { deleteTransaction() } }, label: { Text("word_delete") })
+            Button(role: .destructive, action: {
+                viewModel.deleteTransaction(transactionID: transaction.id, dismiss: dismiss)
+            }, label: { Text("word_delete") })
         }, message: {
             Text(transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
         })
-        .alert("word_rename".localized, isPresented: $isEditingTransactionName, actions: {
-            TextField("word_new_name".localized, text: $newTransactionName)
-            Button(action: { return }, label: { Text("word_cancel".localized) })
-            Button(action: {
-                transaction.name = newTransactionName
-                persistenceController.saveContext()
-            }, label: { Text("word_validate".localized) })
-        })
         .onAppear { 
-            transactionNote = transaction.note ?? ""
+            viewModel.note = transaction.note ?? ""
             viewModel.selectedCategory = PredefinedCategory.findByID(transaction.categoryID ?? "")
             viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.subcategoryID ?? "")
         }
         .onDisappear {
-            if transactionNote != transaction.note {
-                transaction.note = transactionNote
-                // TODO: TransactionRepository update
-//                persistenceController.saveContext()
+            if viewModel.note != transaction.note {
+                viewModel.updateTransaction(transactionID: transaction.id)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -212,13 +197,15 @@ struct TransactionDetailView: View {
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
                     
-                    Menu(content: {
-                        Button(action: { isSharingJSON.toggle() }, label: { Label("word_json".localized, systemImage: "curlybraces") })
-                        Button(action: { isSharingQRCode.toggle() }, label: { Label("word_qrcode".localized, systemImage: "qrcode") })
-                    }, label: {
-                        Label("word_share".localized, systemImage: "square.and.arrow.up.fill")
-                    })
-                    Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete", systemImage: "trash.fill") })
+//                    Menu(content: {
+//                        Button(action: { isSharingJSON.toggle() }, label: { Label("word_json".localized, systemImage: "curlybraces") })
+//                        Button(action: { isSharingQRCode.toggle() }, label: { Label("word_qrcode".localized, systemImage: "qrcode") })
+//                    }, label: {
+//                        Label("word_share".localized, systemImage: "square.and.arrow.up.fill")
+//                    })
+                    Button(role: .destructive, action: {
+                        viewModel.isDeleting.toggle()
+                    }, label: { Label("word_delete", systemImage: "trash.fill") })
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundStyle(Color(uiColor: .label))
@@ -250,13 +237,6 @@ struct TransactionDetailView: View {
 //        })
 //        .sheet(isPresented: $isSharingQRCode) { QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!) }
     }//END body
-
-    //MARK: Fonctions
-    func deleteTransaction() {
-        // TODO: Delete transaction
-        dismiss()
-    }
-    
 }//END struct
 
 //MARK: - Preview

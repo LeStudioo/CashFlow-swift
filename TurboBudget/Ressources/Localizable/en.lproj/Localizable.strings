@@ -37,11 +37,24 @@
 
 "title_update_transaction" = "Update transaction";
 
+"title_home_recentTransactions" = "My recent transactions";
+
 "title_new_automation" = "New automation";
+
+"title_home_subscriptions" = "My subscriptions";
 
 "title_new_savingsPlan" = "New savings plan";
 
 "title_update_savingsPlan" = "Update savings plan";
+
+"title_home_savingsPlans" = "My savings plans";
+
+//MARK: - Empty
+"empty_transactions_desc" = "Add your first transaction by pressing the '+' button";
+
+"empty_subscriptions_desc" = "Add your first subscription by pressing the '+' button";
+
+"empty_savingsPlans_desc" = "Add your first savings plan by pressing the '+' button";
 
 //MARK: - Login
 "login_connection" = "Login";

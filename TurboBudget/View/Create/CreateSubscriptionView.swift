@@ -101,7 +101,7 @@ struct CreateSubscriptionView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text(Word.Title.newAutomation)
+                    Text(Word.Title.Subscription.new)
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 

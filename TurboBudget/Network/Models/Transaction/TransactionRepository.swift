@@ -147,7 +147,7 @@ extension TransactionRepository {
         await self.fetchTransactionsByPeriod(
             accountID: accountID,
             startDate: Date().startOfMonth.toISO(),
-            endDate: Date().toISO()
+            endDate: Date().endOfMonth.toISO()
         )
     }
     

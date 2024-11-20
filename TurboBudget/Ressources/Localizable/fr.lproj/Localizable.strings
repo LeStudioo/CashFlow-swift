@@ -37,11 +37,24 @@
 
 "title_update_transaction" = "Modifier la transaction";
 
+"title_home_recentTransactions" = "Mes transactions récentes";
+
 "title_new_automation" = "Nouvelle automatisation";
+
+"title_home_subscriptions" = "Mes abonnements";
 
 "title_new_savingsPlan" = "Nouveau plan d'épargne";
 
 "title_update_savingsPlan" = "Modifier le plan d'épargne";
+
+"title_home_savingsPlans" = "Mes plans d'épargne";
+
+//MARK: - Empty
+"empty_transactions_desc" = "Ajoutez votre première transaction en appuyant sur le bouton '+'";
+
+"empty_subscriptions_desc" = "Ajoutez votre premier abonnement en appuyant sur le bouton '+'";
+
+"empty_savingsPlans_desc" = "Ajoutez votre premier plan d'épargne en appuyant sur le bouton '+'";
 
 //MARK: - Login
 "login_connection" = "Connexion";

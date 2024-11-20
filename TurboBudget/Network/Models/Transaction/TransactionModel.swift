@@ -14,9 +14,9 @@ enum TransactionType: Int, CaseIterable {
     
     var name: String {
         switch self {
-        case .expense: return "TBL Expense" // TODO: Localized
-        case .income: return "TBL Income"
-        case .transfer: return "TBL Transfer"
+        case .expense:  return Word.Classic.expense
+        case .income:   return Word.Classic.income
+        case .transfer: return Word.Classic.transfer
         }
     }
 }

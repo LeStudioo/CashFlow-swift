@@ -45,12 +45,11 @@ enum HomeScreenEmptyRowType {
     case subscription
     case recentTransactions
     
-    // TODO: Localized + ISO
     var title: String {
         switch self {
-        case .savingsPlan:          return "savingsplans_for_home_no_savings_plan".localized
-        case .subscription:         return "automations_for_home_no_auto".localized
-        case .recentTransactions:   return "home_screen_no_transaction".localized
+        case .savingsPlan:          return Word.Empty.SavingsPlan.desc.localized
+        case .subscription:         return Word.Empty.Subscription.desc.localized
+        case .recentTransactions:   return Word.Empty.Transaction.desc.localized
         }
     }
     

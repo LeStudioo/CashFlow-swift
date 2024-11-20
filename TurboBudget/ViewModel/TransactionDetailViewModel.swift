@@ -6,11 +6,47 @@
 //
 
 import Foundation
-import CoreData
+import SwiftUI
 
 class TransactionDetailViewModel: ObservableObject {    
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
+    
+    @Published var note: String = ""
+    @Published var isDeleting: Bool = false
+}
+
+extension TransactionDetailViewModel {
+    
+    func updateTransaction(transactionID: Int?) {
+        guard let transactionID else { return }
+        
+        let transactionRepository: TransactionRepository = .shared
+        let accountReposiotry: AccountRepository = .shared
+        
+        guard let account = accountReposiotry.selectedAccount, let accountID = account.id else { return }
+        
+        Task {
+            await transactionRepository.updateTransaction(
+                accountID: accountID,
+                transactionID: transactionID,
+                body: .init(note: note)
+            )
+        }
+    }
+        
+    
+    func deleteTransaction(transactionID: Int?, dismiss: DismissAction) {
+        guard let transactionID else { return }
+        
+        let transactionRepository: TransactionRepository = .shared
+        
+        Task {
+            await transactionRepository.deleteTransaction(transactionID: transactionID)
+            await dismiss()
+        }
+    }
+    
 }
 
 //MARK: - Utils
