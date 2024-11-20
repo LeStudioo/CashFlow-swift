@@ -13,11 +13,13 @@
 		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
+		D988D6DC2CEDACAC00C1DD22 /* sonar-project.properties in Resources */ = {isa = PBXBuildFile; fileRef = D988D6DB2CEDAC9F00C1DD22 /* sonar-project.properties */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		81A707832A3B6B4C00BEB0BF /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9887FE12AA457A400AFC915 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D988D6DB2CEDAC9F00C1DD22 /* sonar-project.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = "sonar-project.properties"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -56,6 +58,7 @@
 		81A7077A2A3B6B4C00BEB0BF = {
 			isa = PBXGroup;
 			children = (
+				D988D6DB2CEDAC9F00C1DD22 /* sonar-project.properties */,
 				D9F0E45F2CE525390054E305 /* TurboBudget */,
 				81A707842A3B6B4C00BEB0BF /* Products */,
 				D9887FE02AA457A400AFC915 /* Frameworks */,
@@ -156,6 +159,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D988D6DC2CEDACAC00C1DD22 /* sonar-project.properties in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
