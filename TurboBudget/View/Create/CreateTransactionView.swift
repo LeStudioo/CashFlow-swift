@@ -62,25 +62,19 @@ struct CreateTransactionView: View {
                     )
                     .focused($focusedField, equals: .amount)
                     
-                    CustomSegmentedControl(
-                        title: Word.Classic.typeOfTransaction,
-                        selection: $viewModel.transactionType,
-                        textLeft: Word.Classic.expense,
-                        textRight: Word.Classic.income
-                    )
+                    TransactionTypePicker(selected: $viewModel.transactionType)
                     
                     VStack(spacing: 6) {
                         SelectCategoryButton(
-                            router: router,
-                            transactionType: $viewModel.transactionType,
+                            type: $viewModel.transactionType,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(
-                                transactionTitle: viewModel.transactionTitle,
-                                transactionType: $viewModel.transactionType,
+                                transactionName: viewModel.transactionTitle,
+                                type: $viewModel.transactionType,
                                 selectedCategory: $viewModel.selectedCategory,
                                 selectedSubcategory: $viewModel.selectedSubcategory
                             )

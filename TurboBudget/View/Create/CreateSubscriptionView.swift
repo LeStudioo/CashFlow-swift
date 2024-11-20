@@ -64,16 +64,15 @@ struct CreateSubscriptionView: View {
                     
                     VStack(spacing: 6) {
                         SelectCategoryButton(
-                            router: router,
-                            transactionType: $viewModel.type,
+                            type: $viewModel.type,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(
-                                transactionTitle: viewModel.name,
-                                transactionType: $viewModel.type,
+                                transactionName: viewModel.name,
+                                type: $viewModel.type,
                                 selectedCategory: $viewModel.selectedCategory,
                                 selectedSubcategory: $viewModel.selectedSubcategory
                             )

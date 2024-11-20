@@ -15,7 +15,7 @@ final class CreateTransactionViewModel: ObservableObject {
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
-    @Published var transactionType: ExpenseOrIncome = .expense
+    @Published var transactionType: TransactionType = .expense
     @Published var transactionDate: Date = Date()
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
@@ -28,7 +28,7 @@ final class CreateTransactionViewModel: ObservableObject {
             self.transaction = transaction
             self.transactionTitle = transaction.name ?? ""
             self.transactionAmount = transaction.amount?.formatted() ?? ""
-            self.transactionType = ExpenseOrIncome(rawValue: transaction.typeNum ?? 0) ?? .expense
+            self.transactionType = transaction.type
             self.transactionDate = transaction.date ?? .now
             self.selectedCategory = transaction.category
             self.selectedSubcategory = transaction.subcategory

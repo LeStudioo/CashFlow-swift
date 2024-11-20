@@ -10,14 +10,14 @@ import SwiftUI
 struct RecommendedCategoryButton: View {
     
     // Builder
-    var transactionTitle: String
-    @Binding var transactionType: ExpenseOrIncome
+    var transactionName: String
+    @Binding var type: TransactionType
     @Binding var selectedCategory: PredefinedCategory?
     @Binding var selectedSubcategory: PredefinedSubcategory?
     
     // MARK: -
     var body: some View {
-        let bestCategory = TransactionEntity.findBestCategory(for: transactionTitle)
+        let bestCategory = TransactionEntity.findBestCategory(for: transactionName)
         
         if let categoryFound = bestCategory.0 {
             let subcategoryFound = bestCategory.1
@@ -34,10 +34,10 @@ struct RecommendedCategoryButton: View {
             .padding(.horizontal, 8)
             .onTapGesture {
                 if categoryFound == PredefinedCategory.PREDEFCAT0 {
-                    withAnimation { transactionType = .income }
+                    withAnimation { type = .income }
                 } else {
                     selectedCategory = categoryFound
-                    withAnimation { transactionType = .expense }
+                    withAnimation { type = .expense }
                 }
                 if let subcategoryFound { selectedSubcategory = subcategoryFound }
             }
@@ -48,8 +48,8 @@ struct RecommendedCategoryButton: View {
 // MARK: - Preview
 #Preview {
     RecommendedCategoryButton(
-        transactionTitle: "Test",
-        transactionType: .constant(.expense),
+        transactionName: "Test",
+        type: .constant(.expense),
         selectedCategory: .constant(PredefinedCategory.PREDEFCAT1),
         selectedSubcategory: .constant(PredefinedSubcategory.PREDEFSUBCAT1CAT1)
     )
