@@ -10,10 +10,11 @@ import SwiftUI
 struct SelectCategoryButton: View {
     
     // Builder
-    @ObservedObject var router: NavigationManager
     @Binding var transactionType: ExpenseOrIncome
     @Binding var selectedCategory: PredefinedCategory?
     @Binding var selectedSubcategory: PredefinedSubcategory?
+    
+    @EnvironmentObject private var router: NavigationManager
     
     // MARK: -
     var body: some View {
@@ -78,7 +79,6 @@ struct SelectCategoryButton: View {
 // MARK: - Preview
 #Preview {
     SelectCategoryButton(
-        router: .init(isPresented: .constant(.selectCategory(category: .constant(nil), subcategory: .constant(nil)))),
         transactionType: .constant(.expense),
         selectedCategory: .constant(nil),
         selectedSubcategory: .constant(nil)

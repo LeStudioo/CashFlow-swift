@@ -62,24 +62,24 @@ struct CreateSubscriptionView: View {
                     
                     TransactionTypePicker(selected: $viewModel.type)
                     
-//                    VStack(spacing: 6) {
-//                        SelectCategoryButton(
-//                            router: router,
-//                            transactionType: $viewModel.type,
-//                            selectedCategory: $viewModel.selectedCategory,
-//                            selectedSubcategory: $viewModel.selectedSubcategory
-//                        )
-//                        
-//                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
-//                            RecommendedCategoryButton(
-//                                transactionTitle: viewModel.name,
-//                                transactionType: $viewModel.type,
-//                                selectedCategory: $viewModel.selectedCategory,
-//                                selectedSubcategory: $viewModel.selectedSubcategory
-//                            )
-//                        }
-//                    }
-//                    .animation(.smooth, value: viewModel.name)
+                    VStack(spacing: 6) {
+                        SelectCategoryButton(
+                            router: router,
+                            transactionType: $viewModel.type,
+                            selectedCategory: $viewModel.selectedCategory,
+                            selectedSubcategory: $viewModel.selectedSubcategory
+                        )
+                        
+                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                            RecommendedCategoryButton(
+                                transactionTitle: viewModel.name,
+                                transactionType: $viewModel.type,
+                                selectedCategory: $viewModel.selectedCategory,
+                                selectedSubcategory: $viewModel.selectedSubcategory
+                            )
+                        }
+                    }
+                    .animation(.smooth, value: viewModel.name)
                     
                     CustomDatePicker(
                         title: Word.Classic.dayOfAutomation, // TODO: Date subscription
