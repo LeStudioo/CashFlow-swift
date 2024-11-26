@@ -70,6 +70,7 @@ struct CreateTransactionView: View {
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
+                        .environmentObject(router)
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(

@@ -15,6 +15,7 @@ struct TransactionDetailView: View {
     
     // Custom type
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     @ObservedObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
@@ -81,30 +82,28 @@ struct TransactionDetailView: View {
                 Spacer()
             }
             
-            if store.isCashFlowPro && transaction.categoryID == PredefinedCategory.PREDEFCAT00.id {
-                let bestCategory = TransactionEntity.findBestCategory(for: transaction.name ?? "")
-                
-                if let categoryFound = bestCategory.0 {
-                    let subcategoryFound = bestCategory.1
-                    VStack(spacing: 0) {
-                        Text("transaction_recommended_category".localized + " : ")
-                        HStack {
-                            Image(systemName: categoryFound.icon)
-                            Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
-                        }
-                        .foregroundStyle(categoryFound.color)
+            
+            if let categoryFound = viewModel.bestCategory {
+                let subcategoryFound = viewModel.bestSubcategory
+                VStack(spacing: 0) {
+                    Text("transaction_recommended_category".localized + " : ")
+                    HStack {
+                        Image(systemName: categoryFound.icon)
+                        Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
                     }
-                    .font(.mediumText16())
-                    .onTapGesture {
-                        viewModel.selectedCategory = categoryFound
-                        if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                        if let transactionID = transaction.id {
-                            viewModel.updateCategory(transactionID: transactionID)
-                        }
-                    }
-                    .padding(.top, 8)
+                    .foregroundStyle(categoryFound.color)
                 }
+                .font(.mediumText16())
+                .onTapGesture {
+                    viewModel.selectedCategory = categoryFound
+                    if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
+                    if let transactionID = transaction.id {
+                        viewModel.updateCategory(transactionID: transactionID)
+                    }
+                }
+                .padding(.top, 8)
             }
+            
             
             Text(transaction.name ?? "")
                 .titleAdjustSize()
@@ -180,8 +179,22 @@ struct TransactionDetailView: View {
             viewModel.selectedCategory = PredefinedCategory.findByID(transaction.categoryID ?? "")
             viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.subcategoryID ?? "")
         }
+        .task {
+            if store.isCashFlowPro && transaction.categoryID == PredefinedCategory.PREDEFCAT00.id {
+                guard let name = transaction.name else { return }
+                guard let transactionID = transaction.id else { return }
+                if let response = await transactionRepository.fetchCategory(name: name, transactionID: transactionID) {
+                    if let cat = response.cat {
+                        viewModel.bestCategory = PredefinedCategory.findByID(cat)
+                    }
+                    if let sub = response.sub {
+                        viewModel.bestSubcategory = PredefinedSubcategory.findByID(sub)
+                    }
+                }
+            }
+        }
         .onDisappear {
-            if viewModel.note != transaction.note {
+            if viewModel.note != transaction.note && transaction.note != nil {
                 viewModel.updateTransaction(transactionID: transaction.id)
             }
         }

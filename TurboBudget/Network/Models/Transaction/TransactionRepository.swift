@@ -131,12 +131,31 @@ extension TransactionRepository {
     }
     
     @MainActor
-    func deleteTransaction(transactionID: Int) async {
+    func fetchCategory(name: String, transactionID: Int? = nil) async -> TransactionFetchCategoryResponse? {
         do {
-            try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.delete(id: transactionID)
+            let response = try await NetworkService.shared.sendRequest(
+                apiBuilder: TransactionAPIRequester.fetchCategory(name: name, transactionID: transactionID),
+                responseModel: TransactionFetchCategoryResponse.self
+            )
+            return response
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
+    }
+    
+    @MainActor
+    func deleteTransaction(transactionID: Int) async {
+        let accountRepo = AccountRepository.shared
+        do {
+            let response = try await NetworkService.shared.sendRequest(
+                apiBuilder: TransactionAPIRequester.delete(id: transactionID),
+                responseModel: TransactionResponseWithBalance.self
             )
             self.transactions.removeAll { $0.id == transactionID }
+            if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
+                accountRepo.setNewBalance(accountID: accountID, newBalance: newBalance)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
 }

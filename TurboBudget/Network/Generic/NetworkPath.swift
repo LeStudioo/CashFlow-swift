@@ -44,6 +44,14 @@ struct NetworkPath {
                 return "/transaction/\(accountID)/\(startDate)/\(endDate)"
             }
         }
+        /// TransactionID = transaction to exclude of the search
+        static func fetchCategory(name: String, transactionID: Int? = nil) -> String {
+            if let transactionID {
+                return "/transaction/auto-cat/\(name)/\(transactionID)"
+            } else {
+                return "/transaction/auto-cat/\(name)"
+            }
+        }
         static func update(id: Int) -> String {
             return "/transaction/\(id)"
         }
@@ -107,6 +115,10 @@ struct NetworkPath {
         static func delete(id: Int) -> String {
             return "/creditcard/\(id)"
         }
+    }
+    
+    struct Category {
+        static let base: String = "/category"
     }
     
 }

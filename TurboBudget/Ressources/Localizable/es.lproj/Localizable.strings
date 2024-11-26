@@ -15,6 +15,8 @@
 
 "word_income" = "Ingreso";
 
+"word_transfer" = "Transferir";
+
 "word_dayOfAutomation" = "Día de la automatización";
 
 "word_initialAmount" = "Cantidad inicial";
@@ -37,7 +39,7 @@
 
 "title_update_transaction" = "Actualizar transacción";
 
-"title_home_recentTransactions" = "Mis transacciones recientes";
+"title_home_transactions" = "Mis transacciones";
 
 "title_new_automation" = "Nueva automatización";
 

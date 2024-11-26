@@ -12,6 +12,9 @@ class TransactionDetailViewModel: ObservableObject {
     @Published var selectedCategory: PredefinedCategory? = nil
     @Published var selectedSubcategory: PredefinedSubcategory? = nil
     
+    @Published var bestCategory: PredefinedCategory? = nil
+    @Published var bestSubcategory: PredefinedSubcategory? = nil
+    
     @Published var note: String = ""
     @Published var isDeleting: Bool = false
 }

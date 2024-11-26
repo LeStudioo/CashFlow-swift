@@ -46,11 +46,11 @@ struct CustomTabBar: View {
                             Label("word_savingsplan".localized, systemImage: "dollarsign.square.fill")
                         }
                         
-                        NavigationButton(present: router.presentRecoverTransaction()) {
-                            viewModel.showMenu = false
-                        } label: {
-                            Label("recover_button".localized, systemImage: "tray.and.arrow.down.fill")
-                        }
+//                        NavigationButton(present: router.presentRecoverTransaction()) {
+//                            viewModel.showMenu = false
+//                        } label: {
+//                            Label("recover_button".localized, systemImage: "tray.and.arrow.down.fill")
+//                        }
                         
                         NavigationButton(present: router.presentCreateAutomation()) {
                             viewModel.showMenu = false
@@ -58,9 +58,9 @@ struct CustomTabBar: View {
                             Label("word_automation".localized, systemImage: "clock.arrow.circlepath")
                         }
                         
-                        Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
-                            Label("word_scanner".localized, systemImage: "barcode.viewfinder")
-                        })
+//                        Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
+//                            Label("word_scanner".localized, systemImage: "barcode.viewfinder")
+//                        })
                         
                         NavigationButton(present: router.presentCreateTransaction()) {
                             viewModel.showMenu = false
