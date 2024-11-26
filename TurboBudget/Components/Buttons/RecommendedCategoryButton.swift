@@ -12,34 +12,43 @@ struct RecommendedCategoryButton: View {
     // Builder
     var transactionName: String
     @Binding var type: TransactionType
-    @Binding var selectedCategory: PredefinedCategory?
-    @Binding var selectedSubcategory: PredefinedSubcategory?
+    @Binding var selectedCategory: CategoryModel?
+    @Binding var selectedSubcategory: SubcategoryModel?
+    
+    @State private var bestCategory: CategoryModel? = nil
+    @State private var bestSubcategory: SubcategoryModel? = nil
     
     // MARK: -
     var body: some View {
-        let bestCategory = TransactionEntity.findBestCategory(for: transactionName)
-        
-        if let categoryFound = bestCategory.0 {
-            let subcategoryFound = bestCategory.1
-            HStack {
-                Text(Word.Classic.recommended + " : ")
-                Spacer()
-                HStack(spacing: 4) {
-                    Image(systemName: categoryFound.icon)
-                    Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
+        Group {
+            if let bestCategory {
+                let subcategoryFound = bestSubcategory
+                HStack {
+                    Text(Word.Classic.recommended + " : ")
+                    Spacer()
+                    HStack(spacing: 4) {
+                        Image(systemName: bestCategory.icon ?? "")
+                        Text("\(bestSubcategory != nil ? (bestSubcategory!.name ?? "") : (bestCategory.name ?? ""))")
+                    }
+                    .foregroundStyle(bestCategory.color)
                 }
-                .foregroundStyle(categoryFound.color)
+                .font(.system(size: 14, weight: .medium))
+                .padding(.horizontal, 8)
+                .onTapGesture {
+                    if selectedCategory?.isRevenue() == true {
+                        withAnimation { type = .income }
+                    } else {
+                        selectedCategory = bestCategory
+                        withAnimation { type = .expense }
+                    }
+                    if let subcategoryFound { selectedSubcategory = subcategoryFound }
+                }
             }
-            .font(.system(size: 14, weight: .medium))
-            .padding(.horizontal, 8)
-            .onTapGesture {
-                if categoryFound == PredefinedCategory.PREDEFCAT0 {
-                    withAnimation { type = .income }
-                } else {
-                    selectedCategory = categoryFound
-                    withAnimation { type = .expense }
-                }
-                if let subcategoryFound { selectedSubcategory = subcategoryFound }
+        }
+        .task {
+            if let response = await TransactionRepository.shared.fetchCategory(name: transactionName) {
+                bestCategory = CategoryRepository.shared.findCategoryById(response.cat)
+                bestSubcategory = CategoryRepository.shared.findSubcategoryById(response.sub)
             }
         }
     } // End body
@@ -50,7 +59,7 @@ struct RecommendedCategoryButton: View {
     RecommendedCategoryButton(
         transactionName: "Test",
         type: .constant(.expense),
-        selectedCategory: .constant(PredefinedCategory.PREDEFCAT1),
-        selectedSubcategory: .constant(PredefinedSubcategory.PREDEFSUBCAT1CAT1)
+        selectedCategory: .constant(.mock),
+        selectedSubcategory: .constant(.mock)
     )
 }

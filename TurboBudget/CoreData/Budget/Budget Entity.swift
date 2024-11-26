@@ -48,32 +48,33 @@ public class Budget: NSManagedObject, Identifiable {
         }
     }
     
-    public func actualAmountForMonth(month: Date) -> Double {
-        var amount: Double = 0.0
-        
-        guard let categoryOfBudget = PredefinedCategory.findByID(predefCategoryID), let subcategoryOfBudget = categoryOfBudget.subcategories.findByID(predefSubcategoryID) else {
-            return 0
-        }
-        
-        for transaction in subcategoryOfBudget.transactions {
-            if let categoryOfTransaction = PredefinedCategory.findByID(transaction.categoryID ?? "") {
-                let subcategoryOfTransaction = categoryOfTransaction.subcategories.findByID(transaction.subcategoryID ?? "")
-                
-                if transaction.type == .expense && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
-                    amount += transaction.amount ?? 0
-                }
-            }
-        }
-        
-        return amount
-    }
+    // TODO: - voir pour reactiuver
+//    public func actualAmountForMonth(month: Date) -> Double {
+//        var amount: Double = 0.0
+//        
+//        guard let categoryOfBudget = PredefinedCategory.findByID(predefCategoryID), let subcategoryOfBudget = categoryOfBudget.subcategories.findByID(predefSubcategoryID) else {
+//            return 0
+//        }
+//        
+//        for transaction in subcategoryOfBudget.transactions {
+//            if let categoryOfTransaction = transaction.category {
+//                let subcategoryOfTransaction = transaction.subcategory
+//                
+//                if transaction.type == .expense && subcategoryOfTransaction == subcategoryOfBudget && Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
+//                    amount += transaction.amount ?? 0
+//                }
+//            }
+//        }
+//        
+//        return amount
+//    }
     
     public func isExceeded(month: Date) -> Bool {
-        if actualAmountForMonth(month: month) >= amount {
-            return true
-        } else {
+//        if actualAmountForMonth(month: month) >= amount {
+//            return true
+//        } else {
             return false
-        }
+//        }
     }
 
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
     @Published var id: Int?
@@ -73,5 +74,37 @@ class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashabl
 }
 
 extension CategoryModel {
+    
+    var color: Color {
+        switch self.id {
+        case 0: return .gray
+        case 1: return .green
+        case 2: return .red
+        case 3: return .orange
+        case 4: return .yellow
+        case 5: return .green
+        case 6: return .mint
+        case 7: return .teal
+        case 8: return .cyan
+        case 9: return .blue
+        case 10: return .indigo
+        case 11: return .purple
+        case 12: return .pink
+        case 13: return .brown
+        default: return .gray
+        }
+    }
+    
+    static var revenue: CategoryModel? {
+        return CategoryRepository.shared.findCategoryById(1)
+    }
+    
+    static var toCategorized: CategoryModel? {
+        return CategoryRepository.shared.findCategoryById(0)
+    }
+    
+    func isRevenue() -> Bool {
+        return self.id == 1
+    }
     
 }

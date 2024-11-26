@@ -17,8 +17,8 @@ final class CreateTransactionViewModel: ObservableObject {
     @Published var transactionAmount: String = ""
     @Published var transactionType: TransactionType = .expense
     @Published var transactionDate: Date = Date()
-    @Published var selectedCategory: PredefinedCategory? = nil
-    @Published var selectedSubcategory: PredefinedSubcategory? = nil
+    @Published var selectedCategory: CategoryModel? = nil
+    @Published var selectedSubcategory: SubcategoryModel? = nil
             
     @Published var presentingConfirmationDialog: Bool = false
     

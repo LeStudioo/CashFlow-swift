@@ -28,8 +28,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var typeNum: Int? // TransactionType
     @Published var dateISO: String?
     @Published var creationDate: String?
-    @Published var categoryID: String?
-    @Published var subcategoryID: String?
+    @Published var categoryID: Int?
+    @Published var subcategoryID: Int?
     @Published var note: String?
     
     @Published var isFromSubscription: Bool?
@@ -47,8 +47,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         typeNum: Int? = nil,
         dateISO: String? = nil,
         creationDate: String? = nil,
-        categoryID: String? = nil,
-        subcategoryID: String? = nil,
+        categoryID: Int? = nil,
+        subcategoryID: Int? = nil,
         isFromSubscription: Bool? = nil,
         isFromApplePay: Bool? = nil,
         nameFromApplePay: String? = nil,
@@ -74,8 +74,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         amount: Double,
         typeNum: Int,
         dateISO: String,
-        categoryID: String,
-        subcategoryID: String? = nil
+        categoryID: Int,
+        subcategoryID: Int? = nil
     ) {
         self.name = name
         self.amount = amount
@@ -123,8 +123,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         dateISO = try container.decodeIfPresent(String.self, forKey: .dateISO)
         creationDate = try container.decodeIfPresent(String.self, forKey: .creationDate)
-        categoryID = try container.decodeIfPresent(String.self, forKey: .categoryID)
-        subcategoryID = try container.decodeIfPresent(String.self, forKey: .subcategoryID)
+        categoryID = try container.decodeIfPresent(Int.self, forKey: .categoryID)
+        subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
         isFromSubscription = try container.decodeIfPresent(Bool.self, forKey: .isFromSubscription)
         isFromApplePay = try container.decodeIfPresent(Bool.self, forKey: .isFromApplePay)
         nameFromApplePay = try container.decodeIfPresent(String.self, forKey: .nameFromApplePay)
@@ -190,12 +190,12 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
 
 extension TransactionModel {
     
-    var category: PredefinedCategory? {
-        return PredefinedCategory(rawValue: categoryID ?? "")
+    var category: CategoryModel? {
+        return CategoryRepository.shared.findCategoryById(categoryID)
     }
     
-    var subcategory: PredefinedSubcategory? {
-        return PredefinedSubcategory(rawValue: subcategoryID ?? "")
+    var subcategory: SubcategoryModel? {
+        return CategoryRepository.shared.findSubcategoryById(subcategoryID)
     }
     
     var type: TransactionType {

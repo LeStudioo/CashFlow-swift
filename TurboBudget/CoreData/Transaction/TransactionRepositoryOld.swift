@@ -31,10 +31,10 @@ extension TransactionRepositoryOld {
         // TODO: REMOVE AFTER 1 MONTH IN PROD
         for transaction in allTransactions {
             if transaction.predefCategoryID == "PREDEF11" {
-                transaction.predefCategoryID = PredefinedCategory.PREDEFCAT11.id
+                transaction.predefCategoryID = "PREDEFCAT11"
                 PersistenceController.shared.saveContext()
             } else if transaction.predefCategoryID == "PREDEF12" {
-                transaction.predefCategoryID = PredefinedCategory.PREDEFCAT12.id
+                transaction.predefCategoryID = "PREDEFCAT12"
                 PersistenceController.shared.saveContext()
             }
         }
@@ -90,31 +90,31 @@ extension TransactionRepositoryOld {
         return groupedTransactions
     }
     
-    func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
-        var amount: Double = 0.0
-        
-        var components = DateComponents()
-        components.day = 01
-        components.month = month
-        components.year = year
-        
-        let dateOfMonthSelected = Calendar.current.date(from: components)
-        
-        for transaction in self.transactions {
-            if let dateOfMonthSelected {
-                if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
-                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
-                    if transaction.amount < 0 {
-                        amount -= transaction.amount
-                    } else {
-                        amount += transaction.amount
-                    }
-                }
-            } else { print("⚠️ dateOfMonthSelected is NIL") }
-        }
-        
-        return amount
-    }
+//    func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
+//        var amount: Double = 0.0
+//        
+//        var components = DateComponents()
+//        components.day = 01
+//        components.month = month
+//        components.year = year
+//        
+//        let dateOfMonthSelected = Calendar.current.date(from: components)
+//        
+//        for transaction in self.transactions {
+//            if let dateOfMonthSelected {
+//                if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
+//                    && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+//                    if transaction.amount < 0 {
+//                        amount -= transaction.amount
+//                    } else {
+//                        amount += transaction.amount
+//                    }
+//                }
+//            } else { print("⚠️ dateOfMonthSelected is NIL") }
+//        }
+//        
+//        return amount
+//    }
     
 }
 

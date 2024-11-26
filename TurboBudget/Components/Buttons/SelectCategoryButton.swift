@@ -11,8 +11,8 @@ struct SelectCategoryButton: View {
     
     // Builder
     @Binding var type: TransactionType
-    @Binding var selectedCategory: PredefinedCategory?
-    @Binding var selectedSubcategory: PredefinedSubcategory?
+    @Binding var selectedCategory: CategoryModel?
+    @Binding var selectedSubcategory: SubcategoryModel?
     
     @EnvironmentObject private var router: NavigationManager
     
@@ -61,15 +61,15 @@ struct SelectCategoryButton: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .onChange(of: type) { newValue in
             if newValue == .income {
-                selectedCategory = PredefinedCategory.PREDEFCAT0
+                selectedCategory = CategoryModel.revenue
                 selectedSubcategory = nil
-            } else if newValue == .expense && selectedCategory == PredefinedCategory.PREDEFCAT0 {
+            } else if newValue == .expense && selectedCategory == CategoryModel.revenue {
                 selectedCategory = nil
                 selectedSubcategory = nil
             }
         }
         .onChange(of: selectedCategory) { newValue in
-            if newValue != PredefinedCategory.PREDEFCAT0 && newValue != PredefinedCategory.PREDEFCAT00 {
+            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
                 type = .expense
             }
         }

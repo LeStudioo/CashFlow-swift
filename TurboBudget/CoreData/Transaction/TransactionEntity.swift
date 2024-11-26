@@ -69,20 +69,6 @@ public class TransactionEntity: NSManagedObject, Identifiable {
 
 extension TransactionEntity {
     
-    var category: PredefinedCategory? {
-        return PredefinedCategory.findByID(self.predefCategoryID)
-    }
-    
-    var subcategory: PredefinedSubcategory? {
-        if let category {
-            return category.subcategories.findByID(self.predefSubcategoryID)
-        } else { return nil }
-    }
-    
-}
-
-extension TransactionEntity {
-    
     static private func levenshteinDistance(_ s1: String, _ s2: String) -> Int {
         if s1.isEmpty || s2.isEmpty { return 0 }
         
@@ -124,72 +110,55 @@ extension TransactionEntity {
         return similarity * 100.0
     }
     
-    static func findBestCategory(for title: String) -> (PredefinedCategory?, PredefinedSubcategory?) {
-        let transactions = TransactionRepositoryOld.shared.transactions
-        
-        let transactionTitle = title
-            .lowercased()
-            .trimmingCharacters(in: .whitespaces)
-        
-        var arrayOfCandidate: [TransactionEntity] = []
+//    static func findBestCategory(for title: String) -> (PredefinedCategory?, PredefinedSubcategory?) {
+//        let transactions = TransactionRepositoryOld.shared.transactions
+//        
+//        let transactionTitle = title
+//            .lowercased()
+//            .trimmingCharacters(in: .whitespaces)
+//        
+//        var arrayOfCandidate: [TransactionEntity] = []
+//
+//        for transaction in transactions {
+//            let formattedTitle = transaction.title
+//                .lowercased()
+//                .trimmingCharacters(in: .whitespaces)
+//            if (similarityPercentage(formattedTitle, transactionTitle) >= 75
+//                || transactionTitle.contains(formattedTitle)
+//                || formattedTitle.contains(transactionTitle)
+//            ) && transactionTitle.count > 2 {
+//                arrayOfCandidate.append(transaction)
+//            }
+//        }
+//
+//        // Au lieu de compter les catégories, créez un dictionnaire pour stocker la transaction la plus récente de chaque catégorie
+//        var mostRecentTransactionByCategory: [String: TransactionEntity] = [:]
+//
+//        for candidate in arrayOfCandidate {
+//            if !candidate.predefCategoryID.isEmpty
+//                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
+//                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
+//                // Vérifier si la transaction actuelle est plus récente que celle stockée
+//                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date.withDefault < candidate.date.withDefault {
+//                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+//                } else if mostRecentTransactionByCategory[candidate.predefCategoryID] == nil {
+//                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
+//                }
+//            }
+//        }
+//
+//        // Trouvez la transaction la plus récente toutes catégories confondues
+//        guard let mostRecentTransaction = mostRecentTransactionByCategory.values
+//            .sorted(by: { $0.date.withDefault > $1.date.withDefault })
+//            .first 
+//        else { return (nil, nil) }
+//
+//        guard let finalCategory = PredefinedCategory.findByID(mostRecentTransaction.predefCategoryID) else {
+//            return (nil, nil)
+//        }
+//        let finalSubcategory = finalCategory.subcategories.findByID(mostRecentTransaction.predefSubcategoryID)
+//        
+//        return (finalCategory, finalSubcategory)
+//    }
 
-        for transaction in transactions {
-            let formattedTitle = transaction.title
-                .lowercased()
-                .trimmingCharacters(in: .whitespaces)
-            if (similarityPercentage(formattedTitle, transactionTitle) >= 75
-                || transactionTitle.contains(formattedTitle)
-                || formattedTitle.contains(transactionTitle)
-            ) && transactionTitle.count > 2 {
-                arrayOfCandidate.append(transaction)
-            }
-        }
-
-        // Au lieu de compter les catégories, créez un dictionnaire pour stocker la transaction la plus récente de chaque catégorie
-        var mostRecentTransactionByCategory: [String: TransactionEntity] = [:]
-
-        for candidate in arrayOfCandidate {
-            if !candidate.predefCategoryID.isEmpty
-                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT0.id
-                && candidate.predefCategoryID != PredefinedCategory.PREDEFCAT00.id {
-                // Vérifier si la transaction actuelle est plus récente que celle stockée
-                if let existingTransaction = mostRecentTransactionByCategory[candidate.predefCategoryID], existingTransaction.date.withDefault < candidate.date.withDefault {
-                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
-                } else if mostRecentTransactionByCategory[candidate.predefCategoryID] == nil {
-                    mostRecentTransactionByCategory[candidate.predefCategoryID] = candidate
-                }
-            }
-        }
-
-        // Trouvez la transaction la plus récente toutes catégories confondues
-        guard let mostRecentTransaction = mostRecentTransactionByCategory.values
-            .sorted(by: { $0.date.withDefault > $1.date.withDefault })
-            .first 
-        else { return (nil, nil) }
-
-        guard let finalCategory = PredefinedCategory.findByID(mostRecentTransaction.predefCategoryID) else {
-            return (nil, nil)
-        }
-        let finalSubcategory = finalCategory.subcategories.findByID(mostRecentTransaction.predefSubcategoryID)
-        
-        return (finalCategory, finalSubcategory)
-    }
-
-}
-
-extension TransactionEntity {
-    
-    static var preview1: TransactionEntity {
-        let transaction = TransactionEntity(context: previewViewContext)
-        transaction.id = UUID()
-        transaction.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
-        transaction.predefSubcategoryID = PredefinedCategory.PREDEFCAT1.subcategories[1].id
-        transaction.title = "Preview TransactionEntity"
-        transaction.amount = -40.51
-        transaction.date = Date()
-        transaction.creationDate = Date()
-        
-        return transaction
-    }
-    
 }

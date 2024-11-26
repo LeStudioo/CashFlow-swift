@@ -11,6 +11,7 @@ final class CategoryRepository: ObservableObject {
     static let shared = CategoryRepository()
     
     @Published var categories: [CategoryModel] = []
+    @Published var subcategories: [SubcategoryModel] = []
 }
 
 extension CategoryRepository {
@@ -23,6 +24,21 @@ extension CategoryRepository {
                 responseModel: [CategoryModel].self
             )
             self.categories = categories
+            self.subcategories = categories.flatMap { $0.subcategories ?? [] }
         } catch { NetworkService.handleError(error: error) }
     }
+    
+}
+
+// MARK: - Utils
+extension CategoryRepository {
+
+    func findCategoryById(_ id: Int?) -> CategoryModel? {
+        return self.categories.first(where: { $0.id == id })
+    }
+    
+    func findSubcategoryById(_ id: Int?) -> SubcategoryModel? {
+        return self.subcategories.first(where: { $0.id == id })
+    }
+    
 }

@@ -9,12 +9,12 @@ import Foundation
 
 extension TransactionRepository {
     
-    func transactionsByCategory(_ categoryID: String) -> [TransactionModel] {
+    func transactionsByCategory(_ categoryID: Int?) -> [TransactionModel] {
         return self.transactions
             .filter { $0.categoryID == categoryID }
     }
     
-    func transactionsBySubcategory(_ subcategoryID: String) -> [TransactionModel] {
+    func transactionsBySubcategory(_ subcategoryID: Int?) -> [TransactionModel] {
         return self.transactions
             .filter { $0.subcategoryID == subcategoryID }
     }
@@ -154,7 +154,7 @@ extension TransactionRepository {
             
             for transaction in transactionsForTheChoosenMonth {
                 if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date)
-                    && PredefinedCategory.findByID(transaction.categoryID ?? "") != nil {
+                    && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
                     amountOfDay += transaction.amount ?? 0
                 }
             }
@@ -260,7 +260,7 @@ extension TransactionRepository {
         for transaction in self.transactions {
             if let dateOfMonthSelected {
                 if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
-                    && PredefinedCategory.findByID(transaction.categoryID ?? "") != nil {
+                    && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
                     if transaction.type == .expense {
                         amount -= transaction.amount ?? 0
                     } else if transaction.type == .income {

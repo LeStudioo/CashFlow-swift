@@ -16,8 +16,8 @@ extension TransactionModel {
         typeNum: TransactionType.expense.rawValue,
         dateISO: Date().toISO(),
         creationDate: Date().toISO(),
-        categoryID: PredefinedCategory.PREDEFCAT1.rawValue,
-        subcategoryID: PredefinedSubcategory.PREDEFSUBCAT1CAT2.rawValue
+        categoryID: CategoryModel.mock.id,
+        subcategoryID: SubcategoryModel.mock.id
     )
     
 }
