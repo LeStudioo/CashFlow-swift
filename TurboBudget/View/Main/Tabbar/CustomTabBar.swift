@@ -14,7 +14,7 @@ struct CustomTabBar: View {
     // Repo
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountRepository
-    
+    @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
     // Custom type
@@ -46,21 +46,23 @@ struct CustomTabBar: View {
                             Label("word_savingsplan".localized, systemImage: "dollarsign.square.fill")
                         }
                         
-//                        NavigationButton(present: router.presentRecoverTransaction()) {
-//                            viewModel.showMenu = false
-//                        } label: {
-//                            Label("recover_button".localized, systemImage: "tray.and.arrow.down.fill")
-//                        }
+                        NavigationButton(present: router.presentCreateBudget()) {
+                            viewModel.showMenu = false
+                        } label: {
+                            Label("word_budget".localized, systemImage: "chart.pie.fill")
+                        }
+                        .disabled(!store.isCashFlowPro)
+                        .onTapGesture {
+                            if !store.isCashFlowPro {
+                                router.presentPaywall()
+                            }
+                        }
                         
                         NavigationButton(present: router.presentCreateAutomation()) {
                             viewModel.showMenu = false
                         } label: {
                             Label("word_automation".localized, systemImage: "clock.arrow.circlepath")
                         }
-                        
-//                        Button(action: { withAnimation { viewModel.showScanTransactionSheet() } }, label: {
-//                            Label("word_scanner".localized, systemImage: "barcode.viewfinder")
-//                        })
                         
                         NavigationButton(present: router.presentCreateTransaction()) {
                             viewModel.showMenu = false

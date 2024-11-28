@@ -12,120 +12,110 @@ import SwiftUI
 struct SelectCategoryView: View {
     
     // Builder
-    @Binding var selectedCategory: PredefinedCategory?
-    @Binding var selectedSubcategory: PredefinedSubcategory?
+    @Binding var selectedCategory: CategoryModel?
+    @Binding var selectedSubcategory: SubcategoryModel?
     
     //Custom
-    let categories: [PredefinedCategory] = PredefinedCategory.allCases
+    @EnvironmentObject private var categoryRepository: CategoryRepository
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String
     @State private var searchText: String = ""
-    
-    //State or Binding Bool
-    @State private var showAlertPaywall: Bool = false
-    @State private var showPaywall: Bool = false
-    
+
     // Computed variables
-    var categoriesFiltered: [PredefinedCategory] {
-        return categories.searchFor(searchText)
+    var categoriesFiltered: [CategoryModel] {
+        return categoryRepository.categories
+            .searchFor(searchText)
+            .filter { !$0.isRevenue }
     }
     
     //MARK: - Body
     var body: some View {
         NavigationStack {
-            VStack {
-                if categoriesFiltered.count != 0 {
-                    ScrollView {
-                        ForEach(categoriesFiltered, id: \.self) { category in
-                            if category != .PREDEFCAT0 {
-                                VStack {
-                                    HStack {
-                                        Text(category.title)
-                                            .font(.mediumCustom(size: 22))
-                                        Spacer()
-                                        Circle()
-                                            .frame(width: 30, height: 30)
-                                            .foregroundStyle(category.color)
-                                            .overlay {
-                                                Image(systemName: category.icon)
-                                                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                                    .foregroundStyle(Color(uiColor: .systemBackground))
-                                            }
-                                    }
-                                    .padding([.horizontal, .top])
-                                    if category.subcategories.count == 0 {
-                                        cellForCategory(category: category)
-                                            .onTapGesture {
-                                                withAnimation {
-                                                    selectedSubcategory = nil
-                                                    selectedCategory = category
-                                                    dismiss()
-                                                }
-                                            }
-                                            .overlay(alignment: .topTrailing) {
-                                                if selectedCategory == category {
-                                                    ZStack {
-                                                        Circle()
-                                                            .frame(width: 25, height: 25)
-                                                            .foregroundStyle(ThemeManager.theme.color)
-                                                        Image(systemName: "checkmark")
-                                                            .font(.system(size: 12, weight: .heavy, design: .rounded))
-                                                            .foregroundStyle(.white)
-                                                    }
-                                                    .padding(8)
-                                                }
-                                            }
-                                    } else {
-                                        let categoryFilterByTitle: [PredefinedCategory] = categories
-                                            .filter { $0.title.localizedStandardContains(searchText) }
-                                            .sorted { $0.title < $1.title }
-
-                                        VStack {
-                                            ForEach(searchText.isEmpty || (!searchText.isEmpty && !categoryFilterByTitle.isEmpty)
-                                                    ? category.subcategories
-                                                    : category.subcategories
-                                                .filter { $0.title.localizedStandardContains(searchText) }
-                                            ) { subcategory in
-                                                cellForSubcategory(subcategory: subcategory)
-                                                    .onTapGesture {
-                                                        withAnimation {
-                                                            selectedCategory = subcategory.category
-                                                            selectedSubcategory = subcategory
-                                                            dismiss()
-                                                        }
-                                                    }
-                                                    .overlay(alignment: .topTrailing) {
-                                                        if selectedSubcategory == subcategory {
-                                                            ZStack {
-                                                                Circle()
-                                                                    .frame(width: 25, height: 25)
-                                                                    .foregroundStyle(ThemeManager.theme.color)
-                                                                Image(systemName: "checkmark")
-                                                                    .font(.system(size: 12, weight: .heavy, design: .rounded))
-                                                                    .foregroundStyle(.white)
-                                                            }
-                                                            .padding(8)
-                                                        }
-                                                    }
-                                            }
-                                        }
+            ScrollView {
+                ForEach(categoriesFiltered) { category in
+                    VStack {
+                        HStack {
+                            Text(category.name)
+                                .font(.mediumCustom(size: 22))
+                            Spacer()
+                            Circle()
+                                .frame(width: 30, height: 30)
+                                .foregroundStyle(category.color)
+                                .overlay {
+                                    Image(systemName: category.icon)
+                                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                        .foregroundStyle(Color(uiColor: .systemBackground))
+                                }
+                        }
+                        .padding([.horizontal, .top])
+                        if category.subcategories?.count == 0 {
+                            cellForCategory(category: category)
+                                .onTapGesture {
+                                    withAnimation {
+                                        selectedSubcategory = nil
+                                        selectedCategory = category
+                                        dismiss()
                                     }
                                 }
-                                .padding()
-                            } //End if let
+                                .overlay(alignment: .topTrailing) {
+                                    if selectedCategory == category {
+                                        ZStack {
+                                            Circle()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundStyle(ThemeManager.theme.color)
+                                            Image(systemName: "checkmark")
+                                                .font(.system(size: 12, weight: .heavy, design: .rounded))
+                                                .foregroundStyle(.white)
+                                        }
+                                        .padding(8)
+                                    }
+                                }
+                        } else {
+                            VStack {
+                                let subcategories: [SubcategoryModel] = searchText.isEmpty
+                                ? category.subcategories ?? []
+                                : category.subcategories?.filter { $0.name.localizedStandardContains(searchText) } ?? []
+                                ForEach(subcategories) { subcategory in
+                                    cellForSubcategory(subcategory: subcategory)
+                                        .onTapGesture {
+                                            withAnimation {
+                                                selectedCategory = category
+                                                selectedSubcategory = subcategory
+                                                dismiss()
+                                            }
+                                        }
+                                        .overlay(alignment: .topTrailing) {
+                                            if selectedSubcategory == subcategory {
+                                                ZStack {
+                                                    Circle()
+                                                        .frame(width: 25, height: 25)
+                                                        .foregroundStyle(ThemeManager.theme.color)
+                                                    Image(systemName: "checkmark")
+                                                        .font(.system(size: 12, weight: .heavy, design: .rounded))
+                                                        .foregroundStyle(.white)
+                                                }
+                                                .padding(8)
+                                            }
+                                        }
+                                }
+                            }
                         }
-                        
-                        Rectangle()
-                            .frame(height: 60)
-                            .opacity(0)
-                        
-                        Spacer()
                     }
-                    .scrollIndicators(.hidden)
-                } else {
+                    .padding()
+                }
+                
+                Rectangle()
+                    .frame(height: 60)
+                    .opacity(0)
+                
+                Spacer()
+            }
+            .scrollIndicators(.hidden)
+            .overlay {
+                if !searchText.isEmpty && categoriesFiltered.isEmpty {
                     VStack(spacing: 20) {
                         Image("NoResults\(ThemeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
@@ -143,7 +133,7 @@ struct SelectCategoryView: View {
                     .offset(y: -20)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-            } //End VStack
+            }
             .navigationTitle("what_category_title".localized)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -157,20 +147,13 @@ struct SelectCategoryView: View {
             }
         } //End Navigation Stack
         .searchable(text: $searchText.animation(), placement: .navigationBarDrawer(displayMode: .always), prompt: "word_search".localized)
-        .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text("word_cancel".localized) })
-            Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
-        }, message: {
-            Text("alert_cashflow_pro_desc".localized)
-        })
-        .sheet(isPresented: $showPaywall) { PaywallScreenView() }
     }//END body
     
     //MARK: - ViewBuilder
-    func cellForSubcategory(subcategory: PredefinedSubcategory) -> some View {
+    func cellForSubcategory(subcategory: SubcategoryModel) -> some View {
         HStack {
             Circle()
-                .foregroundStyle(subcategory.category.color)
+                .foregroundStyle(subcategory.color)
                 .frame(width: 35, height: 35)
                 .overlay {
                     Group {
@@ -187,7 +170,7 @@ struct SelectCategoryView: View {
                     }
                 }
             
-            Text(subcategory.title)
+            Text(subcategory.name)
                 .font(.semiBoldSmall())
                 .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
@@ -199,7 +182,7 @@ struct SelectCategoryView: View {
         .cornerRadius(15)
     }
     
-    func cellForCategory(category: PredefinedCategory) -> some View {
+    func cellForCategory(category: CategoryModel) -> some View {
         HStack {
             Circle()
                 .foregroundStyle(category.color)
@@ -210,7 +193,7 @@ struct SelectCategoryView: View {
                         .foregroundStyle(.black)
                 }
             
-            Text(category.title)
+            Text(category.name)
                 .font(.semiBoldSmall())
                 .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)

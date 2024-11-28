@@ -14,7 +14,7 @@ struct TransactionRow: View {
     // Builder
     @ObservedObject var transaction: TransactionModel
     
-    // Repo
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
         
     // State or Binding Bool
@@ -96,36 +96,18 @@ struct TransactionRow: View {
             .cornerRadius(15)
         }, trailingActions: { context in
             SwipeAction(action: {
-                withAnimation { isSharingJSON.toggle() }
+                router.presentCreateTransaction(transaction: transaction)
             }, label: { _ in
                 VStack(spacing: 5) {
-                    Image(systemName: "curlybraces")
+                    Image(systemName: "pencil")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_json".localized)
+                    Text(Word.Classic.edit)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundStyle(Color(uiColor: .systemBackground))
             }, background: { _ in
                 Rectangle()
-                    .foregroundStyle(.yellow)
-            })
-            .onChange(of: isSharingJSON) { _ in
-                context.state.wrappedValue = .closed
-            }
-            
-            SwipeAction(action: {
-                withAnimation { isSharingQRCode.toggle() }
-            }, label: { _ in
-                VStack(spacing: 5) {
-                    Image(systemName: "qrcode")
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_QRCODE".localized)
-                        .font(.semiBoldCustom(size: 10))
-                }
-                .foregroundStyle(Color(uiColor: .systemBackground))
-            }, background: { _ in
-                Rectangle()
-                    .foregroundStyle(.green)
+                    .foregroundStyle(.blue)
             })
             .onChange(of: isSharingQRCode) { _ in
                 context.state.wrappedValue = .closed

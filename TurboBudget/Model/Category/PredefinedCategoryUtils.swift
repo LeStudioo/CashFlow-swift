@@ -86,15 +86,3 @@ import Foundation
 //    }
 //    
 //}
-
-//extension PredefinedCategory {
-//    
-//    // Voir pour essayer de passer en throw pour ne pas retourner un optionnel
-//    static func findByID(_ id: String) -> PredefinedCategory? {
-//        for cat in PredefinedCategory.allCases {
-//            if cat.id == id { return cat }
-//        }
-//        return nil
-//    }
-//    
-//}

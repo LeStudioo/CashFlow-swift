@@ -63,8 +63,7 @@ struct TransactionDetailView: View {
                                 }
                             }
                             .onTapGesture {
-                                if let category = transaction.category,
-                                   category.id != PredefinedCategory.PREDEFCAT0.id {
+                                if let category = transaction.category, category.id != 1 {
                                     showWhatCategory.toggle()
                                 }
                             }
@@ -89,7 +88,7 @@ struct TransactionDetailView: View {
                     Text("transaction_recommended_category".localized + " : ")
                     HStack {
                         Image(systemName: categoryFound.icon)
-                        Text("\(subcategoryFound != nil ? subcategoryFound!.title : categoryFound.title)")
+                        Text("\(subcategoryFound != nil ? subcategoryFound!.name : categoryFound.name)")
                     }
                     .foregroundStyle(categoryFound.color)
                 }
@@ -125,14 +124,14 @@ struct TransactionDetailView: View {
             if let category = transaction.category {
                 CellForDetailTransaction(
                     leftText: "word_category".localized,
-                    rightText: category.title,
+                    rightText: category.name,
                     rightTextColor: category.color
                 )
                 
                 if let subcategory = transaction.subcategory {
                     CellForDetailTransaction(
                         leftText: "word_subcategory".localized,
-                        rightText: subcategory.title,
+                        rightText: subcategory.name,
                         rightTextColor: category.color
                     )
                 }
@@ -176,19 +175,19 @@ struct TransactionDetailView: View {
         })
         .onAppear { 
             viewModel.note = transaction.note ?? ""
-            viewModel.selectedCategory = PredefinedCategory.findByID(transaction.categoryID ?? "")
-            viewModel.selectedSubcategory = PredefinedSubcategory.findByID(transaction.subcategoryID ?? "")
+            viewModel.selectedCategory = transaction.category
+            viewModel.selectedSubcategory = transaction.subcategory
         }
         .task {
-            if store.isCashFlowPro && transaction.categoryID == PredefinedCategory.PREDEFCAT00.id {
+            if store.isCashFlowPro && transaction.categoryID == 0 {
                 guard let name = transaction.name else { return }
                 guard let transactionID = transaction.id else { return }
                 if let response = await transactionRepository.fetchCategory(name: name, transactionID: transactionID) {
                     if let cat = response.cat {
-                        viewModel.bestCategory = PredefinedCategory.findByID(cat)
+                        viewModel.bestCategory = CategoryRepository.shared.findCategoryById(cat)
                     }
                     if let sub = response.sub {
-                        viewModel.bestSubcategory = PredefinedSubcategory.findByID(sub)
+                        viewModel.bestSubcategory = CategoryRepository.shared.findSubcategoryById(sub)
                     }
                 }
             }

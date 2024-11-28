@@ -11,7 +11,7 @@ import SwiftUI
 struct SubcategoryTransactionsView: View {
     
     // Builder
-    var subcategory: PredefinedSubcategory
+    var subcategory: SubcategoryModel
     
     // Repo
     @EnvironmentObject private var transactionRepository: TransactionRepository
@@ -132,5 +132,5 @@ struct SubcategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
+    SubcategoryTransactionsView(subcategory: .mock)
 }

@@ -17,6 +17,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject var csManager: ColorSchemeManager
     @EnvironmentObject var store: PurchasesManager
+    @EnvironmentObject private var alertManager: AlertManager
         
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var transactionRepository: TransactionRepository
@@ -115,7 +116,7 @@ struct AccountDashboardView: View {
                     .disabled(!store.isCashFlowPro)
                     .onTapGesture {
                         if !store.isCashFlowPro {
-                            showAlertPaywall.toggle()
+                            alertManager.showPaywall()
                         }
                     }
                 })
@@ -207,13 +208,13 @@ struct AccountDashboardView: View {
         //                    Spacer()
         //                }
         
-        .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text("word_cancel".localized) })
-            Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
-        }, message: {
-            Text("alert_cashflow_pro_desc".localized)
-        })
-        .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
+//        .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
+//            Button(action: { return }, label: { Text("word_cancel".localized) })
+//            Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
+//        }, message: {
+//            Text("alert_cashflow_pro_desc".localized)
+//        })
+//        .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
         
     } // End body
 } // End struct

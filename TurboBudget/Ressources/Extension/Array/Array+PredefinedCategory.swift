@@ -7,36 +7,22 @@
 
 import Foundation
 
-extension Array where Element == PredefinedCategory {
+extension Array where Element == CategoryModel {
     
-    func searchFor(_ searchText: String) -> [PredefinedCategory] {
-        let categories = PredefinedCategory.allCases
+    func searchFor(_ searchText: String) -> [CategoryModel] {
+        let categories = CategoryRepository.shared.categories
         
         if searchText.isEmpty {
-            return categories.sorted { $0.title < $1.title }
+            return categories.sorted { $0.name < $1.name }
         } else { //Searching
-            let categoryFilterByTitle: [PredefinedCategory] = categories
-                .filter { $0.title.localizedStandardContains(searchText) }
-                .sorted { $0.title < $1.title }
-            
-            if categoryFilterByTitle.isEmpty {
-                let subcategories: [PredefinedSubcategory] = categories.flatMap(\.subcategories)
-                
-                let filterSubcategories = subcategories
-                    .filter { $0.title.localizedStandardContains(searchText) }
-
-                var categories: [PredefinedCategory] = []
-                for subcategory in filterSubcategories {
-                    if let category = PredefinedCategory.findByID(subcategory.category.id) {
-                        categories.append(category)
-                    }
+            let filteredCategories = categories
+                .filter {
+                    $0.name.localizedStandardContains(searchText)
+                    || (($0.subcategories ?? []).contains { $0.name.localizedStandardContains(searchText) })
                 }
-                
-                return categories
-                    .sorted { $0.title < $1.title }
-            } else {
-                return categoryFilterByTitle
-            }
+                .sorted { $0.name < $1.name }
+            
+            return filteredCategories
         }
     }
     

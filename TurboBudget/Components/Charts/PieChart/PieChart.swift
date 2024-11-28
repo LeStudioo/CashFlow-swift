@@ -102,11 +102,11 @@ struct PieChart: View {
                         .overlay {
                             VStack(spacing: 8) {
                                 Group {
-                                    if let cat = PredefinedCategory.findByID(activeSlice?.categoryID ?? "") {
+                                    if let cat = CategoryRepository.shared.findCategoryById(activeSlice?.categoryID) {
                                         if chartStyle == .category {
-                                            Text(cat.title)
-                                        } else if let subcat = cat.subcategories.findByID(activeSlice?.subcategoryID ?? "") {
-                                            Text(subcat.title)
+                                            Text(cat.name)
+                                        } else if let subcat = CategoryRepository.shared.findSubcategoryById(activeSlice?.subcategoryID) {
+                                            Text(subcat.name)
                                         }
                                     } else {
                                         Text(monthDisplayedInPieChart())

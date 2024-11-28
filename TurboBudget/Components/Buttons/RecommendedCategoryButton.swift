@@ -20,22 +20,22 @@ struct RecommendedCategoryButton: View {
     
     // MARK: -
     var body: some View {
-        Group {
+        VStack {
             if let bestCategory {
                 let subcategoryFound = bestSubcategory
-                HStack {
+                HStack(spacing: 8) {
                     Text(Word.Classic.recommended + " : ")
-                    Spacer()
                     HStack(spacing: 4) {
-                        Image(systemName: bestCategory.icon ?? "")
-                        Text("\(bestSubcategory != nil ? (bestSubcategory!.name ?? "") : (bestCategory.name ?? ""))")
+                        Image(systemName: bestCategory.icon)
+                        Text("\(bestSubcategory != nil ? (bestSubcategory!.name) : (bestCategory.name))")
                     }
                     .foregroundStyle(bestCategory.color)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .font(.system(size: 14, weight: .medium))
                 .padding(.horizontal, 8)
                 .onTapGesture {
-                    if selectedCategory?.isRevenue() == true {
+                    if selectedCategory?.isRevenue == true {
                         withAnimation { type = .income }
                     } else {
                         selectedCategory = bestCategory
@@ -45,10 +45,14 @@ struct RecommendedCategoryButton: View {
                 }
             }
         }
-        .task {
-            if let response = await TransactionRepository.shared.fetchCategory(name: transactionName) {
-                bestCategory = CategoryRepository.shared.findCategoryById(response.cat)
-                bestSubcategory = CategoryRepository.shared.findSubcategoryById(response.sub)
+        .onChange(of: transactionName) { newValue in
+            if newValue.count > 3 {
+                Task {
+                    if let response = await TransactionRepository.shared.fetchCategory(name: transactionName) {
+                        bestCategory = CategoryRepository.shared.findCategoryById(response.cat)
+                        bestSubcategory = CategoryRepository.shared.findSubcategoryById(response.sub)
+                    }
+                }
             }
         }
     } // End body

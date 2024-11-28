@@ -49,8 +49,8 @@ final class CreateTransactionViewModel: ObservableObject {
             typeNum: transactionType.rawValue,
             dateISO: transactionDate.toISO(),
             creationDate: Date().toISO(),
-            categoryID: transactionType == .income ? PredefinedCategory.PREDEFCAT0.id : selectedCategory?.id ?? "",
-            subcategoryID: transactionType == .income ? "" : selectedSubcategory?.id ?? ""
+            categoryID: transactionType == .income ? CategoryModel.revenue?.id : selectedCategory?.id,
+            subcategoryID: transactionType == .income ? nil : selectedSubcategory?.id
         )
     }
     

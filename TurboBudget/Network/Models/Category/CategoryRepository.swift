@@ -30,6 +30,52 @@ extension CategoryRepository {
     
 }
 
+extension CategoryRepository {
+    
+    var categoriesWithTransactions: [CategoryModel] {
+        var array: [CategoryModel] = []
+        let filterManager = FilterManager.shared
+        
+        for category in self.categories {
+            let transactionsFiltered = category.transactions
+                .filter {
+                    Calendar.current.isDate(
+                        $0.date.withDefault,
+                        equalTo: filterManager.date,
+                        toGranularity: .month
+                    )
+                }
+            if transactionsFiltered.count != 0 {
+                array.append(category)
+            }
+        }
+        
+        return array
+            .sorted { $0.name < $1.name }
+    }
+    
+    var categoriesSlices: [PieSliceData] {
+        var array: [PieSliceData] = []
+        
+        for category in self.categoriesWithTransactions.filter({ $0.id != 1 }) {
+            guard let categoryID = category.id else { continue }
+            array.append(
+                .init(
+                    categoryID: categoryID,
+                    iconName: category.icon,
+                    value: category.transactionsFiltered
+                        .map { $0.amount ?? 0 }
+                        .reduce(0, +),
+                    color: category.color
+                )
+            )
+        }
+        
+        return array
+    }
+        
+}
+
 // MARK: - Utils
 extension CategoryRepository {
 

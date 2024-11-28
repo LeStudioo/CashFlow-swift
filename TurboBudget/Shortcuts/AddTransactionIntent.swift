@@ -93,7 +93,7 @@ struct AddTransactionIntent: AppIntent {
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),
-            categoryID: PredefinedCategory.PREDEFCAT00.id,
+            categoryID: 0,
             isFromApplePay: true,
             nameFromApplePay: title
         )

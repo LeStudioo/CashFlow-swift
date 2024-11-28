@@ -62,7 +62,7 @@ class NavigationManager: Router {
         navigateTo(.allBudgets)
     }
     
-    func pushBudgetTransactions(subcategory: PredefinedSubcategory) {
+    func pushBudgetTransactions(subcategory: SubcategoryModel) {
         navigateTo(.budgetTransactions(subcategory: subcategory))
     }
     
@@ -75,15 +75,15 @@ class NavigationManager: Router {
         navigateTo(.homeCategories)
     }
     
-    func pushCategoryTransactions(category: PredefinedCategory) {
+    func pushCategoryTransactions(category: CategoryModel) {
         navigateTo(.categoryTransactions(category: category))
     }
     
-    func pushHomeSubcategories(category: PredefinedCategory) {
+    func pushHomeSubcategories(category: CategoryModel) {
         navigateTo(.homeSubcategories(category: category))
     }
     
-    func pushSubcategoryTransactions(subcategory: PredefinedSubcategory) {
+    func pushSubcategoryTransactions(subcategory: SubcategoryModel) {
         navigateTo(.subcategoryTransactions(subcategory: subcategory))
     }
     
@@ -154,10 +154,6 @@ class NavigationManager: Router {
         presentSheet(.createTransaction(transaction: transaction), dismissAction)
     }
     
-    func presentRecoverTransaction() {
-        presentSheet(.recoverTransaction)
-    }
-    
     func presentCreateSavingsAccount() {
         presentSheet(.createSavingsAccount)
     }
@@ -166,7 +162,7 @@ class NavigationManager: Router {
         presentSheet(.createTransfer)
     }
     
-    func presentSelectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>) {
+    func presentSelectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>) {
         presentSheet(.selectCategory(category: category, subcategory: subcategory))
     }
     
@@ -192,7 +188,7 @@ private extension NavigationManager {
             case .homeSavingPlans:
                 SavingPlansHomeView()
             case .homeAutomations:
-                AutomationsHomeView()
+                SubscriptionHomeView()
                 
             case .analytics:
                 AnalyticsHomeView()
@@ -207,8 +203,6 @@ private extension NavigationManager {
                 CreateSavingPlansView(savingsPlan: savingsPlan)
             case .createTransaction(let transaction):
                 CreateTransactionView(transaction: transaction)
-            case .recoverTransaction:
-                RecoverTransactionView()
             case .createSavingsAccount:
                 CreateSavingsAccountView()
             case .createTransfer:

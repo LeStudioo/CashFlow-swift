@@ -10,57 +10,36 @@ import SwiftUI
 struct CategoryRow: View {
     
     // Builder
-    var category: PredefinedCategory
+    var category: CategoryModel
     var showChevron: Bool?
     
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
 	
+    // TODO: - Refacto
 	// Computed variables
     var stringAmount: String {
-        if !filter.automation && !filter.total {
-            if category.id == PredefinedCategory.PREDEFCAT0.id {
-                return category.incomesTransactionsAmountForSelectedDate(filter: filter).currency
-            } else {
-                return category.transactionsAmount(type: .expense, filter: filter).currency
-            }
-        } else if filter.automation && !filter.total {
-            if category.id == PredefinedCategory.PREDEFCAT0.id {
-                return category.incomesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
-            } else {
-                return category.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
-            }
-        } else if !filter.automation && filter.total {
-            if category.id == PredefinedCategory.PREDEFCAT0.id {
-                return category.amountTotalOfIncomes.currency
-            } else {
-                return category.amountTotalOfExpenses.currency
-            }
-        } else if filter.automation && filter.total {
-            if category.id == PredefinedCategory.PREDEFCAT0.id {
-                return category.amountTotalOfIncomesAutomations.currency
-            } else {
-                return category.amountTotalOfExpensesAutomations.currency
-            }
+        if category.isRevenue {
+            return category.currentMonthIncomes.reduce(0) { $0 + ($1.amount ?? 0) }.currency
+        } else {
+            return category.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.currency
         }
-        return ""
     }
 
     // MARK: -
     var body: some View {
         HStack {
-            ZStack {
-                Circle()
-                    .foregroundStyle(category.color)
-                    .frame(width: 45, height: 45)
-                Image(systemName: category.icon)
-                    .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    .foregroundStyle(.black)
-            }
-            .padding(.trailing, 8)
+            Circle()
+                .foregroundStyle(category.color)
+                .frame(width: 45, height: 45)
+                .overlay {
+                    Image(systemName: category.icon)
+                        .font(.system(size: 18, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.black)
+                }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(category.title)
+                Text(category.name)
                     .font(.semiBoldCustom(size: 20))
                     .lineLimit(1)
                 
@@ -79,6 +58,7 @@ struct CategoryRow: View {
             }
         }
         .padding()
+        .padding(.trailing, 8)
         .background(Color.colorCell)
         .cornerRadius(15)
     } // End body
@@ -86,5 +66,5 @@ struct CategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryRow(category: .PREDEFCAT2)
+    CategoryRow(category: .mock)
 }

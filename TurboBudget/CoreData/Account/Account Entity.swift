@@ -44,14 +44,14 @@ public class Account: NSManagedObject, Identifiable {
         if let transactions = accountToTransaction {
             return transactions
                 .sorted { $0.date.withDefault > $1.date.withDefault }
-                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
+                .filter({ !$0.isAuto && $0.predefCategoryID != "" })
         } else { return [] }
     }
 
     public var transactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
-                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil })
+                .filter({ !$0.isAuto && $0.predefCategoryID != "" })
                 .sorted {
                     if $0.date == $1.date {
                         return $0.title < $1.title
@@ -74,7 +74,7 @@ public class Account: NSManagedObject, Identifiable {
         if let transactions = accountToTransaction {
             return transactions
                 .sorted { $0.date.withDefault > $1.date.withDefault }
-                .filter({ !$0.isAuto && PredefinedCategory.findByID($0.predefCategoryID) != nil && $0.isArchived })
+                .filter({ !$0.isAuto && $0.predefCategoryID != "" && $0.isArchived })
         } else { return [] }
     }
     
@@ -177,7 +177,7 @@ extension Account {
         for transaction in transactions {
             if transaction.amount > 0 
                 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
-                && PredefinedCategory.findByID(transaction.predefCategoryID) != nil {
+                && transaction.predefCategoryID != "" {
                 transactionsIncomes.append(transaction)
             }
         }

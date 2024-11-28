@@ -36,13 +36,13 @@ struct SelectCategoryButton: View {
                             size: 16
                         )
                         
-                        Text(selectedSubcategory.title)
+                        Text(selectedSubcategory.name)
                     } else if let selectedCategory, selectedSubcategory == nil {
                         Image(systemName: selectedCategory.icon)
                             .font(.system(size: 16, weight: .bold, design: .rounded))
                             .foregroundStyle(Color.black)
                         
-                        Text(selectedCategory.title)
+                        Text(selectedCategory.name)
                     } else {
                         Image(systemName: "plus")
                         Text(Word.Create.addCategory)

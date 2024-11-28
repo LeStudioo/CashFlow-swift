@@ -18,8 +18,8 @@ class CreateSubscriptionViewModel: ObservableObject {
     @Published var frequencyDate: Date = .now
     @Published var type: TransactionType = .expense
     @Published var frequency: SubscriptionFrequency = .monthly
-    @Published var selectedCategory: PredefinedCategory? = nil
-    @Published var selectedSubcategory: PredefinedSubcategory? = nil
+    @Published var selectedCategory: CategoryModel? = nil
+    @Published var selectedSubcategory: SubcategoryModel? = nil
         
     @Published var presentingConfirmationDialog: Bool = false
     
@@ -30,7 +30,7 @@ class CreateSubscriptionViewModel: ObservableObject {
             self.amount = subscription.amount?.formatted() ?? ""
             self.type = subscription.type
             self.frequency = subscription.frequency ?? .monthly
-            self.frequencyDate = subscription.date ?? .now
+            self.frequencyDate = subscription.date
             self.selectedCategory = subscription.category
             self.selectedSubcategory = subscription.subcategory
         }
@@ -46,7 +46,7 @@ extension CreateSubscriptionViewModel {
             amount: amount.toDouble(),
             type: type,
             frequency: frequency,
-            categoryID: selectedCategory?.id ?? "",
+            categoryID: selectedCategory?.id ?? 0,
             subcategoryID: selectedSubcategory?.id
         )
     }

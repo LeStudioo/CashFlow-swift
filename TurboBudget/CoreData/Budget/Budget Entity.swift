@@ -40,13 +40,13 @@ public class Budget: NSManagedObject, Identifiable {
     @NSManaged public var predefCategoryID: String
     @NSManaged public var predefSubcategoryID: String
     
-    public var color: Color {
-        if let category = PredefinedCategory.findByID(predefCategoryID) {
-            return category.color
-        } else {
-            return .red
-        }
-    }
+//    public var color: Color {
+//        if let category = PredefinedCategory.findByID(predefCategoryID) {
+//            return category.color
+//        } else {
+//            return .red
+//        }
+//    }
     
     // TODO: - voir pour reactiuver
 //    public func actualAmountForMonth(month: Date) -> Double {
@@ -87,7 +87,7 @@ extension Budget {
         budget.id = UUID()
         budget.title = "Preview Budget 1"
         budget.amount = 500
-        budget.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
+//        budget.predefCategoryID = PredefinedCategory.PREDEFCAT1.id
         return budget
     }
     
@@ -96,8 +96,8 @@ extension Budget {
         budget.id = UUID()
         budget.title = "Preview Budget 2"
         budget.amount = 800
-        budget.predefCategoryID = PredefinedCategory.PREDEFCAT2.id
-        budget.predefSubcategoryID = PredefinedSubcategory.PREDEFSUBCAT1CAT2.id
+//        budget.predefCategoryID = PredefinedCategory.PREDEFCAT2.id
+//        budget.predefSubcategoryID = PredefinedSubcategory.PREDEFSUBCAT1CAT2.id
         
         return budget
     }

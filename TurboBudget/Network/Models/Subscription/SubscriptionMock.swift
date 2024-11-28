@@ -15,8 +15,8 @@ extension SubscriptionModel {
         amount: 45,
         typeNum: TransactionType.expense.rawValue,
         frequencyNum: SubscriptionFrequency.monthly.rawValue,
-        categoryID: PredefinedCategory.PREDEFCAT1.rawValue,
-        subcategoryID: PredefinedSubcategory.PREDEFSUBCAT1CAT1.rawValue
+        categoryID: 2,
+        subcategoryID: 1
     )
     
 }

@@ -23,7 +23,7 @@ extension AutomationRepositoryOld {
             let automations = try viewContext.fetch(request)
             self.automations = automations
             
-            let automationsData = try JSONEncoder().encode(automations.filter { $0.category != nil })
+            let automationsData = try JSONEncoder().encode(automations.filter { $0.automationToTransaction?.predefCategoryID != "" })
             let json = "\"subscriptions\":" + (String(data: automationsData, encoding: .utf8) ?? "")
             DataForServer.shared.automationJSON = json
             print(json)

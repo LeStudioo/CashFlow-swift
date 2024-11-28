@@ -1,5 +1,5 @@
 //
-//  AutomationsHomeView.swift
+//  SubscriptionHomeView.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 18/07/2023.
@@ -13,7 +13,7 @@ enum FilterForAutomation: Int, CaseIterable {
     case day, month
 }
 
-struct AutomationsHomeView: View {
+struct SubscriptionHomeView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
@@ -39,7 +39,7 @@ struct AutomationsHomeView: View {
                 .filter { $0.name?.localizedStandardContains(searchText) ?? false }
             
             let automationsFilterByDate = subscriptionRepository.subscriptions
-                .filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date.withDefault).localizedStandardContains(searchText) }
+                .filter { HelperManager().formattedDateWithDayMonthYear(date: $0.date).localizedStandardContains(searchText) }
             
             if automationsFilterByTitle.isEmpty {
                 return automationsFilterByDate
@@ -54,7 +54,7 @@ struct AutomationsHomeView: View {
         var finalDict: [Date : [SubscriptionModel]] = [:]
         
         for automation in searchResults {
-            let month = Calendar.current.dateComponents([.month, .year], from: automation.date.withDefault)
+            let month = Calendar.current.dateComponents([.month, .year], from: automation.date)
             let finalDate = Calendar.current.date(from: month)
             if let finalDate {
                 if !arrayDate.contains(finalDate) { arrayDate.append(finalDate) }
@@ -65,7 +65,7 @@ struct AutomationsHomeView: View {
             finalDict[date] = []
             
             for automation in searchResults {
-                let month = Calendar.current.dateComponents([.month, .year], from: automation.date.withDefault)
+                let month = Calendar.current.dateComponents([.month, .year], from: automation.date)
                 let finalDate = Calendar.current.date(from: month)
                 if let finalDate {
                     if Calendar.current.isDate(date, equalTo: finalDate, toGranularity: .month) && Calendar.current.isDate(date, equalTo: finalDate, toGranularity: .year) {
@@ -86,6 +86,7 @@ struct AutomationsHomeView: View {
                         Section {
                             ForEach(subscriptions, id: \.self) { subscription in
                                 AutomationRow(subscription: subscription)
+                                    .padding(.horizontal)
                             }
                         } header: {
 //                            DetailOfExpensesAndIncomesByMonth(
@@ -143,5 +144,5 @@ struct AutomationsHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    AutomationsHomeView()
+    SubscriptionHomeView()
 }

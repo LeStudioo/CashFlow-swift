@@ -7,11 +7,36 @@
 
 import Foundation
 
+struct AlertData {
+    let title: String
+    let message: String
+    var actionButtonTitle: String? = nil
+    let action: () -> Void
+}
+
 final class AlertManager: ObservableObject {
     
-    @Published var isCardLimitSoonToBeExceeded: Bool = false
-    @Published var isCardLimitExceeded: Bool = false
-    @Published var isBudgetSoonToBeExceeded: Bool = false
-    @Published var isBudgetExceed: Bool = false
+    // builder
+    var router: NavigationManager
+    
+    @Published var isPresented: Bool = false
+    @Published var alert: AlertData? = nil
+    
+    // init
+    init(router: NavigationManager) {
+        self.router = router
+    }
+}
+
+extension AlertManager {
+    
+    func showPaywall() {
+        self.alert = .init(
+            title: "alert_cashflow_pro_title".localized,
+            message: "alert_cashflow_pro_desc".localized,
+            actionButtonTitle: "alert_cashflow_pro_see".localized,
+            action: { self.router.presentPaywall() }
+        )
+    }
     
 }

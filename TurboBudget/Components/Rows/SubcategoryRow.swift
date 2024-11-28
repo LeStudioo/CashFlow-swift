@@ -10,45 +10,30 @@ import SwiftUI
 struct SubcategoryRow: View {
     
     //Custom type
-    var subcategory: PredefinedSubcategory
+    var subcategory: SubcategoryModel
     @ObservedObject var filter: Filter = sharedFilter
     
+    // TODO: - refzctor
     //Computed var
     var stringAmount: String {
-        if !filter.automation && !filter.total {
-            return subcategory.transactionsAmount(type: .expense, filter: filter).currency
-        } else if filter.automation && !filter.total {
-            return subcategory.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date).currency
-        } else if !filter.automation && filter.total {
-            return subcategory.amountTotalOfExpenses.currency
-        } else if filter.automation && filter.total {
-            return subcategory.amountTotalOfExpensesAutomations.currency
-        }
-        return ""
+        return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.currency
     }
     
     // MARK: -
     var body: some View {
         HStack {
-            ZStack {
-                Circle()
-                    .foregroundStyle(subcategory.category.color)
-                    .frame(width: 45, height: 45)
-                
-                if let _ = UIImage(systemName: subcategory.icon) {
-                    Image(systemName: subcategory.icon)
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.black)
-                } else {
-                    Image("\(subcategory.icon)")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 30)
+            Circle()
+                .foregroundStyle(subcategory.color)
+                .frame(width: 45, height: 45)
+                .overlay {
+                    CustomOrSystemImage(
+                        systemImage: subcategory.icon,
+                        size: 18
+                    )
                 }
-            }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text(subcategory.title)
+                Text(subcategory.name)
                     .font(.semiBoldCustom(size: 20))
                     .foregroundStyle(Color(uiColor: .label))
                     .lineLimit(1)
@@ -73,5 +58,5 @@ struct SubcategoryRow: View {
 
 //MARK: - Preview
 #Preview {
-    SubcategoryRow(subcategory: .PREDEFSUBCAT1CAT1)
+    SubcategoryRow(subcategory: .mock)
 }

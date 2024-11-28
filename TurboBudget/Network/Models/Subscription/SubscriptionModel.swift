@@ -19,8 +19,8 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     @Published var typeNum: Int?
     @Published var frequencyNum: Int? // SubscriptionFrequency
     @Published var frequencyDate: String? // if frequency == 1
-    @Published var categoryID: String?
-    @Published var subcategoryID: String?
+    @Published var categoryID: Int?
+    @Published var subcategoryID: Int?
 
     // Initialiseur
     init(
@@ -30,8 +30,8 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         typeNum: Int? = nil,
         frequencyNum: Int? = nil,
         frequencyDate: String? = nil,
-        categoryID: String? = nil,
-        subcategoryID: String? = nil
+        categoryID: Int? = nil,
+        subcategoryID: Int? = nil
     ) {
         self.id = id
         self.name = name
@@ -49,8 +49,8 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         amount: Double,
         type: TransactionType,
         frequency: SubscriptionFrequency,
-        categoryID: String,
-        subcategoryID: String? = nil
+        categoryID: Int,
+        subcategoryID: Int? = nil
     ) {
         self.name = name
         self.amount = amount
@@ -75,8 +75,8 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         frequencyNum = try container.decodeIfPresent(Int.self, forKey: .frequencyNum)
         frequencyDate = try container.decodeIfPresent(String.self, forKey: .frequencyDate)
-        categoryID = try container.decodeIfPresent(String.self, forKey: .categoryID)
-        subcategoryID = try container.decodeIfPresent(String.self, forKey: .subcategoryID)
+        categoryID = try container.decodeIfPresent(Int.self, forKey: .categoryID)
+        subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -118,12 +118,12 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
 
 extension SubscriptionModel {
     
-    var category: PredefinedCategory? {
-        return PredefinedCategory(rawValue: categoryID ?? "")
+    var category: CategoryModel? {
+        return CategoryRepository.shared.findCategoryById(categoryID)
     }
     
-    var subcategory: PredefinedSubcategory? {
-        return PredefinedSubcategory(rawValue: subcategoryID ?? "")
+    var subcategory: SubcategoryModel? {
+        return CategoryRepository.shared.findSubcategoryById(subcategoryID)
     }
     
     var type: TransactionType {
@@ -134,7 +134,7 @@ extension SubscriptionModel {
         return SubscriptionFrequency(rawValue: frequencyNum ?? 0)
     }
     
-    var date: Date? {
+    var date: Date {
         return self.frequencyDate?.toDate() ?? .now
     }
     

@@ -12,7 +12,7 @@ import SwiftUI
 struct BudgetsTransactionsView: View {
 
     // Builder
-    var subcategory: PredefinedSubcategory
+    var subcategory: SubcategoryModel
 
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -81,34 +81,34 @@ struct BudgetsTransactionsView: View {
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .alert("budgets_transactions_editing".localized, isPresented: $showEditMaxAmount, actions: {
-            TextField("budgets_transactions_amount".localized, value: $newAmount, formatter: numberFormatter)
-            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-            Button(action: {
-                if newAmount != 0 {
-                    if let budget = subcategory.budget {
-                        budget.amount = newAmount
-                        persistenceController.saveContext()
-                    }
-                }
-            }, label: { Text("budgets_transactions_edit".localized) })
-        }, message: { Text("budgets_transactions_edit_desc".localized) })
-        .alert("budgets_transactions_delete_budget".localized, isPresented: $showDeleteBudget, actions: {
-            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: {
-                DispatchQueue.main.async {
-                    if let budget = subcategory.budget {
-                        dismiss()
-                        viewContext.delete(budget)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                            persistenceController.saveContext()
-                        }
-                    }
-                }
-            }, label: { Text("word_delete".localized) })
-        }, message: {
-            Text("budgets_transactions_delete_budget_desc".localized)
-        })
+//        .alert("budgets_transactions_editing".localized, isPresented: $showEditMaxAmount, actions: {
+//            TextField("budgets_transactions_amount".localized, value: $newAmount, formatter: numberFormatter)
+//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+//            Button(action: {
+//                if newAmount != 0 {
+//                    if let budget = subcategory.budget {
+//                        budget.amount = newAmount
+//                        persistenceController.saveContext()
+//                    }
+//                }
+//            }, label: { Text("budgets_transactions_edit".localized) })
+//        }, message: { Text("budgets_transactions_edit_desc".localized) })
+//        .alert("budgets_transactions_delete_budget".localized, isPresented: $showDeleteBudget, actions: {
+//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+//            Button(role: .destructive, action: {
+//                DispatchQueue.main.async {
+//                    if let budget = subcategory.budget {
+//                        dismiss()
+//                        viewContext.delete(budget)
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//                            persistenceController.saveContext()
+//                        }
+//                    }
+//                }
+//            }, label: { Text("word_delete".localized) })
+//        }, message: {
+//            Text("budgets_transactions_delete_budget_desc".localized)
+//        })
         .toolbar {
             ToolbarDismissPushButton()
             
@@ -155,5 +155,5 @@ struct BudgetsTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    BudgetsTransactionsView(subcategory: .PREDEFSUBCAT1CAT1)
+    BudgetsTransactionsView(subcategory: .mock)
 }

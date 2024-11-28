@@ -23,7 +23,7 @@ struct CustomOrSystemImage: View {
             Image("\(systemImage)")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: size * 2, height: size * 2)
+                .frame(width: size * 1.8, height: size * 1.8)
         }
     } // End body
 } // End struct

@@ -11,7 +11,7 @@ import SwiftUI
 struct BudgetRow: View {
 
     //Custom type
-    @ObservedObject var budget: Budget
+    @ObservedObject var budget: BudgetModel
 
     //State or Binding Int, Float and Double
     @State var valueForCircle: Double = 0
@@ -20,12 +20,16 @@ struct BudgetRow: View {
     @Binding var selectedDate: Date
     
     // Computed
-    var actualAmount: Double { return budget.actualAmountForMonth(month: selectedDate) }
+    var actualAmount: Double {
+        // TODO: - refacto
+//        return budget.actualAmountForMonth(month: selectedDate)
+        return 100
+    }
     
     //MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
-            Text(budget.title)
+            Text(budget.name)
                 .lineLimit(1)
                 .adaptText()
                 .font(.mediumCustom(size: 20))
@@ -86,7 +90,7 @@ struct BudgetRow: View {
     
     //MARK: ViewBuilder
     @ViewBuilder
-    func circleBudget(budget: Budget, value: Double) -> some View {
+    func circleBudget(budget: BudgetModel, value: Double) -> some View {
         let textInCircle: Double = actualAmount / budget.amount * 10
         ZStack {
             Circle()
@@ -105,14 +109,14 @@ struct BudgetRow: View {
 } // End struct
 
 // MARK: - Preview
-struct BudgetCellView_Previews: PreviewProvider {
-    
-    @State static var datePreview: Date = Date()
-    
-    static var previews: some View {
-        Group {
-            BudgetRow(budget: Budget.preview1, selectedDate: $datePreview)
-            BudgetRow(budget: Budget.preview2, selectedDate: $datePreview)
-        }
-    }
-}
+//struct BudgetCellView_Previews: PreviewProvider {
+//    
+//    @State static var datePreview: Date = Date()
+//    
+//    static var previews: some View {
+//        Group {
+//            BudgetRow(budget: Budget.preview1, selectedDate: $datePreview)
+//            BudgetRow(budget: Budget.preview2, selectedDate: $datePreview)
+//        }
+//    }
+//}

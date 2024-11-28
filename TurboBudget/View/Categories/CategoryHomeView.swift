@@ -29,9 +29,9 @@ struct CategoryHomeView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding(.bottom, 8)
                         }
-                        if viewModel.dataWithFilterChoosen && viewModel.searchText.isEmpty {
+                        if viewModel.searchText.isEmpty {
                             PieChart(
-                                slices: PredefinedCategory.categoriesSlices,
+                                slices: CategoryRepository.shared.categoriesSlices,
                                 backgroundColor: Color.colorCell,
                                 configuration: .init(style: .category, space: 0.2, hole: 0.75)
                             )
@@ -45,13 +45,20 @@ struct CategoryHomeView: View {
                         }
                         
                         ForEach(viewModel.categoriesFiltered) { category in
-                            let hasSubcategories = !category.subcategories.isEmpty
-                            NavigationButton(push: router.pushHomeSubcategories(category: category)) {
-                                CategoryRow(category: category, showChevron: hasSubcategories)
-                                    .foregroundStyle(Color.label)
+                            let subcategories = category.subcategories
+                            Group {
+                                if let subcategories, !subcategories.isEmpty {
+                                    NavigationButton(push: router.pushHomeSubcategories(category: category)) {
+                                        CategoryRow(category: category, showChevron: true)
+                                    }
+                                } else {
+                                    NavigationButton(push: router.pushCategoryTransactions(category: category)) {
+                                        CategoryRow(category: category, showChevron: true)
+                                    }
+                                }
                             }
+                            .foregroundStyle(Color.label)
                             .padding(.bottom, 8)
-                            .disabled(!hasSubcategories)
                         }
                         
                         Rectangle()
@@ -82,15 +89,16 @@ struct CategoryHomeView: View {
     
     // MARK: Functions
     func alertMessageIfEmpty() -> String {
-        if viewModel.filter.byDay
-            && !viewModel.dataWithFilterChoosen
-            && viewModel.categoriesFiltered
-            .map({ $0.incomesTransactionsAmountForSelectedDate(filter: viewModel.filter) })
-            .reduce(0, +) == 0 {
-            return "⚠️" + " " + "error_message_no_data_day".localized
-        } else if !viewModel.filter.byDay && !viewModel.dataWithFilterChoosen && !viewModel.filter.total {
-            return "⚠️" + " " + "error_message_no_data_month".localized
-        }
+//        if viewModel.filter.byDay
+//            && !viewModel.dataWithFilterChoosen
+//            && viewModel.categoriesFiltered
+//            .map({ $0.incomesTransactionsAmountForSelectedDate(filter: viewModel.filter) })
+//            .reduce(0, +) == 0 {
+//            return "⚠️" + " " + "error_message_no_data_day".localized
+//        } else if !viewModel.filter.byDay && !viewModel.dataWithFilterChoosen && !viewModel.filter.total {
+//            return "⚠️" + " " + "error_message_no_data_month".localized
+//        }
+        // TODO: - refacto
         return ""
     }
     

@@ -14,11 +14,13 @@ struct TurboBudgetApp: App {
     @StateObject private var appManager: AppManager = .shared
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var purchasesManager = PurchasesManager()
-    @StateObject private var router = NavigationManager(isPresented: .constant(.pageController))
+    @StateObject private var alertManager: AlertManager
+    @StateObject private var router: NavigationManager
     
     // New Repository
     @StateObject private var userRepository: UserRepository = .shared
     @StateObject private var accountRepository: AccountRepository = .shared
+    @StateObject private var categoryRepository: CategoryRepository = .shared
     @StateObject private var transactionRepository: TransactionRepository = .shared
     @StateObject private var subscriptionRepository: SubscriptionRepository = .shared
     @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
@@ -46,6 +48,9 @@ struct TurboBudgetApp: App {
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
+        let initialRouter = NavigationManager(isPresented: .constant(.pageController))
+        self._router = StateObject(wrappedValue: initialRouter)
+        self._alertManager = StateObject(wrappedValue: AlertManager(router: initialRouter))
     }
     
     // MARK: -
@@ -74,6 +79,7 @@ struct TurboBudgetApp: App {
                     .task {
                         await accountRepository.fetchAccounts()
                         accountRepository.selectedAccount = accountRepository.mainAccount
+                        await categoryRepository.fetchCategories()
                         if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
                             await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
                             await subscriptionRepository.fetchSubscriptions(accountID: accountID)
@@ -98,9 +104,11 @@ struct TurboBudgetApp: App {
             .environmentObject(router)
             .environmentObject(csManager)
             .environmentObject(purchasesManager)
+            .environmentObject(alertManager)
             
             // New Repository
             .environmentObject(accountRepository)
+            .environmentObject(categoryRepository)
             .environmentObject(transactionRepository)
             .environmentObject(subscriptionRepository)
             .environmentObject(savingsPlanRepository)
@@ -129,6 +137,12 @@ struct TurboBudgetApp: App {
                 
                 print(DataForServer.shared.json)
             }
+            .alert(alertManager.alert?.title ?? "", isPresented: $alertManager.isPresented, actions: {
+                Button(action: { return }, label: { Text("word_cancel".localized) })
+                Button(action: { alertManager.alert?.action() }, label: { Text(alertManager.alert?.actionButtonTitle ?? "word_ok".localized) })
+            }, message: {
+                Text(alertManager.alert?.message ?? "")
+            })
             .task {
                 await purchasesManager.loadProducts()
                 await purchasesManager.getSubscriptionStatus()

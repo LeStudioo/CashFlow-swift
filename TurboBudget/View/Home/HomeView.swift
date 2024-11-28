@@ -20,9 +20,9 @@ struct HomeView: View {
             
             ScrollView {
                 CarouselOfChartsView()
-                    .padding(.bottom)
+                    .padding(.bottom, 24)
                 
-                VStack(spacing: 16) {
+                VStack(spacing: 24) {
                     HomeScreenSavingsPlan()
                     HomeScreenSubscription()
                     HomeScreenRecentTransactions()
@@ -30,7 +30,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
                 Rectangle()
-                    .frame(height: 100)
+                    .frame(height: 120)
                     .opacity(0)
             } // ScrollView
             .scrollIndicators(.hidden)

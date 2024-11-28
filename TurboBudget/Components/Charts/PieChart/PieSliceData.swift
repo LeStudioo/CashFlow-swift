@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 struct PieSliceData: Hashable {
-    var categoryID: String
-    var subcategoryID: String?
+    var categoryID: Int
+    var subcategoryID: Int?
     var iconName: String
     var value: Double
     var color: Color

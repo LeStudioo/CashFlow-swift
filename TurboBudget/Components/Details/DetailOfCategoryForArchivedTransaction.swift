@@ -10,7 +10,7 @@ import SwiftUI
 struct DetailOfCategoryForArchivedTransaction: View {
     
     //Builder
-    var category: PredefinedCategory
+    var category: CategoryModel
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
@@ -52,5 +52,5 @@ struct DetailOfCategoryForArchivedTransaction: View {
 
 //MARK: - Preview
 #Preview {
-    DetailOfCategoryForArchivedTransaction(category: .PREDEFCAT1)
+    DetailOfCategoryForArchivedTransaction(category: .mock)
 }

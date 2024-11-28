@@ -11,7 +11,7 @@ import SwiftUI
 struct DetailOfCategory: View {
     
     //Builder
-    var category: PredefinedCategory
+    var category: CategoryModel
 
     //Environnement
     @Environment(\.colorScheme) private var colorScheme
@@ -20,7 +20,7 @@ struct DetailOfCategory: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: -1) {
-                Text(category.title)
+                Text(category.name)
                     .font(.mediumCustom(size: 22))
                 
                 if category.amountTotalOfExpenses != 0 {
@@ -54,5 +54,5 @@ struct DetailOfCategory: View {
 
 //MARK: - Preview
 #Preview {
-    DetailOfCategory(category: .PREDEFCAT1)
+    DetailOfCategory(category: .mock)
 }

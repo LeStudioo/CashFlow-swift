@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 class TransactionDetailViewModel: ObservableObject {    
-    @Published var selectedCategory: PredefinedCategory? = nil
-    @Published var selectedSubcategory: PredefinedSubcategory? = nil
+    @Published var selectedCategory: CategoryModel? = nil
+    @Published var selectedSubcategory: SubcategoryModel? = nil
     
-    @Published var bestCategory: PredefinedCategory? = nil
-    @Published var bestSubcategory: PredefinedSubcategory? = nil
+    @Published var bestCategory: CategoryModel? = nil
+    @Published var bestSubcategory: SubcategoryModel? = nil
     
     @Published var note: String = ""
     @Published var isDeleting: Bool = false
@@ -62,11 +62,11 @@ extension TransactionDetailViewModel {
         
         let body: TransactionModel = .init()
         
-        if let selectedCategory, let newCategory = PredefinedCategory.findByID(selectedCategory.id) {
+        if let selectedCategory, let newCategory = CategoryRepository.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id
-            body.subcategoryID = ""
+            body.subcategoryID = nil
             
-            if let selectedSubcategory, let newSubcategory = newCategory.subcategories.findByID(selectedSubcategory.id) {
+            if let selectedSubcategory, let newSubcategory = CategoryRepository.shared.findSubcategoryById(selectedSubcategory.id) {
                 body.subcategoryID = newSubcategory.id
             }
             

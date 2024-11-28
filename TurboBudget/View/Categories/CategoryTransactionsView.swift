@@ -12,7 +12,7 @@ import SwiftUI
 struct CategoryTransactionsView: View {
     
     // Builder
-    var category: PredefinedCategory
+    var category: CategoryModel
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -100,7 +100,7 @@ struct CategoryTransactionsView: View {
                 Menu(content: {
                     Menu(content: {
                         Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month", systemImage: "calendar") })
-                        if category.id != PredefinedCategory.PREDEFCAT0.id {
+                        if category.id != CategoryModel.revenue?.id {
                             Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses", systemImage: "arrow.down.forward") })
                         } else {
                             Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes", systemImage: "arrow.up.right") })
@@ -122,5 +122,5 @@ struct CategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryTransactionsView(category: .PREDEFCAT1)
+    CategoryTransactionsView(category: .mock)
 }

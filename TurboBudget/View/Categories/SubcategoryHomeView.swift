@@ -12,7 +12,7 @@ import Charts
 struct SubcategoryHomeView: View {
     
     // Builder
-    var category: PredefinedCategory
+    var category: CategoryModel
     
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
@@ -22,14 +22,14 @@ struct SubcategoryHomeView: View {
     @Environment(\.dismiss) private var dismiss
     
     // Computed
-    var searchResults: [PredefinedSubcategory] {
+    var searchResults: [SubcategoryModel] {
         if viewModel.searchText.isEmpty {
-            return category.subcategories
-                .sorted { $0.title < $1.title }
+            return category.subcategories?
+                .sorted { $0.name < $1.name } ?? []
         } else {
-            return category.subcategories
-                .sorted { $0.title < $1.title }
-                .filter { $0.title.localizedStandardContains(viewModel.searchText) }
+            return category.subcategories?
+                .sorted { $0.name < $1.name }
+                .filter { $0.name.localizedStandardContains(viewModel.searchText) } ?? []
         }
     }
     
@@ -106,5 +106,5 @@ struct SubcategoryHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryHomeView(category: .PREDEFCAT1)
+    SubcategoryHomeView(category: .mock)
 }

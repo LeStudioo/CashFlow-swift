@@ -35,7 +35,7 @@ struct DashboardChart: View {
                 
                 HStack(spacing: 16) {
                     PieChart(
-                        slices: PredefinedCategory.categoriesSlices,
+                        slices: CategoryRepository.shared.categoriesSlices,
                         backgroundColor: Color.colorCell,
                         configuration: .init(
                             style: .category,

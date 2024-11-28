@@ -11,8 +11,8 @@ struct SelectCategoryButtonView: View {
     
     // Builder
     @ObservedObject var router: NavigationManager
-    @Binding var selectedCategory: PredefinedCategory?
-    @Binding var selectedSubcategory: PredefinedSubcategory?
+    @Binding var selectedCategory: CategoryModel?
+    @Binding var selectedSubcategory: SubcategoryModel?
     
     // Computed variables
     var widthCircleCategory: CGFloat {

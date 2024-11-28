@@ -16,7 +16,7 @@ struct BudgetsHomeView: View {
     
     //Environnements
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var budgetRepo: BudgetRepositoryOld
+    @EnvironmentObject private var budgetRepository: BudgetRepository
     @Environment(\.dismiss) private var dismiss
     
     //State or Binding String
@@ -24,24 +24,24 @@ struct BudgetsHomeView: View {
     var months: [String] = Calendar.current.monthSymbols
     
     // Computed var
-    var getAllBudgetsByCategory: [PredefinedCategory] {
-        var array: [PredefinedCategory] = []
-        for budget in budgetRepo.budgets {
-            if let category = PredefinedCategory.findByID(budget.predefCategoryID), !array.contains(category) {
+    var getAllBudgetsByCategory: [CategoryModel] {
+        var array: [CategoryModel] = []
+        for budget in budgetRepository.budgets {
+            if let category = CategoryRepository.shared.findCategoryById(budget.categoryID), !array.contains(category) {
                 array.append(category)
             }
         }
         return array
     }
     
-    var searchResults: [Budget] {
+    var searchResults: [BudgetModel] {
         if searchText.isEmpty {
-            return Array(budgetRepo.budgets)
+            return Array(budgetRepository.budgets)
         } else { //Searching
-            let budgetsFilterByTitle: [Budget] = budgetRepo.budgets
-                .filter { $0.title.localizedStandardContains(searchText) }
-            let budgetsFilterByCategory: [Budget] = budgetRepo.budgets
-                .filter { PredefinedCategory.findByID($0.predefCategoryID)?.title.localizedStandardContains(searchText) ?? false }
+            let budgetsFilterByTitle: [BudgetModel] = budgetRepository.budgets
+                .filter { $0.name.localizedStandardContains(searchText) }
+            let budgetsFilterByCategory: [BudgetModel] = budgetRepository.budgets
+                .filter { CategoryRepository.shared.findCategoryById($0.categoryID)?.name.localizedStandardContains(searchText) ?? false }
             
             if budgetsFilterByTitle.isEmpty {
                 return budgetsFilterByCategory
@@ -54,14 +54,14 @@ struct BudgetsHomeView: View {
     //MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            if budgetRepo.budgets.count != 0 && searchResults.count != 0 {
+            if budgetRepository.budgets.count != 0 && searchResults.count != 0 {
                 ScrollView(showsIndicators: false) {
                     VStack {
                         ForEach(getAllBudgetsByCategory, id: \.self) { category in
-                            if budgetRepo.budgets.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
-                                if searchResults.map({ PredefinedCategory.findByID($0.predefCategoryID) }).contains(category) {
+                            if budgetRepository.budgets.map({ CategoryRepository.shared.findCategoryById($0.categoryID)}).contains(category) {
+                                if searchResults.map({ CategoryRepository.shared.findCategoryById($0.categoryID) }).contains(category) {
                                     HStack {
-                                        Text(category.title)
+                                        Text(category.name)
                                             .font(.mediumCustom(size: 22))
                                         Spacer()
                                         Circle()
@@ -76,9 +76,9 @@ struct BudgetsHomeView: View {
                                     .padding([.horizontal, .top])
                                 }
                                 ForEach(searchResults) { budget in
-                                    if PredefinedCategory.findByID(budget.predefCategoryID) == category {
+                                    if CategoryRepository.shared.findCategoryById(budget.categoryID) == category {
                                         Button(action: {
-                                            if let subcategory = category.subcategories.findByID(budget.predefSubcategoryID) {
+                                            if let subcategory = CategoryRepository.shared.findSubcategoryById(budget.subcategoryID) {
                                                 router.pushBudgetTransactions(subcategory: subcategory)
                                             }
                                         }, label: {

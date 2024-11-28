@@ -8,7 +8,7 @@
 import Foundation
 
 final class SubcategoryHomeViewModel: ObservableObject {
-    @Published var selectedSubcategory: PredefinedSubcategory? = nil
+    @Published var selectedSubcategory: SubcategoryModel? = nil
     @Published var filter: Filter = .shared
     
     @Published var searchText: String = ""
@@ -16,17 +16,22 @@ final class SubcategoryHomeViewModel: ObservableObject {
 
 extension SubcategoryHomeViewModel {
     
-    func isDisplayChart(category: PredefinedCategory) -> Bool {
-        if !filter.automation && !filter.total {
-            if category.subcategories.map({ $0.transactionsAmount(type: .expense, filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
-        } else if filter.automation && !filter.total {
-            if category.subcategories.map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
-        } else if !filter.automation && filter.total {
-            if category.subcategories.map({ $0.amountTotalOfExpenses }).reduce(0, +) > 0 { return true } else { return false }
-        } else if filter.automation && filter.total {
-            if category.subcategories.map({ $0.amountTotalOfExpensesAutomations }).reduce(0, +) > 0 { return true } else { return false }
+    func isDisplayChart(category:  CategoryModel) -> Bool {
+        if category.isToCategorized {
+            return false
+        } else {
+            return !category.currentMonthExpenses.isEmpty
         }
-        return false
+        // TODO: - Refacto
+//        if !filter.automation && !filter.total {
+//            if category.subcategories.map({ $0.transactionsAmount(type: .expense, filter: filter) }).reduce(0, +) > 0 { return true } else { return false }
+//        } else if filter.automation && !filter.total {
+//            if category.subcategories.map({ $0.expensesAutomationsTransactionsAmountForSelectedDate(selectedDate: filter.date) }).reduce(0, +) > 0 { return true } else { return false }
+//        } else if !filter.automation && filter.total {
+//            if category.subcategories.map({ $0.amountTotalOfExpenses }).reduce(0, +) > 0 { return true } else { return false }
+//        } else if filter.automation && filter.total {
+//            if category.subcategories.map({ $0.amountTotalOfExpensesAutomations }).reduce(0, +) > 0 { return true } else { return false }
+//        }
     }
     
 }

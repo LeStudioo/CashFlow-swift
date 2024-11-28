@@ -78,7 +78,7 @@ struct AutomationRow: View {
                         .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
                         .lineLimit(1)
                     
-                    Text(subscription.date.withDefault.formatted(date: .numeric, time: .omitted))
+                    Text(subscription.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .lineLimit(1)

@@ -23,11 +23,10 @@ enum NavigationDirection: Identifiable {
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
     case createTransaction(transaction: TransactionModel? = nil)
-    case recoverTransaction
     case createSavingsAccount
     case createTransfer
         
-    case selectCategory(category: Binding<PredefinedCategory?>, subcategory: Binding<PredefinedSubcategory?>)
+    case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>)
     
     case allTransactions
     case transactionDetail(transaction: TransactionModel)
@@ -38,13 +37,13 @@ enum NavigationDirection: Identifiable {
     case allSavingsAccount
     case savingsAccountDetail(savingsAccount: SavingsAccount)
     case allBudgets
-    case budgetTransactions(subcategory: PredefinedSubcategory)
+    case budgetTransactions(subcategory: SubcategoryModel)
     case allArchivedSavingPlans(account: Account)
     
     case homeCategories
-    case categoryTransactions(category: PredefinedCategory)
-    case homeSubcategories(category: PredefinedCategory)
-    case subcategoryTransactions(subcategory: PredefinedSubcategory)
+    case categoryTransactions(category: CategoryModel)
+    case homeSubcategories(category: CategoryModel)
+    case subcategoryTransactions(subcategory: SubcategoryModel)
 
     case paywall
     
@@ -81,7 +80,6 @@ extension NavigationDirection: Equatable {
             (.createBudget, .createBudget),
             (.createSavingsPlan, .createSavingsPlan),
             (.createTransaction, .createTransaction),
-            (.recoverTransaction, .recoverTransaction),
             (.createSavingsAccount, .createSavingsAccount),
             (.createTransfer, .createTransfer),
             (.accountDashboard, .accountDashboard),

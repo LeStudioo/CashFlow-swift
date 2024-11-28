@@ -59,13 +59,13 @@ struct CreateBudgetView: View {
                 
                 ToolbarValidationButtonView(isActive: viewModel.validateBudget()) {
                     VibrationManager.vibration()
-                    viewModel.createNewBudget { withError in
-                        if withError == nil {
-                            dismiss()
-                        } else {
-                            // TODO: Mettre une banner error
-                        }
-                    }
+                    // TODO: - create budget
+//                    viewModel.createNewBudget { withError in
+//                        if withError == nil {
+//                            dismiss()
+//                        } else {
+//                        }
+//                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()
