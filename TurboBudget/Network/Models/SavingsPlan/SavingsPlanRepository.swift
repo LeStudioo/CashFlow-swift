@@ -63,8 +63,8 @@ extension SavingsPlanRepository {
                 self.savingsPlans[index].name = savingsPlan.name
                 self.savingsPlans[index].emoji = savingsPlan.emoji
                 self.savingsPlans[index].goalAmount = savingsPlan.goalAmount
-                self.savingsPlans[index].startDate = savingsPlan.startDate
-                self.savingsPlans[index].endDate = savingsPlan.endDate
+                self.savingsPlans[index].startDateString = savingsPlan.startDateString
+                self.savingsPlans[index].endDateString = savingsPlan.endDateString
             }
         } catch { NetworkService.handleError(error: error) }
     }

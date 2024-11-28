@@ -7,6 +7,8 @@
 
 "word_typeOfTransaction" = "Transaction type";
 
+"word_typeOfContribution" = "Contribution type";
+
 "word_date" = "Date";
 
 "word_recommended" = "Recommended";
@@ -91,6 +93,14 @@
 "successful_savingsplan_update_title" = "Savings plan modified!";
 
 "successful_savingsplan_update_desc" = "Your savings plan has been updated in your list of savings plans.";
+
+"successful_contribution_new_title" = "Contribution created!";
+
+"successful_contribution_new_desc" = "Your contribution has been processed and added to your savings plan.";
+
+"successful_contribution_update_title" = "Contribution modified!";
+
+"successful_contribution_update_desc" = "Your contribution has been updated in your savings plan.";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";

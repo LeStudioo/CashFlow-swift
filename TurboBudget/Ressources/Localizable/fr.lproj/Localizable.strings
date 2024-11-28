@@ -7,6 +7,8 @@
 
 "word_typeOfTransaction" = "Type de transaction";
 
+"word_typeOfContribution" = "Type de contribution";
+
 "word_date" = "Date";
 
 "word_recommended" = "Recommandé";
@@ -91,6 +93,14 @@
 "successful_savingsplan_update_title" = "Plan d'épargne modifié !";
 
 "successful_savingsplan_update_desc" = "Votre plan d'épargne a été mise à jour dans votre liste de plans d'épargne.";
+
+"successful_contribution_new_title" = "Contribution créé !";
+
+"successful_contribution_new_desc" = "Votre contribution a été traité et ajouté à votre plan d'épargne.";
+
+"successful_contribution_update_title" = "Contribution modifiée !";
+
+"successful_contribution_update_desc" = "Votre contribution a été mise à jour dans votre plan d'épargne.";
 
 //MARK: - General Words
 "word_transaction" = "Transaction";

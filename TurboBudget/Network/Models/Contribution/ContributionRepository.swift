@@ -26,8 +26,9 @@ extension ContributionRepository {
         } catch { NetworkService.handleError(error: error) }
     }
     
+    @discardableResult
     @MainActor
-    func createContribution(savingsplanID: Int, body: ContributionModel) async {
+    func createContribution(savingsplanID: Int, body: ContributionModel) async -> ContributionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: ContributionAPIRequester.create(savingsplanID: savingsplanID, body: body),
@@ -36,8 +37,14 @@ extension ContributionRepository {
             if let contribution = response.contribution, let newAmount = response.newAmount {
                 self.contributions.append(contribution)
                 SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                return contribution
             }
-        } catch { NetworkService.handleError(error: error) }
+            
+            return nil
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
     @MainActor

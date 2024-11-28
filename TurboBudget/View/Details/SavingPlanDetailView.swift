@@ -32,7 +32,6 @@ struct SavingPlanDetailView: View {
     
     //State or Binding Bool
     @State private var isDeleting: Bool = false
-    @State private var showAddContribution: Bool = false
     
     //Enum
     enum Field: CaseIterable {
@@ -70,17 +69,15 @@ struct SavingPlanDetailView: View {
             progressBar()
                 .padding(.horizontal, 12)
             
-            if let date = savingsPlan.endDate?.toDate() {
-                let color: Color = (date < Date() && savingsPlan.currentAmount ?? 0 != savingsPlan.goalAmount ?? 0)
-                ? Color.red
-                : Color(uiColor: .label
-                )
-                CellForDetailSavingPlan(
-                    leftText: "savingsplan_detail_end_date".localized,
-                    rightText: date.formatted(date: .abbreviated, time: .omitted),
-                    rightTextColor: color
-                )
-            }
+            let color: Color = (savingsPlan.endDate < Date() && savingsPlan.currentAmount ?? 0 != savingsPlan.goalAmount ?? 0)
+            ? Color.red
+            : Color(uiColor: .label
+            )
+            CellForDetailSavingPlan(
+                leftText: "savingsplan_detail_end_date".localized,
+                rightText: savingsPlan.endDate.formatted(date: .abbreviated, time: .omitted),
+                rightTextColor: color
+            )
             
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $savingPlanNote)
@@ -112,7 +109,7 @@ struct SavingPlanDetailView: View {
                 Text("word_contributions".localized)
                     .font(.semiBoldCustom(size: 22))
                 Spacer()
-                Button(action: { showAddContribution.toggle() }, label: {
+                Button(action: { router.presentCreateContribution(savingsPlan: savingsPlan) }, label: {
                     Image(systemName: "plus")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
                         .foregroundStyle(Color(uiColor: .label))
@@ -162,7 +159,7 @@ struct SavingPlanDetailView: View {
                     )
                     
                     Button(
-                        action: { showAddContribution.toggle() },
+                        action: { router.presentCreateContribution(savingsPlan: savingsPlan) },
                         label: { Label("savingsplan_detail_add_contribution".localized, systemImage: "plus") }
                     )
                     
@@ -188,19 +185,19 @@ struct SavingPlanDetailView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .sheet(isPresented: $showAddContribution, onDismiss: {
-            guard let currentAmount = savingsPlan.currentAmount else { return }
-            guard let goalAmount = savingsPlan.goalAmount else { return }
-            
-            withAnimation(.spring()) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    if currentAmount / goalAmount > 0.98 { percentage = 0.98 } else {
-                        percentage = currentAmount / goalAmount
-                    }
-                    increaseWidthAmount = 1.5
-                }
-            }
-        }, content: { /*CreateContributionView(savingPlan: savingPlan)*/ })
+//        .sheet(isPresented: $showAddContribution, onDismiss: {
+//            guard let currentAmount = savingsPlan.currentAmount else { return }
+//            guard let goalAmount = savingsPlan.goalAmount else { return }
+//            
+//            withAnimation(.spring()) {
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//                    if currentAmount / goalAmount > 0.98 { percentage = 0.98 } else {
+//                        percentage = currentAmount / goalAmount
+//                    }
+//                    increaseWidthAmount = 1.5
+//                }
+//            }
+//        }, content: { /*CreateContributionView(savingPlan: savingPlan)*/ })
 
         .alert("savingsplan_detail_delete_savingsplan".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })

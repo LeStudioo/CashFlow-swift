@@ -1,26 +1,26 @@
 //
-//  TransactionTypePicker.swift
+//  ContributionTypePicker.swift
 //  CashFlow
 //
-//  Created by Theo Sementa on 19/11/2024.
+//  Created by Theo Sementa on 28/11/2024.
 //
 
 import SwiftUI
 
-struct TransactionTypePicker: View {
+struct ContributionTypePicker: View {
     
     // builder
-    @Binding var selected: TransactionType
+    @Binding var selected: ContributionType
     
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(Word.Classic.typeOfTransaction)
+            Text(Word.Classic.typeOfContribution)
                 .padding(.leading, 8)
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {
-                ForEach(TransactionType.allCases, id: \.self) { type in
+                ForEach(ContributionType.allCases, id: \.self) { type in
                     Button {
                         withAnimation { selected = type }
                     } label: {
@@ -34,7 +34,7 @@ struct TransactionTypePicker: View {
             }
             .background {
                 GeometryReader { geo in
-                    let itemSize = (geo.size.width / CGFloat(TransactionType.allCases.count))
+                    let itemSize = (geo.size.width / CGFloat(ContributionType.allCases.count))
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .foregroundStyle(Color.backgroundComponentSheet)
                         .overlay(alignment: .leading) {
@@ -52,5 +52,5 @@ struct TransactionTypePicker: View {
 
 // MARK: - Preview
 #Preview {
-    TransactionTypePicker(selected: .constant(.expense))
+    ContributionTypePicker(selected: .constant(.addition))
 }

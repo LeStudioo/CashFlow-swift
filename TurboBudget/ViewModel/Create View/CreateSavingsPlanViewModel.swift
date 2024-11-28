@@ -18,9 +18,9 @@ class CreateSavingsPlanViewModel: ObservableObject {
             self.name = savingsPlan.name ?? ""
             self.emoji = savingsPlan.emoji ?? "💻"
             self.goalAmount = savingsPlan.goalAmount?.formatted() ?? ""
-            self.startDate = savingsPlan.startDate?.toDate() ?? .now
-            self.endDate = savingsPlan.endDate?.toDate() ?? .now
-            self.isEndDate = savingsPlan.endDate != nil
+            self.startDate = savingsPlan.startDate
+            self.endDate = savingsPlan.endDate
+            self.isEndDate = savingsPlan.endDateString != nil
         }
     }
     
@@ -46,8 +46,8 @@ extension CreateSavingsPlanViewModel {
         return SavingsPlanModel(
             name: name,
             emoji: emoji,
-            startDate: startDate.toISO(),
-            endDate: isEndDate ? endDate.toISO() : nil,
+            startDateString: startDate.toISO(),
+            endDateString: isEndDate ? endDate.toISO() : nil,
             goalAmount: goalAmount.toDouble()
         )
     }

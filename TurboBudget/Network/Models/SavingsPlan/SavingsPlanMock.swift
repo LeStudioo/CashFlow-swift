@@ -9,11 +9,11 @@ import Foundation
 
 extension SavingsPlanModel {
     
-    static let mockClassicSavingsPlan: SavingsPlanModel = .init(
+    static let mockClassicSavingsPlan: SavingsPlanModel =  .init(
         id: 1,
         name: "Mock Savings Plan",
         emoji: "🤑",
-        startDate: Date().toISO(),
+        startDateString: Date().toISO(),
         currentAmount: 200,
         goalAmount: 2000
     )

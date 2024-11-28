@@ -14,6 +14,7 @@ struct Word {
         static let name: String = "word_name".localized
         static let price: String = "word_price".localized
         static let typeOfTransaction: String = "word_typeOfTransaction".localized
+        static let typeOfContribution: String = "word_typeOfContribution".localized
         static let date: String = "word_date".localized
         static let recommended: String = "word_recommended".localized
         static let expense: String = "word_expense".localized
@@ -76,6 +77,14 @@ struct Word {
             }
             static func description(type: SuccessfulType) -> String {
                 return "successful_savingsplan_\(type.rawValue)_desc".localized
+            }
+        }
+        struct Contribution {
+            static func title(type: SuccessfulType) -> String {
+                return "successful_contribution_\(type.rawValue)_title".localized
+            }
+            static func description(type: SuccessfulType) -> String {
+                return "successful_contribution_\(type.rawValue)_desc".localized
             }
         }
         struct Subscription {

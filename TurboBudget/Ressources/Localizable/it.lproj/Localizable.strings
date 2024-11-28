@@ -7,6 +7,8 @@
 
 "word_typeOfTransaction" = "Tipo di transazione";
 
+"word_typeOfContribution" = "Tipo di posta";
+
 "word_date" = "Data";
 
 "word_recommended" = "Raccomandato";
@@ -80,7 +82,7 @@
 
 "successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
 
-"successful_subscription_update_title" = "Abbonamento cambiato!";
+"successful_subscription_update_title" = "Abbonamento modificato!";
 
 "successful_subscription_update_desc" = "La tua iscrizione è stata aggiornata nell'elenco delle tue iscrizioni.";
 
@@ -91,6 +93,14 @@
 "successful_savingsplan_update_title" = "Piano di risparmio modificato!";
 
 "successful_savingsplan_update_desc" = "Il tuo piano di risparmio è stato aggiornato nell'elenco dei piani di risparmio.";
+
+"successful_contribution_new_title" = "Contributo creato!";
+
+"successful_contribution_new_desc" = "Il tuo post è stato modificato e aggiunto al tuo piano di risparmio.";
+
+"successful_contribution_update_title" = "Contributo modificato!";
+
+"successful_contribution_update_desc" = "Il tuo contributo è stato aggiornato nel tuo piano di risparmio.";
 
 //MARK: - General Words
 "word_transaction" = "Transazione";
@@ -217,7 +227,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 

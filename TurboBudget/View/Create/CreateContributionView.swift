@@ -11,24 +11,29 @@ import SwiftUI
 struct CreateContributionView: View {
 
     // Builder
-    @ObservedObject var savingPlan: SavingPlan
+    @ObservedObject var savingsPlan: SavingsPlanModel
     
     // Custom
-    @StateObject private var viewModel = AddContributionViewModel()
+    @StateObject private var viewModel: CreateContributionViewModel
 
     // Environment
     @Environment(\.dismiss) private var dismiss
+    
+    // init
+    init(savingsPlan: SavingsPlanModel) {
+        self._savingsPlan = ObservedObject(wrappedValue: savingsPlan)
+        self._viewModel = StateObject(wrappedValue: .init(savingsPlan: savingsPlan))
+    }
 
     //MARK: - Body
     var body: some View {
         NavigationStack {
             ScrollView {
-                
                 Text("contribution_new".localized)
                     .titleAdjustSize()
                     .padding(.vertical, 24)
                 
-                TextField("0.00", text: $viewModel.amountContribution.max(9).animation())
+                TextField("0.00", text: $viewModel.amount.max(9).animation())
                     .font(.boldCustom(size: isLittleIphone ? 24 : 30))
                     .multilineTextAlignment(.center)
                     .keyboardType(.decimalPad)
@@ -36,13 +41,8 @@ struct CreateContributionView: View {
                     .background(Color.backgroundComponentSheet.cornerRadius(100))
                     .padding(.bottom, 24)
                 
-                CustomSegmentedControl(
-                    title: "notext".localized,
-                    selection: $viewModel.typeContribution,
-                    textLeft: "contribution_add".localized,
-                    textRight: "contribution_withdraw".localized
-                )
-                .padding(.bottom, 24)
+                ContributionTypePicker(selected: $viewModel.type)
+                    .padding(.bottom, 24)
                 
                 ZStack {
                     Capsule()
@@ -52,9 +52,9 @@ struct CreateContributionView: View {
                     HStack {
                         Spacer()
                         DatePicker(
-                            "\(viewModel.dateContribution.formatted())",
-                            selection: $viewModel.dateContribution,
-                            in: (savingPlan.dateOfStart.withDefault)...,
+                            "\(viewModel.date.formatted())",
+                            selection: $viewModel.date,
+                            in: (savingsPlan.startDate)...,
                             displayedComponents: [.date]
                         )
                         .labelsHidden()
@@ -65,12 +65,10 @@ struct CreateContributionView: View {
                 .padding(.bottom, 24)
                 
                 VStack {
-                    if (viewModel.amountContribution.toDouble() > viewModel.moneyForFinish || viewModel.moneyForFinish == 0) && viewModel.typeContribution == .expense {
-                        Text("contribution_alert_more_final_amount".localized)
-                    } else if (viewModel.amountContribution.toDouble() < viewModel.moneyForFinish || viewModel.moneyForFinish != 0) && viewModel.typeContribution == .expense {
-                        Text("💰" + viewModel.moneyForFinish.currency + " " + "contribution_alert_for_finish".localized)
+                    if (viewModel.amount.toDouble() < savingsPlan.amountToTheGoal || savingsPlan.amountToTheGoal != 0) && viewModel.type == .addition {
+                        Text("💰" + savingsPlan.amountToTheGoal.currency + " " + "contribution_alert_for_finish".localized)
                     }
-                    if (savingPlan.actualAmount - viewModel.amountContribution.toDouble() < 0) && viewModel.typeContribution == .income {
+                    if ((savingsPlan.currentAmount ?? 0) - viewModel.amount.toDouble()) < 0 && viewModel.type == .withdrawal {
                         Text("contribution_alert_take_more_amount".localized)
                     }
                 }
@@ -92,8 +90,7 @@ struct CreateContributionView: View {
                 
                 ToolbarValidationButtonView(isActive: viewModel.isContributionValid()) {
                     VibrationManager.vibration()
-                    viewModel.createContribution()
-                    dismiss()
+                    viewModel.createContribution(dismiss: dismiss)
                 }
                 
                 ToolbarDismissKeyboardButtonView()
@@ -106,13 +103,10 @@ struct CreateContributionView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
-        .onAppear {
-            viewModel.savingPlan = savingPlan
-        }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    CreateContributionView(savingPlan: SavingPlan.preview1)
+    CreateContributionView(savingsPlan: .mockClassicSavingsPlan)
 }

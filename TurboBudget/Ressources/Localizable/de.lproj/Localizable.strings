@@ -7,6 +7,8 @@
 
 "word_typeOfTransaction" = "Transaktionstyp";
 
+"word_typeOfContribution" = "Beitragstyp";
+
 "word_date" = "Datum";
 
 "word_recommended" = "Empfohlen";
@@ -91,6 +93,14 @@
 "successful_savingsplan_update_title" = "Modifizierter Sparplan!";
 
 "successful_savingsplan_update_desc" = "Ihr Sparplan wurde in Ihrer Sparplanliste aktualisiert.";
+
+"successful_contribution_new_title" = "Beitrag erstellt!";
+
+"successful_contribution_new_desc" = "Ihr Beitrag wurde bearbeitet und Ihrem Sparplan hinzugefügt.";
+
+"successful_contribution_update_title" = "Geänderter Beitrag!";
+
+"successful_contribution_update_desc" = "Ihr Beitrag wurde in Ihrem Sparplan aktualisiert.";
 
 //MARK: - General Words
 "word_transaction" = "Transaktionen";

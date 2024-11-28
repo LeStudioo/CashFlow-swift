@@ -10,19 +10,26 @@ import Foundation
 enum ContributionType: Int, CaseIterable {
     case addition = 0
     case withdrawal = 1
+    
+    var name: String {
+        switch self {
+        case .addition:     return "contribution_add".localized
+        case .withdrawal:   return "contribution_withdraw".localized
+        }
+    }
 }
 
 class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
     @Published var id: Int?
     @Published var amount: Double?
-//    @Published var typeNum: Int? // ContributionType
+    @Published var typeNum: Int? // ContributionType
     @Published var date: String?
 
     // Initialiseur
-    init(id: Int? = nil, amount: Double? = nil, date: String? = nil) {
+    init(id: Int? = nil, amount: Double? = nil, typeNum: Int? = nil, date: String? = nil) {
         self.id = id
         self.amount = amount
-//        self.typeNum = typeNum
+        self.typeNum = typeNum
         self.date = date
     }
 
@@ -36,7 +43,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-//        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
+        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         date = try container.decodeIfPresent(String.self, forKey: .date)
     }
 
@@ -44,7 +51,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(amount, forKey: .amount)
-//        try container.encodeIfPresent(typeNum, forKey: .typeNum)
+        try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(date, forKey: .date)
     }
 
@@ -52,7 +59,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     static func == (lhs: ContributionModel, rhs: ContributionModel) -> Bool {
         return lhs.id == rhs.id &&
                lhs.amount == rhs.amount &&
-//               lhs.typeNum == rhs.typeNum &&
+               lhs.typeNum == rhs.typeNum &&
                lhs.date == rhs.date
             
     }
@@ -61,7 +68,15 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(amount)
-//        hasher.combine(typeNum)
+        hasher.combine(typeNum)
         hasher.combine(date)
     }
+}
+
+extension ContributionModel {
+    
+    var type: ContributionType? {
+        return ContributionType(rawValue: typeNum ?? 0)
+    }
+    
 }
