@@ -30,8 +30,6 @@ struct BudgetRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(budget.name)
-                .lineLimit(1)
-                .adaptText()
                 .font(.mediumCustom(size: 20))
             
             HStack(alignment: .center) {

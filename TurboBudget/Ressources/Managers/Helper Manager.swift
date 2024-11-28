@@ -47,11 +47,4 @@ struct HelperManager {
         return formatter.string(from: date).capitalized
     }
     
-    //MARK: - Double
-    func removeLastDigit(from number: Double) -> Double {
-        guard number >= 10 else {
-            return 0 // Return 0 if the number has only one digit
-        }
-        return number / 10
-    }
 } // End struct
