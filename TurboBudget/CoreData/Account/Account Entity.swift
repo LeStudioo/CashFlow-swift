@@ -62,28 +62,6 @@ public class Account: NSManagedObject, Identifiable {
         } else { return [] }
     }
     
-    public var transactionsWithOnlyAutomations: [TransactionEntity] {
-        return transactions.filter({ $0.comeFromAuto })
-    }
-    
-    public var transactionsFromApplePay: [TransactionEntity] {
-        return transactions.filter({ $0.comeFromApplePay })
-    }
-    
-    public var transactionsArchived: [TransactionEntity] {
-        if let transactions = accountToTransaction {
-            return transactions
-                .sorted { $0.date.withDefault > $1.date.withDefault }
-                .filter({ !$0.isAuto && $0.predefCategoryID != "" && $0.isArchived })
-        } else { return [] }
-    }
-    
-    public var automations: [Automation] {
-        if let automations = accountToAutomation {
-            return automations.sorted { $0.date.withDefault < $1.date.withDefault }
-        } else { return [] }
-    }
-    
     public var savingPlans: [SavingPlan] {
         if let savingPlans = accountToSavingPlan {
             return savingPlans.sorted { $0.actualAmount > $1.actualAmount }.filter({ !$0.isArchived })
@@ -97,28 +75,6 @@ public class Account: NSManagedObject, Identifiable {
     }
 
 } // END Class
-
-// MARK: - Accessors for Transactions
-extension Account {
-    
-    public func addNewTransaction(transaction: TransactionEntity) {
-        self.accountToTransaction?.insert(transaction)
-        self.balance += transaction.amount
-        self.persistenceController.saveContext()
-    }
-    
-    public func deleteTransaction(transaction: TransactionEntity) {
-        let context = persistenceController.container.viewContext
-        
-        self.balance -= transaction.amount
-        context.delete(transaction)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            self.persistenceController.saveContext()
-        }
-    }
-    
-}
 
 // MARK: - Preview
 extension Account {
@@ -161,41 +117,6 @@ extension Account {
     
 }
 
-//MARK: - Extension Incomes
-extension Account {
-
-    
-    //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
-    // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (account: Account, selectedDate: Date)
-    // Output : return [Transaction]
-    // Extra : No
-    //-----------------------------------------------------------
-    public func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
-        var transactionsIncomes: [TransactionEntity] = []
-        
-        for transaction in transactions {
-            if transaction.amount > 0 
-                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
-                && transaction.predefCategoryID != "" {
-                transactionsIncomes.append(transaction)
-            }
-        }
-        return transactionsIncomes
-    }
-    
-    //-------------------- amountIncomesByMonth() ----------------------
-    // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
-    //-----------------------------------------------------------
-    public func amountIncomesByMonth(month: Date) -> Double {
-        return getAllTransactionsIncomeForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, +)
-    }
-    
-} // End Extension Incomes
-
 //MARK: - Extension Expenses
 extension Account {
     
@@ -211,33 +132,6 @@ extension Account {
             if transaction.amount < 0 { total -= transaction.amount }
         }
         return total
-    }
-    
-    //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
-    // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
-    //-----------------------------------------------------------
-    func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionEntity] {
-        var transactionsExpenses: [TransactionEntity] = []
-        
-        for transaction in transactions {
-            if transaction.amount < 0 && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
-                transactionsExpenses.append(transaction)
-            }
-        }
-        return transactionsExpenses
-    }
-    
-    //-------------------- amountExpensesByMonth() ----------------------
-    // Description : Retourne la somme de toutes les transactions qui sont des dépenses, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
-    //-----------------------------------------------------------
-    func amountExpensesByMonth(month: Date) -> Double {
-        return getAllExpensesTransactionsForChosenMonth(selectedDate: month).map({ $0.amount }).reduce(0, -)
     }
     
 } // End Extension Expenses

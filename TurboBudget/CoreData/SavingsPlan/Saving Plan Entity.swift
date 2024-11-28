@@ -94,20 +94,3 @@ extension SavingPlan {
     }
     
 }
-
-// MARK: Generated accessors for savingPlansToContribution
-extension SavingPlan {
-
-    @objc(addSavingPlansToContributionObject:)
-    @NSManaged public func addToSavingPlansToContribution(_ value: Contribution)
-
-    @objc(removeSavingPlansToContributionObject:)
-    @NSManaged public func removeFromSavingPlansToContribution(_ value: Contribution)
-
-    @objc(addSavingPlansToContribution:)
-    @NSManaged public func addToSavingPlansToContribution(_ values: NSSet)
-
-    @objc(removeSavingPlansToContribution:)
-    @NSManaged public func removeFromSavingPlansToContribution(_ values: NSSet)
-
-}

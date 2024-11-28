@@ -49,24 +49,6 @@ public class Automation: NSManagedObject, Identifiable {
     @NSManaged public var automationToAccount: Account?
 }
 
-//extension Automation {
-//    
-//    var category: PredefinedCategory? {
-//        if let transaction = automationToTransaction {
-//            return transaction.category
-//        }
-//        return nil
-//    }
-//    
-//    var subcategory: PredefinedSubcategory? {
-//        if let transaction = automationToTransaction {
-//            return transaction.subcategory
-//        }
-//        return nil
-//    }
-//    
-//}
-
 extension Automation {
     
     static var preview: Automation {
@@ -75,7 +57,6 @@ extension Automation {
         automation.title = "Preview"
         automation.date = Calendar.current.date(byAdding: .day, value: 10, to: Date()) ?? .now
         automation.frenquently = 0
-//        automation.automationToTransaction = TransactionEntity.preview1
         return automation
     }
     
