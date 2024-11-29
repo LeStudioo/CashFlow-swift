@@ -40,6 +40,12 @@ struct CustomTabBar: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if accountRepository.mainAccount != nil {
+                        NavigationButton(present: router.presentCreateTransfer()) {
+                            viewModel.showMenu = false
+                        } label: {
+                            Label(Word.Classic.transfer, systemImage: "dollarsign.square.fill")
+                        }
+                        
                         NavigationButton(present: router.presentCreateSavingsPlan()) {
                             viewModel.showMenu = false
                         } label: {

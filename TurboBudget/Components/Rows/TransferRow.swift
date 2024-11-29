@@ -12,6 +12,7 @@ struct TransferRow: View {
 
     //Custom type
     var transfer: TransactionModel
+    @EnvironmentObject private var repo: SavingsAccountRepository
     
     //Environnements
     @Environment(\.managedObjectContext) private var viewContext
@@ -30,7 +31,7 @@ struct TransferRow: View {
                     .frame(width: 50)
                     .overlay {
                         Circle()
-                            .foregroundStyle((transfer.amount ?? 0) < 0 ? .error400 : .primary500)
+                            .foregroundStyle(repo.currentAccount.id == transfer.receiverAccountID ? .primary500 : .error400)
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
@@ -39,10 +40,10 @@ struct TransferRow: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("word_transfer".localized)
+                    Text(Word.Classic.transfer)
                     .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
-                    Text((transfer.amount ?? 0) < 0 ? "word_withdrawal".localized : "word_savings".localized)
+                    Text(repo.currentAccount.id == transfer.receiverAccountID ? Word.Classic.received : Word.Classic.sent)
                         .font(.semiBoldText18())
                         .foregroundStyle(Color(uiColor: .label))
                         .lineLimit(1)
@@ -53,7 +54,7 @@ struct TransferRow: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     Text((transfer.amount ?? 0).currency)
                         .font(.semiBoldText16())
-                        .foregroundStyle((transfer.amount ?? 0) < 0 ? .error400 : .primary500)
+                        .foregroundStyle(repo.currentAccount.id == transfer.receiverAccountID ? .primary500 : .error400)
                         .lineLimit(1)
                     Text(transfer.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())

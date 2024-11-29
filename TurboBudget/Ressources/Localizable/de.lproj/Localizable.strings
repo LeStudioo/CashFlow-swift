@@ -43,6 +43,10 @@
 
 "word_frequency" = "Frequenz";
 
+"word_received" = "Erhalten";
+
+"word_sent" = "Gesendet";
+
 //MARK: - Create
 "create_add_category" = "Fügen Sie eine Kategorie hinzu";
 

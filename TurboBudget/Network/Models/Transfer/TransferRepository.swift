@@ -54,6 +54,10 @@ extension TransferRepository {
                 AccountRepository.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
                 self.transfers.append(transfer)
                 sortTransfersByDate()
+                if let selectedAccountID = AccountRepository.shared.selectedAccount?.id, senderAccountID == selectedAccountID || receiverAccountID == selectedAccountID {
+                    TransactionRepository.shared.transactions.append(transfer)
+                    TransactionRepository.shared.sortTransactionsByDate()
+                }
                 return transfer
             }
             return nil

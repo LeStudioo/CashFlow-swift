@@ -24,11 +24,6 @@ struct TransactionDetailView: View {
     
     // EnvironmentObject
     @EnvironmentObject var store: PurchasesManager
-    
-    // Boolean variables
-    @State private var isSharingJSON: Bool = false
-    @State private var isSharingQRCode: Bool = false
-    @State private var showWhatCategory: Bool = false
 
 	// Enum
     enum Field: CaseIterable {
@@ -61,21 +56,6 @@ struct TransactionDetailView: View {
                                             .foregroundStyle(Color(uiColor: .systemBackground))
                                     }
                                 }
-                            }
-                            .onTapGesture {
-                                if let category = transaction.category, category.id != 1 {
-                                    showWhatCategory.toggle()
-                                }
-                            }
-                            .sheet(isPresented: $showWhatCategory, onDismiss: {
-                                if let transactionID = transaction.id {
-                                    viewModel.updateCategory(transactionID: transactionID)
-                                }
-                            }) {
-                                SelectCategoryView(
-                                    selectedCategory: $viewModel.selectedCategory,
-                                    selectedSubcategory: $viewModel.selectedSubcategory
-                                )
                             }
                     }
                 Spacer()

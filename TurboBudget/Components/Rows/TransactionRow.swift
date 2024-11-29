@@ -16,6 +16,7 @@ struct TransactionRow: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var accountRepository: AccountRepository
         
     // State or Binding Bool
     @State private var isEditing: Bool = false
@@ -24,77 +25,47 @@ struct TransactionRow: View {
     @State private var isSharingJSON: Bool = false
     @State private var isSharingQRCode: Bool = false
     
-    //MARK: - Body
+    // MARK: -
     var body: some View {
-        SwipeView(label: {
-            HStack {
-                Circle()
-                    .foregroundStyle(Color.background)
-                    .frame(width: 50)
-                    .overlay {
-                        if let category = transaction.category, let subcategory = transaction.subcategory {
-                            Circle()
-                                .foregroundStyle(category.color)
-                                .shadow(radius: 4, y: 4)
-                                .frame(width: 34)
-                            
-                            CustomOrSystemImage(
-                                systemImage: subcategory.icon,
-                                size: 14
-                            )
-                        } else if let category = transaction.category,
-                                  transaction.subcategory == nil {
-                            Circle()
-                                .foregroundStyle(category.color)
-                                .shadow(radius: 4, y: 4)
-                                .frame(width: 34)
-                            
-                            Image(systemName: category.icon)
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                .foregroundStyle(Color(uiColor: .systemBackground))
-                        } else {
-                            Circle()
-                                .foregroundStyle(transaction.type == .expense ? .error400 : .primary500)
-                                .shadow(radius: 4, y: 4)
-                                .frame(width: 34)
-                            
-                            Text(Locale.current.currencySymbol ?? "$")
-                                .foregroundStyle(Color(uiColor: .systemBackground))
-                        }
-                    }
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(transaction.type == .expense
-                         ? (transaction.isFromSubscription == true ? "word_automation_expense".localized : "word_expense".localized)
-                         : (transaction.isFromSubscription == true ? "word_automation_income".localized : "word_income".localized)
+        SwipeView(
+            label: {
+                HStack {
+                    CircleCategory(
+                        category: transaction.category,
+                        subcategory: transaction.subcategory,
+                        transaction: transaction
                     )
-                    .foregroundStyle(Color.customGray)
-                    .font(Font.mediumSmall())
                     
-                    Text(transaction.name ?? "")
-                        .font(.semiBoldText18())
-                        .foregroundStyle(Color(uiColor: .label))
-                        .lineLimit(1)
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .trailing, spacing: 5) {
-                    Text(transaction.amount?.currency ?? "")
-                        .font(.semiBoldText16())
-                        .foregroundStyle(transaction.type == .expense ? .error400 : .primary500)
-                        .lineLimit(1)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(transactionTypeString)
+                            .foregroundStyle(Color.customGray)
+                            .font(Font.mediumSmall())
+                        
+                        Text(transactionName)
+                            .font(.semiBoldText18())
+                            .foregroundStyle(Color(uiColor: .label))
+                            .lineLimit(1)
+                    }
                     
-                    Text(transaction.date.formatted(date: .numeric, time: .omitted))
-                        .font(Font.mediumSmall())
-                        .foregroundStyle(Color.customGray)
-                        .lineLimit(1)
+                    Spacer()
+                    
+                    VStack(alignment: .trailing, spacing: 5) {
+                        Text(transaction.amount?.currency ?? "")
+                            .font(.semiBoldText16())
+                            .foregroundStyle(transactionColor)
+                            .lineLimit(1)
+                        
+                        Text(transaction.date.formatted(date: .numeric, time: .omitted))
+                            .font(Font.mediumSmall())
+                            .foregroundStyle(Color.customGray)
+                            .lineLimit(1)
+                    }
                 }
-            }
-            .padding(12)
-            .background(Color.colorCell)
-            .cornerRadius(15)
-        }, trailingActions: { context in
+                .padding(12)
+                .background(Color.colorCell)
+                .cornerRadius(15)
+            },
+            trailingActions: { context in
             SwipeAction(action: {
                 router.presentCreateTransaction(transaction: transaction)
             }, label: { _ in
@@ -171,8 +142,52 @@ struct TransactionRow: View {
 //            }
 //            return av
 //        })
-    } // END body
-} // END struct
+    } // body
+} // struct
+
+extension TransactionRow {
+    
+    var isSender: Bool {
+        guard let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id else { return false }
+        return transaction.senderAccountID == selectedAccount.id
+    }
+
+    var transactionName: String {
+        switch transaction.type {
+        case .expense, .income:
+            return transaction.name ?? ""
+        case .transfer:
+            return isSender ? Word.Classic.sent : Word.Classic.received
+        }
+    }
+    
+    var transactionTypeString: String {
+        if transaction.isFromSubscription == true {
+            return Word.Classic.subscription
+        } else {
+            switch transaction.type {
+            case .expense:
+                return Word.Classic.expense
+            case .income:
+                return Word.Classic.income
+            case .transfer:
+                return Word.Classic.transfer
+            }
+        }
+    }
+    
+    var transactionColor: Color {
+        switch transaction.type {
+        case .expense:
+            return .error400
+        case .income:
+            return .primary500
+        case .transfer:
+            return isSender ? .error400 : .primary500
+        }
+    }
+    
+}
 
 // MARK: - Preview
 #Preview {
@@ -180,5 +195,4 @@ struct TransactionRow: View {
         TransactionRow(transaction: .mockClassicTransaction)
         TransactionRow(transaction: .mockClassicTransaction)
     }
-    .previewLayout(.sizeThatFits)
 }

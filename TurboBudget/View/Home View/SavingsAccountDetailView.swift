@@ -11,9 +11,16 @@ struct SavingsAccountDetailView: View {
     
     // Builder
     @ObservedObject var savingsAccount: AccountModel
+    @StateObject private var savingsAccountRepository: SavingsAccountRepository
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transferRepository: TransferRepository
+    
+    // init
+    init(savingsAccount: AccountModel) {
+        self._savingsAccount = ObservedObject(wrappedValue: savingsAccount)
+        self._savingsAccountRepository = StateObject(wrappedValue: .init(currentAccount: savingsAccount))
+    }
     
     // MARK: - body
     var body: some View {
@@ -52,6 +59,7 @@ struct SavingsAccountDetailView: View {
                     ForEach(transferRepository.transfers) { transfer in
                         if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
                             TransferRow(transfer: transfer)
+                                .environmentObject(savingsAccountRepository)
                         }
                     }
                     .listRowSeparator(.hidden)

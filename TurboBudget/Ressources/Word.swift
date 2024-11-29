@@ -32,6 +32,8 @@ struct Word {
         static let receiverAccount: String = "word_receiverAccount".localized
         static let subscriptionFuturDate: String = "word_subscriptionFuturDate".localized
         static let frequency: String = "word_frequency".localized
+        static let received: String = "word_received".localized
+        static let sent: String = "word_sent".localized
     }
     
     struct Create {

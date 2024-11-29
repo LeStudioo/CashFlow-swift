@@ -26,6 +26,7 @@ struct AutomationRow: View {
     var body: some View {
         SwipeView(label: {
             HStack {
+                // TODO: - Merge with CircleCategory
                 Circle()
                     .foregroundStyle(.color2Apple)
                     .frame(width: 50)
@@ -61,7 +62,7 @@ struct AutomationRow: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(subscription.type == .expense ? "word_automation_expense".localized : "word_automation_income".localized)
+                    Text(Word.Classic.subscription)
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(Font.mediumSmall())
                     Text(subscription.name ?? "")
