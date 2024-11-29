@@ -68,7 +68,8 @@ extension CreateSavingsPlanViewModel {
                         savingsplanID: savingsPlanID,
                         body: .init(
                             amount: savingPlanAmountOfStart.toDouble(),
-                            date: startDate.toISO())
+                            typeNum: ContributionType.addition.rawValue,
+                            dateString: startDate.toISO())
                     )
                 }
                 

@@ -50,7 +50,7 @@ class NavigationManager: Router {
         navigateTo(.accountDashboard)
     }
     
-    func pushSavingsAccountDetail(savingsAccount: SavingsAccount) {
+    func pushSavingsAccountDetail(savingsAccount: AccountModel) {
         navigateTo(.savingsAccountDetail(savingsAccount: savingsAccount))
     }
     
@@ -134,8 +134,8 @@ class NavigationManager: Router {
         presentSheet(.paywall)
     }
     
-    func presentCreateAccount() {
-        presentSheet(.createAccount)
+    func presentCreateAccount(type: AccountType) {
+        presentSheet(.createAccount(type: type))
     }
     
     func presentCreateAutomation() {
@@ -156,6 +156,10 @@ class NavigationManager: Router {
     
     func presentCreateTransaction(transaction: TransactionModel? = nil, dismissAction: (() -> Void)? = nil) {
         presentSheet(.createTransaction(transaction: transaction), dismissAction)
+    }
+    
+    func presentCreateTransfer(receiverAccount: AccountModel? = nil, dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createTransfer(receiverAccount: receiverAccount), dismissAction)
     }
     
     func presentCreateSavingsAccount() {
@@ -193,8 +197,8 @@ private extension NavigationManager {
             case .analytics:
                 AnalyticsHomeView()
                 
-            case .createAccount:
-                CreateAccountView()
+            case .createAccount(let type):
+                CreateAccountView(type: type)
             case .createAutomation:
                 CreateSubscriptionView()
             case .createBudget:
@@ -205,6 +209,8 @@ private extension NavigationManager {
                 CreateContributionView(savingsPlan: savingsPlan)
             case .createTransaction(let transaction):
                 CreateTransactionView(transaction: transaction)
+            case .createTransfer(let receiverAccount):
+                CreateTransferView(receiverAccount: receiverAccount)
             case .createSavingsAccount:
                 CreateSavingsAccountView()
                 

@@ -20,7 +20,7 @@ extension TransactionRepository {
     }
     
     func sortTransactionsByDate() {
-        self.transactions.sort { ($0.date ?? .now) > ($1.date ?? .now) }
+        self.transactions.sort { $0.date > $1.date }
     }
 }
 
@@ -30,7 +30,7 @@ extension TransactionRepository {
     private var transactionsActualMonth: [TransactionModel] {
         let dateRange = (start: Date().startOfMonth, end: Date().endOfMonth)
         return transactions.filter { transaction in
-            let date = transaction.date.withDefault
+            let date = transaction.date
             return date >= dateRange.start && date <= dateRange.end
         }
     }
@@ -57,7 +57,7 @@ extension TransactionRepository {
     ) -> [AmountOfTransactionsByDay] {
         let amounts = dates.map { date -> AmountOfTransactionsByDay in
             let amountOfDay = transactionsActualMonth
-                .filter { Calendar.current.isDate($0.date.withDefault, inSameDayAs: date) }
+                .filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
                 .filter(transactionFilter)
                 .reduce(0.0) { $0 + ($1.amount ?? 0) }
             
@@ -86,7 +86,7 @@ extension TransactionRepository {
         var transactionsExpenses: [TransactionModel] = []
         
         for transaction in expenses {
-            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                 transactionsExpenses.append(transaction)
             }
         }
@@ -107,7 +107,7 @@ extension TransactionRepository {
         var transactionsIncomes: [TransactionModel] = []
         
         for transaction in incomes {
-            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                 transactionsIncomes.append(transaction)
             }
         }
@@ -153,7 +153,7 @@ extension TransactionRepository {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date)
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date)
                     && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
                     amountOfDay += transaction.amount ?? 0
                 }
@@ -178,7 +178,7 @@ extension TransactionRepository {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
                     amountOfDay += transaction.amount ?? 0
                 }
             }
@@ -207,7 +207,7 @@ extension TransactionRepository {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsFromAutomationForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
                     amountOfDay += transaction.amount ?? 0
                 }
             }
@@ -232,7 +232,7 @@ extension TransactionRepository {
             var amountOfDay: Double = 0.0
             
             for transaction in transactionsFromAutomationForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date.withDefault, inSameDayAs: date) {
+                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
                     amountOfDay += transaction.amount ?? 0
                 }
             }
@@ -259,7 +259,7 @@ extension TransactionRepository {
         
         for transaction in self.transactions {
             if let dateOfMonthSelected {
-                if Calendar.current.isDate(transaction.date.withDefault, equalTo: dateOfMonthSelected, toGranularity: .month)
+                if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month)
                     && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
                     if transaction.type == .expense {
                         amount -= transaction.amount ?? 0

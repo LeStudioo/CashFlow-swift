@@ -10,13 +10,9 @@ import SwiftUI
 
 struct AccountDashboardView: View {
     
-    //Environement
-    @Environment(\.managedObjectContext) private var viewContext
-    
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject var store: PurchasesManager
+    @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var alertManager: AlertManager
         
     @EnvironmentObject private var accountRepository: AccountRepository
@@ -32,8 +28,6 @@ struct AccountDashboardView: View {
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var isEditingAccountName: Bool = false
-    @State private var showAlertPaywall: Bool = false
-    @State private var showPaywall: Bool = false
     
     // Computed var
     var columns: [GridItem] {
@@ -49,7 +43,7 @@ struct AccountDashboardView: View {
         ScrollView {
             if let account = accountRepository.selectedAccount {
                 VStack {
-                    Text(account.name ?? "")
+                    Text(account.name)
                         .titleAdjustSize()
                         .foregroundStyle(ThemeManager.theme.color)
                         .multilineTextAlignment(.center)
@@ -60,7 +54,7 @@ struct AccountDashboardView: View {
                             .font(Font.mediumText16())
                             .foregroundStyle(Color.customGray)
                         
-                        Text(currencySymbol + " " + (account.balance?.formatWith(2) ?? ""))
+                        Text(currencySymbol + " " + account.balance.formatWith(2))
                             .titleAdjustSize()
                     }
                     .padding(.vertical, 12)
@@ -70,6 +64,16 @@ struct AccountDashboardView: View {
             VStack(spacing: 16) {
                 if store.isCashFlowPro {
                     DashboardChart()
+                }
+                
+                NavigationButton(push: router.pushAllSavingsAccount()) {
+                    DashboardRow(
+                        config: .init(
+                            icon: "building.columns.fill",
+                            text: "word_savings_account".localized,
+                            num: 0
+                        )
+                    )
                 }
                 
                 LazyVGrid(columns: columns, spacing: 16, content: {
@@ -144,7 +148,7 @@ struct AccountDashboardView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     if !store.isCashFlowPro {
-                        Button(action: { showPaywall.toggle() }, label: {
+                        Button(action: { router.presentPaywall() }, label: {
                             Image(systemName: "crown.fill")
                                 .foregroundStyle(.primary500)
                                 .font(.system(size: 14, weight: .medium, design: .rounded))
@@ -185,37 +189,6 @@ struct AccountDashboardView: View {
 //                }
 //            }, label: { Text("word_delete".localized) })
 //        }, message: { Text("account_detail_delete_account_desc".localized) })
-        //                VStack {
-        //                    Spacer()
-        //
-        //                    HStack {
-        //                        Spacer()
-        //                        VStack(spacing: 20) {
-        //                            Image("NoCards\(ThemeManager.theme.nameNotLocalized.capitalized)")
-        //                                .resizable()
-        //                                .aspectRatio(contentMode: .fit)
-        //                                .shadow(radius: 4, y: 4)
-        //                                .frame(width: isIPad ? (orientation.isPortrait ? UIScreen.main.bounds.width / 2 : UIScreen.main.bounds.width / 3) : UIScreen.main.bounds.width / 1.5 )
-        //
-        //                            Text("account_detail_no_account".localized)
-        //                                .font(.semiBoldText16())
-        //                                .multilineTextAlignment(.center)
-        //                        }
-        //                        .offset(y: -50)
-        //                        Spacer()
-        //                    }
-        //
-        //                    Spacer()
-        //                }
-        
-//        .alert("alert_cashflow_pro_title".localized, isPresented: $showAlertPaywall, actions: {
-//            Button(action: { return }, label: { Text("word_cancel".localized) })
-//            Button(action: { showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
-//        }, message: {
-//            Text("alert_cashflow_pro_desc".localized)
-//        })
-//        .sheet(isPresented: $showPaywall) { PaywallScreenView().environmentObject(store) }
-        
     } // End body
 } // End struct
 

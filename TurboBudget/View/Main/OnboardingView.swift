@@ -18,6 +18,7 @@ struct OnboardingView: View {
     
     // Repo
     @EnvironmentObject private var accountRepo: AccountRepositoryOld
+    @EnvironmentObject private var accountRepository: AccountRepository
 
     //State or Binding String
     @State private var accountTitle: String = ""
@@ -79,33 +80,25 @@ struct OnboardingView: View {
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
-            Button(action: {
-                if actualPage < 5 {
-                    withAnimation { actualPage += 1 }
-                } else {
-                    UserDefaults.standard.set(true, forKey: "alreadyOpen")
-                    DispatchQueue.main.async {
-                        let firstTransaction = TransactionEntity(context: viewContext)
-                        firstTransaction.id = UUID()
-                        firstTransaction.title = "name_first_transaction".localized
-                        firstTransaction.amount = accountBalance.toDouble()
-                        firstTransaction.date = .now
-                        
-                        let firstAccount = Account(context: viewContext)
-                        firstAccount.id = UUID()
-                        firstAccount.title = accountTitle
-                        firstAccount.balance = accountBalance.toDouble()
-                        firstAccount.cardLimit = cardLimit
-                        firstAccount.accountToTransaction?.insert(firstTransaction)
-                        
-                        accountRepo.mainAccount = firstAccount
-                        
-                        persistenceController.saveContext()
+            Button(
+                action: {
+                    if actualPage < 5 {
+                        withAnimation { actualPage += 1 }
+                    } else {
+                        UserDefaults.standard.set(true, forKey: "alreadyOpen")
+                        Task {
+                            await accountRepository.createAccount(
+                                body: .init(
+                                    name: accountTitle,
+                                    balance: accountBalance.toDouble(),
+                                    typeNum: AccountType.classic.rawValue
+                                )
+                            )
+                            dismiss()
+                        }
                     }
-                    
-                    dismiss()
-                }
-            }, label: {
+                },
+                label: {
                 Capsule()
                     .foregroundStyle(.primary400)
                     .frame(height: 60)
@@ -193,10 +186,10 @@ struct OnboardingView: View {
                     )
                 }
                 
-                Text("account_info_credit_card".localized)
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                    .multilineTextAlignment(.center)
-                    .font(.semiBoldText16())
+//                Text("account_info_credit_card".localized)
+//                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+//                    .multilineTextAlignment(.center)
+//                    .font(.semiBoldText16())
             
             Spacer()
         }
@@ -215,13 +208,8 @@ struct OnboardingView: View {
 } // End struct
 
 //MARK: - Preview
-struct OnboardingView_Previews: PreviewProvider {
-    
-    @State static var previewAccount: Account? = Account.preview
-    
-    static var previews: some View {
-        OnboardingView()
-    }
+#Preview {
+    OnboardingView()
 }
 
 //MARK: - Extra

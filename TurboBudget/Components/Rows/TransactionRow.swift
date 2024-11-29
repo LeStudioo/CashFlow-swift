@@ -85,7 +85,7 @@ struct TransactionRow: View {
                         .foregroundStyle(transaction.type == .expense ? .error400 : .primary500)
                         .lineLimit(1)
                     
-                    Text(transaction.date.withDefault.formatted(date: .numeric, time: .omitted))
+                    Text(transaction.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
                         .foregroundStyle(Color.customGray)
                         .lineLimit(1)

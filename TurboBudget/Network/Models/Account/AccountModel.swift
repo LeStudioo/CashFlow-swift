@@ -14,9 +14,9 @@ enum AccountType: Int, CaseIterable {
 
 class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
     @Published var id: Int?
-    @Published var name: String?
-    @Published var balance: Double?
-    @Published var type: Int?
+    @Published var _name: String?
+    @Published var _balance: Double?
+    @Published var typeNum: Int?
     @Published var maxAmount: Double?
 
     /// Classic Account Initialiseur
@@ -24,12 +24,12 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         id: Int? = nil,
         name: String? = nil,
         balance: Double? = nil,
-        type: Int? = nil
+        typeNum: Int? = nil
     ) {
         self.id = id
-        self.name = name
-        self.balance = balance
-        self.type = type
+        self._name = name
+        self._balance = balance
+        self.typeNum = typeNum
     }
     
     /// Savings Account Initialiseur
@@ -37,13 +37,13 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         id: Int? = nil,
         name: String? = nil,
         balance: Double? = nil,
-        type: Int? = nil,
+        typeNum: Int? = nil,
         maxAmount: Double? = nil
     ) {
         self.id = id
-        self.name = name
-        self.balance = balance
-        self.type = type
+        self._name = name
+        self._balance = balance
+        self.typeNum = typeNum
         self.maxAmount = maxAmount
     }
     
@@ -51,52 +51,85 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
     init(
         name: String,
         balance: Double,
-        type: Int = AccountType.classic.rawValue
+        typeNum: Int = AccountType.classic.rawValue
     ) {
-        self.name = name
-        self.balance = balance
-        self.type = type
+        self._name = name
+        self._balance = balance
+        self.typeNum = typeNum
+    }
+    
+    /// Savings Account Body
+    init(
+        name: String,
+        balance: Double,
+        typeNum: Int = AccountType.savings.rawValue,
+        maxAmount: Double
+    ) {
+        self._name = name
+        self._balance = balance
+        self.typeNum = typeNum
+        self.maxAmount = maxAmount
     }
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, balance, type, maxAmount
+        case id, maxAmount
+        case _name = "name"
+        case _balance = "balance"
+        case typeNum = "type"
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
-        balance = try container.decodeIfPresent(Double.self, forKey: .balance)
-        type = try container.decodeIfPresent(Int.self, forKey: .type)
+        _name = try container.decodeIfPresent(String.self, forKey: ._name)
+        _balance = try container.decodeIfPresent(Double.self, forKey: ._balance)
+        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         maxAmount = try container.decodeIfPresent(Double.self, forKey: .maxAmount)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(name, forKey: .name)
-        try container.encodeIfPresent(balance, forKey: .balance)
-        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(_name, forKey: ._name)
+        try container.encodeIfPresent(_balance, forKey: ._balance)
+        try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(maxAmount, forKey: .maxAmount)
     }
 
     // Fonction pour le protocole Equatable
     static func == (lhs: AccountModel, rhs: AccountModel) -> Bool {
         return lhs.id == rhs.id &&
-               lhs.name == rhs.name &&
-               lhs.balance == rhs.balance &&
-               lhs.type == rhs.type &&
+               lhs._name == rhs._name &&
+               lhs._balance == rhs._balance &&
+               lhs.typeNum == rhs.typeNum &&
                lhs.maxAmount == rhs.maxAmount
     }
 
     // Fonction pour le protocole Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(balance)
-        hasher.combine(type)
+        hasher.combine(_name)
+        hasher.combine(_balance)
+        hasher.combine(typeNum)
         hasher.combine(maxAmount)
     }
+}
+
+extension AccountModel {
+    
+    var name: String {
+        return self._name ?? ""
+    }
+    
+    var balance: Double {
+        return self._balance ?? 0
+    }
+    
+    var type: AccountType? {
+        guard let typeNum else { return nil }
+        return AccountType(rawValue: typeNum)
+    }
+    
 }
 

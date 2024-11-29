@@ -11,13 +11,22 @@ import SwiftUI
 
 struct CreateAccountView: View {
     
-    @StateObject private var viewModel: CreateAccountViewModel = .init()
+    // Builder
+    var type: AccountType
+    
+    @StateObject private var viewModel: CreateAccountViewModel
     @EnvironmentObject private var accountRepository: AccountRepository
     
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    // MARK: - body
+    // init
+    init(type: AccountType) {
+        self.type = type
+        self._viewModel = StateObject(wrappedValue: .init(type: type))
+    }
+    
+    // MARK: -
     var body: some View {
         ScrollView {
             VStack(spacing: 40) {
@@ -51,12 +60,25 @@ struct CreateAccountView: View {
                             style: .amount
                         )
                     )
+                    
+                    if type == .savings {
+                        CustomTextField(
+                            text: $viewModel.maxAmount,
+                            config: .init(
+                                title: "account_maxAmount".localized,
+                                placeholder: "account_placeholder_maxAmount".localized,
+                                style: .amount
+                            )
+                        )
+                    }
                 }
                 
-                Text("account_info_credit_card".localized)
-                    .foregroundStyle(Color.customGray)
-                    .multilineTextAlignment(.center)
-                    .font(.semiBoldText16())
+//                if type == .classic {
+//                    Text("account_info_credit_card".localized)
+//                        .foregroundStyle(Color.customGray)
+//                        .multilineTextAlignment(.center)
+//                        .font(.semiBoldText16())
+//                }
             }
         } // End ScrollView
         .scrollIndicators(.hidden)
@@ -64,17 +86,7 @@ struct CreateAccountView: View {
         .ignoresSafeArea(.keyboard)
         .overlay(alignment: .bottom) {
             CreateButton(
-                action: {
-                    Task {
-                        await accountRepository.createAccount(
-                            body: .init(
-                                name: viewModel.name,
-                                balance: viewModel.balance.toDouble()
-                            )
-                        )
-                        dismiss()
-                    }
-                },
+                action: { viewModel.createAccount(dismiss: dismiss) },
                 validate: viewModel.isAccountValid()
             )
             .padding(.bottom)
@@ -87,11 +99,11 @@ struct CreateAccountView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {
-    CreateAccountView()
+    CreateAccountView(type: .savings)
         .environmentObject(AccountRepository())
 }

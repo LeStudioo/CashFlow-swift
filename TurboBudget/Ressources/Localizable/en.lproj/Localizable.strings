@@ -43,6 +43,8 @@
 
 "title_home_transactions" = "My transactions";
 
+"title_new_transfer" = "New transfer";
+
 "title_new_automation" = "New automation";
 
 "title_home_subscriptions" = "My subscriptions";
@@ -296,6 +298,10 @@
 "account_balance" = "Account balance";
 
 "account_placeholder_balance" = "$10,000";
+
+"account_maxAmount" = "Maximum amount";
+
+"account_placeholder_maxAmount" = "$50,000";
 
 "account_card_limit" = "Card limit";
 

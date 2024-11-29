@@ -11,23 +11,15 @@ import SwipeActions
 struct TransferRow: View {
 
     //Custom type
-    var transfer: Transfer
+    var transfer: TransactionModel
     
     //Environnements
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.colorScheme) private var colorScheme
     
-    //State or Binding String
-    
-    //State or Binding Int, Float and Double
-    
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
-    
-    //Enum
-    
-    //Computed var
 
     //MARK: - Body
     var body: some View {
@@ -38,7 +30,7 @@ struct TransferRow: View {
                     .frame(width: 50)
                     .overlay {
                         Circle()
-                            .foregroundStyle(transfer.amount < 0 ? .error400 : .primary500)
+                            .foregroundStyle((transfer.amount ?? 0) < 0 ? .error400 : .primary500)
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
@@ -50,7 +42,7 @@ struct TransferRow: View {
                     Text("word_transfer".localized)
                     .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
-                    Text(transfer.amount < 0 ? "word_withdrawal".localized : "word_savings".localized)
+                    Text((transfer.amount ?? 0) < 0 ? "word_withdrawal".localized : "word_savings".localized)
                         .font(.semiBoldText18())
                         .foregroundStyle(Color(uiColor: .label))
                         .lineLimit(1)
@@ -59,9 +51,9 @@ struct TransferRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text(transfer.amount.currency)
+                    Text((transfer.amount ?? 0).currency)
                         .font(.semiBoldText16())
-                        .foregroundStyle(transfer.amount < 0 ? .error400 : .primary500)
+                        .foregroundStyle((transfer.amount ?? 0) < 0 ? .error400 : .primary500)
                         .lineLimit(1)
                     Text(transfer.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
@@ -101,22 +93,23 @@ struct TransferRow: View {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: { withAnimation { deleteTranfer() } }, label: { Text("word_delete".localized) })
         }, message: {
-            Text(transfer.amount < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
+            Text((transfer.amount ?? 0) < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
         })
     } // End body
     
     //MARK: Fonctions
     
     func deleteTranfer() {
-        viewContext.delete(transfer)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            persistenceController.saveContext()
-        }
+        // TODO: delete
+//        viewContext.delete(transfer)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//            persistenceController.saveContext()
+//        }
     }
     
 } // End struct
 
 //MARK: - Preview
 #Preview {
-    TransferRow(transfer: Transfer.preview1)
+    TransferRow(transfer: .mockTransferTransaction)
 }

@@ -128,7 +128,7 @@ extension SubcategoryModel {
         let now = Date()
         
         return transactions.filter { transaction in
-            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date.withDefault)
+            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date)
             let currentMonth = calendar.dateComponents([.month, .year], from: now)
             return transactionMonth == currentMonth && transaction.subcategoryID == self.id
         }
@@ -144,7 +144,7 @@ extension SubcategoryModel {
     
     var transactionsFiltered: [TransactionModel] {
         return self.transactions
-            .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
+            .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }
     }
     
 }
@@ -170,7 +170,7 @@ extension SubcategoryModel {
         
         for transaction in transactions {
             if transaction.type == .expense
-                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+                && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                 transactionsExpenses.append(transaction)
             }
         }
@@ -188,7 +188,7 @@ extension SubcategoryModel {
         
         for transaction in transactions {
             if transaction.type == .income
-                && Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
+                && Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month)
                 && transaction.category != nil {
                 transactionsIncomes.append(transaction)
             }

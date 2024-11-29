@@ -23,19 +23,20 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     @Published var id: Int?
     @Published var amount: Double?
     @Published var typeNum: Int? // ContributionType
-    @Published var date: String?
+    @Published var dateString: String?
 
     // Initialiseur
-    init(id: Int? = nil, amount: Double? = nil, typeNum: Int? = nil, date: String? = nil) {
+    init(id: Int? = nil, amount: Double? = nil, typeNum: Int? = nil, dateString: String? = nil) {
         self.id = id
         self.amount = amount
         self.typeNum = typeNum
-        self.date = date
+        self.dateString = dateString
     }
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, amount, date
+        case id, amount
+        case dateString = "date"
         case typeNum = "type"
     }
 
@@ -44,7 +45,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
         typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
-        date = try container.decodeIfPresent(String.self, forKey: .date)
+        dateString = try container.decodeIfPresent(String.self, forKey: .dateString)
     }
 
     func encode(to encoder: Encoder) throws {
@@ -52,7 +53,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         try container.encodeIfPresent(id, forKey: .id)
         try container.encodeIfPresent(amount, forKey: .amount)
         try container.encodeIfPresent(typeNum, forKey: .typeNum)
-        try container.encodeIfPresent(date, forKey: .date)
+        try container.encodeIfPresent(dateString, forKey: .dateString)
     }
 
     // Fonction pour le protocole Equatable
@@ -60,7 +61,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         return lhs.id == rhs.id &&
                lhs.amount == rhs.amount &&
                lhs.typeNum == rhs.typeNum &&
-               lhs.date == rhs.date
+               lhs.dateString == rhs.dateString
             
     }
 
@@ -69,7 +70,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         hasher.combine(id)
         hasher.combine(amount)
         hasher.combine(typeNum)
-        hasher.combine(date)
+        hasher.combine(dateString)
     }
 }
 
@@ -77,6 +78,10 @@ extension ContributionModel {
     
     var type: ContributionType? {
         return ContributionType(rawValue: typeNum ?? 0)
+    }
+    
+    var date: Date {
+        return self.dateString?.toDate() ?? .now
     }
     
 }

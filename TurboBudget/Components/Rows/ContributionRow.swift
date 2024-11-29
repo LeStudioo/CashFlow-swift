@@ -33,7 +33,7 @@ struct ContributionRow: View {
                         .font(.semiBoldText16())
                         .foregroundStyle(contribution.amount ?? 0 < 0 ? .error400 : .primary500)
                     
-                    Text(HelperManager().stringDateDay(date: contribution.date?.toDate() ?? Date()))
+                    Text(HelperManager().stringDateDay(date: contribution.date))
                         .font(Font.mediumSmall())
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                 }

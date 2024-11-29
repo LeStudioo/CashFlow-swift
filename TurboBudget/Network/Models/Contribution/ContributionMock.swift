@@ -11,7 +11,7 @@ extension ContributionModel {
     
     static let mockContribution: ContributionModel = .init(
         amount: 100,
-        date: Date().toISO()
+        dateString: Date().toISO()
     )
     
 }

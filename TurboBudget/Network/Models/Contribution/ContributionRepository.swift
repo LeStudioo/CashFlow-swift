@@ -23,6 +23,7 @@ extension ContributionRepository {
                 responseModel: [ContributionModel].self
             )
             self.contributions = contributions
+            sortContributionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -36,6 +37,7 @@ extension ContributionRepository {
             )
             if let contribution = response.contribution, let newAmount = response.newAmount {
                 self.contributions.append(contribution)
+                sortContributionsByDate()
                 SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
                 return contribution
             }
@@ -57,6 +59,7 @@ extension ContributionRepository {
             if let contribution = response.contribution, let newAmount = response.newAmount {
                 if let index = self.contributions.map(\.id).firstIndex(of: contributionID) {
                     self.contributions[index] = contribution
+                    sortContributionsByDate()
                     SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
                 }
             }
@@ -71,6 +74,14 @@ extension ContributionRepository {
             )
             self.contributions.removeAll(where: { $0.id == contributionID })
         } catch { NetworkService.handleError(error: error) }
+    }
+    
+}
+
+extension ContributionRepository {
+    
+    private func sortContributionsByDate() {
+        self.contributions.sort { $0.date > $1.date }
     }
     
 }

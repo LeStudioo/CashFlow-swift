@@ -22,6 +22,7 @@ struct TurboBudgetApp: App {
     @StateObject private var accountRepository: AccountRepository = .shared
     @StateObject private var categoryRepository: CategoryRepository = .shared
     @StateObject private var transactionRepository: TransactionRepository = .shared
+    @StateObject private var transferRepository: TransferRepository = .shared
     @StateObject private var subscriptionRepository: SubscriptionRepository = .shared
     @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
     @StateObject private var contributionRepository: ContributionRepository = .shared
@@ -110,6 +111,7 @@ struct TurboBudgetApp: App {
             .environmentObject(accountRepository)
             .environmentObject(categoryRepository)
             .environmentObject(transactionRepository)
+            .environmentObject(transferRepository)
             .environmentObject(subscriptionRepository)
             .environmentObject(savingsPlanRepository)
             .environmentObject(contributionRepository)
@@ -138,8 +140,16 @@ struct TurboBudgetApp: App {
                 print(DataForServer.shared.json)
             }
             .alert(alertManager.alert?.title ?? "", isPresented: $alertManager.isPresented, actions: {
-                Button(action: { return }, label: { Text("word_cancel".localized) })
-                Button(action: { alertManager.alert?.action() }, label: { Text(alertManager.alert?.actionButtonTitle ?? "word_ok".localized) })
+                Button(action: {
+                    alertManager.isPresented = false
+                }, label: {
+                    Text("word_cancel".localized)
+                })
+                Button(action: {
+                    alertManager.alert?.action()
+                }, label: {
+                    Text(alertManager.alert?.actionButtonTitle ?? "word_ok".localized)
+                })
             }, message: {
                 Text(alertManager.alert?.message ?? "")
             })

@@ -43,6 +43,8 @@
 
 "title_home_transactions" = "Meine Transaktionen";
 
+"title_new_transfer" = "Neuer Transfer";
+
 "title_new_automation" = "Neue Automatisierung";
 
 "title_home_subscriptions" = "Neue Automatisierung";
@@ -296,6 +298,10 @@
 "account_balance" = "Kontostand";
 
 "account_placeholder_balance" = "10 000 €";
+
+"account_maxAmount" = "Höchstbetrag";
+
+"account_placeholder_maxAmount" = "50 000 €";
 
 "account_card_limit" = "Kartenlimit";
 

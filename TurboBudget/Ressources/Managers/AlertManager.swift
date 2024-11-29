@@ -31,6 +31,7 @@ final class AlertManager: ObservableObject {
 extension AlertManager {
     
     func showPaywall() {
+        self.isPresented = true
         self.alert = .init(
             title: "alert_cashflow_pro_title".localized,
             message: "alert_cashflow_pro_desc".localized,

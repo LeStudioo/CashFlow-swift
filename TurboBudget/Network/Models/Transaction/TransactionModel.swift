@@ -202,7 +202,7 @@ extension TransactionModel {
         return TransactionType(rawValue: typeNum ?? 0) ?? .expense
     }
     
-    var date: Date? {
+    var date: Date {
         return self.dateISO?.toDate() ?? .now
     }
     

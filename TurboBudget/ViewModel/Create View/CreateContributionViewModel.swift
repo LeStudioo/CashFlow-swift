@@ -45,7 +45,7 @@ extension CreateContributionViewModel {
                 body: .init(
                     amount: amount.toDouble(),
                     typeNum: type.rawValue,
-                    date: date.toISO())
+                    dateString: date.toISO())
             ) {
                 await dismiss()
                 

@@ -117,7 +117,7 @@ struct TransactionDetailView: View {
             
             CellForDetailTransaction(
                 leftText: "transaction_detail_date".localized,
-                rightText: transaction.date.withDefault.formatted(date: .abbreviated, time: .omitted),
+                rightText: transaction.date.formatted(date: .abbreviated, time: .omitted),
                 rightTextColor: Color(uiColor: .label)
             )
             

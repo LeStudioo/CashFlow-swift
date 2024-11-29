@@ -20,4 +20,13 @@ extension TransactionModel {
         subcategoryID: SubcategoryModel.mock.id
     )
     
+    static let mockTransferTransaction: TransactionModel = .init(
+        id: 2,
+        amount: 300,
+        typeNum: TransactionType.transfer.rawValue,
+        dateISO: Date().toISO(),
+        creationDate: Date().toISO(),
+        senderAccountID: AccountModel.mockClassicAccount.id,
+        receiverAccountID: AccountModel.mockSavingsAccount.id
+    )
 }

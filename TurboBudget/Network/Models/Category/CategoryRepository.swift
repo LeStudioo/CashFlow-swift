@@ -40,7 +40,7 @@ extension CategoryRepository {
             let transactionsFiltered = category.transactions
                 .filter {
                     Calendar.current.isDate(
-                        $0.date.withDefault,
+                        $0.date,
                         equalTo: filterManager.date,
                         toGranularity: .month
                     )

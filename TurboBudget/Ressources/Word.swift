@@ -27,6 +27,8 @@ struct Word {
         static let startTargetDate: String = "word_startTargetDate".localized
         static let edit: String = "word_edit".localized
         static let create: String = "word_create".localized
+        static let senderAccount: String = "word_senderAccount".localized
+        static let receiverAccount: String = "word_receiverAccount".localized
     }
     
     struct Create {
@@ -38,6 +40,9 @@ struct Word {
             static let new: String = "title_new_transaction".localized
             static let update: String = "title_update_transaction".localized
             static let home: String = "title_home_transactions".localized
+        }
+        struct Transfer {
+            static let new: String = "title_new_transfer".localized
         }
         struct Subscription {
             static let new: String = "title_new_automation".localized
@@ -69,6 +74,14 @@ struct Word {
             }
             static func description(type: SuccessfulType) -> String {
                 return "successful_transaction_\(type.rawValue)_desc".localized
+            }
+        }
+        struct Transfer {
+            static func title(type: SuccessfulType) -> String {
+                return "successful_transfer_\(type.rawValue)_title".localized
+            }
+            static func description(type: SuccessfulType) -> String {
+                return "successful_transfer_\(type.rawValue)_desc".localized
             }
         }
         struct SavingsPlan {

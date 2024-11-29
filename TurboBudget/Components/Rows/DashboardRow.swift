@@ -14,7 +14,7 @@ struct DashboardRow: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 32) {
             HStack {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .frame(width: 50, height: 50)
@@ -35,9 +35,7 @@ struct DashboardRow: View {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold))
             }
-            
-            Spacer(minLength: 0)
-            
+                        
             Text(config.text)
                 .font(.semiBoldText16())
                 .multilineTextAlignment(.leading)
@@ -46,7 +44,6 @@ struct DashboardRow: View {
         .padding()
         .foregroundStyle(Color.label)
         .frame(maxWidth: .infinity)
-        .aspectRatio(1.42, contentMode: .fit)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.colorCell)

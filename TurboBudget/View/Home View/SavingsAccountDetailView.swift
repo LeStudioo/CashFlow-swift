@@ -10,17 +10,10 @@ import SwiftUI
 struct SavingsAccountDetailView: View {
     
     // Builder
-    @ObservedObject var savingsAccount: SavingsAccount
+    @ObservedObject var savingsAccount: AccountModel
     
-    // Computed variables
-    var getAllMonthForTransactions: [DateComponents] {
-        var array: [DateComponents] = []
-        for transfer in savingsAccount.transfers {
-            let components = Calendar.current.dateComponents([.month, .year], from: transfer.date)
-            if !array.contains(components) { array.append(components) }
-        }
-        return array
-    }
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var transferRepository: TransferRepository
     
     // MARK: - body
     var body: some View {
@@ -54,39 +47,49 @@ struct SavingsAccountDetailView: View {
             .listRowSeparator(.hidden)
             .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
             
-            ForEach(getAllMonthForTransactions, id: \.self) { dateComponents in
-                if let month = Calendar.current.date(from: dateComponents) {
-                    if savingsAccount.transfers.map({ $0.date }).contains(where: { Calendar.current.isDate($0, equalTo: month, toGranularity: .month) }) {
-                        Section(content: {
-                            ForEach(savingsAccount.transfers) { transfer in
-                                if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
-                                    TransferRow(transfer: transfer)
-                                }
-                            }
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                        }, header: {
-                            DetailOfTransferByMonth(
-                                month: month,
-                                amountOfSavings: savingsAccount.amountOfSavingsByMonth(month: month),
-                                amountOfWithdrawal: savingsAccount.amountOfWithdrawalByMonth(month: month)
-                            )
-                            .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                        })
-                        .foregroundStyle(Color(uiColor: .label))
+            ForEach(transferRepository.monthsOfTransfers, id: \.self) { month in
+                Section(content: {
+                    ForEach(transferRepository.transfers) { transfer in
+                        if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
+                            TransferRow(transfer: transfer)
+                        }
                     }
-                }
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                    .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                }, header: {
+                    DetailOfTransferByMonth(
+                        month: month,
+                        amountOfSavings: transferRepository.amountOfSavingsByMonth(month: month),
+                        amountOfWithdrawal: transferRepository.amountOfWithdrawalByMonth(month: month)
+                    )
+                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
+                })
+                .foregroundStyle(Color(uiColor: .label))
             }
         } // End List
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                NavigationButton(present: router.presentCreateTransfer(receiverAccount: savingsAccount)) {
+                    Image(systemName: "plus")
+                        .foregroundStyle(Color(uiColor: .label))
+                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                }
+            }
+        }
+        .task {
+            if let accountID = savingsAccount.id {
+                await transferRepository.fetchTransfersWithPagination(accountID: accountID)
+            }
+        }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    SavingsAccountDetailView(savingsAccount: .preview)
+    SavingsAccountDetailView(savingsAccount: .mockSavingsAccount)
 }

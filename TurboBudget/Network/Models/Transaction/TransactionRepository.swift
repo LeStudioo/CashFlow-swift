@@ -24,7 +24,7 @@ final class TransactionRepository: ObservableObject {
         let calendar = Calendar.current
         
         let uniqueMonths = Set(transactions.map {
-            calendar.dateComponents([.month, .year], from: $0.date.withDefault)
+            calendar.dateComponents([.month, .year], from: $0.date)
         })
         
         return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted(by: >)
@@ -181,7 +181,7 @@ extension TransactionRepository {
         let calendar = Calendar.current
         
         for transaction in self.transactions {
-            let month = calendar.component(.month, from: transaction.date.withDefault)
+            let month = calendar.component(.month, from: transaction.date)
             
             if groupedTransactions[month] == nil {
                 groupedTransactions[month] = []
@@ -191,7 +191,7 @@ extension TransactionRepository {
         }
         
         for (month, transactions) in groupedTransactions {
-            groupedTransactions[month] = transactions.sorted(by: { $0.date.withDefault < $1.date.withDefault })
+            groupedTransactions[month] = transactions.sorted(by: { $0.date < $1.date })
         }
         
         return groupedTransactions

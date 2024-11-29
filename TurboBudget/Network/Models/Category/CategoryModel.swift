@@ -148,7 +148,7 @@ extension CategoryModel {
         let now = Date()
         
         return transactions.filter { transaction in
-            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date.withDefault)
+            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date)
             let currentMonth = calendar.dateComponents([.month, .year], from: now)
             return transactionMonth == currentMonth && transaction.categoryID == self.id
         }
@@ -164,7 +164,7 @@ extension CategoryModel {
         
     var transactionsFiltered: [TransactionModel] {
         return self.transactions
-            .filter { Calendar.current.isDate($0.date.withDefault, equalTo: FilterManager.shared.date, toGranularity: .month) }
+            .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }
     }
     
 }
@@ -187,7 +187,7 @@ extension CategoryModel {
         var transactionsIncomes: [TransactionModel] = []
         
         for transaction in incomes {
-            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month)
+            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month)
                 && transaction.category != nil {
                 transactionsIncomes.append(transaction)
             }
@@ -228,7 +228,7 @@ extension CategoryModel {
         var transactionsExpenses: [TransactionModel] = []
         
         for transaction in expenses {
-            if Calendar.current.isDate(transaction.date.withDefault, equalTo: selectedDate, toGranularity: .month) {
+            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
                 transactionsExpenses.append(transaction)
             }
         }
@@ -257,7 +257,7 @@ extension CategoryModel {
         
         for subcategory in self.subcategories ?? [] {
             let transactionsFiltered = subcategory.transactions
-                .filter { Calendar.current.isDate($0.date.withDefault, equalTo: filterManager.date, toGranularity: .month) }
+                .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
             
             let amount = transactionsFiltered
                 .map { $0.amount ?? 0 }

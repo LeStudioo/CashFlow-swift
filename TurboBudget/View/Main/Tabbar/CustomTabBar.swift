@@ -70,7 +70,7 @@ struct CustomTabBar: View {
                             Label("word_transaction".localized, systemImage: "creditcard.and.123")
                         }
                     } else {
-                        NavigationButton(present: router.presentCreateAccount()) {
+                        NavigationButton(present: router.presentCreateAccount(type: .classic)) {
                             viewModel.showMenu = false
                         } label: {
                             Label("word_account".localized, systemImage: "person")

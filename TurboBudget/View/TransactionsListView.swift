@@ -25,7 +25,7 @@ struct TransactionsListView: View {
                     ForEach(Array(transactionRepository.monthsOfTransactions.enumerated()), id: \.offset) { index, month in
                         Section {
                             ForEach(transactionRepository.transactions) { transaction in
-                                if Calendar.current.isDate(transaction.date.withDefault, equalTo: month, toGranularity: .month) {
+                                if Calendar.current.isDate(transaction.date, equalTo: month, toGranularity: .month) {
                                     NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                         TransactionRow(transaction: transaction)
                                             .padding(.horizontal)

@@ -20,7 +20,7 @@ struct TransactionTypePicker: View {
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {
-                ForEach(TransactionType.allCases, id: \.self) { type in
+                ForEach([TransactionType.expense, TransactionType.income], id: \.self) { type in
                     Button {
                         withAnimation { selected = type }
                     } label: {
@@ -34,7 +34,7 @@ struct TransactionTypePicker: View {
             }
             .background {
                 GeometryReader { geo in
-                    let itemSize = (geo.size.width / CGFloat(TransactionType.allCases.count))
+                    let itemSize = (geo.size.width / 2)
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
                         .foregroundStyle(Color.backgroundComponentSheet)
                         .overlay(alignment: .leading) {

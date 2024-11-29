@@ -24,12 +24,7 @@ struct SavingPlanDetailView: View {
     
     //State or Binding String
     @State private var savingPlanNote: String = ""
-    @State private var newName: String = ""
-    
-    //State or Binding Int, Float and Double
-    @State private var percentage: Double = 0
-    @State private var increaseWidthAmount: Double = 0
-    
+        
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     
@@ -38,6 +33,17 @@ struct SavingPlanDetailView: View {
         case note
     }
     @FocusState var focusedField: Field?
+    
+    var percentage: Double {
+        guard let currentAmount = savingsPlan.currentAmount else { return 0 }
+        guard let goalAmount = savingsPlan.goalAmount else { return 0 }
+        
+        if currentAmount / goalAmount > 0.98 {
+            return 0.98
+        } else {
+            return currentAmount / goalAmount
+        }
+    }
         
     //MARK: - Body
     var body: some View {
@@ -127,17 +133,6 @@ struct SavingPlanDetailView: View {
         .scrollIndicators(.hidden)
         .onAppear {
             savingPlanNote = savingsPlan.note ?? ""
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(.spring()) {
-                    guard let currentAmount = savingsPlan.currentAmount else { return }
-                    guard let goalAmount = savingsPlan.goalAmount else { return }
-                    
-                    if currentAmount / goalAmount > 0.98 { percentage = 0.98 } else {
-                        percentage = currentAmount / goalAmount
-                    }
-                    increaseWidthAmount = 1.5
-                }
-            }
         }
         .onDisappear {
             // TODO: Update
@@ -185,20 +180,6 @@ struct SavingPlanDetailView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-//        .sheet(isPresented: $showAddContribution, onDismiss: {
-//            guard let currentAmount = savingsPlan.currentAmount else { return }
-//            guard let goalAmount = savingsPlan.goalAmount else { return }
-//            
-//            withAnimation(.spring()) {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-//                    if currentAmount / goalAmount > 0.98 { percentage = 0.98 } else {
-//                        percentage = currentAmount / goalAmount
-//                    }
-//                    increaseWidthAmount = 1.5
-//                }
-//            }
-//        }, content: { /*CreateContributionView(savingPlan: savingPlan)*/ })
-
         .alert("savingsplan_detail_delete_savingsplan".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
@@ -229,11 +210,10 @@ struct SavingPlanDetailView: View {
             
             GeometryReader { geometry in
                 let widthAmount = currentAmount.currency
-                    .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
+                    .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.5
                 let widthPercentage = geometry.size.width * percentage
                 
                 Capsule()
-                    
                     .foregroundStyle(.colorCell)
                     .overlay(alignment: .leading) {
                         ZStack(alignment: .leading) {

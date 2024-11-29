@@ -29,7 +29,7 @@ final class CreateTransactionViewModel: ObservableObject {
             self.transactionTitle = transaction.name ?? ""
             self.transactionAmount = transaction.amount?.formatted() ?? ""
             self.transactionType = transaction.type
-            self.transactionDate = transaction.date ?? .now
+            self.transactionDate = transaction.date
             self.selectedCategory = transaction.category
             self.selectedSubcategory = transaction.subcategory
         }

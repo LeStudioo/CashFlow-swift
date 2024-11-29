@@ -17,8 +17,8 @@ struct HomeHeader: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                if let account = accountRepository.mainAccount, let balance = account.balance {
-                    Text(currencySymbol + " " + balance.formatWith(2))
+                if let account = accountRepository.mainAccount {
+                    Text(currencySymbol + " " + account.balance.formatWith(2))
                         .titleAdjustSize()
                 }
                 

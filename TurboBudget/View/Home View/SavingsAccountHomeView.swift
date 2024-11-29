@@ -11,7 +11,7 @@ struct SavingsAccountHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsAccountRepo: SavingsAccountRepositoryOld
+    @EnvironmentObject private var accountRepository: AccountRepository
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -19,7 +19,7 @@ struct SavingsAccountHomeView: View {
     
     // Computed variables
     var totalSavings: Double {
-        return savingsAccountRepo.savingsAccounts
+        return accountRepository.savingsAccounts
             .map { $0.balance }
             .reduce(0, +)
     }
@@ -48,7 +48,7 @@ struct SavingsAccountHomeView: View {
             .padding(.vertical, 12)
             
             LazyVGrid(columns: columns, spacing: 12, content: {
-                ForEach(savingsAccountRepo.savingsAccounts) { account in
+                ForEach(accountRepository.savingsAccounts) { account in
                     NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
                         cellForOnglet(savingsAccount: account)
                     }
@@ -64,7 +64,7 @@ struct SavingsAccountHomeView: View {
             ToolbarDismissPushButton()
                         
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(present: router.presentCreateSavingsAccount()) {
+                NavigationButton(present: router.presentCreateAccount(type: .savings)) {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
@@ -76,7 +76,7 @@ struct SavingsAccountHomeView: View {
     
     // MARK: - ViewBuilder
     @ViewBuilder
-    func cellForOnglet(savingsAccount: SavingsAccount) -> some View {
+    func cellForOnglet(savingsAccount: AccountModel) -> some View {
         let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
         
         VStack(alignment: .center) {
@@ -93,10 +93,10 @@ struct SavingsAccountHomeView: View {
                     }
                 Spacer()
                 
-                if savingsAccount.transfers.count != 0 {
-                    Text(String(savingsAccount.transfers.count))
-                        .font(.semiBoldText16())
-                }
+//                if savingsAccount.transfers.count != 0 {
+//                    Text(String(savingsAccount.transfers.count))
+//                        .font(.semiBoldText16())
+//                }
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold))
             }
@@ -116,7 +116,7 @@ struct SavingsAccountHomeView: View {
                 .lineLimit(2)
         }
         .padding()
-        .foregroundStyle(Color(uiColor: .label))
+        .foregroundStyle(Color.label)
         .frame(width: width, height: width)
         .background(Color.colorCell)
         .cornerRadius(15)
