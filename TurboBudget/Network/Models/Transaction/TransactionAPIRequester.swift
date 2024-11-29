@@ -12,6 +12,7 @@ enum TransactionAPIRequester: APIRequestBuilder {
     case fetchWithPagination(accountID: Int, perPage: Int, skip: Int)
     case fetchByPeriod(accountID: Int, startDate: String, endDate: String, type: Int? = nil)
     case fetchCategory(name: String, transactionID: Int? = nil)
+    case transfer(senderAccountID: Int, receiverAccountID: Int, body: TransferBody)
     case create(accountID: Int, body: TransactionModel)
     case update(id: Int, body: TransactionModel)
     case delete(id: Int)
@@ -28,6 +29,8 @@ extension TransactionAPIRequester {
             return NetworkPath.Transaction.fetchByPeriod(accountID: accountID, startDate: startDate, endDate: endDate, type: type)
         case .fetchCategory(let name, let transactionID):
             return NetworkPath.Transaction.fetchCategory(name: name, transactionID: transactionID)
+        case .transfer(let senderAccountIDD, let receiverAccountID, _):
+            return NetworkPath.Transaction.transfer(senderAccountID: senderAccountIDD, receiverAccountID: receiverAccountID)
         case .create(let accountID, _):
             return NetworkPath.Transaction.base(accountID: accountID)
         case .update(let id, _):
@@ -43,6 +46,7 @@ extension TransactionAPIRequester {
         case .fetchWithPagination: return .GET
         case .fetchByPeriod: return .GET
         case .fetchCategory: return .GET
+        case .transfer: return .POST
         case .create: return .POST
         case .update: return .PUT
         case .delete: return .DELETE
@@ -66,6 +70,7 @@ extension TransactionAPIRequester {
     
     var body: Data? {
         switch self {
+        case .transfer(_, _, let body): return try? JSONEncoder().encode(body)
         case .create( _, let body): return try? JSONEncoder().encode(body)
         case .update(_, let body): return try? JSONEncoder().encode(body)
         default: return nil

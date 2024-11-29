@@ -19,6 +19,8 @@
 
 "word_transfer" = "Transfer";
 
+"word_subscription" = "Subscription";
+
 "word_dayOfAutomation" = "Automation Day";
 
 "word_initialAmount" = "Starting amount";
@@ -33,8 +35,23 @@
 
 "word_create" = "Create";
 
+"word_senderAccount" = "Sender account";
+
+"word_receiverAccount" = "Receiver account";
+
+"word_subscriptionFuturDate" = "Next direct debit date";
+
+"word_frequency" = "Frequency";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
+
+//MARK: - Frequency
+"frequency_weekly" = "Weekly";
+
+"frequency_monthly" = "Monthly";
+
+"frequency_yearly" = "Yearly";
 
 //MARK: - Title
 "title_new_transaction" = "New transaction";
@@ -79,6 +96,10 @@
 "successful_transaction_update_title" = "Transaction modified!";
 
 "successful_transaction_update_desc" = "Your transaction has been updated in your transaction list.";
+
+"successful_transfer_new_title" = "Transfer created!";
+
+"successful_transfer_new_desc" = "Your transfer has been processed and applied.";
 
 "successful_subscription_new_title" = "Subscription created!";
 

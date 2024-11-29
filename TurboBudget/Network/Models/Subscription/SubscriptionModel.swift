@@ -10,6 +10,15 @@ import Foundation
 enum SubscriptionFrequency: Int, Codable, CaseIterable {
     case monthly = 0
     case yearly = 1
+    case weekly = 2
+    
+    var name: String {
+        switch self {
+        case .monthly: return Word.Frequency.monthly
+        case .yearly: return Word.Frequency.yearly
+        case .weekly: return Word.Frequency.weekly
+        }
+    }
 }
 
 class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
@@ -18,7 +27,7 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
     @Published var amount: Double?
     @Published var typeNum: Int?
     @Published var frequencyNum: Int? // SubscriptionFrequency
-    @Published var frequencyDate: String? // if frequency == 1
+    @Published var frequencyDate: String?
     @Published var categoryID: Int?
     @Published var subcategoryID: Int?
 
@@ -49,6 +58,7 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         amount: Double,
         type: TransactionType,
         frequency: SubscriptionFrequency,
+        frequencyDate: Date,
         categoryID: Int,
         subcategoryID: Int? = nil
     ) {
@@ -56,6 +66,7 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         self.amount = amount
         self.typeNum = type.rawValue
         self.frequencyNum = frequency.rawValue
+        self.frequencyDate = frequencyDate.toISO()
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
     }

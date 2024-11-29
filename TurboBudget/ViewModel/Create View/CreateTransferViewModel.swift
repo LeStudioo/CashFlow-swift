@@ -38,13 +38,11 @@ extension CreateTransferViewModel {
         
         Task {
             if let transfer = await transferRepository.createTransfer(
-                accountID: senderAccountID,
+                senderAccountID: senderAccountID,
+                receiverAccountID: receiverAccountID,
                 body: .init(
                     amount: amount.toDouble(),
-                    typeNum: AccountType.savings.rawValue,
-                    dateISO: date.toISO(),
-                    senderAccountID: senderAccountID,
-                    receiverAccountID: receiverAccountID
+                    date: date.toISO()
                 )
             ) {
                 await dismiss()

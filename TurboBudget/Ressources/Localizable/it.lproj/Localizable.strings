@@ -19,6 +19,8 @@
 
 "word_transfer" = "Trasferire";
 
+"word_subscription" = "sottoscrizione";
+
 "word_dayOfAutomation" = "Giornata dell'automazione";
 
 "word_initialAmount" = "Importo iniziale";
@@ -33,8 +35,23 @@
 
 "word_create" = "Creare";
 
+"word_senderAccount" = "Conto mittente";
+
+"word_receiverAccount" = "conto ricevente";
+
+"word_subscriptionFuturDate" = "Data del prossimo addebito diretto";
+
+"word_frequency" = "frequenza";
+
 //MARK: - Create
 "create_add_category" = "Aggiungi una categoria";
+
+//MARK: - Frequency
+"frequency_weekly" = "Settimanale";
+
+"frequency_monthly" = "Mensile";
+
+"frequency_yearly" = "Annuale";
 
 //MARK: - Title
 "title_new_transaction" = "Nuova transazione";
@@ -79,6 +96,10 @@
 "successful_transaction_update_title" = "Transazione modificata!";
 
 "successful_transaction_update_desc" = "La tua transazione è stata aggiornata nell'elenco delle transazioni.";
+
+"successful_transfer_new_title" = "Trasmissione creata!";
+
+"successful_transfer_new_desc" = "Il tuo trasferimento è stato elaborato e applicato.";
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 

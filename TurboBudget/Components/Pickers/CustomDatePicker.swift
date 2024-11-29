@@ -12,13 +12,14 @@ struct CustomDatePicker: View {
     // Builder
     var title: String
     @Binding var date: Date
+    var onlyFutureDates: Bool = false
     
     @State private var isDatePickerShowing: Bool = false
     
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text(title.capitalized)
+            Text(title)
                 .padding(.leading, 8)
                 .font(.system(size: 12, weight: .regular))
             
@@ -38,9 +39,15 @@ struct CustomDatePicker: View {
                 .padding(8)
                 
                 if isDatePickerShowing {
-                    DatePicker("", selection: $date, displayedComponents: [.date])
-                        .datePickerStyle(.graphical)
-                        .tint(ThemeManager.theme.color)
+                    if onlyFutureDates {
+                        DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
+                            .datePickerStyle(.graphical)
+                            .tint(ThemeManager.theme.color)
+                    } else {
+                        DatePicker("", selection: $date, displayedComponents: [.date])
+                            .datePickerStyle(.graphical)
+                            .tint(ThemeManager.theme.color)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

@@ -20,6 +20,7 @@ struct Word {
         static let expense: String = "word_expense".localized
         static let income: String = "word_income".localized
         static let transfer: String = "word_transfer".localized
+        static let subscription: String = "word_subscription".localized
         static let dayOfAutomation: String = "word_dayOfAutomation".localized
         static let initialAmount: String = "word_initialAmount".localized
         static let amountToReach: String = "word_amountToReach".localized
@@ -29,10 +30,18 @@ struct Word {
         static let create: String = "word_create".localized
         static let senderAccount: String = "word_senderAccount".localized
         static let receiverAccount: String = "word_receiverAccount".localized
+        static let subscriptionFuturDate: String = "word_subscriptionFuturDate".localized
+        static let frequency: String = "word_frequency".localized
     }
     
     struct Create {
         static let addCategory: String = "create_add_category".localized
+    }
+    
+    struct Frequency {
+        static let weekly: String = "frequency_weekly".localized
+        static let monthly: String = "frequency_monthly".localized
+        static let yearly: String = "frequency_yearly".localized
     }
     
     struct Title {

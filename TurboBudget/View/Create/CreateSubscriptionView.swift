@@ -79,11 +79,15 @@ struct CreateSubscriptionView: View {
                         }
                     }
                     .animation(.smooth, value: viewModel.name)
+                    .environmentObject(router)
                     
                     CustomDatePicker(
-                        title: Word.Classic.dayOfAutomation, // TODO: Date subscription
-                        date: $viewModel.frequencyDate
+                        title: Word.Classic.subscriptionFuturDate,
+                        date: $viewModel.frequencyDate,
+                        onlyFutureDates: true
                     )
+                    
+                    FrequencyPicker(selected: $viewModel.frequency)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top)

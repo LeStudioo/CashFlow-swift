@@ -61,7 +61,7 @@ struct CustomTabBar: View {
                         NavigationButton(present: router.presentCreateAutomation()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label("word_automation".localized, systemImage: "clock.arrow.circlepath")
+                            Label(Word.Classic.subscription, systemImage: "clock.arrow.circlepath")
                         }
                         
                         NavigationButton(present: router.presentCreateTransaction()) {

@@ -43,15 +43,15 @@ extension TransferRepository {
     
     @discardableResult
     @MainActor
-    func createTransfer(accountID: Int, body: TransactionModel) async -> TransactionModel? {
+    func createTransfer(senderAccountID: Int, receiverAccountID: Int, body: TransferBody) async -> TransactionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
+                apiBuilder: TransactionAPIRequester.transfer(senderAccountID: senderAccountID, receiverAccountID: receiverAccountID, body: body),
                 responseModel: TransferResponseWithBalances.self
             )
             if let transfer = response.transaction, let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
-                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: senderNewBalance)
-                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: receiverNewBalance)
+                AccountRepository.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
+                AccountRepository.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
                 self.transfers.append(transfer)
                 sortTransfersByDate()
                 return transfer

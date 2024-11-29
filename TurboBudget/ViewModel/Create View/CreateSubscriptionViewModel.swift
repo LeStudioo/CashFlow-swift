@@ -46,6 +46,7 @@ extension CreateSubscriptionViewModel {
             amount: amount.toDouble(),
             type: type,
             frequency: frequency,
+            frequencyDate: frequencyDate,
             categoryID: selectedCategory?.id ?? 0,
             subcategoryID: selectedSubcategory?.id
         )
