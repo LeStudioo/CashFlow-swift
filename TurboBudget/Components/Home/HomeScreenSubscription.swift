@@ -32,7 +32,7 @@ struct HomeScreenSubscription: View {
 //                                router.pushTransactionDetail(transaction: transaction)
 //                            }
                         }, label: {
-                            AutomationRow(subscription: subscription)
+                            SubscriptionRow(subscription: subscription)
                         })
                     }
                 }

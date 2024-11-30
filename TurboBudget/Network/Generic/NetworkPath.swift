@@ -44,9 +44,7 @@ struct NetworkPath {
                 return "/transaction/\(accountID)/\(startDate)/\(endDate)"
             }
         }
-        static func transfer(senderAccountID: Int, receiverAccountID: Int) -> String {
-            return "/transaction/transfer/\(senderAccountID)/\(receiverAccountID)"
-        }
+        
         /// TransactionID = transaction to exclude of the search
         static func fetchCategory(name: String, transactionID: Int? = nil) -> String {
             if let transactionID {
@@ -60,6 +58,15 @@ struct NetworkPath {
         }
         static func delete(id: Int) -> String {
             return "/transaction/\(id)"
+        }
+    }
+    
+    struct Transfer {
+        static func doTransfer(senderAccountID: Int, receiverAccountID: Int) -> String {
+            return "/transaction/transfer/\(senderAccountID)/\(receiverAccountID)"
+        }
+        static func delete(id: Int) -> String {
+            return "/transaction/transfer/\(id)"
         }
     }
     

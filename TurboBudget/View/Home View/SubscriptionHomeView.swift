@@ -85,7 +85,7 @@ struct SubscriptionHomeView: View {
                     ForEach(automationsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
                         Section {
                             ForEach(subscriptions, id: \.self) { subscription in
-                                AutomationRow(subscription: subscription)
+                                SubscriptionRow(subscription: subscription)
                                     .padding(.horizontal)
                             }
                         } header: {

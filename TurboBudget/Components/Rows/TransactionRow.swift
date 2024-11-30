@@ -17,6 +17,7 @@ struct TransactionRow: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var alertManager: AlertManager
         
     // State or Binding Bool
     @State private var isEditing: Bool = false
@@ -64,8 +65,7 @@ struct TransactionRow: View {
                 .padding(12)
                 .background(Color.colorCell)
                 .cornerRadius(15)
-            },
-            trailingActions: { context in
+            }, trailingActions: { context in
             SwipeAction(action: {
                 router.presentCreateTransaction(transaction: transaction)
             }, label: { _ in
@@ -85,7 +85,7 @@ struct TransactionRow: View {
             }
             
             SwipeAction(action: {
-                withAnimation { isDeleting.toggle() }
+                alertManager.deleteTransaction(transaction: transaction)
             }, label: { _ in
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
@@ -107,29 +107,9 @@ struct TransactionRow: View {
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
-        .alert("transaction_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
-            Button(
-                role: .cancel,
-                action: {},
-                label: { Text("word_cancel".localized) }
-            )
-            Button(
-                role: .destructive,
-                action: {
-                    Task {
-                        if let transactionID = transaction.id {
-                            await transactionRepository.deleteTransaction(transactionID: transactionID)
-                        }
-                    }
-                },
-                label: { Text("word_delete".localized) }
-            )
-        }, message: {
-            Text(transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
-        })
-        .sheet(isPresented: $isSharingQRCode) {
+//        .sheet(isPresented: $isSharingQRCode) {
 //            QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!)
-        }
+//        }
 //        .background(SharingViewController(isPresenting: $isSharingJSON) {
 //            let json = JSONManager().generateJSONForTransaction(transaction: transaction)
 //            let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
@@ -149,7 +129,7 @@ extension TransactionRow {
     
     var isSender: Bool {
         guard let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id else { return false }
-        return transaction.senderAccountID == selectedAccount.id
+        return transaction.senderAccountID == accountID
     }
 
     var transactionName: String {

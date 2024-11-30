@@ -16,7 +16,6 @@ struct CategoryRow: View {
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
 	
-    // TODO: - Refacto
 	// Computed variables
     var stringAmount: String {
         if category.isRevenue {

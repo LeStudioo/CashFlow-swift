@@ -13,7 +13,6 @@ struct SubcategoryRow: View {
     var subcategory: SubcategoryModel
     @ObservedObject var filter: Filter = sharedFilter
     
-    // TODO: - refzctor
     //Computed var
     var stringAmount: String {
         return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.currency

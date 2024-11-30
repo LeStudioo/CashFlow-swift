@@ -46,7 +46,7 @@ extension TransferRepository {
     func createTransfer(senderAccountID: Int, receiverAccountID: Int, body: TransferBody) async -> TransactionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.transfer(senderAccountID: senderAccountID, receiverAccountID: receiverAccountID, body: body),
+                apiBuilder: TransferAPIRequester.transfer(senderAccountID: senderAccountID, receiverAccountID: receiverAccountID, body: body),
                 responseModel: TransferResponseWithBalances.self
             )
             if let transfer = response.transaction, let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {

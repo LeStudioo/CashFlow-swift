@@ -140,15 +140,17 @@ struct TurboBudgetApp: App {
                 print(DataForServer.shared.json)
             }
             .alert(alertManager.alert?.title ?? "", isPresented: $alertManager.isPresented, actions: {
-                Button(action: {
+                Button(role: .cancel, action: {
                     alertManager.isPresented = false
                 }, label: {
                     Text("word_cancel".localized)
                 })
-                Button(action: {
-                    alertManager.alert?.action()
+                Button(role: (alertManager.alert?.actionButton?.isDestructive ?? false) ? .destructive : nil, action: {
+                    Task {
+                        await alertManager.alert?.actionButton?.action()
+                    }
                 }, label: {
-                    Text(alertManager.alert?.actionButtonTitle ?? "word_ok".localized)
+                    Text(alertManager.alert?.actionButton?.title ?? "word_ok".localized)
                 })
             }, message: {
                 Text(alertManager.alert?.message ?? "")

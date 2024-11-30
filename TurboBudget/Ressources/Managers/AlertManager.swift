@@ -8,10 +8,16 @@
 import Foundation
 
 struct AlertData {
+    
+    struct ActionButton {
+        var title: String
+        var isDestructive: Bool
+        var action: () async -> Void
+    }
+    
     let title: String
     let message: String
-    var actionButtonTitle: String? = nil
-    let action: () -> Void
+    var actionButton: ActionButton?
 }
 
 final class AlertManager: ObservableObject {
@@ -35,8 +41,28 @@ extension AlertManager {
         self.alert = .init(
             title: "alert_cashflow_pro_title".localized,
             message: "alert_cashflow_pro_desc".localized,
-            actionButtonTitle: "alert_cashflow_pro_see".localized,
-            action: { self.router.presentPaywall() }
+            actionButton: .init(
+                title: "alert_cashflow_pro_see".localized,
+                isDestructive: false,
+                action: { self.router.presentPaywall() }
+            )
+        )
+    }
+    
+    func deleteTransaction(transaction: TransactionModel) {
+        self.isPresented = true
+        self.alert = .init(
+            title: "transaction_detail_delete_transac".localized,
+            message: transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized,
+            actionButton: .init(
+                title: "word_delete".localized,
+                isDestructive: true,
+                action: {
+                    if let transactionID = transaction.id {
+                        await TransactionRepository.shared.deleteTransaction(transactionID: transactionID)
+                    }
+                }
+            )
         )
     }
     
