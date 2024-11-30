@@ -78,13 +78,13 @@ struct CreateTransferView: View {
                 
                 ToolbarDismissKeyboardButtonView()
             }
-            .interactiveDismissDisabled(viewModel.isTransferInCreation()) {
-                viewModel.presentingConfirmationDialog.toggle()
-            }
-            .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-                Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
-                Button("word_return".localized, role: .cancel, action: { })
-            }
+        } // NavigationStack
+        .interactiveDismissDisabled(viewModel.isTransferInCreation()) {
+            viewModel.presentingConfirmationDialog.toggle()
+        }
+        .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_return".localized, role: .cancel, action: { })
         }
     } // body
 } // struct

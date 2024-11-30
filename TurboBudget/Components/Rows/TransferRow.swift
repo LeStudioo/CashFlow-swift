@@ -8,19 +8,33 @@
 import SwiftUI
 import SwipeActions
 
+enum TransferRowLocation {
+    case successfulSheet, savingsAccount
+}
+
 struct TransferRow: View {
 
     //Custom type
     var transfer: TransactionModel
-    @EnvironmentObject private var repo: SavingsAccountRepository
+    var location: TransferRowLocation = .savingsAccount
+    @EnvironmentObject private var savingsAccountRepository: SavingsAccountRepository
+    @EnvironmentObject private var accountRepository: AccountRepository
     
-    //Environnements
-    @Environment(\.managedObjectContext) private var viewContext
+    //Environnement
     @Environment(\.colorScheme) private var colorScheme
     
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
+    
+    var isSender: Bool {
+        switch location {
+        case .successfulSheet:
+            return accountRepository.selectedAccount?.id == transfer.senderAccountID
+        case .savingsAccount:
+            return savingsAccountRepository.currentAccount.id == transfer.senderAccountID
+        }
+    }
 
     //MARK: - Body
     var body: some View {
@@ -31,7 +45,7 @@ struct TransferRow: View {
                     .frame(width: 50)
                     .overlay {
                         Circle()
-                            .foregroundStyle(repo.currentAccount.id == transfer.receiverAccountID ? .primary500 : .error400)
+                            .foregroundStyle(isSender ? .error400 : .primary500)
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
@@ -43,7 +57,7 @@ struct TransferRow: View {
                     Text(Word.Classic.transfer)
                     .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                     .font(Font.mediumSmall())
-                    Text(repo.currentAccount.id == transfer.receiverAccountID ? Word.Classic.received : Word.Classic.sent)
+                    Text(isSender ? Word.Classic.sent : Word.Classic.received)
                         .font(.semiBoldText18())
                         .foregroundStyle(Color(uiColor: .label))
                         .lineLimit(1)
@@ -54,7 +68,7 @@ struct TransferRow: View {
                 VStack(alignment: .trailing, spacing: 5) {
                     Text((transfer.amount ?? 0).currency)
                         .font(.semiBoldText16())
-                        .foregroundStyle(repo.currentAccount.id == transfer.receiverAccountID ? .primary500 : .error400)
+                        .foregroundStyle(isSender ? .error400 : .primary500)
                         .lineLimit(1)
                     Text(transfer.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
