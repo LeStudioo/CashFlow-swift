@@ -168,6 +168,9 @@ extension TransactionRepository {
             startDate: Date().startOfMonth.toISO(),
             endDate: Date().endOfMonth.toISO()
         )
+        if self.transactions.count < 20 {
+            await self.fetchTransactionsWithPagination(accountID: accountID, perPage: 30)
+        }
     }
     
 }

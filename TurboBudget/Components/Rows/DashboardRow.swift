@@ -27,11 +27,6 @@ struct DashboardRow: View {
                     }
                 Spacer()
                 
-                if config.num != 0 {
-                    Text(config.num.formatted())
-                        .font(.semiBoldText16())
-                }
-                
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold))
             }
@@ -63,7 +58,6 @@ extension DashboardRow {
     struct Configuration {
         var icon: String
         var text: String
-        var num: Int
         var isLocked: Bool = false
     }
 }
@@ -75,7 +69,6 @@ extension DashboardRow {
             config: .init(
                 icon: "person.fill",
                 text: "Preview 1",
-                num: 0,
                 isLocked: true
             )
         )
@@ -83,8 +76,7 @@ extension DashboardRow {
         DashboardRow(
             config: .init(
                 icon: "House.fill",
-                text: "Preview 2",
-                num: 3
+                text: "Preview 2"
             )
         )
     }

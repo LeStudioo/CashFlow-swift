@@ -196,41 +196,47 @@ struct SavingPlanDetailView: View {
     //MARK: - ViewBuilder
     @ViewBuilder
     func progressBar() -> some View {
-        guard let currentAmount = savingsPlan.currentAmount else { return EmptyView() }
-        guard let goalAmount = savingsPlan.goalAmount else { return EmptyView() }
-        
-        return VStack(spacing: 6) {
-            HStack {
-                Text(0.currency)
-                Spacer()
-                Text(goalAmount.currency)
-            }
-            .font(.semiBoldText16())
-            .foregroundStyle(Color(uiColor: .label))
+        if let currentAmount = savingsPlan.currentAmount,
+           let goalAmount = savingsPlan.goalAmount,
+           goalAmount > 0 {
             
-            GeometryReader { geometry in
-                let widthAmount = currentAmount.currency
-                    .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.5
-                let widthPercentage = geometry.size.width * percentage
+            let percentage = min(1.0, currentAmount / goalAmount)
+            
+            VStack(spacing: 6) {
+                HStack {
+                    Text(0.currency)
+                    Spacer()
+                    Text(goalAmount.currency)
+                }
+                .font(.semiBoldText16())
+                .foregroundStyle(Color(uiColor: .label))
                 
-                Capsule()
-                    .foregroundStyle(.colorCell)
-                    .overlay(alignment: .leading) {
-                        ZStack(alignment: .leading) {
-                            Capsule()
-                                .foregroundStyle(ThemeManager.theme.color)
-                                .frame(width: widthAmount > widthPercentage ? widthAmount + 8 : widthPercentage)
-                            
-                            Text(currentAmount.currency)
-                                .padding(.trailing, 12)
-                                .font(.semiBoldText16())
-                                .foregroundStyle(Color(uiColor: .systemBackground))
-                                .padding(.leading, 8)
+                GeometryReader { geometry in
+                    let widthAmount = currentAmount.currency
+                        .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.5
+                    let widthPercentage = geometry.size.width * percentage
+                    
+                    Capsule()
+                        .foregroundStyle(.colorCell)
+                        .overlay(alignment: .leading) {
+                            ZStack(alignment: .leading) {
+                                Capsule()
+                                    .foregroundStyle(ThemeManager.theme.color)
+                                    .frame(width: min(widthAmount, widthPercentage))
+                                
+                                Text(currentAmount.currency)
+                                    .padding(.trailing, 12)
+                                    .font(.semiBoldText16())
+                                    .foregroundStyle(Color(uiColor: .systemBackground))
+                                    .padding(.leading, 8)
+                            }
+                            .padding(4)
                         }
-                        .padding(4)
-                    }
+                }
+                .frame(height: 40)
             }
-            .frame(height: 40)
+        } else {
+            EmptyView()
         }
     }
     

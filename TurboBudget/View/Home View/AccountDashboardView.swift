@@ -16,10 +16,6 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var alertManager: AlertManager
         
     @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
-    @EnvironmentObject private var budgetRepository: BudgetRepository
     
     //State or Binding String
     @State private var accountName: String = ""
@@ -70,8 +66,7 @@ struct AccountDashboardView: View {
                     DashboardRow(
                         config: .init(
                             icon: "building.columns.fill",
-                            text: "word_savings_account".localized,
-                            num: 0
+                            text: "word_savings_account".localized
                         )
                     )
                 }
@@ -81,8 +76,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "banknote.fill",
-                                text: "word_transactions".localized,
-                                num: transactionRepository.transactions.count
+                                text: "word_transactions".localized
                             )
                         )
                     }
@@ -91,8 +85,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "gearshape.2.fill",
-                                text: "word_automations".localized,
-                                num: subscriptionRepository.subscriptions.count
+                                text: "word_automations".localized
                             )
                         )
                     }
@@ -101,8 +94,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "dollarsign.square.fill",
-                                text: "word_savingsplans".localized,
-                                num: savingsPlanRepository.savingsPlans.count
+                                text: "word_savingsplans".localized
                             )
                         )
                     }
@@ -112,7 +104,6 @@ struct AccountDashboardView: View {
                             config: .init(
                                 icon: "chart.pie.fill",
                                 text: "word_budgets".localized,
-                                num: budgetRepository.budgets.count,
                                 isLocked: !store.isCashFlowPro
                             )
                         )

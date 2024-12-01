@@ -22,12 +22,13 @@ struct SettingsHomeView: View {
     // MARK: - body
     var body: some View {
         Form {
+#if DEBUG
             Button {
                 KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: "")
             } label: {
                 Text("Reset Refresh Token")
             }
-            
+#endif
             Section {
                 NavigationButton(present: router.presentPaywall()) {
                     SettingRow(

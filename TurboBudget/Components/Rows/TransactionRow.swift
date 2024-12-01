@@ -18,13 +18,6 @@ struct TransactionRow: View {
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var alertManager: AlertManager
-        
-    // State or Binding Bool
-    @State private var isEditing: Bool = false
-    @State private var isDeleting: Bool = false
-    @State private var cancelDeleting: Bool = false
-    @State private var isSharingJSON: Bool = false
-    @State private var isSharingQRCode: Bool = false
     
     // MARK: -
     var body: some View {
@@ -68,6 +61,7 @@ struct TransactionRow: View {
             }, trailingActions: { context in
             SwipeAction(action: {
                 router.presentCreateTransaction(transaction: transaction)
+                context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {
                     Image(systemName: "pencil")
@@ -80,12 +74,10 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.blue)
             })
-            .onChange(of: isSharingQRCode) { _ in
-                context.state.wrappedValue = .closed
-            }
             
             SwipeAction(action: {
                 alertManager.deleteTransaction(transaction: transaction)
+                context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
@@ -98,9 +90,6 @@ struct TransactionRow: View {
                 Rectangle()
                     .foregroundStyle(.error400)
             })
-            .onChange(of: cancelDeleting) { _ in
-                context.state.wrappedValue = .closed
-            }
         })
         .swipeActionsStyle(.cascade)
         .swipeActionWidth(90)

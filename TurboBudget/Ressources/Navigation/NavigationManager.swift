@@ -166,8 +166,12 @@ class NavigationManager: Router {
         presentSheet(.createSavingsAccount)
     }
     
-    func presentSelectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>) {
-        presentSheet(.selectCategory(category: category, subcategory: subcategory))
+    func presentSelectCategory(
+        category: Binding<CategoryModel?>,
+        subcategory: Binding<SubcategoryModel?>,
+        dismissAction: (() -> Void)? = nil
+    ) {
+        presentSheet(.selectCategory(category: category, subcategory: subcategory), dismissAction)
     }
     
     // Build view

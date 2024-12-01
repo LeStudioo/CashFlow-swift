@@ -58,9 +58,18 @@ struct TransactionDetailView: View {
                                 }
                             }
                     }
+                    .onTapGesture {
+                        router.presentSelectCategory(
+                            category: $viewModel.selectedCategory,
+                            subcategory: $viewModel.selectedSubcategory
+                        ) {
+                            if let transactionID = transaction.id, viewModel.selectedCategory != nil {
+                                viewModel.updateCategory(transactionID: transactionID)
+                            }
+                        }
+                    }
                 Spacer()
             }
-            
             
             if let categoryFound = viewModel.bestCategory {
                 let subcategoryFound = viewModel.bestSubcategory
@@ -82,7 +91,6 @@ struct TransactionDetailView: View {
                 }
                 .padding(.top, 8)
             }
-            
             
             Text(transaction.name ?? "")
                 .titleAdjustSize()
@@ -155,8 +163,6 @@ struct TransactionDetailView: View {
         })
         .onAppear { 
             viewModel.note = transaction.note ?? ""
-            viewModel.selectedCategory = transaction.category
-            viewModel.selectedSubcategory = transaction.subcategory
         }
         .task {
             if store.isCashFlowPro && transaction.categoryID == 0 {
@@ -188,13 +194,6 @@ struct TransactionDetailView: View {
                         action: { router.presentCreateTransaction(transaction: transaction) },
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
-                    
-//                    Menu(content: {
-//                        Button(action: { isSharingJSON.toggle() }, label: { Label("word_json".localized, systemImage: "curlybraces") })
-//                        Button(action: { isSharingQRCode.toggle() }, label: { Label("word_qrcode".localized, systemImage: "qrcode") })
-//                    }, label: {
-//                        Label("word_share".localized, systemImage: "square.and.arrow.up.fill")
-//                    })
                     Button(role: .destructive, action: {
                         viewModel.isDeleting.toggle()
                     }, label: { Label("word_delete", systemImage: "trash.fill") })

@@ -76,6 +76,9 @@ extension TransactionDetailViewModel {
                     transactionID: transactionID,
                     body: body
                 )
+                
+                self.selectedCategory = nil
+                self.selectedSubcategory = nil
             }
         }
     }
