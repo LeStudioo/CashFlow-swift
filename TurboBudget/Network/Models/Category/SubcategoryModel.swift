@@ -161,9 +161,6 @@ extension SubcategoryModel {
     
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
@@ -179,9 +176,6 @@ extension SubcategoryModel {
     
     //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
@@ -198,9 +192,6 @@ extension SubcategoryModel {
     
     //-------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func amountIncomesByMonth(month: Date) -> Double {
         return getAllTransactionsIncomeForChosenMonth(selectedDate: month)

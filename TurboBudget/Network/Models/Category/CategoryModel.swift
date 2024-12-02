@@ -179,9 +179,6 @@ extension CategoryModel {
     
     //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
@@ -197,9 +194,6 @@ extension CategoryModel {
     
     //-------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func amountIncomesByMonth(month: Date) -> Double {
         return getAllTransactionsIncomeForChosenMonth(selectedDate: month)
@@ -220,9 +214,6 @@ extension CategoryModel {
     
     //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
-    // Parameter : (selectedDate: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
@@ -237,9 +228,6 @@ extension CategoryModel {
     
     //-------------------- amountExpensesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des dépenses, pour un mois donné
-    // Parameter : (month: Date)
-    // Output : return [TransactionEntity]
-    // Extra : No
     //-----------------------------------------------------------
     func amountExpensesByMonth(month: Date) -> Double {
         return getAllExpensesTransactionsForChosenMonth(selectedDate: month)

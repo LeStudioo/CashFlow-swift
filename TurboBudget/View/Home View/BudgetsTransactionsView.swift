@@ -68,7 +68,7 @@ struct BudgetsTransactionsView: View {
                         }
                     }
                 }
-            } else { // No TransactionEntity
+            } else { // No Transaction
                 ErrorView(
                     searchResultsCount: searchResults.count,
                     searchText: searchText,

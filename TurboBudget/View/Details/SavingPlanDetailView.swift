@@ -132,14 +132,19 @@ struct SavingPlanDetailView: View {
         } // ScrollView
         .scrollIndicators(.hidden)
         .onAppear {
-            savingPlanNote = savingsPlan.note ?? ""
+            savingPlanNote = savingsPlan.note ?? "empty"
         }
         .onDisappear {
-            // TODO: Update
-            //            if savingPlanNote != savingPlan.note {
-            //                savingsPlan.note = savingPlanNote
-            //                persistenceController.saveContext()
-            //            }
+            if savingPlanNote != savingsPlan.note && savingPlanNote != "empty" {
+                Task {
+                    if let savingsPlanID = savingsPlan.id {
+                        await savingsPlanRepository.updateSavingsPlan(
+                            savingsPlanID: savingsPlanID,
+                            body: .init(note: savingPlanNote)
+                        )
+                    }
+                }
+            }
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
