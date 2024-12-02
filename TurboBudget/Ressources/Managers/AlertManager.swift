@@ -49,6 +49,11 @@ extension AlertManager {
         )
     }
     
+}
+
+// MARK: - Deletation
+extension AlertManager {
+    
     func deleteTransaction(transaction: TransactionModel) {
         self.isPresented = true
         self.alert = .init(
@@ -60,6 +65,26 @@ extension AlertManager {
                 action: {
                     if let transactionID = transaction.id {
                         await TransactionRepository.shared.deleteTransaction(transactionID: transactionID)
+                    }
+                }
+            )
+        )
+    }
+    
+    func deleteContribution(savingsPlan: SavingsPlanModel, contribution: ContributionModel) {
+        self.isPresented = true
+        self.alert = .init(
+            title: "contribution_cell_delete".localized,
+            message: "contribution_cell_delete_desc".localized,
+            actionButton: .init(
+                title: "word_delete".localized,
+                isDestructive: true,
+                action: {
+                    if let contributionID = contribution.id, let savingsPlanID = savingsPlan.id {
+                        await ContributionRepository.shared.deleteContribution(
+                            savingsplanID: savingsPlanID,
+                            contributionID: contributionID
+                        )
                     }
                 }
             )

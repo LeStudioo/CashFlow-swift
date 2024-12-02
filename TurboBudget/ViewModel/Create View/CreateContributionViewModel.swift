@@ -49,7 +49,11 @@ extension CreateContributionViewModel {
             ) {
                 await dismiss()
                 
-                await successfullModalManager.showSuccessfulContribution(type: .new, contribution: contribution)
+                await successfullModalManager.showSuccessfulContribution(
+                    type: .new,
+                    savingsPlan: savingsPlan,
+                    contribution: contribution
+                )
             }
         }
     }

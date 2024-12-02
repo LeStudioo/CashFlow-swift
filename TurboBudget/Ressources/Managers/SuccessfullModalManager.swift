@@ -70,10 +70,10 @@ extension SuccessfullModalManager {
     }
     
     @MainActor
-    func showSuccessfulContribution(type: SuccessfulType, contribution: ContributionModel) {
+    func showSuccessfulContribution(type: SuccessfulType, savingsPlan: SavingsPlanModel, contribution: ContributionModel) {
         self.title = Word.Successful.Contribution.title(type: type)
         self.subtitle = Word.Successful.Contribution.description(type: type)
-        self.content = AnyView(ContributionRow(contribution: contribution))
+        self.content = AnyView(ContributionRow(savingsPlan: savingsPlan, contribution: contribution))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true

@@ -99,10 +99,10 @@ struct NetworkPath {
             return "/savingsplan/\(savingsplanID)/contribution"
         }
         static func update(savingsplanID: Int, id: Int) -> String {
-            return "/contribution/\(savingsplanID)/contribution/\(id)"
+            return "/savingsplan/\(savingsplanID)/contribution/\(id)"
         }
         static func delete(savingsplanID: Int, id: Int) -> String {
-            return "/contribution/\(savingsplanID)/contribution/\(id)"
+            return "/savingsplan/\(savingsplanID)/contribution/\(id)"
         }
     }
     

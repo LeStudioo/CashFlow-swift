@@ -69,9 +69,13 @@ extension ContributionRepository {
     @MainActor
     func deleteContribution(savingsplanID: Int, contributionID: Int) async {
         do {
-            try await NetworkService.shared.sendRequest(
-                apiBuilder: ContributionAPIRequester.delete(savingsplanID: savingsplanID, contributionID: contributionID)
+            let response = try await NetworkService.shared.sendRequest(
+                apiBuilder: ContributionAPIRequester.delete(savingsplanID: savingsplanID, contributionID: contributionID),
+                responseModel: ContributionResponseWithAmount.self
             )
+            if let newAmount = response.newAmount {
+                SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+            }
             self.contributions.removeAll(where: { $0.id == contributionID })
         } catch { NetworkService.handleError(error: error) }
     }

@@ -125,7 +125,7 @@ struct SavingPlanDetailView: View {
             .padding(.horizontal, 12)
             
             ForEach(contributionRepository.contributions) { contribution in
-                ContributionRow(contribution: contribution)
+                ContributionRow(savingsPlan: savingsPlan, contribution: contribution)
             }
             
             Spacer()
@@ -196,11 +196,9 @@ struct SavingPlanDetailView: View {
     //MARK: - ViewBuilder
     @ViewBuilder
     func progressBar() -> some View {
-        if let currentAmount = savingsPlan.currentAmount,
-           let goalAmount = savingsPlan.goalAmount,
-           goalAmount > 0 {
+        if let currentAmount = savingsPlan.currentAmount, let goalAmount = savingsPlan.goalAmount, goalAmount > 0 {
             
-            let percentage = min(1.0, currentAmount / goalAmount)
+            let percentage: Double = min(currentAmount / goalAmount, 1.0)
             
             VStack(spacing: 6) {
                 HStack {
@@ -222,7 +220,7 @@ struct SavingPlanDetailView: View {
                             ZStack(alignment: .leading) {
                                 Capsule()
                                     .foregroundStyle(ThemeManager.theme.color)
-                                    .frame(width: min(widthAmount, widthPercentage))
+                                    .frame(width: max(widthAmount, widthPercentage))
                                 
                                 Text(currentAmount.currency)
                                     .padding(.trailing, 12)

@@ -11,17 +11,15 @@ import SwipeActions
 
 struct ContributionRow: View {
 
-    //Custom type
+    // Builder
+    var savingsPlan: SavingsPlanModel
     var contribution: ContributionModel
 
-    //Environnements
+    //Environnement
     @Environment(\.colorScheme) private var colorScheme
-
-    //State or Binding Bool
-    @State private var isDeleting: Bool = false
-    @State private var cancelDeleting: Bool = false
+    @EnvironmentObject private var alertManager: AlertManager
     
-    //MARK: - 
+    // MARK: -
     var body: some View {
         SwipeView(label: {
             HStack {
@@ -44,7 +42,11 @@ struct ContributionRow: View {
             .cornerRadius(15)
         }, trailingActions: { context in
             SwipeAction(action: {
-                isDeleting.toggle()
+                alertManager.deleteContribution(
+                    savingsPlan: savingsPlan,
+                    contribution: contribution
+                )
+                context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
@@ -58,45 +60,16 @@ struct ContributionRow: View {
                     .foregroundStyle(.error400)
             })
             .allowSwipeToTrigger()
-            .onChange(of: cancelDeleting) { _ in
-                context.state.wrappedValue = .closed
-            }
         })
         .swipeActionsStyle(.cascade)
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
         .padding(.horizontal, 12)
         .padding(.vertical, 2)
-        .alert("contribution_cell_delete".localized, isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-//            Button(role: .destructive, action: { withAnimation { deleteContribution() } }, label: { Text("word_delete".localized) })
-        }, message: {
-            Text("contribution_cell_delete_desc".localized)
-        })
-    }//END body
+    } // body
+} // struct
 
-    //MARK: Fonctions
-    // TODO: DELETE
-//    func deleteContribution() {
-//        DispatchQueue.main.async {
-//            if let account = contribution.contributionToSavingPlan?.savingPlansToAccount {
-//                account.balance = contribution.amount < 0 ? account.balance + contribution.amount : account.balance + contribution.amount
-//            }
-//            
-//            if let savingPlan = contribution.contributionToSavingPlan {
-//                savingPlan.actualAmount = contribution.amount < 0 ? savingPlan.actualAmount - contribution.amount : savingPlan.actualAmount - contribution.amount
-//            }
-//            
-//            viewContext.delete(contribution)
-//        }
-//        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            persistenceController.saveContext()
-//        }
-//    }
-}//END struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
-    ContributionRow(contribution: .mockContribution)
+    ContributionRow(savingsPlan: .mockClassicSavingsPlan, contribution: .mockContribution)
 }
