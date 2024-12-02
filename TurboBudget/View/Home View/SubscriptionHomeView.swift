@@ -89,11 +89,11 @@ struct SubscriptionHomeView: View {
                                     .padding(.horizontal)
                             }
                         } header: {
-//                            DetailOfExpensesAndIncomesByMonth(
-//                                month: month,
-//                                amountOfExpenses: AutomationManager().amountExpensesByMonth(month: month, automations: automations),
-//                                amountOfIncomes: AutomationManager().amountIncomesByMonth(month: month, automations: automations)
-//                            )
+                            DetailOfExpensesAndIncomesByMonth(
+                                month: month,
+                                amountOfExpenses: subscriptionRepository.amountExpensesByMonth(month: month),
+                                amountOfIncomes: subscriptionRepository.amountIncomesByMonth(month: month)
+                            )
                         }
                     }
                     .listRowSeparator(.hidden)
