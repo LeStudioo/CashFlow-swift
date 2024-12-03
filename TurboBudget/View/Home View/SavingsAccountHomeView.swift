@@ -75,6 +75,7 @@ struct SavingsAccountHomeView: View {
     } // End body
     
     // MARK: - ViewBuilder
+    // TODO: - Faire une row
     @ViewBuilder
     func cellForOnglet(savingsAccount: AccountModel) -> some View {
         let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16

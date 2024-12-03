@@ -86,14 +86,6 @@ struct PersistenceController {
         }
     }
     
-    func saveContextWithThrow() throws {
-        do {
-            try viewContext.save()
-        } catch {
-            throw CustomError.failToSave
-        }
-    }
-    
     enum CoreDataError: Error {
         case entityNotFound(String)
         case batchDeleteFailed(String, Error)

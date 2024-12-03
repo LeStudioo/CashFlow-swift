@@ -75,6 +75,6 @@ struct ArchivedSavingPlansView: View {
 } // End struct
 
 // MARK: - Preview
-#Preview {
-    ArchivedSavingPlansView(account: Account.preview)
-}
+//#Preview {
+//    ArchivedSavingPlansView(account: Account.preview)
+//}

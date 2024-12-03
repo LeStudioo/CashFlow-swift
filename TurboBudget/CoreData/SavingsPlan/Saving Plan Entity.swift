@@ -66,31 +66,3 @@ public class SavingPlan: NSManagedObject, Identifiable {
         } else { return [] }
     }
 }
-
-extension SavingPlan {
-    
-    static var preview1: SavingPlan {
-        let savingPlan = SavingPlan(context: previewViewContext)
-        savingPlan.id = UUID()
-        savingPlan.icon = "🚙"
-        savingPlan.title = "New Car"
-        savingPlan.amountOfStart = 1000
-        savingPlan.actualAmount = 3250
-        savingPlan.amountOfEnd = 5000
-        savingPlan.savingPlansToContribution?.insert(Contribution.preview1)
-        savingPlan.savingPlansToContribution?.insert(Contribution.preview2)
-        
-        return savingPlan
-    }
-    
-    static var preview2: SavingPlan {
-        let savingPlan = SavingPlan(context: previewViewContext)
-        savingPlan.id = UUID()
-        savingPlan.icon = "🏠"
-        savingPlan.title = "New Home"
-        savingPlan.amountOfEnd = 5000
-        
-        return savingPlan
-    }
-    
-}

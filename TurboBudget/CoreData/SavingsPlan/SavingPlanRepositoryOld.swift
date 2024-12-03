@@ -30,37 +30,6 @@ extension SavingPlanRepositoryOld {
         }
     }
     
-//    /// Create a new Savings Plan
-//    func createSavingsPlan(model: SavingsPlanModelOld, withSave: Bool = true) throws -> SavingPlan {
-//        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
-//        
-//        let newSavingPlan = SavingPlan(context: viewContext)
-//        newSavingPlan.id = UUID()
-//        newSavingPlan.title = model.title
-//        newSavingPlan.icon = model.icon
-//        newSavingPlan.amountOfStart = model.amountOfStart
-//        newSavingPlan.actualAmount = model.actualAmount
-//        newSavingPlan.amountOfEnd = model.amountOfEnd
-//        newSavingPlan.dateOfEnd = model.dateOfEnd
-//        newSavingPlan.dateOfStart = model.dateOfStart
-//        newSavingPlan.savingPlansToAccount = account
-//        
-//        if withSave {
-//            self.savingPlans.append(newSavingPlan)
-//            try persistenceController.saveContextWithThrow()
-//        }
-//        
-//        return newSavingPlan
-//    }
-    
-    func deleteSavingsPlan(savingsPlan: SavingPlan) {
-        self.savingPlans.removeAll(where: { $0.id == savingsPlan.id })
-        viewContext.delete(savingsPlan)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            persistenceController.saveContext()
-        }
-    }
-    
 }
 
 extension SavingPlanRepositoryOld {

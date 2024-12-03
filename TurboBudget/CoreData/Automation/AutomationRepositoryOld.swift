@@ -32,35 +32,4 @@ extension AutomationRepositoryOld {
         }
     }
     
-    /// Create a new automation
-//    func createAutomation(model: AutomationModel, withSave: Bool = true) throws -> Automation {
-//        guard let account = AccountRepositoryOld.shared.mainAccount else { throw CustomError.noAccount }
-//        
-//        let newAutomation = Automation(context: viewContext)
-//        newAutomation.id = UUID()
-//        newAutomation.title = model.title
-//        newAutomation.date = model.date
-//        newAutomation.frenquently = Int16(model.frenquently)
-//        newAutomation.automationToTransaction = model.transaction
-//        newAutomation.automationToAccount = account
-//        
-//        if withSave {
-//            self.automations.append(newAutomation)
-//            try persistenceController.saveContextWithThrow()
-//        }
-//        
-//        return newAutomation
-//    }
-    
-    /// Delete automation
-    func deleteAutomation(_ automation: Automation) {
-        self.automations.removeAll(where: { $0.id == automation.id })
-        
-        viewContext.delete(automation)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            persistenceController.saveContext()
-        }
-    }
-    
 }

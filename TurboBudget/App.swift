@@ -34,7 +34,6 @@ struct TurboBudgetApp: App {
     @StateObject private var automationRepo: AutomationRepositoryOld = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepositoryOld = .shared
     @StateObject private var budgetRepo: BudgetRepositoryOld = .shared
-    @StateObject private var savingsAccountRepo: SavingsAccountRepositoryOld = .shared
 
     @StateObject private var filterManager: FilterManager = .shared
     @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
@@ -123,7 +122,6 @@ struct TurboBudgetApp: App {
             .environmentObject(automationRepo)
             .environmentObject(savingPlanRepo)
             .environmentObject(budgetRepo)
-            .environmentObject(savingsAccountRepo)
             
             .environmentObject(filterManager)
             .environmentObject(successfullModalManager)
