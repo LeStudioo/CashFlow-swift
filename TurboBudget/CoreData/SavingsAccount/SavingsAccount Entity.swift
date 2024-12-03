@@ -41,8 +41,6 @@ public class SavingsAccount: NSManagedObject, Identifiable {
         previewSavingsAccount.id = UUID()
         previewSavingsAccount.name = "Preview Savings"
         previewSavingsAccount.balanceAtStart = 30_000
-        previewSavingsAccount.savingsAccountToTransfer?.insert(Transfer.preview1)
-        previewSavingsAccount.savingsAccountToTransfer?.insert(Transfer.preview1)
         
         return previewSavingsAccount
     }
