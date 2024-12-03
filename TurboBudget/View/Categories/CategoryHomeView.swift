@@ -13,6 +13,7 @@ struct CategoryHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var categoryRepository: CategoryRepository
     
     //Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
@@ -23,12 +24,11 @@ struct CategoryHomeView: View {
             if viewModel.categoriesFiltered.count != 0 {
                 ScrollView {
                     VStack {
-                        if !alertMessageIfEmpty().isEmpty {
-                            Text(alertMessageIfEmpty())
-                                .font(Font.mediumText16())
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                        if categoryRepository.currentMonthExpenses.isEmpty && categoryRepository.currentMonthIncomes.isEmpty {
+                            EmptyCategoryData()
                                 .padding(.bottom, 8)
                         }
+                        
                         if viewModel.searchText.isEmpty {
                             PieChart(
                                 slices: CategoryRepository.shared.categoriesSlices,
@@ -85,24 +85,8 @@ struct CategoryHomeView: View {
         .navigationTitle("word_categories")
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
-    } // End body
-    
-    // MARK: Functions
-    func alertMessageIfEmpty() -> String {
-//        if viewModel.filter.byDay
-//            && !viewModel.dataWithFilterChoosen
-//            && viewModel.categoriesFiltered
-//            .map({ $0.incomesTransactionsAmountForSelectedDate(filter: viewModel.filter) })
-//            .reduce(0, +) == 0 {
-//            return "⚠️" + " " + "error_message_no_data_day".localized
-//        } else if !viewModel.filter.byDay && !viewModel.dataWithFilterChoosen && !viewModel.filter.total {
-//            return "⚠️" + " " + "error_message_no_data_month".localized
-//        }
-        // TODO: - refacto
-        return ""
-    }
-    
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

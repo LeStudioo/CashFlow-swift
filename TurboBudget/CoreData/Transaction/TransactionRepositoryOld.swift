@@ -28,7 +28,6 @@ extension TransactionRepositoryOld {
             print("⚠️ Error for : \(error.localizedDescription)")
         }
         
-        // TODO: REMOVE AFTER 1 MONTH IN PROD
         for transaction in allTransactions {
             if transaction.predefCategoryID == "PREDEF11" {
                 transaction.predefCategoryID = "PREDEFCAT11"

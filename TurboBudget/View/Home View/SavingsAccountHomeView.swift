@@ -14,9 +14,6 @@ struct SavingsAccountHomeView: View {
     @EnvironmentObject private var accountRepository: AccountRepository
     @Environment(\.dismiss) private var dismiss
     
-    // String variables
-    @State private var searchText: String = ""
-    
     // Computed variables
     var totalSavings: Double {
         return accountRepository.savingsAccounts
@@ -32,7 +29,7 @@ struct SavingsAccountHomeView: View {
         }
     }
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         ScrollView {
             VStack(spacing: -2) {
@@ -50,7 +47,7 @@ struct SavingsAccountHomeView: View {
             LazyVGrid(columns: columns, spacing: 12, content: {
                 ForEach(accountRepository.savingsAccounts) { account in
                     NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
-                        cellForOnglet(savingsAccount: account)
+                        SavingsAccountRow(savingsAccount: account)
                     }
                 }
             })
@@ -59,7 +56,7 @@ struct SavingsAccountHomeView: View {
         .navigationTitle("word_savings_account".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+//        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
             ToolbarDismissPushButton()
                         
@@ -72,59 +69,10 @@ struct SavingsAccountHomeView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-    } // End body
-    
-    // MARK: - ViewBuilder
-    // TODO: - Faire une row
-    @ViewBuilder
-    func cellForOnglet(savingsAccount: AccountModel) -> some View {
-        let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
-        
-        VStack(alignment: .center) {
-            HStack {
-                Rectangle()
-                    .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.componentInComponent)
-                    .cornerRadius(12)
-                    .overlay {
-                        Image(systemName: "building.columns.fill")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(uiColor: .label))
-                            .shadow(radius: 2, y: 2)
-                    }
-                Spacer()
-                
-//                if savingsAccount.transfers.count != 0 {
-//                    Text(String(savingsAccount.transfers.count))
-//                        .font(.semiBoldText16())
-//                }
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 18, weight: .semibold))
-            }
-            
-            Spacer(minLength: 0)
-            
-            Text(savingsAccount.balance.formatted(style: .currency))
-                .font(.boldH2())
-                .multilineTextAlignment(.center)
-                .lineLimit(1)
-            
-            Spacer(minLength: 0)
-            
-            Text(savingsAccount.name)
-                .font(.semiBoldText16())
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-        }
-        .padding()
-        .foregroundStyle(Color.label)
-        .frame(width: width, height: width)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-    }
-} // End struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     SavingsAccountHomeView()
 }

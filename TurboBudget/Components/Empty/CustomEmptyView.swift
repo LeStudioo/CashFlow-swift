@@ -72,11 +72,11 @@ enum CustomEmptyViewSituation {
         case .transactions:
             return "NoTransaction"
         case .subscriptions:
-            return "NoAutomations" // TODO: To edit to subscription
+            return "NoAutomations" // TBL To edit to subscription
         case .savingsPlan:
             return "NoSavingPlan"
         case .analytics:
-            return "NoIncome" // TODO: To edit
+            return "NoIncome" // TBL To edit
         }
     }
     

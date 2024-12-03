@@ -11,6 +11,19 @@ final class BudgetRepository: ObservableObject {
     static let shared = BudgetRepository()
     
     @Published var budgets: [BudgetModel] = []
+    
+    var budgetsByCategory: [CategoryModel: [BudgetModel]] {
+        let groupedBySubcategory = Dictionary(grouping: budgets) { $0.category }
+        return groupedBySubcategory
+            .compactMap { entry -> (key: CategoryModel, value: [BudgetModel])? in
+                guard let key = entry.key else { return nil } // Exclure les clés nil
+                return (key: key, value: entry.value)
+            }
+            .sorted(by: { $0.key.name < $1.key.name }) // Trier par le nom des sous-catégories
+            .reduce(into: [CategoryModel: [BudgetModel]]()) { result, entry in
+                result[entry.key] = entry.value
+            }
+    }
 }
 
 extension BudgetRepository {

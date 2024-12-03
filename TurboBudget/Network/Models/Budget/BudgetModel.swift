@@ -89,4 +89,26 @@ extension BudgetModel {
         return category?.color ?? .gray
     }
     
+    var currentAmount: Double {
+        guard let subcategory else { return 0 }
+
+        var amount: Double = 0.0
+        
+        for transaction in subcategory.transactions {
+            if transaction.category != nil {
+                let subcategoryOfTransaction = transaction.subcategory
+                
+                if transaction.type == .expense && subcategoryOfTransaction == subcategory && Calendar.current.isDate(transaction.date, equalTo: Date(), toGranularity: .month) {
+                    amount += transaction.amount ?? 0
+                }
+            }
+        }
+        
+        return amount
+    }
+    
+    var isExceeded: Bool {
+        return currentAmount > amount
+    }
+    
 }

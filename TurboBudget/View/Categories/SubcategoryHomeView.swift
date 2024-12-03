@@ -17,9 +17,8 @@ struct SubcategoryHomeView: View {
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
     
-    //Environnements
+    //Environnement
     @EnvironmentObject private var router: NavigationManager
-    @Environment(\.dismiss) private var dismiss
     
     // Computed
     var searchResults: [SubcategoryModel] {
@@ -33,19 +32,16 @@ struct SubcategoryHomeView: View {
         }
     }
     
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack {
-                    if !alertMessageIfEmpty().isEmpty {
-                        HStack {
-                            Text(alertMessageIfEmpty())
-                                .font(Font.mediumText16())
-                            Spacer()
-                        }
-                        .padding(.bottom, 8)
+                    if category.currentMonthExpenses.isEmpty && category.currentMonthIncomes.isEmpty {
+                        EmptyCategoryData()
+                            .padding(.bottom, 8)
                     }
+                    
                     if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
                         PieChart(
                             slices: category.categorySlices,
@@ -81,28 +77,11 @@ struct SubcategoryHomeView: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-            }
+            ToolbarDismissPushButton()
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-    } // End body
-    
-    // MARK: - Functions
-    func alertMessageIfEmpty() -> String {
-        if viewModel.filter.byDay && !viewModel.isDisplayChart(category: category) {
-            return "⚠️" + " " + "error_message_no_data_day".localized
-        } else if !viewModel.filter.byDay && !viewModel.isDisplayChart(category: category) && !viewModel.filter.total {
-            return "⚠️" + " " + "error_message_no_data_month".localized
-        }
-        return ""
-    }
-    
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

@@ -136,7 +136,7 @@ extension TransactionRow {
                 let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
                 return Word.Classic.received + " de " + senderAccountName
             }
-            // TODO: TBL Envoyé vers Livret A et reçu de PEL
+            // TBL Envoyé vers Livret A et reçu de PEL
         }
     }
     

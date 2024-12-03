@@ -87,4 +87,11 @@ extension CategoryRepository {
         return self.subcategories.first(where: { $0.id == id })
     }
     
+    var currentMonthExpenses: [TransactionModel] {
+        return categories.flatMap { $0.currentMonthExpenses }
+    }
+    
+    var currentMonthIncomes: [TransactionModel] {
+        return categories.flatMap { $0.currentMonthIncomes }
+    }
 }

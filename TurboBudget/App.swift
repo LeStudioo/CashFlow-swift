@@ -88,14 +88,9 @@ struct TurboBudgetApp: App {
                         }
                     }
                 case .syncing:
-                    VStack {
-                        CashFlowLoader()
-                        Text("Nous sommes entrain de récupérer vos données...")
-                    }
+                    SyncingView()
                 case .notSynced:
-                    VStack {
-                        Text("Désolé, nous n'avons pas pu récupérer vos données...")
-                    }
+                    NotSyncedView()
                 case .failed:
                     LoginView()
                 }
