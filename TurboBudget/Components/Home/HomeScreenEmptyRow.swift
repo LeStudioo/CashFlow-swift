@@ -64,7 +64,7 @@ enum HomeScreenEmptyRowType {
     func route(router: NavigationManager) -> () {
         switch self {
         case .savingsPlan:          return router.presentCreateSavingsPlan()
-        case .subscription:         return router.presentCreateAutomation()
+        case .subscription:         return router.presentCreateSubscription()
         case .recentTransactions:   return router.presentCreateTransaction()
         }
     }

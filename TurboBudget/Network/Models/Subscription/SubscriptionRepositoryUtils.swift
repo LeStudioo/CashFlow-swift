@@ -9,6 +9,14 @@ import Foundation
 
 extension SubscriptionRepository {
     
+    func sortSubscriptionsByDate() {
+        self.subscriptions.sort { $0.date < $1.date }
+    }
+    
+}
+
+extension SubscriptionRepository {
+    
     func amountExpensesByMonth(month: Date) -> Double {
         return self.subscriptions
             .filter { Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month) && $0.type == .expense }

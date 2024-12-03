@@ -14,7 +14,7 @@ struct CreateSubscriptionView: View {
     var subscription: SubscriptionModel? = nil
     
     @StateObject private var router: NavigationManager
-    @StateObject private var viewModel: CreateSubscriptionViewModel = .init()
+    @StateObject private var viewModel: CreateSubscriptionViewModel
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -29,7 +29,10 @@ struct CreateSubscriptionView: View {
     // init
     init(subscription: SubscriptionModel? = nil) {
         self.subscription = subscription
-        self._router = StateObject(wrappedValue: NavigationManager(isPresented: .constant(.createAutomation)))
+        self._viewModel = StateObject(wrappedValue: CreateSubscriptionViewModel(subscription: subscription))
+        self._router = StateObject(wrappedValue: NavigationManager(isPresented:
+                .constant(.createSubscription(subscription: subscription)))
+        )
     }
     
     //MARK: -
@@ -105,11 +108,14 @@ struct CreateSubscriptionView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text(Word.Title.Subscription.new)
+                    Text(subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update)
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
-                ToolbarValidationButtonView(isActive: viewModel.validateAutomation()) {
+                ToolbarValidationButtonView(
+                    type: subscription == nil ? .creation : .edition,
+                    isActive: viewModel.validateAutomation()
+                ) {
                     VibrationManager.vibration()
                     viewModel.createNewSubscription(dismiss: dismiss)
                 }

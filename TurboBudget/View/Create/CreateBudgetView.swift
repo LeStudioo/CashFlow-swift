@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateBudgetView: View {
     
     // Custom
-    @StateObject private var viewModel = AddBudgetViewModel()
+    @StateObject private var viewModel: CreateBudgetViewModel = .init()
     private let router: NavigationManager = .init(isPresented: .constant(.createBudget))
     
     // Environment
@@ -33,6 +33,7 @@ struct CreateBudgetView: View {
                         selectedCategory: $viewModel.selectedCategory,
                         selectedSubcategory: $viewModel.selectedSubcategory
                     )
+                    .environmentObject(router)
                     Spacer()
                 }
                 .padding()
@@ -57,15 +58,9 @@ struct CreateBudgetView: View {
                     }
                 }
                 
-                ToolbarValidationButtonView(isActive: viewModel.validateBudget()) {
+                ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {
                     VibrationManager.vibration()
-                    // TODO: - create budget
-//                    viewModel.createNewBudget { withError in
-//                        if withError == nil {
-//                            dismiss()
-//                        } else {
-//                        }
-//                    }
+                    viewModel.createBudget(dismiss: dismiss)
                 }
                 
                 ToolbarDismissKeyboardButtonView()

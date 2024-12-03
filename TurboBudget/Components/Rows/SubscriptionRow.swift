@@ -15,8 +15,10 @@ struct SubscriptionRow: View {
     @ObservedObject var subscription: SubscriptionModel
     
     // Environement
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
     @Environment(\.colorScheme) private var colorScheme
+
+    @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
     
     // Boolean variables
     @State private var isDeleting: Bool = false
@@ -61,24 +63,39 @@ struct SubscriptionRow: View {
                 .cornerRadius(15)
             },
             trailingActions: { context in
-            SwipeAction(action: {
-                isDeleting.toggle()
-            }, label: { _ in
-                VStack(spacing: 5) {
-                    Image(systemName: "trash")
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_DELETE".localized)
-                        .font(.semiBoldCustom(size: 10))
+                SwipeAction(action: {
+                    router.presentCreateSubscription(subscription: subscription)
+                    context.state.wrappedValue = .closed
+                }, label: { _ in
+                    VStack(spacing: 5) {
+                        Image(systemName: "pencil")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        Text(Word.Classic.edit)
+                            .font(.semiBoldCustom(size: 10))
+                    }
+                    .foregroundStyle(Color(uiColor: .systemBackground))
+                }, background: { _ in
+                    Rectangle()
+                        .foregroundStyle(.blue)
+                })
+                SwipeAction(action: {
+                    isDeleting.toggle()
+                }, label: { _ in
+                    VStack(spacing: 5) {
+                        Image(systemName: "trash")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        Text("word_DELETE".localized)
+                            .font(.semiBoldCustom(size: 10))
+                    }
+                    .foregroundStyle(Color(uiColor: .systemBackground))
+                }, background: { _ in
+                    Rectangle()
+                        .foregroundStyle(.error400)
+                })
+                .onChange(of: cancelDeleting) { _ in
+                    context.state.wrappedValue = .closed
                 }
-                .foregroundStyle(Color(uiColor: .systemBackground))
-            }, background: { _ in
-                Rectangle()
-                    .foregroundStyle(.error400)
             })
-            .onChange(of: cancelDeleting) { _ in
-                context.state.wrappedValue = .closed
-            }
-        })
         .swipeActionsStyle(.cascade)
         .swipeActionWidth(90)
         .swipeActionCornerRadius(15)

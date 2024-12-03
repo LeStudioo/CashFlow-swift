@@ -30,6 +30,18 @@ final class TransactionRepository: ObservableObject {
         return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted(by: >)
     }
     
+    var transactionsByMonth: [Date: [TransactionModel]] {
+        let groupedByMonth = Dictionary(grouping: transactions) { transaction in
+            Calendar.current.date(from: Calendar.current.dateComponents([.month, .year], from: transaction.date))!
+        }
+        
+        return groupedByMonth
+            .sorted { $0.key > $1.key }
+            .reduce(into: [Date: [TransactionModel]]()) { result, entry in
+                result[entry.key] = entry.value
+            }
+    }
+    
 }
 
 extension TransactionRepository {

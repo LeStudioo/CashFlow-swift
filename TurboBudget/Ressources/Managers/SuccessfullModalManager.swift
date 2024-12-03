@@ -80,6 +80,17 @@ extension SuccessfullModalManager {
         }
     }
     
+    @MainActor
+    func showSuccessfullBudget(type: SuccessfulType, budget: BudgetModel) {
+        self.title = "budget_successful".localized
+        self.subtitle = "budget_successful_desc".localized
+        self.content = AnyView(BudgetRow(budget: budget, selectedDate: .constant(.now)))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.isPresenting = true
+        }
+    }
+    
 }
 
 extension SuccessfullModalManager {

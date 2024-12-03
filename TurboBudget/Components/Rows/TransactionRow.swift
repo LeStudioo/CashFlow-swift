@@ -126,7 +126,17 @@ extension TransactionRow {
         case .expense, .income:
             return transaction.name ?? ""
         case .transfer:
-            return isSender ? Word.Classic.sent : Word.Classic.received
+            guard let receiverAccountID = transaction.receiverAccountID else { return "" }
+            guard let senderAccountID = transaction.senderAccountID else { return "" }
+            
+            if isSender {
+                let receiverAccountName = AccountRepository.shared.findByID(receiverAccountID)?.name ?? ""
+                return Word.Classic.sent + " vers " + receiverAccountName
+            } else {
+                let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
+                return Word.Classic.received + " de " + senderAccountName
+            }
+            // TODO: TBL Envoyé vers Livret A et reçu de PEL
         }
     }
     

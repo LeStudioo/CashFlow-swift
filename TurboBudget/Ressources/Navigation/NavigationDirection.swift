@@ -19,11 +19,11 @@ enum NavigationDirection: Identifiable {
     case analytics
     
     case createAccount(type: AccountType)
-    case createAutomation
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
     case createContribution(savingsPlan: SavingsPlanModel)
     case createTransaction(transaction: TransactionModel? = nil)
+    case createSubscription(subscription: SubscriptionModel? = nil)
     case createTransfer(receiverAccount: AccountModel? = nil)
         
     case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>)
@@ -76,7 +76,7 @@ extension NavigationDirection: Equatable {
             (.savingPlansDetail, .savingPlansDetail),
             (.allTransactions, .allTransactions),
             (.createAccount, .createAccount),
-            (.createAutomation, .createAutomation),
+            (.createSubscription, .createSubscription),
             (.createBudget, .createBudget),
             (.createSavingsPlan, .createSavingsPlan),
             (.createContribution, .createContribution),

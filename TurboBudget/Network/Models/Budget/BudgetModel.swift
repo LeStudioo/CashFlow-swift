@@ -10,15 +10,13 @@ import SwiftUI
 
 class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
     @Published var id: Int?
-    @Published var _name: String?
     @Published var _amount: Double?
     @Published var categoryID: Int?
     @Published var subcategoryID: Int?
 
     // Initialiseur
-    init(id: Int? = nil, name: String? = nil, amount: Double? = nil, categoryID: Int? = nil, subcategoryID: Int? = nil) {
+    init(id: Int? = nil, amount: Double? = nil, categoryID: Int? = nil, subcategoryID: Int? = nil) {
         self.id = id
-        self._name = name
         self._amount = amount
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
@@ -27,14 +25,12 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
         case id, categoryID, subcategoryID
-        case _name = "name"
         case _amount = "amount"
     }
 
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
-        _name = try container.decodeIfPresent(String.self, forKey: ._name)
         _amount = try container.decodeIfPresent(Double.self, forKey: ._amount)
         categoryID = try container.decodeIfPresent(Int.self, forKey: .categoryID)
         subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
@@ -43,7 +39,6 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(_name, forKey: ._name)
         try container.encodeIfPresent(_amount, forKey: ._amount)
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
@@ -52,7 +47,6 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
     // Fonction pour le protocole Equatable
     static func == (lhs: BudgetModel, rhs: BudgetModel) -> Bool {
         return lhs.id == rhs.id &&
-               lhs._name == rhs._name &&
                lhs._amount == rhs._amount &&
                lhs.categoryID == rhs.categoryID &&
                lhs.subcategoryID == rhs.subcategoryID
@@ -61,7 +55,6 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
     // Fonction pour le protocole Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(_name)
         hasher.combine(_amount)
         hasher.combine(categoryID)
         hasher.combine(subcategoryID)
@@ -71,7 +64,13 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
 extension BudgetModel {
     
     var name: String {
-        return self._name ?? ""
+        if let subcategory {
+            return subcategory.name
+        } else if let category {
+            return category.name
+        } else {
+            return ""
+        }
     }
     
     var amount: Double {

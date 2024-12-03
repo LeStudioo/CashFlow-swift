@@ -26,15 +26,20 @@ extension BudgetRepository {
         } catch { NetworkService.handleError(error: error) }
     }
     
+    @discardableResult
     @MainActor
-    func createBudget(accountID: Int, body: BudgetModel) async {
+    func createBudget(accountID: Int, body: BudgetModel) async -> BudgetModel? {
         do {
             let budget = try await NetworkService.shared.sendRequest(
                 apiBuilder: BudgetAPIRequester.create(accountID: accountID, body: body),
                 responseModel: BudgetModel.self
             )
             self.budgets.append(budget)
-        } catch { NetworkService.handleError(error: error) }
+            return budget
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
     @MainActor

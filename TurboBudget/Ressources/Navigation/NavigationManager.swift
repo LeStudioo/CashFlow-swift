@@ -138,8 +138,8 @@ class NavigationManager: Router {
         presentSheet(.createAccount(type: type))
     }
     
-    func presentCreateAutomation() {
-        presentSheet(.createAutomation)
+    func presentCreateSubscription(subscription: SubscriptionModel? = nil, dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createSubscription(subscription: subscription), dismissAction)
     }
     
     func presentCreateBudget() {
@@ -199,8 +199,8 @@ private extension NavigationManager {
                 
             case .createAccount(let type):
                 CreateAccountView(type: type)
-            case .createAutomation:
-                CreateSubscriptionView()
+            case .createSubscription(let subscription):
+                CreateSubscriptionView(subscription: subscription)
             case .createBudget:
                 CreateBudgetView()
             case .createSavingsPlan(let savingsPlan):

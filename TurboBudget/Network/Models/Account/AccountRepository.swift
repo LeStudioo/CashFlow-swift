@@ -91,6 +91,10 @@ extension AccountRepository {
 
 extension AccountRepository {
     
+    func findByID(_ id: Int) -> AccountModel? {
+        return self.allAccounts.first(where: { $0.id == id })
+    }
+    
     func setNewBalance(accountID: Int, newBalance: Double) {
         if let account = accounts.first(where: { $0.id == accountID }) {
             account._balance = newBalance

@@ -56,7 +56,8 @@ struct Word {
             static let new: String = "title_new_transfer".localized
         }
         struct Subscription {
-            static let new: String = "title_new_automation".localized
+            static let new: String = "title_new_automation".localized // TODO: changer la clé to subscription
+            static let update: String = "title_update_subscription".localized // TODO: Faire dans google sheet
             static let home: String = "title_home_subscriptions".localized
         }
         struct SavingsPlan {

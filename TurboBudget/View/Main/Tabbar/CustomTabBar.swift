@@ -64,7 +64,7 @@ struct CustomTabBar: View {
                             }
                         }
                         
-                        NavigationButton(present: router.presentCreateAutomation()) {
+                        NavigationButton(present: router.presentCreateSubscription()) {
                             viewModel.showMenu = false
                         } label: {
                             Label(Word.Classic.subscription, systemImage: "clock.arrow.circlepath")

@@ -132,10 +132,10 @@ struct SavingPlanDetailView: View {
         } // ScrollView
         .scrollIndicators(.hidden)
         .onAppear {
-            savingPlanNote = savingsPlan.note ?? "empty"
+            savingPlanNote = savingsPlan.note ?? ""
         }
         .onDisappear {
-            if savingPlanNote != savingsPlan.note && savingPlanNote != "empty" {
+            if savingPlanNote != savingsPlan.note && savingPlanNote != "" {
                 Task {
                     if let savingsPlanID = savingsPlan.id {
                         await savingsPlanRepository.updateSavingsPlan(

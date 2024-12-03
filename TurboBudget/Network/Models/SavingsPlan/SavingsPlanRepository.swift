@@ -65,6 +65,7 @@ extension SavingsPlanRepository {
                 self.savingsPlans[index].goalAmount = savingsPlan.goalAmount
                 self.savingsPlans[index].startDateString = savingsPlan.startDateString
                 self.savingsPlans[index].endDateString = savingsPlan.endDateString
+                self.savingsPlans[index].note = savingsPlan.note
             }
         } catch { NetworkService.handleError(error: error) }
     }
