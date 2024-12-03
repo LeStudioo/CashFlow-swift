@@ -47,6 +47,13 @@
 
 "word_sent" = "Inviato";
 
+"word_retry" = "revisione";
+
+//MARK: - Preposition
+"word_preposition_to" = "A";
+
+"word_preposition_from" = "da";
+
 //MARK: - Create
 "create_add_category" = "Aggiungi una categoria";
 
@@ -66,7 +73,9 @@
 
 "title_new_transfer" = "Nuovo trasferimento";
 
-"title_new_automation" = "Nuova automazione";
+"title_new_subscription" = "Nuova automazione";
+
+"title_update_subscription" = "Aggiorna abbonamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -92,6 +101,13 @@
 
 "login_apple" = "Accedi ad Apple";
 
+//MARK: - Sync
+"sync_continue_without_data" = "Continua senza i miei dati";
+
+"sync_sorry_message" = "Purtroppo non siamo riusciti a ripristinare i tuoi dati...";
+
+"sync_fetching" = "Stiamo ripristinando i tuoi dati...";
+
 //MARK: - SuccessfulManager
 "successful_transaction_new_title" = "Transazione creata!";
 
@@ -107,7 +123,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -254,7 +270,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 

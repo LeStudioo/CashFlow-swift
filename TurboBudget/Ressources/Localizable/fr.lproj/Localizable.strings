@@ -47,6 +47,13 @@
 
 "word_sent" = "Envoyé";
 
+"word_retry" = "Réessayer";
+
+//MARK: - Preposition
+"word_preposition_to" = "vers";
+
+"word_preposition_from" = "de";
+
 //MARK: - Create
 "create_add_category" = "Ajouter une catégorie";
 
@@ -66,7 +73,9 @@
 
 "title_new_transfer" = "Nouveau transfert";
 
-"title_new_automation" = "Nouvelle automatisation";
+"title_new_subscription" = "Nouvelle automatisation";
+
+"title_update_subscription" = "Modifier l'abonnement";
 
 "title_home_subscriptions" = "Mes abonnements";
 
@@ -91,6 +100,13 @@
 "login_google" = "Se connecter avec Google";
 
 "login_apple" = "Se connecter avec Apple";
+
+//MARK: - Sync
+"sync_continue_without_data" = "Continuer sans mes données";
+
+"sync_sorry_message" = "Désolé, nous n'avons pas pu récupérer vos données...";
+
+"sync_fetching" = "Nous sommes entrain de récupérer vos données...";
 
 //MARK: - SuccessfulManager
 "successful_transaction_new_title" = "Transaction créée !";

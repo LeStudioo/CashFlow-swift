@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction type";
+"word_typeOfTransaction" = "Transaction Type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -47,6 +47,13 @@
 
 "word_sent" = "Sent";
 
+"word_retry" = "Retry";
+
+//MARK: - Preposition
+"word_preposition_to" = "to";
+
+"word_preposition_from" = "from";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 
@@ -66,7 +73,9 @@
 
 "title_new_transfer" = "New transfer";
 
-"title_new_automation" = "New automation";
+"title_new_subscription" = "New automation";
+
+"title_update_subscription" = "Update subscription";
 
 "title_home_subscriptions" = "My subscriptions";
 
@@ -91,6 +100,13 @@
 "login_google" = "Sign in with Google";
 
 "login_apple" = "Sign in with Apple";
+
+//MARK: - Sync
+"sync_continue_without_data" = "Continue without my data";
+
+"sync_sorry_message" = "Sorry, we were unable to retrieve your data...";
+
+"sync_fetching" = "We are in the process of recovering your data...";
 
 //MARK: - SuccessfulManager
 "successful_transaction_new_title" = "Transaction created!";

@@ -13,7 +13,7 @@ struct SyncingView: View {
     var body: some View {
         VStack(spacing: 24) {
             CashFlowLoader()
-            Text("Nous sommes entrain de récupérer vos données...") // TBL
+            Text(Word.Sync.fetching)
                 .font(.semiBoldH3())
                 .multilineTextAlignment(.center)
         }

@@ -131,12 +131,11 @@ extension TransactionRow {
             
             if isSender {
                 let receiverAccountName = AccountRepository.shared.findByID(receiverAccountID)?.name ?? ""
-                return Word.Classic.sent + " vers " + receiverAccountName
+                return [Word.Classic.sent, Word.Preposition.to, receiverAccountName].joined(separator: " ")
             } else {
                 let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
-                return Word.Classic.received + " de " + senderAccountName
+                return [Word.Classic.received, Word.Preposition.from, senderAccountName].joined(separator: " ")
             }
-            // TBL Envoyé vers Livret A et reçu de PEL
         }
     }
     

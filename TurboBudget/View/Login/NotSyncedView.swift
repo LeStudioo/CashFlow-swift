@@ -15,7 +15,7 @@ struct NotSyncedView: View {
     var body: some View {
         VStack(spacing: 24) {
             Spacer()
-            Text("Désolé, nous n'avons pas pu récupérer vos données...") // TBL
+            Text(Word.Sync.sorryMessage)
                 .font(.semiBoldH3())
                 .multilineTextAlignment(.center)
             Spacer()
@@ -30,7 +30,7 @@ struct NotSyncedView: View {
                         appManager.viewState = .notSynced
                     }
                 } label: {
-                    Text("Reesayer") // TBL
+                    Text(Word.Classic.retry)
                         .foregroundStyle(Color.white)
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -44,7 +44,7 @@ struct NotSyncedView: View {
                     PersistenceController.clearOldDatabase()
                     appManager.viewState = .success
                 } label: {
-                    Text("Continuer sans mes données") // TBL
+                    Text(Word.Sync.continueWithoutData)
                         .foregroundStyle(Color.blue)
                 }
             }

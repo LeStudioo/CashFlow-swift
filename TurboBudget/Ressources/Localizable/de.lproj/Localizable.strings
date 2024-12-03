@@ -47,6 +47,13 @@
 
 "word_sent" = "Gesendet";
 
+"word_retry" = "Rezension";
+
+//MARK: - Preposition
+"word_preposition_to" = "Zu";
+
+"word_preposition_from" = "von";
+
 //MARK: - Create
 "create_add_category" = "Fügen Sie eine Kategorie hinzu";
 
@@ -66,7 +73,9 @@
 
 "title_new_transfer" = "Neuer Transfer";
 
-"title_new_automation" = "Neue Automatisierung";
+"title_new_subscription" = "Neue Automatisierung";
+
+"title_update_subscription" = "Upgrade-Abonnement";
 
 "title_home_subscriptions" = "Neue Automatisierung";
 
@@ -91,6 +100,13 @@
 "login_google" = "Melden Sie sich mit Google an";
 
 "login_apple" = "Melden Sie sich bei Apple an";
+
+//MARK: - Sync
+"sync_continue_without_data" = "Fahren Sie ohne meine Daten fort";
+
+"sync_sorry_message" = "Leider konnten wir Ihre Daten nicht wiederherstellen...";
+
+"sync_fetching" = "Wir sind dabei, Ihre Daten wiederherzustellen...";
 
 //MARK: - SuccessfulManager
 "successful_transaction_new_title" = "Transaktion erstellt!";

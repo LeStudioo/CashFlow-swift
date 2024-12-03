@@ -34,10 +34,22 @@ struct Word {
         static let frequency: String = "word_frequency".localized
         static let received: String = "word_received".localized
         static let sent: String = "word_sent".localized
+        static let retry: String = "word_retry".localized
+    }
+    
+    struct Preposition {
+        static let to: String = "word_preposition_to".localized
+        static let from: String = "word_preposition_from".localized
     }
     
     struct Create {
         static let addCategory: String = "create_add_category".localized
+    }
+    
+    struct Sync {
+        static let continueWithoutData: String = "sync_continue_without_data".localized
+        static let sorryMessage: String = "sync_sorry_message".localized
+        static let fetching: String = "sync_fetching".localized
     }
     
     struct Frequency {
@@ -56,8 +68,8 @@ struct Word {
             static let new: String = "title_new_transfer".localized
         }
         struct Subscription {
-            static let new: String = "title_new_automation".localized // TBL changer la clé to subscription
-            static let update: String = "title_update_subscription".localized // TBL Faire dans google sheet
+            static let new: String = "title_new_subscription".localized
+            static let update: String = "title_update_subscription".localized
             static let home: String = "title_home_subscriptions".localized
         }
         struct SavingsPlan {
