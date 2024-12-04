@@ -21,21 +21,24 @@ struct BudgetsHomeView: View {
     // MARK: -
     var body: some View {
         List(budgetRepository.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
-            CategoryHeader(category: category)
-                .padding([.horizontal, .top])
-            
-            ForEach(budgets) { budget in
-                Button {
-                    if let subcategory = budget.subcategory {
-                        router.pushBudgetTransactions(subcategory: subcategory)
+            VStack(spacing: 16) {
+                CategoryHeader(category: category)
+                
+                VStack(spacing: 12) {
+                    ForEach(budgets) { budget in
+                        BudgetRow(budget: budget)
+                            .onTapGesture {
+                                if let subcategory = budget.subcategory {
+                                    router.pushBudgetTransactions(subcategory: subcategory)
+                                }
+                            }
                     }
-                } label: {
-                    BudgetRow(budget: budget)
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 8)
             }
+            .listRowSeparator(.hidden)
+            .padding(.bottom, 8)
         }
+        .listStyle(.plain)
         .navigationTitle("word_budgets".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)

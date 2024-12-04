@@ -13,12 +13,13 @@ struct BudgetsTransactionsView: View {
 
     // Builder
     var subcategory: SubcategoryModel
+    
+    @EnvironmentObject private var budgetRepository: BudgetRepository
 
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.managedObjectContext) private var viewContext
 
     // String variables
     @State private var searchText: String = ""
@@ -59,15 +60,18 @@ struct BudgetsTransactionsView: View {
     var body: some View {
         VStack {
             if subcategory.transactions.count != 0 && searchResults.count != 0{
-                ScrollView(showsIndicators: false) {
-                    detailForExpenses()
-                    ForEach(searchResults) { transaction in
+                List(subcategory.currentMonthExpenses) { transaction in
+                    Section {
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)
-                                .padding(.horizontal)
                         }
+                        .listRowSeparator(.hidden)
+                    } header: {
+                        detailForExpenses()
                     }
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             } else { // No Transaction
                 ErrorView(
                     searchResultsCount: searchResults.count,
@@ -81,34 +85,19 @@ struct BudgetsTransactionsView: View {
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-//        .alert("budgets_transactions_editing".localized, isPresented: $showEditMaxAmount, actions: {
-//            TextField("budgets_transactions_amount".localized, value: $newAmount, formatter: numberFormatter)
-//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-//            Button(action: {
-//                if newAmount != 0 {
-//                    if let budget = subcategory.budget {
-//                        budget.amount = newAmount
-//                        persistenceController.saveContext()
-//                    }
-//                }
-//            }, label: { Text("budgets_transactions_edit".localized) })
-//        }, message: { Text("budgets_transactions_edit_desc".localized) })
-//        .alert("budgets_transactions_delete_budget".localized, isPresented: $showDeleteBudget, actions: {
-//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-//            Button(role: .destructive, action: {
-//                DispatchQueue.main.async {
-//                    if let budget = subcategory.budget {
-//                        dismiss()
-//                        viewContext.delete(budget)
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                            persistenceController.saveContext()
-//                        }
-//                    }
-//                }
-//            }, label: { Text("word_delete".localized) })
-//        }, message: {
-//            Text("budgets_transactions_delete_budget_desc".localized)
-//        })
+        .alert("budgets_transactions_delete_budget".localized, isPresented: $showDeleteBudget, actions: {
+            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+            Button(role: .destructive, action: {
+                if let budget = subcategory.budget, let budgetID = budget.id {
+                    Task {
+                        await budgetRepository.deleteBudget(budgetID: budgetID)
+                        dismiss()
+                    }
+                }
+            }, label: { Text("word_delete".localized) })
+        }, message: {
+            Text("budgets_transactions_delete_budget_desc".localized)
+        })
         .toolbar {
             ToolbarDismissPushButton()
             
@@ -135,15 +124,15 @@ struct BudgetsTransactionsView: View {
                 Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).currency)
                     .font(.mediumCustom(size: 22))
                 Spacer()
-                Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
-                    HStack {
-                        Text("word_expenses".localized)
-                        Image(systemName: "arrow.up")
-                            .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
-                    }
-                })
-                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                .font(.semiBoldSmall())
+//                Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
+//                    HStack {
+//                        Text("word_expenses".localized)
+//                        Image(systemName: "arrow.up")
+//                            .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
+//                    }
+//                })
+//                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+//                .font(.semiBoldSmall())
             }
             .font(.mediumCustom(size: 22))
             
