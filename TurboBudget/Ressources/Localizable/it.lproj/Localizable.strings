@@ -49,6 +49,20 @@
 
 "word_retry" = "revisione";
 
+"word_enable" = "Enable";
+
+"word_add" = "Aggiungere";
+
+"word_savingsplan" = "Piano di risparmio";
+
+"word_transaction" = "Transazione";
+
+"word_light" = "Leggero";
+
+"word_dark" = "Buio";
+
+"word_system" = "sistema";
+
 //MARK: - Preposition
 "word_preposition_to" = "A";
 
@@ -75,7 +89,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Aggiorna abbonamento";
+"title_update_subscription" = "Abbonamento di aggiornamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -84,6 +98,14 @@
 "title_update_savingsPlan" = "Aggiorna il piano di risparmio";
 
 "title_home_savingsPlans" = "I miei piani di risparmio";
+
+"title_setting_general" = "Generalmente";
+
+"title_setting_security" = "Sicurezza";
+
+"title_setting_display" = "Spettacolo";
+
+"title_setting_credits" = "Crediti";
 
 //MARK: - Empty
 "empty_transactions_desc" = "Aggiungi la tua prima transazione facendo clic sul pulsante '+'";
@@ -123,7 +145,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -145,16 +167,39 @@
 
 "successful_contribution_update_desc" = "Il tuo contributo è stato aggiornato nel tuo piano di risparmio.";
 
-//MARK: - General Words
-"word_transaction" = "Transazione";
+//MARK: - Settings
+"setting_general_haptic_feedback" = "Feedback tattile";
 
+"setting_security_description" = "per proteggere la tua applicazione e i tuoi dati.";
+
+"setting_security_plus" = "Sicurezza +";
+
+"setting_security_plus_description" = "Nascondi il contenuto dell'app quando l'app è in esecuzione in background.";
+
+"setting_display_displayed_home_screen" = "Visualizzato nella schermata iniziale";
+
+"setting_display_nbr_subscriptions" = "Numero di abbonamenti";
+
+"setting_display_nbr_savingsplans" = "Numero di piani di risparmio";
+
+"setting_display_nbr_transactions" = "Numero di transazioni";
+
+"setting_appearence_app_icons" = "Icone delle applicazioni";
+
+"setting_appearence_tint_color" = "colore della tintura";
+
+"setting_credits_founders" = "fondatore";
+
+"setting_credits_designers" = "Designer";
+
+"setting_credits_licences" = "Licenze";
+
+//MARK: - General Words
 "word_transactions" = "Transazioni";
 
 "word_automation" = "Automazione";
 
 "word_automations" = "Automazioni";
-
-"word_savingsplan" = "Piano di risparmio";
 
 "word_savingsplans" = "Piani di risparmio";
 
@@ -200,10 +245,6 @@
 
 "word_ok" = "OK";
 
-"word_light" = "Chiaro";
-
-"word_dark" = "Scuro";
-
 "word_notification" = "Notifica";
 
 "word_notifications" = "Notifiche";
@@ -215,10 +256,6 @@
 "word_delete" = "Eliminare";
 
 "word_DELETE" = "ELIMINARE";
-
-"word_add" = "Aggiungere";
-
-"word_enable" = "Attivare";
 
 "word_day" = "Giorno";
 
@@ -270,7 +307,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 
@@ -515,23 +552,6 @@
 
 "setting_account_percentage_alert" = "Percentuale del limite di carta";
 
-//MARK: - SettingAppearenceView
-"setting_appearence_tint_color" = "COLORE DEL TEMA";
-
-"setting_appearence_app_icon" = "ICONA DELL'APPLICAZIONE";
-
-"setting_appearence_system" = "Sistema";
-
-"setting_appearence_original" = "Originale";
-
-"setting_appearence_dark_wallet" = "Portafoglio scuro";
-
-"setting_appearence_wallet" = "Portafoglio";
-
-"setting_appearence_CF_light" = "CashFlow Chiaro";
-
-"setting_appearence_CF_dark" = "CashFlow Scuro";
-
 //MARK: - SettingBudgetsView
 "setting_budgets_exceeded_desc" = "Blocca le spese in una sotto-categoria se il budget viene superato.";
 
@@ -542,18 +562,6 @@
 "setting_budgets_percentage" = "Percentuale del budget";
 
 //MARK: - SettingCreditsView
-"setting_credits_title" = "Crediti";
-
-"setting_credits_founder" = "F O N D A T O R E";
-
-"setting_credits_designer" = "D E S I G N E R";
-
-"setting_credits_beta_testeur" = "B E T A   T E S T E R";
-
-"setting_credits_translator" = "T R A D U T T O R E";
-
-"setting_credits_licences" = "L I C E N Z E";
-
 "setting_credits_licences_title" = "Licenze";
 
 "setting_credits_licences_desc" = "Licenze del pacchetto";
@@ -626,11 +634,6 @@
 
 "setting_financiel_advice_duplicate" = "Attivare la ricerca dei duplicati";
 
-//MARK: - SettingGeneralView
-"setting_general_title" = "Generale";
-
-"setting_general_haptic_feedback" = "Feedback tattile";
-
 //MARK: - SettingHomeView
 "setting_home_same_day" = "Lo stesso giorno";
 
@@ -688,15 +691,6 @@
 "setting_savingsplans_automatic_archiving" = "Archiviazione automatica";
 
 "setting_savingsplans_nbr_days" = "Numero di giorni";
-
-//MARK: - SettingSecurityView
-"setting_security_title" = "Sicurezza";
-
-"setting_security_desc" = "per proteggere la tua applicazione e i tuoi dati.";
-
-"setting_security_plus_desc" = "Nascondi il contenuto dell'applicazione quando l'applicazione è in background.";
-
-"setting_security_plus" = "Sicurezza +";
 
 //MARK: - SettingTransactionsView
 "setting_transactions_auto_archiving_desc" = "Scegli un numero di giorni dopo i quali la transazione sarà archiviata.";

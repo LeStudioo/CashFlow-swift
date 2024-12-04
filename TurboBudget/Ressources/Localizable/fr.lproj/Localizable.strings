@@ -49,6 +49,20 @@
 
 "word_retry" = "Réessayer";
 
+"word_enable" = "Activer";
+
+"word_add" = "Ajouter";
+
+"word_savingsplan" = "Plan d'épargne";
+
+"word_transaction" = "Transaction";
+
+"word_light" = "Clair";
+
+"word_dark" = "Sombre";
+
+"word_system" = "Système";
+
 //MARK: - Preposition
 "word_preposition_to" = "vers";
 
@@ -84,6 +98,14 @@
 "title_update_savingsPlan" = "Modifier le plan d'épargne";
 
 "title_home_savingsPlans" = "Mes plans d'épargne";
+
+"title_setting_general" = "Général";
+
+"title_setting_security" = "Sécurité";
+
+"title_setting_display" = "Affichage";
+
+"title_setting_credits" = "Crédits";
 
 //MARK: - Empty
 "empty_transactions_desc" = "Ajoutez votre première transaction en appuyant sur le bouton '+'";
@@ -145,16 +167,39 @@
 
 "successful_contribution_update_desc" = "Votre contribution a été mise à jour dans votre plan d'épargne.";
 
-//MARK: - General Words
-"word_transaction" = "Transaction";
+//MARK: - Settings
+"setting_general_haptic_feedback" = "Retour haptique";
 
+"setting_security_description" = "pour sécuriser votre application et vos données.";
+
+"setting_security_plus" = "Sécurité +";
+
+"setting_security_plus_description" = "Masquer le contenu de l'application lorsque l'application est en arrière-plan.";
+
+"setting_display_displayed_home_screen" = "Affiché sur l'écran d'accueil";
+
+"setting_display_nbr_subscriptions" = "Nombre d'abonnements";
+
+"setting_display_nbr_savingsplans" = "Nombre de plans d'épargne";
+
+"setting_display_nbr_transactions" = "Nombre de transactions";
+
+"setting_appearence_app_icons" = "Icônes de l'application";
+
+"setting_appearence_tint_color" = "Couleur de teinte";
+
+"setting_credits_founders" = "Fondateurs";
+
+"setting_credits_designers" = "Designers";
+
+"setting_credits_licences" = "Licences";
+
+//MARK: - General Words
 "word_transactions" = "Transactions";
 
 "word_automation" = "Automatisation";
 
 "word_automations" = "Automatisations";
-
-"word_savingsplan" = "Plan d'épargne";
 
 "word_savingsplans" = "Plans d'épargne";
 
@@ -200,10 +245,6 @@
 
 "word_ok" = "OK";
 
-"word_light" = "Clair";
-
-"word_dark" = "Sombre";
-
 "word_notification" = "Notification";
 
 "word_notifications" = "Notifications";
@@ -215,10 +256,6 @@
 "word_delete" = "Supprimer";
 
 "word_DELETE" = "SUPPRIMER";
-
-"word_add" = "Ajouter";
-
-"word_enable" = "Activer";
 
 "word_day" = "Jour";
 
@@ -515,23 +552,6 @@
 
 "setting_account_percentage_alert" = "Pourcentage de limite de carte";
 
-//MARK: - SettingAppearenceView
-"setting_appearence_tint_color" = "COULEUR DE TEINTE";
-
-"setting_appearence_app_icon" = "ICÔNE D'APPLICATION";
-
-"setting_appearence_system" = "Système";
-
-"setting_appearence_original" = "Original";
-
-"setting_appearence_dark_wallet" = "Portefeuille sombre";
-
-"setting_appearence_wallet" = "Portefeuille";
-
-"setting_appearence_CF_light" = "CashFlow Clair";
-
-"setting_appearence_CF_dark" = "CashFlow Sombre";
-
 //MARK: - SettingBudgetsView
 "setting_budgets_exceeded_desc" = "Bloque les dépenses dans une sous-catégorie si le montant du budget est dépassé.";
 
@@ -542,18 +562,6 @@
 "setting_budgets_percentage" = "Pourcentage du budget";
 
 //MARK: - SettingCreditsView
-"setting_credits_title" = "Crédits";
-
-"setting_credits_founder" = "F O N D A T E U R";
-
-"setting_credits_designer" = "D E S I G N E U R";
-
-"setting_credits_beta_testeur" = "B E T A   T E S T E U R";
-
-"setting_credits_translator" = "T R A D U C T E U R";
-
-"setting_credits_licences" = "L I C E N C E S";
-
 "setting_credits_licences_title" = "Licences";
 
 "setting_credits_licences_desc" = "Licences du paquet";
@@ -626,11 +634,6 @@
 
 "setting_financiel_advice_duplicate" = "Activer la recherche de doublons";
 
-//MARK: - SettingGeneralView
-"setting_general_title" = "Général";
-
-"setting_general_haptic_feedback" = "Retour haptique";
-
 //MARK: - SettingHomeView
 "setting_home_same_day" = "Le même jour";
 
@@ -688,15 +691,6 @@
 "setting_savingsplans_automatic_archiving" = "Archivage automatique";
 
 "setting_savingsplans_nbr_days" = "Nombre de jours";
-
-//MARK: - SettingSecurityView
-"setting_security_title" = "Sécurité";
-
-"setting_security_desc" = "pour sécuriser votre application et vos données.";
-
-"setting_security_plus_desc" = "Masquer le contenu de l'application lorsque l'application est en arrière-plan.";
-
-"setting_security_plus" = "Sécurité +";
 
 //MARK: - SettingTransactionsView
 "setting_transactions_auto_archiving_desc" = "Choisissez un nombre de jours après lesquels la transaction sera archivée.";
