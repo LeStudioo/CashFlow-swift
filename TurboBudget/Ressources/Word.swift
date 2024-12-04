@@ -35,6 +35,13 @@ struct Word {
         static let received: String = "word_received".localized
         static let sent: String = "word_sent".localized
         static let retry: String = "word_retry".localized
+        static let add: String = "word_add".localized
+        static let enable: String = "word_enable".localized
+        static let savingsPlan: String = "word_savingsplan".localized
+        static let transaction: String = "word_transaction".localized
+        static let light: String = "word_light".localized
+        static let dark: String = "word_dark".localized
+        static let system: String = "word_system".localized
     }
     
     struct Preposition {
@@ -76,6 +83,12 @@ struct Word {
             static let new: String = "title_new_savingsPlan".localized
             static let update: String = "title_update_savingsPlan".localized
             static let home: String = "title_home_savingsPlans".localized
+        }
+        struct Setting {
+            static let general: String = "title_setting_general".localized
+            static let security: String = "title_setting_security".localized
+            static let display: String = "title_setting_display".localized
+            static let credits: String = "title_setting_credits".localized
         }
     }
     
@@ -132,7 +145,32 @@ struct Word {
                 return "successful_subscription_\(type.rawValue)_desc".localized
             }
         }
-        
+    }
+    
+    struct Setting {
+        struct General {
+            static let hapticFeedback: String = "setting_general_haptic_feedback".localized
+        }
+        struct Security {
+            static let description: String = "setting_security_description".localized
+            static let securityPlus: String = "setting_security_plus".localized
+            static let securityPlusDescription: String = "setting_security_plus_description".localized
+        }
+        struct Display {
+            static let homeScreen: String = "setting_display_displayed_home_screen".localized
+            static let nbrSubscriptions: String = "setting_display_nbr_subscriptions".localized
+            static let nbrSavingsPlans: String = "setting_display_nbr_savingsplans".localized
+            static let nbrTransactions: String = "setting_display_nbr_transactions".localized
+        }
+        struct Appearance {
+            static let appIcons: String = "setting_appearence_app_icons".localized
+            static let tintColor: String = "setting_appearence_tint_color".localized
+        }
+        struct Credits {
+            static let founders: String = "setting_credits_founders".localized
+            static let designers: String = "setting_credits_designers".localized
+            static let licences: String = "setting_credits_licences".localized
+        }
     }
     
 }

@@ -14,6 +14,7 @@ struct SavingsPlanRow: View {
 
     //Environnements
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var themeManager: ThemeManager
 
     //State or Binding Int, Float and Double
     @State private var percentage: Double = 0
@@ -93,7 +94,7 @@ struct SavingsPlanRow: View {
                         .foregroundStyle(.color2Apple)
                         .overlay(alignment: .leading) {
                             Capsule()
-                                .foregroundStyle(ThemeManager.theme.color)
+                                .foregroundStyle(themeManager.theme.color)
                                 .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
                                 .padding(3)
                                 .overlay(alignment: .trailing) {

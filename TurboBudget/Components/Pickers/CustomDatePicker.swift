@@ -16,6 +16,8 @@ struct CustomDatePicker: View {
     
     @State private var isDatePickerShowing: Bool = false
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -42,11 +44,11 @@ struct CustomDatePicker: View {
                     if onlyFutureDates {
                         DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
                             .datePickerStyle(.graphical)
-                            .tint(ThemeManager.theme.color)
+                            .tint(themeManager.theme.color)
                     } else {
                         DatePicker("", selection: $date, displayedComponents: [.date])
                             .datePickerStyle(.graphical)
-                            .tint(ThemeManager.theme.color)
+                            .tint(themeManager.theme.color)
                     }
                 }
             }

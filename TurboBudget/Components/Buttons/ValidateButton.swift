@@ -12,16 +12,18 @@ struct ValidateButton: View {
 
     var action: () -> Void
     var validate: Bool
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     //MARK: - Body
     var body: some View {
         Button(action: action, label: {
             ZStack {
                 Capsule()
-                    .foregroundStyle(ThemeManager.theme.color)
+                    .foregroundStyle(themeManager.theme.color)
                     .frame(height: isLittleIphone ? 50 : 60)
                     .if(validate, transform: { view in
-                        view.shadow(color: ThemeManager.theme.color, radius: 8)
+                        view.shadow(color: themeManager.theme.color, radius: 8)
                     })
                 HStack {
                     Spacer()

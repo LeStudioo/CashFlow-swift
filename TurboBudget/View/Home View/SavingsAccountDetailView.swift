@@ -14,6 +14,7 @@ struct SavingsAccountDetailView: View {
     @StateObject private var savingsAccountRepository: SavingsAccountRepository
     
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var transferRepository: TransferRepository
     
     // init
@@ -34,8 +35,8 @@ struct SavingsAccountDetailView: View {
                         .overlay {
                             Circle()
                                 .frame(width: 80, height: 80)
-                                .foregroundStyle(ThemeManager.theme.color)
-                                .shadow(color:ThemeManager.theme.color, radius: 4, y: 2)
+                                .foregroundStyle(themeManager.theme.color)
+                                .shadow(color:themeManager.theme.color, radius: 4, y: 2)
                                 .overlay {
                                     VStack {
                                         Image(systemName: "building.columns.fill")

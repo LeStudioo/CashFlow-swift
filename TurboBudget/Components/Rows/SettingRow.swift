@@ -13,7 +13,7 @@ struct SettingRow: View {
     var icon: String
     var backgroundColor: Color
     var text: String
-    var isButton: Bool
+    var isButton: Bool?
     var isLocked: Bool?
     
     // MARK: - body
@@ -34,7 +34,7 @@ struct SettingRow: View {
             if let isLocked, isLocked {
                 Image(systemName: "lock.fill")
                     .foregroundStyle(Color.secondary)
-            } else {
+            } else if let isButton {
                 Image(systemName: isButton ? "arrow.up.forward" : "chevron.right")
                     .foregroundStyle(Color.secondary)
             }
@@ -44,31 +44,26 @@ struct SettingRow: View {
 
 // MARK: - Preview
 #Preview {
-    SettingRow(
-        icon: "person.fill",
-        backgroundColor: Color.red,
-        text: "Preview",
-        isButton: false
-    )
+    VStack(spacing: 16) {
+        SettingRow(
+            icon: "person.fill",
+            backgroundColor: Color.red,
+            text: "Preview",
+            isButton: false
+        )
+        
+        SettingRow(
+            icon: "person.fill",
+            backgroundColor: Color.red,
+            text: "Preview",
+            isButton: true
+        )
+        
+        SettingRow(
+            icon: "person.fill",
+            backgroundColor: Color.red,
+            text: "Preview"
+        )
+    }
+    .padding()
 }
-
-//Button(action: action) {
-//    HStack(spacing: horizontalSpacing) {
-//        if let icon {
-//            SettingIconView(icon: icon)
-//        }
-//
-//        Text(title)
-//            .fixedSize(horizontal: false, vertical: true)
-//            .frame(maxWidth: .infinity, alignment: .leading)
-//            .padding(.vertical, verticalPadding)
-//
-//        if let indicator {
-//            Image(systemName: indicator)
-//                .foregroundStyle(settingSecondaryColor)
-//        }
-//    }
-//    .padding(.horizontal, horizontalPadding)
-//    .accessibilityElement(children: .combine)
-//}
-//.buttonStyle(.row)

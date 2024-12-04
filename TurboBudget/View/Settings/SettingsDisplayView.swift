@@ -21,52 +21,51 @@ struct SettingsDisplayView: View {
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $preferencesDisplayHome.subscription_isDisplayed, label: {
-                    Text("word_automations".localized)
-                })
-                if preferencesDisplayHome.subscription_isDisplayed {
-                    Picker("setting_display_nbr_automations".localized, selection: $preferencesDisplayHome.subscription_value) {
-                        ForEach(automationsNumber, id: \.self) { num in
-                            Text(num.formatted()).tag(num)
-                        }
+                Toggle(isOn: $preferencesDisplayHome.subscription_isDisplayed) {
+                    Text(Word.Classic.subscription)
+                }
+                Picker(Word.Setting.Display.nbrSubscriptions, selection: $preferencesDisplayHome.subscription_value) {
+                    ForEach(automationsNumber, id: \.self) { num in
+                        Text(num.formatted()).tag(num)
                     }
                 }
+                .isDisplayed(preferencesDisplayHome.subscription_isDisplayed)
             } header: {
-                Text("setting_display_displayed_home_screen".localized)
+                Text(Word.Setting.Display.homeScreen)
             }
             
             Section {
-                Toggle(isOn: $preferencesDisplayHome.savingsPlan_isDisplayed, label: {
-                    Text("word_savingsplans".localized)
-                })
-                if preferencesDisplayHome.savingsPlan_isDisplayed {
-                    Picker("setting_display_nbr_savingsplans".localized, selection: $preferencesDisplayHome.savingsPlan_value) {
-                        ForEach(savingPlansNumber, id: \.self) { num in
-                            Text(num.formatted()).tag(num)
-                        }
+                Toggle(isOn: $preferencesDisplayHome.savingsPlan_isDisplayed) {
+                    Text(Word.Classic.savingsPlan)
+                }
+                Picker(Word.Setting.Display.nbrSavingsPlans, selection: $preferencesDisplayHome.savingsPlan_value) {
+                    ForEach(savingPlansNumber, id: \.self) { num in
+                        Text(num.formatted()).tag(num)
                     }
                 }
+                .isDisplayed(preferencesDisplayHome.savingsPlan_isDisplayed)
             }
             
             Section {
-                Toggle(isOn: $preferencesDisplayHome.transaction_isDisplayed, label: {
-                    Text("setting_display_recent_transactions".localized)
-                })
-                if preferencesDisplayHome.transaction_isDisplayed {
-                    Picker("setting_display_nbr_transactions".localized, selection: $preferencesDisplayHome.transaction_value) {
-                        ForEach(recentTransactionsNumber, id: \.self) { num in
-                            Text(num.formatted()).tag(num)
-                        }
+                Toggle(isOn: $preferencesDisplayHome.transaction_isDisplayed) {
+                    Text(Word.Classic.transaction)
+                }
+                Picker(Word.Setting.Display.nbrTransactions, selection: $preferencesDisplayHome.transaction_value) {
+                    ForEach(recentTransactionsNumber, id: \.self) { num in
+                        Text(num.formatted()).tag(num)
                     }
                 }
+                .isDisplayed(preferencesDisplayHome.transaction_isDisplayed)
             }
         }
-        .navigationTitle("setting_display_title".localized)
+        .navigationTitle(Word.Title.Setting.display)
         .navigationBarTitleDisplayMode(.inline)
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {
-    SettingsDisplayView()
+    NavigationStack {
+        SettingsDisplayView()
+    }
 }

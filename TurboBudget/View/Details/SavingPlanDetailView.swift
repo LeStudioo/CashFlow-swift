@@ -17,6 +17,7 @@ struct SavingPlanDetailView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: PurchasesManager
+    @EnvironmentObject private var themeManager: ThemeManager
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
@@ -56,8 +57,8 @@ struct SavingPlanDetailView: View {
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
-                            .foregroundStyle(ThemeManager.theme.color)
-                            .shadow(color: ThemeManager.theme.color, radius: 4, y: 2)
+                            .foregroundStyle(themeManager.theme.color)
+                            .shadow(color: themeManager.theme.color, radius: 4, y: 2)
                             .overlay {
                                 Text(savingsPlan.emoji ?? "")
                                     .font(.system(size: 24, weight: .semibold, design: .rounded))
@@ -179,7 +180,7 @@ struct SavingPlanDetailView: View {
                 HStack {
                     EmptyView()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(ThemeManager.theme.color) })
+                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(themeManager.theme.color) })
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
@@ -224,7 +225,7 @@ struct SavingPlanDetailView: View {
                         .overlay(alignment: .leading) {
                             ZStack(alignment: .leading) {
                                 Capsule()
-                                    .foregroundStyle(ThemeManager.theme.color)
+                                    .foregroundStyle(themeManager.theme.color)
                                     .frame(width: max(widthAmount, widthPercentage))
                                 
                                 Text(currentAmount.currency)

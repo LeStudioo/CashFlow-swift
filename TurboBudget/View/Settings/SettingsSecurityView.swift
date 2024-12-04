@@ -13,41 +13,33 @@ struct SettingsSecurityView: View {
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         Form {
             Section {
                 Toggle(isOn: $preferencesSecurity.isBiometricEnabled) {
-                    Text("word_enable".localized + " " + stringBiometric())
+                    Text(Word.Classic.enable + " " + UIDevice.biometry.name)
                 }
             } footer: {
-                Text("word_add".localized + " " + stringBiometric() + " " + "setting_security_desc".localized)
+                Text([Word.Classic.add, UIDevice.biometry.name, Word.Setting.Security.description].joined(separator: " "))
             }
 
             Section {
                 Toggle(isOn: $preferencesSecurity.isSecurityReinforced) {
-                    Text("setting_security_plus".localized)
+                    Text(Word.Setting.Security.securityPlus)
                 }
             } footer: {
-                Text("setting_security_plus_desc".localized)
+                Text(Word.Setting.Security.securityPlusDescription)
             }
         }
-        .navigationTitle("setting_security_title".localized)
+        .navigationTitle(Word.Title.Setting.security)
         .navigationBarTitleDisplayMode(.inline)
-    } // End body
-    
-    // MARK: - Functions
-    func stringBiometric() -> String {
-        switch(biometricType()) {
-        case .none: return "fail"
-        case .touch: return "TouchID"
-        case .face: return "FaceID"
-        }
-    }
-
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {
-    SettingsSecurityView()
+    NavigationStack {
+        SettingsSecurityView()
+    }
 }

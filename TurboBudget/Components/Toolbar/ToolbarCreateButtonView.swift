@@ -19,13 +19,15 @@ struct ToolbarValidationButtonView: ToolbarContent {
     var isActive: Bool
     var action: () -> Void
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: - body
     var body: some ToolbarContent {
         ToolbarItem(placement: .topBarTrailing) {
             Button(action: action, label: {
                 Text(type == .creation ? Word.Classic.create : Word.Classic.edit)
                     .font(.boldText16())
-                    .foregroundStyle(ThemeManager.theme.color)
+                    .foregroundStyle(themeManager.theme.color)
             })
             .disabled(!isActive)
             .opacity(isActive ? 1 : 0.5)

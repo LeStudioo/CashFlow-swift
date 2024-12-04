@@ -17,6 +17,7 @@ struct SelectCategoryView: View {
     
     //Custom
     @EnvironmentObject private var categoryRepository: CategoryRepository
+    @EnvironmentObject private var themeManager: ThemeManager
     
     //Environnements
     @Environment(\.dismiss) private var dismiss
@@ -65,7 +66,7 @@ struct SelectCategoryView: View {
                                         ZStack {
                                             Circle()
                                                 .frame(width: 25, height: 25)
-                                                .foregroundStyle(ThemeManager.theme.color)
+                                                .foregroundStyle(themeManager.theme.color)
                                             Image(systemName: "checkmark")
                                                 .font(.system(size: 12, weight: .heavy, design: .rounded))
                                                 .foregroundStyle(.white)
@@ -92,7 +93,7 @@ struct SelectCategoryView: View {
                                                 ZStack {
                                                     Circle()
                                                         .frame(width: 25, height: 25)
-                                                        .foregroundStyle(ThemeManager.theme.color)
+                                                        .foregroundStyle(themeManager.theme.color)
                                                     Image(systemName: "checkmark")
                                                         .font(.system(size: 12, weight: .heavy, design: .rounded))
                                                         .foregroundStyle(.white)
@@ -117,7 +118,7 @@ struct SelectCategoryView: View {
             .overlay {
                 if !searchText.isEmpty && categoriesFiltered.isEmpty {
                     VStack(spacing: 20) {
-                        Image("NoResults\(ThemeManager.theme.nameNotLocalized.capitalized)")
+                        Image("NoResults\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)

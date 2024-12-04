@@ -15,6 +15,7 @@ struct CustomTabBar: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var store: PurchasesManager
+    @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
     // Custom type
@@ -95,7 +96,7 @@ struct CustomTabBar: View {
                 .opacity(viewModel.showMenu ? 1 : 0)
                 
                 Circle()
-                    .foregroundStyle(ThemeManager.theme.color)
+                    .foregroundStyle(themeManager.theme.color)
                     .frame(width: 80)
                 
                 Image(systemName: "plus")

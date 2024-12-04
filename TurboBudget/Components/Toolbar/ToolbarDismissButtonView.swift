@@ -12,13 +12,15 @@ struct ToolbarDismissButtonView: ToolbarContent {
     // Builder
     var action: () -> Void
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: - body
     var body: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Button(action: action, label: {
                 Text("word_cancel".localized)
                     .font(.regularText16())
-                    .foregroundStyle(ThemeManager.theme.color)
+                    .foregroundStyle(themeManager.theme.color)
             })
         }
     } // End body

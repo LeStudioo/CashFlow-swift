@@ -17,6 +17,8 @@ struct CustomDatePickerWithToggle: View {
     
     @State private var isDatePickerShowing: Bool = false
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -53,7 +55,7 @@ struct CustomDatePickerWithToggle: View {
                             .padding(8)
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(isEnabled ? ThemeManager.theme.color : Color.componentInComponent)
+                                    .fill(isEnabled ? themeManager.theme.color : Color.componentInComponent)
                             }
                     }
                 }
@@ -63,11 +65,11 @@ struct CustomDatePickerWithToggle: View {
                     if withRange {
                         DatePicker("", selection: $date, in: Date()..., displayedComponents: [.date])
                             .datePickerStyle(.graphical)
-                            .tint(ThemeManager.theme.color)
+                            .tint(themeManager.theme.color)
                     } else {
                         DatePicker("", selection: $date, displayedComponents: [.date])
                             .datePickerStyle(.graphical)
-                            .tint(ThemeManager.theme.color)
+                            .tint(themeManager.theme.color)
                     }
                 }
             }

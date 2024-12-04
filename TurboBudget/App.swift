@@ -15,6 +15,7 @@ struct TurboBudgetApp: App {
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var purchasesManager = PurchasesManager()
     @StateObject private var alertManager: AlertManager
+    @StateObject private var themeManager: ThemeManager = .shared
     @StateObject private var router: NavigationManager
     
     // New Repository
@@ -105,6 +106,7 @@ struct TurboBudgetApp: App {
             .environmentObject(csManager)
             .environmentObject(purchasesManager)
             .environmentObject(alertManager)
+            .environmentObject(themeManager)
             
             // New Repository
             .environmentObject(accountRepository)

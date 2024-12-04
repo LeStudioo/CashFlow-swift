@@ -10,11 +10,12 @@ import SwiftUI
 struct EmptyCategoryData: View {
     
     @EnvironmentObject private var categoryRepository: CategoryRepository
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
         VStack(spacing: 16) {
-            Image("NoSpend\(ThemeManager.theme.nameNotLocalized)")
+            Image("NoSpend\(themeManager.theme.nameNotLocalized)")
                 .resizable()
                 .scaledToFit()
                 .padding(.horizontal, 64)

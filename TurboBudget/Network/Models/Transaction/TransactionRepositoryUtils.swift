@@ -64,7 +64,7 @@ extension TransactionRepository {
             return AmountOfTransactionsByDay(day: date, amount: amountOfDay)
         }
         
-        var sortedAmounts = amounts.sorted { $0.day < $1.day }
+        let sortedAmounts = amounts.sorted { $0.day < $1.day }
         return sortedAmounts
     }
     
@@ -79,7 +79,6 @@ extension TransactionRepository {
     }
 }
 
-// TODO: To refacto
 extension TransactionRepository {
     
     func expensesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
@@ -99,9 +98,6 @@ extension TransactionRepository {
             .map({ $0.amount ?? 0 })
             .reduce(0, +)
     }
-    
-    
-    
     
     func incomesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
@@ -193,7 +189,6 @@ extension TransactionRepository {
 }
 
 extension TransactionRepository {
-    
     
     func dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
         let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)

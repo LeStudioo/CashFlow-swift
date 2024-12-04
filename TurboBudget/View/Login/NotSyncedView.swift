@@ -10,6 +10,7 @@ import SwiftUI
 struct NotSyncedView: View {
     
     @EnvironmentObject private var appManager: AppManager
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
@@ -36,7 +37,7 @@ struct NotSyncedView: View {
                         .frame(maxWidth: .infinity)
                         .background {
                             Capsule()
-                                .fill(ThemeManager.theme.color)
+                                .fill(themeManager.theme.color)
                         }
                 }
                 

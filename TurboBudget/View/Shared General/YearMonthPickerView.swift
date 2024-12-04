@@ -19,6 +19,8 @@ struct YearMonthPickerView: View {
     
     @Binding var update: Bool
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     var body: some View {
         VStack {
             let dateComponentsYearAndMonth = Calendar.current.dateComponents([.day, .year, .month], from: filter.date)
@@ -67,7 +69,7 @@ struct YearMonthPickerView: View {
                             .font(Font.mediumText16())
                             .frame(width: 60, height: 33)
                             .bold()
-                            .background(item == Calendar.current.monthSymbols[(dateComponentsYearAndMonth.month ?? 0) - 1] ?  ThemeManager.theme.color : Color.clear)
+                            .background(item == Calendar.current.monthSymbols[(dateComponentsYearAndMonth.month ?? 0) - 1] ?  themeManager.theme.color : Color.clear)
                             .cornerRadius(8)
                             .onTapGesture {
                                 var dateComponent = DateComponents()

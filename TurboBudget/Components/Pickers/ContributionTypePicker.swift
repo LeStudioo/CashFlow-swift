@@ -11,6 +11,7 @@ struct ContributionTypePicker: View {
     
     // builder
     @Binding var selected: ContributionType
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
@@ -39,7 +40,7 @@ struct ContributionTypePicker: View {
                         .foregroundStyle(Color.backgroundComponentSheet)
                         .overlay(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .foregroundStyle(ThemeManager.theme.color)
+                                .foregroundStyle(themeManager.theme.color)
                                 .frame(width: itemSize)
                                 .offset(x: itemSize * CGFloat(selected.rawValue))
                                 .animation(.smooth, value: selected)

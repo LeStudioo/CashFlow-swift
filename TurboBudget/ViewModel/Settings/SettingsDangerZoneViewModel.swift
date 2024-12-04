@@ -44,7 +44,7 @@ extension SettingsDangerZoneViewModel {
         PreferencesDisplayHome.shared.transaction_value = 6
         
         // Setting - Appearance
-        ThemeManager.theme = .green
+        ThemeManager.shared.theme = .green
         
         // Setting - Account
         accountCanBeNegative = false

@@ -12,6 +12,7 @@ struct NewUpdateView: View {
     // Environment
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var themeManager: ThemeManager
 
     //MARK: - Body
     var body: some View {
@@ -25,7 +26,7 @@ struct NewUpdateView: View {
                     HStack {
                         Circle()
                             .frame(width: 40, height: 40)
-                            .foregroundStyle(ThemeManager.theme.color)
+                            .foregroundStyle(themeManager.theme.color)
                             .overlay {
                                 Image(systemName: feat.icon)
                                     .font(.system(size: 18, weight: .semibold, design: .rounded))
@@ -55,7 +56,7 @@ struct NewUpdateView: View {
                         Spacer()
                     }
                     .padding()
-                    .background(ThemeManager.theme.color)
+                    .background(themeManager.theme.color)
                     .cornerRadius(50)
                     .padding()
                 })

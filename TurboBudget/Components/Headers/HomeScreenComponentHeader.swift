@@ -13,6 +13,7 @@ struct HomeScreenComponentHeader: View {
     var type: HomeScreenComponentHeaderType
     
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
@@ -24,7 +25,7 @@ struct HomeScreenComponentHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "arrow.right")
-                    .foregroundStyle(ThemeManager.theme.color)
+                    .foregroundStyle(themeManager.theme.color)
                     .font(.system(size: 20, weight: .medium, design: .rounded))
             }
         }

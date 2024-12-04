@@ -11,6 +11,8 @@ struct FrequencyPicker: View {
     
     @Binding var selected: SubscriptionFrequency
         
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
@@ -38,7 +40,7 @@ struct FrequencyPicker: View {
                         .foregroundStyle(Color.backgroundComponentSheet)
                         .overlay(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .foregroundStyle(ThemeManager.theme.color)
+                                .foregroundStyle(themeManager.theme.color)
                                 .frame(width: itemSize)
                                 .offset(x: itemSize * CGFloat(selected.rawValue))
                                 .animation(.smooth, value: selected)

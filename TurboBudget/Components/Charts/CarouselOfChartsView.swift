@@ -14,6 +14,7 @@ struct CarouselOfChartsView: View {
     // Environement
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // Number variables
     @State private var selectedChart: Int = 0
@@ -50,7 +51,7 @@ struct CarouselOfChartsView: View {
                         }
                         .padding(8)
                     } else {
-                        Image("NoSpend\(ThemeManager.theme.nameNotLocalized.capitalized)")
+                        Image("NoSpend\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(1, contentMode: .fit)
                             .padding(.bottom, 8)
@@ -85,7 +86,7 @@ struct CarouselOfChartsView: View {
                         }
                         .padding(8)
                     } else {
-                        Image("NoAccount\(ThemeManager.theme.nameNotLocalized.capitalized)")
+                        Image("NoAccount\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
                             .aspectRatio(1, contentMode: .fit)
                             .padding(.bottom, 8)

@@ -17,16 +17,18 @@ struct SettingsGeneralView: View {
         Form {
             Section {
                 Toggle(isOn: $preferencesGeneral.hapticFeedback) {
-                    Text("setting_general_haptic_feedback".localized)
+                    Text(Word.Setting.General.hapticFeedback)
                 }
             }
         }
-        .navigationTitle("setting_general_title".localized)
+        .navigationTitle(Word.Title.Setting.general)
         .navigationBarTitleDisplayMode(.inline)
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    SettingsGeneralView()
+    NavigationStack {
+        SettingsGeneralView()
+    }
 }

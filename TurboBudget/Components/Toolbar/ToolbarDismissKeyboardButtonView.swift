@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ToolbarDismissKeyboardButtonView: ToolbarContent {
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: - body
     var body: some ToolbarContent {
         ToolbarItem(placement: .keyboard) {
@@ -20,7 +22,7 @@ struct ToolbarDismissKeyboardButtonView: ToolbarContent {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }, label: {
                     Image(systemName: "keyboard.chevron.compact.down.fill")
-                        .foregroundStyle(ThemeManager.theme.color)
+                        .foregroundStyle(themeManager.theme.color)
                 })
             }
             .frame(maxWidth: .infinity, alignment: .trailing)

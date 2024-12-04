@@ -14,6 +14,7 @@ struct CashFlowChart: View {
     // Custom
     @ObservedObject var filter = FilterManager.shared
     @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
@@ -56,7 +57,7 @@ struct CashFlowChart: View {
                     
                     BarMark(x: .value("x", "\(index)"),
                             y: .value("y", transactions))
-                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : ThemeManager.theme.color.gradient)
+                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : themeManager.theme.color.gradient)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 }
             }

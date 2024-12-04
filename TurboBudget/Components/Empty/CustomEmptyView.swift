@@ -13,10 +13,12 @@ struct CustomEmptyView: View {
     var type: CustomEmptyViewType
     var isDisplayed: Bool
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: -
     var body: some View {
         VStack(spacing: 16) {
-            Image(getEmptyImage() + ThemeManager.theme.nameNotLocalized.capitalized)
+            Image(getEmptyImage() + themeManager.theme.nameNotLocalized.capitalized)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .shadow(radius: 4, y: 4)

@@ -10,11 +10,13 @@ import UIKit
 
 class URLManager {
     
-    static private func openURL(url: String) {
+    static func openURL(url: String) {
         if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
+    
+    
     
     enum PredefinedURL {
         enum Setting: String {
@@ -24,14 +26,6 @@ class URLManager {
             case termsAndConditions = "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
             
             enum Credits: String {
-                case theoSementa = "https://x.com/theosementa?s=21&t=mHfvIyj-lTkunAAdI8h8Ww"
-                case serenaDeAraujo = "https://instagram.com/widesign._x?igshid=MzRlODBiNWFlZA=="
-                case ryanDelepine = "https://x.com/ryan_ssc?s=21&t=mHfvIyj-lTkunAAdI8h8Ww"
-                case aliHusniMajid = "https://www.linkedin.com/in/alihusnimajid/"
-                case yvesCharpentier = "https://apps.apple.com/fr/developer/yves-charpentier/id1654705165"
-                case noemieRosenkranz = "https://fr.linkedin.com/in/noemie-rosenkranz-a109b3219"
-                case julineDigne = "https://www.linkedin.com/in/juline-digne/"
-                case theoDahlem = "http://portfolio-td.framer.website"
                 case chatGPT = "https://chat.openai.com/"
                 case deepl = "https://www.deepl.com/translator"
                 
@@ -67,38 +61,6 @@ class URLManager {
         }
         
         struct Credits {
-            static func showTheoSementa() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.theoSementa.rawValue)
-            }
-            
-            static func showSerenaDeAraujo() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.serenaDeAraujo.rawValue)
-            }
-            
-            static func showRyanDelepine() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.ryanDelepine.rawValue)
-            }
-            
-            static func showAliHusniMajid() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.aliHusniMajid.rawValue)
-            }
-            
-            static func showYvesCharpentier() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.yvesCharpentier.rawValue)
-            }
-            
-            static func showNoemieRosenkranz() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.noemieRosenkranz.rawValue)
-            }
-            
-            static func showJulineDigne() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.julineDigne.rawValue)
-            }
-            
-            static func showTheoDahlem() {
-                URLManager.openURL(url: PredefinedURL.Setting.Credits.theoDahlem.rawValue)
-            }
-            
             static func showChatGPT() {
                 URLManager.openURL(url: PredefinedURL.Setting.Credits.chatGPT.rawValue)
             }

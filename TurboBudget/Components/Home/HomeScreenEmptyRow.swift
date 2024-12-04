@@ -55,9 +55,9 @@ enum HomeScreenEmptyRowType {
     
     var image: String {
         switch self {
-        case .savingsPlan:          return "NoSavingPlan\(ThemeManager.theme.nameNotLocalized.capitalized)"
-        case .subscription:         return "NoAutomation\(ThemeManager.theme.nameNotLocalized.capitalized)"
-        case .recentTransactions:   return "NoTransaction\(ThemeManager.theme.nameNotLocalized.capitalized)"
+        case .savingsPlan:          return "NoSavingPlan\(ThemeManager.shared.theme.nameNotLocalized.capitalized)"
+        case .subscription:         return "NoAutomation\(ThemeManager.shared.theme.nameNotLocalized.capitalized)"
+        case .recentTransactions:   return "NoTransaction\(ThemeManager.shared.theme.nameNotLocalized.capitalized)"
         }
     }
     

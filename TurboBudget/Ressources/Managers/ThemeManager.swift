@@ -39,7 +39,8 @@ enum ThemeColor: String, CaseIterable {
 }
 
 final class ThemeManager: ObservableObject {
+    static let shared = ThemeManager()
     
-    @AppStorage("theme") static var theme: ThemeColor = .green
+    @AppStorage("theme") var theme: ThemeColor = .green
     
 }

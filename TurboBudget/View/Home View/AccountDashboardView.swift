@@ -14,6 +14,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var themeManager: ThemeManager
         
     @EnvironmentObject private var accountRepository: AccountRepository
     
@@ -34,14 +35,14 @@ struct AccountDashboardView: View {
         }
     }
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
         ScrollView {
             if let account = accountRepository.selectedAccount {
                 VStack {
                     Text(account.name)
                         .titleAdjustSize()
-                        .foregroundStyle(ThemeManager.theme.color)
+                        .foregroundStyle(themeManager.theme.color)
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                     
@@ -166,20 +167,22 @@ struct AccountDashboardView: View {
                 }
             }, label: { Text("word_validate".localized) })
         })
-//        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
-//            TextField(account?.name ?? "", text: $accountNameForDeleting)
-//            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-//            Button(role: .destructive, action: {
-//                if account?.name == accountNameForDeleting {
-                    //                        withAnimation {
-                    //                            viewContext.delete(account)
-                    //                            AccountRepositoryOld.shared.mainAccount = nil
-                    //                            persistenceController.saveContext()
-                    //                        }
-                    // TODO: Delete account
-//                }
-//            }, label: { Text("word_delete".localized) })
-//        }, message: { Text("account_detail_delete_account_desc".localized) })
+        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+            if let account = accountRepository.selectedAccount {
+                TextField(account.name, text: $accountNameForDeleting)
+                Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+                Button(role: .destructive, action: {
+                    if account.name == accountNameForDeleting {
+                        if let accountID = account.id {
+                            Task {
+                                await accountRepository.deleteAccount(accountID: accountID)
+                                accountRepository.selectedAccount = accountRepository.accounts.first
+                            }
+                        }
+                    }
+                }, label: { Text("word_delete".localized) })
+            }
+        }, message: { Text("account_detail_delete_account_desc".localized) })
     } // End body
 } // End struct
 

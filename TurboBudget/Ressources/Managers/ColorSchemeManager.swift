@@ -13,6 +13,14 @@ import SwiftUI
 
 enum ColorScheme: Int {
     case unspecified, light, dark
+    
+    var name: String {
+        switch self {
+        case .unspecified:  return Word.Classic.system
+        case .light:        return Word.Classic.light
+        case .dark:         return Word.Classic.dark
+        }
+    }
 }
 
 class ColorSchemeManager: ObservableObject {

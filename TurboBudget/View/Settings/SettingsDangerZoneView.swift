@@ -38,24 +38,6 @@ struct SettingsDangerZoneView: View {
                     )
                 })
             }
-            
-            Section {
-                Button(action: {
-                    viewModel.info = MultipleAlert(
-                        id: .seven,
-                        title: "setting_home_reset_data".localized,
-                        message: "setting_home_reset_data_desc".localized,
-                        action: { deleteAllData() }
-                    )
-                }, label: {
-                    SettingRow(
-                        icon: "trash.fill",
-                        backgroundColor: Color.red,
-                        text: "setting_home_reset_data".localized,
-                        isButton: true
-                    )
-                })
-            }
         }
         .alert(item: $viewModel.info, content: { info in
             Alert(title: Text(info.title), message: Text(info.message),
@@ -68,20 +50,6 @@ struct SettingsDangerZoneView: View {
         .navigationTitle("setting_home_danger".localized)
         .navigationBarTitleDisplayMode(.inline)
     } // End body
-    
-    // MARK: - Functions
-    func deleteAllData() {
-        DispatchQueue.main.async {
-            accountRepo.deleteAccount()
-            transactionRepo.deleteTransactions()
-            savingPlanRepo.deleteSavingsPlans()
-            budgetRepo.deleteBudgets()
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            persistenceController.saveContext()
-        }
-    }
-        
 } // End struct
 
 // MARK: - Preview

@@ -15,12 +15,14 @@ struct ErrorView: View {
     var searchText: String
     var image: String
     var text: String
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     //MARK: - Body
     var body: some View {
         if searchResultsCount == 0 && !searchText.isEmpty {
             VStack(spacing: 20) {
-                Image("NoResults\(ThemeManager.theme.nameNotLocalized.capitalized)")
+                Image("NoResults\(themeManager.theme.nameNotLocalized.capitalized)")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
@@ -39,7 +41,7 @@ struct ErrorView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             VStack(spacing: 20) {
-                Image(image + ThemeManager.theme.nameNotLocalized.capitalized)
+                Image(image + themeManager.theme.nameNotLocalized.capitalized)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)

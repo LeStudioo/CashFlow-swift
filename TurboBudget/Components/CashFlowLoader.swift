@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CashFlowLoader: View {
     
+    @EnvironmentObject private var themeManager: ThemeManager
+    
     // MARK: -
     var body: some View {
         ProgressView()
@@ -16,7 +18,7 @@ struct CashFlowLoader: View {
             .padding()
             .background(
                 Circle()
-                    .fill(ThemeManager.theme.color)
+                    .fill(themeManager.theme.color)
             )
     } // body
 } // struct
