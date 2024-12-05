@@ -31,7 +31,7 @@ struct TransactionDetailNoteRow: View {
                             .fill(Color.componentInComponent)
                     }
                 
-                Text("word_note".localized)
+                Text(Word.Classic.note)
                     .font(.mediumText16())
                     .foregroundStyle(Color.label)
                 
@@ -60,14 +60,8 @@ struct TransactionDetailNoteRow: View {
         .padding()
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.backgroundComponent)
+                .fill(Color.colorCell)
         }
-//        .padding(12)
-//        .background(Color.colorCell)
-//        
-//        .cornerRadius(15)
-//        .padding(.horizontal, 12)
-//        .padding(.vertical, 8)
     } // body
 } // struct
 

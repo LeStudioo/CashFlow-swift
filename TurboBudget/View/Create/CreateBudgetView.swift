@@ -21,34 +21,28 @@ struct CreateBudgetView: View {
     var body: some View {
         NavStack(router: router) {
             ScrollView {
-                
-                Text("budget_new".localized)
-                    .titleAdjustSize()
-                
-                HStack {
-                    Spacer()
-                    // DELETE
-                    SelectCategoryButtonView(
-                        router: router,
+                VStack(spacing: 24) {
+                    SelectCategoryButton(
                         selectedCategory: $viewModel.selectedCategory,
                         selectedSubcategory: $viewModel.selectedSubcategory
                     )
                     .environmentObject(router)
-                    Spacer()
+                    
+                    CustomTextField(
+                        text: $viewModel.amountBudget,
+                        config: .init(
+                            title: Word.Classic.maxAmount,
+                            placeholder: "300",
+                            style: .amount
+                        )
+                    )
                 }
-                .padding()
-
-                TextField("0.00", text: $viewModel.amountBudget.max(9).animation())
-                .font(.boldCustom(size: isLittleIphone ? 24 : 30))
-                .multilineTextAlignment(.center)
-                .keyboardType(.decimalPad)
-                .padding(isLittleIphone ? 8 : 16)
-                .background(Color.backgroundComponentSheet.cornerRadius(100))
-                .padding()
-                
+                .padding(.horizontal, 24)
+                .padding(.top)
             } // End ScrollView
             .scrollIndicators(.hidden)
             .scrollDismissesKeyboard(.immediately)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarDismissButtonView {
                     if viewModel.isBudgetInCreation() {
@@ -56,6 +50,11 @@ struct CreateBudgetView: View {
                     } else {
                         dismiss()
                     }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text(Word.Title.Budget.new)
+                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {

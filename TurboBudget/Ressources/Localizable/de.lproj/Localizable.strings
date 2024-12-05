@@ -65,6 +65,10 @@
 
 "word_note" = "Notiz";
 
+"word_budget" = "Budget";
+
+"word_maxAmount" = "Höchstbetrag";
+
 //MARK: - Preposition
 "word_preposition_to" = "Zu";
 
@@ -100,6 +104,8 @@
 "title_update_savingsPlan" = "Sparplan aktualisieren";
 
 "title_home_savingsPlans" = "Meine Sparpläne";
+
+"title_new_budget" = "Neues Budget";
 
 "title_setting_general" = "Allgemein";
 
@@ -382,8 +388,6 @@
 
 "account_placeholder_balance" = "10 000 €";
 
-"account_maxAmount" = "Höchstbetrag";
-
 "account_placeholder_maxAmount" = "50 000 €";
 
 "account_card_limit" = "Kartenlimit";
@@ -412,8 +416,6 @@
 "automation_successful_date" = "Datum & Uhrzeit";
 
 //MARK: - AddBudgetView
-"budget_new" = "Neues Budget";
-
 "budget_placeholder_amount" = "0.00";
 
 "budget_successful" = "Budget erstellt";

@@ -40,6 +40,16 @@ class CreateSubscriptionViewModel: ObservableObject {
 
 extension CreateSubscriptionViewModel {
     
+    func onChangeType(newValue: TransactionType) {
+        if newValue == .income {
+            selectedCategory = CategoryModel.revenue
+            selectedSubcategory = nil
+        } else if newValue == .expense && selectedCategory == CategoryModel.revenue {
+            selectedCategory = nil
+            selectedSubcategory = nil
+        }
+    }
+    
     func bodyForCreation() -> SubscriptionModel {
         return .init(
             name: name,

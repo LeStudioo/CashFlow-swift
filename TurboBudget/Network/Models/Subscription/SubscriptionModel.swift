@@ -149,4 +149,12 @@ extension SubscriptionModel {
         return self.frequencyDate?.toDate() ?? .now
     }
     
+    var symbol: String {
+        switch type {
+        case .expense:  return "-"
+        case .income:   return "+"
+        case .transfer: return ""
+        }
+    }
+    
 }

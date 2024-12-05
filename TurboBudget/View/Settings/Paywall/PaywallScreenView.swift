@@ -98,7 +98,7 @@ struct PaywallScreenView: View {
                     })
 //                    cellForFeature(systemName: "text.book.closed.fill", title: "word_financial_advice".localized, text: "paywall_financial_advice_desc".localized, color: .green, isDetailed: false)
                     cellForFeature(systemName: "person.fill", title: "paywall_support_dev".localized, text: "paywall_support_dev_desc".localized, color: .blue, isDetailed: false)
-                    //                    cellForFeature(systemName: "gearshape.2.fill", title: "word_automations".localized, text: "paywall_automations_desc".localized, color: .indigo)
+                    //                    cellForFeature(systemName: "gearshape.2.fill", title: Word.Main.subscriptions, text: "paywall_automations_desc".localized, color: .indigo)
                 }
                 
                 Spacer()

@@ -67,10 +67,18 @@ struct CreateSubscriptionView: View {
                     
                     VStack(spacing: 6) {
                         SelectCategoryButton(
-                            type: $viewModel.type,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
+                        .environmentObject(router)
+                        .onChange(of: viewModel.type) { newValue in
+                            viewModel.onChangeType(newValue: newValue)
+                        }
+                        .onChange(of: viewModel.selectedCategory) { newValue in
+                            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
+                                viewModel.type = .expense
+                            }
+                        }
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(
@@ -82,7 +90,6 @@ struct CreateSubscriptionView: View {
                         }
                     }
                     .animation(.smooth, value: viewModel.name)
-                    .environmentObject(router)
                     
                     CustomDatePicker(
                         title: Word.Classic.subscriptionFuturDate,

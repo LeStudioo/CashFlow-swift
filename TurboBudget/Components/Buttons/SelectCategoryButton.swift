@@ -10,7 +10,6 @@ import SwiftUI
 struct SelectCategoryButton: View {
     
     // Builder
-    @Binding var type: TransactionType
     @Binding var selectedCategory: CategoryModel?
     @Binding var selectedSubcategory: SubcategoryModel?
     
@@ -59,27 +58,12 @@ struct SelectCategoryButton: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .onChange(of: type) { newValue in
-            if newValue == .income {
-                selectedCategory = CategoryModel.revenue
-                selectedSubcategory = nil
-            } else if newValue == .expense && selectedCategory == CategoryModel.revenue {
-                selectedCategory = nil
-                selectedSubcategory = nil
-            }
-        }
-        .onChange(of: selectedCategory) { newValue in
-            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                type = .expense
-            }
-        }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
     SelectCategoryButton(
-        type: .constant(.expense),
         selectedCategory: .constant(nil),
         selectedSubcategory: .constant(nil)
     )

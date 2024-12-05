@@ -86,7 +86,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "gearshape.2.fill",
-                                text: "word_automations".localized
+                                text: Word.Main.subscriptions
                             )
                         )
                     }

@@ -44,19 +44,19 @@ struct CustomTabBar: View {
                         NavigationButton(present: router.presentCreateTransfer()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label(Word.Classic.transfer, systemImage: "dollarsign.square.fill")
+                            Label(Word.Classic.transfer, systemImage: "arrow.left.arrow.right")
                         }
                         
                         NavigationButton(present: router.presentCreateSavingsPlan()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label("word_savingsplan".localized, systemImage: "dollarsign.square.fill")
+                            Label(Word.Classic.savingsPlan, systemImage: "dollarsign.square.fill")
                         }
                         
                         NavigationButton(present: router.presentCreateBudget()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label("word_budget".localized, systemImage: "chart.pie.fill")
+                            Label(Word.Classic.budget, systemImage: "chart.pie.fill")
                         }
                         .disabled(!store.isCashFlowPro)
                         .onTapGesture {
@@ -74,7 +74,7 @@ struct CustomTabBar: View {
                         NavigationButton(present: router.presentCreateTransaction()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label("word_transaction".localized, systemImage: "creditcard.and.123")
+                            Label(Word.Classic.transaction, systemImage: "creditcard.and.123")
                         }
                     } else {
                         NavigationButton(present: router.presentCreateAccount(type: .classic)) {

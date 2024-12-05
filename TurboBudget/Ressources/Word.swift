@@ -42,6 +42,13 @@ struct Word {
         static let light: String = "word_light".localized
         static let dark: String = "word_dark".localized
         static let system: String = "word_system".localized
+        static let note: String = "word_note".localized
+        static let budget: String = "word_budget".localized
+        static let maxAmount: String = "word_maxAmount".localized
+    }
+    
+    struct Main {
+        static let subscriptions: String = "word_subscriptions".localized
     }
     
     struct Preposition {
@@ -83,6 +90,9 @@ struct Word {
             static let new: String = "title_new_savingsPlan".localized
             static let update: String = "title_update_savingsPlan".localized
             static let home: String = "title_home_savingsPlans".localized
+        }
+        struct Budget {
+            static let new: String = "title_new_budget".localized
         }
         struct Setting {
             static let general: String = "title_setting_general".localized

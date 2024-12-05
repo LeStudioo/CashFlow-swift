@@ -65,7 +65,7 @@ struct CreateAccountView: View {
                         CustomTextField(
                             text: $viewModel.maxAmount,
                             config: .init(
-                                title: "account_maxAmount".localized,
+                                title: Word.Classic.maxAmount,
                                 placeholder: "account_placeholder_maxAmount".localized,
                                 style: .amount
                             )

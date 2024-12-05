@@ -47,7 +47,7 @@ struct TransactionDetailRow: View {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.backgroundComponent)
+                    .fill(Color.colorCell)
             }
         }
 
