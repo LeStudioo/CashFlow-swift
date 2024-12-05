@@ -16,6 +16,12 @@ struct SavingsAccountDetailView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var transferRepository: TransferRepository
+    @EnvironmentObject private var accountRepository: AccountRepository
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var accountNameForDeleting: String = ""
+    @State private var isDeleting: Bool = false
     
     // init
     init(savingsAccount: AccountModel) {
@@ -83,15 +89,38 @@ struct SavingsAccountDetailView: View {
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(present: router.presentCreateTransfer(receiverAccount: savingsAccount)) {
-                    Image(systemName: "plus")
+                Menu(content: {
+                    Button(
+                        action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
+                        label: { Label(Word.Classic.add, systemImage: "plus") }
+                    )
+                    Button(role: .destructive, action: {
+                        isDeleting.toggle()
+                    }, label: { Label("word_delete", systemImage: "trash.fill") })
+                }, label: {
+                    Image(systemName: "ellipsis")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
+                })
             }
         }
+        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+                TextField(savingsAccount.name, text: $accountNameForDeleting)
+                Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
+                Button(role: .destructive, action: {
+                    if savingsAccount.name == accountNameForDeleting {
+                        if let accountID = savingsAccount.id {
+                            Task {
+                                await accountRepository.deleteAccount(accountID: accountID)
+                                dismiss()
+                            }
+                        }
+                    }
+                }, label: { Text("word_delete".localized) })
+        }, message: { Text("account_detail_delete_account_desc".localized) })
         .task {
             if let accountID = savingsAccount.id {
+                transferRepository.transfers = []
                 await transferRepository.fetchTransfersWithPagination(accountID: accountID)
             }
         }

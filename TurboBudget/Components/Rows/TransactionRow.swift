@@ -44,7 +44,7 @@ struct TransactionRow: View {
                     Spacer()
                     
                     VStack(alignment: .trailing, spacing: 5) {
-                        Text(transaction.amount?.currency ?? "")
+                        Text("\(transaction.symbol) \(transaction.amount?.currency ?? "")")
                             .font(.semiBoldText16())
                             .foregroundStyle(transactionColor)
                             .lineLimit(1)
@@ -143,14 +143,7 @@ extension TransactionRow {
         if transaction.isFromSubscription == true {
             return Word.Classic.subscription
         } else {
-            switch transaction.type {
-            case .expense:
-                return Word.Classic.expense
-            case .income:
-                return Word.Classic.income
-            case .transfer:
-                return Word.Classic.transfer
-            }
+            return transaction.type.name
         }
     }
     

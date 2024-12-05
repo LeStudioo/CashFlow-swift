@@ -20,139 +20,72 @@ struct TransactionDetailView: View {
 
     // Environement
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // EnvironmentObject
     @EnvironmentObject var store: PurchasesManager
 
-	// Enum
-    enum Field: CaseIterable {
-        case note
-    }
-    @FocusState var focusedField: Field?
-	
-    //MARK: - Body
+    // MARK: -
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            HStack {
-                Spacer()
-                Circle()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(.colorCell)
-                    .overlay {
-                        Circle()
-                            .frame(width: 80, height: 80)
-                            .foregroundStyle(transaction.category?.color ?? .red)
-                            .shadow(color: transaction.category?.color ?? .red, radius: 4, y: 2)
-                            .overlay {
-                                VStack {
-                                    if let subcategory = transaction.subcategory {
-                                        Image(systemName: subcategory.icon)
-                                            .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundStyle(Color(uiColor: .systemBackground))
-                                    } else if let category = transaction.category {
-                                        Image(systemName: category.icon)
-                                            .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundStyle(Color(uiColor: .systemBackground))
-                                    }
-                                }
-                            }
-                    }
-                    .onTapGesture {
-                        router.presentSelectCategory(
-                            category: $viewModel.selectedCategory,
-                            subcategory: $viewModel.selectedSubcategory
-                        ) {
-                            if let transactionID = transaction.id, viewModel.selectedCategory != nil {
+        ScrollView {
+            VStack(spacing: 32) {
+                VStack(spacing: 4) {
+                    Text("\(transaction.symbol) \(transaction.amount?.currency ?? "")")
+                        .font(.system(size: 48, weight: .heavy))
+                        .foregroundColor(transaction.type == .expense ? .error400 : .primary500)
+                    
+                    Text(transaction.name ?? "")
+                        .font(.semiBoldH3())
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                }
+                
+                if let categoryFound = viewModel.bestCategory {
+                    let subcategoryFound = viewModel.bestSubcategory
+                    TransactionDetailPredictedCategoryRow(
+                        category: categoryFound,
+                        subcategory: subcategoryFound,
+                        action: {
+                            viewModel.selectedCategory = categoryFound
+                            if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
+                            if let transactionID = transaction.id {
                                 viewModel.updateCategory(transactionID: transactionID)
                             }
                         }
-                    }
-                Spacer()
-            }
-            
-            if let categoryFound = viewModel.bestCategory {
-                let subcategoryFound = viewModel.bestSubcategory
-                VStack(spacing: 0) {
-                    Text("transaction_recommended_category".localized + " : ")
-                    HStack {
-                        Image(systemName: categoryFound.icon)
-                        Text("\(subcategoryFound != nil ? subcategoryFound!.name : categoryFound.name)")
-                    }
-                    .foregroundStyle(categoryFound.color)
-                }
-                .font(.mediumText16())
-                .onTapGesture {
-                    viewModel.selectedCategory = categoryFound
-                    if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                    if let transactionID = transaction.id {
-                        viewModel.updateCategory(transactionID: transactionID)
-                    }
-                }
-                .padding(.top, 8)
-            }
-            
-            Text(transaction.name ?? "")
-                .titleAdjustSize()
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-            
-            CellForDetailTransaction(
-                leftText: "transaction_detail_amount".localized,
-                rightText: transaction.amount?.currency ?? "",
-                rightTextColor: transaction.type == .expense ? .error400 : .primary500
-            )
-            
-            CellForDetailTransaction(
-                leftText: "transaction_detail_date".localized,
-                rightText: transaction.date.formatted(date: .abbreviated, time: .omitted),
-                rightTextColor: Color(uiColor: .label)
-            )
-            
-            if let category = transaction.category {
-                CellForDetailTransaction(
-                    leftText: "word_category".localized,
-                    rightText: category.name,
-                    rightTextColor: category.color
-                )
-                
-                if let subcategory = transaction.subcategory {
-                    CellForDetailTransaction(
-                        leftText: "word_subcategory".localized,
-                        rightText: subcategory.name,
-                        rightTextColor: category.color
                     )
                 }
-            }
-            
-            HStack {
-                ZStack(alignment: .topLeading) {
-                    TextEditor(text: $viewModel.note)
-                        .focused($focusedField, equals: .note)
-                        .scrollContentBackground(.hidden)
-                        .font(Font.mediumText16())
+                
+                VStack(spacing: 12) {
+                    TransactionDetailRow(
+                        icon: "calendar",
+                        text: "transaction_detail_date".localized,
+                        value: transaction.date.formatted(date: .complete, time: .omitted).capitalized
+                    )
                     
-                    if viewModel.note.isEmpty {
-                        HStack {
-                            Text("transaction_detail_note".localized)
-                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                                .font(Font.mediumText16())
-                            Spacer()
+                    if let category = transaction.category {
+                        TransactionDetailRow(
+                            icon: category.icon,
+                            value: category.name,
+                            iconBackgroundColor: category.color) {
+                                presentChangeCategory()
+                            }
+                        
+                        if let subcategory = transaction.subcategory {
+                            TransactionDetailRow(
+                                icon: subcategory.icon,
+                                value: subcategory.name,
+                                iconBackgroundColor: subcategory.color) {
+                                    presentChangeCategory()
+                                }
                         }
-                        .padding([.leading, .top], 8)
-                        .onTapGesture { focusedField = .note }
                     }
+                    
+                    TransactionDetailNoteRow(note: $viewModel.note)
                 }
             }
-            .padding(12)
-            .background(Color.colorCell)
-            .frame(minHeight: 100)
-            .cornerRadius(15)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            
-            Spacer()
-        }
+            .padding(.horizontal)
+            .padding(.top, 32)
+        } // ScrollView
+        .scrollIndicators(.hidden)
         .alert("transaction_detail_delete_transac".localized, isPresented: $viewModel.isDeleting, actions: {
             Button(role: .cancel, action: { return }, label: { Text("word_cancel") })
             Button(role: .destructive, action: {
@@ -179,7 +112,7 @@ struct TransactionDetailView: View {
             }
         }
         .onDisappear {
-            if viewModel.note != transaction.note && transaction.note != nil {
+            if viewModel.note != transaction.note && !viewModel.note.isBlank {
                 viewModel.updateTransaction(transactionID: transaction.id)
             }
         }
@@ -203,57 +136,31 @@ struct TransactionDetailView: View {
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
-            
-            ToolbarItem(placement: .keyboard) {
-                HStack {
-                    EmptyView()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(.primary500) })
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+
+            ToolbarDismissKeyboardButtonView()
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-//        .background(SharingViewController(isPresenting: $isSharingJSON) {
-//            let json = JSONManager().generateJSONForTransaction(transaction: transaction)
-//            let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
-//            
-//            // For iPad
-//            if UIDevice.current.userInterfaceIdiom == .pad { av.popoverPresentationController?.sourceView = UIView() }
-//            
-//            av.completionWithItemsHandler = { _, _, _, _ in
-//                isSharingJSON = false // required for re-open !!!
-//            }
-//            return av
-//        })
-//        .sheet(isPresented: $isSharingQRCode) { QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!) }
-    }//END body
-}//END struct
-
-//MARK: - Preview
-#Preview {
-    TransactionDetailView(transaction: .mockClassicTransaction)
-}
-
-private struct CellForDetailTransaction: View {
+    } // body
     
-    var leftText: String
-    var rightText: String
-    var rightTextColor: Color
-    
-    var body: some View {
-        HStack {
-            Text(leftText)
-                .font(Font.mediumText16())
-            Spacer()
-            Text(rightText)
-                .font(.semiBoldText16())
-                .foregroundStyle(rightTextColor)
+    func presentChangeCategory() {
+        router.presentSelectCategory(
+            category: $viewModel.selectedCategory,
+            subcategory: $viewModel.selectedSubcategory
+        ) {
+            if let transactionID = transaction.id, viewModel.selectedCategory != nil {
+                viewModel.updateCategory(transactionID: transactionID)
+            }
         }
-        .padding(12)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
     }
+    
+} // struct
+
+// MARK: - Preview
+#Preview {
+    NavigationStack {
+        TransactionDetailView(transaction: .mockClassicTransaction)
+    }
+    .environmentObject(TransactionRepository())
+    .environmentObject(PurchasesManager())
+    .environmentObject(ThemeManager())
 }

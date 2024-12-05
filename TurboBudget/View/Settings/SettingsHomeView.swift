@@ -46,7 +46,7 @@ struct SettingsHomeView: View {
                     SettingRow(
                         icon: "gearshape.fill",
                         backgroundColor: Color.gray,
-                        text: "setting_general_title".localized,
+                        text: Word.Title.Setting.general,
                         isButton: false
                     )
                 }
@@ -55,7 +55,7 @@ struct SettingsHomeView: View {
                     SettingRow(
                         icon: "lock.fill",
                         backgroundColor: Color.green,
-                        text: "setting_security_title".localized,
+                        text: Word.Title.Setting.security,
                         isButton: false
                     )
                 }
@@ -76,7 +76,7 @@ struct SettingsHomeView: View {
                     SettingRow(
                         icon: "apps.iphone",
                         backgroundColor: Color.blue,
-                        text: "setting_display_title".localized,
+                        text: Word.Title.Setting.display,
                         isButton: false
                     )
                 }
@@ -158,7 +158,7 @@ struct SettingsHomeView: View {
                     SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.indigo,
-                        text: "setting_credits_title".localized,
+                        text: Word.Title.Setting.credits,
                         isButton: false
                     )
                 }

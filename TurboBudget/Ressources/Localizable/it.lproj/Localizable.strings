@@ -63,6 +63,8 @@
 
 "word_system" = "sistema";
 
+"word_note" = "nota";
+
 //MARK: - Preposition
 "word_preposition_to" = "A";
 
@@ -89,7 +91,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Abbonamento di aggiornamento";
+"title_update_subscription" = "Aggiorna abbonamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -145,7 +147,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -193,6 +195,9 @@
 "setting_credits_designers" = "Designer";
 
 "setting_credits_licences" = "Licenze";
+
+//MARK: - SavingsAccount
+"savings_account_total_savings" = "Risparmio totale";
 
 //MARK: - General Words
 "word_transactions" = "Transazioni";
@@ -307,7 +312,7 @@
 
 "word_continue" = "Continua";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 

@@ -27,9 +27,7 @@ struct CategoryHomeView: View {
                         if categoryRepository.currentMonthExpenses.isEmpty && categoryRepository.currentMonthIncomes.isEmpty {
                             EmptyCategoryData()
                                 .padding(.bottom, 8)
-                        }
-                        
-                        if viewModel.searchText.isEmpty {
+                        } else if viewModel.searchText.isEmpty {
                             PieChart(
                                 slices: CategoryRepository.shared.categoriesSlices,
                                 backgroundColor: Color.colorCell,

@@ -206,4 +206,12 @@ extension TransactionModel {
         return self.dateISO?.toDate() ?? .now
     }
     
+    var symbol: String {
+        switch type {
+        case .expense:  return "-"
+        case .income:   return "+"
+        default:        return ""
+        }
+    }
+    
 }

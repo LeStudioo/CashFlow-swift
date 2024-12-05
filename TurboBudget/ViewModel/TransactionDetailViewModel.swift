@@ -38,7 +38,6 @@ extension TransactionDetailViewModel {
         }
     }
         
-    
     func deleteTransaction(transactionID: Int?, dismiss: DismissAction) {
         guard let transactionID else { return }
         
@@ -54,7 +53,8 @@ extension TransactionDetailViewModel {
 
 //MARK: - Utils
 extension TransactionDetailViewModel {
-    
+
+    @MainActor
     func updateCategory(transactionID: Int) {
         let accountRepository: AccountRepository = .shared
         let transactionRepository: TransactionRepository = .shared
@@ -65,6 +65,10 @@ extension TransactionDetailViewModel {
         if let selectedCategory, let newCategory = CategoryRepository.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id
             body.subcategoryID = nil
+            
+            if newCategory.id == 0 {
+                selectedSubcategory = nil
+            }
             
             if let selectedSubcategory, let newSubcategory = CategoryRepository.shared.findSubcategoryById(selectedSubcategory.id) {
                 body.subcategoryID = newSubcategory.id
@@ -79,6 +83,8 @@ extension TransactionDetailViewModel {
                 
                 self.selectedCategory = nil
                 self.selectedSubcategory = nil
+                self.bestCategory = nil
+                self.bestSubcategory = nil
             }
         }
     }

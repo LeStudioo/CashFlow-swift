@@ -83,17 +83,17 @@ struct AnalyticsHomeView: View {
         } // End VStack
         .navigationTitle("word_analytic".localized)
         .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            if !transactionRepository.transactions.isEmpty {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationButton(push: router.pushFilter()) {
-                        Image(systemName: "line.3.horizontal.decrease.circle")
-                            .foregroundStyle(Color(uiColor: .label))
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
-                    }
-                }
-            }
-        }
+//        .toolbar {
+//            if !transactionRepository.transactions.isEmpty {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    NavigationButton(push: router.pushFilter()) {
+//                        Image(systemName: "line.3.horizontal.decrease.circle")
+//                            .foregroundStyle(Color(uiColor: .label))
+//                            .font(.system(size: 18, weight: .medium, design: .rounded))
+//                    }
+//                }
+//            }
+//        }
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // End body
 } // End struct

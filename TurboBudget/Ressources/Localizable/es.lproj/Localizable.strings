@@ -63,6 +63,8 @@
 
 "word_system" = "Sistema";
 
+"word_note" = "Nota";
+
 //MARK: - Preposition
 "word_preposition_to" = "a";
 
@@ -193,6 +195,9 @@
 "setting_credits_designers" = "Diseñadores";
 
 "setting_credits_licences" = "Licencias";
+
+//MARK: - SavingsAccount
+"savings_account_total_savings" = "Ahorro total";
 
 //MARK: - General Words
 "word_transactions" = "Transacciones";

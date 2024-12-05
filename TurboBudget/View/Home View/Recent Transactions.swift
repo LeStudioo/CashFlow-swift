@@ -66,13 +66,13 @@ struct RecentTransactionsView: View {
         .toolbar {
             ToolbarDismissPushButton()
             
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(push: router.pushFilter()) {
-                    Image(systemName: "line.3.horizontal.decrease.circle")
-                        .foregroundStyle(Color(uiColor: .label))
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                NavigationButton(push: router.pushFilter()) {
+//                    Image(systemName: "line.3.horizontal.decrease.circle")
+//                        .foregroundStyle(Color(uiColor: .label))
+//                        .font(.system(size: 18, weight: .medium, design: .rounded))
+//                }
+//            }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))

@@ -33,7 +33,7 @@ struct SavingsAccountHomeView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: -2) {
-                Text("savingsAccount_total_savings".localized)
+                Text(Word.SavingsAccount.totalSavings)
                     .font(Font.mediumText16())
                     .foregroundStyle(Color.customGray)
                 HStack {

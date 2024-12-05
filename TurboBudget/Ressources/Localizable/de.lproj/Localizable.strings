@@ -63,6 +63,8 @@
 
 "word_system" = "System";
 
+"word_note" = "Notiz";
+
 //MARK: - Preposition
 "word_preposition_to" = "Zu";
 
@@ -193,6 +195,9 @@
 "setting_credits_designers" = "Designer";
 
 "setting_credits_licences" = "Lizenzen";
+
+//MARK: - SavingsAccount
+"savings_account_total_savings" = "Gesamteinsparungen";
 
 //MARK: - General Words
 "word_transactions" = "Transaktionen";

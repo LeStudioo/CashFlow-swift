@@ -173,4 +173,8 @@ struct Word {
         }
     }
     
+    struct SavingsAccount {
+        static let totalSavings: String = "savings_account_total_savings".localized
+    }
+    
 }

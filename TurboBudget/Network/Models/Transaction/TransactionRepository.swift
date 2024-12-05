@@ -130,6 +130,7 @@ extension TransactionRepository {
                     self.transactions[index].categoryID = transaction.categoryID
                     self.transactions[index].subcategoryID = transaction.subcategoryID
                     self.transactions[index].dateISO = transaction.dateISO
+                    self.transactions[index].note = transaction.note
                     sortTransactionsByDate()
                     AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
                     return shouldReturn ? transaction : nil
