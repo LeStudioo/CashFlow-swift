@@ -44,6 +44,7 @@ struct TurboBudgetApp: App {
     
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
+    @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
     
     // init
     init() {
@@ -86,6 +87,12 @@ struct TurboBudgetApp: App {
                             await subscriptionRepository.fetchSubscriptions(accountID: accountID)
                             await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
                             await budgetRepository.fetchBudgets(accountID: accountID)
+                            
+                            if preferencesSubscription.isNotificationsEnabled {
+                                for subscription in subscriptionRepository.subscriptions {
+                                    await NotificationsManager.shared.scheduleNotification(for: subscription, daysBefore: preferencesSubscription.dayBeforeReceiveNotification)
+                                }
+                            }
                         }
                     }
                 case .syncing:

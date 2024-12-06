@@ -111,6 +111,10 @@ class NavigationManager: Router {
     func pushSettingsAccount() {
         navigateTo(.settingsAccount)
     }
+    
+    func pushSettingsSubscription() {
+        navigateTo(.settingsSubscription)
+    }
    
     func pushSettingsSavingPlans() {
         navigateTo(.settingsSavingPlans)
@@ -271,6 +275,8 @@ private extension NavigationManager {
                 SettingsAccountView()
             case .settingsSavingPlans:
                 SettingsSavingPlansView()
+            case .settingsSubscription:
+                SettingsSubscriptionView()
             case .settingsBudget:
                 SettingsBudgetView()
             case .settingsCredits:

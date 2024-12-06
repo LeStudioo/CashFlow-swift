@@ -27,8 +27,8 @@ struct SubcategoryHomeView: View {
                 .sorted { $0.name < $1.name } ?? []
         } else {
             return category.subcategories?
-                .sorted { $0.name < $1.name }
                 .filter { $0.name.localizedStandardContains(viewModel.searchText) } ?? []
+                .sorted { $0.name < $1.name }
         }
     }
     

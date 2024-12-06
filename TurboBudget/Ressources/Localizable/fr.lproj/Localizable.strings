@@ -65,6 +65,8 @@
 
 "word_amount" = "Montant";
 
+"word_notifications" = "Notifications";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 
@@ -254,6 +256,15 @@
 "whatsnew_edit_title" = "Modification";
 
 "whatsnew_edit" = "Les plans d'épargne, transactions, abonnements, etc., sont maintenant modifiables une fois créés";
+
+//MARK: - Notifications
+"notifications_day_before" = "jours avant";
+
+"notifications_footer" = "Activer les notifications pour être informé avant qu'un abonnement ne soit effectué";
+
+"notifications_will_removed" = "seront débités dans";
+
+"notifications_will_added" = "seront ajoutés dans";
 
 //MARK: - General Words
 "word_transactions" = "Transactions";

@@ -65,6 +65,8 @@
 
 "word_amount" = "Menge";
 
+"word_notifications" = "Benachrichtigungen";
+
 //MARK: - Main
 "word_transaction" = "Transaktionen";
 
@@ -254,6 +256,15 @@
 "whatsnew_edit_title" = "Änderung";
 
 "whatsnew_edit" = "Sparpläne, Transaktionen, Abonnements usw. kann nun nach der Erstellung geändert werden";
+
+//MARK: - Notifications
+"notifications_day_before" = "Tage vorher";
+
+"notifications_footer" = "Aktivieren Sie Benachrichtigungen, um Informationen zu erhalten, bevor ein Abonnement verarbeitet wird.";
+
+"notifications_will_removed" = "wird abgebucht";
+
+"notifications_will_added" = "wird hinzugefügt";
 
 //MARK: - General Words
 "word_transactions" = "Transaktionen";

@@ -32,7 +32,7 @@ class RecentTransactionsViewModel: ObservableObject {
         case .descendingOrder:
             return filteredTransactions.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
         case .alphabetic:
-            return filteredTransactions.sorted { $0.name ?? "" < $1.name ?? "" }
+            return filteredTransactions.sorted { $0.name < $1.name }
         }
     }
 }

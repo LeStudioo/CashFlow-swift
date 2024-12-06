@@ -43,8 +43,8 @@ public class Account: NSManagedObject, Identifiable {
     public var allTransactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
-                .sorted { $0.date.withDefault > $1.date.withDefault }
                 .filter({ !$0.isAuto && $0.predefCategoryID != "" })
+                .sorted { $0.date.withDefault > $1.date.withDefault }
         } else { return [] }
     }
 
@@ -64,7 +64,7 @@ public class Account: NSManagedObject, Identifiable {
     
     public var savingPlans: [SavingPlan] {
         if let savingPlans = accountToSavingPlan {
-            return savingPlans.sorted { $0.actualAmount > $1.actualAmount }.filter({ !$0.isArchived })
+            return savingPlans.filter({ !$0.isArchived }).sorted { $0.actualAmount > $1.actualAmount }
         } else { return [] }
     }
     

@@ -65,6 +65,8 @@
 
 "word_amount" = "Folla";
 
+"word_notifications" = "Notifiche";
+
 //MARK: - Main
 "word_transaction" = "Transazione";
 
@@ -254,6 +256,15 @@
 "whatsnew_edit_title" = "il cambiamento";
 
 "whatsnew_edit" = "I piani di risparmio, le transazioni, gli abbonamenti, ecc. possono ora essere modificati dopo la creazione";
+
+//MARK: - Notifications
+"notifications_day_before" = "giorni prima";
+
+"notifications_footer" = "Abilita le notifiche per ricevere informazioni prima che un abbonamento venga elaborato.";
+
+"notifications_will_removed" = "verrà addebitato";
+
+"notifications_will_added" = "viene aggiunto";
 
 //MARK: - General Words
 "word_transactions" = "Transazioni";

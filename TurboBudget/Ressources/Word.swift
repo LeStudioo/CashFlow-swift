@@ -43,6 +43,8 @@ struct Word {
         static let maxAmount: String = "word_maxAmount".localized
         static let amount: String = "word_amount".localized
         static let `continue`: String = "word_continue".localized
+        static let notifications: String = "word_notifications".localized
+        static let days: String = "word_days".localized
     }
     
     struct Main {
@@ -215,6 +217,13 @@ struct Word {
         static let userInterface: String = "whatsnew_ui".localized
         static let editTitle: String = "whatsnew_edit_title".localized
         static let edit: String = "whatsnew_edit".localized
+    }
+    
+    struct Notifications {
+        static let daysBefore: String = "notifications_day_before".localized
+        static let footer: String = "notifications_footer".localized
+        static let willRemoved: String = "notifications_will_removed".localized
+        static let willAdded: String = "notifications_will_added".localized
     }
     
 }

@@ -84,33 +84,42 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsAccount()) {
+//                NavigationButton(push: router.pushSettingsAccount()) {
+//                    SettingRow(
+//                        icon: "person.fill",
+//                        backgroundColor: Color.blue,
+//                        text: "word_account".localized,
+//                        isButton: false
+//                    )
+//                }
+                
+                NavigationButton(push: router.pushSettingsSubscription()) {
                     SettingRow(
-                        icon: "person.fill",
-                        backgroundColor: Color.blue,
-                        text: "word_account".localized,
+                        icon: "clock.arrow.circlepath",
+                        backgroundColor: Color.red,
+                        text: Word.Main.subscription,
                         isButton: false
                     )
                 }
                 
-                NavigationButton(push: router.pushSettingsSavingPlans()) {
-                    SettingRow(
-                        icon: "dollarsign.square.fill",
-                        backgroundColor: Color.pink,
-                        text: "word_savingsplans".localized,
-                        isButton: false
-                    )
-                }
-                
-                NavigationButton(push: store.isCashFlowPro ? router.pushSettingsBudget() : router.presentPaywall()) {
-                    SettingRow(
-                        icon: "chart.pie.fill",
-                        backgroundColor: Color.purple,
-                        text: "word_budgets".localized,
-                        isButton: false,
-                        isLocked: store.isCashFlowPro ? false : true
-                    )
-                }
+//                NavigationButton(push: router.pushSettingsSavingPlans()) {
+//                    SettingRow(
+//                        icon: "dollarsign.square.fill",
+//                        backgroundColor: Color.pink,
+//                        text: "word_savingsplans".localized,
+//                        isButton: false
+//                    )
+//                }
+//                
+//                NavigationButton(push: store.isCashFlowPro ? router.pushSettingsBudget() : router.presentPaywall()) {
+//                    SettingRow(
+//                        icon: "chart.pie.fill",
+//                        backgroundColor: Color.purple,
+//                        text: "word_budgets".localized,
+//                        isButton: false,
+//                        isLocked: store.isCashFlowPro ? false : true
+//                    )
+//                }
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             

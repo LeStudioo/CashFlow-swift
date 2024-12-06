@@ -55,6 +55,7 @@ enum NavigationDirection: Identifiable {
     case settingsDisplay
     case settingsAccount
     case settingsSavingPlans
+    case settingsSubscription
     case settingsBudget
     case settingsCredits
     case settingsDangerZone
@@ -93,6 +94,7 @@ extension NavigationDirection: Equatable {
             (.settingsDisplay, .settingsDisplay),
             (.settingsAccount, .settingsAccount),
             (.settingsSavingPlans, .settingsSavingPlans),
+            (.settingsSubscription, .settingsSubscription),
             (.settingsBudget, .settingsBudget),
             (.settingsCredits, .settingsCredits),
             (.settingsDangerZone, .settingsDangerZone):

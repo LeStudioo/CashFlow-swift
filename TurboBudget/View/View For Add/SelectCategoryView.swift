@@ -28,8 +28,8 @@ struct SelectCategoryView: View {
     // Computed variables
     var categoriesFiltered: [CategoryModel] {
         return categoryRepository.categories
-            .searchFor(searchText)
             .filter { !$0.isRevenue }
+            .searchFor(searchText)
     }
     
     //MARK: - Body

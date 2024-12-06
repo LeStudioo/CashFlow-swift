@@ -39,8 +39,8 @@ extension TransactionRepositoryOld {
         }
         
         self.transactions = allTransactions
-            .sorted { $0.date.withDefault > $1.date.withDefault }
             .filter { !$0.isAuto && !$0.predefCategoryID.isEmpty }
+            .sorted { $0.date.withDefault > $1.date.withDefault }
         
         do {
             let transactionData = try JSONEncoder().encode(transactions)
