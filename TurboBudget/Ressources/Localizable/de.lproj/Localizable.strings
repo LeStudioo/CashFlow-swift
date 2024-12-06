@@ -49,6 +49,8 @@
 
 "word_add" = "Hinzufügen";
 
+"word_days" = "Tage";
+
 "word_light" = "Licht";
 
 "word_dark" = "Dunkel";
@@ -247,7 +249,7 @@
 
 "whatsnew_security_title" = "Datensicherheit";
 
-"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
+"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
 
@@ -265,6 +267,9 @@
 "notifications_will_removed" = "wird abgebucht";
 
 "notifications_will_added" = "wird hinzugefügt";
+
+//MARK: - AppIntent
+"appIntent_createTransaction" = "Erstellen Sie eine Transaktion";
 
 //MARK: - General Words
 "word_transactions" = "Transaktionen";
@@ -328,8 +333,6 @@
 "word_delete" = "Löschen";
 
 "word_DELETE" = "LÖSCHEN";
-
-"word_day" = "Tag";
 
 "word_month" = "Monat";
 

@@ -49,6 +49,8 @@
 
 "word_add" = "Aggiungere";
 
+"word_days" = "giorni";
+
 "word_light" = "Leggero";
 
 "word_dark" = "Buio";
@@ -186,7 +188,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -247,7 +249,7 @@
 
 "whatsnew_security_title" = "Sicurezza dei dati";
 
-"whatsnew_security" = "La sicurezza dei dati è ora più importante e completa";
+"whatsnew_security" = "Oggi la sicurezza dei dati è più importante e completa";
 
 "whatsnew_ui_title" = "interfaccia utente";
 
@@ -265,6 +267,9 @@
 "notifications_will_removed" = "verrà addebitato";
 
 "notifications_will_added" = "viene aggiunto";
+
+//MARK: - AppIntent
+"appIntent_createTransaction" = "Crea una transazione";
 
 //MARK: - General Words
 "word_transactions" = "Transazioni";
@@ -328,8 +333,6 @@
 "word_delete" = "Eliminare";
 
 "word_DELETE" = "ELIMINARE";
-
-"word_day" = "Giorno";
 
 "word_month" = "Mese";
 

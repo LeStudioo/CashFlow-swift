@@ -17,34 +17,9 @@ struct AddTransactionShortcuts: AppShortcutsProvider {
             intent: AddTransactionIntent(),
             phrases: [
                 "New transaction in \(.applicationName)"
-//                "Hello \(.applicationName)"
-            ]
+            ],
+            shortTitle: LocalizedStringResource(stringLiteral: "appIntent_createTransaction"),
+            systemImageName: "creditcard.and.123"
         )
     }
 }
-//AppShortcut(
-//            intent: AddTransactionIntent(),
-//            phrases: [
-//                "shortcuts_name_one",
-//                "\(.applicationName)"
-//            ]
-//        )
-
-//        AppShortcut(
-//            intent: AddTransactionIntent(),
-//            phrases: [
-//                AppShortcutPhrase(stringLiteral: "shortcuts_name_one".localized),
-//                "shortcuts_name_one",
-//                "Hello \(AppShortcutPhraseToken.applicationName)"
-//            ]
-//        )
-
-//        AppShortcut(
-//            intent: AddTransactionIntent(),
-//            phrases: [
-//                "shortcuts_name_one",
-//                "\(.applicationName)",
-//            ],
-//            shortTitle: LocalizedStringResource(stringLiteral: "shortcuts_name_one"),
-//            systemImageName: "plus"
-//        )

@@ -49,6 +49,8 @@
 
 "word_add" = "Ajouter";
 
+"word_days" = "jours";
+
 "word_light" = "Clair";
 
 "word_dark" = "Sombre";
@@ -266,6 +268,9 @@
 
 "notifications_will_added" = "seront ajoutés dans";
 
+//MARK: - AppIntent
+"appIntent_createTransaction" = "Créer une transaction";
+
 //MARK: - General Words
 "word_transactions" = "Transactions";
 
@@ -328,8 +333,6 @@
 "word_delete" = "Supprimer";
 
 "word_DELETE" = "SUPPRIMER";
-
-"word_day" = "Jour";
 
 "word_month" = "Mois";
 
@@ -992,13 +995,13 @@
 
 "shortcut_desc" = "Le raccourci permet de créer une transaction sans que vous ayez à rentrer dans l'app. Si le nom de la transaction est identique à une transaction passé alors il prendra la même catégorie, sinon il sera dans 'à catégoriser'.";
 
-"shortcut_first_para_title" = "titre";
+"shortcut_first_para_title" = "Titre";
 
 "shortcut_first_para_desc" = "Ceci est le nom de votre transaction.";
 
 "shortcut_first_para_dialog" = "Entrer un titre";
 
-"shortcut_second_para_title" = "montant";
+"shortcut_second_para_title" = "Montant";
 
 "shortcut_second_para_desc" = "Ceci est le montant de votre transaction.";
 

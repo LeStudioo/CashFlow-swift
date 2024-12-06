@@ -47,6 +47,10 @@ struct Word {
         static let days: String = "word_days".localized
     }
     
+    struct AppIntent {
+        static let createTransaction: String = "appIntent_createTransaction".localized
+    }
+    
     struct Main {
         static let transaction: String = "word_transaction".localized
         static let transactions: String = "word_transactions".localized

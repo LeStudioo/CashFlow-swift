@@ -49,6 +49,8 @@
 
 "word_add" = "Add";
 
+"word_days" = "days";
+
 "word_light" = "Light";
 
 "word_dark" = "Dark";
@@ -266,6 +268,9 @@
 
 "notifications_will_added" = "will be added in";
 
+//MARK: - AppIntent
+"appIntent_createTransaction" = "Create a transaction";
+
 //MARK: - General Words
 "word_transactions" = "Transactions";
 
@@ -328,8 +333,6 @@
 "word_delete" = "Delete";
 
 "word_DELETE" = "DELETE";
-
-"word_day" = "Day";
 
 "word_month" = "Month";
 
@@ -998,7 +1001,7 @@
 
 "shortcut_first_para_dialog" = "Enter a title";
 
-"shortcut_second_para_title" = "amount";
+"shortcut_second_para_title" = "Amount";
 
 "shortcut_second_para_desc" = "This is the amount of your transaction.";
 

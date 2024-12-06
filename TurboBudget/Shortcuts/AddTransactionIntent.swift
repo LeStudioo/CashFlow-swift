@@ -19,10 +19,6 @@ struct AddTransactionIntent: AppIntent {
     @Parameter(title: "shortcut_second_para_title", description: "shortcut_second_para_desc", requestValueDialog: "shortcut_second_para_dialog")
     var amount: String
     
-    static var parameterSummary: some ParameterSummary {
-        Summary("shortcut_all_para")
-    }
-    
     func perform() async throws -> some IntentResult & ProvidesDialog {
                 
         func extractNumberString(from string: String) -> String {

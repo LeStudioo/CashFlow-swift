@@ -61,6 +61,7 @@ class NotificationsManager {
         var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: notificationDate)
         dateComponents.hour = 10
         dateComponents.minute = 0
+        dateComponents.timeZone = TimeZone.current
         
         let notifMessage = subscription.type == .expense ? Word.Notifications.willRemoved : Word.Notifications.willAdded
         

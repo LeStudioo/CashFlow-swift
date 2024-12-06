@@ -49,6 +49,8 @@
 
 "word_add" = "Agregar";
 
+"word_days" = "días";
+
 "word_light" = "Luz";
 
 "word_dark" = "Oscuro";
@@ -266,6 +268,9 @@
 
 "notifications_will_added" = "se agregará en";
 
+//MARK: - AppIntent
+"appIntent_createTransaction" = "Crear una transacción";
+
 //MARK: - General Words
 "word_transactions" = "Transacciones";
 
@@ -328,8 +333,6 @@
 "word_delete" = "Borrar";
 
 "word_DELETE" = "BORRAR";
-
-"word_day" = "Día";
 
 "word_month" = "Mes";
 
