@@ -76,7 +76,7 @@ struct AccountDashboardView: View {
                     NavigationButton(push: router.pushAllTransactions()) {
                         DashboardRow(
                             config: .init(
-                                icon: "banknote.fill",
+                                icon: "creditcard.and.123",
                                 text: "word_transactions".localized
                             )
                         )

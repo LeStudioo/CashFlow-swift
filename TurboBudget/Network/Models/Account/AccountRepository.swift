@@ -38,8 +38,9 @@ extension AccountRepository {
         } catch { NetworkService.handleError(error: error) }
     }
     
+    @discardableResult
     @MainActor
-    func createAccount(body: AccountModel) async {
+    func createAccount(body: AccountModel) async -> AccountModel? {
         do {
             let account = try await NetworkService.shared.sendRequest(
                 apiBuilder: AccountAPIRequester.create(body: body),
@@ -50,7 +51,11 @@ extension AccountRepository {
             } else if account.type == .savings {
                 self.savingsAccounts.append(account)
             }
-        } catch { NetworkService.handleError(error: error) }
+            return account
+        } catch {
+            NetworkService.handleError(error: error)
+            return nil
+        }
     }
     
     @MainActor

@@ -48,7 +48,7 @@ struct SubcategoryTransactionsView: View {
                 return subcategory.transactions
             }
         } else {
-            return subcategory.transactions.filter { $0.name?.localizedStandardContains(searchText) ?? false }
+            return subcategory.transactions.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
     

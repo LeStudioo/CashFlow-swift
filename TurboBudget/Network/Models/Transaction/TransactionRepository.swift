@@ -124,7 +124,7 @@ extension TransactionRepository {
             )
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
-                    self.transactions[index].name = transaction.name
+                    self.transactions[index]._name = transaction._name
                     self.transactions[index].amount = transaction.amount
                     self.transactions[index].typeNum = transaction.typeNum
                     self.transactions[index].categoryID = transaction.categoryID

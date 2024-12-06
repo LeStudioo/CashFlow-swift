@@ -31,9 +31,9 @@ struct TransactionDetailView: View {
                 VStack(spacing: 4) {
                     Text("\(transaction.symbol) \(transaction.amount?.currency ?? "")")
                         .font(.system(size: 48, weight: .heavy))
-                        .foregroundColor(transaction.type == .expense ? .error400 : .primary500)
+                        .foregroundColor(transaction.color)
                     
-                    Text(transaction.name ?? "")
+                    Text(transaction.name)
                         .font(.semiBoldH3())
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
@@ -55,14 +55,14 @@ struct TransactionDetailView: View {
                 }
                 
                 VStack(spacing: 12) {
-                    TransactionDetailRow(
+                    DetailRow(
                         icon: "calendar",
                         text: "transaction_detail_date".localized,
                         value: transaction.date.formatted(date: .complete, time: .omitted).capitalized
                     )
                     
                     if let category = transaction.category {
-                        TransactionDetailRow(
+                        DetailRow(
                             icon: category.icon,
                             value: category.name,
                             iconBackgroundColor: category.color) {
@@ -70,7 +70,7 @@ struct TransactionDetailView: View {
                             }
                         
                         if let subcategory = transaction.subcategory {
-                            TransactionDetailRow(
+                            DetailRow(
                                 icon: subcategory.icon,
                                 value: subcategory.name,
                                 iconBackgroundColor: subcategory.color) {
@@ -99,9 +99,9 @@ struct TransactionDetailView: View {
         }
         .task {
             if store.isCashFlowPro && transaction.categoryID == 0 {
-                guard let name = transaction.name else { return }
+                guard !transaction.name.isBlank else { return }
                 guard let transactionID = transaction.id else { return }
-                if let response = await transactionRepository.fetchCategory(name: name, transactionID: transactionID) {
+                if let response = await transactionRepository.fetchCategory(name: transaction.name, transactionID: transactionID) {
                     if let cat = response.cat {
                         viewModel.bestCategory = CategoryRepository.shared.findCategoryById(cat)
                     }
@@ -141,7 +141,11 @@ struct TransactionDetailView: View {
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // body
-    
+} // struct
+
+// MARK: - Utils
+extension TransactionDetailView {
+
     func presentChangeCategory() {
         router.presentSelectCategory(
             category: $viewModel.selectedCategory,
@@ -153,7 +157,7 @@ struct TransactionDetailView: View {
         }
     }
     
-} // struct
+}
 
 // MARK: - Preview
 #Preview {

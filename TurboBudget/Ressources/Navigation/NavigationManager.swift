@@ -130,6 +130,10 @@ class NavigationManager: Router {
     
     
     // Present
+    func presentWhatsNew() {
+        presentSheet(.whatsNew)
+    }
+    
     func presentPaywall() {
         presentSheet(.paywall)
     }
@@ -190,7 +194,7 @@ private extension NavigationManager {
             case .home:
                 HomeView()
             case .homeSavingPlans:
-                SavingPlansHomeView()
+                SavingsPlansHomeView()
             case .homeAutomations:
                 SubscriptionHomeView()
                 
@@ -217,13 +221,13 @@ private extension NavigationManager {
                 
                 
             case .allTransactions:
-                RecentTransactionsView()
+                TransactionsView()
             case .transactionDetail(let transaction):
                 TransactionDetailView(transaction: transaction)
                 
                 
             case .savingPlansDetail(let savingsPlan):
-                SavingPlanDetailView(savingsPlan: savingsPlan)
+                SavingsPlanDetailView(savingsPlan: savingsPlan)
                 
                 
             case .accountDashboard:
@@ -248,6 +252,8 @@ private extension NavigationManager {
             case .subcategoryTransactions(let subcategory):
                 SubcategoryTransactionsView(subcategory: subcategory)
                 
+            case .whatsNew:
+                WhatsNewView()
             case .paywall:
                 PaywallScreenView()
                 

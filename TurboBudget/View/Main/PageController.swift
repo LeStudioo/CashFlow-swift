@@ -26,7 +26,6 @@ struct PageControllerView: View {
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
-    @ObservedObject var viewModelAddTransaction = CreateTransactionViewModel.shared
         
     // Environement
     @Environment(\.scenePhase) private var scenePhase
@@ -41,7 +40,7 @@ struct PageControllerView: View {
     
     // MARK: - body
     var body: some View {
-        ZStack(alignment: .top) {
+//        ZStack(alignment: .top) {
             VStack {
                 if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
                 if pageControllerVM.isUnlocked {
@@ -61,15 +60,12 @@ struct PageControllerView: View {
                             .onTapGesture { viewModelCustomBar.showMenu = false }
                         } else {
                             CustomEmptyView(
-                                type: .empty(situation: .account),
+                                type: .empty(.account),
                                 isDisplayed: true
                             )
                         }
                         
                         CustomTabBar()
-                    }
-                    .sheet(isPresented: $viewModelCustomBar.showScanTransaction) {
-                        viewModelAddTransaction.makeScannerView()
                     }
                     .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
                         router.presentPaywall()
@@ -78,9 +74,12 @@ struct PageControllerView: View {
                     .ignoresSafeArea(.keyboard)
                 } // End if unlocked
             }
-            
             .padding(pageControllerVM.isUnlocked ? 0 : 0)
             .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
+                if (preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen) {
+                    router.presentWhatsNew()
+                }
+                
                 // LaunchScreen ended and no data in iCloud
                 if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
                     // First open + no data in iCloud
@@ -107,7 +106,7 @@ struct PageControllerView: View {
                     UserDefaults.standard.set(false, forKey: "appIsOpen")
                 }
             }
-        } //END ZStack
+//        } //END ZStack
         .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: { pageControllerVM.showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })

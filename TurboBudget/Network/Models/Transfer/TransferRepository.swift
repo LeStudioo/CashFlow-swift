@@ -67,6 +67,24 @@ extension TransferRepository {
         }
     }
     
+    @MainActor
+    func deleteTransfer(transferID: Int) async {
+        do {
+            let response = try await NetworkService.shared.sendRequest(
+                apiBuilder: TransferAPIRequester.delete(transferID: transferID),
+                responseModel: TransferResponseWithBalances.self
+            )
+            guard let transfer = transfers.first(where: { $0.id == transferID }) else { return }
+            guard let senderAccountID = transfer.senderAccountID, let receiverAccountID = transfer.receiverAccountID else { return }
+            
+            if let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
+                AccountRepository.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
+                AccountRepository.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
+            }
+            self.transfers.removeAll(where: { $0.id == transferID })
+        } catch { NetworkService.handleError(error: error) }
+    }
+    
 }
 
 extension TransferRepository {

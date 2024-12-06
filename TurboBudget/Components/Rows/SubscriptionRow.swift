@@ -35,7 +35,7 @@ struct SubscriptionRow: View {
                     )
                     
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(Word.Classic.subscription)
+                        Text(Word.Main.subscription)
                             .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                             .font(Font.mediumSmall())
                         Text(subscription.name ?? "")

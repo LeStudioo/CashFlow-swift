@@ -43,7 +43,7 @@ struct BudgetsTransactionsView: View {
                 array = subcategory.expenses
                     .sorted { $0.amount ?? 0 < $1.amount ?? 0 }
             }
-        } else { array = subcategory.transactions.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false } }
+        } else { array = subcategory.transactions.filter { $0.name.localizedCaseInsensitiveContains(searchText) } }
         
         return array.filter { $0.date > Date().startOfMonth && $0.date < Date().endOfMonth }
     }

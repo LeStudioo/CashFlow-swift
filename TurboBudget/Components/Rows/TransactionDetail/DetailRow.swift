@@ -1,5 +1,5 @@
 //
-//  TransactionDetailRow.swift
+//  DetailRow.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 05/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TransactionDetailRow: View {
+struct DetailRow: View {
     
     // Builder
     var icon: String
@@ -36,6 +36,7 @@ struct TransactionDetailRow: View {
                     Text(text)
                         .font(.mediumText16())
                         .foregroundStyle(Color.label)
+                        .multilineTextAlignment(.leading)
                 }
                 
                 Text(value)
@@ -57,13 +58,13 @@ struct TransactionDetailRow: View {
 // MARK: - Preview
 #Preview {
     VStack(spacing: 16) {
-        TransactionDetailRow(
+        DetailRow(
             icon: "tshirt.fill",
             value: "Vêtements, Chaussures, Accessoires",
             iconBackgroundColor: Color.red
         )
         
-        TransactionDetailRow(
+        DetailRow(
             icon: "tshirt.fill",
             text: "Date",
             value: "Vêtements, Chaussures, Accessoires",

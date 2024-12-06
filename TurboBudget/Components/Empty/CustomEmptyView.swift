@@ -13,7 +13,15 @@ struct CustomEmptyView: View {
     var type: CustomEmptyViewType
     var isDisplayed: Bool
     
+    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
+    
+    var isSituation: Bool {
+        switch type {
+        case .empty:        return true
+        case .noResults:    return false
+        }
+    }
     
     // MARK: -
     var body: some View {
@@ -27,6 +35,20 @@ struct CustomEmptyView: View {
             Text(getDescription())
                 .font(.semiBoldText16())
                 .multilineTextAlignment(.center)
+            
+            if isSituation {
+                Button(action: action) {
+                    Text(createText)
+                        .foregroundStyle(Color.white)
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background {
+                            Capsule()
+                                .fill(themeManager.theme.color)
+                        }
+                }
+            }
         }
         .padding(32)
         .offset(y: -50)
@@ -48,16 +70,34 @@ struct CustomEmptyView: View {
         switch type {
         case .empty(let situation):
             return situation.description
+        case .noResults(let searchText):
+            return "word_no_results".localized + " " + searchText
+        }
+    }
+    
+    private func action() {
+        switch type {
+        case .empty(let situation):
+            situation.action(router: router)
         case .noResults:
-            return "word_no_results".localized
+            break
+        }
+    }
+    
+    private var createText: String {
+        switch type {
+        case .empty(let situation):
+            return situation.createText
+        case .noResults:
+            return ""
         }
     }
 } // struct
 
 // MARK: - Utils
 enum CustomEmptyViewType: Equatable {
-    case empty(situation: CustomEmptyViewSituation)
-    case noResults
+    case empty(_ situation: CustomEmptyViewSituation)
+    case noResults(_ searchText: String)
 }
 
 enum CustomEmptyViewSituation {
@@ -65,6 +105,7 @@ enum CustomEmptyViewSituation {
     case transactions
     case subscriptions
     case savingsPlan
+    case savingsAccount
     case analytics
     
     var emptyImage: String {
@@ -74,8 +115,10 @@ enum CustomEmptyViewSituation {
         case .transactions:
             return "NoTransaction"
         case .subscriptions:
-            return "NoAutomations" // TBL To edit to subscription
+            return "NoAutomation" // TBL To edit to subscription
         case .savingsPlan:
+            return "NoSavingPlan"
+        case .savingsAccount:
             return "NoSavingPlan"
         case .analytics:
             return "NoIncome" // TBL To edit
@@ -85,15 +128,51 @@ enum CustomEmptyViewSituation {
     var description: String {
         switch self {
         case .account:
-            return "home_screen_no_account".localized
+            return Word.Empty.Account.desc
         case .transactions:
-            return "word_no_transactions".localized
+            return Word.Empty.Transaction.desc
         case .subscriptions:
-            return "word_no_automations".localized
+            return Word.Empty.Subscription.desc
         case .savingsPlan:
-            return "error_message_savingsplan".localized
+            return Word.Empty.SavingsPlan.desc
+        case .savingsAccount:
+            return Word.Empty.SavingsAccount.desc
         case .analytics:
             return "analytic_home_no_stats".localized
+        }
+    }
+    
+    var createText: String {
+        switch self {
+        case .account:
+            return Word.Empty.Account.create
+        case .transactions:
+            return Word.Empty.Transaction.create
+        case .subscriptions:
+            return Word.Empty.Subscription.create
+        case .savingsPlan:
+            return Word.Empty.SavingsPlan.create
+        case .savingsAccount:
+            return Word.Empty.SavingsAccount.create
+        case .analytics:
+            return Word.Empty.Transaction.create
+        }
+    }
+    
+    func action(router: NavigationManager) {
+        switch self {
+        case .account:
+            router.presentCreateAccount(type: .classic)
+        case .transactions:
+            router.presentCreateTransaction()
+        case .subscriptions:
+            router.presentCreateSubscription()
+        case .savingsPlan:
+            router.presentCreateSavingsPlan()
+        case .savingsAccount:
+            router.presentCreateAccount(type: .savings)
+        case .analytics:
+            router.presentCreateTransaction()
         }
     }
 }
@@ -101,7 +180,8 @@ enum CustomEmptyViewSituation {
 // MARK: - Preview
 #Preview {
     CustomEmptyView(
-        type: .empty(situation: .account),
+        type: .empty(.account),
         isDisplayed: true
     )
+    .environmentObject(ThemeManager())
 }

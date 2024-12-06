@@ -87,14 +87,16 @@ struct OnboardingView: View {
                     } else {
                         UserDefaults.standard.set(true, forKey: "alreadyOpen")
                         Task {
-                            await accountRepository.createAccount(
+                            if let newAccount = await accountRepository.createAccount(
                                 body: .init(
                                     name: accountTitle,
                                     balance: accountBalance.toDouble(),
                                     typeNum: AccountType.classic.rawValue
                                 )
-                            )
-                            dismiss()
+                            ) {
+                                accountRepository.selectedAccount = newAccount
+                                dismiss()
+                            }
                         }
                     }
                 },

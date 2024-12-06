@@ -47,7 +47,7 @@ struct CategoryTransactionsView: View {
                 return category.transactions
             }
         } else {
-            return category.transactions.filter { $0.name?.localizedCaseInsensitiveContains(searchText) ?? false }
+            return category.transactions.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
         }
     }
     

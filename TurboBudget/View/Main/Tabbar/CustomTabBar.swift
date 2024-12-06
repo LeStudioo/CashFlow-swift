@@ -44,13 +44,13 @@ struct CustomTabBar: View {
                         NavigationButton(present: router.presentCreateTransfer()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label(Word.Classic.transfer, systemImage: "arrow.left.arrow.right")
+                            Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right")
                         }
                         
                         NavigationButton(present: router.presentCreateSavingsPlan()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label(Word.Classic.savingsPlan, systemImage: "dollarsign.square.fill")
+                            Label(Word.Main.savingsPlan, systemImage: "dollarsign.square.fill")
                         }
                         
                         NavigationButton(present: router.presentCreateBudget()) {
@@ -68,13 +68,13 @@ struct CustomTabBar: View {
                         NavigationButton(present: router.presentCreateSubscription()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label(Word.Classic.subscription, systemImage: "clock.arrow.circlepath")
+                            Label(Word.Main.subscription, systemImage: "clock.arrow.circlepath")
                         }
                         
                         NavigationButton(present: router.presentCreateTransaction()) {
                             viewModel.showMenu = false
                         } label: {
-                            Label(Word.Classic.transaction, systemImage: "creditcard.and.123")
+                            Label(Word.Main.transaction, systemImage: "creditcard.and.123")
                         }
                     } else {
                         NavigationButton(present: router.presentCreateAccount(type: .classic)) {

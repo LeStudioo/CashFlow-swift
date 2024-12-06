@@ -32,31 +32,37 @@ struct SavingsAccountHomeView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            VStack(spacing: -2) {
-                Text(Word.SavingsAccount.totalSavings)
-                    .font(Font.mediumText16())
-                    .foregroundStyle(Color.customGray)
-                HStack {
-                    Text(currencySymbol)
-                    Text(totalSavings.formatted(style: .decimal))
-                }
-                .font(.boldH1())
-            }
-            .padding(.vertical, 12)
-            
-            LazyVGrid(columns: columns, spacing: 12, content: {
-                ForEach(accountRepository.savingsAccounts) { account in
-                    NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
-                        SavingsAccountRow(savingsAccount: account)
+            if !accountRepository.savingsAccounts.isEmpty {
+                VStack(spacing: -2) {
+                    Text(Word.SavingsAccount.totalSavings)
+                        .font(Font.mediumText16())
+                        .foregroundStyle(Color.customGray)
+                    HStack {
+                        Text(currencySymbol)
+                        Text(totalSavings.formatted(style: .decimal))
                     }
+                    .font(.boldH1())
                 }
-            })
-            .padding(.horizontal, 8)
+                .padding(.vertical, 12)
+                
+                LazyVGrid(columns: columns, spacing: 12, content: {
+                    ForEach(accountRepository.savingsAccounts) { account in
+                        NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
+                            SavingsAccountRow(savingsAccount: account)
+                        }
+                    }
+                })
+                .padding(.horizontal, 8)
+            } else {
+                CustomEmptyView(
+                    type: .empty(.savingsAccount),
+                    isDisplayed: true
+                )
+            }
         }
-        .navigationTitle("word_savings_account".localized)
+        .navigationTitle(Word.Main.savingsAccounts)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-//        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
             ToolbarDismissPushButton()
                         

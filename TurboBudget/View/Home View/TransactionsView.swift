@@ -1,5 +1,5 @@
 //
-//  RecentTransactionsView.swift
+//  TransactionsView.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 03/07/2023.
@@ -13,7 +13,7 @@ enum FilterForRecentTransaction: Int, CaseIterable {
     case month, expenses, incomes, category
 }
 
-struct RecentTransactionsView: View {
+struct TransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
@@ -32,7 +32,7 @@ struct RecentTransactionsView: View {
             return transactionRepository.transactions
         } else { //Searching
             let transactionsFilterByTitle = transactionRepository.transactions
-                .filter { $0.name?.localizedStandardContains(searchText) ?? false }
+                .filter { $0.name.localizedStandardContains(searchText) }
             
             let transactionsFilterByDate = transactionRepository.transactions
                 .filter { HelperManager().formattedDateWithMonthYear(date: $0.date).localizedStandardContains(searchText) }
@@ -47,39 +47,31 @@ struct RecentTransactionsView: View {
     
     // MARK: -
     var body: some View {
-        VStack {
-            if transactionRepository.transactions.count != 0 && searchResults.count != 0 {
-                TransactionsListView()
-            } else { // No Transactions
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "NoTransaction",
-                    text: "error_message_transaction".localized
+        TransactionsListView()
+            .overlay {
+                CustomEmptyView(
+                    type: .empty(.transactions),
+                    isDisplayed: transactionRepository.transactions.isEmpty
                 )
             }
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
-        .navigationTitle("word_recent_transactions".localized)
-        .navigationBarTitleDisplayMode(.large)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarDismissPushButton()
-            
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                NavigationButton(push: router.pushFilter()) {
-//                    Image(systemName: "line.3.horizontal.decrease.circle")
-//                        .foregroundStyle(Color(uiColor: .label))
-//                        .font(.system(size: 18, weight: .medium, design: .rounded))
-//                }
-//            }
-        }
-        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+            .navigationTitle(Word.Main.transactions)
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarDismissPushButton()
+                
+                //            ToolbarItem(placement: .navigationBarTrailing) {
+                //                NavigationButton(push: router.pushFilter()) {
+                //                    Image(systemName: "line.3.horizontal.decrease.circle")
+                //                        .foregroundStyle(Color(uiColor: .label))
+                //                        .font(.system(size: 18, weight: .medium, design: .rounded))
+                //                }
+                //            }
+            }
     } // End body
 } // End struct
 
 // MARK: - Preview
 #Preview {
-    RecentTransactionsView()
+    TransactionsView()
 }

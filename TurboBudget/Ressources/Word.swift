@@ -19,8 +19,6 @@ struct Word {
         static let recommended: String = "word_recommended".localized
         static let expense: String = "word_expense".localized
         static let income: String = "word_income".localized
-        static let transfer: String = "word_transfer".localized
-        static let subscription: String = "word_subscription".localized
         static let dayOfAutomation: String = "word_dayOfAutomation".localized
         static let initialAmount: String = "word_initialAmount".localized
         static let amountToReach: String = "word_amountToReach".localized
@@ -37,18 +35,27 @@ struct Word {
         static let retry: String = "word_retry".localized
         static let add: String = "word_add".localized
         static let enable: String = "word_enable".localized
-        static let savingsPlan: String = "word_savingsplan".localized
-        static let transaction: String = "word_transaction".localized
         static let light: String = "word_light".localized
         static let dark: String = "word_dark".localized
         static let system: String = "word_system".localized
         static let note: String = "word_note".localized
         static let budget: String = "word_budget".localized
         static let maxAmount: String = "word_maxAmount".localized
+        static let amount: String = "word_amount".localized
+        static let `continue`: String = "word_continue".localized
     }
     
     struct Main {
+        static let transaction: String = "word_transaction".localized
+        static let transactions: String = "word_transactions".localized
+        static let subscription: String = "word_subscription".localized
         static let subscriptions: String = "word_subscriptions".localized
+        static let savingsPlan: String = "word_savingsplan".localized
+        static let savingsPlans: String = "word_savingsplans".localized
+        static let transfer: String = "word_transfer".localized
+        static let transfers: String = "word_transfers".localized
+        static let savingsAccount: String = "word_savings_account".localized
+        static let savingsAccounts: String = "word_savings_accounts".localized
     }
     
     struct Preposition {
@@ -103,14 +110,25 @@ struct Word {
     }
     
     struct Empty {
+        struct Account {
+            static let desc: String = "empty_accounts_desc".localized
+            static let create: String = "empty_accounts_create".localized
+        }
         struct Transaction {
             static let desc: String = "empty_transactions_desc".localized
+            static let create: String = "empty_transactions_create".localized
         }
         struct Subscription {
             static let desc: String = "empty_subscriptions_desc".localized
+            static let create: String = "empty_subscriptions_create".localized
         }
-        struct SavingsPlan{
+        struct SavingsPlan {
             static let desc: String = "empty_savingsPlans_desc".localized
+            static let create: String = "empty_savingsPlans_create".localized
+        }
+        struct SavingsAccount {
+            static let desc: String = "empty_savingsAccounts_desc".localized
+            static let create: String = "empty_savingsAccounts_create".localized
         }
     }
     
@@ -185,6 +203,18 @@ struct Word {
     
     struct SavingsAccount {
         static let totalSavings: String = "savings_account_total_savings".localized
+    }
+    
+    struct WhatsNew {
+        static let title: String = "whatsnew_title".localized
+        static let savingsAccounts: String = "whatsnew_savings_accounts".localized
+        static let transfers: String = "whatsnew_transfers".localized
+        static let securityTitle: String = "whatsnew_security_title".localized
+        static let security: String = "whatsnew_security".localized
+        static let userInterfaceTitle: String = "whatsnew_ui_title".localized
+        static let userInterface: String = "whatsnew_ui".localized
+        static let editTitle: String = "whatsnew_edit_title".localized
+        static let edit: String = "whatsnew_edit".localized
     }
     
 }

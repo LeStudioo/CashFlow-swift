@@ -1,5 +1,5 @@
 //
-//  SavingPlanDetailView.swift
+//  SavingsPlanDetailView.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SavingPlanDetailView: View {
+struct SavingsPlanDetailView: View {
     
     //Custom type
     @ObservedObject var savingsPlan: SavingsPlanModel
@@ -76,15 +76,14 @@ struct SavingPlanDetailView: View {
             progressBar()
                 .padding(.horizontal, 12)
             
-            let color: Color = (savingsPlan.endDate < Date() && savingsPlan.currentAmount ?? 0 != savingsPlan.goalAmount ?? 0)
-            ? Color.red
-            : Color(uiColor: .label
-            )
-            CellForDetailSavingPlan(
-                leftText: "savingsplan_detail_end_date".localized,
-                rightText: savingsPlan.endDate.formatted(date: .abbreviated, time: .omitted),
-                rightTextColor: color
-            )
+            if let endDate = savingsPlan.endDate {
+                DetailRow(
+                    icon: "calendar",
+                    text: Word.Classic.finalTargetDate,
+                    value: endDate.formatted(date: .abbreviated, time: .omitted)
+                )
+                .padding(.horizontal, 12)
+            }
             
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $savingPlanNote)
@@ -299,7 +298,7 @@ struct SavingPlanDetailView: View {
 
 // MARK: - Preview
 #Preview {
-    SavingPlanDetailView(savingsPlan: .mockClassicSavingsPlan)
+    SavingsPlanDetailView(savingsPlan: .mockClassicSavingsPlan)
 }
 
 private struct CellForDetailSavingPlan: View {

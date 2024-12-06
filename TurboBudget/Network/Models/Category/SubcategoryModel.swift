@@ -75,7 +75,7 @@ extension SubcategoryModel {
     }
     
     var name: String {
-        return self._name ?? ""
+        return self._name?.localized ?? ""
     }
     
     var color: Color {

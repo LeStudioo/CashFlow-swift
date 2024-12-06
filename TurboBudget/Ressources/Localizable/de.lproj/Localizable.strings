@@ -17,10 +17,6 @@
 
 "word_income" = "Einkommen";
 
-"word_transfer" = "Überweisen";
-
-"word_subscription" = "Abonnement";
-
 "word_dayOfAutomation" = "Automatisierungstag";
 
 "word_initialAmount" = "Anfangsbetrag";
@@ -53,10 +49,6 @@
 
 "word_add" = "Hinzufügen";
 
-"word_savingsplan" = "Sparkonto";
-
-"word_transaction" = "Transaktionen";
-
 "word_light" = "Licht";
 
 "word_dark" = "Dunkel";
@@ -68,6 +60,31 @@
 "word_budget" = "Budget";
 
 "word_maxAmount" = "Höchstbetrag";
+
+"word_continue" = "Weiter";
+
+"word_amount" = "Menge";
+
+//MARK: - Main
+"word_transaction" = "Transaktionen";
+
+"word_transactions" = "Verfahren";
+
+"word_subscription" = "Abonnement";
+
+"word_subscriptions" = "Abonnements";
+
+"word_savingsplan" = "Sparkonto";
+
+"word_savingsplans" = "Sparpläne";
+
+"word_transfer" = "Überweisen";
+
+"word_transfers" = "Transfers";
+
+"word_savings_account" = "Sparkonto";
+
+"word_savings_accounts" = "Sparkonten";
 
 //MARK: - Preposition
 "word_preposition_to" = "Zu";
@@ -116,11 +133,25 @@
 "title_setting_credits" = "Credits";
 
 //MARK: - Empty
-"empty_transactions_desc" = "Fügen Sie Ihre erste Transaktion hinzu, indem Sie auf die Schaltfläche '+' klicken";
+"empty_accounts_desc" = "Erstellen Sie Ihr erstes Konto, um CashFlow zu nutzen!";
 
-"empty_subscriptions_desc" = "Fügen Sie Ihr erstes Abonnement hinzu, indem Sie auf die Schaltfläche '+' klicken";
+"empty_accounts_create" = "Ein Konto erstellen";
 
-"empty_savingsPlans_desc" = "Fügen Sie Ihren ersten Sparplan hinzu, indem Sie auf die Schaltfläche '+' klicken";
+"empty_transactions_desc" = "Sie haben noch keine Transaktionen erfasst. Legen Sie jetzt los!";
+
+"empty_transactions_create" = "Erstellen Sie eine Transaktion";
+
+"empty_subscriptions_desc" = "Sie haben noch kein Abonnement registriert. Legen Sie jetzt los!";
+
+"empty_subscriptions_create" = "Erstellen Sie ein Abonnement";
+
+"empty_savingsPlans_desc" = "Sie haben noch keinen Sparplan registriert. Legen Sie jetzt los!";
+
+"empty_savingsPlans_create" = "Erstellen Sie einen Sparplan";
+
+"empty_savingsAccounts_desc" = "Sie haben noch kein Sparkonto hinzugefügt. Legen Sie jetzt los!";
+
+"empty_savingsAccounts_create" = "Erstellen Sie ein Sparkonto";
 
 //MARK: - Login
 "login_connection" = "Zugang";
@@ -204,6 +235,25 @@
 
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Gesamteinsparungen";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "Was ist neu?";
+
+"whatsnew_savings_accounts" = "Sie ermöglichen es Ihnen, Ihre Ersparnisse auf die gleiche Weise zu verfolgen wie beispielsweise Ihre Sparbuchkonten.";
+
+"whatsnew_transfers" = "Sie ermöglichen Ihnen, Aktionen zwischen Ihrem Sparkonto und Ihrem Bankkonto durchzuführen.";
+
+"whatsnew_security_title" = "Datensicherheit";
+
+"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
+
+"whatsnew_ui_title" = "Benutzeroberfläche";
+
+"whatsnew_ui" = "Verbesserte Benutzeroberfläche, besser an Ihre Bedürfnisse angepasst und effizienter";
+
+"whatsnew_edit_title" = "Änderung";
+
+"whatsnew_edit" = "Sparpläne, Transaktionen, Abonnements usw. kann nun nach der Erstellung geändert werden";
 
 //MARK: - General Words
 "word_transactions" = "Transaktionen";
@@ -316,13 +366,9 @@
 
 "word_yes" = "Ja";
 
-"word_continue" = "Weiter";
-
 "word_cancel_changes" = "Änderungen rückgängig machen";
 
 "word_return" = "Zurück";
-
-"word_savings_account" = "Sparkonten";
 
 "by_month_word" = "Pro Monat";
 

@@ -119,8 +119,8 @@ extension SavingsPlanModel {
         return self.startDateString?.toDate() ?? .now
     }
     
-    var endDate: Date {
-        return self.endDateString?.toDate() ?? .now
+    var endDate: Date? {
+        return self.endDateString?.toDate()
     }
     
 }

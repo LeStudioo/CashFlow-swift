@@ -18,6 +18,7 @@ struct TransferRow: View {
     var transfer: TransactionModel
     var location: TransferRowLocation = .savingsAccount
     @EnvironmentObject private var savingsAccountRepository: SavingsAccountRepository
+    @EnvironmentObject private var transferRepository: TransferRepository
     @EnvironmentObject private var accountRepository: AccountRepository
     
     //Environnement
@@ -36,7 +37,7 @@ struct TransferRow: View {
         }
     }
 
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         SwipeView(label: {
             HStack {
@@ -54,9 +55,9 @@ struct TransferRow: View {
                     }
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(Word.Classic.transfer)
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                    .font(Font.mediumSmall())
+                    Text(Word.Main.transfer)
+                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .font(Font.mediumSmall())
                     Text(isSender ? Word.Classic.sent : Word.Classic.received)
                         .font(.semiBoldText18())
                         .foregroundStyle(Color(uiColor: .label))
@@ -66,7 +67,7 @@ struct TransferRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text((transfer.amount ?? 0).currency)
+                    Text("\(isSender ? "-" : "+") \((transfer.amount ?? 0).currency)")
                         .font(.semiBoldText16())
                         .foregroundStyle(isSender ? .error400 : .primary500)
                         .lineLimit(1)
@@ -106,25 +107,20 @@ struct TransferRow: View {
         .padding(.horizontal)
         .alert("transfer_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: { withAnimation { deleteTranfer() } }, label: { Text("word_delete".localized) })
+            Button(role: .destructive, action: {
+                Task {
+                    if let transferID = transfer.id {
+                        await transferRepository.deleteTransfer(transferID: transferID)
+                    }
+                }
+            }, label: { Text("word_delete".localized) })
         }, message: {
             Text((transfer.amount ?? 0) < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
         })
-    } // End body
-    
-    //MARK: Fonctions
-    
-    func deleteTranfer() {
-        // TODO: delete
-//        viewContext.delete(transfer)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//            persistenceController.saveContext()
-//        }
-    }
-    
-} // End struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     TransferRow(transfer: .mockTransferTransaction)
 }

@@ -44,6 +44,7 @@ struct TransactionsListView: View {
         } // List
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        .background(Color.background.edgesIgnoringSafeArea(.all))
         .overlay(alignment: .bottom) {
             if isLoading {
                 CashFlowLoader()

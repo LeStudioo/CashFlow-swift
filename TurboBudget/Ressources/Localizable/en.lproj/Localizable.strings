@@ -17,10 +17,6 @@
 
 "word_income" = "Income";
 
-"word_transfer" = "Transfer";
-
-"word_subscription" = "Subscription";
-
 "word_dayOfAutomation" = "Automation Day";
 
 "word_initialAmount" = "Starting amount";
@@ -53,10 +49,6 @@
 
 "word_add" = "Add";
 
-"word_savingsplan" = "Savings plan";
-
-"word_transaction" = "Transaction";
-
 "word_light" = "Light";
 
 "word_dark" = "Dark";
@@ -68,6 +60,31 @@
 "word_budget" = "Budget";
 
 "word_maxAmount" = "Maximum amount";
+
+"word_continue" = "Continue";
+
+"word_amount" = "Amount";
+
+//MARK: - Main
+"word_transaction" = "Transaction";
+
+"word_transactions" = "Transactions";
+
+"word_subscription" = "Subscription";
+
+"word_subscriptions" = "Subscriptions";
+
+"word_savingsplan" = "Savings plan";
+
+"word_savingsplans" = "Savings plans";
+
+"word_transfer" = "Transfer";
+
+"word_transfers" = "Transfers";
+
+"word_savings_account" = "Savings account";
+
+"word_savings_accounts" = "Savings accounts";
 
 //MARK: - Preposition
 "word_preposition_to" = "to";
@@ -116,11 +133,25 @@
 "title_setting_credits" = "Credits";
 
 //MARK: - Empty
-"empty_transactions_desc" = "Add your first transaction by pressing the '+' button";
+"empty_accounts_desc" = "Create your first account to start using CashFlow!";
 
-"empty_subscriptions_desc" = "Add your first subscription by pressing the '+' button";
+"empty_accounts_create" = "Create an account";
 
-"empty_savingsPlans_desc" = "Add your first savings plan by pressing the '+' button";
+"empty_transactions_desc" = "You haven't registered any transactions yet. Start now!";
+
+"empty_transactions_create" = "Create a transaction";
+
+"empty_subscriptions_desc" = "You haven't registered any subscriptions yet. Start now!";
+
+"empty_subscriptions_create" = "Create a subscription";
+
+"empty_savingsPlans_desc" = "You haven't registered any savings plans yet. Start now!";
+
+"empty_savingsPlans_create" = "Create a savings plan";
+
+"empty_savingsAccounts_desc" = "You haven't added a savings account yet. Start now!";
+
+"empty_savingsAccounts_create" = "Create a savings account";
 
 //MARK: - Login
 "login_connection" = "Login";
@@ -204,6 +235,25 @@
 
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Total savings";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "What's new ?";
+
+"whatsnew_savings_accounts" = "They allow you to track your savings in the same way as your passbook accounts, for example";
+
+"whatsnew_transfers" = "They allow you to carry out actions between your savings account and your bank account.";
+
+"whatsnew_security_title" = "Data security";
+
+"whatsnew_security" = "Data security is now more important and more comprehensive";
+
+"whatsnew_ui_title" = "User interface";
+
+"whatsnew_ui" = "Improved user interface, better adapted to your needs and more efficient";
+
+"whatsnew_edit_title" = "Modification";
+
+"whatsnew_edit" = "Savings plans, transactions, subscriptions, etc. can now be modified once they have been created";
 
 //MARK: - General Words
 "word_transactions" = "Transactions";
@@ -316,13 +366,9 @@
 
 "word_yes" = "Yes";
 
-"word_continue" = "Continue";
-
 "word_cancel_changes" = "Discard changes";
 
 "word_return" = "Back";
-
-"word_savings_account" = "Savings accounts";
 
 "by_month_word" = "By month";
 

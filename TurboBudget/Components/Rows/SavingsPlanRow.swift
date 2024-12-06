@@ -40,23 +40,25 @@ struct SavingsPlanRow: View {
                     .font(.system(size: 18, weight: .semibold, design: .rounded))
                     .foregroundStyle(Color(uiColor: .label))
             }
-            .padding(.top)
+            
+            Spacer()
             
             Text(savingsPlan.name ?? "")
                 .font(.semiBoldText16())
                 .foregroundStyle(Color(uiColor: .label))
                 .lineLimit(1)
-            
+                        
             progressBar()
                 .padding(.bottom, 12)
                 .padding(.top, -10)
             
-            Spacer()
         }
-        .padding(.horizontal, 12)
-        .frame(height: 150)
-        .background(Color.colorCell)
-        .cornerRadius(15)
+        .padding(12)
+        .frame(height: 160)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.colorCell)
+        }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 withAnimation(.spring()) {

@@ -35,7 +35,7 @@ struct TransactionRow: View {
                             .foregroundStyle(Color.customGray)
                             .font(Font.mediumSmall())
                         
-                        Text(transactionName)
+                        Text(transaction.name)
                             .font(.semiBoldText18())
                             .foregroundStyle(Color(uiColor: .label))
                             .lineLimit(1)
@@ -46,7 +46,7 @@ struct TransactionRow: View {
                     VStack(alignment: .trailing, spacing: 5) {
                         Text("\(transaction.symbol) \(transaction.amount?.currency ?? "")")
                             .font(.semiBoldText16())
-                            .foregroundStyle(transactionColor)
+                            .foregroundStyle(transaction.color)
                             .lineLimit(1)
                         
                         Text(transaction.date.formatted(date: .numeric, time: .omitted))
@@ -116,45 +116,11 @@ struct TransactionRow: View {
 
 extension TransactionRow {
     
-    var isSender: Bool {
-        guard let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id else { return false }
-        return transaction.senderAccountID == accountID
-    }
-
-    var transactionName: String {
-        switch transaction.type {
-        case .expense, .income:
-            return transaction.name ?? ""
-        case .transfer:
-            guard let receiverAccountID = transaction.receiverAccountID else { return "" }
-            guard let senderAccountID = transaction.senderAccountID else { return "" }
-            
-            if isSender {
-                let receiverAccountName = AccountRepository.shared.findByID(receiverAccountID)?.name ?? ""
-                return [Word.Classic.sent, Word.Preposition.to, receiverAccountName].joined(separator: " ")
-            } else {
-                let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
-                return [Word.Classic.received, Word.Preposition.from, senderAccountName].joined(separator: " ")
-            }
-        }
-    }
-    
     var transactionTypeString: String {
         if transaction.isFromSubscription == true {
-            return Word.Classic.subscription
+            return Word.Main.subscription
         } else {
             return transaction.type.name
-        }
-    }
-    
-    var transactionColor: Color {
-        switch transaction.type {
-        case .expense:
-            return .error400
-        case .income:
-            return .primary500
-        case .transfer:
-            return isSender ? .error400 : .primary500
         }
     }
     

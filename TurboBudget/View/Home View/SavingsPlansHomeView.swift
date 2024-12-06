@@ -1,5 +1,5 @@
 //
-//  SavingPlansHomeView.swift
+//  SavingsPlansHomeView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 20/06/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct SavingPlansHomeView: View {
+struct SavingsPlansHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -30,44 +30,33 @@ struct SavingPlansHomeView: View {
     // Other
     private let layout: [GridItem] = [GridItem(.flexible(minimum: 40), spacing: 20), GridItem(.flexible(minimum: 40), spacing: 20)]
     
-    //MARK: - Body
+    // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
-            if !savingsPlanRepository.savingsPlans.isEmpty {
-                ScrollView {
-                    LazyVGrid(columns: layout, alignment: .center) {
-                        ForEach(searchResults) { savingsPlan in
-                            NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
-                                Task {
-                                    if let savingsPlanID = savingsPlan.id {
-                                        await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
-                                    }
-                                }
-                            }) {
-                                SavingsPlanRow(savingsPlan: savingsPlan)
+        ScrollView {
+            LazyVGrid(columns: layout, alignment: .center) {
+                ForEach(searchResults) { savingsPlan in
+                    NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
+                        Task {
+                            if let savingsPlanID = savingsPlan.id {
+                                await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
                             }
-                            .padding(.bottom)
                         }
+                    }) {
+                        SavingsPlanRow(savingsPlan: savingsPlan)
                     }
-                    .padding()
-                } //End ScrollView
-                .scrollIndicators(.hidden)
-                .overlay {
-                    CustomEmptyView(
-                        type: .empty(situation: .savingsPlan),
-                        isDisplayed: savingsPlanRepository.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
-                    )
+                    .padding(.bottom)
                 }
-            } else {
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "NoSavingPlan",
-                    text: "error_message_savingsplan".localized
-                )
             }
+            .padding()
+        } // ScrollView
+        .scrollIndicators(.hidden)
+        .overlay {
+            CustomEmptyView(
+                type: (searchResults.isEmpty && !searchText.isEmpty) ? .noResults(searchText) : .empty(.savingsPlan),
+                isDisplayed: savingsPlanRepository.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
+            )
         }
-        .navigationTitle("word_savingsplans".localized)
+        .navigationTitle(Word.Main.savingsPlans)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
@@ -83,10 +72,10 @@ struct SavingPlansHomeView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 //MARK: - Preview
 #Preview {
-    SavingPlansHomeView()
+    SavingsPlansHomeView()
 }

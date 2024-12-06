@@ -17,10 +17,6 @@
 
 "word_income" = "Ingreso";
 
-"word_transfer" = "Transferir";
-
-"word_subscription" = "Suscripción";
-
 "word_dayOfAutomation" = "Día de la automatización";
 
 "word_initialAmount" = "Cantidad inicial";
@@ -53,10 +49,6 @@
 
 "word_add" = "Agregar";
 
-"word_savingsplan" = "Plan de ahorro";
-
-"word_transaction" = "Transacción";
-
 "word_light" = "Luz";
 
 "word_dark" = "Oscuro";
@@ -68,6 +60,31 @@
 "word_budget" = "Presupuesto";
 
 "word_maxAmount" = "Importe máximo";
+
+"word_continue" = "Continúe";
+
+"word_amount" = "Cantidad";
+
+//MARK: - Main
+"word_transaction" = "Transacción";
+
+"word_transactions" = "Actas";
+
+"word_subscription" = "Suscripción";
+
+"word_subscriptions" = "Suscripciones";
+
+"word_savingsplan" = "Plan de ahorro";
+
+"word_savingsplans" = "Planes de ahorro";
+
+"word_transfer" = "Transferir";
+
+"word_transfers" = "Transfers";
+
+"word_savings_account" = "Cuenta de ahorros";
+
+"word_savings_accounts" = "cuentas de ahorro";
 
 //MARK: - Preposition
 "word_preposition_to" = "a";
@@ -116,11 +133,25 @@
 "title_setting_credits" = "Créditos";
 
 //MARK: - Empty
-"empty_transactions_desc" = "Agregue su primera transacción presionando el botón '+'";
+"empty_accounts_desc" = "¡Crea tu primera cuenta para comenzar a usar CashFlow!";
 
-"empty_subscriptions_desc" = "Agrega tu primera suscripción presionando el botón '+'";
+"empty_accounts_create" = "Crea una cuenta";
 
-"empty_savingsPlans_desc" = "Añade tu primer plan de ahorro pulsando el botón '+'";
+"empty_transactions_desc" = "Aún no has registrado ninguna transacción. ¡Empiece ahora!";
+
+"empty_transactions_create" = "Crear una transacción";
+
+"empty_subscriptions_desc" = "Aún no has registrado ninguna suscripción. ¡Empiece ahora!";
+
+"empty_subscriptions_create" = "Crear una suscripción";
+
+"empty_savingsPlans_desc" = "Aún no has registrado ningún plan de ahorro. ¡Empiece ahora!";
+
+"empty_savingsPlans_create" = "Crea un plan de ahorro";
+
+"empty_savingsAccounts_desc" = "Aún no has agregado una cuenta de ahorros. ¡Empiece ahora!";
+
+"empty_savingsAccounts_create" = "Crear una cuenta de ahorros";
 
 //MARK: - Login
 "login_connection" = "Acceso";
@@ -204,6 +235,25 @@
 
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Ahorro total";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "¿Qué hay de nuevo?";
+
+"whatsnew_savings_accounts" = "Le permiten realizar un seguimiento de sus ahorros de la misma manera que sus cuentas de libreta, por ejemplo.";
+
+"whatsnew_transfers" = "Te permiten realizar acciones entre tu cuenta de ahorro y tu cuenta bancaria.";
+
+"whatsnew_security_title" = "Seguridad de datos";
+
+"whatsnew_security" = "La seguridad de los datos es ahora más importante y más completa";
+
+"whatsnew_ui_title" = "Interfaz de usuario";
+
+"whatsnew_ui" = "Interfaz de usuario mejorada, mejor adaptada a tus necesidades y más eficiente";
+
+"whatsnew_edit_title" = "Modificación";
+
+"whatsnew_edit" = "Planes de ahorro, transacciones, suscripciones, etc. ahora se pueden modificar una vez creados";
 
 //MARK: - General Words
 "word_transactions" = "Transacciones";
@@ -316,13 +366,9 @@
 
 "word_yes" = "Sí";
 
-"word_continue" = "Continúe";
-
 "word_cancel_changes" = "Deshacer cambios";
 
 "word_return" = "Atrás";
-
-"word_savings_account" = "cuentas de ahorro";
 
 "by_month_word" = "Por mes";
 

@@ -78,7 +78,7 @@ class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashabl
 extension CategoryModel {
     
     var name: String {
-        return self._name ?? ""
+        return self._name?.localized ?? ""
     }
     
     var icon: String {

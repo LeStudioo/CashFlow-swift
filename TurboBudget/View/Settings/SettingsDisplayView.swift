@@ -22,7 +22,7 @@ struct SettingsDisplayView: View {
         Form {
             Section {
                 Toggle(isOn: $preferencesDisplayHome.subscription_isDisplayed) {
-                    Text(Word.Classic.subscription)
+                    Text(Word.Main.subscription)
                 }
                 Picker(Word.Setting.Display.nbrSubscriptions, selection: $preferencesDisplayHome.subscription_value) {
                     ForEach(automationsNumber, id: \.self) { num in
@@ -36,7 +36,7 @@ struct SettingsDisplayView: View {
             
             Section {
                 Toggle(isOn: $preferencesDisplayHome.savingsPlan_isDisplayed) {
-                    Text(Word.Classic.savingsPlan)
+                    Text(Word.Main.savingsPlan)
                 }
                 Picker(Word.Setting.Display.nbrSavingsPlans, selection: $preferencesDisplayHome.savingsPlan_value) {
                     ForEach(savingPlansNumber, id: \.self) { num in
@@ -48,7 +48,7 @@ struct SettingsDisplayView: View {
             
             Section {
                 Toggle(isOn: $preferencesDisplayHome.transaction_isDisplayed) {
-                    Text(Word.Classic.transaction)
+                    Text(Word.Main.transaction)
                 }
                 Picker(Word.Setting.Display.nbrTransactions, selection: $preferencesDisplayHome.transaction_value) {
                     ForEach(recentTransactionsNumber, id: \.self) { num in

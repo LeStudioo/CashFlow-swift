@@ -23,9 +23,9 @@ struct HomeView: View {
                     .padding(.bottom, 24)
                 
                 VStack(spacing: 24) {
-                    HomeScreenSavingsPlan()
                     HomeScreenSubscription()
                     HomeScreenRecentTransactions()
+                    HomeScreenSavingsPlan()
                 }
                 .padding(.horizontal)
                 

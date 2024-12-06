@@ -11,7 +11,7 @@ extension TransactionModel {
     
     static let mockClassicTransaction: TransactionModel = .init(
         id: 1,
-        name: "Mock Classic Transaction",
+        _name: "Mock Classic Transaction",
         amount: 20,
         typeNum: TransactionType.expense.rawValue,
         dateISO: Date().toISO(),

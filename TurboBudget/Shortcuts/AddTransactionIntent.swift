@@ -89,7 +89,7 @@ struct AddTransactionIntent: AppIntent {
         let transactionRepository: TransactionRepository = .shared
         
         let body: TransactionModel = .init(
-            name: title,
+            _name: title,
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),

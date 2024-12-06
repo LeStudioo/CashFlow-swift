@@ -33,4 +33,8 @@ final class PreferencesGeneral: ObservableObject {
         willSet { objectWillChange.send() }
     }
 
+    @CustomUserDefault("whatsnewv2.0", defaultValue: false)
+    var isWhatsNewSeen: Bool {
+        willSet { objectWillChange.send() }
+    }
 }

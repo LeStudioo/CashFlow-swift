@@ -29,56 +29,40 @@ struct CreateContributionView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                Text("contribution_new".localized)
-                    .titleAdjustSize()
-                    .padding(.vertical, 24)
-                
-                TextField("0.00", text: $viewModel.amount.max(9).animation())
-                    .font(.boldCustom(size: isLittleIphone ? 24 : 30))
-                    .multilineTextAlignment(.center)
-                    .keyboardType(.decimalPad)
-                    .padding(isLittleIphone ? 8 : 16)
-                    .background(Color.backgroundComponentSheet.cornerRadius(100))
-                    .padding(.bottom, 24)
-                
-                ContributionTypePicker(selected: $viewModel.type)
-                    .padding(.bottom, 24)
-                
-                ZStack {
-                    Capsule()
-                        .frame(height: isLittleIphone ? 40 : 50)
-                        .foregroundStyle(Color.backgroundComponentSheet)
-                    
-                    HStack {
-                        Spacer()
-                        DatePicker(
-                            "\(viewModel.date.formatted())",
-                            selection: $viewModel.date,
-                            in: (savingsPlan.startDate)...,
-                            displayedComponents: [.date]
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        text: $viewModel.amount.max(9),
+                        config: .init(
+                            title: Word.Classic.amount,
+                            placeholder: "200.00",
+                            style: .amount
                         )
-                        .labelsHidden()
-                        .clipped()
-                        .padding(.horizontal)
+                    )
+                    
+                    ContributionTypePicker(selected: $viewModel.type)
+                    
+                    CustomDatePicker(
+                        title: Word.Classic.date,
+                        date: $viewModel.date
+                    )
+                    
+                    Group {
+                        if (viewModel.amount.toDouble() < savingsPlan.amountToTheGoal || savingsPlan.amountToTheGoal != 0) && viewModel.type == .addition {
+                            Text("💰" + savingsPlan.amountToTheGoal.currency + " " + "contribution_alert_for_finish".localized)
+                        }
+                        if ((savingsPlan.currentAmount ?? 0) - viewModel.amount.toDouble()) < 0 && viewModel.type == .withdrawal {
+                            Text("contribution_alert_take_more_amount".localized)
+                        }
                     }
+                    .font(Font.mediumText16())
+                    .multilineTextAlignment(.center)
                 }
-                .padding(.bottom, 24)
-                
-                VStack {
-                    if (viewModel.amount.toDouble() < savingsPlan.amountToTheGoal || savingsPlan.amountToTheGoal != 0) && viewModel.type == .addition {
-                        Text("💰" + savingsPlan.amountToTheGoal.currency + " " + "contribution_alert_for_finish".localized)
-                    }
-                    if ((savingsPlan.currentAmount ?? 0) - viewModel.amount.toDouble()) < 0 && viewModel.type == .withdrawal {
-                        Text("contribution_alert_take_more_amount".localized)
-                    }
-                }
-                .font(Font.mediumText16())
-                .multilineTextAlignment(.center)
-                .padding(.bottom, 24)
-            } // End ScrollView
+                .padding(.horizontal, 24)
+                .padding(.top)
+            } // ScrollView
             .scrollIndicators(.hidden)
             .scrollDismissesKeyboard(.immediately)
-            .padding(.horizontal)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarDismissButtonView {
                     if viewModel.isContributionInCreation() {
@@ -86,6 +70,11 @@ struct CreateContributionView: View {
                     } else {
                         dismiss()
                     }
+                }
+                
+                ToolbarItem(placement: .principal) {
+                    Text("contribution_new".localized)
+                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(isActive: viewModel.isContributionValid()) {

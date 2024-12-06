@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 final class CreateTransactionViewModel: ObservableObject {
-    static let shared = CreateTransactionViewModel()
     
     var transaction: TransactionModel? = nil
     
@@ -35,12 +34,13 @@ final class CreateTransactionViewModel: ObservableObject {
         }
     }
         
-    func makeScannerView() -> ScannerTicketView {
-        ScannerTicketView { amount, date, errorMessage in
-            if let amount { self.transactionAmount = String(amount) }
-            if let date { self.transactionDate = date }
-        }
-    }
+    // TODO: Faire un POC Scanner
+//    func makeScannerView() -> ScannerTicketView {
+//        ScannerTicketView { amount, date, errorMessage in
+//            if let amount { self.transactionAmount = String(amount) }
+//            if let date { self.transactionDate = date }
+//        }
+//    }
     
     func onChangeType(newValue: TransactionType) {
         if newValue == .income {
@@ -54,7 +54,7 @@ final class CreateTransactionViewModel: ObservableObject {
     
     func bodyForCreation() -> TransactionModel {
         return TransactionModel(
-            name: transactionTitle.trimmingCharacters(in: .whitespaces),
+            _name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
             typeNum: transactionType.rawValue,
             dateISO: transactionDate.toISO(),

@@ -47,9 +47,9 @@ enum HomeScreenEmptyRowType {
     
     var title: String {
         switch self {
-        case .savingsPlan:          return Word.Empty.SavingsPlan.desc.localized
-        case .subscription:         return Word.Empty.Subscription.desc.localized
-        case .recentTransactions:   return Word.Empty.Transaction.desc.localized
+        case .savingsPlan:          return Word.Empty.SavingsPlan.desc
+        case .subscription:         return Word.Empty.Subscription.desc
+        case .recentTransactions:   return Word.Empty.Transaction.desc
         }
     }
     

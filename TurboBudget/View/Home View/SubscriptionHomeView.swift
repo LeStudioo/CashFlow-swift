@@ -19,40 +19,42 @@ struct SubscriptionHomeView: View {
     // State or Binding Orientation
     @State private var orientation = UIDeviceOrientation.unknown
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
-            if !subscriptionRepository.subscriptions.isEmpty {
-                List {
-                    ForEach(subscriptionRepository.subscriptionsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
-                        Section {
-                            ForEach(subscriptions, id: \.self) { subscription in
-                                SubscriptionRow(subscription: subscription)
-                                    .padding(.horizontal)
-                            }
-                        } header: {
-                            DetailOfExpensesAndIncomesByMonth(
-                                month: month,
-                                amountOfExpenses: subscriptionRepository.amountExpensesByMonth(month: month),
-                                amountOfIncomes: subscriptionRepository.amountIncomesByMonth(month: month)
-                            )
-                        }
+        List {
+            ForEach(subscriptionRepository.subscriptionsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
+                Section {
+                    ForEach(subscriptions, id: \.self) { subscription in
+                        SubscriptionRow(subscription: subscription)
+                            .padding(.horizontal)
                     }
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                } // End List
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .scrollIndicators(.hidden)
-                .background(Color.background.edgesIgnoringSafeArea(.all))
-                .animation(.smooth, value: subscriptionRepository.subscriptions.count)
+                } header: {
+                    DetailOfExpensesAndIncomesByMonth(
+                        month: month,
+                        amountOfExpenses: subscriptionRepository.amountExpensesByMonth(month: month),
+                        amountOfIncomes: subscriptionRepository.amountIncomesByMonth(month: month)
+                    )
+                }
             }
+            .listRowSeparator(.hidden)
+            .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+        } // End List
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .scrollIndicators(.hidden)
+        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .animation(.smooth, value: subscriptionRepository.subscriptions.count)
+        .overlay {
+            CustomEmptyView(
+                type: .empty(.subscriptions),
+                isDisplayed: subscriptionRepository.subscriptions.isEmpty
+            )
         }
-        .navigationTitle(Word.Classic.subscription.localized)
+        .navigationTitle(Word.Main.subscriptions.localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-//        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
+        //        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .toolbar {
             ToolbarDismissPushButton()
             

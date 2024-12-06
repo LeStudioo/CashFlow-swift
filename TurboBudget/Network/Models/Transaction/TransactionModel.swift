@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 enum TransactionType: Int, CaseIterable {
     case expense = 0
@@ -16,14 +17,14 @@ enum TransactionType: Int, CaseIterable {
         switch self {
         case .expense:  return Word.Classic.expense
         case .income:   return Word.Classic.income
-        case .transfer: return Word.Classic.transfer
+        case .transfer: return Word.Main.transfer
         }
     }
 }
 
 class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
     @Published var id: Int?
-    @Published var name: String?
+    @Published var _name: String?
     @Published var amount: Double?
     @Published var typeNum: Int? // TransactionType
     @Published var dateISO: String?
@@ -42,7 +43,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     /// Transaction init
     init(
         id: Int? = nil,
-        name: String? = nil,
+        _name: String? = nil,
         amount: Double? = nil,
         typeNum: Int? = nil,
         dateISO: String? = nil,
@@ -55,7 +56,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         note: String? = nil
     ) {
         self.id = id
-        self.name = name
+        self._name = _name
         self.amount = amount
         self.typeNum = typeNum
         self.dateISO = dateISO
@@ -70,14 +71,14 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     
     /// Classic Transaction Body
     init(
-        name: String,
+        _name: String,
         amount: Double,
         typeNum: Int,
         dateISO: String,
         categoryID: Int,
         subcategoryID: Int? = nil
     ) {
-        self.name = name
+        self._name = _name
         self.amount = amount
         self.typeNum = typeNum
         self.dateISO = dateISO
@@ -98,7 +99,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         note: String? = nil
     ) {
         self.id = id
-        self.name = name
+        self._name = _name
         self.amount = amount
         self.typeNum = typeNum
         self.dateISO = dateISO
@@ -110,7 +111,8 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID, note
+        case id, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID, note
+        case _name = "name"
         case typeNum = "type"
         case dateISO = "date"
     }
@@ -118,7 +120,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
+        _name = try container.decodeIfPresent(String.self, forKey: ._name)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
         typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
         dateISO = try container.decodeIfPresent(String.self, forKey: .dateISO)
@@ -136,7 +138,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(name, forKey: .name)
+        try container.encodeIfPresent(_name, forKey: ._name)
         try container.encodeIfPresent(amount, forKey: .amount)
         try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(dateISO, forKey: .dateISO)
@@ -154,7 +156,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     // Fonction pour le protocole Equatable
     static func == (lhs: TransactionModel, rhs: TransactionModel) -> Bool {
         return lhs.id == rhs.id &&
-        lhs.name == rhs.name &&
+        lhs._name == rhs._name &&
         lhs.amount == rhs.amount &&
         lhs.typeNum == rhs.typeNum &&
         lhs.dateISO == rhs.dateISO &&
@@ -172,7 +174,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     // Fonction pour le protocole Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(name)
+        hasher.combine(_name)
         hasher.combine(amount)
         hasher.combine(typeNum)
         hasher.combine(dateISO)
@@ -205,12 +207,55 @@ extension TransactionModel {
     var date: Date {
         return self.dateISO?.toDate() ?? .now
     }
+
+}
+
+extension TransactionModel {
+    
+    var isSender: Bool {
+        guard let selectedAccount = AccountRepository.shared.selectedAccount, let accountID = selectedAccount.id else { return false }
+        return senderAccountID == accountID
+    }
+    
+    var name: String {
+        switch type {
+        case .expense, .income:
+            return self._name ?? ""
+        case .transfer:
+            guard let receiverAccountID = receiverAccountID else { return "" }
+            guard let senderAccountID = senderAccountID else { return "" }
+            
+            if isSender {
+                let receiverAccountName = AccountRepository.shared.findByID(receiverAccountID)?.name ?? ""
+                return [Word.Classic.sent, Word.Preposition.to, receiverAccountName].joined(separator: " ")
+            } else {
+                let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
+                return [Word.Classic.received, Word.Preposition.from, senderAccountName].joined(separator: " ")
+            }
+        }
+    }
     
     var symbol: String {
         switch type {
         case .expense:  return "-"
         case .income:   return "+"
-        default:        return ""
+        case .transfer:
+            if isSender {
+                return "-"
+            } else {
+                return "+"
+            }
+        }
+    }
+    
+    var color: Color {
+        switch type {
+        case .expense:
+            return .error400
+        case .income:
+            return .primary500
+        case .transfer:
+            return isSender ? .error400 : .primary500
         }
     }
     

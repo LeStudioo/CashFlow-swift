@@ -45,6 +45,7 @@ enum NavigationDirection: Identifiable {
     case homeSubcategories(category: CategoryModel)
     case subcategoryTransactions(subcategory: SubcategoryModel)
 
+    case whatsNew
     case paywall
     
     case settings
@@ -84,6 +85,7 @@ extension NavigationDirection: Equatable {
             (.createTransfer, .createTransfer),
             (.accountDashboard, .accountDashboard),
             (.paywall, .paywall),
+            (.whatsNew, .whatsNew),
             (.settings, .settings),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),

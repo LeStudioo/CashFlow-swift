@@ -15,11 +15,7 @@
 
 "word_expense" = "Dépense";
 
-"word_income" = "Revenue";
-
-"word_transfer" = "Transfert";
-
-"word_subscription" = "Abonnement";
+"word_income" = "Revenu";
 
 "word_dayOfAutomation" = "Jour de l'automatisation";
 
@@ -53,10 +49,6 @@
 
 "word_add" = "Ajouter";
 
-"word_savingsplan" = "Plan d'épargne";
-
-"word_transaction" = "Transaction";
-
 "word_light" = "Clair";
 
 "word_dark" = "Sombre";
@@ -68,6 +60,31 @@
 "word_budget" = "Budget";
 
 "word_maxAmount" = "Montant maximum";
+
+"word_continue" = "Continuer";
+
+"word_amount" = "Montant";
+
+//MARK: - Main
+"word_transaction" = "Transaction";
+
+"word_transactions" = "Transactions";
+
+"word_subscription" = "Abonnement";
+
+"word_subscriptions" = "Abonnements";
+
+"word_savingsplan" = "Plan d'épargne";
+
+"word_savingsplans" = "Plans d'épargne";
+
+"word_transfer" = "Transfert";
+
+"word_transfers" = "Transferts";
+
+"word_savings_account" = "Compte d'épargne";
+
+"word_savings_accounts" = "Comptes d'épargne";
 
 //MARK: - Preposition
 "word_preposition_to" = "vers";
@@ -116,11 +133,25 @@
 "title_setting_credits" = "Crédits";
 
 //MARK: - Empty
-"empty_transactions_desc" = "Ajoutez votre première transaction en appuyant sur le bouton '+'";
+"empty_accounts_desc" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
 
-"empty_subscriptions_desc" = "Ajoutez votre premier abonnement en appuyant sur le bouton '+'";
+"empty_accounts_create" = "Créer un compte";
 
-"empty_savingsPlans_desc" = "Ajoutez votre premier plan d'épargne en appuyant sur le bouton '+'";
+"empty_transactions_desc" = "Vous n'avez encore enregistré aucune transaction pour le moment. Commencez dès maintenant !";
+
+"empty_transactions_create" = "Créer une transaction";
+
+"empty_subscriptions_desc" = "Vous n'avez encore enregistré aucun abonnement pour le moment. Commencez dès maintenant !";
+
+"empty_subscriptions_create" = "Créer un abonnement";
+
+"empty_savingsPlans_desc" = "Vous n'avez encore enregistré aucun plan d'épargne pour le moment. Commencez dès maintenant !";
+
+"empty_savingsPlans_create" = "Créer un plan d'épargne";
+
+"empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment. Commencez dès maintenant !";
+
+"empty_savingsAccounts_create" = "Créer un compte épargne";
 
 //MARK: - Login
 "login_connection" = "Connexion";
@@ -204,6 +235,25 @@
 
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Épargne total";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "Quoi de neuf ?";
+
+"whatsnew_savings_accounts" = "Ils permettent de suivre votre épargne de la même manière que vos comptes sur livret, par exemple";
+
+"whatsnew_transfers" = "Ils permmettent de faire des actions entre vos compte épargne et vos compte bancaire";
+
+"whatsnew_security_title" = "Sécurité des données";
+
+"whatsnew_security" = "La sécurité des données est maintenant plus importante et plus complète";
+
+"whatsnew_ui_title" = "Interface utilisateur";
+
+"whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
+
+"whatsnew_edit_title" = "Modification";
+
+"whatsnew_edit" = "Les plans d'épargne, transactions, abonnements, etc., sont maintenant modifiables une fois créés";
 
 //MARK: - General Words
 "word_transactions" = "Transactions";
@@ -316,13 +366,9 @@
 
 "word_yes" = "Oui";
 
-"word_continue" = "Continuer";
-
 "word_cancel_changes" = "Annuler les modifications";
 
 "word_return" = "Retour";
-
-"word_savings_account" = "Comptes d'épargne";
 
 "by_month_word" = "Par mois";
 
