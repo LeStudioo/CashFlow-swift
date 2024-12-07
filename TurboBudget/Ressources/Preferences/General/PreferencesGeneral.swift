@@ -37,4 +37,10 @@ final class PreferencesGeneral: ObservableObject {
     var isWhatsNewSeen: Bool {
         willSet { objectWillChange.send() }
     }
+    
+    // MARK: - Tips
+    @CustomUserDefault("PreferencesGeneral_isApplePayEnabled", defaultValue: false)
+    var isApplePayEnabled: Bool {
+        willSet { objectWillChange.send() }
+    }
 }

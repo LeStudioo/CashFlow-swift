@@ -42,7 +42,7 @@ struct HomeView: View {
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
             preferencesGeneral.numberOfOpenings += 1
-            if preferencesGeneral.numberOfOpenings == 6 {
+            if (preferencesGeneral.numberOfOpenings / 6 == 1) && !preferencesGeneral.isApplePayEnabled {
                 modalManager.presentTipApplePayShortcut()
             }
         }

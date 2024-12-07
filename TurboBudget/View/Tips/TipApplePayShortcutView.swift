@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TipApplePayShortcutView: View {
     
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
+    
     // MARK: -
     var body: some View {
         VStack(spacing: 24) {
@@ -26,7 +28,10 @@ struct TipApplePayShortcutView: View {
             
             CashFlowButton(
                 config: .init(text: Word.Tips.howToDo, externalLink: true),
-                action: { }
+                action: {
+                    preferencesGeneral.isApplePayEnabled = true
+                    // TODO: Add url to website
+                }
             )
         }
     } // body
