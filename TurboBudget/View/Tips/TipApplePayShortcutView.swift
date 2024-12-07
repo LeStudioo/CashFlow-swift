@@ -17,6 +17,7 @@ struct TipApplePayShortcutView: View {
             Image(.applePayIllustration)
                 .resizable()
                 .scaledToFit()
+                .padding(.horizontal)
             
             Text(Word.Tips.ApplePay.descOne)
                 .font(.mediumText18())

@@ -45,6 +45,7 @@ struct Word {
         static let `continue`: String = "word_continue".localized
         static let notifications: String = "word_notifications".localized
         static let days: String = "word_days".localized
+        static let disconnect: String = "word_disconnect".localized
     }
     
     struct AppIntent {

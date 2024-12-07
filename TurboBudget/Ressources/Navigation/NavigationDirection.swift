@@ -49,6 +49,7 @@ enum NavigationDirection: Identifiable {
     case paywall
     
     case settings
+    case settingsDebug
     case settingsGeneral
     case settingsSecurity
     case settingsAppearence
@@ -88,6 +89,7 @@ extension NavigationDirection: Equatable {
             (.paywall, .paywall),
             (.whatsNew, .whatsNew),
             (.settings, .settings),
+            (.settingsDebug, .settingsDebug),
             (.settingsGeneral, .settingsGeneral),
             (.settingsSecurity, .settingsSecurity),
             (.settingsAppearence, .settingsAppearence),

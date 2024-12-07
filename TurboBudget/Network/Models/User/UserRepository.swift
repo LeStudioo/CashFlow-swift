@@ -48,4 +48,11 @@ extension UserRepository {
     func loginWithToken() async throws {
         try await TokenManager.shared.refreshToken()
     }
+    
+    @MainActor
+    func signOut() async {
+        TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
+        self.currentUser = nil
+        AppManager.shared.viewState = .failed
+    }
 }

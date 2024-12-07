@@ -11,6 +11,7 @@ struct SettingsHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var userRepository: UserRepository
     @Environment(\.dismiss) private var dismiss
     
     // EnvironementObject
@@ -23,19 +24,17 @@ struct SettingsHomeView: View {
     var body: some View {
         Form {
 #if DEBUG
-            Button {
-                KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: "")
-            } label: {
-                Text("Reset Refresh Token")
+            Section {
+                NavigationButton(present: router.pushSettingsDebug()) {
+                    SettingRow(
+                        icon: "hammer.fill",
+                        backgroundColor: Color.blue,
+                        text: "Debug",
+                        isButton: false
+                    )
+                }
             }
-            
-            // TODO: Faire un onglet debug
-            Button {
-                ModalManager.shared.present(TipApplePayShortcutView())
-            } label: {
-                Text("Test modal manager")
-            }
-
+            .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
 #endif
             Section {
                 NavigationButton(present: router.presentPaywall()) {
@@ -221,6 +220,19 @@ struct SettingsHomeView: View {
                         isButton: false
                     )
                 }
+                Button {
+                    Task {
+                        await userRepository.signOut()
+                    }
+                } label: {
+                    SettingRow(
+                        icon: "rectangle.portrait.and.arrow.right.fill",
+                        backgroundColor: Color.red,
+                        text: Word.Classic.disconnect,
+                        isButton: true
+                    )
+                }
+
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
@@ -259,14 +271,7 @@ struct SettingsHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading ) {
-                Button(action: { dismiss() }, label: {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 16, weight: .bold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
-                .padding(.bottom, 8)
-            }
+            ToolbarDismissPushButton()
         }
     } // End body
 } // End struct

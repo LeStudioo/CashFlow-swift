@@ -92,6 +92,10 @@ class NavigationManager: Router {
         navigateTo(.settings)
     }
     
+    func pushSettingsDebug() {
+        navigateTo(.settingsDebug)
+    }
+    
     func pushSettingsGeneral() {
         navigateTo(.settingsGeneral)
     }
@@ -263,6 +267,8 @@ private extension NavigationManager {
                 
             case .settings:
                 SettingsHomeView()
+            case .settingsDebug:
+                SettingsDebugView()
             case .settingsGeneral:
                 SettingsGeneralView()
             case .settingsSecurity:

@@ -69,6 +69,8 @@
 
 "word_notifications" = "Notifications";
 
+"word_disconnect" = "Disconnect";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 

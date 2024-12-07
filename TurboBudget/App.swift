@@ -118,6 +118,7 @@ struct TurboBudgetApp: App {
             .environmentObject(themeManager)
             
             // New Repository
+            .environmentObject(userRepository)
             .environmentObject(accountRepository)
             .environmentObject(categoryRepository)
             .environmentObject(transactionRepository)
