@@ -223,6 +223,14 @@ struct Word {
         static let edit: String = "whatsnew_edit".localized
     }
     
+    struct Tips {
+        static let howToDo: String = "tip_how_to_do".localized
+        struct ApplePay {
+            static let descOne: String = "tip_applepay_desc_one".localized
+            static let descTwo: String = "tip_applepay_desc_two".localized
+        }
+    }
+    
     struct Notifications {
         static let daysBefore: String = "notifications_day_before".localized
         static let footer: String = "notifications_footer".localized

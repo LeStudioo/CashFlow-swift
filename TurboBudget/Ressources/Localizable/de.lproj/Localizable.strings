@@ -271,6 +271,13 @@
 //MARK: - AppIntent
 "appIntent_createTransaction" = "Erstellen Sie eine Transaktion";
 
+//MARK: - Tips
+"tip_how_to_do" = "Wie gehen Sie vor?";
+
+"tip_applepay_desc_one" = "Verwenden Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt von CashFlow abzurufen.";
+
+"tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
+
 //MARK: - General Words
 "word_transactions" = "Transaktionen";
 

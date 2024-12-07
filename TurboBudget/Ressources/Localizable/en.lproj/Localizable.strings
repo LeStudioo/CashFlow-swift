@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction type";
+"word_typeOfTransaction" = "Transaction Type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -270,6 +270,13 @@
 
 //MARK: - AppIntent
 "appIntent_createTransaction" = "Create a transaction";
+
+//MARK: - Tips
+"tip_how_to_do" = "How do you go about it?";
+
+"tip_applepay_desc_one" = "Use the Apple Pay shortcut to retrieve your transactions directly from CashFlow.";
+
+"tip_applepay_desc_two" = "No need to enter them manually, CashFlow takes care of everything for you!";
 
 //MARK: - General Words
 "word_transactions" = "Transactions";

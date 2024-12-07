@@ -271,6 +271,13 @@
 //MARK: - AppIntent
 "appIntent_createTransaction" = "Créer une transaction";
 
+//MARK: - Tips
+"tip_how_to_do" = "Comment faire ?";
+
+"tip_applepay_desc_one" = "Avec le raccourci Apple Pay, récupérez vos transactions directement dans CashFlow.";
+
+"tip_applepay_desc_two" = "Plus besoin de les saisir manuellement, CashFlow s'occupe de tout pour vous !";
+
 //MARK: - General Words
 "word_transactions" = "Transactions";
 

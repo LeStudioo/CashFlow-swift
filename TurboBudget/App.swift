@@ -16,6 +16,7 @@ struct TurboBudgetApp: App {
     @StateObject private var purchasesManager = PurchasesManager()
     @StateObject private var alertManager: AlertManager
     @StateObject private var themeManager: ThemeManager = .shared
+    @StateObject private var modalManager: ModalManager = .shared
     @StateObject private var router: NavigationManager
     
     // New Repository
@@ -113,6 +114,7 @@ struct TurboBudgetApp: App {
             .environmentObject(csManager)
             .environmentObject(purchasesManager)
             .environmentObject(alertManager)
+            .environmentObject(modalManager)
             .environmentObject(themeManager)
             
             // New Repository
@@ -143,8 +145,6 @@ struct TurboBudgetApp: App {
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
-                
-                print(DataForServer.shared.json)
             }
             .alert(alertManager.alert?.title ?? "", isPresented: $alertManager.isPresented, actions: {
                 Button(role: .cancel, action: {
@@ -162,6 +162,17 @@ struct TurboBudgetApp: App {
             }, message: {
                 Text(alertManager.alert?.message ?? "")
             })
+            .sheet(isPresented: $modalManager.isPresented, onDismiss: { modalManager.isPresented = false }) {
+                if let view = modalManager.content {
+                    AnyView(view)
+                        .padding(24)
+                        .onGetHeight { height in
+                            self.modalManager.currentHeight = height
+                        }
+                        .presentationDetents([.height(modalManager.currentHeight)])
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
             .task {
                 await purchasesManager.loadProducts()
                 await purchasesManager.getSubscriptionStatus()
@@ -175,5 +186,5 @@ struct TurboBudgetApp: App {
                 }
             }
         }
-    } // End body
-} // End struct
+    } // body
+} // struct

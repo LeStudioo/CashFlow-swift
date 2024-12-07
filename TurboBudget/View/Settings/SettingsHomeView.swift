@@ -28,6 +28,14 @@ struct SettingsHomeView: View {
             } label: {
                 Text("Reset Refresh Token")
             }
+            
+            // TODO: Faire un onglet debug
+            Button {
+                ModalManager.shared.present(TipApplePayShortcutView())
+            } label: {
+                Text("Test modal manager")
+            }
+
 #endif
             Section {
                 NavigationButton(present: router.presentPaywall()) {

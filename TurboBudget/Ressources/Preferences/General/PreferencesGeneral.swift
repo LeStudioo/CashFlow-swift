@@ -18,7 +18,7 @@ final class PreferencesGeneral: ObservableObject {
         willSet { objectWillChange.send() }
     }
     
-    @CustomUserDefault("isSecurityPlusEnabled", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
+    @CustomUserDefault("PreferencesGeneral_numberOfOpenings", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
     var numberOfOpenings: Int {
         willSet { objectWillChange.send() }
     }
@@ -33,7 +33,7 @@ final class PreferencesGeneral: ObservableObject {
         willSet { objectWillChange.send() }
     }
 
-    @CustomUserDefault("whatsnewv2.0", defaultValue: false)
+    @CustomUserDefault("PreferencesGeneral_whatsnewv2.0", defaultValue: false)
     var isWhatsNewSeen: Bool {
         willSet { objectWillChange.send() }
     }

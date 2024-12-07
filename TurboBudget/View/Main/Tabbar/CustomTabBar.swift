@@ -16,6 +16,7 @@ struct CustomTabBar: View {
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
     // Custom type
@@ -61,7 +62,7 @@ struct CustomTabBar: View {
                         .disabled(!store.isCashFlowPro)
                         .onTapGesture {
                             if !store.isCashFlowPro {
-                                router.presentPaywall()
+                                alertManager.showPaywall()
                             }
                         }
                         

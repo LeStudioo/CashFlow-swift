@@ -12,6 +12,9 @@ import CoreData
 
 struct HomeView: View {
     
+    @EnvironmentObject private var modalManager: ModalManager
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
+    
     // MARK: -
     var body: some View {
         VStack(spacing: 16) {
@@ -37,6 +40,12 @@ struct HomeView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onAppear {
+            preferencesGeneral.numberOfOpenings += 1
+            if preferencesGeneral.numberOfOpenings == 6 {
+                modalManager.presentTipApplePayShortcut()
+            }
+        }
     } // body
 } // struct
 
