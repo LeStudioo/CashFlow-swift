@@ -132,10 +132,6 @@ class NavigationManager: Router {
         navigateTo(.settingsCredits)
     }
     
-    func pushSettingsDangerZone() {
-        navigateTo(.settingsDangerZone)
-    }
-    
     
     // Present
     func presentWhatsNew() {
@@ -287,8 +283,6 @@ private extension NavigationManager {
                 SettingsBudgetView()
             case .settingsCredits:
                 SettingsCreditsView()
-            case .settingsDangerZone:
-                SettingsDangerZoneView()
             }
         }
     }

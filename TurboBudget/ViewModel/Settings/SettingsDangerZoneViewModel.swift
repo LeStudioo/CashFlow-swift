@@ -8,9 +8,7 @@
 import Foundation
 
 final class SettingsDangerZoneViewModel: ObservableObject {
-    
-    @Published var info: MultipleAlert? = nil
-                
+                    
     @Preference(\.accountCanBeNegative) var accountCanBeNegative
     @Preference(\.blockExpensesIfCardLimitExceeds) var blockExpensesIfCardLimitExceeds
     @Preference(\.cardLimitPercentage) var cardLimitPercentage

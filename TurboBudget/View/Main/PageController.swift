@@ -15,7 +15,7 @@ struct PageControllerView: View {
     // Environment
     @EnvironmentObject private var appManager: AppManager
     @EnvironmentObject private var router: NavigationManager
-
+    
     // New Repository
     @EnvironmentObject private var accountRepository: AccountRepository
     
@@ -26,7 +26,7 @@ struct PageControllerView: View {
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
     @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
-        
+    
     // Environement
     @Environment(\.scenePhase) private var scenePhase
     
@@ -40,82 +40,73 @@ struct PageControllerView: View {
     
     // MARK: - body
     var body: some View {
-//        ZStack(alignment: .top) {
-            VStack {
-                if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
-                if pageControllerVM.isUnlocked {
-                    ZStack(alignment: .bottom) {
-                        if accountRepository.mainAccount != nil {
-                            Group {
-                                switch appManager.selectedTab {
-                                case 0: HomeView()
-                                case 1: AnalyticsHomeView()
-                                case 3: AccountDashboardView()
-                                case 4: CategoryHomeView()
-                                default: EmptyView() //Can't arrived
-                                }
+        VStack {
+            if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
+            if pageControllerVM.isUnlocked {
+                ZStack(alignment: .bottom) {
+                    if accountRepository.mainAccount != nil {
+                        Group {
+                            switch appManager.selectedTab {
+                            case 0: HomeView()
+                            case 1: AnalyticsHomeView()
+                            case 3: AccountDashboardView()
+                            case 4: CategoryHomeView()
+                            default: EmptyView() //Can't arrived
                             }
-                            .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
-                            .disabled(viewModelCustomBar.showMenu)
-                            .onTapGesture { viewModelCustomBar.showMenu = false }
-                        } else {
-                            CustomEmptyView(
-                                type: .empty(.account),
-                                isDisplayed: true
-                            )
                         }
-                        
-                        CustomTabBar()
+                        .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
+                        .disabled(viewModelCustomBar.showMenu)
+                        .onTapGesture { viewModelCustomBar.showMenu = false }
+                    } else {
+                        CustomEmptyView(
+                            type: .empty(.account),
+                            isDisplayed: true
+                        )
                     }
-                    .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
-                        router.presentPaywall()
-                    }, content: { OnboardingView().interactiveDismissDisabled() })
-                    .edgesIgnoringSafeArea(.bottom)
-                    .ignoresSafeArea(.keyboard)
-                } // End if unlocked
-            }
-            .padding(pageControllerVM.isUnlocked ? 0 : 0)
-            .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
-                if (preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen) {
-                    router.presentWhatsNew()
+                    
+                    CustomTabBar()
                 }
-                
-                // LaunchScreen ended and no data in iCloud
-                if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
-                    // First open + no data in iCloud
-                    if !preferencesGeneral.isAlreadyOpen && accountRepo.mainAccount == nil {
-                        pageControllerVM.showOnboarding.toggle()
-                        // First open + no iCloud
-                    }
-                    // Already open + app close
-                    if !UserDefaults.standard.bool(forKey: "appIsOpen") && preferencesGeneral.isAlreadyOpen {
-                        if preferencesSecurity.isBiometricEnabled {
-                            pageControllerVM.authenticate()
-                        } else {
-                            withAnimation { pageControllerVM.isUnlocked = true }
-                            UserDefaults.standard.set(true, forKey: "appIsOpen")
-                        }
+                .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
+                    router.presentPaywall()
+                }, content: { OnboardingView().interactiveDismissDisabled() })
+                .edgesIgnoringSafeArea(.bottom)
+                .ignoresSafeArea(.keyboard)
+            } // End if unlocked
+        }
+        .padding(pageControllerVM.isUnlocked ? 0 : 0)
+        .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
+            if (preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen) {
+                router.presentWhatsNew()
+            }
+            
+            // LaunchScreen ended and no data in iCloud
+            if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
+                // First open + no data in iCloud
+                if !preferencesGeneral.isAlreadyOpen && accountRepo.mainAccount == nil {
+                    pageControllerVM.showOnboarding.toggle()
+                    // First open + no iCloud
+                }
+                // Already open + app close
+                if !UserDefaults.standard.bool(forKey: "appIsOpen") && preferencesGeneral.isAlreadyOpen {
+                    if preferencesSecurity.isBiometricEnabled {
+                        pageControllerVM.authenticate()
                     } else {
                         withAnimation { pageControllerVM.isUnlocked = true }
                         UserDefaults.standard.set(true, forKey: "appIsOpen")
                     }
-                }
-            })
-            .onChange(of: scenePhase) { newValue in
-                if newValue != .active {
-                    UserDefaults.standard.set(false, forKey: "appIsOpen")
+                } else {
+                    withAnimation { pageControllerVM.isUnlocked = true }
+                    UserDefaults.standard.set(true, forKey: "appIsOpen")
                 }
             }
-//        } //END ZStack
-        .alert("alert_cashflow_pro_title".localized, isPresented: $pageControllerVM.showAlertPaywall, actions: {
-            Button(action: { return }, label: { Text("word_cancel".localized) })
-            Button(action: { pageControllerVM.showPaywall.toggle() }, label: { Text("alert_cashflow_pro_see".localized) })
-        }, message: {
-            Text("alert_cashflow_pro_desc".localized)
         })
-        .sheet(isPresented: $pageControllerVM.showPaywall) { PaywallScreenView() }
-    } // End body
-} // End struct
+        .onChange(of: scenePhase) { newValue in
+            if newValue != .active {
+                UserDefaults.standard.set(false, forKey: "appIsOpen")
+            }
+        }
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

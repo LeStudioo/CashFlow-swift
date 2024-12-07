@@ -16,6 +16,7 @@ struct TransactionDetailView: View {
     // Custom type
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var alertManager: AlertManager
     @ObservedObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
@@ -86,14 +87,6 @@ struct TransactionDetailView: View {
             .padding(.top, 32)
         } // ScrollView
         .scrollIndicators(.hidden)
-        .alert("transaction_detail_delete_transac".localized, isPresented: $viewModel.isDeleting, actions: {
-            Button(role: .cancel, action: { return }, label: { Text("word_cancel") })
-            Button(role: .destructive, action: {
-                viewModel.deleteTransaction(transactionID: transaction.id, dismiss: dismiss)
-            }, label: { Text("word_delete") })
-        }, message: {
-            Text(transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized)
-        })
         .onAppear { 
             viewModel.note = transaction.note ?? ""
         }
@@ -127,9 +120,11 @@ struct TransactionDetailView: View {
                         action: { router.presentCreateTransaction(transaction: transaction) },
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
-                    Button(role: .destructive, action: {
-                        viewModel.isDeleting.toggle()
-                    }, label: { Label("word_delete", systemImage: "trash.fill") })
+                    Button(
+                        role: .destructive,
+                        action: { alertManager.deleteTransaction(transaction: transaction, dismissAction: dismiss) },
+                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                    )
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundStyle(Color(uiColor: .label))

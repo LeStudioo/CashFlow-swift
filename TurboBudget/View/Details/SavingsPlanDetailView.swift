@@ -18,6 +18,7 @@ struct SavingsPlanDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var alertManager: AlertManager
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
@@ -25,9 +26,6 @@ struct SavingsPlanDetailView: View {
     
     //State or Binding String
     @State private var savingPlanNote: String = ""
-        
-    //State or Binding Bool
-    @State private var isDeleting: Bool = false
     
     //Enum
     enum Field: CaseIterable {
@@ -46,7 +44,7 @@ struct SavingsPlanDetailView: View {
         }
     }
         
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         ScrollView {
             HStack {
@@ -165,7 +163,7 @@ struct SavingsPlanDetailView: View {
                     
                     Button(
                         role: .destructive,
-                        action: { isDeleting.toggle() },
+                        action: { alertManager.deleteSavingsPlan(savingsPlan: savingsPlan, dismissAction: dismiss) },
                         label: { Label("word_delete".localized, systemImage: "trash.fill") }
                     )
                 }, label: {
@@ -185,17 +183,6 @@ struct SavingsPlanDetailView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .alert("savingsplan_detail_delete_savingsplan".localized, isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
-            Button(role: .destructive, action: {
-                Task {
-                    if let savingsPlanID = savingsPlan.id {
-                        await savingsPlanRepository.deleteSavingsPlan(savingsPlanID: savingsPlanID)
-                        dismiss()
-                    }
-                }
-            }, label: { Text("word_delete".localized) })
-        }, message: { Text("savingsplan_detail_delete_savingsplan_desc".localized) })
     } // body
     
     //MARK: - ViewBuilder
@@ -300,28 +287,3 @@ struct SavingsPlanDetailView: View {
 #Preview {
     SavingsPlanDetailView(savingsPlan: .mockClassicSavingsPlan)
 }
-
-private struct CellForDetailSavingPlan: View {
-    
-    var leftText: String
-    var rightText: String
-    var rightTextColor: Color
-    
-    var body: some View {
-        HStack {
-            Text(leftText)
-                .font(Font.mediumText16())
-            Spacer()
-            Text(rightText)
-                .font(.semiBoldText16())
-                .foregroundStyle(rightTextColor)
-        }
-        .padding(12)
-        .background(Color.colorCell)
-        .cornerRadius(15)
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-    }
-}
-
-

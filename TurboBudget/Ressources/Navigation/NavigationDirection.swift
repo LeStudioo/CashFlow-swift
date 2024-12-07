@@ -59,7 +59,6 @@ enum NavigationDirection: Identifiable {
     case settingsSubscription
     case settingsBudget
     case settingsCredits
-    case settingsDangerZone
     
     var id: Self { self }
 }
@@ -98,8 +97,7 @@ extension NavigationDirection: Equatable {
             (.settingsSavingPlans, .settingsSavingPlans),
             (.settingsSubscription, .settingsSubscription),
             (.settingsBudget, .settingsBudget),
-            (.settingsCredits, .settingsCredits),
-            (.settingsDangerZone, .settingsDangerZone):
+            (.settingsCredits, .settingsCredits):
             return true
             
         case let (.home(lhsAccount), .home(rhsAccount)):

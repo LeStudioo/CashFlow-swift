@@ -212,14 +212,6 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsDangerZone()) {
-                    SettingRow(
-                        icon: "trash.fill",
-                        backgroundColor: Color.red,
-                        text: "setting_home_danger".localized,
-                        isButton: false
-                    )
-                }
                 Button {
                     Task {
                         await userRepository.signOut()
@@ -232,7 +224,6 @@ struct SettingsHomeView: View {
                         isButton: true
                     )
                 }
-
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             

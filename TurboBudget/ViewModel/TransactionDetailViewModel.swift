@@ -16,7 +16,6 @@ class TransactionDetailViewModel: ObservableObject {
     @Published var bestSubcategory: SubcategoryModel? = nil
     
     @Published var note: String = ""
-    @Published var isDeleting: Bool = false
 }
 
 extension TransactionDetailViewModel {
@@ -35,17 +34,6 @@ extension TransactionDetailViewModel {
                 transactionID: transactionID,
                 body: .init(note: note)
             )
-        }
-    }
-        
-    func deleteTransaction(transactionID: Int?, dismiss: DismissAction) {
-        guard let transactionID else { return }
-        
-        let transactionRepository: TransactionRepository = .shared
-        
-        Task {
-            await transactionRepository.deleteTransaction(transactionID: transactionID)
-            await dismiss()
         }
     }
     

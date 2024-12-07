@@ -94,9 +94,11 @@ struct SavingsAccountDetailView: View {
                         action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
                         label: { Label(Word.Classic.add, systemImage: "plus") }
                     )
-                    Button(role: .destructive, action: {
-                        isDeleting.toggle()
-                    }, label: { Label("word_delete", systemImage: "trash.fill") })
+                    Button(
+                        role: .destructive,
+                        action: { isDeleting.toggle() },
+                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                    )
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundStyle(Color(uiColor: .label))

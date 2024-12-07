@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct AlertData {
     
@@ -54,7 +55,25 @@ extension AlertManager {
 // MARK: - Deletation
 extension AlertManager {
     
-    func deleteTransaction(transaction: TransactionModel) {
+    func deleteAccount(account: AccountModel, dismissAction: DismissAction? = nil) {
+        self.isPresented = true
+        self.alert = .init(
+            title: "account_detail_delete_account".localized,
+            message: "account_detail_delete_account_desc".localized,
+            actionButton: .init(
+                title: Word.Classic.delete,
+                isDestructive: true,
+                action: {
+                    if let accountID = account.id {
+                        await AccountRepository.shared.deleteAccount(accountID: accountID)
+                        if let dismissAction { await dismissAction() }
+                    }
+                }
+            )
+        )
+    }
+    
+    func deleteTransaction(transaction: TransactionModel, dismissAction: DismissAction? = nil) {
         self.isPresented = true
         self.alert = .init(
             title: Word.Delete.Transaction.title,
@@ -65,6 +84,7 @@ extension AlertManager {
                 action: {
                     if let transactionID = transaction.id {
                         await TransactionRepository.shared.deleteTransaction(transactionID: transactionID)
+                        if let dismissAction { await dismissAction() }
                     }
                 }
             )
@@ -82,6 +102,24 @@ extension AlertManager {
                 action: {
                     if let subscriptionID = subscription.id {
                         await SubscriptionRepository.shared.deleteSubscription(subscriptionID: subscriptionID)
+                    }
+                }
+            )
+        )
+    }
+    
+    func deleteSavingsPlan(savingsPlan: SavingsPlanModel, dismissAction: DismissAction? = nil) {
+        self.isPresented = true
+        self.alert = .init(
+            title: "savingsplan_detail_delete_savingsplan".localized,
+            message: "savingsplan_detail_delete_savingsplan_desc".localized,
+            actionButton: .init(
+                title: Word.Classic.delete,
+                isDestructive: true,
+                action: {
+                    if let savingsPlanID = savingsPlan.id {
+                        await SavingsPlanRepository.shared.deleteSavingsPlan(savingsPlanID: savingsPlanID)
+                        if let dismissAction { await dismissAction() }
                     }
                 }
             )
