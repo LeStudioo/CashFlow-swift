@@ -25,7 +25,7 @@ final class CreateTransactionViewModel: ObservableObject {
     init(transaction: TransactionModel? = nil) {
         if let transaction {
             self.transaction = transaction
-            self.transactionTitle = transaction.name ?? ""
+            self.transactionTitle = transaction.name
             self.transactionAmount = transaction.amount?.formatted() ?? ""
             self.transactionType = transaction.type
             self.transactionDate = transaction.date

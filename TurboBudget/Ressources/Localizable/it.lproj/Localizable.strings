@@ -71,6 +71,8 @@
 
 "word_disconnect" = "Disconnetti";
 
+"word_delete" = "Eliminare";
+
 //MARK: - Main
 "word_transaction" = "Transazione";
 
@@ -280,6 +282,21 @@
 
 "tip_applepay_desc_two" = "Non c'è bisogno di inserirli manualmente, CashFlow si prende cura di tutto per te!";
 
+//MARK: - Delete
+"delete_transaction_title" = "Elimina una transazione";
+
+"delete_transaction_expense_message" = "Stai per eliminare una delle tue transazioni, l'importo di questa transazione verrà rimborsato sul tuo conto.";
+
+"delete_transaction_income_message" = "Stai per eliminare una delle tue transazioni, l'importo di questa transazione verrà prelevato dal tuo conto.";
+
+"delete_subscription_title" = "Elimina un abbonamento";
+
+"delete_subscription_message" = "Stai per eliminare uno dei tuoi abbonamenti.";
+
+"delete_contribution_title" = "Elimina un contributo";
+
+"delete_contribution_message" = "Stai per eliminare uno dei tuoi contributi.";
+
 //MARK: - General Words
 "word_transactions" = "Transazioni";
 
@@ -338,8 +355,6 @@
 "word_no_results" = "Nessun risultato per";
 
 "word_reset" = "Reimpostare";
-
-"word_delete" = "Eliminare";
 
 "word_DELETE" = "ELIMINARE";
 
@@ -868,12 +883,6 @@
 
 "transaction_detail_note" = "Aggiungi una nota a questa transazione...";
 
-"transaction_detail_delete_transac" = "Elimina una transazione";
-
-"transaction_detail_alert_if_expense" = "Stai per eliminare una delle tue transazioni, l'importo di questa transazione sarà rimborsato sul tuo conto.";
-
-"transaction_detail_alert_if_income" = "Stai per eliminare una delle tue transazioni, l'importo di questa transazione sarà addebitato sul tuo conto.";
-
 //MARK: - AutomationsHomeView
 "automations_home_no_auto" = "Crea la tua prima automazione!";
 
@@ -981,15 +990,7 @@
 
 "contribution_cell_added" = "Denaro aggiunto";
 
-"contribution_cell_delete" = "Elimina un contributo";
-
-"contribution_cell_delete_desc" = "Stai per eliminare uno dei tuoi contributi, l'importo di questo contributo sarà rimborsato sul tuo conto.";
-
 //MARK: - CellTransactionForAutomationView
-"transaction_cell_delete_auto" = "Elimina un'automazione";
-
-"transaction_cell_delete_auto_desc" = "Stai per eliminare una delle tue automazioni.";
-
 //MARK: - ThemeColor
 "theme_green" = "Verde";
 

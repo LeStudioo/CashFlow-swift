@@ -16,13 +16,10 @@ struct SubscriptionRow: View {
     
     // Environement
     @Environment(\.colorScheme) private var colorScheme
-
+    
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
-    
-    // Boolean variables
-    @State private var isDeleting: Bool = false
-    @State private var cancelDeleting: Bool = false
+    @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -
     var body: some View {
@@ -59,8 +56,10 @@ struct SubscriptionRow: View {
                     }
                 }
                 .padding(12)
-                .background(Color.colorCell)
-                .cornerRadius(15)
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.colorCell)
+                }
             },
             trailingActions: { context in
                 SwipeAction(action: {
@@ -79,7 +78,8 @@ struct SubscriptionRow: View {
                         .foregroundStyle(.blue)
                 })
                 SwipeAction(action: {
-                    isDeleting.toggle()
+                    alertManager.deleteSubscription(subscription: subscription)
+                    context.state.wrappedValue = .closed
                 }, label: { _ in
                     VStack(spacing: 5) {
                         Image(systemName: "trash")
@@ -92,31 +92,13 @@ struct SubscriptionRow: View {
                     Rectangle()
                         .foregroundStyle(.error400)
                 })
-                .onChange(of: cancelDeleting) { _ in
-                    context.state.wrappedValue = .closed
-                }
-            })
+            }
+        )
         .swipeActionsStyle(.cascade)
         .swipeActionWidth(90)
-        .swipeActionCornerRadius(15)
+        .swipeActionCornerRadius(16)
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
-        .alert("transaction_cell_delete_auto".localized, isPresented: $isDeleting, actions: {
-            Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
-            Button(
-                role: .destructive,
-                action: {
-                    if let subscriptionID = subscription.id {
-                        Task {
-                            await subscriptionRepository.deleteSubscription(subscriptionID: subscriptionID)
-                        }
-                    }
-                },
-                label: { Text("word_delete".localized) }
-            )
-        }, message: {
-            Text("transaction_cell_delete_auto_desc".localized)
-        })
     } // body
 } // struct
 

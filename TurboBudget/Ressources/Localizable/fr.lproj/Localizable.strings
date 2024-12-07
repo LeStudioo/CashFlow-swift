@@ -71,6 +71,8 @@
 
 "word_disconnect" = "Déconnexion";
 
+"word_delete" = "Supprimer";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 
@@ -280,6 +282,21 @@
 
 "tip_applepay_desc_two" = "Plus besoin de les saisir manuellement, CashFlow s'occupe de tout pour vous !";
 
+//MARK: - Delete
+"delete_transaction_title" = "Supprimer une transaction";
+
+"delete_transaction_expense_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera remboursé sur votre compte.";
+
+"delete_transaction_income_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera débité de votre compte.";
+
+"delete_subscription_title" = "Supprimer un abonnement";
+
+"delete_subscription_message" = "Vous êtes sur le point de supprimer l'un de vos abonnements.";
+
+"delete_contribution_title" = "Supprimer une contribution";
+
+"delete_contribution_message" = "Vous êtes sur le point de supprimer l'une de vos contributions.";
+
 //MARK: - General Words
 "word_transactions" = "Transactions";
 
@@ -338,8 +355,6 @@
 "word_no_results" = "Aucun résultat pour";
 
 "word_reset" = "Réinitialiser";
-
-"word_delete" = "Supprimer";
 
 "word_DELETE" = "SUPPRIMER";
 
@@ -868,12 +883,6 @@
 
 "transaction_detail_note" = "Ajouter une note à cette transaction...";
 
-"transaction_detail_delete_transac" = "Supprimer une transaction";
-
-"transaction_detail_alert_if_expense" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera remboursé sur votre compte.";
-
-"transaction_detail_alert_if_income" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera débité de votre compte.";
-
 //MARK: - AutomationsHomeView
 "automations_home_no_auto" = "Créez votre première automatisation !";
 
@@ -981,15 +990,7 @@
 
 "contribution_cell_added" = "Argent ajouté";
 
-"contribution_cell_delete" = "Supprimer une contribution";
-
-"contribution_cell_delete_desc" = "Vous êtes sur le point de supprimer l'une de vos contributions, le montant de cette contribution sera remboursé sur votre compte.";
-
 //MARK: - CellTransactionForAutomationView
-"transaction_cell_delete_auto" = "Supprimer une automatisation";
-
-"transaction_cell_delete_auto_desc" = "Vous êtes sur le point de supprimer l'une de vos automatisations.";
-
 //MARK: - ThemeColor
 "theme_green" = "Vert";
 

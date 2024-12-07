@@ -71,6 +71,8 @@
 
 "word_disconnect" = "Trennen";
 
+"word_delete" = "Löschen";
+
 //MARK: - Main
 "word_transaction" = "Transaktionen";
 
@@ -280,6 +282,21 @@
 
 "tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
 
+//MARK: - Delete
+"delete_transaction_title" = "Eine Transaktion löschen";
+
+"delete_transaction_expense_message" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen. Der Betrag dieser Transaktion wird Ihrem Konto gutgeschrieben.";
+
+"delete_transaction_income_message" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen. Der Betrag dieser Transaktion wird von Ihrem Konto abgebucht.";
+
+"delete_subscription_title" = "Ein Abonnement löschen";
+
+"delete_subscription_message" = "Sie sind dabei, eines Ihrer Abonnements zu löschen.";
+
+"delete_contribution_title" = "Einen Beitrag löschen";
+
+"delete_contribution_message" = "Sie sind dabei, einen Ihrer Beiträge zu löschen.";
+
 //MARK: - General Words
 "word_transactions" = "Transaktionen";
 
@@ -338,8 +355,6 @@
 "word_no_results" = "Keine Ergebnisse für";
 
 "word_reset" = "Zurücksetzen";
-
-"word_delete" = "Löschen";
 
 "word_DELETE" = "LÖSCHEN";
 
@@ -868,12 +883,6 @@
 
 "transaction_detail_note" = "Eine Notiz zu dieser Transaktion hinzufügen...";
 
-"transaction_detail_delete_transac" = "Eine Transaktion löschen";
-
-"transaction_detail_alert_if_expense" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen, der Betrag dieser Transaktion wird Ihrem Konto gutgeschrieben.";
-
-"transaction_detail_alert_if_income" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen, der Betrag dieser Transaktion wird von Ihrem Konto abgebucht.";
-
 //MARK: - AutomationsHomeView
 "automations_home_no_auto" = "Erstellen Sie Ihre erste Automatisierung!";
 
@@ -981,15 +990,7 @@
 
 "contribution_cell_added" = "Hinzugefügtes Geld";
 
-"contribution_cell_delete" = "Eine Beitrag löschen";
-
-"contribution_cell_delete_desc" = "Sie sind dabei, einen Ihrer Beiträge zu löschen, der Betrag dieses Beitrags wird Ihrem Konto gutgeschrieben.";
-
 //MARK: - CellTransactionForAutomationView
-"transaction_cell_delete_auto" = "Eine Automatisierung löschen";
-
-"transaction_cell_delete_auto_desc" = "Sie sind dabei, eine Ihrer Automatisierungen zu löschen.";
-
 //MARK: - ThemeColor
 "theme_green" = "Grün";
 

@@ -46,6 +46,7 @@ struct Word {
         static let notifications: String = "word_notifications".localized
         static let days: String = "word_days".localized
         static let disconnect: String = "word_disconnect".localized
+        static let delete: String = "word_delete".localized
     }
     
     struct AppIntent {
@@ -179,6 +180,22 @@ struct Word {
             static func description(type: SuccessfulType) -> String {
                 return "successful_subscription_\(type.rawValue)_desc".localized
             }
+        }
+    }
+    
+    struct Delete {
+        struct Transaction {
+            static let title: String = "delete_transaction_title".localized
+            static let expenseMessage: String = "delete_transaction_expense_message".localized
+            static let incomeMessage: String = "delete_transaction_income_message".localized
+        }
+        struct Subscription {
+            static let title: String = "delete_subscription_title".localized
+            static let message: String = "delete_subscription_message".localized
+        }
+        struct Contribution {
+            static let title: String = "delete_contribution_title".localized
+            static let message: String = "delete_contribution_message".localized
         }
     }
     

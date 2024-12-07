@@ -57,10 +57,10 @@ extension AlertManager {
     func deleteTransaction(transaction: TransactionModel) {
         self.isPresented = true
         self.alert = .init(
-            title: "transaction_detail_delete_transac".localized,
-            message: transaction.type == .expense ? "transaction_detail_alert_if_expense".localized : "transaction_detail_alert_if_income".localized,
+            title: Word.Delete.Transaction.title,
+            message: transaction.type == .expense ? Word.Delete.Transaction.expenseMessage : Word.Delete.Transaction.incomeMessage,
             actionButton: .init(
-                title: "word_delete".localized,
+                title: Word.Classic.delete,
                 isDestructive: true,
                 action: {
                     if let transactionID = transaction.id {
@@ -71,13 +71,30 @@ extension AlertManager {
         )
     }
     
+    func deleteSubscription(subscription: SubscriptionModel) {
+        self.isPresented = true
+        self.alert = .init(
+            title: Word.Delete.Subscription.title,
+            message: Word.Delete.Subscription.message,
+            actionButton: .init(
+                title: Word.Classic.delete,
+                isDestructive: true,
+                action: {
+                    if let subscriptionID = subscription.id {
+                        await SubscriptionRepository.shared.deleteSubscription(subscriptionID: subscriptionID)
+                    }
+                }
+            )
+        )
+    }
+    
     func deleteContribution(savingsPlan: SavingsPlanModel, contribution: ContributionModel) {
         self.isPresented = true
         self.alert = .init(
-            title: "contribution_cell_delete".localized,
-            message: "contribution_cell_delete_desc".localized,
+            title: Word.Delete.Contribution.title,
+            message: Word.Delete.Contribution.message,
             actionButton: .init(
-                title: "word_delete".localized,
+                title: Word.Classic.delete,
                 isDestructive: true,
                 action: {
                     if let contributionID = contribution.id, let savingsPlanID = savingsPlan.id {

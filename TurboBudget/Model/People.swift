@@ -92,7 +92,7 @@ extension People {
     var image: ImageResource {
         switch self {
         case .theoSementa: return .theosementa
-        case .remiWeil: return .theosementa // TODO: EDIT
+        case .remiWeil: return .remiweil
         case .serenaDeAraujo: return .serenadearaujo
         }
     }

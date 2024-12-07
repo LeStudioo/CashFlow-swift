@@ -78,8 +78,10 @@ struct TransferRow: View {
                 }
             }
             .padding(12)
-            .background(Color.colorCell)
-            .cornerRadius(15)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.colorCell)
+            }
         }, trailingActions: { context in
             SwipeAction(action: {
                 withAnimation { isDeleting.toggle() }
