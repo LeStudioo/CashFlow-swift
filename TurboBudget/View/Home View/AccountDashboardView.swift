@@ -150,11 +150,7 @@ struct AccountDashboardView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
                     if !store.isCashFlowPro {
-                        Button(action: { router.presentPaywall() }, label: {
-                            Image(systemName: "crown.fill")
-                                .foregroundStyle(.primary500)
-                                .font(.system(size: 14, weight: .medium, design: .rounded))
-                        })
+                        PremiumButton()
                     }
                     
                     NavigationButton(push: router.pushSettings()) {

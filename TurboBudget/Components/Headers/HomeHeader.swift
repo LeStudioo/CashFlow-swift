@@ -16,7 +16,7 @@ struct HomeHeader: View {
     
     // MARK: -
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
             VStack(alignment: .leading) {
                 if let account = accountRepository.selectedAccount {
                     Text(account.balance.toCurrency())
@@ -29,15 +29,10 @@ struct HomeHeader: View {
                     .foregroundStyle(Color.customGray)
                     .font(Font.mediumText16())
             }
-            
-            Spacer()
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             if !purchaseManager.isCashFlowPro {
-                NavigationButton(present: router.presentPaywall()) {
-                    Image(systemName: "crown.fill")
-                        .foregroundStyle(.primary500)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
+                PremiumButton()
             }
             
             NavigationButton(push: router.pushSettings()) {
