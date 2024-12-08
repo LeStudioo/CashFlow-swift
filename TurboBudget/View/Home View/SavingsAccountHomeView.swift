@@ -70,7 +70,7 @@ struct SavingsAccountHomeView: View {
                         
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    if purchaseManager.isCashFlowPro || accountRepository.savingsAccounts.count < 2 {
+                    if purchaseManager.isCashFlowPro || accountRepository.savingsAccounts.isEmpty {
                         router.presentCreateAccount(type: .savings)
                     } else {
                         alertManager.showPaywall()

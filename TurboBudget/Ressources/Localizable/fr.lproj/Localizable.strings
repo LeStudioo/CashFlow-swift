@@ -92,9 +92,9 @@
 
 "word_transfers" = "Transferts";
 
-"word_savings_account" = "Compte d'épargne";
+"word_savings_account" = "Compte épargne";
 
-"word_savings_accounts" = "Comptes d'épargne";
+"word_savings_accounts" = "Comptes épargne";
 
 //MARK: - Preposition
 "word_preposition_to" = "vers";
@@ -279,6 +279,9 @@
 "whatsnew_edit_title" = "Modification";
 
 "whatsnew_edit" = "Les plans d'épargne, transactions, abonnements, etc., sont maintenant modifiables une fois créés";
+
+//MARK: - Paywall
+"paywall_savingsaccounts_desc" = "Compte d'épargne illimité pour une meilleure gestion de votre argent";
 
 //MARK: - Notifications
 "notifications_day_before" = "jours avant";

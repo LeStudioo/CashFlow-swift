@@ -280,6 +280,9 @@
 
 "whatsnew_edit" = "Savings plans, transactions, subscriptions, etc. can now be modified once they have been created";
 
+//MARK: - Paywall
+"paywall_savingsaccounts_desc" = "Unlimited savings account for better management of your money";
+
 //MARK: - Notifications
 "notifications_day_before" = "days before";
 

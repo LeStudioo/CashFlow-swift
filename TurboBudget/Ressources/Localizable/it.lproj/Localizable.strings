@@ -280,6 +280,9 @@
 
 "whatsnew_edit" = "Piani di risparmio, transazioni, abbonamenti, ecc. possono ora essere modificati dopo la creazione";
 
+//MARK: - Paywall
+"paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione del tuo denaro";
+
 //MARK: - Notifications
 "notifications_day_before" = "giorni prima";
 

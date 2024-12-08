@@ -280,6 +280,9 @@
 
 "whatsnew_edit" = "Sparpläne, Transaktionen, Abonnements usw. kann nun nach der Erstellung geändert werden";
 
+//MARK: - Paywall
+"paywall_savingsaccounts_desc" = "Unbegrenztes Sparkonto für eine bessere Verwaltung Ihres Geldes";
+
 //MARK: - Notifications
 "notifications_day_before" = "Tage vorher";
 
