@@ -52,18 +52,3 @@ extension TransactionRepositoryOld {
         }
     }
 }
-
-extension TransactionRepositoryOld {
-    
-    /// Delete all transactions
-    func deleteTransactions() {
-        for transaction in self.transactions {
-            viewContext.delete(transaction)
-        }
-        if let account = AccountRepositoryOld.shared.mainAccount {
-            account.balance = 0
-        }
-        self.transactions = []
-    }
-    
-}

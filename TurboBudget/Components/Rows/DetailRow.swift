@@ -25,7 +25,7 @@ struct DetailRow: View {
                 CustomOrSystemImage(
                     systemImage: icon,
                     size: 12,
-                    color: text == nil ? .black :.white
+                    color: text == nil ? .black : Color.label
                 )
                 .padding(6)
                 .background {
@@ -51,7 +51,6 @@ struct DetailRow: View {
                     .fill(Color.colorCell)
             }
         }
-        .disabled(action == nil)
     } // body
 } // struct
 

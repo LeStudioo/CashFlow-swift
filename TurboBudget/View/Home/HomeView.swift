@@ -11,8 +11,9 @@ import SwiftUI
 import CoreData
 
 struct HomeView: View {
-    
+        
     @EnvironmentObject private var modalManager: ModalManager
+    
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
     // MARK: -

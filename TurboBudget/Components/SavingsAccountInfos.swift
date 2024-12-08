@@ -10,7 +10,9 @@ import SwiftUI
 struct SavingsAccountInfos: View {
     
     // Builder
-    var savingsAccount: AccountModel
+    @ObservedObject var savingsAccount: AccountModel
+    
+    @State private var rowHeight: CGFloat = 0
     
     // MARK: -
     var body: some View {
@@ -20,6 +22,20 @@ struct SavingsAccountInfos: View {
                 text: Word.Classic.currentAmount,
                 value: savingsAccount.balance.toCurrency()
             )
+            .onGetHeight { height in
+                rowHeight = height
+            }
+            
+            if let maxAmount = savingsAccount.maxAmount {
+                DetailRow(
+                    icon: "building.columns.fill",
+                    text: Word.Classic.maxAmount,
+                    value: maxAmount.toCurrency()
+                )
+                
+                ProgressBar(percentage: savingsAccount.balance / maxAmount)
+                    .frame(height: rowHeight - 8)
+            }
         }
     } // body
 } // struct
@@ -27,4 +43,7 @@ struct SavingsAccountInfos: View {
 // MARK: -
 #Preview {
     SavingsAccountInfos(savingsAccount: .mockSavingsAccount)
+        .padding()
+        .background(Color.background)
+        .environmentObject(ThemeManager())
 }

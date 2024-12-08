@@ -17,7 +17,6 @@ struct OnboardingView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     // Repo
-    @EnvironmentObject private var accountRepo: AccountRepositoryOld
     @EnvironmentObject private var accountRepository: AccountRepository
 
     //State or Binding String

@@ -31,6 +31,9 @@ struct NetworkPath {
         static func delete(id: Int) -> String {
             return "/account/\(id)"
         }
+        static func cashflow(id: Int, year: Int) -> String {
+            return "/account/\(id)/cashflow/\(year)"
+        }
     }
     
     struct Transaction {

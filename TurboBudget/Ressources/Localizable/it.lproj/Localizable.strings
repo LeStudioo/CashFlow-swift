@@ -112,6 +112,10 @@
 "frequency_yearly" = "Annuale";
 
 //MARK: - Title
+"title_new_account" = "Nuovo conto";
+
+"title_update_account" = "Aggiorna conto";
+
 "title_new_transaction" = "Nuova transazione";
 
 "title_update_transaction" = "Aggiorna transazione";
@@ -194,7 +198,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -263,7 +267,7 @@
 
 "whatsnew_edit_title" = "il cambiamento";
 
-"whatsnew_edit" = "I piani di risparmio, le transazioni, gli abbonamenti, ecc. possono ora essere modificati dopo la creazione";
+"whatsnew_edit" = "Piani di risparmio, transazioni, abbonamenti, ecc. possono ora essere modificati dopo la creazione";
 
 //MARK: - Notifications
 "notifications_day_before" = "giorni prima";

@@ -112,6 +112,10 @@
 "frequency_yearly" = "Jährlich";
 
 //MARK: - Title
+"title_new_account" = "Neues Konto";
+
+"title_update_account" = "Konto aktualisieren";
+
 "title_new_transaction" = "Neue Transaktion";
 
 "title_update_transaction" = "Transaktion aktualisieren";
@@ -280,7 +284,7 @@
 //MARK: - Tips
 "tip_how_to_do" = "Wie gehen Sie vor?";
 
-"tip_applepay_desc_one" = "Verwenden Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt von CashFlow abzurufen.";
+"tip_applepay_desc_one" = "Nutzen Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt aus CashFlow abzurufen.";
 
 "tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
 

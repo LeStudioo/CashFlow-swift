@@ -11,6 +11,7 @@ struct HomeHeader: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var purchaseManager: PurchasesManager
     
     // MARK: -
@@ -18,8 +19,10 @@ struct HomeHeader: View {
         HStack {
             VStack(alignment: .leading) {
                 if let account = accountRepository.selectedAccount {
-                    Text(currencySymbol + " " + account.balance.formatWith(2))
+                    Text(account.balance.toCurrency())
                         .titleAdjustSize()
+                        .animation(.default, value: account.balance)
+                        .contentTransition(.numericText())
                 }
                 
                 Text("home_screen_available_balance".localized)
@@ -42,6 +45,9 @@ struct HomeHeader: View {
                     .foregroundStyle(Color.label)
                     .font(.system(size: 18, weight: .medium, design: .rounded))
             }
+        }
+        .onChange(of: transactionRepository.transactions.count) { _ in
+            // Keep to reload account.balance
         }
     } // body
 } // struct

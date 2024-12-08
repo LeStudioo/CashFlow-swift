@@ -18,7 +18,7 @@ enum NavigationDirection: Identifiable {
     
     case analytics
     
-    case createAccount(type: AccountType)
+    case createAccount(type: AccountType, account: AccountModel? = nil)
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
     case createContribution(savingsPlan: SavingsPlanModel)

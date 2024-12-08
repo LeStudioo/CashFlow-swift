@@ -112,6 +112,10 @@
 "frequency_yearly" = "Annuel";
 
 //MARK: - Title
+"title_new_account" = "Nouveau compte";
+
+"title_update_account" = "Modifier le compte";
+
 "title_new_transaction" = "Nouvelle transaction";
 
 "title_update_transaction" = "Modifier la transaction";

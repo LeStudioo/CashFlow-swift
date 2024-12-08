@@ -159,7 +159,7 @@ extension TransactionRepository {
     
     @MainActor
     func deleteTransaction(transactionID: Int) async {
-        let accountRepo = AccountRepository.shared
+        let accountRepo: AccountRepository = .shared
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.delete(id: transactionID),
@@ -167,7 +167,7 @@ extension TransactionRepository {
             )
             self.transactions.removeAll { $0.id == transactionID }
             if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
-                accountRepo.setNewBalance(accountID: accountID, newBalance: newBalance)
+                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }
     }

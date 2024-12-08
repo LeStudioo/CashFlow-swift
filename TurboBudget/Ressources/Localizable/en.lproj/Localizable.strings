@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction Type";
+"word_typeOfTransaction" = "Transaction type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -112,6 +112,10 @@
 "frequency_yearly" = "Yearly";
 
 //MARK: - Title
+"title_new_account" = "New account";
+
+"title_update_account" = "Update account";
+
 "title_new_transaction" = "New transaction";
 
 "title_update_transaction" = "Update transaction";

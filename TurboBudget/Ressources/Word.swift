@@ -89,6 +89,10 @@ struct Word {
     }
     
     struct Title {
+        struct Account {
+            static let new: String = "title_new_account".localized
+            static let update: String = "title_update_account".localized
+        }
         struct Transaction {
             static let new: String = "title_new_transaction".localized
             static let update: String = "title_update_transaction".localized

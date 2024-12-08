@@ -12,6 +12,7 @@ class CreateAccountViewModel: ObservableObject {
     
     // Builder
     var type: AccountType
+    var account: AccountModel?
     
     @Published var name: String = ""
     @Published var balance: String = ""
@@ -20,8 +21,13 @@ class CreateAccountViewModel: ObservableObject {
     @Published var presentingConfirmationDialog: Bool = false
     
     // init
-    init(type: AccountType) {
+    init(type: AccountType, account: AccountModel?) {
         self.type = type
+        self.account = account
+        if let account {
+            name = account.name
+            maxAmount = account.maxAmount?.formatted() ?? ""
+        }
     }
 }
 
@@ -62,6 +68,29 @@ extension CreateAccountViewModel {
         
         Task {
             await accountRepository.createAccount(body: body)
+            await dismiss()
+        }
+    }
+    
+    func updateAccount(dismiss: DismissAction) {
+        guard let account, let accountID = account.id else { return }
+        
+        let accountRepository: AccountRepository = .shared
+        let body: AccountModel
+        
+        if type == .classic {
+            body = .init(
+                name: name
+            )
+        } else {
+            body = .init(
+                name: name,
+                maxAmount: maxAmount.toDouble()
+            )
+        }
+        
+        Task {
+            await accountRepository.updateAccount(accountID: accountID, body: body)
             await dismiss()
         }
     }

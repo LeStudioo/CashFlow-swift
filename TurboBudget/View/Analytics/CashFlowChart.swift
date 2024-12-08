@@ -13,6 +13,7 @@ struct CashFlowChart: View {
         
     // Custom
     @ObservedObject var filter = FilterManager.shared
+    @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var themeManager: ThemeManager
     
@@ -22,7 +23,7 @@ struct CashFlowChart: View {
     // Boolean variables
     @State private var showAlert: Bool = false
     
-    //MARK: - body
+    // MARK: -
     var body: some View {
         VStack {
             HStack {
@@ -46,18 +47,17 @@ struct CashFlowChart: View {
                 })
                 .padding(8)
             }
+            
             Chart {
-                let transactionsByMonth = transactionRepository.transactionsByMonthCashFlow.sorted(by: { $0.key < $1.key })
-                ForEach(transactionsByMonth.indices, id: \.self) { index in
-                    
-                    let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
-                    
-                    let month = transactionsByMonth[index].key
-                    let transactions = transactionRepository.totalCashFlowForSpecificMonthYear(month: month, year: components.year ?? 0)
-                    
+                ForEach(accountRepository.cashflow.indices, id: \.self) { index in
+                    let value = accountRepository.cashflow[index]
+//                    let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
+//                    let month = transactionsByMonth[index].key
+
                     BarMark(x: .value("x", "\(index)"),
-                            y: .value("y", transactions))
-                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : themeManager.theme.color.gradient)
+                            y: .value("y", value))
+//                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : themeManager.theme.color.gradient)
+                    .foregroundStyle(themeManager.theme.color.gradient)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 }
             }
@@ -76,8 +76,13 @@ struct CashFlowChart: View {
         .alert(isPresented: $showAlert, content: {
             Alert(title: Text("cashflowchart_alert_title".localized), message: Text("cashflowchart_alert_desc".localized), dismissButton: .cancel(Text("word_ok".localized)) )
         })
-    } // End body
-} // End struct
+        .task {
+            if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
+                await accountRepository.fetchCashFlow(accountID: accountID, year: Date().year)
+            }
+        }
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

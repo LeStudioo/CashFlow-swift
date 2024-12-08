@@ -15,6 +15,8 @@ final class AccountRepository: ObservableObject {
     
     @Published var selectedAccount: AccountModel? = nil
     
+    @Published var cashflow: [Double] = []
+    
     var allAccounts: [AccountModel] {
         return accounts + savingsAccounts
     }
@@ -92,6 +94,17 @@ extension AccountRepository {
             self.savingsAccounts.removeAll { $0.id == accountID }
         } catch { NetworkService.handleError(error: error) }
     }
+    
+    @MainActor
+    func fetchCashFlow(accountID: Int, year: Int) async {
+        do {
+            let results = try await NetworkService.shared.sendRequest(
+                apiBuilder: AccountAPIRequester.cashflow(accountID: accountID, year: year),
+                responseModel: [Double].self
+            )
+            self.cashflow = results
+        } catch { NetworkService.handleError(error: error) }
+    }
 }
 
 extension AccountRepository {
@@ -103,6 +116,9 @@ extension AccountRepository {
     func setNewBalance(accountID: Int, newBalance: Double) {
         if let account = accounts.first(where: { $0.id == accountID }) {
             account._balance = newBalance
+            if let selectedAccount, selectedAccount.id == accountID {
+                selectedAccount._balance = newBalance
+            }
         } else if let account = savingsAccounts.first(where: { $0.id == accountID }) {
             account._balance = newBalance
         }

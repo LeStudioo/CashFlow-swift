@@ -142,8 +142,8 @@ class NavigationManager: Router {
         presentSheet(.paywall)
     }
     
-    func presentCreateAccount(type: AccountType) {
-        presentSheet(.createAccount(type: type))
+    func presentCreateAccount(type: AccountType, account: AccountModel? = nil) {
+        presentSheet(.createAccount(type: type, account: account))
     }
     
     func presentCreateSubscription(subscription: SubscriptionModel? = nil, dismissAction: (() -> Void)? = nil) {
@@ -205,8 +205,8 @@ private extension NavigationManager {
             case .analytics:
                 AnalyticsHomeView()
                 
-            case .createAccount(let type):
-                CreateAccountView(type: type)
+            case .createAccount(let type, let account):
+                CreateAccountView(type: type, account: account)
             case .createSubscription(let subscription):
                 CreateSubscriptionView(subscription: subscription)
             case .createBudget:

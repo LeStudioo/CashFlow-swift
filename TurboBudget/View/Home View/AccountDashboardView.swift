@@ -128,8 +128,18 @@ struct AccountDashboardView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu(content: {
-                    Button(action: { isEditingAccountName.toggle() }, label: { Label("account_detail_rename".localized, systemImage: "pencil") })
-                    Button(role: .destructive, action: { isDeleting.toggle() }, label: { Label("word_delete".localized, systemImage: "trash.fill") })
+                    if let account = accountRepository.selectedAccount {
+                        Button(
+                            action: { router.presentCreateAccount(type: .classic, account: account) },
+                            label: { Label(Word.Classic.edit, systemImage: "pencil") }
+                        )
+                    }
+                    
+                    Button(
+                        role: .destructive,
+                        action: { isDeleting.toggle() },
+                        label: { Label("word_delete".localized, systemImage: "trash.fill") }
+                    )
                 }, label: {
                     Image(systemName: "ellipsis")
                         .foregroundStyle(Color.label)

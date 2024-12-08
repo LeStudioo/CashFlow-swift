@@ -33,6 +33,12 @@ extension Date {
         if let day = components.day { return day } else { return 0 }
     }
     
+    var year: Int {
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
+        components.timeZone = Locale.current.timeZone
+        if let year = components.year { return year } else { return 0 }
+    }
+    
 }
 
 extension Date {

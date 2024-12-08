@@ -13,6 +13,7 @@ struct CreateAccountView: View {
     
     // Builder
     var type: AccountType
+    var account: AccountModel?
     
     @StateObject private var viewModel: CreateAccountViewModel
     @EnvironmentObject private var accountRepository: AccountRepository
@@ -21,9 +22,10 @@ struct CreateAccountView: View {
     @Environment(\.dismiss) private var dismiss
     
     // init
-    init(type: AccountType) {
+    init(type: AccountType, account: AccountModel? = nil) {
         self.type = type
-        self._viewModel = StateObject(wrappedValue: .init(type: type))
+        self.account = account
+        self._viewModel = StateObject(wrappedValue: .init(type: type, account: account))
     }
     
     // MARK: -
@@ -31,7 +33,7 @@ struct CreateAccountView: View {
         ScrollView {
             VStack(spacing: 40) {
                 HStack {
-                    Text("account_new".localized)
+                    Text(account == nil ? Word.Title.Account.new : Word.Title.Account.update)
                         .titleAdjustSize()
                         .frame(maxWidth: .infinity, alignment: .leading)
                                         
@@ -52,16 +54,18 @@ struct CreateAccountView: View {
                         )
                     )
                     
-                    CustomTextField(
-                        text: $viewModel.balance,
-                        config: .init(
-                            title: "account_balance".localized,
-                            placeholder: "account_placeholder_balance".localized,
-                            style: .amount
+                    if account == nil {
+                        CustomTextField(
+                            text: $viewModel.balance,
+                            config: .init(
+                                title: "account_balance".localized,
+                                placeholder: "account_placeholder_balance".localized,
+                                style: .amount
+                            )
                         )
-                    )
+                    }
                     
-                    if type == .savings {
+                    if type == .savings || account != nil {
                         CustomTextField(
                             text: $viewModel.maxAmount,
                             config: .init(
@@ -72,21 +76,20 @@ struct CreateAccountView: View {
                         )
                     }
                 }
-                
-//                if type == .classic {
-//                    Text("account_info_credit_card".localized)
-//                        .foregroundStyle(Color.customGray)
-//                        .multilineTextAlignment(.center)
-//                        .font(.semiBoldText16())
-//                }
             }
         } // End ScrollView
         .scrollIndicators(.hidden)
         .scrollDismissesKeyboard(.immediately)
         .ignoresSafeArea(.keyboard)
         .overlay(alignment: .bottom) {
-            CreateButton(
-                action: { viewModel.createAccount(dismiss: dismiss) },
+            CreateButton( // TODO: Changer ce bouton et ajouter create ou update
+                action: {
+                    if account != nil {
+                        viewModel.updateAccount(dismiss: dismiss)
+                    } else {
+                        viewModel.createAccount(dismiss: dismiss)
+                    }
+                },
                 validate: viewModel.isAccountValid()
             )
             .padding(.bottom)

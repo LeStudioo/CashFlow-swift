@@ -32,36 +32,9 @@ struct SavingsAccountDetailView: View {
     // MARK: - body
     var body: some View {
         List {
-            VStack {
-                HStack {
-                    Spacer()
-                    Circle()
-                        .frame(width: 100, height: 100)
-                        .foregroundStyle(.colorCell)
-                        .overlay {
-                            Circle()
-                                .frame(width: 80, height: 80)
-                                .foregroundStyle(themeManager.theme.color)
-                                .shadow(color:themeManager.theme.color, radius: 4, y: 2)
-                                .overlay {
-                                    VStack {
-                                        Image(systemName: "building.columns.fill")
-                                            .font(.system(size: 32, weight: .semibold, design: .rounded))
-                                            .foregroundStyle(Color(uiColor: .systemBackground))
-                                        
-                                    }
-                                }
-                        }
-                    Spacer()
-                }
-                
-                Text(savingsAccount.name)
-                    .titleAdjustSize()
-            }
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-            
             SavingsAccountInfos(savingsAccount: savingsAccount)
+                .listRowBackground(Color.clear)
+                .listRowSeparator(.hidden)
             
             ForEach(transferRepository.monthsOfTransfers, id: \.self) { month in
                 Section(content: {
@@ -89,12 +62,18 @@ struct SavingsAccountDetailView: View {
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .navigationBarTitleDisplayMode(.large)
+        .navigationTitle(savingsAccount.name)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
                         action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
                         label: { Label(Word.Classic.add, systemImage: "plus") }
+                    )
+                    Button(
+                        action: { router.presentCreateAccount(type: .savings, account: savingsAccount) },
+                        label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
                     Button(
                         role: .destructive,
@@ -128,10 +107,13 @@ struct SavingsAccountDetailView: View {
                 await transferRepository.fetchTransfersWithPagination(accountID: accountID)
             }
         }
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {
     SavingsAccountDetailView(savingsAccount: .mockSavingsAccount)
+        .environmentObject(ThemeManager())
+        .environmentObject(TransferRepository())
+        .environmentObject(AccountRepository())
 }
