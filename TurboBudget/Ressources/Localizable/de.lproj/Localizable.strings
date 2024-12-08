@@ -63,6 +63,8 @@
 
 "word_maxAmount" = "Höchstbetrag";
 
+"word_currentAmount" = "Aktueller Betrag";
+
 "word_continue" = "Weiter";
 
 "word_amount" = "Menge";

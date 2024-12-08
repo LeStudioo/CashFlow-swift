@@ -24,7 +24,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(HelperManager().formattedDateWithMonthYear(date: month))
+                Text(month.formatted(.monthAndYear).capitalized)
                     .font(.mediumCustom(size: 22))
                     .foregroundStyle(Color(uiColor: .label))
                 

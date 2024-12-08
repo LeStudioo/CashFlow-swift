@@ -63,6 +63,8 @@
 
 "word_maxAmount" = "Importe máximo";
 
+"word_currentAmount" = "Monto actual";
+
 "word_continue" = "Continúe";
 
 "word_amount" = "Cantidad";

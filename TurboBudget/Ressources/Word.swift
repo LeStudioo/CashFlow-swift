@@ -41,6 +41,7 @@ struct Word {
         static let note: String = "word_note".localized
         static let budget: String = "word_budget".localized
         static let maxAmount: String = "word_maxAmount".localized
+        static let currentAmount: String = "word_currentAmount".localized
         static let amount: String = "word_amount".localized
         static let `continue`: String = "word_continue".localized
         static let notifications: String = "word_notifications".localized

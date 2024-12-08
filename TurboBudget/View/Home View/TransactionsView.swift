@@ -35,7 +35,7 @@ struct TransactionsView: View {
                 .filter { $0.name.localizedStandardContains(searchText) }
             
             let transactionsFilterByDate = transactionRepository.transactions
-                .filter { HelperManager().formattedDateWithMonthYear(date: $0.date).localizedStandardContains(searchText) }
+                .filter { $0.date.formatted(.monthAndYear).localizedStandardContains(searchText) }
             
             if transactionsFilterByTitle.isEmpty {
                 return transactionsFilterByDate

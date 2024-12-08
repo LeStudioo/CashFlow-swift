@@ -29,40 +29,38 @@ struct DashboardChart: View {
     var body: some View {
         if amountExpenses != 0 {
             VStack(alignment: .leading) {
-                Text(HelperManager().formattedDateWithMonthYear(date: .now))
+                Text(Date().formatted(.monthAndYear).capitalized)
                     .font(.semiBoldH3())
                     .padding(.leading, 8)
                 
-                HStack(spacing: 16) {
-                    PieChart(
-                        slices: CategoryRepository.shared.categoriesSlices,
-                        backgroundColor: Color.colorCell,
-                        configuration: .init(
-                            style: .category,
-                            space: 0.2,
-                            hole: 0.75,
-                            isInteractive: false
-                        )
-                    )
-                    .frame(height: 180)
+                VStack(spacing: 16) {
+//                    PieChart(
+//                        slices: CategoryRepository.shared.categoriesSlices,
+//                        backgroundColor: Color.colorCell,
+//                        configuration: .init(
+//                            style: .category,
+//                            space: 0.2,
+//                            hole: 0.75,
+//                            isInteractive: false
+//                        )
+//                    )
+//                    .frame(height: 180)
                     
-                    VStack {
-                        CustomRow(
-                            text: "word_expenses".localized,
-                            amount: amountExpenses.currency
-                        )
-                        CustomRow(
-                            text: "word_incomes".localized,
-                            amount: amountIncomes.currency
-                        )
+                    VStack(spacing: 8) {
+                        HStack(spacing: 8) {
+                            CustomRow(
+                                text: "word_expenses".localized,
+                                amount: amountExpenses.currency
+                            )
+                            CustomRow(
+                                text: "word_incomes".localized,
+                                amount: amountIncomes.currency
+                            )
+                        }
                         CustomRow(
                             text: "account_detail_cashflow".localized,
                             amount: amountCashFlow.currency
                         )
-//                        CustomRow(
-//                            text: amountGainOrLoss > 0 ? "account_detail_gain" : "account_detail_loss".localized,
-//                            amount: amountGainOrLoss.currency
-//                        )
                     }
                 }
             }

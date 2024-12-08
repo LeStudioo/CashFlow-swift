@@ -14,18 +14,6 @@ extension Double {
         return String(format: "%.\(digit)f", self)
     }
     
-    func splitDecimal() -> (Int, Double) {
-        guard self <= Double(Int.max), self >= Double(Int.min) else {
-            print("Double value cannot be converted to Int because it is out of bounds.")
-            return (0, 0)
-        }
-        
-        let whole = Int(self)
-        let decimal = self - Double(whole)
-        
-        return (whole, decimal)
-    }
-    
     func reduceScale(to places: Int) -> Double {
         let multiplier = pow(10, Double(places))
         let newDecimal = multiplier * self //Move the decimal right
@@ -38,11 +26,7 @@ extension Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / 100
     }
-    
-    func roundedPlaces(toPlaces places:Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
-    }
+
 }
 
 func formatNumber(_ n: Double) -> String {

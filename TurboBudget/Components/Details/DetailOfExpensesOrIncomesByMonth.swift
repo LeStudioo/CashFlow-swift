@@ -27,7 +27,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
             HStack(alignment: .bottom) {
                 if filterTransactions == .expenses {
                     VStack(alignment: .leading) {
-                        Text(HelperManager().formattedDateWithMonthYear(date: month))
+                        Text(month.formatted(.monthAndYear).capitalized)
                             .font(.mediumCustom(size: 22))
                             .foregroundStyle(Color(uiColor: .label))
                         
@@ -50,7 +50,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                     .font(.semiBoldSmall())
                 } else if filterTransactions == .incomes {
                     VStack(alignment: .leading) {
-                        Text(HelperManager().formattedDateWithMonthYear(date: month))
+                        Text(month.formatted(.monthAndYear).capitalized)
                             .font(.mediumCustom(size: 22))
                         if store.isCashFlowPro {
                             Text("word_incomes".localized + " : " + amountOfIncomes.currency)

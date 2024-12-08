@@ -51,7 +51,7 @@ struct DetailRow: View {
                     .fill(Color.colorCell)
             }
         }
-
+        .disabled(action == nil)
     } // body
 } // struct
 

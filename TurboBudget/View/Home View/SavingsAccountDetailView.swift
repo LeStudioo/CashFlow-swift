@@ -61,6 +61,8 @@ struct SavingsAccountDetailView: View {
             .listRowSeparator(.hidden)
             .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
             
+            SavingsAccountInfos(savingsAccount: savingsAccount)
+            
             ForEach(transferRepository.monthsOfTransfers, id: \.self) { month in
                 Section(content: {
                     ForEach(transferRepository.transfers) { transfer in
@@ -80,7 +82,7 @@ struct SavingsAccountDetailView: View {
                     )
                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                 })
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.label)
             }
         } // End List
         .listStyle(.plain)
@@ -118,7 +120,7 @@ struct SavingsAccountDetailView: View {
                             }
                         }
                     }
-                }, label: { Text("word_delete".localized) })
+                }, label: { Text(Word.Classic.delete) })
         }, message: { Text("account_detail_delete_account_desc".localized) })
         .task {
             if let accountID = savingsAccount.id {
