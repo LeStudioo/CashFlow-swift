@@ -101,6 +101,17 @@
 
 "word_preposition_from" = "da";
 
+//MARK: - Temporality
+"temporality_today" = "Oggi";
+
+"temporality_yesterday" = "Ieri";
+
+"temporality_tomorrow" = "Domani";
+
+"temporality_two_days_ago" = "2 giorni fa";
+
+"temporality_in_two_days" = "Tra 2 giorni";
+
 //MARK: - Create
 "create_add_category" = "Aggiungi una categoria";
 

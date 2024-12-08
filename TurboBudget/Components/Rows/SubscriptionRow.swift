@@ -49,7 +49,7 @@ struct SubscriptionRow: View {
                             .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
                             .lineLimit(1)
                         
-                        Text(subscription.date.formatted(date: .numeric, time: .omitted))
+                        Text(subscription.date.withTemporality)
                             .font(Font.mediumSmall())
                             .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                             .lineLimit(1)

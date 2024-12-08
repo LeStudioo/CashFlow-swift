@@ -101,6 +101,17 @@
 
 "word_preposition_from" = "from";
 
+//MARK: - Temporality
+"temporality_today" = "Today";
+
+"temporality_yesterday" = "Yesterday";
+
+"temporality_tomorrow" = "Tomorrow";
+
+"temporality_two_days_ago" = "2 days ago";
+
+"temporality_in_two_days" = "In 2 days";
+
 //MARK: - Create
 "create_add_category" = "Add a category";
 

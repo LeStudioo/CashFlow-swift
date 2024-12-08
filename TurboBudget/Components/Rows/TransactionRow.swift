@@ -49,7 +49,7 @@ struct TransactionRow: View {
                             .foregroundStyle(transaction.color)
                             .lineLimit(1)
                         
-                        Text(transaction.date.formatted(date: .numeric, time: .omitted))
+                        Text(transaction.date.withTemporality)
                             .font(Font.mediumSmall())
                             .foregroundStyle(Color.customGray)
                             .lineLimit(1)

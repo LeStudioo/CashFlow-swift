@@ -72,6 +72,14 @@ struct Word {
         static let from: String = "word_preposition_from".localized
     }
     
+    struct Temporality {
+        static let today: String = "temporality_today".localized
+        static let yesterday: String = "temporality_yesterday".localized
+        static let tomorrow: String = "temporality_tomorrow".localized
+        static let twoDaysAgo: String = "temporality_two_days_ago".localized
+        static let inTwoDays: String = "temporality_in_two_days".localized
+    }
+    
     struct Create {
         static let addCategory: String = "create_add_category".localized
     }

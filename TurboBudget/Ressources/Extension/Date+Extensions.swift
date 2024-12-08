@@ -42,6 +42,31 @@ extension Date {
 }
 
 extension Date {
+    
+    var withTemporality: String {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        let startOfToday = calendar.startOfDay(for: now)
+        let startOfDate = calendar.startOfDay(for: self)
+        
+        if let daysDifference = calendar.dateComponents([.day], from: startOfToday, to: startOfDate).day {
+            switch daysDifference {
+            case 0:     return Word.Temporality.today
+            case 1:     return Word.Temporality.tomorrow
+            case -1:    return Word.Temporality.yesterday
+            case 2:     return Word.Temporality.inTwoDays
+            case -2:    return Word.Temporality.twoDaysAgo
+            default:    break
+            }
+        }
+        
+        return self.formatted(date: .numeric, time: .omitted)
+    }
+    
+}
+
+extension Date {
     var startOfMonth: Date {
         let comp: DateComponents = Calendar.current.dateComponents([.month, .year], from: self)
         return Calendar.current.date(from: comp)!

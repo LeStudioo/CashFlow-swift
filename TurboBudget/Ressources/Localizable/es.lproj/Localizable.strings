@@ -101,6 +101,17 @@
 
 "word_preposition_from" = "de";
 
+//MARK: - Temporality
+"temporality_today" = "Hoy";
+
+"temporality_yesterday" = "Ayer";
+
+"temporality_tomorrow" = "Mañana";
+
+"temporality_two_days_ago" = "Hace 2 días";
+
+"temporality_in_two_days" = "en 2 dias";
+
 //MARK: - Create
 "create_add_category" = "Añadir una categoría";
 
