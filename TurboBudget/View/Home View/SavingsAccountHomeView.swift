@@ -11,6 +11,8 @@ struct SavingsAccountHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var purchaseManager: PurchasesManager
     @EnvironmentObject private var accountRepository: AccountRepository
     @Environment(\.dismiss) private var dismiss
     
@@ -67,7 +69,13 @@ struct SavingsAccountHomeView: View {
             ToolbarDismissPushButton()
                         
             ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(present: router.presentCreateAccount(type: .savings)) {
+                Button {
+                    if purchaseManager.isCashFlowPro || accountRepository.savingsAccounts.count < 2 {
+                        router.presentCreateAccount(type: .savings)
+                    } else {
+                        alertManager.showPaywall()
+                    }
+                } label: {
                     Image(systemName: "plus")
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.system(size: 18, weight: .medium, design: .rounded))
