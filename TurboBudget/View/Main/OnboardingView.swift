@@ -11,23 +11,16 @@ import CloudKit
 
 struct OnboardingView: View {
     
-    //Environnements
-    @Environment(\.dismiss) private var dismiss
+    // Environnement
     @Environment(\.colorScheme) private var colorScheme
-    @Environment(\.managedObjectContext) private var viewContext
     
     // Repo
     @EnvironmentObject private var accountRepository: AccountRepository
 
-    //State or Binding String
-    @State private var accountTitle: String = ""
-    @State private var textFieldEmptyString: String = ""
-
-    //State or Binding Int, Float and Double
-    @State private var accountBalance: String = ""
     @State private var actualPage: Int = 1
-    @State private var cardLimit: Double = 0.0
-    @State private var textFieldEmptyDouble: Double = 0.0
+    
+    // Preferences
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
 	
 	// Computed var
     var sizeTitleOnboarding: CGFloat {
@@ -74,51 +67,36 @@ struct OnboardingView: View {
                     desc: "onboarding_page4_desc".localized
                 ).tag(4)
                 
-                addAccountPage()
-                    .tag(5)
+                CreateAccountView(type: .classic) {
+                    actualPage += 1
+                    await accountRepository.fetchAccounts()
+                    preferencesGeneral.isAlreadyOpen = true
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }.tag(5)
+                
+                PaywallScreenView()
+                    .tag(6)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
-            Button(
-                action: {
-                    if actualPage < 5 {
-                        withAnimation { actualPage += 1 }
-                    } else {
-                        UserDefaults.standard.set(true, forKey: "alreadyOpen")
-                        Task {
-                            if let newAccount = await accountRepository.createAccount(
-                                body: .init(
-                                    name: accountTitle,
-                                    balance: accountBalance.toDouble(),
-                                    typeNum: AccountType.classic.rawValue
-                                )
-                            ) {
-                                accountRepository.selectedAccount = newAccount
-                                dismiss()
-                            }
+            if actualPage < 5 {
+                Button {
+                    withAnimation { actualPage += 1 }
+                } label: {
+                    Capsule()
+                        .foregroundStyle(.primary400)
+                        .frame(height: 60)
+                        .overlay {
+                            Text(actualPage == 5 ? "onboarding_button_start".localized : "onboarding_button_next".localized)
+                                .font(.semiBoldCustom(size: 22))
+                                .foregroundStyle(.primary0)
                         }
-                    }
-                },
-                label: {
-                Capsule()
-                    .foregroundStyle(.primary400)
-                    .frame(height: 60)
-                    .overlay {
-                        Text(actualPage == 5 ? "onboarding_button_start".localized : "onboarding_button_next".localized)
-                            .font(.semiBoldCustom(size: 22))
-                            .foregroundStyle(.primary0)
-                    }
-                    .padding()
-                    .padding(.horizontal)
-            })
-            .disabled(!validateNewAccount())
-            .opacity(validateNewAccount() ? 1 : 0.5)
+                        .padding()
+                        .padding(.horizontal)
+                }
+            }
         }
-        .background(colorScheme == .light ? Color.primary0.edgesIgnoringSafeArea(.all) : Color.secondary500.edgesIgnoringSafeArea(.all))
-        .onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-        }
-    } // End body
+    } // body
     
     // MARK: - ViewBuilder
     @ViewBuilder
@@ -160,60 +138,14 @@ struct OnboardingView: View {
         .edgesIgnoringSafeArea(.all)
         .background(Gradient(colors: [.primary600, .primary800]))
     }
-    
-    @ViewBuilder
-    func addAccountPage() -> some View {
-        VStack(spacing: 32) {
-            Text("account_new".localized)
-                .titleAdjustSize()
-                .padding(.top)
-            
-                VStack(spacing: 24) {
-                    CustomTextField(
-                        text: $accountTitle,
-                        config: .init(
-                            title: "account_name".localized,
-                            placeholder: "account_placeholder_name".localized
-                        )
-                    )
-                    
-                    CustomTextField(
-                        text: $accountBalance,
-                        config: .init(
-                            title: "account_balance".localized,
-                            placeholder: "account_placeholder_balance".localized,
-                            style: .amount
-                        )
-                    )
-                }
-                
-//                Text("account_info_credit_card".localized)
-//                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-//                    .multilineTextAlignment(.center)
-//                    .font(.semiBoldText16())
-            
-            Spacer()
-        }
-        .padding(.horizontal, 24)
-    }
+} // struct
 
-    // MARK: Fonctions
-    func validateNewAccount() -> Bool {
-        if actualPage == 5 {
-            if !accountTitle.isEmpty && !accountBalance.isEmpty {
-                return true
-            } else { return false }
-        } else { return true }
-    }
-
-} // End struct
-
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     OnboardingView()
 }
 
-//MARK: - Extra
+// MARK: - Extra
 private struct CustomShapeOnboarding: Shape {
     func path(in rect: CGRect) -> Path {
         return Path { path in

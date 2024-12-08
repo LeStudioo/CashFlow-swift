@@ -187,6 +187,7 @@ struct AccountDashboardView: View {
                             Task {
                                 await accountRepository.deleteAccount(accountID: accountID)
                                 accountRepository.selectedAccount = accountRepository.accounts.first
+                                TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
                             }
                         }
                     }

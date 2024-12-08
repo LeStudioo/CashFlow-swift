@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsDebugView: View {
     
+    @State private var showOnboarding: Bool = false
+    
     // MARK: -
     var body: some View {
         Form {
@@ -16,7 +18,7 @@ struct SettingsDebugView: View {
                 Button {
                     KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: "")
                 } label: {
-                    Text("Reset Refresh Token")
+                    Text("Reset refresh token")
                 }
                 Button {
                     PersistenceController.clearOldDatabase()
@@ -27,14 +29,20 @@ struct SettingsDebugView: View {
             
             Section {
                 Button {
+                    showOnboarding.toggle()
+                } label: {
+                    Text("Show onboarding")
+                }
+                Button {
                     ModalManager.shared.present(TipApplePayShortcutView())
                 } label: {
-                    Text("Test modal manager")
+                    Text("Show tip Apple Pay")
                 }
             }
         }
         .navigationTitle("Debug")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showOnboarding, content: { OnboardingView().interactiveDismissDisabled() })
     } // body
 } // struct
 

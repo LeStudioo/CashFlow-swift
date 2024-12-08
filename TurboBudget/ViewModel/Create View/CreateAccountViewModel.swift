@@ -47,7 +47,7 @@ extension CreateAccountViewModel {
         return false
     }
     
-    func createAccount(dismiss: DismissAction) {
+    func createAccount(dismiss: DismissAction? = nil) async {
         let accountRepository: AccountRepository = .shared
         let body: AccountModel
         
@@ -66,13 +66,11 @@ extension CreateAccountViewModel {
             )
         }
         
-        Task {
-            await accountRepository.createAccount(body: body)
-            await dismiss()
-        }
+        await accountRepository.createAccount(body: body)
+        if let dismiss { await dismiss() }
     }
     
-    func updateAccount(dismiss: DismissAction) {
+    func updateAccount(dismiss: DismissAction) async {
         guard let account, let accountID = account.id else { return }
         
         let accountRepository: AccountRepository = .shared
@@ -89,10 +87,8 @@ extension CreateAccountViewModel {
             )
         }
         
-        Task {
-            await accountRepository.updateAccount(accountID: accountID, body: body)
-            await dismiss()
-        }
+        await accountRepository.updateAccount(accountID: accountID, body: body)
+        await dismiss()
     }
     
 }

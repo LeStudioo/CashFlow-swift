@@ -14,6 +14,7 @@ struct CreateAccountView: View {
     // Builder
     var type: AccountType
     var account: AccountModel?
+    var onboardingAction: (() async -> Void)? = nil
     
     @StateObject private var viewModel: CreateAccountViewModel
     @EnvironmentObject private var accountRepository: AccountRepository
@@ -22,9 +23,10 @@ struct CreateAccountView: View {
     @Environment(\.dismiss) private var dismiss
     
     // init
-    init(type: AccountType, account: AccountModel? = nil) {
+    init(type: AccountType, account: AccountModel? = nil, onboardingAction: (() async -> Void)? = nil) {
         self.type = type
         self.account = account
+        self.onboardingAction = onboardingAction
         self._viewModel = StateObject(wrappedValue: .init(type: type, account: account))
     }
     
@@ -37,11 +39,13 @@ struct CreateAccountView: View {
                         .titleAdjustSize()
                         .frame(maxWidth: .infinity, alignment: .leading)
                                         
-                    Button(action: { dismiss() }, label: {
-                        Image(systemName: "xmark")
-                            .foregroundStyle(Color(uiColor: .label))
-                            .font(.system(size: 18, weight: .semibold))
-                    })
+                    if onboardingAction == nil {
+                        Button(action: { dismiss() }, label: {
+                            Image(systemName: "xmark")
+                                .foregroundStyle(Color(uiColor: .label))
+                                .font(.system(size: 18, weight: .semibold))
+                        })
+                    }
                 }
                 .padding(.top)
                 
@@ -84,10 +88,17 @@ struct CreateAccountView: View {
         .overlay(alignment: .bottom) {
             CreateButton( // TODO: Changer ce bouton et ajouter create ou update
                 action: {
-                    if account != nil {
-                        viewModel.updateAccount(dismiss: dismiss)
-                    } else {
-                        viewModel.createAccount(dismiss: dismiss)
+                    Task {
+                        if account != nil {
+                            await viewModel.updateAccount(dismiss: dismiss)
+                        } else {
+                            if let onboardingAction {
+                                await viewModel.createAccount()
+                                await onboardingAction()
+                            } else {
+                                await viewModel.createAccount(dismiss: dismiss)
+                            }
+                        }
                     }
                 },
                 validate: viewModel.isAccountValid()

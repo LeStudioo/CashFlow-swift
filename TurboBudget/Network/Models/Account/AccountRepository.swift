@@ -36,6 +36,9 @@ extension AccountRepository {
                 responseModel: [AccountModel].self
             )
             self.accounts = accounts.filter { $0.type == .classic }
+            if self.accounts.count == 1 {
+                self.selectedAccount = self.accounts.first
+            }
             self.savingsAccounts = accounts.filter { $0.type == .savings }
         } catch { NetworkService.handleError(error: error) }
     }
@@ -92,6 +95,12 @@ extension AccountRepository {
             )
             self.accounts.removeAll { $0.id == accountID }
             self.savingsAccounts.removeAll { $0.id == accountID }
+            if selectedAccount?.id == accountID {
+                TransactionRepository.shared.transactions = []
+                SubscriptionRepository.shared.subscriptions = []
+                SavingsPlanRepository.shared.savingsPlans = []
+                BudgetRepository.shared.budgets = []
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     

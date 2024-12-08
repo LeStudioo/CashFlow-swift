@@ -66,9 +66,9 @@ struct PageControllerView: View {
                     
                     CustomTabBar()
                 }
-                .sheet(isPresented: $pageControllerVM.showOnboarding, onDismiss: {
-                    router.presentPaywall()
-                }, content: { OnboardingView().interactiveDismissDisabled() })
+                .sheet(isPresented: $pageControllerVM.showOnboarding) {
+                    OnboardingView().interactiveDismissDisabled()
+                }
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(.keyboard)
             } // End if unlocked
@@ -77,6 +77,11 @@ struct PageControllerView: View {
         .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
             if (preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen) {
                 router.presentWhatsNew()
+            }
+            
+            if accountRepository.mainAccount != nil && !preferencesGeneral.isAlreadyOpen {
+                pageControllerVM.showOnboarding = false
+                preferencesGeneral.isAlreadyOpen = true
             }
             
             // LaunchScreen ended and no data in iCloud

@@ -61,11 +61,11 @@ struct CustomTextField: View {
                         }
                 }
             }
-            .onTapGesture {
-                isFocused.toggle()
-            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .onTapGesture {
+            isFocused.toggle()
+        }
     } // End body
 } // End struct
 
