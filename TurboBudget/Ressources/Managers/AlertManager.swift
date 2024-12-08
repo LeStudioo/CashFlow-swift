@@ -52,6 +52,41 @@ extension AlertManager {
     
 }
 
+extension AlertManager {
+    
+    func signOut() {
+        self.isPresented = true
+        self.alert = .init(
+            title: Word.Classic.disconnect + " ?",
+            message: "",
+            actionButton: .init(
+                title: Word.Classic.disconnect,
+                isDestructive: true,
+                action: {
+                    await UserRepository.shared.signOut()
+                }
+            )
+        )
+    }
+    
+    func deleteUser() {
+        self.isPresented = true
+        self.alert = .init(
+            title: "user_delete_account_title".localized,
+            message: "user_delete_account_message".localized,
+            actionButton: .init(
+                title: Word.Classic.delete,
+                isDestructive: true,
+                action: {
+                    await UserRepository.shared.deleteAccount()
+                }
+            )
+        )
+    }
+    
+}
+        
+
 // MARK: - Deletation
 extension AlertManager {
     

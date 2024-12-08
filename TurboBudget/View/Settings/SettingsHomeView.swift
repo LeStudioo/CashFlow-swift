@@ -11,6 +11,7 @@ struct SettingsHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var userRepository: UserRepository
     @Environment(\.dismiss) private var dismiss
     
@@ -212,15 +213,19 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button {
-                    Task {
-                        await userRepository.signOut()
-                    }
-                } label: {
+                Button { alertManager.signOut() } label: {
                     SettingRow(
                         icon: "rectangle.portrait.and.arrow.right.fill",
                         backgroundColor: Color.red,
                         text: Word.Classic.disconnect,
+                        isButton: true
+                    )
+                }
+                Button { alertManager.deleteUser() } label: {
+                    SettingRow(
+                        icon: "trash.fill",
+                        backgroundColor: Color.red,
+                        text: Word.Classic.deleteAccount,
                         isButton: true
                     )
                 }

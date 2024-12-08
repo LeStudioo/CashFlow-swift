@@ -55,4 +55,16 @@ extension UserRepository {
         self.currentUser = nil
         AppManager.shared.viewState = .failed
     }
+    
+    @MainActor
+    func deleteAccount() async {
+        do {
+            try await NetworkService.shared.sendRequest(
+                apiBuilder: UserAPIRequester.delete
+            )
+            TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
+            self.currentUser = nil
+            AppManager.shared.viewState = .failed
+        } catch { NetworkService.handleError(error: error) }
+    }
 }

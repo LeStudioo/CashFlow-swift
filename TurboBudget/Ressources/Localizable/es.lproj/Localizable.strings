@@ -75,6 +75,8 @@
 
 "word_delete" = "Borrar";
 
+"word_delete_account" = "eliminar mi cuenta";
+
 //MARK: - Main
 "word_transaction" = "Transacción";
 
@@ -318,6 +320,11 @@
 "delete_contribution_title" = "Eliminar una contribución";
 
 "delete_contribution_message" = "Estás a punto de eliminar una de tus contribuciones.";
+
+//MARK: - UserAccount
+"user_delete_account_title" = "";
+
+"user_delete_account_message" = "";
 
 //MARK: - General Words
 "word_transactions" = "Transacciones";

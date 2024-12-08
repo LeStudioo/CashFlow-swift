@@ -75,6 +75,8 @@
 
 "word_delete" = "Delete";
 
+"word_delete_account" = "Delete my account";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 
@@ -318,6 +320,11 @@
 "delete_contribution_title" = "Delete a contribution";
 
 "delete_contribution_message" = "You are about to delete one of your contributions.";
+
+//MARK: - UserAccount
+"user_delete_account_title" = "Delete my account";
+
+"user_delete_account_message" = "By deleting your account, all associated data will be permanently erased. This action is irreversible. Are you sure?";
 
 //MARK: - General Words
 "word_transactions" = "Transactions";
