@@ -248,6 +248,7 @@ struct Word {
     
     struct Tips {
         static let howToDo: String = "tip_how_to_do".localized
+        static let alreadyHaveShortcut: String = "tip_already_have_shortcut".localized
         struct ApplePay {
             static let descOne: String = "tip_applepay_desc_one".localized
             static let descTwo: String = "tip_applepay_desc_two".localized

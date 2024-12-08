@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-class URLManager {
+final class URLManager {
     
     static func openURL(url: String) {
         if let url = URL(string: url), UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url)
         }
     }
-    
-    
     
     enum PredefinedURL {
         enum Setting: String {
@@ -33,6 +31,9 @@ class URLManager {
                 case swiftUIConfetti = "https://github.com/simibac/ConfettiSwiftUI"
                 case storySet = "https://storyset.com/"
             }
+        }
+        enum Tutos: String {
+            case importFromApplePay = "https://theodev.myftp.org/cashflow/tutos/import-from-applepay"
         }
     }
 

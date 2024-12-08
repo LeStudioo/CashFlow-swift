@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TipApplePayShortcutView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
     // MARK: -
@@ -27,13 +29,23 @@ struct TipApplePayShortcutView: View {
                 .font(.mediumText18())
                 .multilineTextAlignment(.center)
             
-            CashFlowButton(
-                config: .init(text: Word.Tips.howToDo, externalLink: true),
-                action: {
+            VStack(spacing: 16) {
+                CashFlowButton(
+                    config: .init(text: Word.Tips.howToDo, externalLink: true),
+                    action: {
+                        preferencesGeneral.isApplePayEnabled = true
+                        dismiss()
+                        URLManager.openURL(url: URLManager.PredefinedURL.Tutos.importFromApplePay.rawValue)
+                    }
+                )
+                
+                Button {
                     preferencesGeneral.isApplePayEnabled = true
-                    // TODO: Add url to website
+                    dismiss()
+                } label: {
+                    Text(Word.Tips.alreadyHaveShortcut)
                 }
-            )
+            }
         }
     } // body
 } // struct

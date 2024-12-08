@@ -284,6 +284,8 @@
 //MARK: - Tips
 "tip_how_to_do" = "¿Cómo lo haces?";
 
+"tip_already_have_shortcut" = "ya tengo el atajo";
+
 "tip_applepay_desc_one" = "Utilice el acceso directo de Apple Pay para recuperar sus transacciones directamente desde CashFlow.";
 
 "tip_applepay_desc_two" = "No es necesario ingresarlos manualmente, ¡CashFlow se encarga de todo por usted!";

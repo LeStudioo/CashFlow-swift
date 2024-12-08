@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction type";
+"word_typeOfTransaction" = "Transaction Type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -283,6 +283,8 @@
 
 //MARK: - Tips
 "tip_how_to_do" = "How do you go about it?";
+
+"tip_already_have_shortcut" = "I've already got the shortcut";
 
 "tip_applepay_desc_one" = "Use the Apple Pay shortcut to retrieve your transactions directly from CashFlow.";
 
