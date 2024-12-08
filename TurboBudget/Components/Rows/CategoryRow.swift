@@ -19,9 +19,9 @@ struct CategoryRow: View {
 	// Computed variables
     var stringAmount: String {
         if category.isRevenue {
-            return category.currentMonthIncomes.reduce(0) { $0 + ($1.amount ?? 0) }.currency
+            return category.currentMonthIncomes.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
         } else {
-            return category.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.currency
+            return category.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
         }
     }
 

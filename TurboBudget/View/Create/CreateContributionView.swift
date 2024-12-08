@@ -48,7 +48,7 @@ struct CreateContributionView: View {
                     
                     Group {
                         if (viewModel.amount.toDouble() < savingsPlan.amountToTheGoal || savingsPlan.amountToTheGoal != 0) && viewModel.type == .addition {
-                            Text("💰" + savingsPlan.amountToTheGoal.currency + " " + "contribution_alert_for_finish".localized)
+                            Text("💰" + savingsPlan.amountToTheGoal.toCurrency() + " " + "contribution_alert_for_finish".localized)
                         }
                         if ((savingsPlan.currentAmount ?? 0) - viewModel.amount.toDouble()) < 0 && viewModel.type == .withdrawal {
                             Text("contribution_alert_take_more_amount".localized)

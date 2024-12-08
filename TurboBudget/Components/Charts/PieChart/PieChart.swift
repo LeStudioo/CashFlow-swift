@@ -118,7 +118,7 @@ struct PieChart: View {
                                 .foregroundStyle(Color.gray)
                                 .isDisplayed(isInteractive)
                                 
-                                Text((self.activeSlice == nil ? values.reduce(0, +).currency : activeSlice?.value.currency) ?? "")
+                                Text((self.activeSlice == nil ? values.reduce(0, +).toCurrency() : activeSlice?.value.toCurrency()) ?? "")
                                     .foregroundStyle(Color(uiColor: .label))
                                     .font(.semiBoldCustom(size: 20))
                                 

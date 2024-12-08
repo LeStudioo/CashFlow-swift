@@ -121,7 +121,7 @@ struct BudgetsTransactionsView: View {
     func detailForExpenses() -> some View {
         HStack {
             HStack(alignment: .bottom) {
-                Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).currency)
+                Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).toCurrency())
                     .font(.mediumCustom(size: 22))
                 Spacer()
 //                Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {

@@ -32,7 +32,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                             .foregroundStyle(Color(uiColor: .label))
                         
                         if store.isCashFlowPro {
-                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.toCurrency())
                                 .lineLimit(1)
                                 .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())
@@ -53,7 +53,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         Text(month.formatted(.monthAndYear).capitalized)
                             .font(.mediumCustom(size: 22))
                         if store.isCashFlowPro {
-                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.toCurrency())
                                 .lineLimit(1)
                                 .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                                 .font(.semiBoldSmall())

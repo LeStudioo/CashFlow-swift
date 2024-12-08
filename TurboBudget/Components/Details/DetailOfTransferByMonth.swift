@@ -27,14 +27,14 @@ struct DetailOfTransferByMonth: View {
                 if store.isCashFlowPro {
                     HStack {
                         if amountOfSavings != 0 {
-                            Text("word_savings".localized + " : " + amountOfSavings.currency)
+                            Text("word_savings".localized + " : " + amountOfSavings.toCurrency())
                                 .lineLimit(1)
                         }
                         if amountOfSavings != 0 && amountOfWithdrawal != 0 {
                             Text("|")
                         }
                         if amountOfWithdrawal != 0 {
-                            Text("word_withdrawal".localized + " : " + amountOfWithdrawal.currency)
+                            Text("word_withdrawal".localized + " : " + amountOfWithdrawal.toCurrency())
                                 .lineLimit(1)
                         }
                         Spacer()

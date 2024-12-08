@@ -50,16 +50,16 @@ struct DashboardChart: View {
                         HStack(spacing: 8) {
                             CustomRow(
                                 text: "word_expenses".localized,
-                                amount: amountExpenses.currency
+                                amount: amountExpenses.toCurrency()
                             )
                             CustomRow(
                                 text: "word_incomes".localized,
-                                amount: amountIncomes.currency
+                                amount: amountIncomes.toCurrency()
                             )
                         }
                         CustomRow(
                             text: "account_detail_cashflow".localized,
-                            amount: amountCashFlow.currency
+                            amount: amountCashFlow.toCurrency()
                         )
                     }
                 }

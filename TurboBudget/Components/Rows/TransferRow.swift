@@ -67,7 +67,7 @@ struct TransferRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text("\(isSender ? "-" : "+") \((transfer.amount ?? 0).currency)")
+                    Text("\(isSender ? "-" : "+") \((transfer.amount ?? 0).toCurrency())")
                         .font(.semiBoldText16())
                         .foregroundStyle(isSender ? .error400 : .primary500)
                         .lineLimit(1)

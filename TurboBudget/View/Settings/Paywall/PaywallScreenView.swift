@@ -113,8 +113,8 @@ struct PaywallScreenView: View {
                             let fakePrice = subscription.price * 2
                             cellForPayement(
                                 text: "paywall_monthly_subscription".localized,
-                                price: subscription.price.currency + " / " + "word_month".localized.lowercased(),
-                                promoText: fakePrice.currency,
+                                price: subscription.price.toCurrency() + " / " + "word_month".localized.lowercased(),
+                                promoText: fakePrice.toCurrency(),
                                 promoPerc: "-50%".localized
                             )
                         }

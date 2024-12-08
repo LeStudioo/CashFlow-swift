@@ -23,13 +23,13 @@ struct DetailOfCategoryForArchivedTransaction: View {
 //                    .font(.mediumCustom(size: 22))
 //                
 //                if category.amountTotalOfArchivedTransactionsExpenses != 0 {
-//                    Text("word_expenses".localized + " : " + category.amountTotalOfArchivedTransactionsExpenses.currency)
+//                    Text("word_expenses".localized + " : " + category.amountTotalOfArchivedTransactionsExpenses.toCurrency())
 //                        .lineLimit(1)
 //                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
 //                        .font(.semiBoldSmall())
 //                }
 //                if category.amountTotalOfArchivedTransactionsIncomes != 0 {
-//                    Text("word_incomes".localized + " : " + category.amountTotalOfArchivedTransactionsIncomes.currency)
+//                    Text("word_incomes".localized + " : " + category.amountTotalOfArchivedTransactionsIncomes.toCurrency())
 //                        .lineLimit(1)
 //                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
 //                        .font(.semiBoldSmall())

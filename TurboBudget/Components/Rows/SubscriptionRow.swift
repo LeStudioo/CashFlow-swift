@@ -44,7 +44,7 @@ struct SubscriptionRow: View {
                     Spacer()
                     
                     VStack(alignment: .trailing, spacing: 5) {
-                        Text("\(subscription.symbol) \(subscription.amount?.currency ?? "")")
+                        Text("\(subscription.symbol) \(subscription.amount?.toCurrency() ?? "")")
                             .font(.semiBoldText16())
                             .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
                             .lineLimit(1)

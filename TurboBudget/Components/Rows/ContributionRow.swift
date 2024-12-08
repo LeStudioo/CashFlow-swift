@@ -27,7 +27,7 @@ struct ContributionRow: View {
                     .font(Font.mediumText16())
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text(contribution.amount?.currency ?? "")
+                    Text(contribution.amount?.toCurrency() ?? "")
                         .font(.semiBoldText16())
                         .foregroundStyle(contribution.amount ?? 0 < 0 ? .error400 : .primary500)
                     

@@ -24,13 +24,13 @@ struct DetailOfCategory: View {
                     .font(.mediumCustom(size: 22))
                 
                 if category.amountTotalOfExpenses != 0 {
-                    Text("word_expenses".localized + " : " + category.amountTotalOfExpenses.currency)
+                    Text("word_expenses".localized + " : " + category.amountTotalOfExpenses.toCurrency())
                         .lineLimit(1)
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfIncomes != 0 {
-                    Text("word_incomes".localized + " : " + category.amountTotalOfIncomes.currency)
+                    Text("word_incomes".localized + " : " + category.amountTotalOfIncomes.toCurrency())
                         .lineLimit(1)
                         .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
                         .font(.semiBoldSmall())

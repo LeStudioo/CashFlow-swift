@@ -39,7 +39,7 @@ struct SavingsAccountHomeView: View {
                         .foregroundStyle(Color.customGray)
                     HStack {
                         Text(currencySymbol)
-                        Text(totalSavings.formatted(style: .decimal))
+                        Text(totalSavings.toCurrency())
                     }
                     .font(.boldH1())
                 }

@@ -15,7 +15,7 @@ struct SubcategoryRow: View {
     
     //Computed var
     var stringAmount: String {
-        return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.currency
+        return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
     }
     
     // MARK: -

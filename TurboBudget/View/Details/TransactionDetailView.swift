@@ -30,7 +30,7 @@ struct TransactionDetailView: View {
         ScrollView {
             VStack(spacing: 32) {
                 VStack(spacing: 4) {
-                    Text("\(transaction.symbol) \(transaction.amount?.currency ?? "")")
+                    Text("\(transaction.symbol) \(transaction.amount?.toCurrency() ?? "")")
                         .font(.system(size: 48, weight: .heavy))
                         .foregroundColor(transaction.color)
                     

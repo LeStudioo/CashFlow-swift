@@ -194,15 +194,15 @@ struct SavingsPlanDetailView: View {
             
             VStack(spacing: 6) {
                 HStack {
-                    Text(0.currency)
+                    Text(0.toCurrency())
                     Spacer()
-                    Text(goalAmount.currency)
+                    Text(goalAmount.toCurrency())
                 }
                 .font(.semiBoldText16())
                 .foregroundStyle(Color(uiColor: .label))
                 
                 GeometryReader { geometry in
-                    let widthAmount = currentAmount.currency
+                    let widthAmount = currentAmount.toCurrency()
                         .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.5
                     let widthPercentage = geometry.size.width * percentage
                     
@@ -214,7 +214,7 @@ struct SavingsPlanDetailView: View {
                                     .foregroundStyle(themeManager.theme.color)
                                     .frame(width: max(widthAmount, widthPercentage))
                                 
-                                Text(currentAmount.currency)
+                                Text(currentAmount.toCurrency())
                                     .padding(.trailing, 12)
                                     .font(.semiBoldText16())
                                     .foregroundStyle(Color(uiColor: .systemBackground))

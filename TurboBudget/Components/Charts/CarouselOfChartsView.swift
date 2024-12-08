@@ -113,7 +113,7 @@ struct CarouselOfChartsView: View {
                     .foregroundStyle(Color.customGray)
                     .font(Font.mediumText16())
                 
-                Text(amount.currency)
+                Text(amount.toCurrency())
                     .foregroundStyle(Color(uiColor: .label))
                     .font(.semiBoldH3())
             }

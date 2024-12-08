@@ -36,7 +36,7 @@ struct SavingsAccountRow: View {
             
             Spacer(minLength: 0)
             
-            Text(savingsAccount.balance.formatted(style: .currency))
+            Text(savingsAccount.balance.toCurrency())
                 .font(.boldH2())
                 .multilineTextAlignment(.center)
                 .lineLimit(1)

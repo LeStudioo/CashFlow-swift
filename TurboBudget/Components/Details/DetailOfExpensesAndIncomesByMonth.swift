@@ -31,14 +31,14 @@ struct DetailOfExpensesAndIncomesByMonth: View {
                 if store.isCashFlowPro {
                     HStack {
                         if amountOfExpenses != 0 {
-                            Text("word_expenses".localized + " : " + amountOfExpenses.currency)
+                            Text("word_expenses".localized + " : " + amountOfExpenses.toCurrency())
                                 .lineLimit(1)
                         }
                         if amountOfExpenses != 0 && amountOfIncomes != 0 {
                             Text("|")
                         }
                         if amountOfIncomes != 0 {
-                            Text("word_incomes".localized + " : " + amountOfIncomes.currency)
+                            Text("word_incomes".localized + " : " + amountOfIncomes.toCurrency())
                                 .lineLimit(1)
                         }
                         Spacer()
