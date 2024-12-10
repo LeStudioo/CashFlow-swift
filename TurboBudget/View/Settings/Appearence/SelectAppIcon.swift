@@ -12,7 +12,7 @@ struct SelectAppIcon: View {
     @EnvironmentObject private var themeManager: ThemeManager
     
     @State private var selectedPeople: People = .serenaDeAraujo
-    @State private var selectedIcon: Icon = Icon.findByImage(image: UIApplication.shared.alternateIconName) ?? .mainLight
+    @State private var selectedIcon: Icon = Icon.findByImage(image: UIApplication.shared.alternateIconName) ?? .walletGreenLight
     
     // MARK: -
     var body: some View {
@@ -58,8 +58,8 @@ struct SelectAppIcon: View {
                             // Already selected
                         } else {
                             withAnimation {
-                                UIApplication.shared.setAlternateIconName(icon == .mainLight ? nil : icon.image)
-                                selectedIcon = icon == .mainLight ? .mainLight : icon
+                                UIApplication.shared.setAlternateIconName(icon == .walletGreenLight ? nil : icon.image)
+                                selectedIcon = icon == .walletGreenLight ? .walletGreenLight : icon
                             }
                         }
                     }, label: {
