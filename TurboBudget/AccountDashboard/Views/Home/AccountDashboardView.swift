@@ -146,7 +146,7 @@ struct AccountDashboardView: View {
                     )
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.label)
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }
@@ -159,7 +159,7 @@ struct AccountDashboardView: View {
                     
                     NavigationButton(push: router.pushSettings()) {
                         Image(systemName: "gearshape.fill")
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                             .font(.system(size: 14, weight: .medium, design: .rounded))
                     }
                 }

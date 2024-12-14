@@ -112,7 +112,7 @@ struct CustomTabBar: View {
                         }
                     }
                 }
-                .foregroundStyle(Color.label)
+                .foregroundStyle(Color.text)
                 .padding()
                 .background {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)

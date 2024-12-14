@@ -29,7 +29,7 @@ struct SelectAppIcon: View {
                         ForEach(People.designers) { people in
                             Button(action: { withAnimation { selectedPeople = people } }, label: {
                                 Text(people.name)
-                                    .foregroundStyle(Color.label)
+                                    .foregroundStyle(Color.text)
                                     .font(Font.mediumText16())
                                     .padding()
                                     .background {

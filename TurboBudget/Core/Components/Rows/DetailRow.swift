@@ -25,7 +25,7 @@ struct DetailRow: View {
                 CustomOrSystemImage(
                     systemImage: icon,
                     size: 12,
-                    color: text == nil ? .black : Color.label
+                    color: text == nil ? .black : Color.text
                 )
                 .padding(6)
                 .background {
@@ -35,13 +35,13 @@ struct DetailRow: View {
                 if let text {
                     Text(text)
                         .font(.mediumText16())
-                        .foregroundStyle(Color.label)
+                        .foregroundStyle(Color.text)
                         .multilineTextAlignment(.leading)
                 }
                 
                 Text(value)
                     .font(.semiBoldText16())
-                    .foregroundStyle(Color.label)
+                    .foregroundStyle(Color.text)
                     .multilineTextAlignment(.trailing)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }

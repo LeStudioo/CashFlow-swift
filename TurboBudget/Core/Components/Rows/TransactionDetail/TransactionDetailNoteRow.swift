@@ -33,7 +33,7 @@ struct TransactionDetailNoteRow: View {
                 
                 Text(Word.Classic.note)
                     .font(.mediumText16())
-                    .foregroundStyle(Color.label)
+                    .foregroundStyle(Color.text)
                 
                 Spacer()
             }

@@ -20,7 +20,7 @@ struct HomeScreenEmptyRow: View {
             HStack {
                 Text(type.title)
                     .font(Font.mediumText16())
-                    .foregroundStyle(Color.label)
+                    .foregroundStyle(Color.text)
                     .multilineTextAlignment(.leading)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 

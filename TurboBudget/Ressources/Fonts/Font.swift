@@ -13,6 +13,25 @@ var nameFontSemiBold: String = "PlusJakartaSans-SemiBold"
 var nameFontMedium: String = "PlusJakartaSans-Medium"
 var nameFontRegular: String = "PlusJakartaSans-Regular"
 
+extension Font {
+    struct Title {
+        static let semibold: Font = Font.custom(nameFontSemiBold, size: 24)
+    }
+    struct Button {
+        static let text: Font = Font.custom(nameFontSemiBold, size: 18)
+    }
+    struct Body {
+        static let bold: Font = Font.custom(nameFontBold, size: 16)
+    }
+    struct Text {
+        static let semibold: Font = Font.custom(nameFontSemiBold, size: 14)
+        static let medium: Font = Font.custom(nameFontMedium, size: 14)
+    }
+    struct Caption {
+        static let medium: Font = Font.custom(nameFontMedium, size: 12)
+    }
+}
+
 //Regular
 extension Font {
     /// `This font is in "Regular 12"`

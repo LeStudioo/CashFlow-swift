@@ -34,7 +34,7 @@ struct CustomDatePickerWithToggle: View {
                         }
                     }, label: {
                         Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                             .padding(8)
                             .background {
                                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -49,7 +49,7 @@ struct CustomDatePickerWithToggle: View {
                         withAnimation { isEnabled.toggle() }
                     } label: {
                         Image(systemName: "checkmark")
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                             .font(.system(size: 16, weight: .semibold))
                             .frame(width: 20, height: 20)
                             .padding(8)

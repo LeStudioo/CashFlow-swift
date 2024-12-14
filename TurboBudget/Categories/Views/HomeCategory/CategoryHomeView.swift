@@ -55,7 +55,7 @@ struct CategoryHomeView: View {
                                     }
                                 }
                             }
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                             .padding(.bottom, 8)
                         }
                         

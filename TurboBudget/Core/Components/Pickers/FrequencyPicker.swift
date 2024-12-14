@@ -27,7 +27,7 @@ struct FrequencyPicker: View {
                     } label: {
                         Text(type.name)
                             .lineLimit(1)
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                     }
                     .padding(.vertical)
                     .frame(maxWidth: .infinity)

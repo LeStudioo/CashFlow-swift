@@ -49,7 +49,7 @@ struct SavingsAccountRow: View {
                 .lineLimit(2)
         }
         .padding()
-        .foregroundStyle(Color.label)
+        .foregroundStyle(Color.text)
         .frame(width: width, height: width)
         .background {
             RoundedRectangle(cornerRadius: 15, style: .continuous)

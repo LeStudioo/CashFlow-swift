@@ -55,7 +55,7 @@ struct SavingsAccountDetailView: View {
                     )
                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                 })
-                .foregroundStyle(Color.label)
+                .foregroundStyle(Color.text)
             }
         } // End List
         .listStyle(.plain)

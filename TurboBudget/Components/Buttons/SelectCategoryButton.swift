@@ -48,7 +48,7 @@ struct SelectCategoryButton: View {
                     }
                 }
                 .font(.system(size: 16, weight: .medium))
-                .foregroundStyle(selectedCategory != nil ? Color.black : Color.label)
+                .foregroundStyle(selectedCategory != nil ? Color.black : Color.text)
                 .padding(14)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background {

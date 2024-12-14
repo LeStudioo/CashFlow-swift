@@ -65,7 +65,7 @@ struct DashboardChart: View {
                 }
             }
             .padding(8)
-            .foregroundStyle(Color.label)
+            .foregroundStyle(Color.text)
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(Color.colorCell)

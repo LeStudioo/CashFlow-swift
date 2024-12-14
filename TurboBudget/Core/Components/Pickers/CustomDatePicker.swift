@@ -31,7 +31,7 @@ struct CustomDatePicker: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }, label: {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
-                        .foregroundStyle(Color.label)
+                        .foregroundStyle(Color.text)
                         .padding(8)
                         .background {
                             RoundedRectangle(cornerRadius: 8, style: .continuous)

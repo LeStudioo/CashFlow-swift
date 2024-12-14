@@ -33,11 +33,11 @@ struct TransactionRow: View {
                     VStack(alignment: .leading, spacing: 5) {
                         Text(transactionTypeString)
                             .foregroundStyle(Color.customGray)
-                            .font(Font.mediumSmall())
+                            .font(.Text.medium)
                         
                         Text(transaction.name)
                             .font(.semiBoldText18())
-                            .foregroundStyle(Color(uiColor: .label))
+                            .foregroundStyle(Color.text)
                             .lineLimit(1)
                     }
                     

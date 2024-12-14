@@ -22,7 +22,7 @@ struct DashboardRow: View {
                     .overlay {
                         Image(systemName: config.icon)
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color.label)
+                            .foregroundStyle(Color.text)
                             .shadow(radius: 2, y: 2)
                     }
                 Spacer()
@@ -37,7 +37,7 @@ struct DashboardRow: View {
                 .lineLimit(2)
         }
         .padding()
-        .foregroundStyle(Color.label)
+        .foregroundStyle(Color.text)
         .frame(maxWidth: .infinity)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)

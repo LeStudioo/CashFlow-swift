@@ -24,7 +24,7 @@ struct ThemeCell: View {
                     .overlay {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .stroke(
-                                csManager.colorScheme == type ? themeManager.theme.color : Color.label,
+                                csManager.colorScheme == type ? themeManager.theme.color : Color.text,
                                 lineWidth: csManager.colorScheme == type ? 3 : 1)
                         
                         if type == .light {
