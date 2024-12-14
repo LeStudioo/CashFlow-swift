@@ -132,4 +132,6 @@ extension TransactionRow {
         TransactionRow(transaction: .mockClassicTransaction)
         TransactionRow(transaction: .mockClassicTransaction)
     }
+    .padding()
+    .background(Color.background)
 }

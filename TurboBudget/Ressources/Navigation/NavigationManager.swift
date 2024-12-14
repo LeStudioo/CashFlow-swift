@@ -170,6 +170,10 @@ class NavigationManager: Router {
         presentSheet(.createTransfer(receiverAccount: receiverAccount), dismissAction)
     }
     
+    func presentCreateCreditCard(dismissAction: (() -> Void)? = nil) {
+        presentSheet(.createCreditCard, dismissAction)
+    }
+    
     func presentSelectCategory(
         category: Binding<CategoryModel?>,
         subcategory: Binding<SubcategoryModel?>,
@@ -219,6 +223,8 @@ private extension NavigationManager {
                 CreateTransactionView(transaction: transaction)
             case .createTransfer(let receiverAccount):
                 CreateTransferView(receiverAccount: receiverAccount)
+            case .createCreditCard:
+                CreateCreditCardView()
                 
             case .selectCategory(let category, let subcategory):
                 SelectCategoryView(selectedCategory: category, selectedSubcategory: subcategory)

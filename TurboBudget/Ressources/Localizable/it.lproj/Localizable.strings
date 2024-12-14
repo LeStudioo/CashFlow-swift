@@ -98,6 +98,8 @@
 
 "word_savings_accounts" = "Conti di risparmio";
 
+"word_creditcard" = "Carta di credito";
+
 //MARK: - Preposition
 "word_preposition_to" = "A";
 
@@ -272,7 +274,7 @@
 
 "whatsnew_security_title" = "Sicurezza dei dati";
 
-"whatsnew_security" = "Oggi la sicurezza dei dati è più importante e completa";
+"whatsnew_security" = "La sicurezza dei dati è ora più importante e completa";
 
 "whatsnew_ui_title" = "interfaccia utente";
 
@@ -280,10 +282,10 @@
 
 "whatsnew_edit_title" = "il cambiamento";
 
-"whatsnew_edit" = "Piani di risparmio, transazioni, abbonamenti, ecc. possono ora essere modificati dopo la creazione";
+"whatsnew_edit" = "I piani di risparmio, le transazioni, gli abbonamenti, ecc. possono ora essere modificati dopo la creazione";
 
 //MARK: - Paywall
-"paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione del tuo denaro";
+"paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione dei tuoi soldi";
 
 //MARK: - Notifications
 "notifications_day_before" = "giorni prima";

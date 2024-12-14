@@ -10,15 +10,15 @@ import Foundation
 enum CreditCardAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)
     case create(accountID: Int, cardUUID: UUID)
-    case delete(cardID: Int)
+    case delete(accountID: Int, cardID: UUID)
 }
 
 extension CreditCardAPIRequester {
     var path: String {
         switch self {
-        case .fetch(let accountID):     return NetworkPath.CreditCard.base(accountID: accountID)
-        case .create(let accountID, _): return NetworkPath.CreditCard.base(accountID: accountID)
-        case .delete(let cardID):       return NetworkPath.CreditCard.delete(id: cardID)
+        case .fetch(let accountID):                 return NetworkPath.CreditCard.base(accountID: accountID)
+        case .create(let accountID, _):             return NetworkPath.CreditCard.base(accountID: accountID)
+        case .delete(let accountID, let cardID):    return NetworkPath.CreditCard.delete(accountID: accountID, creditCardID: cardID)
         }
     }
     

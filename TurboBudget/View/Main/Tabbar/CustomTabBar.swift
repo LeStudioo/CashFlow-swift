@@ -42,6 +42,30 @@ struct CustomTabBar: View {
             ZStack {
                 VStack(alignment: .leading, spacing: 32) {
                     if accountRepository.mainAccount != nil {
+                        NavigationButton(present: router.presentCreateCreditCard()) {
+                            viewModel.showMenu = false
+                        } label: {
+                            Label(Word.Main.creditCard, systemImage: "creditcard.fill")
+                        }
+                        .disabled(!store.isCashFlowPro)
+                        .onTapGesture {
+                            if !store.isCashFlowPro {
+                                alertManager.showPaywall()
+                            }
+                        }
+                        
+                        NavigationButton(present: router.presentCreateAccount(type: .savings)) {
+                            viewModel.showMenu = false
+                        } label: {
+                            Label(Word.Main.savingsAccount, systemImage: "building.columns")
+                        }
+                        .disabled(!accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro)
+                        .onTapGesture {
+                            if !accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro {
+                                alertManager.showPaywall()
+                            }
+                        }
+                        
                         NavigationButton(present: router.presentCreateTransfer()) {
                             viewModel.showMenu = false
                         } label: {
@@ -115,7 +139,7 @@ struct CustomTabBar: View {
             .onChange(of: viewModel.showMenu) { newValue in
                 if newValue {
                     if accountRepository.mainAccount != nil {
-                        offsetYMenu = -180
+                        offsetYMenu = -240
                     } else { offsetYMenu = -80 }
                 } else {
                     offsetYMenu = 0

@@ -23,7 +23,7 @@ final class KeychainManager {
             let query: [CFString: Any] = [
                 kSecClass: kSecClassGenericPassword,
                 kSecAttrAccount: id,
-                kSecAttrSynchronizable: kSecAttrSynchronizableAny,
+                kSecAttrSynchronizable: false,
                 kSecValueData: encodedData
             ]
             
@@ -45,7 +45,7 @@ final class KeychainManager {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: id,
-            kSecAttrSynchronizable: kSecAttrSynchronizableAny,
+            kSecAttrSynchronizable: false,
             kSecReturnData: true,
             kSecMatchLimit: kSecMatchLimitOne
         ]

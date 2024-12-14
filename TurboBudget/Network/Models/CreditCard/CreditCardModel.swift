@@ -14,20 +14,22 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
     @Published var number: String
     @Published var cvc: String
     @Published var expirateDate: String
+    @Published var limitByMonth: Double?
 
     // Initialiseur
-    init(id: Int? = nil, uuid: UUID? = nil, holder: String, number: String, cvc: String, expirateDate: String) {
+    init(id: Int? = nil, uuid: UUID? = nil, holder: String, number: String, cvc: String, expirateDate: String, limitByMonth: Double? = nil) {
         self.id = id
         self.uuid = uuid
         self.holder = holder
         self.number = number
         self.cvc = cvc
         self.expirateDate = expirateDate
+        self.limitByMonth = limitByMonth
     }
 
     // Enumération pour les clés de codage/décodage
     private enum CodingKeys: String, CodingKey {
-        case id, uuid, holder, number, cvc, expirateDate
+        case id, uuid, holder, number, cvc, expirateDate, limitByMonth
     }
 
     // Implémentation de Decodable
@@ -39,6 +41,7 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
         number = try container.decode(String.self, forKey: .number)
         cvc = try container.decode(String.self, forKey: .cvc)
         expirateDate = try container.decode(String.self, forKey: .expirateDate)
+        limitByMonth = try container.decode(Double.self, forKey: .limitByMonth)
     }
 
     // Implémentation de Encodable
@@ -50,6 +53,7 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
         try container.encode(number, forKey: .number)
         try container.encode(cvc, forKey: .cvc)
         try container.encode(expirateDate, forKey: .expirateDate)
+        try container.encode(limitByMonth, forKey: .limitByMonth)
     }
 
     // Implémentation de Equatable
@@ -59,7 +63,8 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
                lhs.holder == rhs.holder &&
                lhs.number == rhs.number &&
                lhs.cvc == rhs.cvc &&
-               lhs.expirateDate == rhs.expirateDate
+               lhs.expirateDate == rhs.expirateDate &&
+                lhs.limitByMonth == rhs.limitByMonth
     }
 
     // Implémentation de Hashable
@@ -70,5 +75,6 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
         hasher.combine(number)
         hasher.combine(cvc)
         hasher.combine(expirateDate)
+        hasher.combine(limitByMonth)
     }
 }

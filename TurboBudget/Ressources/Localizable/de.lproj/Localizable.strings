@@ -98,6 +98,8 @@
 
 "word_savings_accounts" = "Sparkonten";
 
+"word_creditcard" = "Kredittarif";
+
 //MARK: - Preposition
 "word_preposition_to" = "Zu";
 
@@ -272,7 +274,7 @@
 
 "whatsnew_security_title" = "Datensicherheit";
 
-"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
+"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
 

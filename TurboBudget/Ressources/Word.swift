@@ -66,6 +66,7 @@ struct Word {
         static let transfers: String = "word_transfers".localized
         static let savingsAccount: String = "word_savings_account".localized
         static let savingsAccounts: String = "word_savings_accounts".localized
+        static let creditCard: String = "word_creditcard".localized
     }
     
     struct Preposition {

@@ -126,8 +126,8 @@ struct NetworkPath {
         static func base(accountID: Int) -> String {
             return "/creditcard/\(accountID)"
         }
-        static func delete(id: Int) -> String {
-            return "/creditcard/\(id)"
+        static func delete(accountID: Int, creditCardID: UUID) -> String {
+            return "/creditcard/\(accountID)/\(creditCardID.uuidString)"
         }
     }
     

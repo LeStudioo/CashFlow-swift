@@ -11,6 +11,7 @@ final class CreditCardRepository: ObservableObject {
     static let shared = CreditCardRepository()
     
     @Published var creditCards: [CreditCardModel] = []
+    @Published var uuids: [UUID] = []
 }
 
 extension CreditCardRepository {
@@ -18,10 +19,11 @@ extension CreditCardRepository {
     @MainActor
     func fetchCreditCards(accountID: Int) async {
         do {
-            let creditsCards = try await NetworkService.shared.sendRequest(
+            let uuids = try await NetworkService.shared.sendRequest(
                 apiBuilder: CreditCardAPIRequester.fetch(accountID: accountID),
                 responseModel: [UUID].self
             )
+            self.uuids = uuids
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -32,15 +34,17 @@ extension CreditCardRepository {
                 apiBuilder: CreditCardAPIRequester.create(accountID: accountID, cardUUID: uuid),
                 responseModel: UUID.self
             )
+            self.uuids.append(uuid)
         } catch { NetworkService.handleError(error: error) }
     }
     
     @MainActor
-    func deleteCreditCard(cardID: Int) async {
+    func deleteCreditCard(accountID: Int, cardID: UUID) async {
         do {
             try await NetworkService.shared.sendRequest(
-                apiBuilder: CreditCardAPIRequester.delete(cardID: cardID)
+                apiBuilder: CreditCardAPIRequester.delete(accountID: accountID, cardID: cardID)
             )
+            self.uuids.removeAll(where: { $0 == cardID })
         } catch { NetworkService.handleError(error: error) }
     }
     
