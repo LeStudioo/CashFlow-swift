@@ -6,7 +6,23 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class AccountDashboardViewModel: ObservableObject {
+    
+    @Published var accountName: String = ""
+    @Published var accountNameForDeleting: String = ""
+    
+    @Published var isDeleting: Bool = false
+    @Published var isEditingAccountName: Bool = false
+    
+    // Computed var
+    var columns: [GridItem] {
+        if isIPad {
+            return [GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16)]
+        } else {
+            return [GridItem(spacing: 16), GridItem(spacing: 16)]
+        }
+    }
     
 }

@@ -19,22 +19,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var creditCardRepository: CreditCardRepository
     
-    //State or Binding String
-    @State private var accountName: String = ""
-    @State private var accountNameForDeleting: String = ""
-    
-    //State or Binding Bool
-    @State private var isDeleting: Bool = false
-    @State private var isEditingAccountName: Bool = false
-    
-    // Computed var
-    var columns: [GridItem] {
-        if isIPad {
-            return [GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16)]
-        } else {
-            return [GridItem(spacing: 16), GridItem(spacing: 16)]
-        }
-    }
+    @StateObject private var viewModel: AccountDashboardViewModel = .init()
     
     // MARK: -
     var body: some View {
@@ -73,7 +58,7 @@ struct AccountDashboardView: View {
                     )
                 }
                 
-                LazyVGrid(columns: columns, spacing: 16, content: {
+                LazyVGrid(columns: viewModel.columns, spacing: 16, content: {
                     NavigationButton(push: router.pushAllTransactions()) {
                         DashboardRow(
                             config: .init(
@@ -156,7 +141,7 @@ struct AccountDashboardView: View {
                     
                     Button(
                         role: .destructive,
-                        action: { isDeleting.toggle() },
+                        action: { viewModel.isDeleting.toggle() },
                         label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
                     )
                 }, label: {
@@ -181,23 +166,23 @@ struct AccountDashboardView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .alert("account_detail_rename".localized, isPresented: $isEditingAccountName, actions: {
-            TextField("account_detail_new_name".localized, text: $accountName)
+        .alert("account_detail_rename".localized, isPresented: $viewModel.isEditingAccountName, actions: {
+            TextField("account_detail_new_name".localized, text: $viewModel.accountName)
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 Task {
                     if let account = accountRepository.selectedAccount, let accountID = account.id {
-                        await accountRepository.updateAccount(accountID: accountID, body: .init(name: accountName))
+                        await accountRepository.updateAccount(accountID: accountID, body: .init(name: viewModel.accountName))
                     }
                 }
             }, label: { Text("word_validate".localized) })
         })
-        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+        .alert("account_detail_delete_account".localized, isPresented: $viewModel.isDeleting, actions: {
             if let account = accountRepository.selectedAccount {
-                TextField(account.name, text: $accountNameForDeleting)
+                TextField(account.name, text: $viewModel.accountNameForDeleting)
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
-                    if account.name == accountNameForDeleting {
+                    if account.name == viewModel.accountNameForDeleting {
                         if let accountID = account.id {
                             Task {
                                 await accountRepository.deleteAccount(accountID: accountID)
