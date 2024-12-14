@@ -10,9 +10,6 @@ import SwiftUI
 class NavigationManager: Router {
 
     // Push
-    func pushFilter() {
-        navigateTo(.filter)
-    }
     
     func pushHome(account: Account) {
         navigateTo(.home(account: account))
@@ -60,10 +57,6 @@ class NavigationManager: Router {
     
     func pushAllBudgets() {
         navigateTo(.allBudgets)
-    }
-    
-    func pushAllCreditCards() {
-        navigateTo(.allCreditCards)
     }
     
     func pushBudgetTransactions(subcategory: SubcategoryModel) {
@@ -192,8 +185,6 @@ private extension NavigationManager {
             switch direction {
             case .pageController:
                 PageControllerView()
-            case .filter:
-                NewFilterView()
                 
             case .home:
                 HomeView()
@@ -248,8 +239,6 @@ private extension NavigationManager {
                 BudgetsTransactionsView(subcategory: subcategory)
             case .allArchivedSavingPlans(let account):
                 ArchivedSavingPlansView(account: account)
-            case .allCreditCards:
-                CreditCardsHomeView()
                 
             case .homeCategories:
                 CategoryHomeView()

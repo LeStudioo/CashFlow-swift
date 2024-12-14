@@ -10,7 +10,6 @@ import SwiftUI
 
 enum NavigationDirection: Identifiable {
     case pageController
-    case filter
     
     case home(account: Account)
     case homeSavingPlans
@@ -40,7 +39,6 @@ enum NavigationDirection: Identifiable {
     case allBudgets
     case budgetTransactions(subcategory: SubcategoryModel)
     case allArchivedSavingPlans(account: Account)
-    case allCreditCards
     
     case homeCategories
     case categoryTransactions(category: CategoryModel)
@@ -67,7 +65,6 @@ extension NavigationDirection: Equatable {
     static func == (lhs: NavigationDirection, rhs: NavigationDirection) -> Bool {
         switch (lhs, rhs) {
         case (.pageController, .pageController),
-            (.filter, .filter),
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
@@ -77,7 +74,6 @@ extension NavigationDirection: Equatable {
             (.transactionDetail, .transactionDetail),
             (.savingPlansDetail, .savingPlansDetail),
             (.allTransactions, .allTransactions),
-            (.allCreditCards, .allCreditCards),
             (.createAccount, .createAccount),
             (.createSubscription, .createSubscription),
             (.createBudget, .createBudget),
