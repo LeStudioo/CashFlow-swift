@@ -69,7 +69,7 @@ struct CreateAccountView: View {
                         )
                     }
                     
-                    if type == .savings || account != nil {
+                    if type == .savings {
                         CustomTextField(
                             text: $viewModel.maxAmount,
                             config: .init(
