@@ -84,7 +84,7 @@ struct AddTransactionIntent: AppIntent {
         let accountRepository: AccountRepository = .shared
         let transactionRepository: TransactionRepository = .shared
         
-        let body: TransactionModel = .init(
+        var body: TransactionModel = .init(
             _name: title,
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
@@ -94,7 +94,22 @@ struct AddTransactionIntent: AppIntent {
             nameFromApplePay: title
         )
         
-        // TODO: Main envoyer sur main account et expliquer que ça sera fait sur main acount exclusivement
+        if PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled {
+            let purchasesManager = await PurchasesManager()
+            await purchasesManager.loadProducts()
+            await purchasesManager.getSubscriptionStatus()
+            await purchasesManager.getLifetimeStatus()
+            
+            if await purchasesManager.isCashFlowPro {
+                if let response = await TransactionRepository.shared.fetchCategory(name: title) {
+                    body.categoryID = response.cat ?? 0
+                    if let subcategoryID = response.sub {
+                        body.subcategoryID = subcategoryID
+                    }
+                }
+            }
+        }
+        
         do {
             try await userRepository.loginWithToken()
             await accountRepository.fetchAccounts()

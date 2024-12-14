@@ -266,6 +266,10 @@
 
 "setting_credits_licences" = "Lizenzen";
 
+"setting_applepay_addcategory" = "Fügen Sie automatisch eine Kategorie hinzu";
+
+"setting_applepay_footer" = "Mit dieser Option können Sie die mit Ihrer Transaktion verknüpfte Kategorie hinzufügen. Diese Funktion ist experimentell ";
+
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Gesamteinsparungen";
 

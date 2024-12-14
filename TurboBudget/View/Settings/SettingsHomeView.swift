@@ -110,6 +110,15 @@ struct SettingsHomeView: View {
                     )
                 }
                 
+                NavigationButton(push: store.isCashFlowPro ? router.pushSettingsApplePay() : router.presentPaywall()) {
+                    SettingRow(
+                        icon: "creditcard.fill",
+                        backgroundColor: Color.purple,
+                        text: "Apple Pay",
+                        isButton: store.isCashFlowPro ? false : true
+                    )
+                }
+                
 //                NavigationButton(push: router.pushSettingsSavingPlans()) {
 //                    SettingRow(
 //                        icon: "dollarsign.square.fill",

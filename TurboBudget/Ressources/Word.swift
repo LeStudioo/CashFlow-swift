@@ -242,6 +242,10 @@ struct Word {
             static let designers: String = "setting_credits_designers".localized
             static let licences: String = "setting_credits_licences".localized
         }
+        struct ApplePay {
+            static let addCategory: String = "setting_applepay_addcategory".localized
+            static let footer: String = "setting_applepay_footer".localized
+        }
     }
     
     struct Paywall {

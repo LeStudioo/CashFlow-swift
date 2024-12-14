@@ -266,6 +266,10 @@
 
 "setting_credits_licences" = "Licences";
 
+"setting_applepay_addcategory" = "Automatically add a category";
+
+"setting_applepay_footer" = "This option allows you to add the category associated with your transaction. This feature is experimental ";
+
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Total savings";
 

@@ -136,6 +136,10 @@ class NavigationManager: Router {
         navigateTo(.settingsCredits)
     }
     
+    func pushSettingsApplePay() {
+        navigateTo(.settingsApplePay)
+    }
+    
     
     // Present
     func presentWhatsNew() {
@@ -295,6 +299,8 @@ private extension NavigationManager {
                 SettingsBudgetView()
             case .settingsCredits:
                 SettingsCreditsView()
+            case .settingsApplePay:
+                SettingsApplePayView()
             }
         }
     }

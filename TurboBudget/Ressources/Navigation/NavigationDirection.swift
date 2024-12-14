@@ -61,6 +61,7 @@ enum NavigationDirection: Identifiable {
     case settingsSubscription
     case settingsBudget
     case settingsCredits
+    case settingsApplePay
     
     var id: Self { self }
 }
@@ -101,6 +102,7 @@ extension NavigationDirection: Equatable {
             (.settingsSavingPlans, .settingsSavingPlans),
             (.settingsSubscription, .settingsSubscription),
             (.settingsBudget, .settingsBudget),
+            (.settingsApplePay, .settingsApplePay),
             (.settingsCredits, .settingsCredits):
             return true
             
