@@ -67,6 +67,7 @@ struct Word {
         static let savingsAccount: String = "word_savings_account".localized
         static let savingsAccounts: String = "word_savings_accounts".localized
         static let creditCard: String = "word_creditcard".localized
+        static let creditCards: String = "word_creditcards".localized
     }
     
     struct Preposition {
@@ -123,6 +124,9 @@ struct Word {
         }
         struct Budget {
             static let new: String = "title_new_budget".localized
+        }
+        struct CreditCard {
+            static let new: String = "title_new_creditcard".localized
         }
         struct Setting {
             static let general: String = "title_setting_general".localized
@@ -244,6 +248,19 @@ struct Word {
         struct SavingsAccount {
             static let desc: String = "paywall_savingsaccounts_desc".localized
         }
+    }
+    
+    struct CreditCard {
+        static let expire: String = "creditcard_expire".localized
+        static let numbers: String = "creditcard_numbers".localized
+        static let holder: String = "creditcard_holder".localized
+        static let date: String = "creditcard_date".localized
+        static let cvv: String = "creditcard_cvv".localized
+        static let limit: String = "creditcard_limit".localized
+        static let security: String = "creditcard_security".localized
+        static let maxCard: String = "creditcard_maxCard".localized
+        static let maxCardMessage: String = "creditcard_maxCard_message".localized
+        static let deleteTitle: String = "creditcard_delete_title".localized
     }
     
     struct SavingsAccount {

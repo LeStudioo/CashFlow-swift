@@ -21,7 +21,7 @@ struct CreateCreditCardView: View {
                     CreditCardTextField(
                         text: $viewModel.cardNumbers,
                         config: .init(
-                            title: "Card numbers",
+                            title: Word.CreditCard.numbers,
                             placeholder: "1234 5678 9012 3456"
                         )
                     )
@@ -29,20 +29,20 @@ struct CreateCreditCardView: View {
                     CustomTextField(
                         text: $viewModel.cardHolder,
                         config: .init(
-                            title: "Card holder",
+                            title: Word.CreditCard.holder,
                             placeholder: "Theo Sementa"
                         )
                     )
                     
                     CustomDatePicker(
-                        title: "Expire date",
+                        title: Word.CreditCard.date,
                         date: $viewModel.expirationDate
                     )
                     
-                    CustomTextField(
+                    IntTextField(
                         text: $viewModel.cvv.max(3),
                         config: .init(
-                            title: "CVV",
+                            title: Word.CreditCard.cvv,
                             placeholder: "123"
                         )
                     )
@@ -50,13 +50,14 @@ struct CreateCreditCardView: View {
                     CustomTextField(
                         text: $viewModel.limitByMonth,
                         config: .init(
-                            title: "Montant max par mois",
+                            title: Word.CreditCard.limit,
                             placeholder: "1500",
                             style: .amount
                         )
                     )
                     
-                    Text("Les cartes de crédit de sont pas stockées sur nos serveurs. Elles sont stockées dans le Keychain de votre iPhone.")
+                    Text(Word.CreditCard.security)
+                        .font(.footnote)
                 }
                 .padding(.horizontal, 24)
                 .padding(.top)
@@ -74,7 +75,7 @@ struct CreateCreditCardView: View {
                 }
                 
                 ToolbarItem(placement: .principal) {
-                    Text("Nouvelle carte de crédit")
+                    Text(Word.Title.CreditCard.new)
                         .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 

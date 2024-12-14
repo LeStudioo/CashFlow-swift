@@ -22,6 +22,7 @@ final class CreateCreditCardViewModel: ObservableObject {
 
 extension CreateCreditCardViewModel {
     
+    @MainActor
     func createCreditCard(dismiss: DismissAction) {
         guard let account = AccountRepository.shared.selectedAccount, let accountID = account.id else { return }
         let creditCardRepository: CreditCardRepository = .shared
@@ -40,7 +41,7 @@ extension CreateCreditCardViewModel {
             await creditCardRepository.createCreditCard(accountID: accountID, uuid: randomUUID)
             KeychainManager.shared.setItemToKeychain(id: randomUUID.uuidString, data: newCreditCard)
             creditCardRepository.creditCards.append(newCreditCard)
-            await dismiss()
+            dismiss()
         }
     }
     

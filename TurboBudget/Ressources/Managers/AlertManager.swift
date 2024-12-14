@@ -50,6 +50,14 @@ extension AlertManager {
         )
     }
     
+    func onlyOneCreditCardByAccount() {
+        self.isPresented = true
+        self.alert = .init(
+            title: Word.CreditCard.maxCard,
+            message: Word.CreditCard.maxCardMessage
+        )
+    }
+    
 }
 
 extension AlertManager {

@@ -40,6 +40,7 @@ enum NavigationDirection: Identifiable {
     case allBudgets
     case budgetTransactions(subcategory: SubcategoryModel)
     case allArchivedSavingPlans(account: Account)
+    case allCreditCards
     
     case homeCategories
     case categoryTransactions(category: CategoryModel)
@@ -78,6 +79,7 @@ extension NavigationDirection: Equatable {
             (.transactionDetail, .transactionDetail),
             (.savingPlansDetail, .savingPlansDetail),
             (.allTransactions, .allTransactions),
+            (.allCreditCards, .allCreditCards),
             (.createAccount, .createAccount),
             (.createSubscription, .createSubscription),
             (.createBudget, .createBudget),

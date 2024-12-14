@@ -100,6 +100,8 @@
 
 "word_creditcard" = "Credit card";
 
+"word_creditcards" = "Credit cards";
+
 //MARK: - Preposition
 "word_preposition_to" = "to";
 
@@ -152,6 +154,8 @@
 "title_home_savingsPlans" = "My savings plans";
 
 "title_new_budget" = "New budget";
+
+"title_new_creditcard" = "New credit card";
 
 "title_setting_general" = "General";
 
@@ -322,6 +326,27 @@
 "delete_contribution_title" = "Delete a contribution";
 
 "delete_contribution_message" = "You are about to delete one of your contributions.";
+
+//MARK: - CreditCard
+"creditcard_expire" = "EXPIRES";
+
+"creditcard_numbers" = "Card numbers";
+
+"creditcard_holder" = "Card holder";
+
+"creditcard_date" = "Expire date";
+
+"creditcard_cvv" = "CVV";
+
+"creditcard_limit" = "Card limit";
+
+"creditcard_security" = "Credit cards are not stored on our servers. They are stored in your iPhone keychain.";
+
+"creditcard_maxCard" = "Maximum amount reached";
+
+"creditcard_maxCard_message" = "Only one credit card per account is allowed";
+
+"creditcard_delete_title" = "Delete the credit card";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Delete my account";

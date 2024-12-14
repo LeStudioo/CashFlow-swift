@@ -78,3 +78,29 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
         hasher.combine(limitByMonth)
     }
 }
+
+extension CreditCardModel {
+    
+    var balanceAvailable: Double? {
+        guard let limitByMonth else { return nil }
+        let spent = TransactionRepository.shared.expensesCurrentMonth
+            .compactMap(\.amount)
+            .reduce(0, +)
+        
+        return limitByMonth - spent
+    }
+    
+}
+
+extension CreditCardModel {
+    
+    static let mock: CreditCardModel = .init(
+        uuid: UUID(),
+        holder: "Test Holder",
+        number: "1234 5678 9012 3456",
+        cvc: "123",
+        expirateDate: Date().toISO(),
+        limitByMonth: 1500
+    )
+    
+}

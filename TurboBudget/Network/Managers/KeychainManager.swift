@@ -66,4 +66,18 @@ final class KeychainManager {
             return nil
         }
     }
+    
+    func deleteItemFromKeychain(id: String) {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: id,
+            kSecAttrSynchronizable: false
+        ]
+        
+        let status = SecItemDelete(query as CFDictionary)
+        
+        if status != errSecSuccess && status != errSecItemNotFound {
+            print("Erreur lors de la suppression de l'item du Keychain: \(status)")
+        }
+    }
 }

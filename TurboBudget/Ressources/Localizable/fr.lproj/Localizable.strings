@@ -100,6 +100,8 @@
 
 "word_creditcard" = "Carte de crédit";
 
+"word_creditcards" = "Cartes de crédit";
+
 //MARK: - Preposition
 "word_preposition_to" = "vers";
 
@@ -152,6 +154,8 @@
 "title_home_savingsPlans" = "Mes plans d'épargne";
 
 "title_new_budget" = "Nouveau budget";
+
+"title_new_creditcard" = "Nouvelle carte de crédit";
 
 "title_setting_general" = "Général";
 
@@ -322,6 +326,27 @@
 "delete_contribution_title" = "Supprimer une contribution";
 
 "delete_contribution_message" = "Vous êtes sur le point de supprimer l'une de vos contributions.";
+
+//MARK: - CreditCard
+"creditcard_expire" = "EXPIRE";
+
+"creditcard_numbers" = "Numéros de cartes";
+
+"creditcard_holder" = "Titulaire de la carte";
+
+"creditcard_date" = "Date d'expiration";
+
+"creditcard_cvv" = "CVC";
+
+"creditcard_limit" = "Plafond de la carte";
+
+"creditcard_security" = "Les cartes de crédit ne sont pas stockées sur nos serveurs. Elles sont stockées dans le trousseau de votre iPhone.";
+
+"creditcard_maxCard" = "Montant maximum atteint";
+
+"creditcard_maxCard_message" = "Une seule carte de crédit est autorisée par compte";
+
+"creditcard_delete_title" = "Supprimer la carte de crédit";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Supprimer mon compte";

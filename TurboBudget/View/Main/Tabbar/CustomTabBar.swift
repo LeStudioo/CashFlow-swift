@@ -14,6 +14,7 @@ struct CustomTabBar: View {
     // Repo
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var creditCardRepository: CreditCardRepository
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var alertManager: AlertManager
@@ -47,10 +48,12 @@ struct CustomTabBar: View {
                         } label: {
                             Label(Word.Main.creditCard, systemImage: "creditcard.fill")
                         }
-                        .disabled(!store.isCashFlowPro)
+                        .disabled(!store.isCashFlowPro || !creditCardRepository.creditCards.isEmpty)
                         .onTapGesture {
                             if !store.isCashFlowPro {
                                 alertManager.showPaywall()
+                            } else if !creditCardRepository.creditCards.isEmpty {
+                                alertManager.onlyOneCreditCardByAccount()
                             }
                         }
                         

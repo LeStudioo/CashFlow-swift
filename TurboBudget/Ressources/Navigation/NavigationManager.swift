@@ -62,6 +62,10 @@ class NavigationManager: Router {
         navigateTo(.allBudgets)
     }
     
+    func pushAllCreditCards() {
+        navigateTo(.allCreditCards)
+    }
+    
     func pushBudgetTransactions(subcategory: SubcategoryModel) {
         navigateTo(.budgetTransactions(subcategory: subcategory))
     }
@@ -252,6 +256,8 @@ private extension NavigationManager {
                 BudgetsTransactionsView(subcategory: subcategory)
             case .allArchivedSavingPlans(let account):
                 ArchivedSavingPlansView(account: account)
+            case .allCreditCards:
+                CreditCardsHomeView()
                 
             case .homeCategories:
                 CategoryHomeView()

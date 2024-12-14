@@ -17,6 +17,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var themeManager: ThemeManager
         
     @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var creditCardRepository: CreditCardRepository
     
     //State or Binding String
     @State private var accountName: String = ""
@@ -67,7 +68,7 @@ struct AccountDashboardView: View {
                     DashboardRow(
                         config: .init(
                             icon: "building.columns.fill",
-                            text: "word_savings_account".localized
+                            text: Word.Main.savingsAccounts
                         )
                     )
                 }
@@ -77,7 +78,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "creditcard.and.123",
-                                text: "word_transactions".localized
+                                text: Word.Main.transactions
                             )
                         )
                     }
@@ -95,7 +96,7 @@ struct AccountDashboardView: View {
                         DashboardRow(
                             config: .init(
                                 icon: "dollarsign.square.fill",
-                                text: "word_savingsplans".localized
+                                text: Word.Main.savingsPlans
                             )
                         )
                     }
@@ -116,6 +117,10 @@ struct AccountDashboardView: View {
                         }
                     }
                 })
+                
+                if let creditCard = creditCardRepository.creditCards.first {
+                    CreditCardView(creditCard: creditCard)
+                }
             }
             .padding(.horizontal)
             
@@ -135,10 +140,24 @@ struct AccountDashboardView: View {
                         )
                     }
                     
+                    if let creditCard = creditCardRepository.creditCards.first, let uuid = creditCard.uuid {
+                        Button(
+                            role: .destructive,
+                            action: {
+                                Task {
+                                    if let account = accountRepository.selectedAccount, let accountID = account.id {
+                                        await creditCardRepository.deleteCreditCard(accountID: accountID, cardID: uuid)
+                                    }
+                                }
+                            },
+                            label: { Label(Word.CreditCard.deleteTitle, systemImage: "trash.fill") }
+                        )
+                    }
+                    
                     Button(
                         role: .destructive,
                         action: { isDeleting.toggle() },
-                        label: { Label("word_delete".localized, systemImage: "trash.fill") }
+                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
                     )
                 }, label: {
                     Image(systemName: "ellipsis")

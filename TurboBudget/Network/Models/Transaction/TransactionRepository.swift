@@ -16,6 +16,11 @@ final class TransactionRepository: ObservableObject {
         return transactions.filter { $0.type == .expense }
     }
     
+    var expensesCurrentMonth: [TransactionModel] {
+        return expenses
+            .filter { Calendar.current.isDate($0.date, equalTo: Date(), toGranularity: .month) }
+    }
+    
     var incomes: [TransactionModel] {
         return transactions.filter { $0.type == .income }
     }
@@ -184,33 +189,6 @@ extension TransactionRepository {
         if self.transactions.count < 20 {
             await self.fetchTransactionsWithPagination(accountID: accountID, perPage: 30)
         }
-    }
-    
-}
-
-// TODO: To delete
-extension TransactionRepository {
-    
-    var transactionsByMonthCashFlow: [Int : [TransactionModel]] {
-        var groupedTransactions: [Int: [TransactionModel]] = [1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [], 8: [], 9: [], 10: [], 11: [], 12: []]
-        
-        let calendar = Calendar.current
-        
-        for transaction in self.transactions {
-            let month = calendar.component(.month, from: transaction.date)
-            
-            if groupedTransactions[month] == nil {
-                groupedTransactions[month] = []
-            }
-            
-            groupedTransactions[month]?.append(transaction)
-        }
-        
-        for (month, transactions) in groupedTransactions {
-            groupedTransactions[month] = transactions.sorted(by: { $0.date < $1.date })
-        }
-        
-        return groupedTransactions
     }
     
 }

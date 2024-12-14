@@ -29,6 +29,7 @@ struct TurboBudgetApp: App {
     @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
     @StateObject private var contributionRepository: ContributionRepository = .shared
     @StateObject private var budgetRepository: BudgetRepository = .shared
+    @StateObject private var creditCardRepository: CreditCardRepository = .shared
     
     // Repository
     @StateObject private var accountRepo: AccountRepositoryOld = .shared
@@ -88,6 +89,7 @@ struct TurboBudgetApp: App {
                             await subscriptionRepository.fetchSubscriptions(accountID: accountID)
                             await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
                             await budgetRepository.fetchBudgets(accountID: accountID)
+                            await creditCardRepository.fetchCreditCards(accountID: accountID)
                             
                             if preferencesSubscription.isNotificationsEnabled {
                                 for subscription in subscriptionRepository.subscriptions {
@@ -127,6 +129,7 @@ struct TurboBudgetApp: App {
             .environmentObject(savingsPlanRepository)
             .environmentObject(contributionRepository)
             .environmentObject(budgetRepository)
+            .environmentObject(creditCardRepository)
             
             // Old Repository
             .environmentObject(accountRepo)

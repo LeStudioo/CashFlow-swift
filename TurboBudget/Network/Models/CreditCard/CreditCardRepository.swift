@@ -24,6 +24,11 @@ extension CreditCardRepository {
                 responseModel: [UUID].self
             )
             self.uuids = uuids
+            for uuid in uuids {
+                if let creditCard = KeychainManager.shared.retrieveItemFromKeychain(id: uuid.uuidString, type: CreditCardModel.self) {
+                    self.creditCards.append(creditCard)
+                }
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -45,6 +50,8 @@ extension CreditCardRepository {
                 apiBuilder: CreditCardAPIRequester.delete(accountID: accountID, cardID: cardID)
             )
             self.uuids.removeAll(where: { $0 == cardID })
+            self.creditCards.removeAll(where: { $0.uuid == cardID })
+            KeychainManager.shared.deleteItemFromKeychain(id: cardID.uuidString)
         } catch { NetworkService.handleError(error: error) }
     }
     

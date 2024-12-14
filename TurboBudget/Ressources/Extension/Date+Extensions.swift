@@ -92,3 +92,15 @@ extension Date {
     }
     
 }
+
+extension Date {
+    
+    func formatCardExpiration() -> String {
+        let locale = Locale.current
+        let formatter = DateFormatter()
+        formatter.locale = locale
+        formatter.dateFormat = locale.identifier.hasPrefix("en") ? "yy/MM" : "MM/yy" 
+        return formatter.string(from: self)
+    }
+    
+}
