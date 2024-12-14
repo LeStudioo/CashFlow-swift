@@ -1,5 +1,15 @@
 {
-  "identifier" : "738AB2EB",
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "D31EAB1E",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -34,7 +44,7 @@
     "_applicationInternalID" : "6450913423",
     "_developerTeamID" : "8TMMB69WBG",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 747038351.20538902,
+    "_lastSynchronizedDate" : 755865746.32046497,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -103,26 +113,39 @@
           "displayPrice" : "1.99",
           "familyShareable" : false,
           "groupNumber" : 1,
-          "internalID" : "6670423565",
+          "internalID" : "6739449054",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "All pro features",
-              "displayName" : "All pro features",
+              "description" : "+ de fonctionnalités pour gérer votre argent!",
+              "displayName" : "CashFlow Pro",
+              "locale" : "fr"
+            },
+            {
+              "description" : "Nuevas funciones para gestionar tu dinero",
+              "displayName" : "CashFlow Pro",
+              "locale" : "es_ES"
+            },
+            {
+              "description" : "New features to help you manage your money!",
+              "displayName" : "CashFlow Pro",
               "locale" : "en_GB"
             }
           ],
-          "productID" : "cashflow_199_1m_3d0",
+          "productID" : "cashflowpro_199_1m_3d0",
           "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "Monthly, 1.99€",
+          "referenceName" : "CashFlow Pro Subscription",
           "subscriptionGroupID" : "21532358",
-          "type" : "RecurringSubscription"
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
         }
       ]
     }
   ],
   "version" : {
-    "major" : 3,
+    "major" : 4,
     "minor" : 0
   }
 }

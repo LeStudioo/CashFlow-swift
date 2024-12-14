@@ -84,7 +84,7 @@ struct AddTransactionIntent: AppIntent {
         let accountRepository: AccountRepository = .shared
         let transactionRepository: TransactionRepository = .shared
         
-        var body: TransactionModel = .init(
+        let body: TransactionModel = .init(
             _name: title,
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
@@ -97,8 +97,7 @@ struct AddTransactionIntent: AppIntent {
         if PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled {
             let purchasesManager = await PurchasesManager()
             await purchasesManager.loadProducts()
-            await purchasesManager.getSubscriptionStatus()
-            await purchasesManager.getLifetimeStatus()
+            await purchasesManager.updatePurchasedProducts()
             
             if await purchasesManager.isCashFlowPro {
                 if let response = await TransactionRepository.shared.fetchCategory(name: title) {

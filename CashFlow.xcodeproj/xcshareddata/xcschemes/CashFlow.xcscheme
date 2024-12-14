@@ -50,7 +50,7 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <StoreKitConfigurationFileReference
-         identifier = "../../TurboBudget/Purchases/StoreKitConfiguration.storekit">
+         identifier = "../../TurboBudget/Purchases/MainStoreKitConfiguration.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

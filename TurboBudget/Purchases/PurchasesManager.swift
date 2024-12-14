@@ -10,7 +10,7 @@ import StoreKit
 
 @MainActor
 class PurchasesManager: NSObject, ObservableObject {
-    let productIDs: [String] = ["cashflow_199_1m_3d0", "com.Sementa.CashFlow.lifetime"]
+    let productIDs: [String] = ["cashflowpro_199_1m_3d0", "com.Sementa.CashFlow.lifetime"]
     var purchasedProductIDs: Set<String> = []
     
     @Published var products: [Product] = []
@@ -30,20 +30,23 @@ class PurchasesManager: NSObject, ObservableObject {
     override init() {
         super.init()
         self.updates = observeTransactionUpdates()
+        Task {
+            await updatePurchasedProducts()
+        }
         SKPaymentQueue.default().add(self)
     }
     
     deinit { updates?.cancel() }
 }
 
-// MARK: - C.R.U.D
 extension PurchasesManager {
     func loadProducts() async {
         do {
             self.products = try await Product.products(for: productIDs)
                 .sorted(by: { $0.price < $1.price })
+            print("💳 PRODUCTS : \(products)")
         } catch {
-            print("Failed to fetch products!")
+            print("💳 Failed to fetch products!")
         }
     }
     
@@ -59,29 +62,31 @@ extension PurchasesManager {
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone
-                print("Unverified purchase. Might be jailbroken. Error: \(error)")
+                print("💳 Unverified purchase. Might be jailbroken. Error: \(error)")
                 break
             case .pending:
                 // Transaction waiting on SCA (Strong Customer Authentication) or
                 // approval from Ask to Buy
                 break
             case .userCancelled:
-                print("User cancelled!")
+                print("💳 User cancelled!")
                 break
             @unknown default:
-                print("Failed to purchase the product!")
+                print("💳 Failed to purchase the product!")
                 break
             }
         } catch {
-            print("Failed to purchase the product!")
+            print("💳 Failed to purchase the product!")
         }
     }
     
     func updatePurchasedProducts() async {
         for await result in Transaction.currentEntitlements {
+            print("💳 result : \(result)")
             guard case .verified(let transaction) = result else {
                 continue
             }
+            print("💳 transaction : \(transaction)")
             if transaction.revocationDate == nil {
                 self.purchasedProductIDs.insert(transaction.productID)
             } else {
@@ -111,56 +116,56 @@ extension PurchasesManager {
         }
     }
     
-    func getSubscriptionStatus() async {
-        guard let subscription = subscription?.subscription else { return }
-        
-        do {
-            let statuses = try await subscription.status
-            
-            for status in statuses {
-                let info = try status.renewalInfo.payloadValue
-                
-                switch status.state {
-                case .subscribed:
-                    if info.willAutoRenew {
-                        isCashFlowPro = true
-                        return
-                    } else {
-                        debugPrint("getSubscriptionStatus user subscription is expiring.")
-                        return
-                    }
-                case .inBillingRetryPeriod:
-                    debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
-                    return
-                case .inGracePeriod:
-                    isCashFlowPro = true
-                    return
-                case .expired:
-                    isCashFlowPro = false
-                    debugPrint("getSubscriptionStatus user subscription is expired.")
-                    return
-                case .revoked:
-                    debugPrint("getSubscriptionStatus user subscription was revoked.")
-                    return
-                default:
-                    fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
-                }
-            }
-        } catch { }
-        return
-    }
+//    func getSubscriptionStatus() async {
+//        guard let subscription = subscription?.subscription else { return }
+//        
+//        do {
+//            let statuses = try await subscription.status
+//            
+//            for status in statuses {
+//                let info = try status.renewalInfo.payloadValue
+//                
+//                switch status.state {
+//                case .subscribed:
+//                    if info.willAutoRenew {
+//                        isCashFlowPro = true
+//                        return
+//                    } else {
+//                        debugPrint("getSubscriptionStatus user subscription is expiring.")
+//                        return
+//                    }
+//                case .inBillingRetryPeriod:
+//                    debugPrint("getSubscriptionStatus user subscription is in billing retry period.")
+//                    return
+//                case .inGracePeriod:
+//                    isCashFlowPro = true
+//                    return
+//                case .expired:
+//                    isCashFlowPro = false
+//                    debugPrint("getSubscriptionStatus user subscription is expired.")
+//                    return
+//                case .revoked:
+//                    debugPrint("getSubscriptionStatus user subscription was revoked.")
+//                    return
+//                default:
+//                    fatalError("getSubscriptionStatus WARNING STATE NOT CONSIDERED.")
+//                }
+//            }
+//        } catch { }
+//        return
+//    }
     
-    func getLifetimeStatus() async {
-        guard let lifetime else { return }
-        
-        do {
-            if try await lifetime.currentEntitlement?.payloadValue != nil {
-                isCashFlowPro = true
-            }
-        } catch {
-            
-        }
-    }
+//    func getLifetimeStatus() async {
+//        guard let lifetime else { return }
+//        print("💳 entitlement : \(await lifetime.currentEntitlement)")
+//        do {
+//            if try await lifetime.currentEntitlement?.payloadValue != nil {
+//                isCashFlowPro = true
+//            }
+//        } catch {
+//            
+//        }
+//    }
 }
 
 // MARK: - SKPaymentTransactionObserver
