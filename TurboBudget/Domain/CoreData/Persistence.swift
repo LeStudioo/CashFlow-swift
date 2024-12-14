@@ -113,7 +113,7 @@ struct PersistenceController {
     }
 
     private static func deleteAllDataInBatchImpl(_ entity: String) throws {
-        guard let entityDescription = NSEntityDescription.entity(forEntityName: entity, in: persistenceController.container.viewContext) else {
+        guard NSEntityDescription.entity(forEntityName: entity, in: persistenceController.container.viewContext) != nil else {
             throw CoreDataError.entityNotFound(entity)
         }
         

@@ -75,7 +75,7 @@ func mapResponse(response: (data: Data?, response: URLResponse, method: String?)
     
     #if DEBUG
     if let data = response.data {
-        print("🛜 DATA : \(String(data: data, encoding: .utf8))")
+        print("🛜 DATA : \(String(data: data, encoding: .utf8) ?? "")")
     }
     #endif
     
