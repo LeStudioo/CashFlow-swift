@@ -9,15 +9,6 @@ import Foundation
 
 final class SettingsDangerZoneViewModel: ObservableObject {
                     
-    @Preference(\.accountCanBeNegative) var accountCanBeNegative
-    @Preference(\.blockExpensesIfCardLimitExceeds) var blockExpensesIfCardLimitExceeds
-    @Preference(\.cardLimitPercentage) var cardLimitPercentage
-    
-    @Preference(\.automatedArchivedSavingPlan) var automatedArchivedSavingPlan
-    @Preference(\.numberOfDayForArchivedSavingPlan) var numberOfDayForArchivedSavingPlan
-    
-    @Preference(\.blockExpensesIfBudgetAmountExceeds) var blockExpensesIfBudgetAmountExceeds
-    @Preference(\.budgetPercentage) var budgetPercentage
 }
 
 extension SettingsDangerZoneViewModel {
@@ -43,19 +34,6 @@ extension SettingsDangerZoneViewModel {
         
         // Setting - Appearance
         ThemeManager.shared.theme = .green
-        
-        // Setting - Account
-        accountCanBeNegative = false
-        blockExpensesIfCardLimitExceeds = true
-        cardLimitPercentage = 80
-        
-        // Setting - Saving Plan
-        automatedArchivedSavingPlan = false
-        numberOfDayForArchivedSavingPlan = 30
-        
-        // Setting - Budgets
-        blockExpensesIfBudgetAmountExceeds = true
-        budgetPercentage = 80
         
     }
     

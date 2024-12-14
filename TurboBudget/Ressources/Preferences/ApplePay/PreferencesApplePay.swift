@@ -6,16 +6,11 @@
 //
 
 import Foundation
-import Combine
 
 final class PreferencesApplePay: ObservableObject {
     static let shared = PreferencesApplePay()
-    
-    let objectWillChange = PassthroughSubject<Void, Never>()
-    
+        
     @CustomUserDefault("PreferencesApplePay_isAddCategoryAutomaticallyEnabled", defaultValue: false) // Notifiaction sent at 10h00
-    var isAddCategoryAutomaticallyEnabled: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var isAddCategoryAutomaticallyEnabled: Bool
     
 }

@@ -56,10 +56,7 @@ enum NavigationDirection: Identifiable {
     case settingsSecurity
     case settingsAppearence
     case settingsDisplay
-    case settingsAccount
-    case settingsSavingPlans
     case settingsSubscription
-    case settingsBudget
     case settingsCredits
     case settingsApplePay
     
@@ -98,10 +95,7 @@ extension NavigationDirection: Equatable {
             (.settingsSecurity, .settingsSecurity),
             (.settingsAppearence, .settingsAppearence),
             (.settingsDisplay, .settingsDisplay),
-            (.settingsAccount, .settingsAccount),
-            (.settingsSavingPlans, .settingsSavingPlans),
             (.settingsSubscription, .settingsSubscription),
-            (.settingsBudget, .settingsBudget),
             (.settingsApplePay, .settingsApplePay),
             (.settingsCredits, .settingsCredits):
             return true

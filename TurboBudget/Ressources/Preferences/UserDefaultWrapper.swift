@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import Combine
+
+// static let appGroup = Preferences(userDefaults: .init(suiteName: "group.sementa.cashflow")!)
 
 @propertyWrapper
 struct CustomUserDefault<T> {

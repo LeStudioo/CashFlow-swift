@@ -6,41 +6,26 @@
 //
 
 import Foundation
-import Combine
 
 final class PreferencesGeneral: ObservableObject {
     static let shared = PreferencesGeneral()
-    
-    let objectWillChange = PassthroughSubject<Void, Never>()
-    
+        
     @CustomUserDefault("isDataSynced", defaultValue: false) // PreferencesGeneral_isDataSynced
-    var isDataSynced: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var isDataSynced: Bool
     
     @CustomUserDefault("PreferencesGeneral_numberOfOpenings", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
-    var numberOfOpenings: Int {
-        willSet { objectWillChange.send() }
-    }
+    var numberOfOpenings: Int
     
     @CustomUserDefault("alreadyOpen", defaultValue: false) // PreferencesGeneral_isAlreadyOpen
-    var isAlreadyOpen: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var isAlreadyOpen: Bool
     
     @CustomUserDefault("hapticFeedback", defaultValue: true) // PreferencesGeneral_hapticFeedback
-    var hapticFeedback: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var hapticFeedback: Bool
 
     @CustomUserDefault("PreferencesGeneral_whatsnewv2.0", defaultValue: false)
-    var isWhatsNewSeen: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var isWhatsNewSeen: Bool
     
     // MARK: - Tips
     @CustomUserDefault("PreferencesGeneral_isApplePayEnabled", defaultValue: false)
-    var isApplePayEnabled: Bool {
-        willSet { objectWillChange.send() }
-    }
+    var isApplePayEnabled: Bool
 }
