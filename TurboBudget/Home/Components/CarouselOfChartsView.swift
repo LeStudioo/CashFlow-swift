@@ -13,7 +13,6 @@ struct CarouselOfChartsView: View {
     
     // Environement
     @EnvironmentObject private var transactionRepository: TransactionRepository
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Number variables

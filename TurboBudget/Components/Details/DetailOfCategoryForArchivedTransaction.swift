@@ -9,13 +9,10 @@ import SwiftUI
 
 struct DetailOfCategoryForArchivedTransaction: View {
     
-    //Builder
+    // Builder
     var category: CategoryModel
 
-    //Environnement
-    @Environment(\.colorScheme) private var colorScheme
-
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
 //            VStack(alignment: .leading, spacing: -1) {
@@ -25,13 +22,13 @@ struct DetailOfCategoryForArchivedTransaction: View {
 //                if category.amountTotalOfArchivedTransactionsExpenses != 0 {
 //                    Text("word_expenses".localized + " : " + category.amountTotalOfArchivedTransactionsExpenses.toCurrency())
 //                        .lineLimit(1)
-//                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+//                        .foregroundStyle(Color.customGray)
 //                        .font(.semiBoldSmall())
 //                }
 //                if category.amountTotalOfArchivedTransactionsIncomes != 0 {
 //                    Text("word_incomes".localized + " : " + category.amountTotalOfArchivedTransactionsIncomes.toCurrency())
 //                        .lineLimit(1)
-//                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+//                        .foregroundStyle(Color.customGray)
 //                        .font(.semiBoldSmall())
 //                }
 //            }

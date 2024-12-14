@@ -10,13 +10,10 @@ import SwiftUI
 
 struct DetailOfCategory: View {
     
-    //Builder
+    // Builder
     var category: CategoryModel
 
-    //Environnement
-    @Environment(\.colorScheme) private var colorScheme
-
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: -1) {
@@ -26,13 +23,13 @@ struct DetailOfCategory: View {
                 if category.amountTotalOfExpenses != 0 {
                     Text("word_expenses".localized + " : " + category.amountTotalOfExpenses.toCurrency())
                         .lineLimit(1)
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(.semiBoldSmall())
                 }
                 if category.amountTotalOfIncomes != 0 {
                     Text("word_incomes".localized + " : " + category.amountTotalOfIncomes.toCurrency())
                         .lineLimit(1)
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(.semiBoldSmall())
                 }
             }

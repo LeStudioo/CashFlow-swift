@@ -17,7 +17,6 @@ struct DetailOfExpensesAndIncomesByMonth: View {
     var isPinned: Bool = false
 
     //Environnement
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var store: PurchasesManager
 
     //MARK: - Body
@@ -43,7 +42,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
                         }
                         Spacer()
                     }
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
                     .font(.semiBoldSmall())
                 }
             }

@@ -18,7 +18,6 @@ struct DetailOfExpensesOrIncomesByMonth: View {
     @Binding var ascendingOrder: Bool
     
     //Environnements
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var store: PurchasesManager
 
     //MARK: - Body
@@ -34,7 +33,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         if store.isCashFlowPro {
                             Text("word_expenses".localized + " : " + amountOfExpenses.toCurrency())
                                 .lineLimit(1)
-                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(Color.customGray)
                                 .font(.semiBoldSmall())
                         }
                     }
@@ -46,7 +45,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
                     .font(.semiBoldSmall())
                 } else if filterTransactions == .incomes {
                     VStack(alignment: .leading) {
@@ -55,7 +54,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                         if store.isCashFlowPro {
                             Text("word_incomes".localized + " : " + amountOfIncomes.toCurrency())
                                 .lineLimit(1)
-                                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                                .foregroundStyle(Color.customGray)
                                 .font(.semiBoldSmall())
                         }
                     }
@@ -67,7 +66,7 @@ struct DetailOfExpensesOrIncomesByMonth: View {
                                 .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
                         }
                     })
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
                     .font(.semiBoldSmall())
                 }
             }

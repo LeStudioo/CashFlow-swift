@@ -19,7 +19,6 @@ struct BudgetsTransactionsView: View {
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
 
     // String variables
     @State private var searchText: String = ""
@@ -131,7 +130,7 @@ struct BudgetsTransactionsView: View {
 //                            .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
 //                    }
 //                })
-//                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+//                .foregroundStyle(Color.customGray)
 //                .font(.semiBoldSmall())
             }
             .font(.mediumCustom(size: 22))

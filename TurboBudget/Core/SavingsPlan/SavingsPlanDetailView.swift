@@ -14,7 +14,6 @@ struct SavingsPlanDetailView: View {
     @ObservedObject var savingsPlan: SavingsPlanModel
     
     // Environement
-    @Environment(\.colorScheme) private var colorScheme
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
@@ -93,7 +92,7 @@ struct SavingsPlanDetailView: View {
                 if savingPlanNote.isEmpty {
                     HStack {
                         Text("savingsplan_detail_note".localized)
-                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .font(Font.mediumText16())
                         Spacer()
                     }

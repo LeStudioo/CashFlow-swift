@@ -9,10 +9,7 @@ import SwiftUI
 
 struct SettingsCreditsView: View {
     
-    // Environment
-    @Environment(\.colorScheme) private var colorScheme
-    
-    // MARK: - body
+    // MARK: -
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
@@ -73,7 +70,7 @@ struct SettingsCreditsView: View {
         HStack {
             Text(text)
                 .font(Font.mediumText16())
-                .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                .foregroundStyle(Color.customGray)
             Spacer()
         }
         .padding(.leading)

@@ -15,7 +15,6 @@ struct DetailOfTransferByMonth: View {
     var amountOfWithdrawal: Double
 
     // Environnement
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var store: PurchasesManager
 
     //MARK: - Body
@@ -39,7 +38,7 @@ struct DetailOfTransferByMonth: View {
                         }
                         Spacer()
                     }
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
                     .font(.semiBoldSmall())
                 }
             }

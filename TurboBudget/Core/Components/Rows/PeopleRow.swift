@@ -11,9 +11,7 @@ struct PeopleRow: View {
     
     // Builder
     var people: People
-    
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // MARK: -
     var body: some View {
         Button(action: {
@@ -31,13 +29,13 @@ struct PeopleRow: View {
                         .foregroundStyle(Color(uiColor: .label))
                     Text(people.job)
                         .font(Font.mediumSmall())
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                 }
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                    .foregroundStyle(Color.customGray)
             }
             .padding(12)
             .padding(.horizontal, 4)

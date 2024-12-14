@@ -17,7 +17,6 @@ struct CategoryTransactionsView: View {
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.colorScheme) private var colorScheme
     
     // String variables
     @State private var searchText: String = ""
