@@ -16,7 +16,6 @@ struct ContributionRow: View {
     var contribution: ContributionModel
 
     //Environnement
-    @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -
@@ -33,13 +32,15 @@ struct ContributionRow: View {
                     
                     Text(contribution.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                 }
             }
             .padding(12)
             .padding(.horizontal, 4)
-            .background(Color.colorCell)
-            .cornerRadius(15)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
         }, trailingActions: { context in
             SwipeAction(action: {
                 alertManager.deleteContribution(

@@ -21,7 +21,7 @@ struct PageControl: View {
             ForEach(0...(min(1, maxPages)), id: \.self) { index in
                 Circle()
                     .frame(width: 10, height: 10)
-                    .foregroundStyle(index == currentPage ? themeManager.theme.color : Color.colorCell)
+                    .foregroundStyle(index == currentPage ? themeManager.theme.color : Color.background100)
             }
         }
     }

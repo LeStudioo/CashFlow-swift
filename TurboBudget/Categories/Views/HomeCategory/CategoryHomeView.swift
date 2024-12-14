@@ -30,14 +30,14 @@ struct CategoryHomeView: View {
                         } else if viewModel.searchText.isEmpty {
                             PieChart(
                                 slices: CategoryRepository.shared.categoriesSlices,
-                                backgroundColor: Color.colorCell,
+                                backgroundColor: Color.background100,
                                 configuration: .init(style: .category, space: 0.2, hole: 0.75)
                             )
                             .padding()
                             .frame(maxWidth: .infinity)
                             .background {
                                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .fill(Color.colorCell)
+                                    .fill(Color.background100)
                             }
                             .padding(.bottom, 8)
                         }

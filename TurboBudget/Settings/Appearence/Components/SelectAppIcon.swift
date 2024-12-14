@@ -34,7 +34,7 @@ struct SelectAppIcon: View {
                                     .padding()
                                     .background {
                                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                            .fill(Color.colorCell)
+                                            .fill(Color.background100)
                                     }
                                     .overlay {
                                         RoundedRectangle(cornerRadius: 16, style: .continuous)

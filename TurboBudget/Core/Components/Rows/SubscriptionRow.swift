@@ -14,9 +14,6 @@ struct SubscriptionRow: View {
     // Builder
     @ObservedObject var subscription: SubscriptionModel
     
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
-    
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
     @EnvironmentObject private var alertManager: AlertManager
@@ -33,8 +30,9 @@ struct SubscriptionRow: View {
                     
                     VStack(alignment: .leading, spacing: 5) {
                         Text(Word.Main.subscription)
-                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
-                            .font(Font.mediumSmall())
+                            .foregroundStyle(Color.customGray)
+                            .font(.Text.medium)
+                        
                         Text(subscription.name ?? "")
                             .font(.semiBoldText18())
                             .foregroundStyle(Color(uiColor: .label))
@@ -50,15 +48,15 @@ struct SubscriptionRow: View {
                             .lineLimit(1)
                         
                         Text(subscription.date.withTemporality)
-                            .font(Font.mediumSmall())
-                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .font(.Text.medium)
+                            .foregroundStyle(Color.customGray)
                             .lineLimit(1)
                     }
                 }
                 .padding(12)
                 .background {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color.colorCell)
+                        .fill(Color.background100)
                 }
             },
             trailingActions: { context in
@@ -72,7 +70,7 @@ struct SubscriptionRow: View {
                         Text(Word.Classic.edit)
                             .font(.semiBoldCustom(size: 10))
                     }
-                    .foregroundStyle(Color(uiColor: .systemBackground))
+                    .foregroundStyle(Color.textReversed)
                 }, background: { _ in
                     Rectangle()
                         .foregroundStyle(.blue)
@@ -84,10 +82,10 @@ struct SubscriptionRow: View {
                     VStack(spacing: 5) {
                         Image(systemName: "trash")
                             .font(.system(size: 20, weight: .semibold, design: .rounded))
-                        Text("word_DELETE".localized)
+                        Text(Word.Classic.delete)
                             .font(.semiBoldCustom(size: 10))
                     }
-                    .foregroundStyle(Color(uiColor: .systemBackground))
+                    .foregroundStyle(Color.textReversed)
                 }, background: { _ in
                     Rectangle()
                         .foregroundStyle(.error400)

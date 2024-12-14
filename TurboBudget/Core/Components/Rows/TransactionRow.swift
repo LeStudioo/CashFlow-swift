@@ -50,7 +50,7 @@ struct TransactionRow: View {
                             .lineLimit(1)
                         
                         Text(transaction.date.withTemporality)
-                            .font(Font.mediumSmall())
+                            .font(.Text.medium)
                             .foregroundStyle(Color.customGray)
                             .lineLimit(1)
                     }
@@ -58,7 +58,7 @@ struct TransactionRow: View {
                 .padding(12)
                 .background {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color.colorCell)
+                        .fill(Color.background100)
                 }
             }, trailingActions: { context in
             SwipeAction(action: {
@@ -71,7 +71,7 @@ struct TransactionRow: View {
                     Text(Word.Classic.edit)
                         .font(.semiBoldCustom(size: 10))
                 }
-                .foregroundStyle(Color(uiColor: .systemBackground))
+                .foregroundStyle(Color.textReversed)
             }, background: { _ in
                 Rectangle()
                     .foregroundStyle(.blue)
@@ -84,7 +84,7 @@ struct TransactionRow: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_DELETE".localized)
+                    Text(Word.Classic.delete)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundStyle(Color(uiColor: .systemBackground))
@@ -98,21 +98,6 @@ struct TransactionRow: View {
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
         .padding(.vertical, 4)
-//        .sheet(isPresented: $isSharingQRCode) {
-//            QRCodeForTransactionSheetView(qrcode: QRCodeManager().generateQRCode(transaction: transaction)!)
-//        }
-//        .background(SharingViewController(isPresenting: $isSharingJSON) {
-//            let json = JSONManager().generateJSONForTransaction(transaction: transaction)
-//            let av = UIActivityViewController(activityItems: [json], applicationActivities: nil)
-//            
-//            // For iPad
-//            if UIDevice.current.userInterfaceIdiom == .pad { av.popoverPresentationController?.sourceView = UIView() }
-//            
-//            av.completionWithItemsHandler = { _, _, _, _ in
-//                isSharingJSON = false // required for re-open !!!
-//            }
-//            return av
-//        })
     } // body
 } // struct
 

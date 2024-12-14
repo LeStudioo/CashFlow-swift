@@ -11,9 +11,7 @@ struct TransactionDetailNoteRow: View {
     
     // Builder
     @Binding var note: String
-    
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // Enum
     enum Field: CaseIterable {
         case note
@@ -28,7 +26,7 @@ struct TransactionDetailNoteRow: View {
                     .padding(6)
                     .background {
                         Circle()
-                            .fill(Color.componentInComponent)
+                            .fill(Color.background200)
                     }
                 
                 Text(Word.Classic.note)
@@ -47,7 +45,7 @@ struct TransactionDetailNoteRow: View {
                 if note.isEmpty {
                     HStack {
                         Text("transaction_detail_note".localized)
-                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .font(Font.mediumText16())
                         Spacer()
                     }
@@ -60,7 +58,7 @@ struct TransactionDetailNoteRow: View {
         .padding()
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.colorCell)
+                .fill(Color.background100)
         }
     } // body
 } // struct

@@ -33,7 +33,7 @@ struct HomeScreenEmptyRow: View {
             .frame(height: 160)
             .background {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
-                    .fill(Color.colorCell)
+                    .fill(Color.background100)
             }
         }
     } // body

@@ -50,8 +50,10 @@ struct SubcategoryRow: View {
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .padding()
-        .background(Color.colorCell)
-        .cornerRadius(15)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
+        }
     } // End body
 } // End struct
 

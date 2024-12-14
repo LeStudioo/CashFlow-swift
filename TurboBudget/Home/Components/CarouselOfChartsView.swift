@@ -49,7 +49,7 @@ struct CarouselOfChartsView: View {
                                 .foregroundStyle(LinearGradient(colors: [.error400.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
                         }
-                        .padding(8)
+                        .padding(12)
                     } else {
                         Image("NoSpend\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
@@ -57,8 +57,10 @@ struct CarouselOfChartsView: View {
                             .padding(.bottom, 8)
                     }
                 }
-                .background(Color.colorCell)
-                .cornerRadius(15)
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.background100)
+                }
                 .padding(.horizontal)
                 .tag(0)
                 
@@ -84,7 +86,7 @@ struct CarouselOfChartsView: View {
                                 .foregroundStyle(LinearGradient(colors: [.primary500.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
                         }
-                        .padding(8)
+                        .padding(12)
                     } else {
                         Image("NoAccount\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
@@ -92,8 +94,10 @@ struct CarouselOfChartsView: View {
                             .padding(.bottom, 8)
                     }
                 }
-                .background(Color.colorCell)
-                .cornerRadius(15)
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.background100)
+                }
                 .padding(.horizontal)
                 .tag(1)
             }

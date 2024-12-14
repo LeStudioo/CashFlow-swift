@@ -35,7 +35,7 @@ struct SelectThemeColor: View {
                         .frame(width: 90, height: 90)
                         .background {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .fill(Color.colorCell)
+                                .fill(Color.background100)
                         }
                         .overlay {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)

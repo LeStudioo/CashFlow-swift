@@ -21,7 +21,7 @@ struct SignInButton: View {
                 Image(config.icon)
                 Text(config.title)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(Color.labelReversed)
+                    .foregroundStyle(Color.textReversed)
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)

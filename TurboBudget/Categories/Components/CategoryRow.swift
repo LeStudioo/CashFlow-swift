@@ -58,8 +58,10 @@ struct CategoryRow: View {
         }
         .padding()
         .padding(.trailing, 8)
-        .background(Color.colorCell)
-        .cornerRadius(15)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
+        }
     } // End body
 } // End struct
 

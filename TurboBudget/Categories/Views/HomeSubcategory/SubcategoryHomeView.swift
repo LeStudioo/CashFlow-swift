@@ -45,14 +45,14 @@ struct SubcategoryHomeView: View {
                     if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
                         PieChart(
                             slices: category.categorySlices,
-                            backgroundColor: Color.colorCell,
+                            backgroundColor: Color.background100,
                             configuration: .init(style: .subcategory, space: 0.2, hole: 0.75)
                         )
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .fill(Color.colorCell)
+                                .fill(Color.background100)
                         }
                         .padding(.bottom, 8)
                     }

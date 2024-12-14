@@ -18,7 +18,7 @@ struct DashboardRow: View {
             HStack {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.componentInComponent)
+                    .foregroundStyle(Color.background200)
                     .overlay {
                         Image(systemName: config.icon)
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
@@ -41,7 +41,7 @@ struct DashboardRow: View {
         .frame(maxWidth: .infinity)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.colorCell)
+                .fill(Color.background100)
         }
         .opacity(config.isLocked ? 0.4 : 1)
         .overlay {

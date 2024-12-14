@@ -20,7 +20,7 @@ struct SavingsAccountRow: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.componentInComponent)
+                    .foregroundStyle(Color.background200)
                     .cornerRadius(12)
                     .overlay {
                         Image(systemName: "building.columns.fill")
@@ -52,8 +52,8 @@ struct SavingsAccountRow: View {
         .foregroundStyle(Color.text)
         .frame(width: width, height: width)
         .background {
-            RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(Color.colorCell)
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
         }
     } // body
 } // struct

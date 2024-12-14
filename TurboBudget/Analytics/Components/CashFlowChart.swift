@@ -16,10 +16,7 @@ struct CashFlowChart: View {
     @EnvironmentObject private var accountRepository: AccountRepository
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var themeManager: ThemeManager
-    
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // Boolean variables
     @State private var showAlert: Bool = false
     
@@ -29,7 +26,7 @@ struct CashFlowChart: View {
             HStack {
                 VStack(alignment: .leading, spacing: 10) {
                     Text("cashflowchart_title".localized)
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(Font.mediumSmall())
                     
                     Text(transactionRepository.amountCashFlowByMonth(month: filter.date).toCurrency())
@@ -42,7 +39,7 @@ struct CashFlowChart: View {
             .overlay(alignment: .topTrailing) {
                 Button(action: { showAlert.toggle() }, label: {
                     Image(systemName: "info.circle")
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
                 .padding(8)
@@ -51,12 +48,8 @@ struct CashFlowChart: View {
             Chart {
                 ForEach(accountRepository.cashflow.indices, id: \.self) { index in
                     let value = accountRepository.cashflow[index]
-//                    let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
-//                    let month = transactionsByMonth[index].key
-
                     BarMark(x: .value("x", "\(index)"),
                             y: .value("y", value))
-//                    .foregroundStyle((components.month ?? 0) == month ? Color.yellow.gradient : themeManager.theme.color.gradient)
                     .foregroundStyle(themeManager.theme.color.gradient)
                     .clipShape(RoundedRectangle(cornerRadius: 30))
                 }
@@ -71,8 +64,10 @@ struct CashFlowChart: View {
             .frame(height: 180)
         }
         .padding(8)
-        .background(Color.colorCell)
-        .cornerRadius(15)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
+        }
         .alert(isPresented: $showAlert, content: {
             Alert(title: Text("cashflowchart_alert_title".localized), message: Text("cashflowchart_alert_desc".localized), dismissButton: .cancel(Text("word_ok".localized)) )
         })

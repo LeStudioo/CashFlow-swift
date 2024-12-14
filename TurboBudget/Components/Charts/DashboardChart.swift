@@ -33,42 +33,28 @@ struct DashboardChart: View {
                     .font(.semiBoldH3())
                     .padding(.leading, 8)
                 
-                VStack(spacing: 16) {
-//                    PieChart(
-//                        slices: CategoryRepository.shared.categoriesSlices,
-//                        backgroundColor: Color.colorCell,
-//                        configuration: .init(
-//                            style: .category,
-//                            space: 0.2,
-//                            hole: 0.75,
-//                            isInteractive: false
-//                        )
-//                    )
-//                    .frame(height: 180)
-                    
-                    VStack(spacing: 8) {
-                        HStack(spacing: 8) {
-                            CustomRow(
-                                text: "word_expenses".localized,
-                                amount: amountExpenses.toCurrency()
-                            )
-                            CustomRow(
-                                text: "word_incomes".localized,
-                                amount: amountIncomes.toCurrency()
-                            )
-                        }
+                VStack(spacing: 8) {
+                    HStack(spacing: 8) {
                         CustomRow(
-                            text: "account_detail_cashflow".localized,
-                            amount: amountCashFlow.toCurrency()
+                            text: "word_expenses".localized,
+                            amount: amountExpenses.toCurrency()
+                        )
+                        CustomRow(
+                            text: "word_incomes".localized,
+                            amount: amountIncomes.toCurrency()
                         )
                     }
+                    CustomRow(
+                        text: "account_detail_cashflow".localized,
+                        amount: amountCashFlow.toCurrency()
+                    )
                 }
             }
             .padding(8)
             .foregroundStyle(Color.text)
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.colorCell)
+                    .fill(Color.background100)
             }
         }
     } // body
@@ -84,7 +70,7 @@ struct DashboardChart: View {
         .padding(8)
         .background {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(Color.componentInComponent)
+                .fill(Color.background200)
         }
     }
 } // struct

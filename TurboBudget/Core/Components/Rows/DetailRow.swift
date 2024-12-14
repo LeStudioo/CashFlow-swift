@@ -13,7 +13,7 @@ struct DetailRow: View {
     var icon: String
     var text: String? = nil
     var value: String
-    var iconBackgroundColor: Color = .componentInComponent
+    var iconBackgroundColor: Color = .background200
     var action: (() -> Void)? = nil
     
     // MARK: -
@@ -48,7 +48,7 @@ struct DetailRow: View {
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.colorCell)
+                    .fill(Color.background100)
             }
         }
     } // body

@@ -51,7 +51,7 @@ struct SavingsPlanDetailView: View {
                 Spacer()
                 Circle()
                     .frame(width: 100, height: 100)
-                    .foregroundStyle(.colorCell)
+                    .foregroundStyle(.background100)
                     .overlay {
                         Circle()
                             .frame(width: 80, height: 80)
@@ -73,6 +73,7 @@ struct SavingsPlanDetailView: View {
             
             progressBar()
                 .padding(.horizontal, 12)
+                .padding(.bottom, 8)
             
             if let endDate = savingsPlan.endDate {
                 DetailRow(
@@ -101,9 +102,11 @@ struct SavingsPlanDetailView: View {
                 }
             }
             .padding(12)
-            .background(Color.colorCell)
             .frame(height: 140)
-            .cornerRadius(15)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
             .padding(.horizontal, 12)
             .padding(.vertical, 8)
             
@@ -199,31 +202,10 @@ struct SavingsPlanDetailView: View {
                     Text(goalAmount.toCurrency())
                 }
                 .font(.semiBoldText16())
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.text)
                 
-                GeometryReader { geometry in
-                    let widthAmount = currentAmount.toCurrency()
-                        .widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.5
-                    let widthPercentage = geometry.size.width * percentage
-                    
-                    Capsule()
-                        .foregroundStyle(.colorCell)
-                        .overlay(alignment: .leading) {
-                            ZStack(alignment: .leading) {
-                                Capsule()
-                                    .foregroundStyle(themeManager.theme.color)
-                                    .frame(width: max(widthAmount, widthPercentage))
-                                
-                                Text(currentAmount.toCurrency())
-                                    .padding(.trailing, 12)
-                                    .font(.semiBoldText16())
-                                    .foregroundStyle(Color(uiColor: .systemBackground))
-                                    .padding(.leading, 8)
-                            }
-                            .padding(4)
-                        }
-                }
-                .frame(height: 40)
+                ProgressBar(percentage: percentage)
+                    .frame(height: 48)
             }
         } else {
             EmptyView()

@@ -20,10 +20,7 @@ struct TransferRow: View {
     @EnvironmentObject private var savingsAccountRepository: SavingsAccountRepository
     @EnvironmentObject private var transferRepository: TransferRepository
     @EnvironmentObject private var accountRepository: AccountRepository
-    
-    //Environnement
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     //State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
@@ -42,7 +39,7 @@ struct TransferRow: View {
         SwipeView(label: {
             HStack {
                 Circle()
-                    .foregroundStyle(.color2Apple)
+                    .foregroundStyle(.background200)
                     .frame(width: 50)
                     .overlay {
                         Circle()
@@ -56,7 +53,7 @@ struct TransferRow: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(Word.Main.transfer)
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .font(Font.mediumSmall())
                     Text(isSender ? Word.Classic.sent : Word.Classic.received)
                         .font(.semiBoldText18())
@@ -73,14 +70,14 @@ struct TransferRow: View {
                         .lineLimit(1)
                     Text(transfer.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())
-                        .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                        .foregroundStyle(Color.customGray)
                         .lineLimit(1)
                 }
             }
             .padding(12)
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.colorCell)
+                    .fill(Color.background100)
             }
         }, trailingActions: { context in
             SwipeAction(action: {
@@ -89,7 +86,7 @@ struct TransferRow: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_DELETE".localized)
+                    Text(Word.Classic.delete)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundStyle(Color(uiColor: .systemBackground))

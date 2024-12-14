@@ -26,7 +26,7 @@ struct ProgressBar: View {
            let widthPercentage = geometry.size.width * min(1, percentage)
            
            RoundedRectangle(cornerRadius: 16, style: .continuous)
-               .fill(Color.colorCell)
+               .fill(Color.background100)
                .overlay(alignment: .leading) {
                    RoundedRectangle(cornerRadius: 16, style: .continuous)
                        .fill(themeManager.theme.color)

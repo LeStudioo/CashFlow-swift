@@ -12,8 +12,7 @@ struct SavingsPlanRow: View {
     //Custom type
     var savingsPlan: SavingsPlanModel
 
-    //Environnements
-    @Environment(\.colorScheme) private var colorScheme
+    //Environnement
     @EnvironmentObject private var themeManager: ThemeManager
 
     //State or Binding Int, Float and Double
@@ -26,7 +25,7 @@ struct SavingsPlanRow: View {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.componentInComponent)
+                    .foregroundStyle(Color.background200)
                     .cornerRadius(12)
                     .overlay {
                         Text(savingsPlan.emoji ?? "")
@@ -57,7 +56,7 @@ struct SavingsPlanRow: View {
         .frame(height: 160)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.colorCell)
+                .fill(Color.background100)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -72,7 +71,7 @@ struct SavingsPlanRow: View {
                 }
             }
         }
-    }//END body
+    } // body
 
     //MARK: Fonctions
     
@@ -93,7 +92,7 @@ struct SavingsPlanRow: View {
                     
                     Capsule()
                         .frame(height: 24)
-                        .foregroundStyle(.color2Apple)
+                        .foregroundStyle(Color.background200)
                         .overlay(alignment: .leading) {
                             Capsule()
                                 .foregroundStyle(themeManager.theme.color)
@@ -112,7 +111,7 @@ struct SavingsPlanRow: View {
         }
     }
 
-}//END struct
+} // struct
 
 //MARK: - Preview
 struct SavingPlanCellView_Previews: PreviewProvider {

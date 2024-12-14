@@ -32,7 +32,7 @@ struct BudgetRow: View {
                     }
                     .lineLimit(1)
                     .padding(8)
-                    .background(Color.color2Apple)
+                    .background(Color.background200)
                     .cornerRadius(12)
                     HStack {
                         Text("budget_cell_actual".localized + " :")
@@ -41,7 +41,7 @@ struct BudgetRow: View {
                     }
                     .lineLimit(1)
                     .padding(8)
-                    .background(Color.color2Apple)
+                    .background(Color.background200)
                     .cornerRadius(12)
                     if budget.amount < budget.currentAmount {
                         HStack {
@@ -51,7 +51,7 @@ struct BudgetRow: View {
                         }
                         .lineLimit(1)
                         .padding(8)
-                        .background(Color.color2Apple)
+                        .background(Color.background200)
                         .cornerRadius(12)
                     }
                 }
@@ -59,10 +59,12 @@ struct BudgetRow: View {
                 .padding(8)
             }
         }
-        .foregroundStyle(Color(uiColor: .label))
+        .foregroundStyle(Color.text)
         .padding()
-        .background(Color.colorCell)
-        .cornerRadius(15)
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
+        }
     } // body
     
     // MARK: ViewBuilder

@@ -36,7 +36,7 @@ struct LicenseRow: View {
         .padding(.horizontal, 4)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.colorCustomCell)
+                .fill(Color.background100)
         }
     } // body
 } // struct

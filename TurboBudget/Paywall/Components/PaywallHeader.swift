@@ -26,11 +26,11 @@ struct PaywallHeader: View {
             Button(action: { dismiss() }, label: {
                 Circle()
                     .frame(width: 26, height: 26)
-                    .foregroundStyle(.colorMaterial)
+                    .foregroundStyle(.background200)
                     .overlay {
                         Image(systemName: "xmark")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(Color(uiColor: .label))
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundStyle(Color.text)
                     }
             })
         }

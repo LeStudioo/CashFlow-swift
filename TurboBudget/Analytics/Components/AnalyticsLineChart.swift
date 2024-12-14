@@ -15,10 +15,7 @@ struct AnalyticsLineChart: View {
     var config: Configuration
     
     @ObservedObject var filter = FilterManager.shared
-    
-    // Environement
-    @Environment(\.colorScheme) private var colorScheme
-    
+        
     // Computed
     var amounts: [Double] { return values.map(\.amount) }
     
@@ -31,7 +28,7 @@ struct AnalyticsLineChart: View {
                 VStack(alignment: .leading, spacing: 10) {
                     if let month = monthOfSelectedDate.month {
                         Text(config.title + " " + Calendar.current.monthSymbols[month - 1])
-                            .foregroundStyle(colorScheme == .dark ? .secondary300 : .secondary400)
+                            .foregroundStyle(Color.customGray)
                             .font(Font.mediumSmall())
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -66,8 +63,10 @@ struct AnalyticsLineChart: View {
                 .chartXScale(domain: 0...31)
             }
             .padding(8)
-            .background(Color.colorCell)
-            .cornerRadius(15)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
         } else {
             EmptyView()
                 .frame(height: 0)
