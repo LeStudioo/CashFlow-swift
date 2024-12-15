@@ -24,22 +24,15 @@ struct CreditCardTextField: View {
             
             HStack(spacing: 0) {
                 TextField(config.placeholder, text: $text)
+                    .format($text, type: .creditCard)
                     .focused($isFocused)
-                    .keyboardType(.decimalPad)
+                    .keyboardType(.numberPad)
                     .font(.system(size: 16, weight: .medium))
                     .padding([.vertical, .leading], 14)
                     .padding(.trailing, 14)
                     .background {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .fill(Color.backgroundComponentSheet)
-                    }
-                    .onChange(of: text) { newValue in
-                        text = newValue
-                            .replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
-                            .prefix(16)
-                            .enumerated()
-                            .map { $0.offset % 4 == 0 && $0.offset > 0 ? " " + String($0.element) : String($0.element) }
-                            .joined()
                     }
             }
         }

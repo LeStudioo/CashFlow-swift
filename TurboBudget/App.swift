@@ -179,7 +179,6 @@ struct TurboBudgetApp: App {
             }
             .task {
                 await purchasesManager.loadProducts()
-//                await purchasesManager.getLifetimeStatus()
                                 
                 do {
                     try await userRepository.loginWithToken()
