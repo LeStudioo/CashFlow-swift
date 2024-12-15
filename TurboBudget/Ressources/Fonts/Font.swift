@@ -22,10 +22,12 @@ extension Font {
     }
     struct Body {
         static let bold: Font = Font.custom(nameFontBold, size: 16)
+        static let semibold: Font = Font.custom(nameFontSemiBold, size: 16)
     }
     struct Text {
         static let semibold: Font = Font.custom(nameFontSemiBold, size: 14)
         static let medium: Font = Font.custom(nameFontMedium, size: 14)
+        static let regular: Font = Font.custom(nameFontRegular, size: 14)
     }
     struct Caption {
         static let medium: Font = Font.custom(nameFontMedium, size: 12)

@@ -49,6 +49,16 @@ struct AccountDashboardView: View {
                     DashboardChart()
                 }
                 
+                NavigationButton(push: router.pushAccountStatistics()) {
+                    DashboardRow(
+                        config: .init(
+                            style: .row,
+                            icon: "chart.xyaxis.line",
+                            text: "TBL Statistics"
+                        )
+                    )
+                }
+                
                 NavigationButton(push: router.pushAllSavingsAccount()) {
                     DashboardRow(
                         config: .init(

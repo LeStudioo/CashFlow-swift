@@ -118,6 +118,24 @@
 
 "temporality_in_two_days" = "en 2 dias";
 
+"temporality_week" = "Semana";
+
+"temporality_month" = "Mes";
+
+"temporality_year" = "Año";
+
+"temporality_this_week" = "Esta semana";
+
+"temporality_last_week" = "La semana pasada";
+
+"temporality_this_month" = "este mes";
+
+"temporality_last_month" = "Mes pasado";
+
+"temporality_this_year" = "este año";
+
+"temporality_last_year" = "El año pasado";
+
 //MARK: - Create
 "create_add_category" = "Añadir una categoría";
 
@@ -348,9 +366,24 @@
 
 "creditcard_maxCard" = "Importe máximo alcanzado";
 
-"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta.";
+"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
 
 "creditcard_delete_title" = "Eliminar la tarjeta de crédito";
+
+//MARK: - Statistics
+"statistics_total" = "Total";
+
+"statistics_total_expenses" = "Total gastado";
+
+"statistics_total_incomes" = "Total ganado";
+
+"statistics_total_expenses_by_month" = "Gasto mensual promedio";
+
+"statistics_total_incomes_by_month" = "Ingreso mensual promedio";
+
+"statistics_total_expenses_by_week" = "Gasto semanal promedio";
+
+"statistics_total_incomes_by_week" = "Ingreso semanal promedio";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "eliminar mi cuenta";

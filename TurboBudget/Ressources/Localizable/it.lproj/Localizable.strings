@@ -118,6 +118,24 @@
 
 "temporality_in_two_days" = "Tra 2 giorni";
 
+"temporality_week" = "Settimana";
+
+"temporality_month" = "Mese";
+
+"temporality_year" = "Anno";
+
+"temporality_this_week" = "Questa settimana";
+
+"temporality_last_week" = "La settimana scorsa";
+
+"temporality_this_month" = "Questo mese";
+
+"temporality_last_month" = "Il mese scorso";
+
+"temporality_this_year" = "Quest'anno";
+
+"temporality_last_year" = "L'anno scorso";
+
 //MARK: - Create
 "create_add_category" = "Aggiungi una categoria";
 
@@ -143,7 +161,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Aggiorna abbonamento";
+"title_update_subscription" = "Abbonamento di aggiornamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -217,7 +235,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -282,7 +300,7 @@
 
 "whatsnew_security_title" = "Sicurezza dei dati";
 
-"whatsnew_security" = "La sicurezza dei dati è ora più importante e completa";
+"whatsnew_security" = "Oggi la sicurezza dei dati è più importante e completa";
 
 "whatsnew_ui_title" = "interfaccia utente";
 
@@ -293,7 +311,7 @@
 "whatsnew_edit" = "I piani di risparmio, le transazioni, gli abbonamenti, ecc. possono ora essere modificati dopo la creazione";
 
 //MARK: - Paywall
-"paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione dei tuoi soldi";
+"paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione del tuo denaro";
 
 //MARK: - Notifications
 "notifications_day_before" = "giorni prima";
@@ -351,6 +369,21 @@
 "creditcard_maxCard_message" = "È consentita una sola carta di credito per account";
 
 "creditcard_delete_title" = "Elimina la carta di credito";
+
+//MARK: - Statistics
+"statistics_total" = "Totale";
+
+"statistics_total_expenses" = "Totale speso";
+
+"statistics_total_incomes" = "Totale guadagnato";
+
+"statistics_total_expenses_by_month" = "Spesa media mensile";
+
+"statistics_total_incomes_by_month" = "Reddito medio mensile";
+
+"statistics_total_expenses_by_week" = "Spesa media settimanale";
+
+"statistics_total_incomes_by_week" = "Reddito medio settimanale";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Elimina il mio account";
@@ -464,7 +497,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 

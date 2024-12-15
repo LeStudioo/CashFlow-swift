@@ -81,6 +81,15 @@ struct Word {
         static let tomorrow: String = "temporality_tomorrow".localized
         static let twoDaysAgo: String = "temporality_two_days_ago".localized
         static let inTwoDays: String = "temporality_in_two_days".localized
+        static let week: String = "temporality_week".localized
+        static let month: String = "temporality_month".localized
+        static let year: String = "temporality_year".localized
+        static let thisWeek: String = "temporality_this_week".localized
+        static let lastWeek: String = "temporality_last_week".localized
+        static let thisMonth: String = "temporality_this_month".localized
+        static let lastMonth: String = "temporality_last_month".localized
+        static let thisYear: String = "temporality_this_year".localized
+        static let lastYear: String = "temporality_last_year".localized
     }
     
     struct Create {
@@ -297,6 +306,16 @@ struct Word {
         static let footer: String = "notifications_footer".localized
         static let willRemoved: String = "notifications_will_removed".localized
         static let willAdded: String = "notifications_will_added".localized
+    }
+    
+    struct Statistics {
+        static let total: String = "statistics_total".localized
+        static let totalExpenses: String = "statistics_total_expenses".localized
+        static let totalIncomes: String = "statistics_total_incomes".localized
+        static let totalExpensesByMonth: String = "statistics_total_expenses_by_month".localized
+        static let totalIncomesByMonth: String = "statistics_total_incomes_by_month".localized
+        static let totalExpensesByWeek: String = "statistics_total_expenses_by_week".localized
+        static let totalIncomesByWeek: String = "statistics_total_incomes_by_week".localized
     }
     
 }

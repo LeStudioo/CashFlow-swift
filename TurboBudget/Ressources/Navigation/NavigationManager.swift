@@ -47,6 +47,10 @@ class NavigationManager: Router {
         navigateTo(.accountDashboard)
     }
     
+    func pushAccountStatistics() {
+        navigateTo(.accountStatistics)
+    }
+    
     func pushSavingsAccountDetail(savingsAccount: AccountModel) {
         navigateTo(.savingsAccountDetail(savingsAccount: savingsAccount))
     }
@@ -229,6 +233,8 @@ private extension NavigationManager {
                 
             case .accountDashboard:
                 AccountDashboardView()
+            case .accountStatistics:
+                AccountStatisticsView()
             case .savingsAccountDetail(let savingsAccount):
                 SavingsAccountDetailView(savingsAccount: savingsAccount)
             case .allSavingsAccount:

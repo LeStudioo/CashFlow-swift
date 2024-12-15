@@ -118,6 +118,24 @@
 
 "temporality_in_two_days" = "In 2 Tagen";
 
+"temporality_week" = "Woche";
+
+"temporality_month" = "Monat";
+
+"temporality_year" = "Jahr";
+
+"temporality_this_week" = "Diese Woche";
+
+"temporality_last_week" = "Letzte Woche";
+
+"temporality_this_month" = "Diesen Monat";
+
+"temporality_last_month" = "Letzten Monat";
+
+"temporality_this_year" = "Dieses Jahr";
+
+"temporality_last_year" = "Letztes Jahr";
+
 //MARK: - Create
 "create_add_category" = "Fügen Sie eine Kategorie hinzu";
 
@@ -282,7 +300,7 @@
 
 "whatsnew_security_title" = "Datensicherheit";
 
-"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
+"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
 
@@ -351,6 +369,21 @@
 "creditcard_maxCard_message" = "Es ist nur eine Kreditkarte pro Konto zulässig";
 
 "creditcard_delete_title" = "Löschen Sie die Kreditkarte";
+
+//MARK: - Statistics
+"statistics_total" = "Gesamt";
+
+"statistics_total_expenses" = "Gesamtausgaben";
+
+"statistics_total_incomes" = "Insgesamt verdient";
+
+"statistics_total_expenses_by_month" = "Durchschnittliche monatliche Ausgaben";
+
+"statistics_total_incomes_by_month" = "Durchschnittliches monatliches Einkommen";
+
+"statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
+
+"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Mein Konto löschen";

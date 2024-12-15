@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum DashboardRowType {
+    case row, cell
+}
+
 struct DashboardRow: View {
     
     // builder
@@ -14,7 +18,7 @@ struct DashboardRow: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
+        if config.style == .row {
             HStack {
                 RoundedRectangle(cornerRadius: 12, style: .continuous)
                     .frame(width: 50, height: 50)
@@ -25,29 +29,58 @@ struct DashboardRow: View {
                             .foregroundStyle(Color.text)
                             .shadow(radius: 2, y: 2)
                     }
-                Spacer()
+                
+                Text(config.text)
+                    .font(.semiBoldText16())
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Image(systemName: "chevron.right")
                     .font(.system(size: 18, weight: .semibold))
             }
-                        
-            Text(config.text)
-                .font(.semiBoldText16())
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
-        }
-        .padding()
-        .foregroundStyle(Color.text)
-        .frame(maxWidth: .infinity)
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
-        }
-        .opacity(config.isLocked ? 0.4 : 1)
-        .overlay {
-            if config.isLocked {
-                Image(systemName: "lock.fill")
-                    .font(.system(size: 32, weight: .semibold))
+            .padding()
+            .foregroundStyle(Color.text)
+            .frame(maxWidth: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
+        } else {
+            VStack(alignment: .leading, spacing: 32) {
+                HStack {
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .frame(width: 50, height: 50)
+                        .foregroundStyle(Color.background200)
+                        .overlay {
+                            Image(systemName: config.icon)
+                                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                                .foregroundStyle(Color.text)
+                                .shadow(radius: 2, y: 2)
+                        }
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 18, weight: .semibold))
+                }
+                            
+                Text(config.text)
+                    .font(.semiBoldText16())
+                    .multilineTextAlignment(.leading)
+                    .lineLimit(2)
+            }
+            .padding()
+            .foregroundStyle(Color.text)
+            .frame(maxWidth: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
+            .opacity(config.isLocked ? 0.4 : 1)
+            .overlay {
+                if config.isLocked {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 32, weight: .semibold))
+                }
             }
         }
     } // body
@@ -56,6 +89,7 @@ struct DashboardRow: View {
 // MARK: - Configuration
 extension DashboardRow {
     struct Configuration {
+        var style: DashboardRowType = .cell
         var icon: String
         var text: String
         var isLocked: Bool = false

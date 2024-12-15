@@ -34,6 +34,7 @@ enum NavigationDirection: Identifiable {
     case savingPlansDetail(savingsPlan: SavingsPlanModel)
     
     case accountDashboard
+    case accountStatistics
     case allSavingsAccount
     case savingsAccountDetail(savingsAccount: AccountModel)
     case allBudgets
@@ -83,6 +84,7 @@ extension NavigationDirection: Equatable {
             (.createTransfer, .createTransfer),
             (.createCreditCard, .createCreditCard),
             (.accountDashboard, .accountDashboard),
+            (.accountStatistics, .accountStatistics),
             (.paywall, .paywall),
             (.whatsNew, .whatsNew),
             (.settings, .settings),

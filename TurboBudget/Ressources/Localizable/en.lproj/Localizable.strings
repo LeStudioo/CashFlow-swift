@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction Type";
+"word_typeOfTransaction" = "Transaction type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -117,6 +117,24 @@
 "temporality_two_days_ago" = "2 days ago";
 
 "temporality_in_two_days" = "In 2 days";
+
+"temporality_week" = "Week";
+
+"temporality_month" = "Month";
+
+"temporality_year" = "Year";
+
+"temporality_this_week" = "This week";
+
+"temporality_last_week" = "Last week";
+
+"temporality_this_month" = "This month";
+
+"temporality_last_month" = "Last month";
+
+"temporality_this_year" = "This year";
+
+"temporality_last_year" = "Last year";
 
 //MARK: - Create
 "create_add_category" = "Add a category";
@@ -351,6 +369,21 @@
 "creditcard_maxCard_message" = "Only one credit card per account is allowed";
 
 "creditcard_delete_title" = "Delete the credit card";
+
+//MARK: - Statistics
+"statistics_total" = "Total";
+
+"statistics_total_expenses" = "Total spent";
+
+"statistics_total_incomes" = "Total earned";
+
+"statistics_total_expenses_by_month" = "Average monthly expense";
+
+"statistics_total_incomes_by_month" = "Average monthly income";
+
+"statistics_total_expenses_by_week" = "Average weekly expense";
+
+"statistics_total_incomes_by_week" = "Average weekly income";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Delete my account";
