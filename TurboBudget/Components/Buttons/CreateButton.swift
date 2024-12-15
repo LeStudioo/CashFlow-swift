@@ -11,45 +11,33 @@ import SwiftUI
 struct CreateButton: View {
 
     // Builder
-    var action: () -> Void
-    var validate: Bool
+    var type: ValidationButtonType = .creation
+    var isActive: Bool
+    var action: () async -> Void
     
     @EnvironmentObject private var themeManager: ThemeManager
 
-    //MARK: - Body
+    // MARK: -
     var body: some View {
-        Button(action: action, label: {
-            ZStack {
-                Capsule()
-                    .foregroundStyle(themeManager.theme.color)
-                    .frame(height: isLittleIphone ? 50 : 60)
-                    .if(validate, transform: { view in
-                        view.shadow(color: themeManager.theme.color, radius: 8)
-                    })
-                HStack {
-                    Spacer()
-                    Text("word_create".localized)
-                        .font(.semiBoldCustom(size: 20))
-                        .foregroundStyle(.primary0)
-                    Spacer()
+        Button(action: {
+            Task { await action() }
+        }, label: {
+            Text(type == .creation ? Word.Classic.create : Word.Classic.edit)
+                .font(.semiBoldCustom(size: 20))
+                .foregroundStyle(.primary0)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(themeManager.theme.color)
                 }
-            }
         })
-        .disabled(!validate)
-        .opacity(validate ? 1 : 0.4)
-        .padding(.horizontal, 8)
-    }//END body
+        .disabled(!isActive)
+        .opacity(isActive ? 1 : 0.4)
+    } // body
+} // struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct CreateButton_Previews: PreviewProvider {
-    
-    static private var validate: Bool = false
-    
-    static var previews: some View {
-        CreateButton(action: {}, validate: validate)
-    }
+// MARK: - Preview
+#Preview {
+    CreateButton(type: .creation, isActive: true, action: {})
 }

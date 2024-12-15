@@ -38,7 +38,7 @@ struct TransactionTypePicker: View {
                 GeometryReader { geo in
                     let itemSize = (geo.size.width / 2)
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .foregroundStyle(Color.backgroundComponentSheet)
+                        .foregroundStyle(Color.background200)
                         .overlay(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
                                 .foregroundStyle(themeManager.theme.color)

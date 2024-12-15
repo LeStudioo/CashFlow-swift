@@ -35,7 +35,7 @@ struct CustomDatePicker: View {
                         .padding(8)
                         .background {
                             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(Color.componentInComponent)
+                                .fill(Color.background300)
                         }
                 })
                 .padding(8)
@@ -55,7 +55,7 @@ struct CustomDatePicker: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.backgroundComponentSheet)
+                    .fill(Color.background200)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

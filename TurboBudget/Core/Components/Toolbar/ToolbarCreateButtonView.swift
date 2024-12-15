@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-enum ValidationButtonType {
-    case creation
-    case edition
-}
-
 struct ToolbarValidationButtonView: ToolbarContent {
     
     // Builder

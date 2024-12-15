@@ -86,23 +86,21 @@ struct CreateAccountView: View {
         .scrollDismissesKeyboard(.immediately)
         .ignoresSafeArea(.keyboard)
         .overlay(alignment: .bottom) {
-            CreateButton( // TODO: Changer ce bouton et ajouter create ou update
-                action: {
-                    Task {
-                        if account != nil {
-                            await viewModel.updateAccount(dismiss: dismiss)
-                        } else {
-                            if let onboardingAction {
-                                await viewModel.createAccount()
-                                await onboardingAction()
-                            } else {
-                                await viewModel.createAccount(dismiss: dismiss)
-                            }
-                        }
+            CreateButton(
+                type: account == nil ? .creation : .edition,
+                isActive: viewModel.isAccountValid()
+            ) {
+                if account != nil {
+                    await viewModel.updateAccount(dismiss: dismiss)
+                } else {
+                    if let onboardingAction {
+                        await viewModel.createAccount()
+                        await onboardingAction()
+                    } else {
+                        await viewModel.createAccount(dismiss: dismiss)
                     }
-                },
-                validate: viewModel.isAccountValid()
-            )
+                }
+            }
             .padding(.bottom)
         }
         .padding(.horizontal, 24)

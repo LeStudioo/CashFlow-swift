@@ -37,7 +37,7 @@ struct FrequencyPicker: View {
                 GeometryReader { geo in
                     let itemSize = (geo.size.width / CGFloat(SubscriptionFrequency.allCases.count))
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .foregroundStyle(Color.backgroundComponentSheet)
+                        .foregroundStyle(Color.background200)
                         .overlay(alignment: .leading) {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
                                 .foregroundStyle(themeManager.theme.color)

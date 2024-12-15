@@ -179,7 +179,7 @@ struct SelectCategoryView: View {
             Spacer()
         }
         .padding(.horizontal, 12).padding(.vertical, 16)
-        .background(Color.componentInComponent)
+        .background(Color.background300)
         .cornerRadius(15)
     }
     
@@ -202,7 +202,7 @@ struct SelectCategoryView: View {
             Spacer()
         }
         .padding(.horizontal, 12).padding(.vertical, 16)
-        .background(Color.componentInComponent)
+        .background(Color.background300)
         .cornerRadius(15)
     }
     

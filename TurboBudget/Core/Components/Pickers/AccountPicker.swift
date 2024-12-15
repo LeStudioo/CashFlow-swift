@@ -35,7 +35,7 @@ struct AccountPicker: View {
             })
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .foregroundStyle(Color.backgroundComponentSheet)
+                    .foregroundStyle(Color.background200)
             }
         }
     } // body

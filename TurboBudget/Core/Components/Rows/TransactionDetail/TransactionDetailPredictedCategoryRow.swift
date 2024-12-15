@@ -37,7 +37,7 @@ struct TransactionDetailPredictedCategoryRow: View {
                         .padding(6)
                         .background {
                             Circle()
-                                .fill(Color.componentInComponent)
+                                .fill(Color.background300)
                         }
                     Text("transaction_recommended_category".localized)
                         .font(.mediumText16())

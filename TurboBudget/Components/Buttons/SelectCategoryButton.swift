@@ -53,7 +53,7 @@ struct SelectCategoryButton: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background {
                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(selectedCategory?.color ?? Color.backgroundComponentSheet)
+                        .fill(selectedCategory?.color ?? Color.background200)
                 }
             }
         }

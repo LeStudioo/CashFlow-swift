@@ -31,7 +31,7 @@ struct IntTextField: View {
                     .padding(.trailing, 14)
                     .background {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(Color.backgroundComponentSheet)
+                            .fill(Color.background200)
                     }
             }
         }

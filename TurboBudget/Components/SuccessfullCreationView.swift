@@ -55,7 +55,7 @@ struct SuccessfullCreationView: View {
                 .frame(maxWidth: .infinity)
                 .padding(24)
                 .padding(.vertical, 8)
-                .background(Color.componentInComponent)
+                .background(Color.background300)
                 .clipShape(RoundedRectangle(cornerRadius: UIScreen.main.displayCornerRadius, style: .continuous))
                 .transition(.move(edge: .bottom))
                 .padding(4)

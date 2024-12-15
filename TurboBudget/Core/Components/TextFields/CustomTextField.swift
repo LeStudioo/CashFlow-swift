@@ -42,7 +42,7 @@ struct CustomTextField: View {
                             topTrailingRadius: config.style == .amount ? 0 : 16,
                             style: .continuous
                         )
-                        .fill(Color.backgroundComponentSheet)
+                        .fill(Color.background200)
                     }
                 
                 if config.style == .amount {
@@ -57,7 +57,7 @@ struct CustomTextField: View {
                                 topTrailingRadius: 16,
                                 style: .continuous
                             )
-                            .fill(Color.backgroundComponentSheet)
+                            .fill(Color.background200)
                         }
                 }
             }

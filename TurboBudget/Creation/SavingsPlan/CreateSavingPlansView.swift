@@ -60,7 +60,7 @@ struct CreateSavingPlansView: View {
                                 .padding(15)
                                 .background {
                                     RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                        .fill(Color.backgroundComponentSheet)
+                                        .fill(Color.background200)
                                 }
                         })
                         .emojiPicker(
