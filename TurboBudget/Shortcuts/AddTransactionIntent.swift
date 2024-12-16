@@ -91,24 +91,10 @@ struct AddTransactionIntent: AppIntent {
             dateISO: Date().toISO(),
             categoryID: 0,
             isFromApplePay: true,
-            nameFromApplePay: title
+            nameFromApplePay: title,
+            autoCat: PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled
         )
-        
-        if PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled {
-            let purchasesManager = await PurchasesManager()
-            await purchasesManager.loadProducts()
-            await purchasesManager.updatePurchasedProducts()
-            
-            if await purchasesManager.isCashFlowPro {
-                if let response = await TransactionRepository.shared.fetchCategory(name: title) {
-                    body.categoryID = response.cat ?? 0
-                    if let subcategoryID = response.sub {
-                        body.subcategoryID = subcategoryID
-                    }
-                }
-            }
-        }
-        
+                
         do {
             try await userRepository.loginWithToken()
             await accountRepository.fetchAccounts()

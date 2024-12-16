@@ -36,6 +36,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     @Published var isFromSubscription: Bool?
     @Published var isFromApplePay: Bool?
     @Published var nameFromApplePay: String?
+    @Published var autoCat: Bool?
     
     @Published var senderAccountID: Int?
     @Published var receiverAccountID: Int?
@@ -53,6 +54,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         isFromSubscription: Bool? = nil,
         isFromApplePay: Bool? = nil,
         nameFromApplePay: String? = nil,
+        autoCat: Bool? = nil,
         note: String? = nil
     ) {
         self.id = id
@@ -66,6 +68,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.isFromSubscription = isFromSubscription
         self.isFromApplePay = isFromApplePay
         self.nameFromApplePay = nameFromApplePay
+        self.autoCat = autoCat
         self.note = note
     }
     
@@ -111,7 +114,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
     
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID, note
+        case id, amount, creationDate, categoryID, subcategoryID, isFromSubscription, isFromApplePay, nameFromApplePay, senderAccountID, receiverAccountID, note, autoCat
         case _name = "name"
         case typeNum = "type"
         case dateISO = "date"
@@ -129,6 +132,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
         isFromSubscription = try container.decodeIfPresent(Bool.self, forKey: .isFromSubscription)
         isFromApplePay = try container.decodeIfPresent(Bool.self, forKey: .isFromApplePay)
+        autoCat = try container.decodeIfPresent(Bool.self, forKey: .autoCat)
         nameFromApplePay = try container.decodeIfPresent(String.self, forKey: .nameFromApplePay)
         senderAccountID = try container.decodeIfPresent(Int.self, forKey: .senderAccountID)
         receiverAccountID = try container.decodeIfPresent(Int.self, forKey: .receiverAccountID)
@@ -148,6 +152,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(isFromSubscription, forKey: .isFromSubscription)
         try container.encodeIfPresent(isFromApplePay, forKey: .isFromApplePay)
         try container.encodeIfPresent(nameFromApplePay, forKey: .nameFromApplePay)
+        try container.encodeIfPresent(autoCat, forKey: .autoCat)
         try container.encodeIfPresent(senderAccountID, forKey: .senderAccountID)
         try container.encodeIfPresent(receiverAccountID, forKey: .receiverAccountID)
         try container.encodeIfPresent(note, forKey: .note)
@@ -166,6 +171,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         lhs.isFromSubscription == rhs.isFromSubscription &&
         lhs.isFromApplePay == rhs.isFromApplePay &&
         lhs.nameFromApplePay == rhs.nameFromApplePay &&
+        lhs.autoCat == rhs.autoCat &&
         lhs.senderAccountID == rhs.senderAccountID &&
         lhs.receiverAccountID == rhs.receiverAccountID &&
         lhs.note == rhs.note
@@ -184,6 +190,7 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         hasher.combine(isFromSubscription)
         hasher.combine(isFromApplePay)
         hasher.combine(nameFromApplePay)
+        hasher.combine(autoCat)
         hasher.combine(senderAccountID)
         hasher.combine(receiverAccountID)
         hasher.combine(note)

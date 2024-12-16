@@ -16,6 +16,7 @@ final class AccountRepository: ObservableObject {
     @Published var selectedAccount: AccountModel? = nil
     
     @Published var cashflow: [Double] = []
+    @Published var stats: StatisticsModel? = nil
     
     var allAccounts: [AccountModel] {
         return accounts + savingsAccounts
@@ -113,6 +114,17 @@ extension AccountRepository {
             )
             self.cashflow = results
         } catch { NetworkService.handleError(error: error) }
+    }
+    
+    @MainActor
+    func fetchStats(accountID: Int) async {
+        do {
+            let results = try await NetworkService.shared.sendRequest(
+                apiBuilder: AccountAPIRequester.stats(accountID: accountID),
+                responseModel: StatisticsModel.self
+            )
+            self.stats = results
+        } catch  { NetworkService.handleError(error: error) }
     }
 }
 

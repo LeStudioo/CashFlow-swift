@@ -35,6 +35,9 @@ struct NetworkPath {
         static func cashflow(id: Int, year: Int) -> String {
             return "/account/\(id)/cashflow/\(year)"
         }
+        static func stats(id: Int) -> String {
+            return "/account/\(id)/stats"
+        }
     }
     
     struct Transaction {
