@@ -49,6 +49,7 @@ struct Word {
         static let disconnect: String = "word_disconnect".localized
         static let delete: String = "word_delete".localized
         static let deleteAccount: String = "word_delete_account".localized
+        static let statistics: String = "word_statistics".localized
     }
     
     struct AppIntent {

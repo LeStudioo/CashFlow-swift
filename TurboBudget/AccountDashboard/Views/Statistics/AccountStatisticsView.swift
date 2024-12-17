@@ -62,6 +62,7 @@ struct AccountStatisticsView: View {
                 .padding()
             }
         } // ScrollView
+        .background(Color.background)
         .task {
             if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
                 await accountRepository.fetchStats(accountID: accountID)
