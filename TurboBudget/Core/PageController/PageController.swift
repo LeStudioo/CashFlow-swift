@@ -67,7 +67,7 @@ struct PageControllerView: View {
                     CustomTabBar()
                 }
                 .sheet(isPresented: $pageControllerVM.showOnboarding) {
-                    OnboardingView().interactiveDismissDisabled()
+                    OnboardingView()
                 }
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(.keyboard)
@@ -82,15 +82,12 @@ struct PageControllerView: View {
             if accountRepository.mainAccount != nil && !preferencesGeneral.isAlreadyOpen {
                 pageControllerVM.showOnboarding = false
                 preferencesGeneral.isAlreadyOpen = true
+            } else if !preferencesGeneral.isAlreadyOpen {
+                pageControllerVM.showOnboarding = true
             }
             
             // LaunchScreen ended and no data in iCloud
             if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
-                // First open + no data in iCloud
-                if !preferencesGeneral.isAlreadyOpen && accountRepo.mainAccount == nil {
-                    pageControllerVM.showOnboarding.toggle()
-                    // First open + no iCloud
-                }
                 // Already open + app close
                 if !UserDefaults.standard.bool(forKey: "appIsOpen") && preferencesGeneral.isAlreadyOpen {
                     if preferencesSecurity.isBiometricEnabled {

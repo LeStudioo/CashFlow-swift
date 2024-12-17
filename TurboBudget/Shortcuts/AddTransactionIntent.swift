@@ -104,7 +104,6 @@ struct AddTransactionIntent: AppIntent {
             
             let amountString: String = extractNumberString(from: amount)
             let currencySymbol: String = Locale.current.currencySymbol ?? ""
-            let title: String = title
             
             let formatString = "shortcut_result".localized
             let formattedText = String(format: formatString, amountString, currencySymbol, title)

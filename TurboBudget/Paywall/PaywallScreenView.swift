@@ -12,12 +12,13 @@ struct PaywallScreenView: View {
     
     // EnvironmentObject
     @EnvironmentObject private var store: PurchasesManager
+    var isXmarkPresented: Bool = true
 
     // MARK: -
     var body: some View {
         NavigationStack {
             VStack {
-                PaywallHeader()
+                PaywallHeader(isXmarkPresented: isXmarkPresented)
                     .padding()
                 
                 ScrollView {

@@ -13,6 +13,7 @@ struct OnboardingView: View {
     
     // Environnement
     @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.dismiss) private var dismiss
     
     // Repo
     @EnvironmentObject private var accountRepository: AccountRepository
@@ -70,14 +71,28 @@ struct OnboardingView: View {
                 CreateAccountView(type: .classic) {
                     actualPage += 1
                     await accountRepository.fetchAccounts()
-                    preferencesGeneral.isAlreadyOpen = true
+//                    preferencesGeneral.isAlreadyOpen = true
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }.tag(5)
                 
-                PaywallScreenView()
+                PaywallScreenView(isXmarkPresented: false)
                     .tag(6)
+                    .overlay(alignment: .topTrailing) {
+                        Button(action: { dismiss() }, label: {
+                            Circle()
+                                .frame(width: 26, height: 26)
+                                .foregroundStyle(.background200)
+                                .overlay {
+                                    Image(systemName: "xmark")
+                                        .font(.system(size: 12, weight: .bold))
+                                        .foregroundStyle(Color.text)
+                                }
+                        })
+                        .padding()
+                    }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+            .interactiveDismissDisabled(actualPage < 6)
             
             if actualPage < 5 {
                 Button {

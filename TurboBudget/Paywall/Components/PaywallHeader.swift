@@ -10,6 +10,7 @@ import SwiftUI
 struct PaywallHeader: View {
     
     @Environment(\.dismiss) private var dismiss
+    var isXmarkPresented: Bool = true
     
     // MARK: -
     var body: some View {
@@ -23,16 +24,18 @@ struct PaywallHeader: View {
             Spacer()
         }
         .overlay(alignment: .trailing) {
-            Button(action: { dismiss() }, label: {
-                Circle()
-                    .frame(width: 26, height: 26)
-                    .foregroundStyle(.background200)
-                    .overlay {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundStyle(Color.text)
-                    }
-            })
+            if isXmarkPresented {
+                Button(action: { dismiss() }, label: {
+                    Circle()
+                        .frame(width: 26, height: 26)
+                        .foregroundStyle(.background200)
+                        .overlay {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundStyle(Color.text)
+                        }
+                })
+            }
         }
     } // body
 } // struct

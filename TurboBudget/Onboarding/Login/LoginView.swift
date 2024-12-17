@@ -6,8 +6,11 @@
 //
 
 import SwiftUI
+import AuthenticationServices
 
 struct LoginView: View {
+    
+    @Environment(\.colorScheme) private var colorScheme
     
     private let signInWithAppleManager: SignInWithAppleManager = .init()
     private let signInWithGoogleManager: SignInWithGoogleManager = .init()
@@ -40,13 +43,47 @@ struct LoginView: View {
                     action: { signInWithGoogleManager.signIn() }
                 )
                 
-                SignInButton(
-                    config: .init(
-                        icon: .appleLogo,
-                        title: "login_apple".localized
-                    ),
-                    action: { signInWithAppleManager.performSignIn() }
-                )
+                SignInWithAppleButton(.continue) { request in
+                    request.requestedScopes = [.fullName, .email]
+                } onCompletion: { result in
+                    switch result {
+                    case .success(let authResults):
+                        if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
+                            if let appleIDToken = credential.identityToken, let idTokenString = String(data: appleIDToken, encoding: .utf8) {
+                                Task {
+                                    let user = try await NetworkService.shared.sendRequest(
+                                        apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
+                                        responseModel: UserModel.self
+                                    )
+                                    
+                                    if let token = user.token, let refreshToken = user.refreshToken {
+                                        TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
+                                        UserRepository.shared.currentUser = user
+                                        
+                                        do {
+                                            AppManager.shared.viewState = .syncing
+                                            try await DataForServer.shared.syncOldDataToServer()
+                                            PersistenceController.clearOldDatabase()
+                                            AppManager.shared.viewState = .success
+                                        } catch {
+                                            AppManager.shared.viewState = .notSynced
+                                        }
+                                    }
+                                }
+                            } else {
+                                AppManager.shared.viewState = .failed
+                            }
+                        } else {
+                            AppManager.shared.viewState = .failed
+                        }
+                    case .failure(let error):
+                        print("Authorisation failed: \(error.localizedDescription)")
+                    }
+                }
+                // black button
+                .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .frame(height: 48)
             }
         }
         .padding(.horizontal)
