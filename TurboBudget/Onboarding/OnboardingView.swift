@@ -71,7 +71,7 @@ struct OnboardingView: View {
                 CreateAccountView(type: .classic) {
                     actualPage += 1
                     await accountRepository.fetchAccounts()
-//                    preferencesGeneral.isAlreadyOpen = true
+                    preferencesGeneral.isAlreadyOpen = true
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }.tag(5)
                 

@@ -43,7 +43,7 @@ struct LoginView: View {
                     action: { signInWithGoogleManager.signIn() }
                 )
                 
-                SignInWithAppleButton(.continue) { request in
+                SignInWithAppleButton(.signIn) { request in
                     request.requestedScopes = [.fullName, .email]
                 } onCompletion: { result in
                     switch result {
