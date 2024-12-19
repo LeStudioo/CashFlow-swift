@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertKit
 
 struct SavingsAccountHomeView: View {
     
@@ -73,7 +74,7 @@ struct SavingsAccountHomeView: View {
                     if purchaseManager.isCashFlowPro || accountRepository.savingsAccounts.isEmpty {
                         router.presentCreateAccount(type: .savings)
                     } else {
-                        alertManager.showPaywall()
+                        alertManager.showPaywall(router: router)
                     }
                 } label: {
                     Image(systemName: "plus")

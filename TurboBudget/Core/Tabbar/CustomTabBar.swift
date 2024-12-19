@@ -8,6 +8,7 @@
 
 
 import SwiftUI
+import AlertKit
 
 struct CustomTabBar: View {
     
@@ -51,7 +52,7 @@ struct CustomTabBar: View {
                         .disabled(!store.isCashFlowPro || !creditCardRepository.creditCards.isEmpty)
                         .onTapGesture {
                             if !store.isCashFlowPro {
-                                alertManager.showPaywall()
+                                alertManager.showPaywall(router: router)
                             } else if !creditCardRepository.creditCards.isEmpty {
                                 alertManager.onlyOneCreditCardByAccount()
                             }
@@ -65,7 +66,7 @@ struct CustomTabBar: View {
                         .disabled(!accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro)
                         .onTapGesture {
                             if !accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro {
-                                alertManager.showPaywall()
+                                alertManager.showPaywall(router: router)
                             }
                         }
                         
@@ -89,7 +90,7 @@ struct CustomTabBar: View {
                         .disabled(!store.isCashFlowPro)
                         .onTapGesture {
                             if !store.isCashFlowPro {
-                                alertManager.showPaywall()
+                                alertManager.showPaywall(router: router)
                             }
                         }
                         

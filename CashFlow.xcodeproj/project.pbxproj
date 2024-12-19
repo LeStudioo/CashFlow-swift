@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8129E7502A483A7400FF23E5 /* ConfettiSwiftUI */; };
 		81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 81D990B32A49F03000EF13A3 /* SwipeActions */; };
+		D912D00A2D140523006DF5DC /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = D912D0092D140523006DF5DC /* AlertKit */; };
 		D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF72CE63B4100194630 /* GoogleSignIn */; };
 		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
@@ -41,6 +42,7 @@
 			files = (
 				D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */,
 				D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */,
+				D912D00A2D140523006DF5DC /* AlertKit in Frameworks */,
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
 				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
@@ -101,6 +103,7 @@
 				D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */,
 				D9300BF72CE63B4100194630 /* GoogleSignIn */,
 				D9300BF92CE63B4100194630 /* GoogleSignInSwift */,
+				D912D0092D140523006DF5DC /* AlertKit */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -139,6 +142,7 @@
 				81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
 				D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -427,6 +431,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theosementa/AlertKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -455,6 +467,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */;
 			productName = SwipeActions;
+		};
+		D912D0092D140523006DF5DC /* AlertKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */;
+			productName = AlertKit;
 		};
 		D9300BF72CE63B4100194630 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

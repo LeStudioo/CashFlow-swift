@@ -1,6 +1,15 @@
 {
-  "originHash" : "2e07fe2aa23dc2f670379ffdc0266825b3021f811331ebec6ed0445eab384fc4",
+  "originHash" : "21259a169b29fbe51da9fabcee205006299d1a399c9ea2506798e56249fe731b",
   "pins" : [
+    {
+      "identity" : "alertkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/AlertKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "b421dd1a1c5782009b98cdabfb64330762b06ebc"
+      }
+    },
     {
       "identity" : "app-check",
       "kind" : "remoteSourceControl",

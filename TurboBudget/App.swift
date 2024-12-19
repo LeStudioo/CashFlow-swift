@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertKit
 
 @main
 struct TurboBudgetApp: App {
@@ -14,10 +15,10 @@ struct TurboBudgetApp: App {
     @StateObject private var appManager: AppManager = .shared
     @StateObject private var csManager = ColorSchemeManager()
     @StateObject private var purchasesManager = PurchasesManager()
-    @StateObject private var alertManager: AlertManager
+    @StateObject private var alertManager: AlertManager = .shared
     @StateObject private var themeManager: ThemeManager = .shared
     @StateObject private var modalManager: ModalManager = .shared
-    @StateObject private var router: NavigationManager
+    @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.pageController))
     
     // New Repository
     @StateObject private var userRepository: UserRepository = .shared
@@ -52,9 +53,6 @@ struct TurboBudgetApp: App {
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
         UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
-        let initialRouter = NavigationManager(isPresented: .constant(.pageController))
-        self._router = StateObject(wrappedValue: initialRouter)
-        self._alertManager = StateObject(wrappedValue: AlertManager(router: initialRouter))
     }
     
     // MARK: -
@@ -150,22 +148,7 @@ struct TurboBudgetApp: App {
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
             }
-            .alert(alertManager.alert?.title ?? "", isPresented: $alertManager.isPresented, actions: {
-                Button(role: .cancel, action: {
-                    alertManager.isPresented = false
-                }, label: {
-                    Text("word_cancel".localized)
-                })
-                Button(role: (alertManager.alert?.actionButton?.isDestructive ?? false) ? .destructive : nil, action: {
-                    Task {
-                        await alertManager.alert?.actionButton?.action()
-                    }
-                }, label: {
-                    Text(alertManager.alert?.actionButton?.title ?? "word_ok".localized)
-                })
-            }, message: {
-                Text(alertManager.alert?.message ?? "")
-            })
+            .alert(alertManager)
             .sheet(isPresented: $modalManager.isPresented, onDismiss: { modalManager.isPresented = false }) {
                 if let view = modalManager.content {
                     AnyView(view)

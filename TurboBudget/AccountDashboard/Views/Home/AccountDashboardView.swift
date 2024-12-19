@@ -7,6 +7,7 @@
 // Localizations 01/10/2023
 
 import SwiftUI
+import AlertKit
 
 struct AccountDashboardView: View {
     
@@ -37,7 +38,7 @@ struct AccountDashboardView: View {
                             .font(Font.mediumText16())
                             .foregroundStyle(Color.customGray)
                         
-                        Text(currencySymbol + " " + account.balance.formatWith(2))
+                        Text(account.balance.toCurrency())
                             .titleAdjustSize()
                     }
                     .padding(.vertical, 12)
@@ -114,7 +115,7 @@ struct AccountDashboardView: View {
                     .disabled(!store.isCashFlowPro)
                     .onTapGesture {
                         if !store.isCashFlowPro {
-                            alertManager.showPaywall()
+                            alertManager.showPaywall(router: router)
                         }
                     }
                 })

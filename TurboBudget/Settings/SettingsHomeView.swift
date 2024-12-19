@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AlertKit
 
 struct SettingsHomeView: View {
     
