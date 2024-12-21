@@ -9,12 +9,16 @@
 
 import SwiftUI
 import CoreData
+import StoreKit
 
 struct HomeView: View {
         
     @EnvironmentObject private var modalManager: ModalManager
     
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
+    
+    // Environment
+    @Environment(\.requestReview) private var requestReview
     
     // MARK: -
     var body: some View {
@@ -45,6 +49,12 @@ struct HomeView: View {
             preferencesGeneral.numberOfOpenings += 1
             if (preferencesGeneral.numberOfOpenings / 6 == 1) && !preferencesGeneral.isApplePayEnabled {
                 modalManager.presentTipApplePayShortcut()
+            }
+            if preferencesGeneral.numberOfOpenings > 8 && !preferencesGeneral.isReviewPopupPresented {
+                Task { @MainActor in
+                    preferencesGeneral.isReviewPopupPresented = true
+                    requestReview()
+                }
             }
         }
     } // body

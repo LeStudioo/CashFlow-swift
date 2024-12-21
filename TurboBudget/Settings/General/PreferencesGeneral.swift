@@ -16,6 +16,9 @@ final class PreferencesGeneral: ObservableObject {
     @CustomUserDefault("PreferencesGeneral_numberOfOpenings", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
     var numberOfOpenings: Int
     
+    @CustomUserDefault("PreferencesGeneral_isReviewPopupPresented", defaultValue: false) // PreferencesGeneral_isReviewPopupPresented
+    var isReviewPopupPresented: Bool
+    
     @CustomUserDefault("alreadyOpen", defaultValue: false) // PreferencesGeneral_isAlreadyOpen
     var isAlreadyOpen: Bool
     
