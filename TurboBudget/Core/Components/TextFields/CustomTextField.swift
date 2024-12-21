@@ -46,7 +46,7 @@ struct CustomTextField: View {
                     }
                 
                 if config.style == .amount {
-                    Text(currencySymbol)
+                    Text(UserCurrency.symbol)
                         .padding(.vertical, 14)
                         .padding(.trailing)
                         .background {

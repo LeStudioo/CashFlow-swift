@@ -18,7 +18,7 @@ struct SavingsAccountInfos: View {
     var body: some View {
         VStack(spacing: 12) {
             DetailRow(
-                icon: "\(currencyName)sign",
+                icon: "\(UserCurrency.name)sign",
                 text: Word.Classic.currentAmount,
                 value: savingsAccount.balance.toCurrency()
             )

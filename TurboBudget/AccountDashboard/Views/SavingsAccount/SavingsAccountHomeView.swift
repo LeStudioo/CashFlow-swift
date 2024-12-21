@@ -40,11 +40,9 @@ struct SavingsAccountHomeView: View {
                     Text(Word.SavingsAccount.totalSavings)
                         .font(Font.mediumText16())
                         .foregroundStyle(Color.customGray)
-                    HStack {
-                        Text(currencySymbol)
-                        Text(totalSavings.toCurrency())
-                    }
-                    .font(.boldH1())
+                    
+                    Text(totalSavings.toCurrency())
+                        .font(.boldH1())
                 }
                 .padding(.vertical, 12)
                 

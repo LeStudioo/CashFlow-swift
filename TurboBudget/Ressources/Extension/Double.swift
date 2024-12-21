@@ -37,22 +37,22 @@ func formatNumber(_ n: Double) -> String {
     case 1_000_000_000...:
         var formatted = num / 1_000_000_000
         formatted = formatted.reduceScale(to: 1)
-        return "\(sign)\(currencySymbol)\(formatted)B"
+        return "\(sign)\(UserCurrency.symbol)\(formatted)B"
         
     case 1_000_000...:
         var formatted = num / 1_000_000
         formatted = formatted.reduceScale(to: 1)
-        return "\(sign)\(currencySymbol)\(formatted)M"
+        return "\(sign)\(UserCurrency.symbol)\(formatted)M"
         
     case 1_000...:
         var formatted = num / 1_000
         formatted = formatted.reduceScale(to: 1)
-        return "\(sign)\(currencySymbol)\(formatted)K"
+        return "\(sign)\(UserCurrency.symbol)\(formatted)K"
         
     case 0...:
-        return currencySymbol + String(format: "%.1f", n)
+        return UserCurrency.symbol + String(format: "%.1f", n)
         
     default:
-        return sign + currencySymbol + String(format: "%.1f", n)
+        return sign + UserCurrency.symbol + String(format: "%.1f", n)
     }
 }

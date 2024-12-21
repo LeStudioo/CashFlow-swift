@@ -47,7 +47,7 @@ struct TransferRow: View {
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
-                        Text(Locale.current.currencySymbol ?? "$")
+                        Text(UserCurrency.symbol)
                             .foregroundStyle(Color(uiColor: .systemBackground))
                     }
                 
