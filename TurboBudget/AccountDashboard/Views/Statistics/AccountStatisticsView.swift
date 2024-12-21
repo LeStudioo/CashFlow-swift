@@ -16,49 +16,126 @@ struct AccountStatisticsView: View {
         ScrollView {
             if let stats = accountRepository.stats {
                 VStack(spacing: 24) {
-                    if let week = stats.week {
+                    if let week = stats.week, let year = stats.year {
                         StatisticsSection(title: Word.Temporality.week) {
-                            StatisticsCell(
-                                title: "TBL Dépenses et Revenus totaux",
-                                statistics: [
-                                    .init(text: "TBL Total expense", value: week.totalExpense ?? 0),
-                                    .init(text: "TBL Total income", value: week.totalIncome ?? 0),
-                                    .init(text: "TBL Average expense", value: week.averageExpense ?? 0),
-                                    .init(text: "TBL Average income", value: week.averageIncome ?? 0),
-                                ]
-                            )
+                            VStack(spacing: 20) {
+                                StatisticsCell(
+                                    title: "TBL Total dépensé",
+                                    statistics: [
+                                        .init(text: "TBL Cette semaine", value: week.expense?.thisWeek ?? 0),
+                                        .init(text: "TBL La semaine dernière", value: week.expense?.lastWeek ?? 0),
+                                    ]
+                                )
+                                StatisticsCell(
+                                    title: "TBL Total gagné",
+                                    statistics: [
+                                        .init(text: "TBL Cette semaine", value: week.income?.thisWeek ?? 0),
+                                        .init(text: "TBL La semaine dernière", value: week.income?.lastWeek ?? 0),
+                                    ]
+                                )
+                            }
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                    .fill(Color.background100)
+                            }
+                            
+                            VStack(spacing: 20) {
+                                StatisticsCell(
+                                    title: "TBL Dépensé par semaine en moyenne",
+                                    statistics: [
+                                        .init(text: "TBL Cette année", value: ((year.expense?.thisYear ?? 0) / Double(Date().week))),
+                                        .init(text: "TBL L'année dernière", value: ((year.expense?.lastYear ?? 0) / 52)),
+                                    ]
+                                )
+                                StatisticsCell(
+                                    title: "TBL Revenu par semaine en moyenne",
+                                    statistics: [
+                                        .init(text: "TBL Cette année", value: ((year.income?.thisYear ?? 0) / Double(Date().week))),
+                                        .init(text: "TBL L'année dernière", value: ((year.income?.lastYear ?? 0) / 52)),
+                                    ]
+                                )
+                            }
+                            .padding()
+                            .background {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                    .fill(Color.background100)
+                            }
+                        }
+                        
+                        if let month = stats.month {
+                            StatisticsSection(title: Word.Temporality.month) {
+                                VStack(spacing: 20) {
+                                    StatisticsCell(
+                                        title: "TBL Total dépensé",
+                                        statistics: [
+                                            .init(text: "TBL Ce mois-ci", value: month.expense?.thisMonth ?? 0),
+                                            .init(text: "TBL Le mois dernier", value: month.expense?.lastMonth ?? 0),
+                                        ]
+                                    )
+                                    StatisticsCell(
+                                        title: "TBL Total gagné",
+                                        statistics: [
+                                            .init(text: "TBL Ce mois-ci", value: month.income?.thisMonth ?? 0),
+                                            .init(text: "TBL Le mois dernier", value: month.income?.lastMonth ?? 0),
+                                        ]
+                                    )
+                                }
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                        .fill(Color.background100)
+                                }
+                                
+                                VStack(spacing: 20) {
+                                    StatisticsCell(
+                                        title: "TBL Dépensé par mois en moyenne",
+                                        statistics: [
+                                            .init(text: "TBL Ce mois-ci", value: ((year.expense?.thisYear ?? 0) / Double(Date().month))),
+                                            .init(text: "TBL L'année dernière", value: ((year.expense?.lastYear ?? 0) / 12)),
+                                        ]
+                                    )
+                                    StatisticsCell(
+                                        title: "TBL Revenu par mois en moyenne",
+                                        statistics: [
+                                            .init(text: "TBL Ce mois-ci", value: ((year.income?.thisYear ?? 0) / Double(Date().month))),
+                                            .init(text: "TBL L'année dernière", value: ((year.income?.lastYear ?? 0) / 12))
+                                        ]
+                                    )
+                                }
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                        .fill(Color.background100)
+                                }
+                            }
+                            
+                            StatisticsSection(title: Word.Temporality.year) {
+                                VStack(spacing: 20) {
+                                    StatisticsCell(
+                                        title: "TBL Total dépensé",
+                                        statistics: [
+                                            .init(text: "TBL Cette année", value: year.expense?.thisYear ?? 0),
+                                            .init(text: "TBL L'année dernière", value: year.expense?.lastYear ?? 0),
+                                        ]
+                                    )
+                                    StatisticsCell(
+                                        title: "TBL Total gagné",
+                                        statistics: [
+                                            .init(text: "TBL Cette année", value: year.income?.thisYear ?? 0),
+                                            .init(text: "TBL L'année dernièr", value: year.income?.lastYear ?? 0),
+                                        ]
+                                    )
+                                }
+                                .padding()
+                                .background {
+                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                        .fill(Color.background100)
+                                }
+                            }
                         }
                     }
-                    
-                    
-                    if let month = stats.month {
-                        StatisticsSection(title: Word.Temporality.month) {
-                            StatisticsCell(
-                                title: "TBL Dépenses et Revenus totaux",
-                                statistics: [
-                                    .init(text: "TBL Total expense", value: month.totalExpense ?? 0),
-                                    .init(text: "TBL Total income", value: month.totalIncome ?? 0),
-                                    .init(text: "TBL Average expense", value: month.averageExpense ?? 0),
-                                    .init(text: "TBL Average income", value: month.averageIncome ?? 0),
-                                ]
-                            )
-                        }
-                    }
-                    
-                    if let year = stats.year {
-                        StatisticsSection(title: Word.Temporality.year) {
-                            StatisticsCell(
-                                title: "TBL Dépenses et Revenus totaux",
-                                statistics: [
-                                    .init(text: "TBL Total expense", value: year.totalExpense ?? 0),
-                                    .init(text: "TBL Total income", value: year.totalIncome ?? 0),
-                                    .init(text: "TBL Average expense", value: year.averageExpense ?? 0),
-                                    .init(text: "TBL Average income", value: year.averageIncome ?? 0),
-                                ]
-                            )
-                        }
-                    }
-                }
+                } // VStack
                 .padding()
             }
         } // ScrollView
@@ -74,4 +151,5 @@ struct AccountStatisticsView: View {
 // MARK: - Preview
 #Preview {
     AccountStatisticsView()
+        .environmentObject(AccountRepository())
 }

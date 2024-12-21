@@ -50,21 +50,21 @@ struct AccountDashboardView: View {
                     DashboardChart()
                 }
                 
-//                NavigationButton(push: router.pushAccountStatistics()) {
-//                    DashboardRow(
-//                        config: .init(
-//                            style: .row,
-//                            icon: "chart.xyaxis.line",
-//                            text: Word.Classic.statistics
-//                        )
-//                    )
-//                }
-//                .disabled(!store.isCashFlowPro)
-//                .onTapGesture {
-//                    if !store.isCashFlowPro {
-//                        alertManager.showPaywall()
-//                    }
-//                }
+                NavigationButton(push: router.pushAccountStatistics()) {
+                    DashboardRow(
+                        config: .init(
+                            style: .row,
+                            icon: "chart.xyaxis.line",
+                            text: Word.Classic.statistics
+                        )
+                    )
+                }
+                .disabled(!store.isCashFlowPro)
+                .onTapGesture {
+                    if !store.isCashFlowPro {
+                        alertManager.showPaywall(router: router)
+                    }
+                }
                 
                 NavigationButton(push: router.pushAllSavingsAccount()) {
                     DashboardRow(

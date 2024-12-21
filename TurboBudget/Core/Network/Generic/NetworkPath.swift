@@ -36,7 +36,7 @@ struct NetworkPath {
             return "/account/\(id)/cashflow/\(year)"
         }
         static func stats(id: Int) -> String {
-            return "/account/\(id)/stats"
+            return "/account/\(id)/stats/1" //TODO: Choisir 1 ou 0
         }
     }
     

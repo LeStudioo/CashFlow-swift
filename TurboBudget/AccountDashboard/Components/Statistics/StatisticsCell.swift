@@ -14,7 +14,7 @@ struct StatisticsCell: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 8) {
             Text(title)
                 .font(.Body.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -24,11 +24,6 @@ struct StatisticsCell: View {
                     StatisticsRow(text: statistic.text, value: statistic.value.toCurrency())
                 }
             }
-        }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
         }
     } // body
 } // struct
