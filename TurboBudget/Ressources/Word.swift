@@ -317,6 +317,7 @@ struct Word {
         static let totalIncomesByMonth: String = "statistics_total_incomes_by_month".localized
         static let totalExpensesByWeek: String = "statistics_total_expenses_by_week".localized
         static let totalIncomesByWeek: String = "statistics_total_incomes_by_week".localized
+        static let withSavings: String = "statistics_with_savings".localized
     }
     
 }

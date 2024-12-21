@@ -77,6 +77,8 @@
 
 "word_delete_account" = "Elimina il mio account";
 
+"word_statistics" = "Statistiche";
+
 //MARK: - Main
 "word_transaction" = "Transazione";
 
@@ -161,7 +163,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Abbonamento di aggiornamento";
+"title_update_subscription" = "Aggiorna abbonamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -377,13 +379,15 @@
 
 "statistics_total_incomes" = "Totale guadagnato";
 
-"statistics_total_expenses_by_month" = "Spesa media mensile";
+"statistics_total_expenses_by_month" = "Spese mensili medie";
 
-"statistics_total_incomes_by_month" = "Reddito medio mensile";
+"statistics_total_incomes_by_month" = "Redditi medi mensili";
 
-"statistics_total_expenses_by_week" = "Spesa media settimanale";
+"statistics_total_expenses_by_week" = "Spese medie settimanali";
 
-"statistics_total_incomes_by_week" = "Reddito medio settimanale";
+"statistics_total_incomes_by_week" = "Redditi medi settimanali";
+
+"statistics_with_savings" = "Tieni conto dei risparmi e degli investimenti.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Elimina il mio account";
@@ -497,7 +501,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 

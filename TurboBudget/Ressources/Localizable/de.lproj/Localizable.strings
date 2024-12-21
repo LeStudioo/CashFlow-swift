@@ -77,6 +77,8 @@
 
 "word_delete_account" = "Mein Konto löschen";
 
+"word_statistics" = "Statistiken";
+
 //MARK: - Main
 "word_transaction" = "Transaktionen";
 
@@ -379,11 +381,13 @@
 
 "statistics_total_expenses_by_month" = "Durchschnittliche monatliche Ausgaben";
 
-"statistics_total_incomes_by_month" = "Durchschnittliches monatliches Einkommen";
+"statistics_total_incomes_by_month" = "Durchschnittliches Monatseinkommen";
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
+
+"statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Mein Konto löschen";

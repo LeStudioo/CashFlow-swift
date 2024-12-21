@@ -13,7 +13,7 @@ enum AccountAPIRequester: APIRequestBuilder {
     case update(accountID: Int, body: AccountModel)
     case delete(accountID: Int)
     case cashflow(accountID: Int, year: Int)
-    case stats(accountID: Int)
+    case stats(accountID: Int, withSavings: Bool)
 }
 
 extension AccountAPIRequester {
@@ -24,7 +24,7 @@ extension AccountAPIRequester {
         case .update(let id, _):    return NetworkPath.Account.update(id: id)
         case .delete(let id):       return NetworkPath.Account.delete(id: id)
         case .cashflow(let id, let year): return NetworkPath.Account.cashflow(id: id, year: year)
-        case .stats(let accountID): return NetworkPath.Account.stats(id: accountID)
+        case .stats(let accountID, let withSavings): return NetworkPath.Account.stats(id: accountID, withSavings: withSavings)
         }
     }
     

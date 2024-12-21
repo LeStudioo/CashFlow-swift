@@ -14,13 +14,20 @@ struct StatisticsSection<Content: View>: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 6) {
+        VStack(spacing: 8) {
             Text(title)
                 .font(.Title.semibold)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.leading, 8)
             
-            content()
+            VStack(spacing: 20) {
+                content()
+            }
+            .padding()
+            .background {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color.background100)
+            }
         }
     } // body
 } // struct

@@ -77,6 +77,8 @@
 
 "word_delete_account" = "Delete my account";
 
+"word_statistics" = "Statistics";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 
@@ -377,13 +379,15 @@
 
 "statistics_total_incomes" = "Total earned";
 
-"statistics_total_expenses_by_month" = "Average monthly expense";
+"statistics_total_expenses_by_month" = "Average monthly expenses";
 
-"statistics_total_incomes_by_month" = "Average monthly income";
+"statistics_total_incomes_by_month" = "Average monthly incomes";
 
-"statistics_total_expenses_by_week" = "Average weekly expense";
+"statistics_total_expenses_by_week" = "Average weekly expenses";
 
-"statistics_total_incomes_by_week" = "Average weekly income";
+"statistics_total_incomes_by_week" = "Average weekly incomes";
+
+"statistics_with_savings" = "Take savings and investments into account.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Delete my account";

@@ -117,10 +117,10 @@ extension AccountRepository {
     }
     
     @MainActor
-    func fetchStats(accountID: Int) async {
+    func fetchStats(accountID: Int, withSavings: Bool) async {
         do {
             let results = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.stats(accountID: accountID),
+                apiBuilder: AccountAPIRequester.stats(accountID: accountID, withSavings: withSavings),
                 responseModel: StatisticsModel.self
             )
             self.stats = results

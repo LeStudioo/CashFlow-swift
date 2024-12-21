@@ -77,6 +77,8 @@
 
 "word_delete_account" = "Supprimer mon compte";
 
+"word_statistics" = "Statistiques";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 
@@ -377,13 +379,15 @@
 
 "statistics_total_incomes" = "Total gagné";
 
-"statistics_total_expenses_by_month" = "Dépense moyenne par mois";
+"statistics_total_expenses_by_month" = "Dépenses mensuelles moyennes";
 
-"statistics_total_incomes_by_month" = "Revenu moyen par mois";
+"statistics_total_incomes_by_month" = "Revenus mensuelles moyen";
 
-"statistics_total_expenses_by_week" = "Dépense moyenne par semaine";
+"statistics_total_expenses_by_week" = "Dépenses hebdomadaires moyennes";
 
-"statistics_total_incomes_by_week" = "Revenu moyen par semaine";
+"statistics_total_incomes_by_week" = "Revenus hebdomadaires moyen";
+
+"statistics_with_savings" = "Prendre en compte les épargnes et placements.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Supprimer mon compte";

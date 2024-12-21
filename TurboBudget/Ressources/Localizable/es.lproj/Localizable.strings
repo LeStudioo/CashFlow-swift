@@ -77,6 +77,8 @@
 
 "word_delete_account" = "eliminar mi cuenta";
 
+"word_statistics" = "Estadística";
+
 //MARK: - Main
 "word_transaction" = "Transacción";
 
@@ -377,13 +379,15 @@
 
 "statistics_total_incomes" = "Total ganado";
 
-"statistics_total_expenses_by_month" = "Gasto mensual promedio";
+"statistics_total_expenses_by_month" = "Gastos mensuales promedio";
 
-"statistics_total_incomes_by_month" = "Ingreso mensual promedio";
+"statistics_total_incomes_by_month" = "Ingresos mensuales promedio";
 
-"statistics_total_expenses_by_week" = "Gasto semanal promedio";
+"statistics_total_expenses_by_week" = "Gastos semanales promedio";
 
-"statistics_total_incomes_by_week" = "Ingreso semanal promedio";
+"statistics_total_incomes_by_week" = "Ingresos semanales promedio";
+
+"statistics_with_savings" = "Tenga en cuenta los ahorros y las inversiones.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "eliminar mi cuenta";
