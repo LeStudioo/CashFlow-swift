@@ -12,6 +12,7 @@
 		D912D00A2D140523006DF5DC /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = D912D0092D140523006DF5DC /* AlertKit */; };
 		D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF72CE63B4100194630 /* GoogleSignIn */; };
 		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
+		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
 				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
+				D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */,
 				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -104,6 +106,7 @@
 				D9300BF72CE63B4100194630 /* GoogleSignIn */,
 				D9300BF92CE63B4100194630 /* GoogleSignInSwift */,
 				D912D0092D140523006DF5DC /* AlertKit */,
+				D94594F62D16A03A00A989F0 /* NotificationKit */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -143,6 +146,7 @@
 				D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
 				D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */,
+				D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -447,6 +451,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theosementa/NotificationKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/izyumkin/MCEmojiPicker";
@@ -482,6 +494,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		D94594F62D16A03A00A989F0 /* NotificationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */;
+			productName = NotificationKit;
 		};
 		D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */ = {
 			isa = XCSwiftPackageProductDependency;

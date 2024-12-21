@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AlertKit
+import NotificationKit
 
 @main
 struct TurboBudgetApp: App {
@@ -91,7 +92,17 @@ struct TurboBudgetApp: App {
                             
                             if preferencesSubscription.isNotificationsEnabled {
                                 for subscription in subscriptionRepository.subscriptions {
-                                    await NotificationsManager.shared.scheduleNotification(for: subscription, daysBefore: preferencesSubscription.dayBeforeReceiveNotification)
+                                    guard let subscriptionID = subscription.id else { continue }
+                                    
+                                    await NotificationsManager.shared.scheduleNotification(
+                                        for: .init(
+                                            id: subscriptionID,
+                                            title: "CashFlow",
+                                            message: subscription.notifMessage,
+                                            date: subscription.date
+                                        ),
+                                        daysBefore: preferencesSubscription.dayBeforeReceiveNotification
+                                    )
                                 }
                             }
                         }

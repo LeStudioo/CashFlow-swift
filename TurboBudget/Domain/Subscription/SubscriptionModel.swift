@@ -157,4 +157,9 @@ extension SubscriptionModel {
         }
     }
     
+    var notifMessage: String {
+        let daysBefore = PreferencesSubscription.shared.dayBeforeReceiveNotification
+        let notifMessage = self.type == .expense ? Word.Notifications.willRemoved : Word.Notifications.willAdded
+        return "\(self.amount ?? 0)\(currencySymbol) \(notifMessage) \(daysBefore) \(Word.Classic.days). (\(self.name ?? ""))"
+    }
 }

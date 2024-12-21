@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NotificationKit
 
 struct SettingsSubscriptionView: View {
     
@@ -33,27 +34,46 @@ struct SettingsSubscriptionView: View {
         .navigationTitle(Word.Main.subscription)
         .navigationBarTitleDisplayMode(.inline)
         .onChange(of: preferencesSubscription.isNotificationsEnabled) { newValue in
-            if newValue {
-                NotificationsManager.shared.requestNotificationPermission() { result in
-                    if !result {
+            Task {
+                if newValue {
+                    if await NotificationsManager.shared.requestNotificationPermission() {
+                        for subscription in subscriptionRepository.subscriptions {
+                            guard let subscriptionID = subscription.id else { continue }
+                            
+                            await NotificationsManager.shared.scheduleNotification(
+                                for: .init(
+                                    id: subscriptionID,
+                                    title: "CashFlow",
+                                    message: subscription.notifMessage,
+                                    date: subscription.date
+                                ),
+                                daysBefore: preferencesSubscription.dayBeforeReceiveNotification
+                            )
+                        }
+                    } else {
                         preferencesSubscription.isNotificationsEnabled = false
                         return
                     }
-                    Task {
-                        for subscription in subscriptionRepository.subscriptions {
-                            await NotificationsManager.shared.scheduleNotification(for: subscription, daysBefore: preferencesSubscription.dayBeforeReceiveNotification)
-                        }
-                    }
+                } else {
+                    NotificationsManager.shared.removeAllPendingNotifications()
                 }
-            } else {
-                NotificationsManager.shared.removeAllPendingNotifications()
             }
         }
         .onChange(of: preferencesSubscription.dayBeforeReceiveNotification) { newValue in
             NotificationsManager.shared.removeAllPendingNotifications()
             Task {
                 for subscription in subscriptionRepository.subscriptions {
-                    await NotificationsManager.shared.scheduleNotification(for: subscription, daysBefore: newValue)
+                    guard let subscriptionID = subscription.id else { continue }
+                    
+                    await NotificationsManager.shared.scheduleNotification(
+                        for: .init(
+                            id: subscriptionID,
+                            title: "CashFlow",
+                            message: subscription.notifMessage,
+                            date: subscription.date
+                        ),
+                        daysBefore: newValue
+                    )
                 }
             }
         }

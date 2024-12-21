@@ -1,5 +1,5 @@
 {
-  "originHash" : "21259a169b29fbe51da9fabcee205006299d1a399c9ea2506798e56249fe731b",
+  "originHash" : "acd39c02cf7eb036e069d9b96e045c0ef0c0fbb5f13813759993f1b04b84991d",
   "pins" : [
     {
       "identity" : "alertkit",
@@ -80,6 +80,15 @@
       "state" : {
         "revision" : "e0b4903b75ae1cc418d276d84d1cb946b8a1d73c",
         "version" : "1.2.3"
+      }
+    },
+    {
+      "identity" : "notificationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/NotificationKit",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e91547821879bc96221b4f0803b495612490fd52"
       }
     },
     {
