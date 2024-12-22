@@ -79,6 +79,8 @@
 
 "word_statistics" = "Statistiken";
 
+"word_savings" = "Ersparnisse";
+
 //MARK: - Main
 "word_transaction" = "Transaktionen";
 
@@ -302,7 +304,7 @@
 
 "whatsnew_security_title" = "Datensicherheit";
 
-"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
+"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
 
@@ -387,7 +389,7 @@
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 

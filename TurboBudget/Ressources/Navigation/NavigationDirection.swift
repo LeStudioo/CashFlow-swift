@@ -25,6 +25,7 @@ enum NavigationDirection: Identifiable {
     case createSubscription(subscription: SubscriptionModel? = nil)
     case createTransfer(receiverAccount: AccountModel? = nil)
     case createCreditCard
+    case createTransactionForSavingsAccount(savingsAccount: AccountModel, transaction: TransactionModel? = nil)
         
     case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>)
     
@@ -86,6 +87,7 @@ extension NavigationDirection: Equatable {
             (.createTransaction, .createTransaction),
             (.createTransfer, .createTransfer),
             (.createCreditCard, .createCreditCard),
+            (.createTransactionForSavingsAccount, .createTransactionForSavingsAccount),
             (.accountDashboard, .accountDashboard),
             (.accountStatistics, .accountStatistics),
             (.paywall, .paywall),

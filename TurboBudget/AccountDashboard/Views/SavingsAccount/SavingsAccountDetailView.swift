@@ -40,8 +40,17 @@ struct SavingsAccountDetailView: View {
                 Section(content: {
                     ForEach(transferRepository.transfers) { transfer in
                         if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
-                            TransferRow(transfer: transfer)
-                                .environmentObject(savingsAccountRepository)
+                            Group {
+                                if transfer.type == .transfer {
+                                    TransferRow(transfer: transfer)
+                                        .environmentObject(savingsAccountRepository)
+                                } else {
+                                    TransactionRow(transaction: transfer)
+                                        .disabled(true)
+                                }
+                            }
+//                            .padding(.vertical, 4)
+                            .padding(.horizontal)
                         }
                     }
                     .listRowSeparator(.hidden)
@@ -67,10 +76,10 @@ struct SavingsAccountDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-//                    Button(
-//                        action: {  },
-//                        label: { Label(Word.Classic.add, systemImage: "plus") }
-//                    )
+                    Button(
+                        action: { router.presentCreateTransactionForSavingsAccount(savingsAccount: savingsAccount) },
+                        label: { Label(Word.Classic.add, systemImage: "plus") }
+                    )
                     Button(
                         action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
                         label: { Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right") }

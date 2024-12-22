@@ -99,15 +99,17 @@ extension TransactionRepository {
     /// Create transaction, add it to repository and optionally return it
     @discardableResult
     @MainActor
-    func createTransaction(accountID: Int, body: TransactionModel, shouldReturn: Bool = false) async -> TransactionModel? {
+    func createTransaction(accountID: Int, body: TransactionModel, shouldReturn: Bool = false, addInRepo: Bool = true) async -> TransactionModel? {
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
                 responseModel: TransactionResponseWithBalance.self
             )
             if let transaction = response.transaction, let newBalance = response.newBalance {
-                self.transactions.append(transaction)
-                sortTransactionsByDate()
+                if addInRepo {
+                    self.transactions.append(transaction)
+                    sortTransactionsByDate()
+                }
                 AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
                 return shouldReturn ? transaction : nil
             }

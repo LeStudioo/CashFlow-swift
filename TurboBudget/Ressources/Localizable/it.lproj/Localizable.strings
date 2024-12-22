@@ -79,6 +79,8 @@
 
 "word_statistics" = "Statistiche";
 
+"word_savings" = "Risparmio";
+
 //MARK: - Main
 "word_transaction" = "Transazione";
 
@@ -163,7 +165,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Abbonamento di aggiornamento";
+"title_update_subscription" = "Aggiorna abbonamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -302,7 +304,7 @@
 
 "whatsnew_security_title" = "Sicurezza dei dati";
 
-"whatsnew_security" = "La sicurezza dei dati è ora più importante e completa";
+"whatsnew_security" = "Oggi la sicurezza dei dati è più importante e completa";
 
 "whatsnew_ui_title" = "interfaccia utente";
 

@@ -79,6 +79,8 @@
 
 "word_statistics" = "Estadística";
 
+"word_savings" = "Ahorros";
+
 //MARK: - Main
 "word_transaction" = "Transacción";
 
@@ -370,7 +372,7 @@
 
 "creditcard_maxCard" = "Importe máximo alcanzado";
 
-"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta.";
+"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
 
 "creditcard_delete_title" = "Eliminar la tarjeta de crédito";
 

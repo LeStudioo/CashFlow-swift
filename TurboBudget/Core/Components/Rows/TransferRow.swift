@@ -102,8 +102,6 @@ struct TransferRow: View {
         .swipeActionWidth(90)
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
-        .padding(.vertical, 4)
-        .padding(.horizontal)
         .alert("transfer_detail_delete_transac".localized, isPresented: $isDeleting, actions: {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
