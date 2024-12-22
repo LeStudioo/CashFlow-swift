@@ -76,8 +76,15 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
 
 extension ContributionModel {
     
-    var type: ContributionType? {
-        return ContributionType(rawValue: typeNum ?? 0)
+    var type: ContributionType {
+        return ContributionType(rawValue: typeNum ?? 0) ?? .addition
+    }
+    
+    var symbol: String {
+        switch type {
+        case .addition:     return "+"
+        case .withdrawal:   return "-"
+        }
     }
     
     var date: Date {

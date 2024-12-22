@@ -23,13 +23,13 @@ struct ContributionRow: View {
     var body: some View {
         SwipeView(label: {
             HStack {
-                Text(contribution.amount ?? 0 < 0 ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
+                Text(contribution.type == .withdrawal ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
                     .font(Font.mediumText16())
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
-                    Text(contribution.amount?.toCurrency() ?? "")
+                    Text("\(contribution.symbol) \(contribution.amount?.toCurrency() ?? "")")
                         .font(.semiBoldText16())
-                        .foregroundStyle(contribution.amount ?? 0 < 0 ? .error400 : .primary500)
+                        .foregroundStyle(contribution.type == .withdrawal ? .error400 : .primary500)
                     
                     Text(contribution.date.formatted(date: .numeric, time: .omitted))
                         .font(Font.mediumSmall())

@@ -80,15 +80,15 @@ struct AccountStatisticsView: View {
                                 StatisticsCell(
                                     title: Word.Statistics.totalExpensesByMonth,
                                     statistics: [
-                                        .init(text: Word.Temporality.thisMonth, value: ((year.expense?.thisYear ?? 0) / Double(Date().month))),
-                                        .init(text: Word.Temporality.lastMonth, value: ((year.expense?.lastYear ?? 0) / 12)),
+                                        .init(text: Word.Temporality.thisYear, value: ((year.expense?.thisYear ?? 0) / Double(Date().month))),
+                                        .init(text: Word.Temporality.lastYear, value: ((year.expense?.lastYear ?? 0) / 12)),
                                     ]
                                 )
                                 StatisticsCell(
                                     title: Word.Statistics.totalIncomesByMonth,
                                     statistics: [
-                                        .init(text: Word.Temporality.thisMonth, value: ((year.income?.thisYear ?? 0) / Double(Date().month))),
-                                        .init(text: Word.Temporality.lastMonth, value: ((year.income?.lastYear ?? 0) / 12))
+                                        .init(text: Word.Temporality.thisYear, value: ((year.income?.thisYear ?? 0) / Double(Date().month))),
+                                        .init(text: Word.Temporality.lastYear, value: ((year.income?.lastYear ?? 0) / 12))
                                     ]
                                 )
                             }

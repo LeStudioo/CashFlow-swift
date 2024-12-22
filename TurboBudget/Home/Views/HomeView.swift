@@ -13,8 +13,9 @@ import StoreKit
 
 struct HomeView: View {
         
-    @EnvironmentObject private var modalManager: ModalManager
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var modalManager: ModalManager
+    @EnvironmentObject private var purchasesManager: PurchasesManager
     
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
@@ -57,7 +58,7 @@ struct HomeView: View {
                     requestReview()
                 }
             }
-            if preferencesGeneral.numberOfOpenings % 20 == 0 {
+            if preferencesGeneral.numberOfOpenings % 20 == 0 && !purchasesManager.isCashFlowPro {
                 router.presentPaywall()
             }
         }
