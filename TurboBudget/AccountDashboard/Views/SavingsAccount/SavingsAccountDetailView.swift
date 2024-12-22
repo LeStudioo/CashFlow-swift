@@ -67,9 +67,13 @@ struct SavingsAccountDetailView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
+//                    Button(
+//                        action: {  },
+//                        label: { Label(Word.Classic.add, systemImage: "plus") }
+//                    )
                     Button(
                         action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
-                        label: { Label(Word.Classic.add, systemImage: "plus") }
+                        label: { Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right") }
                     )
                     Button(
                         action: { router.presentCreateAccount(type: .savings, account: savingsAccount) },

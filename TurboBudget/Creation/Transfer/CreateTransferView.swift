@@ -27,7 +27,7 @@ struct CreateTransferView: View {
                     CustomTextField(
                         text: $viewModel.amount,
                         config: .init(
-                            title: Word.Classic.price,
+                            title: Word.Classic.amount,
                             placeholder: "500.00",
                             style: .amount
                         )

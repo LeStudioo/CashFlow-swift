@@ -25,8 +25,10 @@ struct SubscriptionHomeView: View {
             ForEach(subscriptionRepository.subscriptionsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
                 Section {
                     ForEach(subscriptions, id: \.self) { subscription in
-                        SubscriptionRow(subscription: subscription)
-                            .padding(.horizontal)
+                        NavigationButton(push: router.pushSubscriptionDetail(subscription: subscription)) {
+                            SubscriptionRow(subscription: subscription)
+                                .padding(.horizontal)
+                        }
                     }
                 } header: {
                     DetailOfExpensesAndIncomesByMonth(

@@ -18,7 +18,7 @@ struct TransactionDetailView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionRepository: TransactionRepository
     @EnvironmentObject private var alertManager: AlertManager
-    @ObservedObject var viewModel: TransactionDetailViewModel = .init()
+    @StateObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
     @Environment(\.dismiss) private var dismiss

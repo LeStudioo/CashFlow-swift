@@ -27,13 +27,9 @@ struct HomeScreenSubscription: View {
             if !subscriptionRepository.subscriptions.isEmpty {
                 VStack {
                     ForEach(subscriptionRepository.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
-                        Button(action: {
-//                            if let transaction = automation.automationToTransaction {
-//                                router.pushTransactionDetail(transaction: transaction)
-//                            }
-                        }, label: {
+                        NavigationButton(push: router.pushSubscriptionDetail(subscription: subscription)) {
                             SubscriptionRow(subscription: subscription)
-                        })
+                        }
                     }
                 }
             } else {
@@ -41,8 +37,8 @@ struct HomeScreenSubscription: View {
             }
         }
         .isDisplayed(preferencesDisplayHome.subscription_isDisplayed)
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {

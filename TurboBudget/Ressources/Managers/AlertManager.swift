@@ -94,7 +94,7 @@ extension AlertManager {
         )
     }
     
-    func deleteSubscription(subscription: SubscriptionModel) {
+    func deleteSubscription(subscription: SubscriptionModel, dismissAction: DismissAction? = nil) {
         self.present(
             title: Word.Delete.Subscription.title,
             message: Word.Delete.Subscription.message,
@@ -103,6 +103,7 @@ extension AlertManager {
             action: {
                 if let subscriptionID = subscription.id {
                     await SubscriptionRepository.shared.deleteSubscription(subscriptionID: subscriptionID)
+                    if let dismissAction { dismissAction() }
                 }
             }
         )

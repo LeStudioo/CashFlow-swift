@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUICore
 
 enum SubscriptionFrequency: Int, Codable, CaseIterable {
     case monthly = 0
@@ -154,6 +155,17 @@ extension SubscriptionModel {
         case .expense:  return "-"
         case .income:   return "+"
         case .transfer: return ""
+        }
+    }
+    
+    var color: Color {
+        switch type {
+        case .expense:
+            return .error400
+        case .income:
+            return .primary500
+        default:
+            return .gray
         }
     }
     
