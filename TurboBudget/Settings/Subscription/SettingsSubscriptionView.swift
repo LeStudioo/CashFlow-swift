@@ -45,7 +45,7 @@ struct SettingsSubscriptionView: View {
                                     id: subscriptionID,
                                     title: "CashFlow",
                                     message: subscription.notifMessage,
-                                    date: subscription.date
+                                    date: subscription.dateNotif
                                 ),
                                 daysBefore: preferencesSubscription.dayBeforeReceiveNotification
                             )
@@ -70,7 +70,7 @@ struct SettingsSubscriptionView: View {
                             id: subscriptionID,
                             title: "CashFlow",
                             message: subscription.notifMessage,
-                            date: subscription.date
+                            date: subscription.dateNotif
                         ),
                         daysBefore: newValue
                     )

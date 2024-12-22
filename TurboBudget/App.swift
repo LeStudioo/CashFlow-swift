@@ -99,7 +99,7 @@ struct TurboBudgetApp: App {
                                             id: subscriptionID,
                                             title: "CashFlow",
                                             message: subscription.notifMessage,
-                                            date: subscription.date
+                                            date: subscription.dateNotif
                                         ),
                                         daysBefore: preferencesSubscription.dayBeforeReceiveNotification
                                     )

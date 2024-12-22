@@ -14,6 +14,7 @@ import StoreKit
 struct HomeView: View {
         
     @EnvironmentObject private var modalManager: ModalManager
+    @EnvironmentObject private var router: NavigationManager
     
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
@@ -47,7 +48,7 @@ struct HomeView: View {
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
             preferencesGeneral.numberOfOpenings += 1
-            if (preferencesGeneral.numberOfOpenings / 6 == 1) && !preferencesGeneral.isApplePayEnabled {
+            if (preferencesGeneral.numberOfOpenings % 6 == 0) && !preferencesGeneral.isApplePayEnabled {
                 modalManager.presentTipApplePayShortcut()
             }
             if preferencesGeneral.numberOfOpenings > 8 && !preferencesGeneral.isReviewPopupPresented {
@@ -55,6 +56,9 @@ struct HomeView: View {
                     preferencesGeneral.isReviewPopupPresented = true
                     requestReview()
                 }
+            }
+            if preferencesGeneral.numberOfOpenings % 20 == 0 {
+                router.presentPaywall()
             }
         }
     } // body
