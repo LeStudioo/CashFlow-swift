@@ -302,7 +302,7 @@
 
 "whatsnew_security_title" = "Datensicherheit";
 
-"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
+"whatsnew_security" = "Datensicherheit ist jetzt wichtiger und umfassender";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
 
@@ -314,6 +314,8 @@
 
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Unbegrenztes Sparkonto für eine bessere Verwaltung Ihres Geldes";
+
+"paywall_creditcards_desc" = "Fügen Sie Ihre Kreditkarte hinzu, die sicher im Schlüsselbund Ihres iPhones gespeichert wird.";
 
 //MARK: - Notifications
 "notifications_day_before" = "Tage vorher";
@@ -385,7 +387,7 @@
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 

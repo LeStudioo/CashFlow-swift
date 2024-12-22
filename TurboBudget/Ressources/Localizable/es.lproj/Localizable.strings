@@ -315,6 +315,8 @@
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Cuenta de ahorro ilimitada para una mejor gestión de tu dinero";
 
+"paywall_creditcards_desc" = "Agregue su tarjeta de crédito, que se almacenará de forma segura en el llavero de su iPhone.";
+
 //MARK: - Notifications
 "notifications_day_before" = "días antes";
 
@@ -368,7 +370,7 @@
 
 "creditcard_maxCard" = "Importe máximo alcanzado";
 
-"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
+"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta.";
 
 "creditcard_delete_title" = "Eliminar la tarjeta de crédito";
 

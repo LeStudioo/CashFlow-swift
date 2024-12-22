@@ -315,6 +315,8 @@
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Unlimited savings account for better management of your money";
 
+"paywall_creditcards_desc" = "Add your credit card, which will be stored securely in your iPhone's Keychain.";
+
 //MARK: - Notifications
 "notifications_day_before" = "days before";
 
