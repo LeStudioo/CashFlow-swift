@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EmptyCategoryData: View {
     
-    @EnvironmentObject private var categoryRepository: CategoryRepository
+    @EnvironmentObject private var categoryRepository: CategoryStore
     @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -

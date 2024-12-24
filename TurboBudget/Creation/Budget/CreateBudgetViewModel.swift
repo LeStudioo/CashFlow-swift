@@ -21,8 +21,8 @@ final class CreateBudgetViewModel: ObservableObject {
 extension CreateBudgetViewModel {
     
     func createBudget(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
-        let budgetRepository: BudgetRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let budgetRepository: BudgetStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }

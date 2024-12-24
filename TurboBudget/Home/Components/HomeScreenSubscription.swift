@@ -13,7 +13,7 @@ struct HomeScreenSubscription: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
+    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
     @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences

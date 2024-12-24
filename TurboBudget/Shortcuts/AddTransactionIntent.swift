@@ -80,9 +80,9 @@ struct AddTransactionIntent: AppIntent {
         
         let finalNumber = extractNumber(from: amount)
         
-        let userRepository: UserRepository = .shared
-        let accountRepository: AccountRepository = .shared
-        let transactionRepository: TransactionRepository = .shared
+        let userRepository: UserStore = .shared
+        let accountRepository: AccountStore = .shared
+        let transactionRepository: TransactionStore = .shared
         
         let body: TransactionModel = .init(
             _name: title,

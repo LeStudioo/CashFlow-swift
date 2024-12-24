@@ -1,5 +1,5 @@
 //
-//  TransferRepository.swift
+//  TransferStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 29/11/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class TransferRepository: ObservableObject {
-    static let shared = TransferRepository()
+final class TransferStore: ObservableObject {
+    static let shared = TransferStore()
     
     @Published var transfers: [TransactionModel] = []
     
@@ -23,7 +23,7 @@ final class TransferRepository: ObservableObject {
     }
 }
 
-extension TransferRepository {
+extension TransferStore {
     
     @MainActor
     func fetchTransfersWithPagination(accountID: Int, perPage: Int = 50) async {
@@ -50,13 +50,13 @@ extension TransferRepository {
                 responseModel: TransferResponseWithBalances.self
             )
             if let transfer = response.transaction, let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
-                AccountRepository.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
-                AccountRepository.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
+                AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
+                AccountStore.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
                 self.transfers.append(transfer)
                 sortTransfersByDate()
-                if let selectedAccountID = AccountRepository.shared.selectedAccount?.id, senderAccountID == selectedAccountID || receiverAccountID == selectedAccountID {
-                    TransactionRepository.shared.transactions.append(transfer)
-                    TransactionRepository.shared.sortTransactionsByDate()
+                if let selectedAccountID = AccountStore.shared.selectedAccount?.id, senderAccountID == selectedAccountID || receiverAccountID == selectedAccountID {
+                    TransactionStore.shared.transactions.append(transfer)
+                    TransactionStore.shared.sortTransactionsByDate()
                 }
                 return transfer
             }
@@ -78,8 +78,8 @@ extension TransferRepository {
             guard let senderAccountID = transfer.senderAccountID, let receiverAccountID = transfer.receiverAccountID else { return }
             
             if let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
-                AccountRepository.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
-                AccountRepository.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
+                AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
+                AccountStore.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
             }
             self.transfers.removeAll(where: { $0.id == transferID })
         } catch { NetworkService.handleError(error: error) }
@@ -87,7 +87,7 @@ extension TransferRepository {
     
 }
 
-extension TransferRepository {
+extension TransferStore {
     func sortTransfersByDate() {
         self.transfers.sort { $0.date > $1.date }
     }

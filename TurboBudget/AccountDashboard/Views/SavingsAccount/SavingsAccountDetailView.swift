@@ -11,12 +11,12 @@ struct SavingsAccountDetailView: View {
     
     // Builder
     @ObservedObject var savingsAccount: AccountModel
-    @StateObject private var savingsAccountRepository: SavingsAccountRepository
+    @StateObject private var savingsAccountRepository: SavingsAccountStore
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var transferRepository: TransferRepository
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var transferRepository: TransferStore
+    @EnvironmentObject private var accountRepository: AccountStore
     
     @Environment(\.dismiss) private var dismiss
     
@@ -126,6 +126,6 @@ struct SavingsAccountDetailView: View {
 #Preview {
     SavingsAccountDetailView(savingsAccount: .mockSavingsAccount)
         .environmentObject(ThemeManager())
-        .environmentObject(TransferRepository())
-        .environmentObject(AccountRepository())
+        .environmentObject(TransferStore())
+        .environmentObject(AccountStore())
 }

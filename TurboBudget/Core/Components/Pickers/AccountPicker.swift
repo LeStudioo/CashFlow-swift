@@ -13,7 +13,7 @@ struct AccountPicker: View {
     var title: String
     @Binding var selected: AccountModel?
     
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     
     // MARK: -
     var body: some View {

@@ -9,7 +9,7 @@ import Foundation
 
 final class CategoriesHomeViewModel: ObservableObject {
     
-    let categories = CategoryRepository.shared.categories
+    let categories = CategoryStore.shared.categories
     let filter: Filter = .shared
     
     @Published var selectedCategory: CategoryModel? = nil

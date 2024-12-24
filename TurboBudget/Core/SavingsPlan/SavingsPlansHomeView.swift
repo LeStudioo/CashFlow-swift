@@ -12,8 +12,8 @@ struct SavingsPlansHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
-    @EnvironmentObject private var contributionRepository: ContributionRepository
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
+    @EnvironmentObject private var contributionRepository: ContributionStore
         
     // String variables
     @State private var searchText: String = ""

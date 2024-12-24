@@ -1,5 +1,5 @@
 //
-//  BudgetRepository.swift
+//  BudgetStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class BudgetRepository: ObservableObject {
-    static let shared = BudgetRepository()
+final class BudgetStore: ObservableObject {
+    static let shared = BudgetStore()
     
     @Published var budgets: [BudgetModel] = []
     
@@ -26,7 +26,7 @@ final class BudgetRepository: ObservableObject {
     }
 }
 
-extension BudgetRepository {
+extension BudgetStore {
     
     @MainActor
     func fetchBudgets(accountID: Int) async {

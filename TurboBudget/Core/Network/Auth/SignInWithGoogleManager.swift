@@ -53,7 +53,7 @@ extension SignInWithGoogleManager {
                 
                 if let token = user.token, let refreshToken = user.refreshToken {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-                    UserRepository.shared.currentUser = user
+                    UserStore.shared.currentUser = user
 
                     do {
                         AppManager.shared.viewState = .syncing

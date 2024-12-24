@@ -1,5 +1,5 @@
 {
-  "originHash" : "acd39c02cf7eb036e069d9b96e045c0ef0c0fbb5f13813759993f1b04b84991d",
+  "originHash" : "2ff075d6e63277bb7ba952f970908421f67e4c7ad881c5d5bfa0328542b448d8",
   "pins" : [
     {
       "identity" : "alertkit",
@@ -88,7 +88,7 @@
       "location" : "https://github.com/theosementa/NotificationKit",
       "state" : {
         "branch" : "main",
-        "revision" : "e91547821879bc96221b4f0803b495612490fd52"
+        "revision" : "203aad2695dc85c4ffdd41e2d78f2d0a93ba5e18"
       }
     },
     {

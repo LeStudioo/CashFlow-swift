@@ -16,7 +16,7 @@ struct OnboardingView: View {
     @Environment(\.dismiss) private var dismiss
     
     // Repo
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
 
     @State private var actualPage: Int = 1
     

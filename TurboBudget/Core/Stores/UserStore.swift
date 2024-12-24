@@ -1,5 +1,5 @@
 //
-//  UserRepository.swift
+//  UserStore.swift
 //  Split
 //
 //  Created by Theo Sementa on 28/05/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class UserRepository: ObservableObject {
-    static let shared = UserRepository()
+final class UserStore: ObservableObject {
+    static let shared = UserStore()
         
     @Published var currentUser: UserModel? = nil
     
@@ -17,7 +17,7 @@ final class UserRepository: ObservableObject {
     }
 }
 
-extension UserRepository {
+extension UserStore {
     
     @MainActor
     func register(body: UserModel) async {

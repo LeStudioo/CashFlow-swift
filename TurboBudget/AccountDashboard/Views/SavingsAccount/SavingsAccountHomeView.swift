@@ -14,7 +14,7 @@ struct SavingsAccountHomeView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var purchaseManager: PurchasesManager
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     @Environment(\.dismiss) private var dismiss
     
     // Computed variables

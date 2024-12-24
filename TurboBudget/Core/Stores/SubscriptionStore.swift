@@ -1,5 +1,5 @@
 //
-//  SubscriptionRepository.swift
+//  SubscriptionStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class SubscriptionRepository: ObservableObject {
-    static let shared = SubscriptionRepository()
+final class SubscriptionStore: ObservableObject {
+    static let shared = SubscriptionStore()
     
     @Published var subscriptions: [SubscriptionModel] = []
     
@@ -25,7 +25,7 @@ final class SubscriptionRepository: ObservableObject {
     }
 }
 
-extension SubscriptionRepository {
+extension SubscriptionStore {
     
     @MainActor
     func fetchSubscriptions(accountID: Int) async {

@@ -12,7 +12,7 @@ import Charts
 struct CarouselOfChartsView: View {
     
     // Environement
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Number variables

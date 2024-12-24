@@ -1,5 +1,5 @@
 //
-//  CategoryRepository.swift
+//  CategoryStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 26/11/2024.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class CategoryRepository: ObservableObject {
-    static let shared = CategoryRepository()
+final class CategoryStore: ObservableObject {
+    static let shared = CategoryStore()
     
     @Published var categories: [CategoryModel] = []
     @Published var subcategories: [SubcategoryModel] = []
 }
 
-extension CategoryRepository {
+extension CategoryStore {
     
     @MainActor
     func fetchCategories() async {
@@ -30,7 +30,7 @@ extension CategoryRepository {
     
 }
 
-extension CategoryRepository {
+extension CategoryStore {
     
     var categoriesWithTransactions: [CategoryModel] {
         var array: [CategoryModel] = []
@@ -77,7 +77,7 @@ extension CategoryRepository {
 }
 
 // MARK: - Utils
-extension CategoryRepository {
+extension CategoryStore {
 
     func findCategoryById(_ id: Int?) -> CategoryModel? {
         return self.categories.first(where: { $0.id == id })

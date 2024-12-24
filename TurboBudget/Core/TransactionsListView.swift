@@ -10,8 +10,8 @@ import SwiftUI
 struct TransactionsListView: View {
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var transactionRepository: TransactionStore
     
     @State private var isLoading: Bool = false
     

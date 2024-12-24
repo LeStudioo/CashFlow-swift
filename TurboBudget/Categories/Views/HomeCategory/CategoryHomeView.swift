@@ -13,7 +13,7 @@ struct CategoryHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var categoryRepository: CategoryRepository
+    @EnvironmentObject private var categoryRepository: CategoryStore
     
     //Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
@@ -29,7 +29,7 @@ struct CategoryHomeView: View {
                                 .padding(.bottom, 8)
                         } else if viewModel.searchText.isEmpty {
                             PieChart(
-                                slices: CategoryRepository.shared.categoriesSlices,
+                                slices: CategoryStore.shared.categoriesSlices,
                                 backgroundColor: Color.background100,
                                 configuration: .init(style: .category, space: 0.2, hole: 0.75)
                             )

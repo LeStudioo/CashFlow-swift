@@ -17,7 +17,7 @@ struct CreateAccountView: View {
     var onboardingAction: (() async -> Void)? = nil
     
     @StateObject private var viewModel: CreateAccountViewModel
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -117,5 +117,5 @@ struct CreateAccountView: View {
 // MARK: - Preview
 #Preview {
     CreateAccountView(type: .savings)
-        .environmentObject(AccountRepository())
+        .environmentObject(AccountStore())
 }

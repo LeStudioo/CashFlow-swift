@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func transactionsByCategory(_ categoryID: Int?) -> [TransactionModel] {
         return self.transactions
@@ -24,7 +24,7 @@ extension TransactionRepository {
     }
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     // MARK: - Private Properties
     
     private var transactionsActualMonth: [TransactionModel] {
@@ -79,7 +79,7 @@ extension TransactionRepository {
     }
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func expensesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
@@ -117,7 +117,7 @@ extension TransactionRepository {
     }
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func amountCashFlowByMonth(month: Date) -> Double {
         let amountOfExpenses = amountExpensesForSelectedMonth(month: month)
@@ -135,7 +135,7 @@ extension TransactionRepository {
     
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func dailyIncomeAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
         let transactionsForTheChoosenMonth: [TransactionModel] = incomesForSelectedMonth(selectedDate: selectedDate)
@@ -150,7 +150,7 @@ extension TransactionRepository {
             
             for transaction in transactionsForTheChoosenMonth {
                 if Calendar.current.isDate(transaction.date, inSameDayAs: date)
-                    && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
+                    && CategoryStore.shared.findCategoryById(transaction.categoryID) != nil {
                     amountOfDay += transaction.amount ?? 0
                 }
             }
@@ -188,7 +188,7 @@ extension TransactionRepository {
     
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
         let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)
@@ -240,7 +240,7 @@ extension TransactionRepository {
     }
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func totalCashFlowForSpecificMonthYear(month: Int, year: Int) -> Double {
         var amount: Double = 0.0
@@ -255,7 +255,7 @@ extension TransactionRepository {
         for transaction in self.transactions {
             if let dateOfMonthSelected {
                 if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month)
-                    && CategoryRepository.shared.findCategoryById(transaction.categoryID) != nil {
+                    && CategoryStore.shared.findCategoryById(transaction.categoryID) != nil {
                     if transaction.type == .expense {
                         amount -= transaction.amount ?? 0
                     } else if transaction.type == .income {

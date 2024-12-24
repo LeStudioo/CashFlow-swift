@@ -105,11 +105,11 @@ extension CategoryModel {
     }
     
     static var revenue: CategoryModel? {
-        return CategoryRepository.shared.findCategoryById(1)
+        return CategoryStore.shared.findCategoryById(1)
     }
     
     static var toCategorized: CategoryModel? {
-        return CategoryRepository.shared.findCategoryById(0)
+        return CategoryStore.shared.findCategoryById(0)
     }
     
     var isRevenue: Bool {
@@ -125,7 +125,7 @@ extension CategoryModel {
 extension CategoryModel {
     
     var transactions: [TransactionModel] {
-        return TransactionRepository.shared.transactions.filter { $0.categoryID == self.id }
+        return TransactionStore.shared.transactions.filter { $0.categoryID == self.id }
     }
     
     /// Transactions of type expense in a Category

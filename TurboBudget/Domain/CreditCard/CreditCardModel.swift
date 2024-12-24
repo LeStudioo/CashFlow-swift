@@ -83,7 +83,7 @@ extension CreditCardModel {
     
     var balanceAvailable: Double? {
         guard let limitByMonth else { return nil }
-        let spent = TransactionRepository.shared.expensesCurrentMonth
+        let spent = TransactionStore.shared.expensesCurrentMonth
             .compactMap(\.amount)
             .reduce(0, +)
         

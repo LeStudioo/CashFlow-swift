@@ -14,7 +14,7 @@ struct CircleCategory: View {
     var subcategory: SubcategoryModel?
     var transaction: TransactionModel? = nil
     
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     
     // MARK: -
     var body: some View {

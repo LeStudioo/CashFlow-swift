@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardChart: View {
     
     // Repository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
     
     var amountExpenses: Double {
         return transactionRepository.amountExpensesForSelectedMonth(month: .now)

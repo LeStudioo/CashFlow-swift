@@ -11,7 +11,7 @@ struct HomeScreenRecentTransactions: View {
     
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Preferences
     @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared

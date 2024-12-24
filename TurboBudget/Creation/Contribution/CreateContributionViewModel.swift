@@ -36,7 +36,7 @@ extension CreateContributionViewModel {
     
     func createContribution(dismiss: DismissAction) {
         guard let savingsPlanID = savingsPlan.id else { return }
-        let contributionRepository: ContributionRepository = .shared
+        let contributionRepository: ContributionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {

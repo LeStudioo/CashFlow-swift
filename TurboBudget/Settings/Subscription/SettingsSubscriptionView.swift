@@ -10,7 +10,7 @@ import NotificationKit
 
 struct SettingsSubscriptionView: View {
     
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
+    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
     @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
     
     // MARK: -

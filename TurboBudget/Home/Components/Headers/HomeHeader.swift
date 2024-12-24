@@ -10,8 +10,8 @@ import SwiftUI
 struct HomeHeader: View {
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var transactionRepository: TransactionStore
     @EnvironmentObject private var purchaseManager: PurchasesManager
     
     // MARK: -

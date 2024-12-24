@@ -1,5 +1,5 @@
 //
-//  CreditCardRepository.swift
+//  CreditCardStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class CreditCardRepository: ObservableObject {
-    static let shared = CreditCardRepository()
+final class CreditCardStore: ObservableObject {
+    static let shared = CreditCardStore()
     
     @Published var creditCards: [CreditCardModel] = []
     @Published var uuids: [UUID] = []
 }
 
-extension CreditCardRepository {
+extension CreditCardStore {
  
     @MainActor
     func fetchCreditCards(accountID: Int) async {

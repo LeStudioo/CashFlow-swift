@@ -17,7 +17,7 @@ struct PageControllerView: View {
     @EnvironmentObject private var router: NavigationManager
     
     // New Repository
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     
     // Old Reposiyory
     @EnvironmentObject private var accountRepo: AccountRepositoryOld

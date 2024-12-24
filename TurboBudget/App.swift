@@ -22,16 +22,16 @@ struct TurboBudgetApp: App {
     @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.pageController))
     
     // New Repository
-    @StateObject private var userRepository: UserRepository = .shared
-    @StateObject private var accountRepository: AccountRepository = .shared
-    @StateObject private var categoryRepository: CategoryRepository = .shared
-    @StateObject private var transactionRepository: TransactionRepository = .shared
-    @StateObject private var transferRepository: TransferRepository = .shared
-    @StateObject private var subscriptionRepository: SubscriptionRepository = .shared
-    @StateObject private var savingsPlanRepository: SavingsPlanRepository = .shared
-    @StateObject private var contributionRepository: ContributionRepository = .shared
-    @StateObject private var budgetRepository: BudgetRepository = .shared
-    @StateObject private var creditCardRepository: CreditCardRepository = .shared
+    @StateObject private var userRepository: UserStore = .shared
+    @StateObject private var accountRepository: AccountStore = .shared
+    @StateObject private var categoryRepository: CategoryStore = .shared
+    @StateObject private var transactionRepository: TransactionStore = .shared
+    @StateObject private var transferRepository: TransferStore = .shared
+    @StateObject private var subscriptionRepository: SubscriptionStore = .shared
+    @StateObject private var savingsPlanRepository: SavingsPlanStore = .shared
+    @StateObject private var contributionRepository: ContributionStore = .shared
+    @StateObject private var budgetRepository: BudgetStore = .shared
+    @StateObject private var creditCardRepository: CreditCardStore = .shared
     
     // Repository
     @StateObject private var accountRepo: AccountRepositoryOld = .shared

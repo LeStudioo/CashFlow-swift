@@ -16,7 +16,7 @@ struct SubscriptionRow: View {
     @ObservedObject var subscription: SubscriptionModel
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
+    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
     @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -

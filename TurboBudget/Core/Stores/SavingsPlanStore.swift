@@ -1,5 +1,5 @@
 //
-//  SavingsPlanRepository.swift
+//  SavingsPlanStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class SavingsPlanRepository: ObservableObject {
-    static let shared = SavingsPlanRepository()
+final class SavingsPlanStore: ObservableObject {
+    static let shared = SavingsPlanStore()
     
     @Published var savingsPlans: [SavingsPlanModel] = []
 }
 
-extension SavingsPlanRepository {
+extension SavingsPlanStore {
     
     @MainActor
     func fetchSavingsPlans(accountID: Int) async {
@@ -81,7 +81,7 @@ extension SavingsPlanRepository {
     }
 }
 
-extension SavingsPlanRepository {
+extension SavingsPlanStore {
     
     func setNewAmount(savingsPlanID: Int, newAmount: Double) {
         if let savingsPlan = savingsPlans.first(where: { $0.id == savingsPlanID }) {

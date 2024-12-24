@@ -16,8 +16,8 @@ struct TransactionRow: View {
     @ObservedObject var transaction: TransactionModel
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionRepository
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var accountRepository: AccountStore
     @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -

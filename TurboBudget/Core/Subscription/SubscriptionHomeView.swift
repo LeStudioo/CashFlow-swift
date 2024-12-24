@@ -13,7 +13,7 @@ struct SubscriptionHomeView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionRepository
+    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
     @Environment(\.dismiss) private var dismiss
     
     // State or Binding Orientation

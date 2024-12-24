@@ -63,8 +63,8 @@ extension CreateSubscriptionViewModel {
     }
     
     func createNewSubscription(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
-        let subscriptionRepository: SubscriptionRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let subscriptionRepository: SubscriptionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {

@@ -41,7 +41,7 @@ extension AlertManager {
             buttonTitle: Word.Classic.disconnect,
             isDestructive: true,
             action: {
-                await UserRepository.shared.signOut()
+                await UserStore.shared.signOut()
             }
         )
     }
@@ -53,7 +53,7 @@ extension AlertManager {
             buttonTitle: Word.Classic.delete,
             isDestructive: true,
             action: {
-                await UserRepository.shared.deleteAccount()
+                await UserStore.shared.deleteAccount()
             }
         )
     }
@@ -72,7 +72,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 if let accountID = account.id {
-                    await AccountRepository.shared.deleteAccount(accountID: accountID)
+                    await AccountStore.shared.deleteAccount(accountID: accountID)
                     if let dismissAction { dismissAction() }
                 }
             }
@@ -87,7 +87,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 if let transactionID = transaction.id {
-                    await TransactionRepository.shared.deleteTransaction(transactionID: transactionID)
+                    await TransactionStore.shared.deleteTransaction(transactionID: transactionID)
                     if let dismissAction { dismissAction() }
                 }
             }
@@ -102,7 +102,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 if let subscriptionID = subscription.id {
-                    await SubscriptionRepository.shared.deleteSubscription(subscriptionID: subscriptionID)
+                    await SubscriptionStore.shared.deleteSubscription(subscriptionID: subscriptionID)
                     if let dismissAction { dismissAction() }
                 }
             }
@@ -117,7 +117,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 if let savingsPlanID = savingsPlan.id {
-                    await SavingsPlanRepository.shared.deleteSavingsPlan(savingsPlanID: savingsPlanID)
+                    await SavingsPlanStore.shared.deleteSavingsPlan(savingsPlanID: savingsPlanID)
                     if let dismissAction { dismissAction() }
                 }
             }
@@ -132,7 +132,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 if let contributionID = contribution.id, let savingsPlanID = savingsPlan.id {
-                    await ContributionRepository.shared.deleteContribution(
+                    await ContributionStore.shared.deleteContribution(
                         savingsplanID: savingsPlanID,
                         contributionID: contributionID
                     )

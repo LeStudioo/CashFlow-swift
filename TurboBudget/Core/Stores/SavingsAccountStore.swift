@@ -1,5 +1,5 @@
 //
-//  SavingsAccountRepository.swift
+//  SavingsAccountStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 29/11/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class SavingsAccountRepository: ObservableObject {
+final class SavingsAccountStore: ObservableObject {
     
     @Published var currentAccount: AccountModel
     

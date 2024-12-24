@@ -13,8 +13,8 @@ struct CashFlowChart: View {
         
     // Custom
     @ObservedObject var filter = FilterManager.shared
-    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var transactionRepository: TransactionStore
     @EnvironmentObject private var themeManager: ThemeManager
         
     // Boolean variables

@@ -1,5 +1,5 @@
 //
-//  AccountRepository.swift
+//  AccountStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 14/11/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class AccountRepository: ObservableObject {
-    static let shared = AccountRepository()
+final class AccountStore: ObservableObject {
+    static let shared = AccountStore()
     
     @Published var accounts: [AccountModel] = []
     @Published var savingsAccounts: [AccountModel] = []
@@ -27,7 +27,7 @@ final class AccountRepository: ObservableObject {
     }
 }
 
-extension AccountRepository {
+extension AccountStore {
     
     @MainActor
     func fetchAccounts() async {
@@ -97,10 +97,10 @@ extension AccountRepository {
             self.accounts.removeAll { $0.id == accountID }
             self.savingsAccounts.removeAll { $0.id == accountID }
             if selectedAccount?.id == accountID {
-                TransactionRepository.shared.transactions = []
-                SubscriptionRepository.shared.subscriptions = []
-                SavingsPlanRepository.shared.savingsPlans = []
-                BudgetRepository.shared.budgets = []
+                TransactionStore.shared.transactions = []
+                SubscriptionStore.shared.subscriptions = []
+                SavingsPlanStore.shared.savingsPlans = []
+                BudgetStore.shared.budgets = []
             }
         } catch { NetworkService.handleError(error: error) }
     }
@@ -128,7 +128,7 @@ extension AccountRepository {
     }
 }
 
-extension AccountRepository {
+extension AccountStore {
     
     func findByID(_ id: Int) -> AccountModel? {
         return self.allAccounts.first(where: { $0.id == id })

@@ -78,11 +78,11 @@ extension BudgetModel {
     }
     
     var category: CategoryModel? {
-        return CategoryRepository.shared.findCategoryById(categoryID)
+        return CategoryStore.shared.findCategoryById(categoryID)
     }
     
     var subcategory: SubcategoryModel? {
-        return CategoryRepository.shared.findSubcategoryById(subcategoryID)
+        return CategoryStore.shared.findSubcategoryById(subcategoryID)
     }
     
     var color: Color {

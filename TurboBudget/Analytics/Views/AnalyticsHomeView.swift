@@ -13,7 +13,7 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Environment
     @EnvironmentObject private var router: NavigationManager

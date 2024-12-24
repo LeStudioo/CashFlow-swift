@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension TransferRepository {
+extension TransferStore {
     
     //-------------------- getAllSavingsTransferForChosenMonth() ----------------------
     // Description : Récupère tous les transfers qui sont de l'épargne, pour un mois donné

@@ -53,9 +53,9 @@ extension CreateSavingsPlanViewModel {
     }
     
     func createSavingsPlan(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
-        let savingsPlanRepository: SavingsPlanRepository = .shared
-        let contributionRepository: ContributionRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let savingsPlanRepository: SavingsPlanStore = .shared
+        let contributionRepository: ContributionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
@@ -81,7 +81,7 @@ extension CreateSavingsPlanViewModel {
     }
     
     func updateSavingsPlan(dismiss: DismissAction) {
-        let savingsPlanRepository: SavingsPlanRepository = .shared
+        let savingsPlanRepository: SavingsPlanStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {

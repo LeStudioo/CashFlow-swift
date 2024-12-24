@@ -1,5 +1,5 @@
 //
-//  ContributionRepository.swift
+//  ContributionStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class ContributionRepository: ObservableObject {
-    static let shared = ContributionRepository()
+final class ContributionStore: ObservableObject {
+    static let shared = ContributionStore()
     
     @Published var contributions: [ContributionModel] = []
 }
 
-extension ContributionRepository {
+extension ContributionStore {
     
     @MainActor
     func fetchContributions(savingsplanID: Int) async {
@@ -38,7 +38,7 @@ extension ContributionRepository {
             if let contribution = response.contribution, let newAmount = response.newAmount {
                 self.contributions.append(contribution)
                 sortContributionsByDate()
-                SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
                 return contribution
             }
             
@@ -60,7 +60,7 @@ extension ContributionRepository {
                 if let index = self.contributions.map(\.id).firstIndex(of: contributionID) {
                     self.contributions[index] = contribution
                     sortContributionsByDate()
-                    SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                    SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
                 }
             }
         } catch { NetworkService.handleError(error: error) }
@@ -74,7 +74,7 @@ extension ContributionRepository {
                 responseModel: ContributionResponseWithAmount.self
             )
             if let newAmount = response.newAmount {
-                SavingsPlanRepository.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
             }
             self.contributions.removeAll(where: { $0.id == contributionID })
         } catch { NetworkService.handleError(error: error) }
@@ -82,7 +82,7 @@ extension ContributionRepository {
     
 }
 
-extension ContributionRepository {
+extension ContributionStore {
     
     private func sortContributionsByDate() {
         self.contributions.sort { $0.date > $1.date }

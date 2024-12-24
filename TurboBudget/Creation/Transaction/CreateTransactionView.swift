@@ -18,8 +18,8 @@ struct CreateTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
     
-    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Enum
     enum Field: CaseIterable {

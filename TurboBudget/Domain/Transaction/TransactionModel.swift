@@ -200,11 +200,11 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
 extension TransactionModel {
     
     var category: CategoryModel? {
-        return CategoryRepository.shared.findCategoryById(categoryID)
+        return CategoryStore.shared.findCategoryById(categoryID)
     }
     
     var subcategory: SubcategoryModel? {
-        return CategoryRepository.shared.findSubcategoryById(subcategoryID)
+        return CategoryStore.shared.findSubcategoryById(subcategoryID)
     }
     
     var type: TransactionType {
@@ -220,7 +220,7 @@ extension TransactionModel {
 extension TransactionModel {
     
     var isSender: Bool {
-        guard let selectedAccount = AccountRepository.shared.selectedAccount, let accountID = selectedAccount.id else { return false }
+        guard let selectedAccount = AccountStore.shared.selectedAccount, let accountID = selectedAccount.id else { return false }
         return senderAccountID == accountID
     }
     
@@ -233,10 +233,10 @@ extension TransactionModel {
             guard let senderAccountID = senderAccountID else { return "" }
             
             if isSender {
-                let receiverAccountName = AccountRepository.shared.findByID(receiverAccountID)?.name ?? ""
+                let receiverAccountName = AccountStore.shared.findByID(receiverAccountID)?.name ?? ""
                 return [Word.Classic.sent, Word.Preposition.to, receiverAccountName].joined(separator: " ")
             } else {
-                let senderAccountName = AccountRepository.shared.findByID(senderAccountID)?.name ?? ""
+                let senderAccountName = AccountStore.shared.findByID(senderAccountID)?.name ?? ""
                 return [Word.Classic.received, Word.Preposition.from, senderAccountName].joined(separator: " ")
             }
         }

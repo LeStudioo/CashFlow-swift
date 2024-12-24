@@ -17,8 +17,8 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var themeManager: ThemeManager
         
-    @EnvironmentObject private var accountRepository: AccountRepository
-    @EnvironmentObject private var creditCardRepository: CreditCardRepository
+    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var creditCardRepository: CreditCardStore
     
     @StateObject private var viewModel: AccountDashboardViewModel = .init()
     

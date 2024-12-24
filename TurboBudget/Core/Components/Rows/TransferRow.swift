@@ -17,9 +17,9 @@ struct TransferRow: View {
     //Custom type
     var transfer: TransactionModel
     var location: TransferRowLocation = .savingsAccount
-    @EnvironmentObject private var savingsAccountRepository: SavingsAccountRepository
-    @EnvironmentObject private var transferRepository: TransferRepository
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var savingsAccountRepository: SavingsAccountStore
+    @EnvironmentObject private var transferRepository: TransferStore
+    @EnvironmentObject private var accountRepository: AccountStore
         
     //State or Binding Bool
     @State private var isDeleting: Bool = false

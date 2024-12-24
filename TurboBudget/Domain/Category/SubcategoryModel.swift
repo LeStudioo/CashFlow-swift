@@ -101,7 +101,7 @@ extension SubcategoryModel {
 extension SubcategoryModel {
     
     var transactions: [TransactionModel] {
-        return TransactionRepository.shared.transactions.filter { $0.subcategoryID == self.id }
+        return TransactionStore.shared.transactions.filter { $0.subcategoryID == self.id }
     }
     
     /// Transactions of type expense in a Category
@@ -120,7 +120,7 @@ extension SubcategoryModel {
     }
     
     var budget: BudgetModel? {
-        return BudgetRepository.shared.budgets.first(where: { $0.subcategoryID == self.id })
+        return BudgetStore.shared.budgets.first(where: { $0.subcategoryID == self.id })
     }
     
     var currentMonthTransactions: [TransactionModel] {

@@ -16,7 +16,7 @@ struct BudgetsHomeView: View {
     
     //Environnement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var budgetRepository: BudgetRepository
+    @EnvironmentObject private var budgetRepository: BudgetStore
     
     // MARK: -
     var body: some View {

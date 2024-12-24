@@ -46,7 +46,7 @@ extension CreateTransactionForSavingsAccountViewModel {
     
     @MainActor
     func createTransaction(dismiss: DismissAction) {
-        let transactionRepository: TransactionRepository = .shared
+        let transactionRepository: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
@@ -58,7 +58,7 @@ extension CreateTransactionForSavingsAccountViewModel {
                 shouldReturn: true,
                 addInRepo: false
             ) {
-                TransferRepository.shared.transfers.append(transaction)
+                TransferStore.shared.transfers.append(transaction)
                 dismiss()
                 successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
             }
@@ -67,7 +67,7 @@ extension CreateTransactionForSavingsAccountViewModel {
     
     @MainActor
     func updateTransaction(dismiss: DismissAction) {
-        let transactionRepository: TransactionRepository = .shared
+        let transactionRepository: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {

@@ -65,8 +65,8 @@ final class CreateTransactionViewModel: ObservableObject {
     }
     
     func createTransaction(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
-        let transactionRepository: TransactionRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let transactionRepository: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
@@ -85,8 +85,8 @@ final class CreateTransactionViewModel: ObservableObject {
     }
     
     func updateTransaction(dismiss: DismissAction) {
-        let accountRepository: AccountRepository = .shared
-        let transactionRepository: TransactionRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let transactionRepository: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {

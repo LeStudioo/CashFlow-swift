@@ -1,5 +1,5 @@
 //
-//  TransactionRepository.swift
+//  TransactionStore.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 14/11/2024.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class TransactionRepository: ObservableObject {
-    static let shared = TransactionRepository()
+final class TransactionStore: ObservableObject {
+    static let shared = TransactionStore()
     
     @Published var transactions: [TransactionModel] = []
             
@@ -49,7 +49,7 @@ final class TransactionRepository: ObservableObject {
     
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     @MainActor
     func fetchTransactions(accountID: Int) async {
@@ -110,7 +110,7 @@ extension TransactionRepository {
                     self.transactions.append(transaction)
                     sortTransactionsByDate()
                 }
-                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
                 return shouldReturn ? transaction : nil
             }
             return nil
@@ -139,7 +139,7 @@ extension TransactionRepository {
                     self.transactions[index].dateISO = transaction.dateISO
                     self.transactions[index].note = transaction.note
                     sortTransactionsByDate()
-                    AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                    AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
                     return shouldReturn ? transaction : nil
                 }
             }
@@ -166,7 +166,7 @@ extension TransactionRepository {
     
     @MainActor
     func deleteTransaction(transactionID: Int) async {
-        let accountRepo: AccountRepository = .shared
+        let accountRepo: AccountStore = .shared
         do {
             let response = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.delete(id: transactionID),
@@ -174,13 +174,13 @@ extension TransactionRepository {
             )
             self.transactions.removeAll { $0.id == transactionID }
             if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
-                AccountRepository.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }
     }
 }
 
-extension TransactionRepository {
+extension TransactionStore {
     
     func fetchTransactionsOfCurrentMonth(accountID: Int) async {
         await self.fetchTransactionsByPeriod(

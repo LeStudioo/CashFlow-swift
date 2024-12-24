@@ -16,7 +16,7 @@ struct SelectCategoryView: View {
     @Binding var selectedSubcategory: SubcategoryModel?
     
     //Custom
-    @EnvironmentObject private var categoryRepository: CategoryRepository
+    @EnvironmentObject private var categoryRepository: CategoryStore
     @EnvironmentObject private var themeManager: ThemeManager
     
     //Environnements

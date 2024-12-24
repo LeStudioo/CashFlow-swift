@@ -13,7 +13,7 @@ struct SettingsHomeView: View {
     // Environment
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var alertManager: AlertManager
-    @EnvironmentObject private var userRepository: UserRepository
+    @EnvironmentObject private var userRepository: UserStore
     @Environment(\.dismiss) private var dismiss
     
     // EnvironementObject

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AccountStatisticsView: View {
     
-    @EnvironmentObject private var accountRepository: AccountRepository
+    @EnvironmentObject private var accountRepository: AccountStore
     
     @State private var withSavings: Bool = false
     
@@ -140,5 +140,5 @@ struct AccountStatisticsView: View {
 // MARK: - Preview
 #Preview {
     AccountStatisticsView()
-        .environmentObject(AccountRepository())
+        .environmentObject(AccountStore())
 }

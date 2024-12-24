@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension SubscriptionRepository {
+extension SubscriptionStore {
     
     func sortSubscriptionsByDate() {
         self.subscriptions.sort { $0.date < $1.date }
@@ -15,7 +15,7 @@ extension SubscriptionRepository {
     
 }
 
-extension SubscriptionRepository {
+extension SubscriptionStore {
     
     func amountExpensesByMonth(month: Date) -> Double {
         return self.subscriptions

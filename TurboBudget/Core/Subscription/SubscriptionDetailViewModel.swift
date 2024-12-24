@@ -16,13 +16,13 @@ extension SubscriptionDetailViewModel {
     
     @MainActor
     func updateCategory(subscriptionID: Int) {
-        let accountRepository: AccountRepository = .shared
-        let subscriptionRepository: SubscriptionRepository = .shared
+        let accountRepository: AccountStore = .shared
+        let subscriptionRepository: SubscriptionStore = .shared
         guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
         
         let body: SubscriptionModel = .init()
         
-        if let selectedCategory, let newCategory = CategoryRepository.shared.findCategoryById(selectedCategory.id) {
+        if let selectedCategory, let newCategory = CategoryStore.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id
             body.subcategoryID = nil
             
@@ -30,7 +30,7 @@ extension SubscriptionDetailViewModel {
                 selectedSubcategory = nil
             }
             
-            if let selectedSubcategory, let newSubcategory = CategoryRepository.shared.findSubcategoryById(selectedSubcategory.id) {
+            if let selectedSubcategory, let newSubcategory = CategoryStore.shared.findSubcategoryById(selectedSubcategory.id) {
                 body.subcategoryID = newSubcategory.id
             }
             

@@ -14,7 +14,7 @@ struct BudgetsTransactionsView: View {
     // Builder
     var subcategory: SubcategoryModel
     
-    @EnvironmentObject private var budgetRepository: BudgetRepository
+    @EnvironmentObject private var budgetRepository: BudgetStore
 
     // Environment
     @EnvironmentObject private var router: NavigationManager

@@ -16,7 +16,7 @@ struct TransactionDetailView: View {
     
     // Custom type
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionRepository
+    @EnvironmentObject private var transactionRepository: TransactionStore
     @EnvironmentObject private var alertManager: AlertManager
     @StateObject var viewModel: TransactionDetailViewModel = .init()
 
@@ -97,10 +97,10 @@ struct TransactionDetailView: View {
                 guard let transactionID = transaction.id else { return }
                 if let response = await transactionRepository.fetchCategory(name: transaction.name, transactionID: transactionID) {
                     if let cat = response.cat {
-                        viewModel.bestCategory = CategoryRepository.shared.findCategoryById(cat)
+                        viewModel.bestCategory = CategoryStore.shared.findCategoryById(cat)
                     }
                     if let sub = response.sub {
-                        viewModel.bestSubcategory = CategoryRepository.shared.findSubcategoryById(sub)
+                        viewModel.bestSubcategory = CategoryStore.shared.findSubcategoryById(sub)
                     }
                 }
             }
@@ -160,7 +160,7 @@ extension TransactionDetailView {
     NavigationStack {
         TransactionDetailView(transaction: .mockClassicTransaction)
     }
-    .environmentObject(TransactionRepository())
+    .environmentObject(TransactionStore())
     .environmentObject(PurchasesManager())
     .environmentObject(ThemeManager())
 }

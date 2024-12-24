@@ -10,7 +10,7 @@ import Foundation
 extension Array where Element == CategoryModel {
     
     func searchFor(_ searchText: String) -> [CategoryModel] {
-        let categories = CategoryRepository.shared.categories
+        let categories = CategoryStore.shared.categories
         
         if searchText.isEmpty {
             return categories.sorted { $0.name < $1.name }

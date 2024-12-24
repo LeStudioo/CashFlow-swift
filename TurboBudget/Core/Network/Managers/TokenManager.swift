@@ -37,13 +37,13 @@ extension TokenManager {
                     self.token = token
                     KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: refreshToken)
                     
-                    UserRepository.shared.currentUser = user
+                    UserStore.shared.currentUser = user
                 } else {
                     throw NetworkError.refreshTokenFailed
                 }
             }
         } else {
-            UserRepository.shared.currentUser = nil
+            UserStore.shared.currentUser = nil
             TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
             throw NetworkError.refreshTokenFailed
         }

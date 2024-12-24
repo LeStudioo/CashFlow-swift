@@ -48,7 +48,7 @@ extension CreateAccountViewModel {
     }
     
     func createAccount(dismiss: DismissAction? = nil) async {
-        let accountRepository: AccountRepository = .shared
+        let accountRepository: AccountStore = .shared
         let body: AccountModel
         
         if type == .classic {
@@ -73,7 +73,7 @@ extension CreateAccountViewModel {
     func updateAccount(dismiss: DismissAction) async {
         guard let account, let accountID = account.id else { return }
         
-        let accountRepository: AccountRepository = .shared
+        let accountRepository: AccountStore = .shared
         let body: AccountModel
         
         if type == .classic {

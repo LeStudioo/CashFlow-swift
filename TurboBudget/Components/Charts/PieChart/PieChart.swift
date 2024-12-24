@@ -102,10 +102,10 @@ struct PieChart: View {
                         .overlay {
                             VStack(spacing: 8) {
                                 Group {
-                                    if let cat = CategoryRepository.shared.findCategoryById(activeSlice?.categoryID) {
+                                    if let cat = CategoryStore.shared.findCategoryById(activeSlice?.categoryID) {
                                         if chartStyle == .category {
                                             Text(cat.name)
-                                        } else if let subcat = CategoryRepository.shared.findSubcategoryById(activeSlice?.subcategoryID) {
+                                        } else if let subcat = CategoryStore.shared.findSubcategoryById(activeSlice?.subcategoryID) {
                                             Text(subcat.name)
                                         }
                                     } else {

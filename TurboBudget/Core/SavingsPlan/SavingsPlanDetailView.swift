@@ -21,8 +21,8 @@ struct SavingsPlanDetailView: View {
     @EnvironmentObject private var alertManager: AlertManager
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanRepository
-    @EnvironmentObject private var contributionRepository: ContributionRepository
+    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
+    @EnvironmentObject private var contributionRepository: ContributionStore
     
     //State or Binding String
     @State private var savingPlanNote: String = ""
