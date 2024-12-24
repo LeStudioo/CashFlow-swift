@@ -17,7 +17,7 @@ class CreateSavingsPlanViewModel: ObservableObject {
             self.savingsPlan = savingsPlan
             self.name = savingsPlan.name ?? ""
             self.emoji = savingsPlan.emoji ?? "💻"
-            self.goalAmount = savingsPlan.goalAmount?.formatted() ?? ""
+            self.goalAmount = "\(savingsPlan.goalAmount?.formatWith(0) ?? "")"
             self.startDate = savingsPlan.startDate
             self.endDate = savingsPlan.endDate ?? .now
             self.isEndDate = savingsPlan.endDateString != nil
