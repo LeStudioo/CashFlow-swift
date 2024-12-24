@@ -295,25 +295,6 @@
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Gesamteinsparungen";
 
-//MARK: - WhatsNew
-"whatsnew_title" = "Was ist neu?";
-
-"whatsnew_savings_accounts" = "Sie ermöglichen es Ihnen, Ihre Ersparnisse auf die gleiche Weise zu verfolgen wie beispielsweise Ihre Sparbuchkonten.";
-
-"whatsnew_transfers" = "Sie ermöglichen Ihnen, Aktionen zwischen Ihrem Sparkonto und Ihrem Bankkonto durchzuführen.";
-
-"whatsnew_security_title" = "Datensicherheit";
-
-"whatsnew_security" = "Datensicherheit ist heute wichtiger und umfassender";
-
-"whatsnew_ui_title" = "Benutzeroberfläche";
-
-"whatsnew_ui" = "Verbesserte Benutzeroberfläche, besser an Ihre Bedürfnisse angepasst und effizienter";
-
-"whatsnew_edit_title" = "Änderung";
-
-"whatsnew_edit" = "Sparpläne, Transaktionen, Abonnements usw. kann nun nach der Erstellung geändert werden";
-
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Unbegrenztes Sparkonto für eine bessere Verwaltung Ihres Geldes";
 
@@ -389,9 +370,26 @@
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "Was ist neu?";
+
+"whatsnew_ui_title" = "Benutzeroberfläche";
+
+"whatsnew_ui" = "Verbesserte Benutzeroberfläche, besser an Ihre Bedürfnisse angepasst und effizienter";
+
+"whatsnew_stats" = "Eine Zusammenfassung der Transaktionen für das laufende Jahr und die Vorjahre ist jetzt verfügbar";
+
+"whatsnew_creditcard" = "Speichern Sie Ihre Kreditkarten jetzt sicher in der Anwendung (Apple-Schlüsselbund).";
+
+"whatsnew_applepay_title" = "Apple Pay-Einstellungen";
+
+"whatsnew_applepay" = "Wir können jetzt die richtige Kategorie direkt zu Ihren Apple Pay-Transaktionen hinzufügen";
+
+"whatsnew_subscription" = "Sie können jetzt die Details eines Abonnements anzeigen";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Mein Konto löschen";

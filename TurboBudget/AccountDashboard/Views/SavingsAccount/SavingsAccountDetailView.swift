@@ -49,7 +49,6 @@ struct SavingsAccountDetailView: View {
                                         .disabled(true)
                                 }
                             }
-//                            .padding(.vertical, 4)
                             .padding(.horizontal)
                         }
                     }

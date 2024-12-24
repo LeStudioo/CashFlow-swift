@@ -25,7 +25,7 @@ final class PreferencesGeneral: ObservableObject {
     @CustomUserDefault("hapticFeedback", defaultValue: true) // PreferencesGeneral_hapticFeedback
     var hapticFeedback: Bool
 
-    @CustomUserDefault("PreferencesGeneral_whatsnewv2.0", defaultValue: false)
+    @CustomUserDefault("PreferencesGeneral_whatsnewv2.0.2", defaultValue: false)
     var isWhatsNewSeen: Bool
     
     // MARK: - Tips

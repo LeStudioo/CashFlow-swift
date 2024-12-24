@@ -286,14 +286,14 @@ struct Word {
     
     struct WhatsNew {
         static let title: String = "whatsnew_title".localized
-        static let savingsAccounts: String = "whatsnew_savings_accounts".localized
-        static let transfers: String = "whatsnew_transfers".localized
-        static let securityTitle: String = "whatsnew_security_title".localized
-        static let security: String = "whatsnew_security".localized
         static let userInterfaceTitle: String = "whatsnew_ui_title".localized
         static let userInterface: String = "whatsnew_ui".localized
-        static let editTitle: String = "whatsnew_edit_title".localized
-        static let edit: String = "whatsnew_edit".localized
+        
+        static let stats: String = "whatsnew_stats".localized
+        static let creditcard: String = "whatsnew_creditcard".localized
+        static let applePayTitle: String = "whatsnew_applepay_title".localized
+        static let applePay: String = "whatsnew_applepay".localized
+        static let subscription: String = "whatsnew_subscription".localized
     }
     
     struct Tips {

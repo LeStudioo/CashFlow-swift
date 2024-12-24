@@ -295,25 +295,6 @@
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Épargne total";
 
-//MARK: - WhatsNew
-"whatsnew_title" = "Quoi de neuf ?";
-
-"whatsnew_savings_accounts" = "Ils permettent de suivre votre épargne de la même manière que vos comptes sur livret, par exemple";
-
-"whatsnew_transfers" = "Ils permmettent de faire des actions entre vos compte épargne et vos compte bancaire";
-
-"whatsnew_security_title" = "Sécurité des données";
-
-"whatsnew_security" = "La sécurité des données est maintenant plus importante et plus complète";
-
-"whatsnew_ui_title" = "Interface utilisateur";
-
-"whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
-
-"whatsnew_edit_title" = "Modification";
-
-"whatsnew_edit" = "Les plans d'épargne, transactions, abonnements, etc., sont maintenant modifiables une fois créés";
-
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Compte d'épargne illimité pour une meilleure gestion de votre argent";
 
@@ -392,6 +373,23 @@
 "statistics_total_incomes_by_week" = "Revenus hebdomadaires moyen";
 
 "statistics_with_savings" = "Prendre en compte les épargnes et placements.";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "Quoi de neuf ?";
+
+"whatsnew_ui_title" = "Interface utilisateur";
+
+"whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
+
+"whatsnew_stats" = "Un récapitulatif des transactions pour l'année en cours et précedente est désormais disponible";
+
+"whatsnew_creditcard" = "Stocké maintenant vos cartes de crédit de manière sécurisée dans l'application (Apple Keychain)";
+
+"whatsnew_applepay_title" = "Paramètre Apple Pay";
+
+"whatsnew_applepay" = "Nous pouvons maintenant ajouter directement la bonne catégorie à vos transactions faites avec Apple Pay";
+
+"whatsnew_subscription" = "Vous pouvez maintenant consulter le détail d'un abonnement";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Supprimer mon compte";

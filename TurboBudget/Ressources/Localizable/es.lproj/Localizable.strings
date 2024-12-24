@@ -190,7 +190,7 @@
 //MARK: - Empty
 "empty_accounts_desc" = "¡Crea tu primera cuenta para comenzar a usar CashFlow!";
 
-"empty_accounts_create" = "Crea una cuenta";
+"empty_accounts_create" = "Crear una cuenta";
 
 "empty_transactions_desc" = "Aún no has registrado ninguna transacción. ¡Empiece ahora!";
 
@@ -295,25 +295,6 @@
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Ahorro total";
 
-//MARK: - WhatsNew
-"whatsnew_title" = "¿Qué hay de nuevo?";
-
-"whatsnew_savings_accounts" = "Le permiten realizar un seguimiento de sus ahorros de la misma manera que sus cuentas de libreta, por ejemplo.";
-
-"whatsnew_transfers" = "Te permiten realizar acciones entre tu cuenta de ahorro y tu cuenta bancaria.";
-
-"whatsnew_security_title" = "Seguridad de datos";
-
-"whatsnew_security" = "La seguridad de los datos es ahora más importante y más completa";
-
-"whatsnew_ui_title" = "Interfaz de usuario";
-
-"whatsnew_ui" = "Interfaz de usuario mejorada, mejor adaptada a tus necesidades y más eficiente";
-
-"whatsnew_edit_title" = "Modificación";
-
-"whatsnew_edit" = "Planes de ahorro, transacciones, suscripciones, etc. ahora se pueden modificar una vez creados";
-
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Cuenta de ahorro ilimitada para una mejor gestión de tu dinero";
 
@@ -372,7 +353,7 @@
 
 "creditcard_maxCard" = "Importe máximo alcanzado";
 
-"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
+"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta.";
 
 "creditcard_delete_title" = "Eliminar la tarjeta de crédito";
 
@@ -392,6 +373,23 @@
 "statistics_total_incomes_by_week" = "Ingresos semanales promedio";
 
 "statistics_with_savings" = "Tenga en cuenta los ahorros y las inversiones.";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "¿Qué hay de nuevo?";
+
+"whatsnew_ui_title" = "Interfaz de usuario";
+
+"whatsnew_ui" = "Interfaz de usuario mejorada, mejor adaptada a tus necesidades y más eficiente";
+
+"whatsnew_stats" = "Ya está disponible un resumen de las transacciones del año actual y anterior.";
+
+"whatsnew_creditcard" = "Ahora almacene sus tarjetas de crédito de forma segura en la aplicación (Apple Keychain)";
+
+"whatsnew_applepay_title" = "Configuración de pago de Apple";
+
+"whatsnew_applepay" = "Ahora podemos agregar la categoría correcta directamente a sus transacciones de Apple Pay";
+
+"whatsnew_subscription" = "Ahora puedes ver los detalles de una suscripción.";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "eliminar mi cuenta";

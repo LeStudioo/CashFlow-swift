@@ -29,24 +29,31 @@ struct WhatsNewView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     WhatsNewRow(
-                        icon: "building.columns.fill",
+                        icon: "chart.bar.fill",
                         iconColor: Color.primary500,
-                        title: Word.Main.savingsAccounts,
-                        message: Word.WhatsNew.savingsAccounts
+                        title: Word.Classic.statistics,
+                        message: Word.WhatsNew.stats
                     )
                     
                     WhatsNewRow(
-                        icon: "arrow.left.arrow.right",
+                        icon: "creditcard.fill",
                         iconColor: Color.blue,
-                        title: Word.Main.transfers,
-                        message:Word.WhatsNew.transfers
+                        title: Word.Main.creditCards,
+                        message: Word.WhatsNew.creditcard
                     )
                     
                     WhatsNewRow(
-                        icon: "lock.fill",
-                        iconColor: Color.blue,
-                        title: Word.WhatsNew.securityTitle,
-                        message: Word.WhatsNew.security
+                        icon: "gearshape.2.fill",
+                        iconColor: Color.orange,
+                        title: Word.WhatsNew.applePayTitle,
+                        message: Word.WhatsNew.applePay
+                    )
+                    
+                    WhatsNewRow(
+                        icon: "clock.arrow.circlepath",
+                        iconColor: Color.red,
+                        title: Word.Main.subscriptions,
+                        message: Word.WhatsNew.subscription
                     )
                     
                     WhatsNewRow(
@@ -54,13 +61,6 @@ struct WhatsNewView: View {
                         iconColor: Color.purple,
                         title: Word.WhatsNew.userInterfaceTitle,
                         message: Word.WhatsNew.userInterface
-                    )
-                    
-                    WhatsNewRow(
-                        icon: "pencil",
-                        iconColor: Color.red,
-                        title: Word.WhatsNew.editTitle,
-                        message: Word.WhatsNew.edit
                     )
                 }
             }

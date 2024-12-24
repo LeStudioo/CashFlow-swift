@@ -165,7 +165,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Aggiorna abbonamento";
+"title_update_subscription" = "Abbonamento di aggiornamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -295,25 +295,6 @@
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Risparmio totale";
 
-//MARK: - WhatsNew
-"whatsnew_title" = "Cosa c'è di nuovo?";
-
-"whatsnew_savings_accounts" = "Ti consentono di tenere traccia dei tuoi risparmi allo stesso modo, ad esempio, dei tuoi conti di risparmio.";
-
-"whatsnew_transfers" = "Ti consentono di effettuare operazioni tra il tuo conto di risparmio e il tuo conto corrente.";
-
-"whatsnew_security_title" = "Sicurezza dei dati";
-
-"whatsnew_security" = "Oggi la sicurezza dei dati è più importante e completa";
-
-"whatsnew_ui_title" = "interfaccia utente";
-
-"whatsnew_ui" = "Interfaccia utente migliorata, più adatta alle tue esigenze e più efficiente";
-
-"whatsnew_edit_title" = "il cambiamento";
-
-"whatsnew_edit" = "I piani di risparmio, le transazioni, gli abbonamenti, ecc. possono ora essere modificati dopo la creazione";
-
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Conto di risparmio illimitato per una migliore gestione del tuo denaro";
 
@@ -392,6 +373,23 @@
 "statistics_total_incomes_by_week" = "Redditi medi settimanali";
 
 "statistics_with_savings" = "Tieni conto dei risparmi e degli investimenti.";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "Cosa c'è di nuovo?";
+
+"whatsnew_ui_title" = "interfaccia utente";
+
+"whatsnew_ui" = "Interfaccia utente migliorata, più adatta alle tue esigenze e più efficiente";
+
+"whatsnew_stats" = "È ora disponibile un riepilogo delle transazioni per l'anno corrente e per quelli precedenti";
+
+"whatsnew_creditcard" = "Ora conserva le tue carte di credito in modo sicuro nell'applicazione (portachiavi Apple)";
+
+"whatsnew_applepay_title" = "Impostazioni di Apple Pay";
+
+"whatsnew_applepay" = "Ora possiamo aggiungere la categoria giusta direttamente alle tue transazioni Apple Pay";
+
+"whatsnew_subscription" = "Ora puoi visualizzare i dettagli di un abbonamento";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Elimina il mio account";
@@ -505,7 +503,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 

@@ -295,25 +295,6 @@
 //MARK: - SavingsAccount
 "savings_account_total_savings" = "Total savings";
 
-//MARK: - WhatsNew
-"whatsnew_title" = "What's new ?";
-
-"whatsnew_savings_accounts" = "They allow you to track your savings in the same way as your passbook accounts, for example";
-
-"whatsnew_transfers" = "They allow you to carry out actions between your savings account and your bank account.";
-
-"whatsnew_security_title" = "Data security";
-
-"whatsnew_security" = "Data security is now more important and more comprehensive";
-
-"whatsnew_ui_title" = "User interface";
-
-"whatsnew_ui" = "Improved user interface, better adapted to your needs and more efficient";
-
-"whatsnew_edit_title" = "Modification";
-
-"whatsnew_edit" = "Savings plans, transactions, subscriptions, etc. can now be modified once they have been created";
-
 //MARK: - Paywall
 "paywall_savingsaccounts_desc" = "Unlimited savings account for better management of your money";
 
@@ -392,6 +373,23 @@
 "statistics_total_incomes_by_week" = "Average weekly incomes";
 
 "statistics_with_savings" = "Take savings and investments into account.";
+
+//MARK: - WhatsNew
+"whatsnew_title" = "What's new ?";
+
+"whatsnew_ui_title" = "User interface";
+
+"whatsnew_ui" = "Improved user interface, better adapted to your needs and more efficient";
+
+"whatsnew_stats" = "A summary of transactions for the current and previous years is now available";
+
+"whatsnew_creditcard" = "Now store your credit cards securely in the application (Apple Keychain)";
+
+"whatsnew_applepay_title" = "Apple Pay settings";
+
+"whatsnew_applepay" = "We can now add the right category directly to your Apple Pay transactions";
+
+"whatsnew_subscription" = "You can now view the details of a subscription";
 
 //MARK: - UserAccount
 "user_delete_account_title" = "Delete my account";
