@@ -10,7 +10,7 @@ import SwiftUI
 struct StatisticsCell: View {
     
     let title: String
-    let statistics: [Statistics]
+    let statistics: [StatisticData]
     
     // MARK: -
     var body: some View {
