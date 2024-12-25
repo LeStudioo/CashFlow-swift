@@ -58,7 +58,7 @@ struct BudgetsTransactionsView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if subcategory.transactions.count != 0 && searchResults.count != 0{
+            if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
                 List(subcategory.currentMonthExpenses) { transaction in
                     Section {
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {

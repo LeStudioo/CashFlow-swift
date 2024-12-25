@@ -35,16 +35,16 @@ struct DashboardChart: View {
                 
                 VStack(spacing: 8) {
                     HStack(spacing: 8) {
-                        CustomRow(
+                        customRow(
                             text: "word_expenses".localized,
                             amount: amountExpenses.toCurrency()
                         )
-                        CustomRow(
+                        customRow(
                             text: "word_incomes".localized,
                             amount: amountIncomes.toCurrency()
                         )
                     }
-                    CustomRow(
+                    customRow(
                         text: "account_detail_cashflow".localized,
                         amount: amountCashFlow.toCurrency()
                     )
@@ -60,7 +60,7 @@ struct DashboardChart: View {
     } // body
     
     @ViewBuilder
-    private func CustomRow(text: String, amount: String) -> some View {
+    private func customRow(text: String, amount: String) -> some View {
         HStack {
             Text(text)
             Spacer()

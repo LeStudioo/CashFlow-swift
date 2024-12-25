@@ -15,13 +15,13 @@ struct CategoryHomeView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var categoryRepository: CategoryStore
     
-    //Custom type
+    // Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
         
-    //MARK: -
+    // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.categoriesFiltered.count != 0 {
+            if viewModel.categoriesFiltered.isNotEmpty {
                 ScrollView {
                     VStack {
                         if categoryRepository.currentMonthExpenses.isEmpty && categoryRepository.currentMonthIncomes.isEmpty {

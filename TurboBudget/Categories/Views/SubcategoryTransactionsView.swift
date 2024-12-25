@@ -52,10 +52,10 @@ struct SubcategoryTransactionsView: View {
         }
     }
     
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         VStack {
-            if subcategory.transactions.count != 0 && searchResults.count != 0 {
+            if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
                 List {
                     Section(content: {
                         ForEach(subcategory.currentMonthTransactions) { transaction in

@@ -36,7 +36,7 @@ struct ArchivedSavingPlansView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if searchResults.count != 0 {
+            if searchResults.isNotEmpty {
                 ScrollView(showsIndicators: false) {
                     VStack {
 //                        LazyVGrid(columns: layout, alignment: .center) {
@@ -49,8 +49,8 @@ struct ArchivedSavingPlansView: View {
 //                        }
 //                        .padding()
                     }
-                } //End ScrollView
-            } else { //SearchResult == 0
+                } // End ScrollView
+            } else { // SearchResult == 0
                 ErrorView(
                     searchResultsCount: searchResults.count,
                     searchText: searchText,
@@ -69,7 +69,7 @@ struct ArchivedSavingPlansView: View {
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onChange(of: account.savingPlansArchived) { newValue in
-            if newValue.count == 0 { dismiss() }
+            if newValue.isEmpty { dismiss() }
         }
     } // End body
 } // End struct

@@ -89,7 +89,6 @@ class TransactionModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         self.subcategoryID = subcategoryID
     }
     
-    
     /// Transfer init
     init(
         id: Int? = nil,

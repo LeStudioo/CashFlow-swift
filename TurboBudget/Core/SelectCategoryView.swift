@@ -52,7 +52,7 @@ struct SelectCategoryView: View {
                                 }
                         }
                         .padding([.horizontal, .top])
-                        if category.subcategories?.count == 0 {
+                        if category.subcategories == nil || category.subcategories?.isEmpty == true {
                             cellForCategory(category: category)
                                 .onTapGesture {
                                     withAnimation {

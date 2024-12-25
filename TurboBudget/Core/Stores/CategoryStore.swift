@@ -45,7 +45,7 @@ extension CategoryStore {
                         toGranularity: .month
                     )
                 }
-            if transactionsFiltered.count != 0 {
+            if transactionsFiltered.isNotEmpty {
                 array.append(category)
             }
         }

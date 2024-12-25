@@ -192,6 +192,7 @@ class NavigationManager: Router {
 private extension NavigationManager {
 
     @ViewBuilder
+    // swiftlint:disable cyclomatic_complexity
     func buildView(direction: NavigationDirection, route: Route) -> some View {
         Group {
             switch direction {

@@ -157,11 +157,11 @@ extension SubcategoryModel {
             .reduce(0, +)
     }
     
-    //MARK: - Extension Expenses
+    // MARK: - Extension Expenses
     
-    //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
+    // -------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
         
@@ -174,9 +174,9 @@ extension SubcategoryModel {
         return transactionsExpenses
     }
     
-    //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
+    // -------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
         

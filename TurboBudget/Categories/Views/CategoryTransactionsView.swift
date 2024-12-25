@@ -53,7 +53,7 @@ struct CategoryTransactionsView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if category.transactions.count != 0 {
+            if category.transactions.isNotEmpty {
                 List {
                     Section(content: {
                         ForEach(category.currentMonthTransactions) { transaction in

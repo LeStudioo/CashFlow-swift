@@ -22,7 +22,7 @@ struct HomeScreenRecentTransactions: View {
             VStack {
                 HomeScreenComponentHeader(type: .recentTransactions)
                 
-                if transactionRepository.transactions.count != 0 {
+                if transactionRepository.transactions.isNotEmpty {
                     ForEach(transactionRepository.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)

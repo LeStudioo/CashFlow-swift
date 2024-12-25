@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-//Color to Hex
+// Color to Hex
 extension Color {
     func toHex() -> String? {
         let uic = UIColor(self)
@@ -32,7 +32,7 @@ extension Color {
     }
 }
 
-//Hex to Color
+// Hex to Color
 extension Color {
     init(hex: UInt, alpha: Double = 1) {
         self.init(
@@ -47,6 +47,7 @@ extension Color {
 
 //Darker / Lighter
 extension Color {
+    // swiftlint:disable:next large_tuple
     var components: (red: CGFloat, green: CGFloat, blue: CGFloat, opacity: CGFloat) {
         #if canImport(UIKit)
         typealias NativeColor = UIColor
