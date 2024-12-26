@@ -33,14 +33,14 @@ struct AccountStatisticsView: View {
                                 title: Word.Statistics.totalExpenses,
                                 statistics: [
                                     .init(text: Word.Temporality.thisWeek, value: week.expense?.thisWeek ?? 0),
-                                    .init(text: Word.Temporality.lastWeek, value: week.expense?.lastWeek ?? 0),
+                                    .init(text: Word.Temporality.lastWeek, value: week.expense?.lastWeek ?? 0)
                                 ]
                             )
                             StatisticsCell(
                                 title: Word.Statistics.totalIncomes,
                                 statistics: [
                                     .init(text: Word.Temporality.thisWeek, value: week.income?.thisWeek ?? 0),
-                                    .init(text: Word.Temporality.lastWeek, value: week.income?.lastWeek ?? 0),
+                                    .init(text: Word.Temporality.lastWeek, value: week.income?.lastWeek ?? 0)
                                 ]
                             )
                             
@@ -48,14 +48,14 @@ struct AccountStatisticsView: View {
                                 title: Word.Statistics.totalExpensesByWeek,
                                 statistics: [
                                     .init(text: Word.Temporality.thisYear, value: ((year.expense?.thisYear ?? 0) / Double(Date().week))),
-                                    .init(text: Word.Temporality.lastYear, value: ((year.expense?.lastYear ?? 0) / 52)),
+                                    .init(text: Word.Temporality.lastYear, value: ((year.expense?.lastYear ?? 0) / 52))
                                 ]
                             )
                             StatisticsCell(
                                 title: Word.Statistics.totalIncomesByWeek,
                                 statistics: [
                                     .init(text: Word.Temporality.thisYear, value: ((year.income?.thisYear ?? 0) / Double(Date().week))),
-                                    .init(text: Word.Temporality.lastYear, value: ((year.income?.lastYear ?? 0) / 52)),
+                                    .init(text: Word.Temporality.lastYear, value: ((year.income?.lastYear ?? 0) / 52))
                                 ]
                             )
                         }
@@ -66,14 +66,14 @@ struct AccountStatisticsView: View {
                                     title: Word.Statistics.totalExpenses,
                                     statistics: [
                                         .init(text: Word.Temporality.thisMonth, value: month.expense?.thisMonth ?? 0),
-                                        .init(text: Word.Temporality.lastMonth, value: month.expense?.lastMonth ?? 0),
+                                        .init(text: Word.Temporality.lastMonth, value: month.expense?.lastMonth ?? 0)
                                     ]
                                 )
                                 StatisticsCell(
                                     title: Word.Statistics.totalIncomes,
                                     statistics: [
                                         .init(text: Word.Temporality.thisMonth, value: month.income?.thisMonth ?? 0),
-                                        .init(text: Word.Temporality.lastMonth, value: month.income?.lastMonth ?? 0),
+                                        .init(text: Word.Temporality.lastMonth, value: month.income?.lastMonth ?? 0)
                                     ]
                                 )
                                 
@@ -81,7 +81,7 @@ struct AccountStatisticsView: View {
                                     title: Word.Statistics.totalExpensesByMonth,
                                     statistics: [
                                         .init(text: Word.Temporality.thisYear, value: ((year.expense?.thisYear ?? 0) / Double(Date().month))),
-                                        .init(text: Word.Temporality.lastYear, value: ((year.expense?.lastYear ?? 0) / 12)),
+                                        .init(text: Word.Temporality.lastYear, value: ((year.expense?.lastYear ?? 0) / 12))
                                     ]
                                 )
                                 StatisticsCell(
@@ -98,14 +98,14 @@ struct AccountStatisticsView: View {
                                     title: Word.Statistics.totalExpenses,
                                     statistics: [
                                         .init(text: Word.Temporality.thisYear, value: year.expense?.thisYear ?? 0),
-                                        .init(text: Word.Temporality.lastYear, value: year.expense?.lastYear ?? 0),
+                                        .init(text: Word.Temporality.lastYear, value: year.expense?.lastYear ?? 0)
                                     ]
                                 )
                                 StatisticsCell(
                                     title: Word.Statistics.totalIncomes,
                                     statistics: [
                                         .init(text: Word.Temporality.thisYear, value: year.income?.thisYear ?? 0),
-                                        .init(text: Word.Temporality.lastYear, value: year.income?.lastYear ?? 0),
+                                        .init(text: Word.Temporality.lastYear, value: year.income?.lastYear ?? 0)
                                     ]
                                 )
                             }

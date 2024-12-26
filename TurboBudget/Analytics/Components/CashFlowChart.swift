@@ -55,7 +55,7 @@ struct CashFlowChart: View {
                 }
             }
             .chartYAxis(.hidden)
-            .chartXAxis() {
+            .chartXAxis {
                 AxisMarks { value in
                     let month = value.index > 11 ? "" : Calendar.current.monthSymbols[value.index]
                     AxisValueLabel { Text(String(month.prefix(3))) }
@@ -69,7 +69,11 @@ struct CashFlowChart: View {
                 .fill(Color.background100)
         }
         .alert(isPresented: $showAlert, content: {
-            Alert(title: Text("cashflowchart_alert_title".localized), message: Text("cashflowchart_alert_desc".localized), dismissButton: .cancel(Text("word_ok".localized)) )
+            Alert(
+                title: Text("cashflowchart_alert_title".localized),
+                message: Text("cashflowchart_alert_desc".localized),
+                dismissButton: .cancel(Text("word_ok".localized))
+            )
         })
         .task {
             if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {

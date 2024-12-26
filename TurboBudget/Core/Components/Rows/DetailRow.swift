@@ -11,10 +11,10 @@ struct DetailRow: View {
     
     // Builder
     var icon: String
-    var text: String? = nil
+    var text: String?
     var value: String
     var iconBackgroundColor: Color = .background200
-    var action: (() -> Void)? = nil
+    var action: (() -> Void)?
     
     // MARK: -
     var body: some View {

@@ -44,10 +44,10 @@ struct DetailOfCategoryForArchivedTransaction: View {
                 }
         }
         .padding([.horizontal, .top])
-    }//END body
-}//END struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     DetailOfCategoryForArchivedTransaction(category: .mock)
 }

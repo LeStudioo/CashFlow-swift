@@ -15,7 +15,7 @@ struct ValidateButton: View {
     
     @EnvironmentObject private var themeManager: ThemeManager
 
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         Button(action: action, label: {
             ZStack {
@@ -37,15 +37,10 @@ struct ValidateButton: View {
         .disabled(!validate)
         .opacity(validate ? 1 : 0.4)
         .padding(.horizontal, 8)
-    }//END body
+    } // body
+} // struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct ValidateButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ValidateButton(action: { }, validate: true)
-    }
+// MARK: - Preview
+#Preview {
+    ValidateButton(action: { }, validate: true)
 }

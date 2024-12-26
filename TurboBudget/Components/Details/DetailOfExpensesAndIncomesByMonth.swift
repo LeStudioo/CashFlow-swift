@@ -10,16 +10,16 @@ import SwiftUI
 
 struct DetailOfExpensesAndIncomesByMonth: View {
     
-    //Builder
+    // Builder
     var month: Date
     var amountOfExpenses: Double
     var amountOfIncomes: Double
     var isPinned: Bool = false
 
-    //Environnement
+    // Environnement
     @EnvironmentObject var store: PurchasesManager
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -58,16 +58,14 @@ struct DetailOfExpensesAndIncomesByMonth: View {
             }
         }
         .compositingGroup()
-    }//END body
-}//END struct
+    } // body
+} // struct
 
-//MARK: - Preview
-struct DetailOfExpensesAndIncomesByMonth_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailOfExpensesAndIncomesByMonth(
-            month: .now,
-            amountOfExpenses: 200,
-            amountOfIncomes: 10
-        )
-    }
+// MARK: - Preview
+#Preview {
+    DetailOfExpensesAndIncomesByMonth(
+        month: .now,
+        amountOfExpenses: 200,
+        amountOfIncomes: 10
+    )
 }

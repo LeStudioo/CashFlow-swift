@@ -46,10 +46,10 @@ struct DetailOfCategory: View {
                 }
         }
         .padding([.horizontal, .top])
-    }//END body
-}//END struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     DetailOfCategory(category: .mock)
 }

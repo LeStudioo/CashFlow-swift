@@ -38,7 +38,7 @@ struct AsyncButton<Label: View>: View {
 
 // MARK: - Preview
 #Preview {
-    AsyncButton(action: {}) {
+    AsyncButton {} label: {
         Text("COUCOU")
     }
 }

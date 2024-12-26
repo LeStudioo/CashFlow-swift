@@ -31,7 +31,7 @@ extension PageControllerViewModel {
             // it's possible, so go ahead and use it
             let reason = "alert_request_biometric".localized
             
-            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, authenticationError in
+            context.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { success, _ in
                 // authentication has now completed
                 if success {
                     DispatchQueue.main.async {

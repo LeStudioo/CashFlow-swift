@@ -64,7 +64,7 @@ struct CategoryHomeView: View {
                             .opacity(0)
                     }
                     .padding()
-                } //End ScrollView
+                } // ScrollView
                 .scrollDismissesKeyboard(.immediately)
                 .scrollIndicators(.hidden)
             } else {

@@ -80,7 +80,7 @@ extension TransactionStore {
     }
     
     @MainActor
-    private func fetchTransactionsByPeriod(accountID: Int, startDate: String, endDate: String, type: TransactionType? = nil) async  {
+    private func fetchTransactionsByPeriod(accountID: Int, startDate: String, endDate: String, type: TransactionType? = nil) async {
         do {
             let transactions = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.fetchByPeriod(

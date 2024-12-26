@@ -9,11 +9,11 @@ import SwiftUI
 
 struct SubcategoryRow: View {
     
-    //Custom type
+    // Custom type
     var subcategory: SubcategoryModel
     @ObservedObject var filter: Filter = sharedFilter
     
-    //Computed var
+    // Computed var
     var stringAmount: String {
         return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
     }
@@ -54,10 +54,10 @@ struct SubcategoryRow: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.background100)
         }
-    } // End body
-} // End struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     SubcategoryRow(subcategory: .mock)
 }

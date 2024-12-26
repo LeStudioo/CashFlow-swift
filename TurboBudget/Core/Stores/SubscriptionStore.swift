@@ -41,7 +41,7 @@ extension SubscriptionStore {
     
     @discardableResult
     @MainActor
-    func createSubscription(accountID: Int, body: SubscriptionModel, shouldReturn: Bool = false) async -> SubscriptionModel?  {
+    func createSubscription(accountID: Int, body: SubscriptionModel, shouldReturn: Bool = false) async -> SubscriptionModel? {
         do {
             let subscription = try await NetworkService.shared.sendRequest(
                 apiBuilder: SubscriptionAPIRequester.create(accountID: accountID, body: body),

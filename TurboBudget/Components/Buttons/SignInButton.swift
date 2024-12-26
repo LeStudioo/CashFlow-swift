@@ -5,7 +5,6 @@
 //  Created by Theo Sementa on 15/11/2024.
 //
 
-
 import SwiftUI
 
 struct SignInButton: View {

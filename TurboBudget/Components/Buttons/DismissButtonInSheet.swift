@@ -9,22 +9,10 @@ import SwiftUI
 
 struct DismissButtonInSheet: View {
 
-    //Custom type
-
-    //Environnements
+    // Environnements
     @Environment(\.dismiss) private var dismiss
 
-    //State or Binding String
-
-    //State or Binding Int, Float and Double
-
-    //State or Binding Bool
-
-    //Enum
-    
-    //Computed var
-
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
             Spacer()
@@ -36,15 +24,10 @@ struct DismissButtonInSheet: View {
         }
         .padding(isLittleIphone ? 8 : 12)
         .padding([.top, .trailing], 8)
-    }//END body
+    } // body
+} // struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct DismissButtonInSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        DismissButtonInSheet()
-    }
+// MARK: - Preview
+#Preview {
+    DismissButtonInSheet()
 }

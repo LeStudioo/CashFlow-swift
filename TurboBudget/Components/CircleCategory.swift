@@ -12,7 +12,7 @@ struct CircleCategory: View {
     // Builder
     var category: CategoryModel?
     var subcategory: SubcategoryModel?
-    var transaction: TransactionModel? = nil
+    var transaction: TransactionModel?
     
     @EnvironmentObject private var accountRepository: AccountStore
     

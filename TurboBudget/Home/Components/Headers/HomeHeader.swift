@@ -41,9 +41,9 @@ struct HomeHeader: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
             }
         }
-        .onChange(of: transactionRepository.transactions.count) { _ in
-            // Keep to reload account.balance
-        }
+//        .onChange(of: transactionRepository.transactions.count) { _ in
+//            // Keep to reload account.balance
+//        }
     } // body
 } // struct
 

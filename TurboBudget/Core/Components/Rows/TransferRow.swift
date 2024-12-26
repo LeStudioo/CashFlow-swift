@@ -14,14 +14,14 @@ enum TransferRowLocation {
 
 struct TransferRow: View {
 
-    //Custom type
+    // Custom type
     var transfer: TransactionModel
     var location: TransferRowLocation = .savingsAccount
     @EnvironmentObject private var savingsAccountRepository: SavingsAccountStore
     @EnvironmentObject private var transferRepository: TransferStore
     @EnvironmentObject private var accountRepository: AccountStore
         
-    //State or Binding Bool
+    // State or Binding Bool
     @State private var isDeleting: Bool = false
     @State private var cancelDeleting: Bool = false
     

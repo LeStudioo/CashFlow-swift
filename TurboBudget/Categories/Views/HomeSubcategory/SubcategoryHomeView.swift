@@ -17,7 +17,7 @@ struct SubcategoryHomeView: View {
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
     
-    //Environnement
+    // Environnement
     @EnvironmentObject private var router: NavigationManager
     
     // Computed

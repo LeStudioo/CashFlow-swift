@@ -8,7 +8,7 @@
 import Foundation
 
 final class SubcategoryHomeViewModel: ObservableObject {
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedSubcategory: SubcategoryModel?
     @Published var filter: Filter = .shared
     
     @Published var searchText: String = ""
@@ -16,7 +16,7 @@ final class SubcategoryHomeViewModel: ObservableObject {
 
 extension SubcategoryHomeViewModel {
     
-    func isDisplayChart(category:  CategoryModel) -> Bool {
+    func isDisplayChart(category: CategoryModel) -> Bool {
         if category.isToCategorized {
             return false
         } else {

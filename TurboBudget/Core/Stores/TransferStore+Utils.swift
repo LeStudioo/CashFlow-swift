@@ -9,12 +9,12 @@ import Foundation
 
 extension TransferStore {
     
-    //-------------------- getAllSavingsTransferForChosenMonth() ----------------------
+    // -------------------- getAllSavingsTransferForChosenMonth() ----------------------
     // Description : Récupère tous les transfers qui sont de l'épargne, pour un mois donné
     // Parameter : selectedDate: Date
     // Output : return [Transfer]
     // Extra : No
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllSavingsTransferForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var savingsTransfer: [TransactionModel] = []
         
@@ -27,24 +27,24 @@ extension TransferStore {
         return savingsTransfer
     }
     
-    //-------------------- amountOfSavingsByMonth() ----------------------
+    // -------------------- amountOfSavingsByMonth() ----------------------
     // Description : Retourne la somme de toutes les transfers qui sont de l'épargne, pour un mois donné
     // Parameter : (month: Date)
     // Output : return Double
     // Extra : No
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func amountOfSavingsByMonth(month: Date) -> Double {
         return getAllSavingsTransferForChosenMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })
             .reduce(0, +)
     }
     
-    //-------------------- getAllWithdrawalTransferForChosenMonth() ----------------------
+    // -------------------- getAllWithdrawalTransferForChosenMonth() ----------------------
     // Description : Récupère toutes les transfers qui sont des retraits, pour un mois donné
     // Parameter : (selectedDate: Date)
     // Output : return [Transfer]
     // Extra : No
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllWithdrawalTransferForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var withdrawalTransfer: [TransactionModel] = []
         
@@ -57,12 +57,12 @@ extension TransferStore {
         return withdrawalTransfer
     }
     
-    //-------------------- amountOfWithdrawalByMonth() ----------------------
+    // -------------------- amountOfWithdrawalByMonth() ----------------------
     // Description : Retourne la somme de toutes les transfers qui sont des retraits, pour un mois donné
     // Parameter : (month: Date)
     // Output : return Double
     // Extra : No
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func amountOfWithdrawalByMonth(month: Date) -> Double {
         return getAllWithdrawalTransferForChosenMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })

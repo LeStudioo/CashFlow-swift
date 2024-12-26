@@ -16,7 +16,7 @@ struct ContributionRow: View {
     var savingsPlan: SavingsPlanModel
     var contribution: ContributionModel
 
-    //Environnement
+    // Environnement
     @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -

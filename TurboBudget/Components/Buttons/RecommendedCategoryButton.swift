@@ -15,8 +15,8 @@ struct RecommendedCategoryButton: View {
     @Binding var selectedCategory: CategoryModel?
     @Binding var selectedSubcategory: SubcategoryModel?
     
-    @State private var bestCategory: CategoryModel? = nil
-    @State private var bestSubcategory: SubcategoryModel? = nil
+    @State private var bestCategory: CategoryModel?
+    @State private var bestSubcategory: SubcategoryModel?
     
     // MARK: -
     var body: some View {

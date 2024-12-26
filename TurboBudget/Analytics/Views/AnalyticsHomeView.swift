@@ -87,9 +87,7 @@ struct AnalyticsHomeView: View {
     } // End body
 } // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     AnalyticsHomeView()
 }
-
-

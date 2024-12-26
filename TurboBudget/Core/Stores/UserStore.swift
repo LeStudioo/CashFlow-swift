@@ -10,7 +10,7 @@ import Foundation
 final class UserStore: ObservableObject {
     static let shared = UserStore()
         
-    @Published var currentUser: UserModel? = nil
+    @Published var currentUser: UserModel?
     
     var isUserLogged: Bool {
         return currentUser != nil

@@ -102,7 +102,10 @@ struct BudgetsTransactionsView: View {
             
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
-                    Button(action: { showEditMaxAmount.toggle() }, label: { Label("budgets_transactions_button_edit".localized, systemImage: "pencil") })
+                    Button(
+                        action: { showEditMaxAmount.toggle() },
+                        label: { Label("budgets_transactions_button_edit".localized, systemImage: "pencil") }
+                    )
                     Button(role: .destructive, action: { showDeleteBudget.toggle() }, label: { Label("word_delete".localized, systemImage: "trash") })
                 }, label: {
                     Image(systemName: "ellipsis")
@@ -113,9 +116,9 @@ struct BudgetsTransactionsView: View {
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))
-    } // End body
+    } // body
     
-    //MARK: ViewBuilder
+    // MARK: ViewBuilder
     @ViewBuilder
     func detailForExpenses() -> some View {
         HStack {

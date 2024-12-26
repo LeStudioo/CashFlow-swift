@@ -39,7 +39,7 @@ struct TurboBudgetApp: App {
     @StateObject private var automationRepo: AutomationRepositoryOld = .shared
     @StateObject private var savingPlanRepo: SavingPlanRepositoryOld = .shared
     @StateObject private var budgetRepo: BudgetRepositoryOld = .shared
-
+    
     @StateObject private var filterManager: FilterManager = .shared
     @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
     
@@ -59,14 +59,15 @@ struct TurboBudgetApp: App {
     // MARK: -
     var body: some Scene {
         WindowGroup {
-            Group {
-                switch appManager.viewState {
-                case .idle:
-                    SplashScreenView()
-                case .loading:
-                    SplashScreenView()
-                case .success:
-                    NavStack(router: router) {
+            NavStack(router: router) {
+                Group {
+                    switch appManager.viewState {
+                    case .idle:
+                        SplashScreenView()
+                    case .loading:
+                        SplashScreenView()
+                    case .success:
+                        
                         if preferencesSecurity.isSecurityReinforced {
                             if scenePhase == .active {
                                 PageControllerView()
@@ -78,47 +79,49 @@ struct TurboBudgetApp: App {
                         } else {
                             PageControllerView()
                         }
+                        
+                    case .syncing:
+                        SyncingView()
+                    case .notSynced:
+                        NotSyncedView()
+                    case .failed:
+                        LoginView()
                     }
-                    .task {
-                        await accountRepository.fetchAccounts()
-                        accountRepository.selectedAccount = accountRepository.mainAccount
-                        await categoryRepository.fetchCategories()
-                        if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
-                            await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
-                            await subscriptionRepository.fetchSubscriptions(accountID: accountID)
-                            await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
-                            await budgetRepository.fetchBudgets(accountID: accountID)
-                            await creditCardRepository.fetchCreditCards(accountID: accountID)
-                            
-                            if preferencesSubscription.isNotificationsEnabled {
-                                for subscription in subscriptionRepository.subscriptions {
-                                    guard let subscriptionID = subscription.id else { continue }
-                                    
-                                    await NotificationsManager.shared.scheduleNotification(
-                                        for: .init(
-                                            id: subscriptionID,
-                                            title: "CashFlow",
-                                            message: subscription.notifMessage,
-                                            date: subscription.dateNotif
-                                        ),
-                                        daysBefore: preferencesSubscription.dayBeforeReceiveNotification
-                                    )
-                                }
-                            }
-                        }
-                    }
-                case .syncing:
-                    SyncingView()
-                case .notSynced:
-                    NotSyncedView()
-                case .failed:
-                    LoginView()
+                }
+                .overlay(alignment: .bottom) {
+                    SuccessfullCreationView()
+                        .environmentObject(successfullModalManager)
                 }
             }
-            .overlay(alignment: .bottom) {
-                SuccessfullCreationView()
-                    .environmentObject(successfullModalManager)
+            .task {
+                await accountRepository.fetchAccounts()
+                accountRepository.selectedAccount = accountRepository.mainAccount
+                await categoryRepository.fetchCategories()
+                if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
+                    await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
+                    await subscriptionRepository.fetchSubscriptions(accountID: accountID)
+                    await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
+                    await budgetRepository.fetchBudgets(accountID: accountID)
+                    await creditCardRepository.fetchCreditCards(accountID: accountID)
+                    
+                    if preferencesSubscription.isNotificationsEnabled {
+                        for subscription in subscriptionRepository.subscriptions {
+                            guard let subscriptionID = subscription.id else { continue }
+                            
+                            await NotificationsManager.shared.scheduleNotification(
+                                for: .init(
+                                    id: subscriptionID,
+                                    title: "CashFlow",
+                                    message: subscription.notifMessage,
+                                    date: subscription.dateNotif
+                                ),
+                                daysBefore: preferencesSubscription.dayBeforeReceiveNotification
+                            )
+                        }
+                    }
+                }
             }
+            
             .environment(\.managedObjectContext, viewContext)
             .environmentObject(appManager)
             .environmentObject(router)
@@ -173,7 +176,7 @@ struct TurboBudgetApp: App {
             }
             .task {
                 await purchasesManager.loadProducts()
-                                
+                
                 do {
                     try await userRepository.loginWithToken()
                     appManager.viewState = .success

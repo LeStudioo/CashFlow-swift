@@ -51,7 +51,7 @@ struct PageControllerView: View {
                             case 1: AnalyticsHomeView()
                             case 3: AccountDashboardView()
                             case 4: CategoryHomeView()
-                            default: EmptyView() //Can't arrived
+                            default: EmptyView() // Can't arrived
                             }
                         }
                         .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)

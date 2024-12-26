@@ -11,7 +11,7 @@ import AlertKit
 
 struct SavingsPlanDetailView: View {
     
-    //Custom type
+    // Custom type
     @ObservedObject var savingsPlan: SavingsPlanModel
     
     // Environement
@@ -24,10 +24,10 @@ struct SavingsPlanDetailView: View {
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
     @EnvironmentObject private var contributionRepository: ContributionStore
     
-    //State or Binding String
+    // State or Binding String
     @State private var savingPlanNote: String = ""
     
-    //Enum
+    // Enum
     enum Field: CaseIterable {
         case note
     }
@@ -136,7 +136,7 @@ struct SavingsPlanDetailView: View {
             savingPlanNote = savingsPlan.note ?? ""
         }
         .onDisappear {
-            if savingPlanNote != savingsPlan.note && savingPlanNote != "" {
+            if savingPlanNote != savingsPlan.note && !savingPlanNote.isEmpty {
                 Task {
                     if let savingsPlanID = savingsPlan.id {
                         await savingsPlanRepository.updateSavingsPlan(
@@ -176,19 +176,12 @@ struct SavingsPlanDetailView: View {
                 })
             }
             
-            ToolbarItem(placement: .keyboard) {
-                HStack {
-                    EmptyView()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Button(action: { focusedField = nil }, label: { Image(systemName: "keyboard.chevron.compact.down.fill").foregroundStyle(themeManager.theme.color) })
-                }
-                .frame(maxWidth: .infinity, alignment: .trailing)
-            }
+            ToolbarDismissKeyboardButtonView()
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // body
     
-    //MARK: - ViewBuilder
+    // MARK: - ViewBuilder
     @ViewBuilder
     func progressBar() -> some View {
         if let currentAmount = savingsPlan.currentAmount, let goalAmount = savingsPlan.goalAmount, goalAmount > 0 {

@@ -26,7 +26,7 @@ struct PieChart: View {
     @EnvironmentObject private var filter: FilterManager
     
     // Other
-    @State private var activeSlice: PieSliceData? = nil
+    @State private var activeSlice: PieSliceData?
     
     // Computed
     var values: [Double] {
@@ -159,9 +159,7 @@ extension PieChart {
         
 //        return ""
     }
-    
 }
-
 
 //var categoriesWithExpenses: [PredefinedCategory] {
 //    var categoriesWithout0: [PredefinedCategory] = []

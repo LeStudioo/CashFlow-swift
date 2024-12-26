@@ -14,7 +14,7 @@ struct BudgetsHomeView: View {
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
     
-    //Environnement
+    // Environnement
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var budgetRepository: BudgetStore
     

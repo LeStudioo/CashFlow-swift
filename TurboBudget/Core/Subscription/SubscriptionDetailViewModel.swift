@@ -8,8 +8,8 @@
 import Foundation
 
 final class SubscriptionDetailViewModel: ObservableObject {
-    @Published var selectedCategory: CategoryModel? = nil
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
+    @Published var selectedSubcategory: SubcategoryModel?
 }
 
 extension SubscriptionDetailViewModel {

@@ -10,17 +10,17 @@ import SwiftUI
 
 struct DetailOfExpensesOrIncomesByMonth: View {
     
-    //Builder
+    // Builder
     @Binding var filterTransactions: FilterForRecentTransaction
     var month: Date
     var amountOfExpenses: Double
     var amountOfIncomes: Double
     @Binding var ascendingOrder: Bool
     
-    //Environnements
+    // Environnements
     @EnvironmentObject var store: PurchasesManager
 
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
             HStack(alignment: .bottom) {
@@ -75,18 +75,16 @@ struct DetailOfExpensesOrIncomesByMonth: View {
             Spacer()
         }
         .padding(.horizontal)
-    }//END body
-}//END struct
+    } // body
+} // struct
 
-//MARK: - Preview
-struct DetailOfExpensesOrIncomes_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailOfExpensesOrIncomesByMonth(
-            filterTransactions: Binding.constant(.expenses),
-            month: Date(),
-            amountOfExpenses: 200,
-            amountOfIncomes: 100,
-            ascendingOrder: Binding.constant(false)
-        )
-    }
+// MARK: - Preview
+#Preview {
+    DetailOfExpensesOrIncomesByMonth(
+        filterTransactions: Binding.constant(.expenses),
+        month: Date(),
+        amountOfExpenses: 200,
+        amountOfIncomes: 100,
+        ascendingOrder: Binding.constant(false)
+    )
 }

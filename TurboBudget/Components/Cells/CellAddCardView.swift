@@ -40,7 +40,7 @@ struct CellAddCardView: View {
     } // End body
 } // Ens struct
 
-//MARK: - Preview
+// MARK: - Preview
 struct CellAddCardView_Previews: PreviewProvider {
     
     @State static private var textPreview: String = ""

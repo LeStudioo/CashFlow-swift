@@ -16,20 +16,20 @@ struct SubcategoryTransactionsView: View {
     // Repo
     @EnvironmentObject private var transactionRepository: TransactionStore
     
-    //Environnements
+    // Environnements
     @EnvironmentObject private var router: NavigationManager
     @Environment(\.dismiss) private var dismiss
     
-    //State or Binding String
+    // State or Binding String
     @State private var searchText: String = ""
     
-    //State or Binding Bool
+    // State or Binding Bool
     @State private var ascendingOrder: Bool = false
     
-    //Enum
+    // Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
-    //Computed var    
+    // Computed var
     var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             if filterTransactions == .expenses {
@@ -112,8 +112,14 @@ struct SubcategoryTransactionsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Menu(content: {
-                        Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month".localized, systemImage: "calendar") })
-                        Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") })
+                        Button(
+                            action: { withAnimation { filterTransactions = .month } },
+                            label: { Label("word_month".localized, systemImage: "calendar") }
+                        )
+                        Button(
+                            action: { withAnimation { filterTransactions = .expenses } },
+                            label: { Label("word_expenses".localized, systemImage: "arrow.down.forward") }
+                        )
                     }, label: {
                         Label("word_filter".localized, systemImage: "slider.horizontal.3")
                     })

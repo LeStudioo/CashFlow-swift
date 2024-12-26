@@ -92,7 +92,6 @@ extension TransactionStore {
         return transactionsExpenses
     }
     
-    
     func amountExpensesForSelectedMonth(month: Date) -> Double {
         return expensesForSelectedMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })

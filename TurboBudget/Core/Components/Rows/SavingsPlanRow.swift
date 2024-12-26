@@ -9,17 +9,17 @@ import SwiftUI
 
 struct SavingsPlanRow: View {
 
-    //Custom type
+    // Custom type
     var savingsPlan: SavingsPlanModel
 
-    //Environnement
+    // Environnement
     @EnvironmentObject private var themeManager: ThemeManager
 
-    //State or Binding Int, Float and Double
+    // State or Binding Int, Float and Double
     @State private var percentage: Double = 0
     @State private var increaseWidthAmount: Double = 0
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
@@ -73,8 +73,7 @@ struct SavingsPlanRow: View {
         }
     } // body
 
-    //MARK: Fonctions
-    
+    // MARK: Fonctions
     @ViewBuilder
     func progressBar() -> some View {
         VStack {
@@ -110,13 +109,10 @@ struct SavingsPlanRow: View {
             .frame(height: 38)
         }
     }
-
 } // struct
 
-//MARK: - Preview
-struct SavingPlanCellView_Previews: PreviewProvider {
-    static var previews: some View {
-        SavingsPlanRow(savingsPlan: .mockClassicSavingsPlan)
-            .frame(width: 180, height: 150)
-    }
+// MARK: - Preview
+#Preview {
+    SavingsPlanRow(savingsPlan: .mockClassicSavingsPlan)
+        .frame(width: 180, height: 150)
 }

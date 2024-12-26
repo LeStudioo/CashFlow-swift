@@ -100,9 +100,15 @@ struct CategoryTransactionsView: View {
                     Menu(content: {
                         Button(action: { withAnimation { filterTransactions = .month } }, label: { Label("word_month", systemImage: "calendar") })
                         if category.id != CategoryModel.revenue?.id {
-                            Button(action: { withAnimation { filterTransactions = .expenses } }, label: { Label("word_expenses", systemImage: "arrow.down.forward") })
+                            Button(
+                                action: { withAnimation { filterTransactions = .expenses } },
+                                label: { Label("word_expenses", systemImage: "arrow.down.forward") }
+                            )
                         } else {
-                            Button(action: { withAnimation { filterTransactions = .incomes } }, label: { Label("word_incomes", systemImage: "arrow.up.right") })
+                            Button(
+                                action: { withAnimation { filterTransactions = .incomes } },
+                                label: { Label("word_incomes", systemImage: "arrow.up.right") }
+                            )
                         }
                     }, label: {
                         Label("word_filter", systemImage: "slider.horizontal.3")

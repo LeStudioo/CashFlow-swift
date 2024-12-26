@@ -11,8 +11,8 @@ struct TransactionDetailPredictedCategoryRow: View {
     
     // Builder
     var category: CategoryModel
-    var subcategory: SubcategoryModel? = nil
-    var action: (() -> Void)? = nil
+    var subcategory: SubcategoryModel?
+    var action: (() -> Void)?
     
     var icon: String {
         if let subcategory {

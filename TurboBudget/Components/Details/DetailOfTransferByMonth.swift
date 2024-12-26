@@ -9,7 +9,7 @@ import SwiftUI
 
 struct DetailOfTransferByMonth: View {
 
-    //Builder
+    // Builder
     var month: Date
     var amountOfSavings: Double
     var amountOfWithdrawal: Double
@@ -17,7 +17,7 @@ struct DetailOfTransferByMonth: View {
     // Environnement
     @EnvironmentObject var store: PurchasesManager
 
-    //MARK: - Body
+    // MARK: -
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -45,10 +45,10 @@ struct DetailOfTransferByMonth: View {
             Spacer()
         }
         .padding([.horizontal, .top])
-    } // End body
-} // End struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     DetailOfTransferByMonth(
         month: .now,

@@ -13,10 +13,10 @@ final class AccountStore: ObservableObject {
     @Published var accounts: [AccountModel] = []
     @Published var savingsAccounts: [AccountModel] = []
     
-    @Published var selectedAccount: AccountModel? = nil
+    @Published var selectedAccount: AccountModel?
     
     @Published var cashflow: [Double] = []
-    @Published var stats: StatisticsModel? = nil
+    @Published var stats: StatisticsModel?
     
     var allAccounts: [AccountModel] {
         return accounts + savingsAccounts

@@ -12,7 +12,7 @@ final class CategoriesHomeViewModel: ObservableObject {
     let categories = CategoryStore.shared.categories
     let filter: Filter = .shared
     
-    @Published var selectedCategory: CategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
     
     @Published var searchText: String = ""
 }

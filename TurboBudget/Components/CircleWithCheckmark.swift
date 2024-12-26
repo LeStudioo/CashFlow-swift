@@ -9,11 +9,11 @@ import SwiftUI
 
 struct CircleWithCheckmark: View {
 
-    //State or Binding Int, Float and Double
+    // State or Binding Int, Float and Double
     @State private var scaleCheckmark: CGFloat = 0
     @EnvironmentObject private var themeManager: ThemeManager
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         Circle()
             .frame(width: 100, height: 100)
@@ -30,7 +30,7 @@ struct CircleWithCheckmark: View {
     } // End body
 } // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     CircleWithCheckmark()
 }

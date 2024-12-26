@@ -16,7 +16,7 @@ struct CustomOrSystemImage: View {
     
     // MARK: -
     var body: some View {
-        if let _ = UIImage(systemName: systemImage) {
+        if UIImage(systemName: systemImage) != nil {
             Image(systemName: systemImage)
                 .font(.system(size: size, weight: .semibold, design: .rounded))
                 .frame(width: size * 1.8, height: size * 1.8)
