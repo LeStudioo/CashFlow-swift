@@ -60,7 +60,7 @@ final class TextCreditCardRecognizer {
 
     func handleDetectionResults(results: [Any]?) {
         var cardcreditNumberScanned: String = ""
-        var dateScanned: String? = nil
+        var dateScanned: String?
         
         guard let results = results, !results.isEmpty else {
             self.completion(nil, nil, "error_scan_notext".localized)

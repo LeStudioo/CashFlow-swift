@@ -75,7 +75,7 @@ struct CreateBudgetView: View {
     } // End body
 } // End struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     CreateBudgetView()
 }

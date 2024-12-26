@@ -34,7 +34,7 @@ extension Font {
     }
 }
 
-//Regular
+// Regular
 extension Font {
     /// `This font is in "Regular 12"`
     static func regularVerySmall() -> Font {
@@ -69,7 +69,7 @@ extension Font {
     }
 }
 
-//Medium
+// Medium
 extension Font {
     /// `This font is in "Medium 12"`
     static func mediumVerySmall() -> Font {
@@ -104,7 +104,7 @@ extension Font {
     }
 }
 
-//Semibold
+// Semibold
 extension Font {
     /// `This font is in "SemiBold 12"`
     static func semiBoldVerySmall() -> Font {
@@ -139,7 +139,7 @@ extension Font {
     }
 }
 
-//Bold
+// Bold
 extension Font {
     /// `This font is in "Bold 12"`
     static func boldVerySmall() -> Font {

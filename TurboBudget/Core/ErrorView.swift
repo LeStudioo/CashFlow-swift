@@ -11,15 +11,15 @@ import SwiftUI
 // TODO: Delete use the new empty
 struct ErrorView: View {
     
-    //Builder
+    // Builder
     var searchResultsCount: Int
     var searchText: String
     var image: String
     var text: String
     
     @EnvironmentObject private var themeManager: ThemeManager
-
-    //MARK: - Body
+    
+    // MARK: - Body
     var body: some View {
         if searchResultsCount == 0 && !searchText.isEmpty {
             VStack(spacing: 20) {
@@ -27,7 +27,7 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad 
+                    .frame(width: isIPad
                            ? UIScreen.main.bounds.width / 3
                            : UIScreen.main.bounds.width / 1.5
                     )
@@ -46,32 +46,27 @@ struct ErrorView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(radius: 4, y: 4)
-                    .frame(width: isIPad 
+                    .frame(width: isIPad
                            ? UIScreen.main.bounds.width / 3
                            : UIScreen.main.bounds.width / 1.5
                     )
                 
                 Text(text)
-                        .font(Font.mediumText16())
-                        .multilineTextAlignment(.center)
+                    .font(Font.mediumText16())
+                    .multilineTextAlignment(.center)
             }
             .offset(y: -20)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-    }//END body
+    } // body
+} // struct
 
-    //MARK: Fonctions
-
-}//END struct
-
-//MARK: - Preview
-struct ErrorView_Previews: PreviewProvider {
-    static var previews: some View {
-        ErrorView(
-            searchResultsCount: 0,
-            searchText: "Test",
-            image: "NoAutomation",
-            text: "Error"
-        )
-    }
+// MARK: - Preview
+#Preview {
+    ErrorView(
+        searchResultsCount: 0,
+        searchText: "Test",
+        image: "NoAutomation",
+        text: "Error"
+    )
 }

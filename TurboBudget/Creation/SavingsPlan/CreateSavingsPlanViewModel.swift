@@ -24,7 +24,7 @@ class CreateSavingsPlanViewModel: ObservableObject {
         }
     }
     
-    var savingsPlan: SavingsPlanModel? = nil
+    var savingsPlan: SavingsPlanModel?
         
     @Published var name: String = ""
     @Published var emoji: String = "💻"

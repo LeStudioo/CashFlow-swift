@@ -143,5 +143,3 @@ struct PaywallScreenView: View {
     PaywallScreenView()
         .environmentObject(PurchasesManager())
 }
-
-

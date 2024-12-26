@@ -23,7 +23,7 @@ struct CreateSavingPlansView: View {
     // Environment
     @Environment(\.dismiss) private var dismiss
     
-    //Enum
+    // Enum
     enum Field: CaseIterable {
         case title, amountOfStart, amountOfEnd
     }

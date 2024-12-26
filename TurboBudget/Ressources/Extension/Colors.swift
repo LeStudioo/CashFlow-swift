@@ -45,7 +45,7 @@ extension Color {
     }
 }
 
-//Darker / Lighter
+// Darker / Lighter
 extension Color {
     // swiftlint:disable:next large_tuple
     var components: (red: CGFloat, green: CGFloat, blue: CGFloat, opacity: CGFloat) {
@@ -81,13 +81,3 @@ extension Color {
                      opacity: Double(self.components.opacity))
     }
 }
-//
-//extension Color {
-//    
-//    public static var label: Color {
-//        return Color(uiColor: UIColor { traitCollection in
-//            return traitCollection.userInterfaceStyle == .dark ? UIColor(Color.white) : UIColor(Color.black)
-//        })
-//    }
-//    
-//}

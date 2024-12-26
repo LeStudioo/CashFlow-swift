@@ -10,7 +10,7 @@ import Foundation
 final class AccountRepositoryOld: ObservableObject {
     static let shared = AccountRepositoryOld()
     
-    @Published var mainAccount: Account? = nil
+    @Published var mainAccount: Account?
 }
 
 extension AccountRepositoryOld {

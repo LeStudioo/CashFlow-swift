@@ -190,9 +190,9 @@ extension SubcategoryModel {
         return transactionsIncomes
     }
     
-    //-------------------- amountIncomesByMonth() ----------------------
+    // -------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func amountIncomesByMonth(month: Date) -> Double {
         return getAllTransactionsIncomeForChosenMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })

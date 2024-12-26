@@ -49,7 +49,6 @@ struct AddTransactionIntent: AppIntent {
             return String(format: "%.2f", finalNumber)
         }
         
-        
         func extractNumber(from string: String) -> Double {
             var numberString: String = ""
             var finalNumber: Double = 0.0

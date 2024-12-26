@@ -8,6 +8,6 @@
 import Foundation
 import SwiftUI
 
-//Device
+// Device
 let isIPad = (UIDevice.current.userInterfaceIdiom == .pad)
 let isLittleIphone = UIScreen.main.bounds.width < 380 ? true : false

@@ -25,7 +25,7 @@ struct CreateContributionView: View {
         self._viewModel = StateObject(wrappedValue: .init(savingsPlan: savingsPlan))
     }
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             ScrollView {

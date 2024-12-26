@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 class TransactionDetailViewModel: ObservableObject {    
-    @Published var selectedCategory: CategoryModel? = nil
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
+    @Published var selectedSubcategory: SubcategoryModel?
     
-    @Published var bestCategory: CategoryModel? = nil
-    @Published var bestSubcategory: SubcategoryModel? = nil
+    @Published var bestCategory: CategoryModel?
+    @Published var bestSubcategory: SubcategoryModel?
     
     @Published var note: String = ""
 }

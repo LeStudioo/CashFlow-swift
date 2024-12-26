@@ -11,15 +11,15 @@ import SwiftUI
 class CreateSubscriptionViewModel: ObservableObject {
     let successfullModalManager: SuccessfullModalManager = .shared
     
-    var subscription: SubscriptionModel? = nil
+    var subscription: SubscriptionModel?
 
     @Published var name: String = ""
     @Published var amount: String = ""
     @Published var frequencyDate: Date = .now
     @Published var type: TransactionType = .expense
     @Published var frequency: SubscriptionFrequency = .monthly
-    @Published var selectedCategory: CategoryModel? = nil
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
+    @Published var selectedSubcategory: SubcategoryModel?
         
     @Published var presentingConfirmationDialog: Bool = false
     

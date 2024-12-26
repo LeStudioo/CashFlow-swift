@@ -11,8 +11,8 @@ import SwiftUI
 final class CreateBudgetViewModel: ObservableObject {
     static let shared = CreateBudgetViewModel()
     
-    @Published var selectedCategory: CategoryModel? = nil
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
+    @Published var selectedSubcategory: SubcategoryModel?
     @Published var amountBudget: String = ""
     
     @Published var presentingConfirmationDialog: Bool = false

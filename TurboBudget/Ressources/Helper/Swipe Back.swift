@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-//Permet d'avoir le swipe back meme si le back bouton est modifié (NB : Bug sur simu peut etre)
+// Permet d'avoir le swipe back meme si le back bouton est modifié (NB : Bug sur simu peut etre)
 extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
     override open func viewDidLoad() {
         super.viewDidLoad()

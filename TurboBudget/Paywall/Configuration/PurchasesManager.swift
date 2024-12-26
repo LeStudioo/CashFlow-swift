@@ -16,7 +16,7 @@ class PurchasesManager: NSObject, ObservableObject {
     @Published var products: [Product] = []
     
     @Published var isCashFlowPro: Bool = false
-    private var updates: Task<Void, Never>? = nil
+    private var updates: Task<Void, Never>?
     
     var subscription: Product? {
         return self.products.first
@@ -63,17 +63,14 @@ extension PurchasesManager {
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone
                 print("💳 Unverified purchase. Might be jailbroken. Error: \(error)")
-                break
             case .pending:
                 // Transaction waiting on SCA (Strong Customer Authentication) or
                 // approval from Ask to Buy
                 break
             case .userCancelled:
                 print("💳 User cancelled!")
-                break
             @unknown default:
                 print("💳 Failed to purchase the product!")
-                break
             }
         } catch {
             print("💳 Failed to purchase the product!")

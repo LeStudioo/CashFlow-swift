@@ -8,8 +8,8 @@
 import Foundation
 import SwiftUI
 
-//https://github.com/StewartLynch/LightOrDark
-//https://www.youtube.com/watch?v=PbryeZmJRmA
+// https://github.com/StewartLynch/LightOrDark
+// https://www.youtube.com/watch?v=PbryeZmJRmA
 
 enum ColorScheme: Int {
     case unspecified, light, dark

@@ -14,7 +14,7 @@ struct CreateAccountView: View {
     // Builder
     var type: AccountType
     var account: AccountModel?
-    var onboardingAction: (() async -> Void)? = nil
+    var onboardingAction: (() async -> Void)?
     
     @StateObject private var viewModel: CreateAccountViewModel
     @EnvironmentObject private var accountRepository: AccountStore

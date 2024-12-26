@@ -16,13 +16,11 @@ final class PreferencesDisplayHome: ObservableObject {
     @CustomUserDefault("numberOfSavingPlansDisplayedInHomeScreen", defaultValue: 4) // PreferencesDisplayHome_savingsPlan_value
     var savingsPlan_value: Int
 
-
     @CustomUserDefault("isAutomationsDisplayedHomeScreen", defaultValue: true) // PreferencesDisplayHome_subscription_isDisplayed
     var subscription_isDisplayed: Bool
     
     @CustomUserDefault("numberOfAutomationsDisplayedInHomeScreen", defaultValue: 4) // PreferencesDisplayHome_subscription_value
     var subscription_value: Int
-    
     
     @CustomUserDefault("isRecentTransactionsDisplayedHomeScreen", defaultValue: true) // PreferencesDisplayHome_transaction_isDisplayed
     var transaction_isDisplayed: Bool

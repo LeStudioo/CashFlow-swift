@@ -88,6 +88,7 @@ extension NavigationDirection: Equatable {
             (.createTransfer, .createTransfer),
             (.createCreditCard, .createCreditCard),
             (.createTransactionForSavingsAccount, .createTransactionForSavingsAccount),
+            (.selectCategory, .selectCategory),
             (.accountDashboard, .accountDashboard),
             (.accountStatistics, .accountStatistics),
             (.paywall, .paywall),
@@ -106,9 +107,6 @@ extension NavigationDirection: Equatable {
         case let (.home(lhsAccount), .home(rhsAccount)):
             return lhsAccount.id == rhsAccount.id
             
-        case let (.selectCategory(lhsCategory, lhsSubcategory), .selectCategory(rhsCategory, rhsSubcategory)):
-            return (lhsCategory.wrappedValue?.id == rhsCategory.wrappedValue?.id) && (lhsSubcategory.wrappedValue?.id == rhsSubcategory.wrappedValue?.id)
-            
         case let (.savingsAccountDetail(lhsSavingsAccount), .savingsAccountDetail(rhsSavingsAccount)):
             return lhsSavingsAccount.id == rhsSavingsAccount.id
             
@@ -117,7 +115,6 @@ extension NavigationDirection: Equatable {
             
         case let (.budgetTransactions(lhsSubcategory), .budgetTransactions(rhsSubcategory)):
             return lhsSubcategory.id == rhsSubcategory.id
-            
             
         case let (.categoryTransactions(lhsCategory), .categoryTransactions(rhsCategory)):
             return lhsCategory.id == rhsCategory.id

@@ -10,7 +10,6 @@ import SwiftUI
 class NavigationManager: Router {
 
     // Push
-    
     func pushHome(account: Account) {
         navigateTo(.home(account: account))
     }
@@ -23,11 +22,9 @@ class NavigationManager: Router {
         navigateTo(.homeAutomations)
     }
     
-    
     func pushAnalytics() {
         navigateTo(.analytics)
     }
-    
     
     func pushAllTransactions() {
         navigateTo(.allTransactions)
@@ -37,11 +34,9 @@ class NavigationManager: Router {
         navigateTo(.transactionDetail(transaction: transaction))
     }
     
-    
     func pushSavingPlansDetail(savingsPlan: SavingsPlanModel) {
         navigateTo(.savingPlansDetail(savingsPlan: savingsPlan))
     }
-    
     
     func pushAccountDashboard() {
         navigateTo(.accountDashboard)
@@ -75,7 +70,6 @@ class NavigationManager: Router {
         navigateTo(.allArchivedSavingPlans(account: account))
     }
     
-    
     func pushHomeCategories() {
         navigateTo(.homeCategories)
     }
@@ -91,7 +85,6 @@ class NavigationManager: Router {
     func pushSubcategoryTransactions(subcategory: SubcategoryModel) {
         navigateTo(.subcategoryTransactions(subcategory: subcategory))
     }
-    
     
     func pushSettings() {
         navigateTo(.settings)
@@ -128,7 +121,6 @@ class NavigationManager: Router {
     func pushSettingsApplePay() {
         navigateTo(.settingsApplePay)
     }
-    
     
     // Present
     func presentWhatsNew() {
@@ -231,12 +223,10 @@ private extension NavigationManager {
             case .selectCategory(let category, let subcategory):
                 SelectCategoryView(selectedCategory: category, selectedSubcategory: subcategory)
                 
-                
             case .allTransactions:
                 TransactionsView()
             case .transactionDetail(let transaction):
                 TransactionDetailView(transaction: transaction)
-                
                 
             case .savingPlansDetail(let savingsPlan):
                 SavingsPlanDetailView(savingsPlan: savingsPlan)

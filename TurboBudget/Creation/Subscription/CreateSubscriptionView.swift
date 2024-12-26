@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateSubscriptionView: View {
     
     // builder
-    var subscription: SubscriptionModel? = nil
+    var subscription: SubscriptionModel?
     
     @StateObject private var router: NavigationManager
     @StateObject private var viewModel: CreateSubscriptionViewModel
@@ -35,7 +35,7 @@ struct CreateSubscriptionView: View {
         )
     }
     
-    //MARK: -
+    // MARK: -
     var body: some View {
         NavStack(router: router) {
             ScrollView {
@@ -137,10 +137,10 @@ struct CreateSubscriptionView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
-    } // End body
-} // END struct
+    } // body
+} // struct
 
-//MARK: - Preview
+// MARK: - Preview
 #Preview {
     CreateSubscriptionView()
 }

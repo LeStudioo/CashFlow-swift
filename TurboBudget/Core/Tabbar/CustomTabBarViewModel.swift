@@ -16,7 +16,7 @@ class CustomTabBarViewModel: ObservableObject {
     @Published var showMenu: Bool = false
 }
 
-//MARK: - Navigation
+// MARK: - Navigation
 extension CustomTabBarViewModel {
     
     func showAddAccountSheet() {

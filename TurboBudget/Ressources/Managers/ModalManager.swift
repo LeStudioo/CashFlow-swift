@@ -14,7 +14,7 @@ final class ModalManager: ObservableObject {
     @Published var isPresented: Bool = false
     @Published var currentHeight: CGFloat = 0
     
-    @Published var content: (any View)? = nil
+    @Published var content: (any View)?
 }
 
 extension ModalManager {

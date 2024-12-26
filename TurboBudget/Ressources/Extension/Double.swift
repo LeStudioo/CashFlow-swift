@@ -16,9 +16,9 @@ extension Double {
     
     func reduceScale(to places: Int) -> Double {
         let multiplier = pow(10, Double(places))
-        let newDecimal = multiplier * self //Move the decimal right
-        let truncated = Double(Int(newDecimal)) //Drop the fraction
-        let originalDecimal = truncated / multiplier //Move the decimal back
+        let newDecimal = multiplier * self // Move the decimal right
+        let truncated = Double(Int(newDecimal)) // Drop the fraction
+        let originalDecimal = truncated / multiplier // Move the decimal back
         return originalDecimal
     }
     

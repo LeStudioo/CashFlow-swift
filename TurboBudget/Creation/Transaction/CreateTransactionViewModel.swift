@@ -10,14 +10,14 @@ import SwiftUI
 
 final class CreateTransactionViewModel: ObservableObject {
     
-    var transaction: TransactionModel? = nil
+    var transaction: TransactionModel?
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
     @Published var transactionType: TransactionType = .expense
     @Published var transactionDate: Date = Date()
-    @Published var selectedCategory: CategoryModel? = nil
-    @Published var selectedSubcategory: SubcategoryModel? = nil
+    @Published var selectedCategory: CategoryModel?
+    @Published var selectedSubcategory: SubcategoryModel?
             
     @Published var presentingConfirmationDialog: Bool = false
     
@@ -108,7 +108,7 @@ final class CreateTransactionViewModel: ObservableObject {
         
 }
 
-//MARK: - Utils
+// MARK: - Utils
 extension CreateTransactionViewModel {
     
     func resetData() {

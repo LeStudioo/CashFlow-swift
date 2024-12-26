@@ -60,7 +60,7 @@ final class TextTicketRecognizer {
 
     func handleDetectionResults(results: [Any]?) {
         var amountScanned: Double = 0.0
-        var dateScanned: Date? = nil
+        var dateScanned: Date?
         
         guard let results = results, !results.isEmpty else {
             self.completion(nil, nil, "error_scan_notext".localized)

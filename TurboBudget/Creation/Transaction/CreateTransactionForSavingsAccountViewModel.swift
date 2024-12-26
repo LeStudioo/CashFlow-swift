@@ -105,4 +105,3 @@ extension CreateTransactionForSavingsAccountViewModel {
         return false
     }
 }
-

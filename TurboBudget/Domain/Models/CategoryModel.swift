@@ -177,9 +177,9 @@ extension CategoryModel {
         return array.reduce(0, +)
     }
     
-    //-------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
+    // -------------------- getAllTransactionsIncomeForChosenMonth() ----------------------
     // Description : Récupère tous les transactions qui sont des revenus, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllTransactionsIncomeForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
         
@@ -192,9 +192,9 @@ extension CategoryModel {
         return transactionsIncomes
     }
     
-    //-------------------- amountIncomesByMonth() ----------------------
+    // -------------------- amountIncomesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des revenus, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func amountIncomesByMonth(month: Date) -> Double {
         return getAllTransactionsIncomeForChosenMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })
@@ -212,9 +212,9 @@ extension CategoryModel {
         return array.reduce(0, +)
     }
     
-    //-------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
+    // -------------------- getAllExpensesTransactionsForChosenMonth() ----------------------
     // Description : Récupère toutes les transactions qui sont des dépenses, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func getAllExpensesTransactionsForChosenMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
         
@@ -226,16 +226,15 @@ extension CategoryModel {
         return transactionsExpenses
     }
     
-    //-------------------- amountExpensesByMonth() ----------------------
+    // -------------------- amountExpensesByMonth() ----------------------
     // Description : Retourne la somme de toutes les transactions qui sont des dépenses, pour un mois donné
-    //-----------------------------------------------------------
+    // -----------------------------------------------------------
     func amountExpensesByMonth(month: Date) -> Double {
         return getAllExpensesTransactionsForChosenMonth(selectedDate: month)
             .map({ $0.amount ?? 0 })
             .reduce(0, +)
     }
 }
-
 
 extension CategoryModel {
     

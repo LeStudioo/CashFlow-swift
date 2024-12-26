@@ -14,7 +14,7 @@ extension Array where Element == CategoryModel {
         
         if searchText.isEmpty {
             return categories.sorted { $0.name < $1.name }
-        } else { //Searching
+        } else { // Searching
             let filteredCategories = categories
                 .filter {
                     $0.name.localizedStandardContains(searchText)

@@ -43,7 +43,7 @@ public class Account: NSManagedObject, Identifiable {
     public var allTransactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
-                .filter({ !$0.isAuto && $0.predefCategoryID != "" })
+                .filter({ !$0.isAuto && !$0.predefCategoryID.isEmpty })
                 .sorted { $0.date.withDefault > $1.date.withDefault }
         } else { return [] }
     }
@@ -51,7 +51,7 @@ public class Account: NSManagedObject, Identifiable {
     public var transactions: [TransactionEntity] {
         if let transactions = accountToTransaction {
             return transactions
-                .filter({ !$0.isAuto && $0.predefCategoryID != "" })
+                .filter({ !$0.isAuto && !$0.predefCategoryID.isEmpty })
                 .sorted {
                     if $0.date == $1.date {
                         return $0.title < $1.title

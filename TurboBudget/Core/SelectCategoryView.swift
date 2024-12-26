@@ -15,14 +15,14 @@ struct SelectCategoryView: View {
     @Binding var selectedCategory: CategoryModel?
     @Binding var selectedSubcategory: SubcategoryModel?
     
-    //Custom
+    // Custom
     @EnvironmentObject private var categoryRepository: CategoryStore
     @EnvironmentObject private var themeManager: ThemeManager
     
-    //Environnements
+    // Environnements
     @Environment(\.dismiss) private var dismiss
     
-    //State or Binding String
+    // State or Binding String
     @State private var searchText: String = ""
 
     // Computed variables
@@ -146,11 +146,11 @@ struct SelectCategoryView: View {
                     })
                 }
             }
-        } //End Navigation Stack
+        } // Navigation Stack
         .searchable(text: $searchText.animation(), placement: .navigationBarDrawer(displayMode: .always), prompt: "word_search".localized)
-    }//END body
+    } // body
     
-    //MARK: - ViewBuilder
+    // MARK: - ViewBuilder
     func cellForSubcategory(subcategory: SubcategoryModel) -> some View {
         HStack {
             Circle()
@@ -158,7 +158,7 @@ struct SelectCategoryView: View {
                 .frame(width: 35, height: 35)
                 .overlay {
                     Group {
-                        if let _ = UIImage(systemName: subcategory.icon) {
+                        if UIImage(systemName: subcategory.icon) != nil {
                             Image(systemName: subcategory.icon)
                                 .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundStyle(.black)
@@ -205,11 +205,10 @@ struct SelectCategoryView: View {
         .background(Color.background300)
         .cornerRadius(15)
     }
-    
-}//END struct
+} // struct
 
-//MARK: - Preview
-//struct WhatCategoryView_Previews: PreviewProvider {
+// MARK: - Preview
+// struct WhatCategoryView_Previews: PreviewProvider {
 //
 //    @State static var selectedCategoryPreview: ? = previewCategory1()
 //    @State static var selectedSubcategoryPreview: ? =
@@ -217,4 +216,4 @@ struct SelectCategoryView: View {
 //    static var previews: some View {
 //        SelectCategoryView(selectedCategory: $selectedCategoryPreview, selectedSubcategory: )
 //    }
-//}
+// }

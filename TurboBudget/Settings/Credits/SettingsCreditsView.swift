@@ -95,19 +95,19 @@ var allLicenses: [License] = [
     License(
         name: "Swipe Actions",
         icon: "arrow.left.arrow.right",
-        action:  URLManager.Setting.Credits.showSwipeActions,
+        action: URLManager.Setting.Credits.showSwipeActions,
         isEdit: true
     ),
     License(
         name: "SwiftUI Confetti",
         icon: "sparkles",
-        action:  URLManager.Setting.Credits.showSwiftUIConfetti,
+        action: URLManager.Setting.Credits.showSwiftUIConfetti,
         isEdit: false
     ),
     License(
         name: "StorySet",
         icon: "photo.fill",
-        action:  URLManager.Setting.Credits.showStorySet,
+        action: URLManager.Setting.Credits.showStorySet,
         isEdit: false
     )
 ]

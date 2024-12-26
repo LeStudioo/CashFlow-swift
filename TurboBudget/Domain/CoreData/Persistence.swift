@@ -7,7 +7,7 @@
 
 import CoreData
 import SwiftUI
-//https://stackoverflow.com/questions/66075714/using-cloudkit-coredata-how-to-update-ui-from-remote-cloud-update-without-swi
+// https://stackoverflow.com/questions/66075714/using-cloudkit-coredata-how-to-update-ui-from-remote-cloud-update-without-swi
 
 struct PersistenceController {
     static let shared = PersistenceController()
@@ -69,14 +69,14 @@ struct PersistenceController {
         container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
     }
     
-    //MARK: Additional func
+    // MARK: Additional func
     
-    //--------------------- saveContext() ------------------------
+    // --------------------- saveContext() ------------------------
     // Description: Save the user's changes, reloadTransactions of Category and Subcategory
     // Parameter: NO
     // Output: Void
     // Extra :
-    //----------------------------------------------------------------------
+    // ----------------------------------------------------------------------
     func saveContext() {
         do {
             try viewContext.save()

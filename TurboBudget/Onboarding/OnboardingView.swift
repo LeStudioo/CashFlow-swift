@@ -40,7 +40,7 @@ struct OnboardingView: View {
         } else { return 18 }
     }
 
-    //MARK: - Body
+    // MARK: - Body
     var body: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $actualPage) {

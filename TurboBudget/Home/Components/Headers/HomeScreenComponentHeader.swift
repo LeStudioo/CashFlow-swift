@@ -46,7 +46,7 @@ enum HomeScreenComponentHeaderType {
         }
     }
     
-    func route(router: NavigationManager) -> () {
+    func route(router: NavigationManager) {
         switch self {
         case .recentTransactions:   return router.pushAllTransactions()
         case .savingsPlan:          return router.pushHomeSavingPlans()

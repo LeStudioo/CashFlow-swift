@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateTransactionView: View {
     
     // builder
-    var transaction: TransactionModel? = nil
+    var transaction: TransactionModel?
     
     @StateObject private var viewModel: CreateTransactionViewModel
     @StateObject private var router: NavigationManager

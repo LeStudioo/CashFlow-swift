@@ -4,6 +4,7 @@
 //
 //  Created by KaayZenn on 24/02/2024.
 //
+// swiftlint:disable nesting
 
 import Foundation
 import UIKit

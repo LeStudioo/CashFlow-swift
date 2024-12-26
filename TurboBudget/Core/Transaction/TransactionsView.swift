@@ -27,7 +27,7 @@ struct TransactionsView: View {
     var searchResults: [TransactionModel] {
         if searchText.isEmpty {
             return transactionRepository.transactions
-        } else { //Searching
+        } else { // Searching
             let transactionsFilterByTitle = transactionRepository.transactions
                 .filter { $0.name.localizedStandardContains(searchText) }
             

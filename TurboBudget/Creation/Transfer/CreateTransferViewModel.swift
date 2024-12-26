@@ -13,7 +13,7 @@ final class CreateTransferViewModel: ObservableObject {
     @Published var amount: String = ""
     @Published var date: Date = .now
     @Published var senderAccount: AccountModel? = AccountStore.shared.selectedAccount
-    @Published var receiverAccount: AccountModel? = nil
+    @Published var receiverAccount: AccountModel?
     
     @Published var presentingConfirmationDialog: Bool = false
     

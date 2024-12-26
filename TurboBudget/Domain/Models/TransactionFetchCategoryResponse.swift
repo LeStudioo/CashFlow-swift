@@ -8,6 +8,6 @@
 import Foundation
 
 struct TransactionFetchCategoryResponse: Codable {
-    var cat: Int? = nil
-    var sub: Int? = nil
+    var cat: Int?
+    var sub: Int?
 }

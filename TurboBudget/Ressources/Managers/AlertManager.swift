@@ -60,7 +60,6 @@ extension AlertManager {
     
 }
         
-
 // MARK: - Deletation
 extension AlertManager {
     
