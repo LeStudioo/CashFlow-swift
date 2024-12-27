@@ -52,7 +52,7 @@ struct SubcategoryTransactionsView: View {
         }
     }
     
-    // MARK: - Body
+    // MARK: -
     var body: some View {
         VStack {
             if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
@@ -71,8 +71,8 @@ struct SubcategoryTransactionsView: View {
                         //                                if filterTransactions == .month {
                         DetailOfExpensesAndIncomesByMonth(
                             month: .now,
-                            amountOfExpenses: subcategory.amountExpensesByMonth(month: .now),
-                            amountOfIncomes: subcategory.amountIncomesByMonth(month: .now)
+                            amountOfExpenses: transactionStore.getExpenses(for: subcategory, in: .now).compactMap(\.amount).reduce(0, +),
+                            amountOfIncomes: transactionStore.getIncomes(for: subcategory, in: .now).compactMap(\.amount).reduce(0, +)
                         )
                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                         //                                } else if filterTransactions == .expenses || filterTransactions == .incomes {
@@ -133,8 +133,8 @@ struct SubcategoryTransactionsView: View {
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         //        .sheet(isPresented: $showAddTransaction) { AddTransactionView(account: $account) }
-    } // End body
-} // End struct
+    } // body
+} // struct
 
 // MARK: - Preview
 #Preview {
