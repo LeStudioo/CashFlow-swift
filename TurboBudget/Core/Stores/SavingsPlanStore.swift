@@ -84,8 +84,8 @@ extension SavingsPlanStore {
 extension SavingsPlanStore {
     
     func setNewAmount(savingsPlanID: Int, newAmount: Double) {
-        if let savingsPlan = savingsPlans.first(where: { $0.id == savingsPlanID }) {
-            savingsPlan.currentAmount = newAmount
+        if let savingsPlanIndex = savingsPlans.firstIndex(where: { $0.id == savingsPlanID }) {
+            self.savingsPlans[savingsPlanIndex].currentAmount = newAmount
         }
     }
     

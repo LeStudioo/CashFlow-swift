@@ -11,17 +11,16 @@ import AlertKit
 
 struct SavingsPlanDetailView: View {
     
-    // Custom type
-    @ObservedObject var savingsPlan: SavingsPlanModel
+    // Builder
+    var savingsPlan: SavingsPlanModel
     
     // Environement
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var alertManager: AlertManager
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
+    @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
     @EnvironmentObject private var contributionRepository: ContributionStore
     
     // State or Binding String
@@ -32,10 +31,14 @@ struct SavingsPlanDetailView: View {
         case note
     }
     @FocusState var focusedField: Field?
+        
+    var currentSavingsPlan: SavingsPlanModel {
+        return savingsPlanStore.savingsPlans.first { $0.id == savingsPlan.id } ?? savingsPlan
+    }
     
     var percentage: Double {
-        guard let currentAmount = savingsPlan.currentAmount else { return 0 }
-        guard let goalAmount = savingsPlan.goalAmount else { return 0 }
+        guard let currentAmount = currentSavingsPlan.currentAmount else { return 0 }
+        guard let goalAmount = currentSavingsPlan.goalAmount else { return 0 }
         
         if currentAmount / goalAmount > 0.98 {
             return 0.98
@@ -47,35 +50,42 @@ struct SavingsPlanDetailView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            HStack {
-                Spacer()
-                Circle()
-                    .frame(width: 100, height: 100)
-                    .foregroundStyle(.background100)
-                    .overlay {
-                        Circle()
-                            .frame(width: 80, height: 80)
-                            .foregroundStyle(themeManager.theme.color)
-                            .shadow(color: themeManager.theme.color, radius: 4, y: 2)
-                            .overlay {
-                                Text(savingsPlan.emoji ?? "")
-                                    .font(.system(size: 24, weight: .semibold, design: .rounded))
-                                    .shadow(radius: 2, y: 2)
-                            }
-                    }
-                Spacer()
-            }
+            Circle()
+                .frame(width: 100, height: 100)
+                .foregroundStyle(.background100)
+                .overlay {
+                    Circle()
+                        .frame(width: 80, height: 80)
+                        .foregroundStyle(themeManager.theme.color)
+                        .shadow(color: themeManager.theme.color, radius: 4, y: 2)
+                        .overlay {
+                            Text(currentSavingsPlan.emoji ?? "")
+                                .font(.system(size: 24, weight: .semibold, design: .rounded))
+                                .shadow(radius: 2, y: 2)
+                        }
+                }
             
-            Text(savingsPlan.name ?? "")
+            Text(currentSavingsPlan.name ?? "")
                 .titleAdjustSize()
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
             
-            progressBar()
-                .padding(.horizontal, 12)
-                .padding(.bottom, 8)
+            VStack(spacing: 6) {
+                HStack {
+                    Text(0.toCurrency())
+                    Spacer()
+                    Text(currentSavingsPlan.goalAmount?.toCurrency() ?? "")
+                }
+                .font(.semiBoldText16())
+                .foregroundStyle(Color.text)
+                
+                ProgressBar(percentage: percentage)
+                    .frame(height: 48)
+            }
+            .padding(.horizontal, 12)
+            .padding(.bottom, 8)
             
-            if let endDate = savingsPlan.endDate {
+            if let endDate = currentSavingsPlan.endDate {
                 DetailRow(
                     icon: "calendar",
                     text: Word.Classic.finalTargetDate,
@@ -84,39 +94,15 @@ struct SavingsPlanDetailView: View {
                 .padding(.horizontal, 12)
             }
             
-            ZStack(alignment: .topLeading) {
-                TextEditor(text: $savingPlanNote)
-                    .focused($focusedField, equals: .note)
-                    .scrollContentBackground(.hidden)
-                    .font(Font.mediumText16())
-                
-                if savingPlanNote.isEmpty {
-                    HStack {
-                        Text("savingsplan_detail_note".localized)
-                            .foregroundStyle(Color.customGray)
-                            .font(Font.mediumText16())
-                        Spacer()
-                    }
-                    .padding([.leading, .top], 8)
-                    .onTapGesture { focusedField = .note }
-                }
-            }
-            .padding(12)
-            .frame(height: 140)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background100)
-            }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            
-            //            archivedOrDeleteButton()
-            
+            TransactionDetailNoteRow(note: $savingPlanNote)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                        
             HStack {
                 Text("word_contributions".localized)
                     .font(.semiBoldCustom(size: 22))
                 Spacer()
-                Button(action: { router.presentCreateContribution(savingsPlan: savingsPlan) }, label: {
+                Button(action: { router.presentCreateContribution(savingsPlan: currentSavingsPlan) }, label: {
                     Image(systemName: "plus")
                         .font(.system(size: 22, weight: .medium, design: .rounded))
                         .foregroundStyle(Color(uiColor: .label))
@@ -126,20 +112,20 @@ struct SavingsPlanDetailView: View {
             .padding(.horizontal, 12)
             
             ForEach(contributionRepository.contributions) { contribution in
-                ContributionRow(savingsPlan: savingsPlan, contribution: contribution)
+                ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
             }
             
             Spacer()
         } // ScrollView
         .scrollIndicators(.hidden)
         .onAppear {
-            savingPlanNote = savingsPlan.note ?? ""
+            savingPlanNote = currentSavingsPlan.note ?? ""
         }
         .onDisappear {
-            if savingPlanNote != savingsPlan.note && !savingPlanNote.isEmpty {
+            if savingPlanNote != currentSavingsPlan.note && !savingPlanNote.isEmpty {
                 Task {
-                    if let savingsPlanID = savingsPlan.id {
-                        await savingsPlanRepository.updateSavingsPlan(
+                    if let savingsPlanID = currentSavingsPlan.id {
+                        await savingsPlanStore.updateSavingsPlan(
                             savingsPlanID: savingsPlanID,
                             body: .init(note: savingPlanNote)
                         )
@@ -155,18 +141,18 @@ struct SavingsPlanDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
-                        action: { router.presentCreateSavingsPlan(savingsPlan: savingsPlan) },
+                        action: { router.presentCreateSavingsPlan(savingsPlan: currentSavingsPlan) },
                         label: { Label(Word.Classic.edit.localized, systemImage: "pencil") }
                     )
                     
                     Button(
-                        action: { router.presentCreateContribution(savingsPlan: savingsPlan) },
+                        action: { router.presentCreateContribution(savingsPlan: currentSavingsPlan) },
                         label: { Label("savingsplan_detail_add_contribution".localized, systemImage: "plus") }
                     )
                     
                     Button(
                         role: .destructive,
-                        action: { alertManager.deleteSavingsPlan(savingsPlan: savingsPlan, dismissAction: dismiss) },
+                        action: { AlertManager.shared.deleteSavingsPlan(savingsPlan: currentSavingsPlan, dismissAction: dismiss) },
                         label: { Label("word_delete".localized, systemImage: "trash.fill") }
                     )
                 }, label: {
@@ -180,82 +166,6 @@ struct SavingsPlanDetailView: View {
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // body
-    
-    // MARK: - ViewBuilder
-    @ViewBuilder
-    func progressBar() -> some View {
-        if let currentAmount = savingsPlan.currentAmount, let goalAmount = savingsPlan.goalAmount, goalAmount > 0 {
-            
-            let percentage: Double = min(currentAmount / goalAmount, 1.0)
-            
-            VStack(spacing: 6) {
-                HStack {
-                    Text(0.toCurrency())
-                    Spacer()
-                    Text(goalAmount.toCurrency())
-                }
-                .font(.semiBoldText16())
-                .foregroundStyle(Color.text)
-                
-                ProgressBar(percentage: percentage)
-                    .frame(height: 48)
-            }
-        } else {
-            EmptyView()
-        }
-    }
-    
-    //    @ViewBuilder
-    //    func archivedOrDeleteButton() -> some View {
-    //        if savingPlan.actualAmount == savingPlan.amountOfEnd {
-    //            HStack {
-    //                Button(action: {
-    //                    dismiss()
-    //                    withAnimation {
-    //                        if savingPlan.isArchived {
-    //                            if savingPlan.dateOfEnd != nil { savingPlan.dateOfEnd = nil }
-    //                            savingPlan.isArchived = false
-    //                        } else {
-    //                            if savingPlan.dateOfEnd == nil { savingPlan.dateOfEnd = Date() }
-    //                            savingPlan.isArchived = true
-    //                        }
-    //                        persistenceController.saveContext()
-    //                    }
-    //                }, label: {
-    //                    HStack {
-    //                        Spacer()
-    //                        Image(systemName: savingPlan.isArchived ? "tray.and.arrow.up.fill" : "tray.and.arrow.down.fill")
-    //                            .font(.system(size: 16, weight: .semibold, design: .rounded))
-    //                        Text(savingPlan.isArchived ? "word_unarchive".localized : "word_archive".localized)
-    //                            .font(Font.mediumText16())
-    //                        Spacer()
-    //                    }
-    //                })
-    //                .foregroundStyle(.white)
-    //                .padding(8)
-    //                .background(Color.blue)
-    //                .cornerRadius(100)
-    //                .shadow(color: .blue, radius: 6, x: 0, y: 2)
-    //
-    //                Button(action: { isDeleting.toggle() }, label: {
-    //                    HStack {
-    //                        Spacer()
-    //                        Image(systemName: "trash.fill")
-    //                            .font(.system(size: 16, weight: .semibold, design: .rounded))
-    //                        Text("word_delete".localized)
-    //                            .font(.semiBoldText16())
-    //                        Spacer()
-    //                    }
-    //                })
-    //                .foregroundStyle(.white)
-    //                .padding(8)
-    //                .background(Color.red)
-    //                .cornerRadius(100)
-    //                .shadow(color: .red, radius: 6, x: 0, y: 2)
-    //            }
-    //            .padding(.horizontal)
-    //        }
-    //    }
 } // struct
 
 // MARK: - Preview

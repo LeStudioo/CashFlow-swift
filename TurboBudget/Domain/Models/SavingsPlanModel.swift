@@ -7,16 +7,16 @@
 
 import Foundation
 
-class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var name: String?
-    @Published var emoji: String?
-    @Published var startDateString: String?
-    @Published var endDateString: String?
-    @Published var currentAmount: Double?
-    @Published var goalAmount: Double?
-    @Published var note: String?
-    @Published var isArchived: Bool?
+struct SavingsPlanModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var name: String?
+    var emoji: String?
+    var startDateString: String?
+    var endDateString: String?
+    var currentAmount: Double?
+    var goalAmount: Double?
+    var note: String?
+    var isArchived: Bool?
 
     // Initialiseur
     init(id: Int? = nil, name: String? = nil, emoji: String? = nil, startDateString: String? = nil, endDateString: String? = nil, currentAmount: Double? = nil, goalAmount: Double? = nil, note: String? = nil, isArchived: Bool? = nil) {
@@ -55,7 +55,7 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         case endDateString = "endDate"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name)
@@ -79,32 +79,6 @@ class SavingsPlanModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(goalAmount, forKey: .goalAmount)
         try container.encodeIfPresent(note, forKey: .note)
         try container.encodeIfPresent(isArchived, forKey: .isArchived)
-    }
-
-    // Fonction pour le protocole Equatable
-    static func == (lhs: SavingsPlanModel, rhs: SavingsPlanModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.name == rhs.name &&
-               lhs.emoji == rhs.emoji &&
-               lhs.startDateString == rhs.startDateString &&
-               lhs.endDateString == rhs.endDateString &&
-               lhs.currentAmount == rhs.currentAmount &&
-               lhs.goalAmount == rhs.goalAmount &&
-               lhs.note == rhs.note &&
-               lhs.isArchived == rhs.isArchived
-    }
-
-    // Fonction pour le protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(emoji)
-        hasher.combine(startDateString)
-        hasher.combine(endDateString)
-        hasher.combine(currentAmount)
-        hasher.combine(goalAmount)
-        hasher.combine(note)
-        hasher.combine(isArchived)
     }
 }
 

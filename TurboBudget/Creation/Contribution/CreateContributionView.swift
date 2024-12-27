@@ -11,7 +11,7 @@ import SwiftUI
 struct CreateContributionView: View {
 
     // Builder
-    @ObservedObject var savingsPlan: SavingsPlanModel
+    var savingsPlan: SavingsPlanModel
     
     // Custom
     @StateObject private var viewModel: CreateContributionViewModel
@@ -21,7 +21,7 @@ struct CreateContributionView: View {
     
     // init
     init(savingsPlan: SavingsPlanModel) {
-        self._savingsPlan = ObservedObject(wrappedValue: savingsPlan)
+        self.savingsPlan = savingsPlan
         self._viewModel = StateObject(wrappedValue: .init(savingsPlan: savingsPlan))
     }
 

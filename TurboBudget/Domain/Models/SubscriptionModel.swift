@@ -102,30 +102,6 @@ struct SubscriptionModel: Codable, Identifiable, Equatable, Hashable {
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
     }
-//
-//    // Fonction pour le protocole Equatable
-//    static func == (lhs: SubscriptionModel, rhs: SubscriptionModel) -> Bool {
-//        return lhs.id == rhs.id &&
-//               lhs.name == rhs.name &&
-//               lhs.amount == rhs.amount &&
-//               lhs.typeNum == rhs.typeNum &&
-//               lhs.frequencyNum == rhs.frequencyNum &&
-//               lhs.frequencyDate == rhs.frequencyDate &&
-//               lhs.categoryID == rhs.categoryID &&
-//               lhs.subcategoryID == rhs.subcategoryID
-//    }
-//
-//    // Fonction pour le protocole Hashable
-//    func hash(into hasher: inout Hasher) {
-//        hasher.combine(id)
-//        hasher.combine(name)
-//        hasher.combine(amount)
-//        hasher.combine(typeNum)
-//        hasher.combine(frequencyNum)
-//        hasher.combine(frequencyDate)
-//        hasher.combine(categoryID)
-//        hasher.combine(subcategoryID)
-//    }
 }
 
 extension SubscriptionModel {
