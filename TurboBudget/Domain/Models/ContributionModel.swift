@@ -19,11 +19,11 @@ enum ContributionType: Int, CaseIterable {
     }
 }
 
-class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var amount: Double?
-    @Published var typeNum: Int? // ContributionType
-    @Published var dateString: String?
+struct ContributionModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var amount: Double?
+    var typeNum: Int? // ContributionType
+    var dateString: String?
 
     // Initialiseur
     init(id: Int? = nil, amount: Double? = nil, typeNum: Int? = nil, dateString: String? = nil) {
@@ -40,7 +40,7 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         case typeNum = "type"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         amount = try container.decodeIfPresent(Double.self, forKey: .amount)
@@ -54,23 +54,6 @@ class ContributionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         try container.encodeIfPresent(amount, forKey: .amount)
         try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(dateString, forKey: .dateString)
-    }
-
-    // Fonction pour le protocole Equatable
-    static func == (lhs: ContributionModel, rhs: ContributionModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.amount == rhs.amount &&
-               lhs.typeNum == rhs.typeNum &&
-               lhs.dateString == rhs.dateString
-            
-    }
-
-    // Fonction pour le protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(amount)
-        hasher.combine(typeNum)
-        hasher.combine(dateString)
     }
 }
 

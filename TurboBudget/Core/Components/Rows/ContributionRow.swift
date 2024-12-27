@@ -15,9 +15,6 @@ struct ContributionRow: View {
     // Builder
     var savingsPlan: SavingsPlanModel
     var contribution: ContributionModel
-
-    // Environnement
-    @EnvironmentObject private var alertManager: AlertManager
     
     // MARK: -
     var body: some View {
@@ -44,7 +41,7 @@ struct ContributionRow: View {
             }
         }, trailingActions: { context in
             SwipeAction(action: {
-                alertManager.deleteContribution(
+                AlertManager.shared.deleteContribution(
                     savingsPlan: savingsPlan,
                     contribution: contribution
                 )
