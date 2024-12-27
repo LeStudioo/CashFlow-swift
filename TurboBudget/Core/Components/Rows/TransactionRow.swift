@@ -13,12 +13,15 @@ import AlertKit
 struct TransactionRow: View {
     
     // Builder
-    @ObservedObject var transaction: TransactionModel
+    var transaction: TransactionModel
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     @EnvironmentObject private var accountRepository: AccountStore
-    @EnvironmentObject private var alertManager: AlertManager
+    
+    var currentTransaction: TransactionModel {
+        return transactionStore.transactions.first { $0.id == transaction.id } ?? transaction
+    }
     
     // MARK: -
     var body: some View {
@@ -26,9 +29,9 @@ struct TransactionRow: View {
             label: {
                 HStack {
                     CircleCategory(
-                        category: transaction.category,
-                        subcategory: transaction.subcategory,
-                        transaction: transaction
+                        category: currentTransaction.category,
+                        subcategory: currentTransaction.subcategory,
+                        transaction: currentTransaction
                     )
                     
                     VStack(alignment: .leading, spacing: 5) {
@@ -36,7 +39,7 @@ struct TransactionRow: View {
                             .foregroundStyle(Color.customGray)
                             .font(.Text.medium)
                         
-                        Text(transaction.name)
+                        Text(currentTransaction.name)
                             .font(.semiBoldText18())
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
@@ -45,12 +48,12 @@ struct TransactionRow: View {
                     Spacer()
                     
                     VStack(alignment: .trailing, spacing: 5) {
-                        Text("\(transaction.symbol) \(transaction.amount?.toCurrency() ?? "")")
+                        Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
                             .font(.semiBoldText16())
-                            .foregroundStyle(transaction.color)
+                            .foregroundStyle(currentTransaction.color)
                             .lineLimit(1)
                         
-                        Text(transaction.date.withTemporality)
+                        Text(currentTransaction.date.withTemporality)
                             .font(.Text.medium)
                             .foregroundStyle(Color.customGray)
                             .lineLimit(1)
@@ -63,7 +66,7 @@ struct TransactionRow: View {
                 }
             }, trailingActions: { context in
             SwipeAction(action: {
-                router.presentCreateTransaction(transaction: transaction)
+                router.presentCreateTransaction(transaction: currentTransaction)
                 context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {
@@ -79,7 +82,7 @@ struct TransactionRow: View {
             })
             
             SwipeAction(action: {
-                alertManager.deleteTransaction(transaction: transaction)
+                AlertManager.shared.deleteTransaction(transaction: currentTransaction)
                 context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {
@@ -105,10 +108,10 @@ struct TransactionRow: View {
 extension TransactionRow {
     
     var transactionTypeString: String {
-        if transaction.isFromSubscription == true {
+        if currentTransaction.isFromSubscription == true {
             return Word.Main.subscription
         } else {
-            return transaction.type.name
+            return currentTransaction.type.name
         }
     }
     

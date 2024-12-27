@@ -39,7 +39,7 @@ extension TransactionDetailViewModel {
     
 }
 
-//MARK: - Utils
+// MARK: - Utils
 extension TransactionDetailViewModel {
 
     @MainActor
@@ -48,7 +48,7 @@ extension TransactionDetailViewModel {
         let transactionRepository: TransactionStore = .shared
         guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
         
-        let body: TransactionModel = .init()
+        var body: TransactionModel = .init()
         
         if let selectedCategory, let newCategory = CategoryStore.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id

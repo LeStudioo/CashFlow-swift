@@ -12,12 +12,11 @@ import AlertKit
 struct TransactionDetailView: View {
 
     // Builder
-    @ObservedObject var transaction: TransactionModel
+    var transaction: TransactionModel
     
     // Custom type
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionStore
-    @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var transactionStore: TransactionStore
     @StateObject var viewModel: TransactionDetailViewModel = .init()
 
     // Environement
@@ -25,17 +24,21 @@ struct TransactionDetailView: View {
     
     // EnvironmentObject
     @EnvironmentObject var store: PurchasesManager
+    
+    var currentTransaction: TransactionModel {
+        return transactionStore.transactions.first { $0.id == transaction.id } ?? transaction
+    }
 
     // MARK: -
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {
                 VStack(spacing: 4) {
-                    Text("\(transaction.symbol) \(transaction.amount?.toCurrency() ?? "")")
+                    Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
                         .font(.system(size: 48, weight: .heavy))
-                        .foregroundColor(transaction.color)
+                        .foregroundColor(currentTransaction.color)
                     
-                    Text(transaction.name)
+                    Text(currentTransaction.name)
                         .font(.semiBoldH3())
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
@@ -49,7 +52,7 @@ struct TransactionDetailView: View {
                         action: {
                             viewModel.selectedCategory = categoryFound
                             if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                            if let transactionID = transaction.id {
+                            if let transactionID = currentTransaction.id {
                                 viewModel.updateCategory(transactionID: transactionID)
                             }
                         }
@@ -60,10 +63,10 @@ struct TransactionDetailView: View {
                     DetailRow(
                         icon: "calendar",
                         text: "transaction_detail_date".localized,
-                        value: transaction.date.formatted(date: .complete, time: .omitted).capitalized
+                        value: currentTransaction.date.formatted(date: .complete, time: .omitted).capitalized
                     )
                     
-                    if let category = transaction.category {
+                    if let category = currentTransaction.category {
                         DetailRow(
                             icon: category.icon,
                             value: category.name,
@@ -71,7 +74,7 @@ struct TransactionDetailView: View {
                                 presentChangeCategory()
                             }
                         
-                        if let subcategory = transaction.subcategory {
+                        if let subcategory = currentTransaction.subcategory {
                             DetailRow(
                                 icon: subcategory.icon,
                                 value: subcategory.name,
@@ -89,13 +92,13 @@ struct TransactionDetailView: View {
         } // ScrollView
         .scrollIndicators(.hidden)
         .onAppear { 
-            viewModel.note = transaction.note ?? ""
+            viewModel.note = currentTransaction.note ?? ""
         }
         .task {
-            if store.isCashFlowPro && transaction.categoryID == 0 {
-                guard !transaction.name.isBlank else { return }
-                guard let transactionID = transaction.id else { return }
-                if let response = await transactionRepository.fetchCategory(name: transaction.name, transactionID: transactionID) {
+            if store.isCashFlowPro && currentTransaction.categoryID == 0 {
+                guard !currentTransaction.name.isBlank else { return }
+                guard let transactionID = currentTransaction.id else { return }
+                if let response = await transactionStore.fetchCategory(name: currentTransaction.name, transactionID: transactionID) {
                     if let cat = response.cat {
                         viewModel.bestCategory = CategoryStore.shared.findCategoryById(cat)
                     }
@@ -106,8 +109,8 @@ struct TransactionDetailView: View {
             }
         }
         .onDisappear {
-            if viewModel.note != transaction.note && !viewModel.note.isBlank {
-                viewModel.updateTransaction(transactionID: transaction.id)
+            if viewModel.note != currentTransaction.note && !viewModel.note.isBlank {
+                viewModel.updateTransaction(transactionID: currentTransaction.id)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -118,12 +121,12 @@ struct TransactionDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
-                        action: { router.presentCreateTransaction(transaction: transaction) },
+                        action: { router.presentCreateTransaction(transaction: currentTransaction) },
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
                     Button(
                         role: .destructive,
-                        action: { alertManager.deleteTransaction(transaction: transaction, dismissAction: dismiss) },
+                        action: { AlertManager.shared.deleteTransaction(transaction: currentTransaction, dismissAction: dismiss) },
                         label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
                     )
                 }, label: {
@@ -147,7 +150,7 @@ extension TransactionDetailView {
             category: $viewModel.selectedCategory,
             subcategory: $viewModel.selectedSubcategory
         ) {
-            if let transactionID = transaction.id, viewModel.selectedCategory != nil {
+            if let transactionID = currentTransaction.id, viewModel.selectedCategory != nil {
                 viewModel.updateCategory(transactionID: transactionID)
             }
         }
