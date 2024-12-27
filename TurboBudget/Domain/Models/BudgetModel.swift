@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var _amount: Double?
-    @Published var categoryID: Int?
-    @Published var subcategoryID: Int?
+struct BudgetModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var _amount: Double?
+    var categoryID: Int?
+    var subcategoryID: Int?
 
     // Initialiseur
     init(id: Int? = nil, amount: Double? = nil, categoryID: Int? = nil, subcategoryID: Int? = nil) {
@@ -28,7 +28,7 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
         case _amount = "amount"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         _amount = try container.decodeIfPresent(Double.self, forKey: ._amount)
@@ -42,22 +42,6 @@ class BudgetModel: Codable, Identifiable, Equatable, ObservableObject, Hashable 
         try container.encodeIfPresent(_amount, forKey: ._amount)
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
-    }
-
-    // Fonction pour le protocole Equatable
-    static func == (lhs: BudgetModel, rhs: BudgetModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs._amount == rhs._amount &&
-               lhs.categoryID == rhs.categoryID &&
-               lhs.subcategoryID == rhs.subcategoryID
-    }
-
-    // Fonction pour le protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(_amount)
-        hasher.combine(categoryID)
-        hasher.combine(subcategoryID)
     }
 }
 

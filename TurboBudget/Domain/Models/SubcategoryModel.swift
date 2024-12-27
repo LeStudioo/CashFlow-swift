@@ -8,11 +8,11 @@
 import Foundation
 import SwiftUI
 
-class SubcategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var _name: String?
-    @Published var _icon: String?
-    @Published var colorString: String?
+struct SubcategoryModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var _name: String?
+    var _icon: String?
+    var colorString: String?
 
     // Initialisateur
     init(
@@ -35,7 +35,7 @@ class SubcategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         case colorString = "color"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         _name = try container.decodeIfPresent(String.self, forKey: ._name)
@@ -49,22 +49,6 @@ class SubcategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hash
         try container.encodeIfPresent(_name, forKey: ._name)
         try container.encodeIfPresent(_icon, forKey: ._icon)
         try container.encodeIfPresent(colorString, forKey: .colorString)
-    }
-
-    // Conformance au protocole Equatable
-    static func == (lhs: SubcategoryModel, rhs: SubcategoryModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs._name == rhs._name &&
-               lhs._icon == rhs._icon &&
-               lhs.colorString == rhs.colorString
-    }
-
-    // Conformance au protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(_name)
-        hasher.combine(_icon)
-        hasher.combine(colorString)
     }
 }
 

@@ -11,16 +11,22 @@ import SwiftUI
 struct BudgetRow: View {
 
     // Builder
-    @ObservedObject var budget: BudgetModel
+    var budget: BudgetModel
+    
+    @EnvironmentObject var budgetStore: BudgetStore
+    
+    var currentBudget: BudgetModel {
+        return budgetStore.budgets.first { $0.id == budget.id } ?? budget
+    }
     
     // MARK: -
     var body: some View {
         VStack(alignment: .leading) {
-            Text(budget.name)
+            Text(currentBudget.name)
                 .font(.mediumCustom(size: 20))
             
             HStack(alignment: .center) {
-                circleBudget(budget: budget)
+                circleBudget(budget: currentBudget)
                     .frame(width: 90, height: 90)
                     .padding(8)
                 Spacer()
@@ -28,7 +34,7 @@ struct BudgetRow: View {
                     HStack {
                         Text("budget_cell_max".localized + " :")
                         Spacer()
-                        Text(formatNumber(budget.amount))
+                        Text(formatNumber(currentBudget.amount))
                     }
                     .lineLimit(1)
                     .padding(8)
@@ -37,17 +43,17 @@ struct BudgetRow: View {
                     HStack {
                         Text("budget_cell_actual".localized + " :")
                         Spacer()
-                        Text(formatNumber(budget.currentAmount))
+                        Text(formatNumber(currentBudget.currentAmount))
                     }
                     .lineLimit(1)
                     .padding(8)
                     .background(Color.background200)
                     .cornerRadius(12)
-                    if budget.amount < budget.currentAmount {
+                    if currentBudget.amount < currentBudget.currentAmount {
                         HStack {
                             Text("budget_cell_overrun".localized + " :")
                             Spacer()
-                            Text(formatNumber(budget.currentAmount - budget.amount))
+                            Text(formatNumber(currentBudget.currentAmount - currentBudget.amount))
                         }
                         .lineLimit(1)
                         .padding(8)
