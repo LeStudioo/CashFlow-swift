@@ -30,8 +30,7 @@ struct CreateSubscriptionView: View {
     init(subscription: SubscriptionModel? = nil) {
         self.subscription = subscription
         self._viewModel = StateObject(wrappedValue: CreateSubscriptionViewModel(subscription: subscription))
-        self._router = StateObject(wrappedValue: NavigationManager(isPresented:
-                .constant(.createSubscription(subscription: subscription)))
+        self._router = StateObject(wrappedValue: NavigationManager(isPresented: .constant(.createSubscription(subscription: subscription)))
         )
     }
     
@@ -124,7 +123,11 @@ struct CreateSubscriptionView: View {
                     isActive: viewModel.validateAutomation()
                 ) {
                     VibrationManager.vibration()
-                    viewModel.createNewSubscription(dismiss: dismiss)
+                    if let subscription {
+                        viewModel.updateSubscription(dismiss: dismiss)
+                    } else {
+                        viewModel.createNewSubscription(dismiss: dismiss)
+                    }
                 }
                 
                 ToolbarDismissKeyboardButtonView()

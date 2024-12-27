@@ -20,7 +20,7 @@ extension SubscriptionDetailViewModel {
         let subscriptionRepository: SubscriptionStore = .shared
         guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
         
-        let body: SubscriptionModel = .init()
+        var body: SubscriptionModel = .init()
         
         if let selectedCategory, let newCategory = CategoryStore.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id

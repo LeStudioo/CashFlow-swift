@@ -11,26 +11,30 @@ import AlertKit
 struct SubscriptionDetailView: View {
     
     // Builder
-    @ObservedObject var subscription: SubscriptionModel
+    var subscription: SubscriptionModel
     
     // Custom type
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var subscriptionStore: SubscriptionStore
     @StateObject var viewModel: SubscriptionDetailViewModel = .init()
     
     // Environement
     @Environment(\.dismiss) private var dismiss
+    
+    var currentSubscription: SubscriptionModel {
+        return subscriptionStore.subscriptions.first { $0.id == subscription.id } ?? subscription
+    }
     
     // MARK: -
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {
                 VStack(spacing: 4) {
-                    Text("\(subscription.symbol) \(subscription.amount?.toCurrency() ?? "")")
+                    Text("\(currentSubscription.symbol) \(currentSubscription.amount?.toCurrency() ?? "")")
                         .font(.system(size: 48, weight: .heavy))
-                        .foregroundColor(subscription.color)
+                        .foregroundColor(currentSubscription.color)
                     
-                    Text(subscription.name ?? "")
+                    Text(currentSubscription.name ?? "")
                         .font(.semiBoldH3())
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
@@ -40,16 +44,16 @@ struct SubscriptionDetailView: View {
                     DetailRow(
                         icon: "clock.arrow.circlepath",
                         text: Word.Classic.frequency,
-                        value: subscription.frequency?.name ?? ""
+                        value: currentSubscription.frequency?.name ?? ""
                     )
                     
                     DetailRow(
                         icon: "calendar",
                         text: "transaction_detail_date".localized,
-                        value: subscription.date.formatted(date: .complete, time: .omitted).capitalized
+                        value: currentSubscription.date.formatted(date: .complete, time: .omitted).capitalized
                     )
                     
-                    if let category = subscription.category {
+                    if let category = currentSubscription.category {
                         DetailRow(
                             icon: category.icon,
                             value: category.name,
@@ -57,7 +61,7 @@ struct SubscriptionDetailView: View {
                                 presentChangeCategory()
                             }
                         
-                        if let subcategory = subscription.subcategory {
+                        if let subcategory = currentSubscription.subcategory {
                             DetailRow(
                                 icon: subcategory.icon,
                                 value: subcategory.name,
@@ -80,12 +84,12 @@ struct SubscriptionDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
-                        action: { router.presentCreateSubscription(subscription: subscription) },
+                        action: { router.presentCreateSubscription(subscription: currentSubscription) },
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
                     Button(
                         role: .destructive,
-                        action: { alertManager.deleteSubscription(subscription: subscription, dismissAction: dismiss) },
+                        action: { AlertManager.shared.deleteSubscription(subscription: currentSubscription, dismissAction: dismiss) },
                         label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
                     )
                 }, label: {
@@ -109,7 +113,7 @@ extension SubscriptionDetailView {
             category: $viewModel.selectedCategory,
             subcategory: $viewModel.selectedSubcategory
         ) {
-            if let subscriptionID = subscription.id, viewModel.selectedCategory != nil {
+            if let subscriptionID = currentSubscription.id, viewModel.selectedCategory != nil {
                 viewModel.updateCategory(subscriptionID: subscriptionID)
             }
         }

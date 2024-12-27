@@ -22,15 +22,15 @@ enum SubscriptionFrequency: Int, Codable, CaseIterable {
     }
 }
 
-class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var name: String?
-    @Published var amount: Double?
-    @Published var typeNum: Int?
-    @Published var frequencyNum: Int? // SubscriptionFrequency
-    @Published var frequencyDate: String?
-    @Published var categoryID: Int?
-    @Published var subcategoryID: Int?
+struct SubscriptionModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var name: String?
+    var amount: Double?
+    var typeNum: Int?
+    var frequencyNum: Int? // SubscriptionFrequency
+    var frequencyDate: String?
+    var categoryID: Int?
+    var subcategoryID: Int?
 
     // Initialiseur
     init(
@@ -79,7 +79,7 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         case frequencyNum = "frequency"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         name = try container.decodeIfPresent(String.self, forKey: .name)
@@ -102,30 +102,30 @@ class SubscriptionModel: Codable, Identifiable, Equatable, ObservableObject, Has
         try container.encodeIfPresent(categoryID, forKey: .categoryID)
         try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
     }
-
-    // Fonction pour le protocole Equatable
-    static func == (lhs: SubscriptionModel, rhs: SubscriptionModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.name == rhs.name &&
-               lhs.amount == rhs.amount &&
-               lhs.typeNum == rhs.typeNum &&
-               lhs.frequencyNum == rhs.frequencyNum &&
-               lhs.frequencyDate == rhs.frequencyDate &&
-               lhs.categoryID == rhs.categoryID &&
-               lhs.subcategoryID == rhs.subcategoryID
-    }
-
-    // Fonction pour le protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(name)
-        hasher.combine(amount)
-        hasher.combine(typeNum)
-        hasher.combine(frequencyNum)
-        hasher.combine(frequencyDate)
-        hasher.combine(categoryID)
-        hasher.combine(subcategoryID)
-    }
+//
+//    // Fonction pour le protocole Equatable
+//    static func == (lhs: SubscriptionModel, rhs: SubscriptionModel) -> Bool {
+//        return lhs.id == rhs.id &&
+//               lhs.name == rhs.name &&
+//               lhs.amount == rhs.amount &&
+//               lhs.typeNum == rhs.typeNum &&
+//               lhs.frequencyNum == rhs.frequencyNum &&
+//               lhs.frequencyDate == rhs.frequencyDate &&
+//               lhs.categoryID == rhs.categoryID &&
+//               lhs.subcategoryID == rhs.subcategoryID
+//    }
+//
+//    // Fonction pour le protocole Hashable
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//        hasher.combine(name)
+//        hasher.combine(amount)
+//        hasher.combine(typeNum)
+//        hasher.combine(frequencyNum)
+//        hasher.combine(frequencyDate)
+//        hasher.combine(categoryID)
+//        hasher.combine(subcategoryID)
+//    }
 }
 
 extension SubscriptionModel {

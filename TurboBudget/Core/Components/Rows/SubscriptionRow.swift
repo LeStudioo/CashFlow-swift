@@ -13,11 +13,14 @@ import AlertKit
 struct SubscriptionRow: View {
     
     // Builder
-    @ObservedObject var subscription: SubscriptionModel
+    var subscription: SubscriptionModel
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
-    @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var subscriptionStore: SubscriptionStore
+    
+    var currentSubscription: SubscriptionModel {
+        return subscriptionStore.subscriptions.first { $0.id == subscription.id } ?? subscription
+    }
     
     // MARK: -
     var body: some View {
@@ -77,7 +80,7 @@ struct SubscriptionRow: View {
                         .foregroundStyle(.blue)
                 })
                 SwipeAction(action: {
-                    alertManager.deleteSubscription(subscription: subscription)
+                    AlertManager.shared.deleteSubscription(subscription: subscription)
                     context.state.wrappedValue = .closed
                 }, label: { _ in
                     VStack(spacing: 5) {

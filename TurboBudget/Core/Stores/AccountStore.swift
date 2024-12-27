@@ -124,7 +124,7 @@ extension AccountStore {
                 responseModel: StatisticsModel.self
             )
             self.stats = results
-        } catch  { NetworkService.handleError(error: error) }
+        } catch { NetworkService.handleError(error: error) }
     }
 }
 

@@ -71,6 +71,24 @@ extension CreateSubscriptionViewModel {
             guard let account = accountRepository.selectedAccount else { return }
             guard let accountID = account.id else { return }
             
+            if let newSubscritpion = await subscriptionRepository.createSubscription(
+                accountID: accountID,
+                body: bodyForCreation(),
+                shouldReturn: true
+            ) {
+                await dismiss()
+                await successfullModalManager.showSuccessfulSubscription(
+                    type: .new,
+                    subscription: newSubscritpion
+                )
+            }
+        }
+    }
+    
+    func updateSubscription(dismiss: DismissAction) {
+        let subscriptionRepository: SubscriptionStore = .shared
+        
+        Task {
             if let subscription, let subscriptionID = subscription.id {
                 if let updatedSubscription = await subscriptionRepository.updateSubscription(
                     subscriptionID: subscriptionID,
@@ -82,16 +100,6 @@ extension CreateSubscriptionViewModel {
                         subscription: updatedSubscription
                     )
                 }
-            } else if let newSubscritpion = await subscriptionRepository.createSubscription(
-                accountID: accountID,
-                body: bodyForCreation(),
-                shouldReturn: true
-            ) {
-                await dismiss()
-                await successfullModalManager.showSuccessfulSubscription(
-                    type: .new,
-                    subscription: newSubscritpion
-                )
             }
         }
     }

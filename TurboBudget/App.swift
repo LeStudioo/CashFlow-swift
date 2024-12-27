@@ -60,38 +60,36 @@ struct TurboBudgetApp: App {
     var body: some Scene {
         WindowGroup {
             NavStack(router: router) {
-                Group {
-                    switch appManager.viewState {
-                    case .idle:
-                        SplashScreenView()
-                    case .loading:
-                        SplashScreenView()
-                    case .success:
-                        
-                        if preferencesSecurity.isSecurityReinforced {
-                            if scenePhase == .active {
-                                PageControllerView()
-                            } else {
-                                Image("LaunchScreen")
-                                    .resizable()
-                                    .edgesIgnoringSafeArea([.bottom, .top])
-                            }
-                        } else {
+                switch appManager.viewState {
+                case .idle:
+                    SplashScreenView()
+                case .loading:
+                    SplashScreenView()
+                case .success:
+                    
+                    if preferencesSecurity.isSecurityReinforced {
+                        if scenePhase == .active {
                             PageControllerView()
+                        } else {
+                            Image("LaunchScreen")
+                                .resizable()
+                                .edgesIgnoringSafeArea([.bottom, .top])
                         }
-                        
-                    case .syncing:
-                        SyncingView()
-                    case .notSynced:
-                        NotSyncedView()
-                    case .failed:
-                        LoginView()
+                    } else {
+                        PageControllerView()
                     }
+                    
+                case .syncing:
+                    SyncingView()
+                case .notSynced:
+                    NotSyncedView()
+                case .failed:
+                    LoginView()
                 }
-                .overlay(alignment: .bottom) {
-                    SuccessfullCreationView()
-                        .environmentObject(successfullModalManager)
-                }
+            }
+            .overlay(alignment: .bottom) {
+                SuccessfullCreationView()
+                    .environmentObject(successfullModalManager)
             }
             .task {
                 await accountRepository.fetchAccounts()
