@@ -94,7 +94,6 @@ struct TurboBudgetApp: App {
             .task {
                 await accountRepository.fetchAccounts()
                 accountRepository.selectedAccount = accountRepository.mainAccount
-                await categoryRepository.fetchCategories()
                 if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
                     await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
                     await subscriptionRepository.fetchSubscriptions(accountID: accountID)

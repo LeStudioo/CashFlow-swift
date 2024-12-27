@@ -13,58 +13,56 @@ struct CategoryHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var categoryRepository: CategoryStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
-        
+
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
             if viewModel.categoriesFiltered.isNotEmpty {
                 ScrollView {
-                    VStack {
-                        if categoryRepository.currentMonthExpenses.isEmpty && categoryRepository.currentMonthIncomes.isEmpty {
-                            EmptyCategoryData()
-                                .padding(.bottom, 8)
-                        } else if viewModel.searchText.isEmpty {
-                            PieChart(
-                                slices: CategoryStore.shared.categoriesSlices,
-                                backgroundColor: Color.background100,
-                                configuration: .init(style: .category, space: 0.2, hole: 0.75)
-                            )
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background {
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .fill(Color.background100)
-                            }
+                    if viewModel.isChartDisplayed {
+                        EmptyCategoryData()
                             .padding(.bottom, 8)
+                    } else if viewModel.searchText.isEmpty {
+                        PieChart(
+                            slices: CategoryStore.shared.categoriesSlices,
+                            backgroundColor: Color.background100,
+                            configuration: .init(style: .category, space: 0.2, hole: 0.75)
+                        )
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background {
+                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                .fill(Color.background100)
                         }
-                        
-                        ForEach(viewModel.categoriesFiltered) { category in
-                            let subcategories = category.subcategories
-                            Group {
-                                if let subcategories, !subcategories.isEmpty {
-                                    NavigationButton(push: router.pushHomeSubcategories(category: category)) {
-                                        CategoryRow(category: category, showChevron: true)
-                                    }
-                                } else {
-                                    NavigationButton(push: router.pushCategoryTransactions(category: category)) {
-                                        CategoryRow(category: category, showChevron: true)
-                                    }
+                        .padding(.bottom, 8)
+                    }
+                    
+                    ForEach(viewModel.categoriesFiltered) { category in
+                        let subcategories = category.subcategories
+                        Group {
+                            if let subcategories, !subcategories.isEmpty {
+                                NavigationButton(push: router.pushHomeSubcategories(category: category)) {
+                                    CategoryRow(category: category, showChevron: true)
+                                }
+                            } else {
+                                NavigationButton(push: router.pushCategoryTransactions(category: category)) {
+                                    CategoryRow(category: category, showChevron: true)
                                 }
                             }
-                            .foregroundStyle(Color.text)
-                            .padding(.bottom, 8)
                         }
-                        
-                        Rectangle()
-                            .frame(height: 100)
-                            .opacity(0)
+                        .foregroundStyle(Color.text)
+                        .padding(.bottom, 8)
                     }
-                    .padding()
+                    
+                    Rectangle()
+                        .frame(height: 100)
+                        .opacity(0)
                 } // ScrollView
+                .padding()
                 .scrollDismissesKeyboard(.immediately)
                 .scrollIndicators(.hidden)
             } else {

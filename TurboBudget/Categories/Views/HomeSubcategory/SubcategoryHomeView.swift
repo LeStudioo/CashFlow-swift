@@ -19,6 +19,7 @@ struct SubcategoryHomeView: View {
     
     // Environnement
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Computed
     var searchResults: [SubcategoryModel] {
@@ -37,7 +38,7 @@ struct SubcategoryHomeView: View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack {
-                    if category.currentMonthExpenses.isEmpty && category.currentMonthIncomes.isEmpty {
+                    if transactionStore.getExpenses(for: category, in: .now).isEmpty && transactionStore.getIncomes(for: category, in: .now).isEmpty {
                         EmptyCategoryData()
                             .padding(.bottom, 8)
                     }

@@ -123,25 +123,6 @@ extension SubcategoryModel {
         return BudgetStore.shared.budgets.first(where: { $0.subcategoryID == self.id })
     }
     
-    var currentMonthTransactions: [TransactionModel] {
-        let calendar = Calendar.current
-        let now = Date()
-        
-        return transactions.filter { transaction in
-            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date)
-            let currentMonth = calendar.dateComponents([.month, .year], from: now)
-            return transactionMonth == currentMonth && transaction.subcategoryID == self.id
-        }
-    }
-    
-    var currentMonthExpenses: [TransactionModel] {
-        return currentMonthTransactions.filter({ $0.type == .expense })
-    }
-    
-    var currentMonthIncomes: [TransactionModel] {
-        return currentMonthTransactions.filter({ $0.type == .income })
-    }
-    
     var transactionsFiltered: [TransactionModel] {
         return self.transactions
             .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }

@@ -194,3 +194,94 @@ extension TransactionStore {
     }
     
 }
+
+extension TransactionStore {
+    
+    private func filterTransactions(
+        forCategory category: CategoryModel? = nil,
+        forSubcategory subcategory: SubcategoryModel? = nil,
+        inMonth month: Date? = nil,
+        ofType type: TransactionType? = nil
+    ) -> [TransactionModel] {
+        return transactions.filter { transaction in
+            let matchesCategory = category.map { transaction.category == $0 } ?? true
+            let matchesSubcategory = subcategory.map { transaction.subcategory == $0 } ?? true
+            let matchesMonth = month.map { Calendar.current.isDate(transaction.date, equalTo: $0, toGranularity: .month) } ?? true
+            let matchesType = type.map { transaction.type == $0 } ?? true
+            return matchesCategory && matchesSubcategory && matchesMonth && matchesType
+        }
+    }
+    
+}
+
+extension TransactionStore {
+    
+    func getTransactions(in month: Date? = nil) -> [TransactionModel] {
+        return filterTransactions(inMonth: month)
+    }
+    
+    func getTransactions(for category: CategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return filterTransactions(forCategory: category, inMonth: month)
+    }
+    
+    func getTransactions(for subcategory: SubcategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return filterTransactions(forSubcategory: subcategory, inMonth: month)
+    }
+    
+}
+
+extension TransactionStore {
+    
+    func getExpenses(transactions: [TransactionModel], in month: Date? = nil) -> [TransactionModel] {
+        return transactions
+            .filter { $0.type == .expense }
+            .filter {
+                if let month {
+                    return Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month)
+                } else { return true }
+            }
+    }
+    
+    func getExpenses(in month: Date? = nil) -> [TransactionModel] {
+        return filterTransactions(inMonth: month, ofType: .expense)
+    }
+    
+    func getExpenses(for category: CategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return getTransactions(for: category, in: month)
+            .filter { $0.type == .expense }
+    }
+    
+    func getExpenses(for subcategory: SubcategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return getTransactions(for: subcategory, in: month)
+            .filter { $0.type == .expense }
+    }
+    
+}
+
+extension TransactionStore {
+    
+    func getIncomes(transactions: [TransactionModel], in month: Date? = nil) -> [TransactionModel] {
+        return transactions
+            .filter { $0.type == .income }
+            .filter {
+                if let month {
+                    return Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month)
+                } else { return true }
+            }
+    }
+    
+    func getIncomes(in month: Date? = nil) -> [TransactionModel] {
+        return filterTransactions(inMonth: month, ofType: .income)
+    }
+    
+    func getIncomes(for category: CategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return getTransactions(for: category, in: month)
+            .filter { $0.type == .income }
+    }
+    
+    func getIncomes(for subcategory: SubcategoryModel, in month: Date? = nil) -> [TransactionModel] {
+        return getTransactions(for: subcategory, in: month)
+            .filter { $0.type == .income }
+    }
+    
+}

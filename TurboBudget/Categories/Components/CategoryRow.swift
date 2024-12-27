@@ -15,13 +15,14 @@ struct CategoryRow: View {
     
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
+    @EnvironmentObject private var transactionStore: TransactionStore
 	
 	// Computed variables
     var stringAmount: String {
         if category.isRevenue {
-            return category.currentMonthIncomes.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
+            return transactionStore.getIncomes(for: category, in: .now).compactMap(\.amount).reduce(0, +).toCurrency()
         } else {
-            return category.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
+            return transactionStore.getExpenses(for: category, in: .now).compactMap(\.amount).reduce(0, +).toCurrency()
         }
     }
 

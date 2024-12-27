@@ -14,7 +14,7 @@ struct SubcategoryTransactionsView: View {
     var subcategory: SubcategoryModel
     
     // Repo
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Environnements
     @EnvironmentObject private var router: NavigationManager
@@ -58,7 +58,7 @@ struct SubcategoryTransactionsView: View {
             if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
                 List {
                     Section(content: {
-                        ForEach(subcategory.currentMonthTransactions) { transaction in
+                        ForEach(transactionStore.getExpenses(for: subcategory, in: .now)) { transaction in
                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                 TransactionRow(transaction: transaction)
                                     .padding(.horizontal)
@@ -92,7 +92,7 @@ struct SubcategoryTransactionsView: View {
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
                 .background(Color.background.edgesIgnoringSafeArea(.all))
-                .animation(.smooth, value: transactionRepository.transactions.count)
+                .animation(.smooth, value: transactionStore.transactions.count)
             } else { // No Transactions
                 ErrorView(
                     searchResultsCount: searchResults.count,

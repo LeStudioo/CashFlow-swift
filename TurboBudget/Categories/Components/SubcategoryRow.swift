@@ -11,11 +11,15 @@ struct SubcategoryRow: View {
     
     // Custom type
     var subcategory: SubcategoryModel
-    @ObservedObject var filter: Filter = sharedFilter
+    
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Computed var
     var stringAmount: String {
-        return subcategory.currentMonthExpenses.reduce(0) { $0 + ($1.amount ?? 0) }.toCurrency()
+        return transactionStore.getExpenses(for: subcategory, in: .now)
+            .compactMap(\.amount)
+            .reduce(0, +)
+            .toCurrency()
     }
     
     // MARK: -

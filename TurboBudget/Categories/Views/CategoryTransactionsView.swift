@@ -16,6 +16,7 @@ struct CategoryTransactionsView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var transactionStore: TransactionStore
     @Environment(\.dismiss) private var dismiss
     
     // String variables
@@ -27,36 +28,14 @@ struct CategoryTransactionsView: View {
     // Enum
     @State private var filterTransactions: FilterForRecentTransaction = .month
     
-    // Computed var
-    var searchResults: [TransactionModel] {
-        if searchText.isEmpty {
-            if filterTransactions == .expenses {
-                if ascendingOrder {
-                    return category.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
-                } else {
-                    return category.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }
-                }
-            } else if filterTransactions == .incomes {
-                if ascendingOrder {
-                    return category.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }.reversed()
-                } else {
-                    return category.incomes.sorted { $0.amount ?? 0 > $1.amount ?? 0 }
-                }
-            } else {
-                return category.transactions
-            }
-        } else {
-            return category.transactions.filter { $0.name.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-    
     // MARK: - body
     var body: some View {
         VStack {
-            if category.transactions.isNotEmpty {
+            if transactionStore.getTransactions(for: category).isNotEmpty {
                 List {
+                    let transactions = transactionStore.getTransactions(for: category, in: .now)
                     Section(content: {
-                        ForEach(category.currentMonthTransactions) { transaction in
+                        ForEach(transactions) { transaction in
                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                 TransactionRow(transaction: transaction)
                                     .padding(.horizontal)
@@ -68,8 +47,8 @@ struct CategoryTransactionsView: View {
                     }, header: {
                         DetailOfExpensesAndIncomesByMonth(
                             month: .now,
-                            amountOfExpenses: category.amountExpensesByMonth(month: .now),
-                            amountOfIncomes: category.amountIncomesByMonth(month: .now)
+                            amountOfExpenses: transactionStore.getExpenses(transactions: transactions).compactMap(\.amount).reduce(0, +),
+                            amountOfIncomes: transactionStore.getIncomes(transactions: transactions).compactMap(\.amount).reduce(0, +)
                         )
                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                     })
@@ -80,12 +59,13 @@ struct CategoryTransactionsView: View {
                 .scrollIndicators(.hidden)
                 .background(Color.background.edgesIgnoringSafeArea(.all))
             } else { // No Transactions
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "NoTransaction",
-                    text: "error_message_transaction".localized
-                )
+                // TODO: Mettre empty view
+//                ErrorView(
+//                    searchResultsCount: searchResults.count,
+//                    searchText: searchText,
+//                    image: "NoTransaction",
+//                    text: "error_message_transaction".localized
+//                )
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))

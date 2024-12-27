@@ -17,10 +17,12 @@ final class SubcategoryHomeViewModel: ObservableObject {
 extension SubcategoryHomeViewModel {
     
     func isDisplayChart(category: CategoryModel) -> Bool {
+        let transactionStore: TransactionStore = .shared
+        
         if category.isToCategorized {
             return false
         } else {
-            return !category.currentMonthExpenses.isEmpty
+            return transactionStore.getExpenses(for: category, in: .now).isNotEmpty
         }
     }
     

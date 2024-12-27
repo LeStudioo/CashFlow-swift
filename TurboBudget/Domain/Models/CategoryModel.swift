@@ -8,12 +8,12 @@
 import Foundation
 import SwiftUI
 
-class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var _name: String?
-    @Published var _icon: String?
-    @Published var colorString: String?
-    @Published var subcategories: [SubcategoryModel]?
+struct CategoryModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var _name: String?
+    var _icon: String?
+    var colorString: String?
+    var subcategories: [SubcategoryModel]?
 
     // Initialisateur
     init(
@@ -38,7 +38,7 @@ class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashabl
         case colorString = "color"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         _name = try container.decodeIfPresent(String.self, forKey: ._name)
@@ -54,24 +54,6 @@ class CategoryModel: Codable, Identifiable, Equatable, ObservableObject, Hashabl
         try container.encodeIfPresent(_icon, forKey: ._icon)
         try container.encodeIfPresent(colorString, forKey: .colorString)
         try container.encodeIfPresent(subcategories, forKey: .subcategories)
-    }
-
-    // Conformance au protocole Equatable
-    static func == (lhs: CategoryModel, rhs: CategoryModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs._name == rhs._name &&
-               lhs._icon == rhs._icon &&
-               lhs.colorString == rhs.colorString &&
-               lhs.subcategories == rhs.subcategories
-    }
-
-    // Conformance au protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(_name)
-        hasher.combine(_icon)
-        hasher.combine(colorString)
-        hasher.combine(subcategories)
     }
 }
 
@@ -142,26 +124,7 @@ extension CategoryModel {
     var subscriptions: [TransactionModel] {
         return transactions.filter { $0.isFromSubscription == true }
     }
-    
-    var currentMonthTransactions: [TransactionModel] {
-        let calendar = Calendar.current
-        let now = Date()
-        
-        return transactions.filter { transaction in
-            let transactionMonth = calendar.dateComponents([.month, .year], from: transaction.date)
-            let currentMonth = calendar.dateComponents([.month, .year], from: now)
-            return transactionMonth == currentMonth && transaction.categoryID == self.id
-        }
-    }
-    
-    var currentMonthExpenses: [TransactionModel] {
-        return currentMonthTransactions.filter({ $0.type == .expense })
-    }
-    
-    var currentMonthIncomes: [TransactionModel] {
-        return currentMonthTransactions.filter({ $0.type == .income })
-    }
-        
+
     var transactionsFiltered: [TransactionModel] {
         return self.transactions
             .filter { Calendar.current.isDate($0.date, equalTo: FilterManager.shared.date, toGranularity: .month) }

@@ -15,6 +15,7 @@ struct BudgetsTransactionsView: View {
     var subcategory: SubcategoryModel
     
     @EnvironmentObject private var budgetRepository: BudgetStore
+    @EnvironmentObject private var transactionStore: TransactionStore
 
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -59,7 +60,7 @@ struct BudgetsTransactionsView: View {
     var body: some View {
         VStack {
             if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
-                List(subcategory.currentMonthExpenses) { transaction in
+                List(transactionStore.getExpenses(for: subcategory, in: .now)) { transaction in
                     Section {
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)

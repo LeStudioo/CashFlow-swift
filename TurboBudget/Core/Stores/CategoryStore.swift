@@ -12,12 +12,18 @@ final class CategoryStore: ObservableObject {
     
     @Published var categories: [CategoryModel] = []
     @Published var subcategories: [SubcategoryModel] = []
+    
+    private init() {
+        Task {
+            await fetchCategories()
+        }
+    }
 }
 
 extension CategoryStore {
     
     @MainActor
-    func fetchCategories() async {
+    private func fetchCategories() async {
         do {
             let categories = try await NetworkService.shared.sendRequest(
                 apiBuilder: CategoryAPIRequester.fetchCategories,
@@ -87,11 +93,11 @@ extension CategoryStore {
         return self.subcategories.first(where: { $0.id == id })
     }
     
-    var currentMonthExpenses: [TransactionModel] {
-        return categories.flatMap { $0.currentMonthExpenses }
-    }
-    
-    var currentMonthIncomes: [TransactionModel] {
-        return categories.flatMap { $0.currentMonthIncomes }
-    }
+//    var currentMonthExpenses: [TransactionModel] {
+//        return categories.flatMap { $0.currentMonthExpenses }
+//    }
+//    
+//    var currentMonthIncomes: [TransactionModel] {
+//        return categories.flatMap { $0.currentMonthIncomes }
+//    }
 }
