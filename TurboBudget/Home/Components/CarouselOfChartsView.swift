@@ -11,39 +11,39 @@ import Charts
 
 struct CarouselOfChartsView: View {
     
-    // Environement
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    // Environment
+    @EnvironmentObject private var transactionStore: TransactionStore
     @EnvironmentObject private var themeManager: ThemeManager
     
-    // Number variables
+    // State variables
     @State private var selectedChart: Int = 0
+    @State private var dailyExpenses: [AmountOfTransactionsByDay] = []
+    @State private var dailyIncomes: [AmountOfTransactionsByDay] = []
+    @State private var totalExpenses: Double = 0
+    @State private var totalIncomes: Double = 0
     
-    // MARK: - body
+    // MARK: -
     var body: some View {
-        let expenseAmount = transactionRepository.amountOfTransactionsForCurrentMonth(type: .expense)
-        let incomeAmount = transactionRepository.amountOfTransactionsForCurrentMonth(type: .income)
-
         VStack {
             TabView(selection: $selectedChart) {
-                
                 // CHART of expenses in actual month
                 VStack {
                     titleOfChart(
                         text: "carousel_charts_expenses_current_month".localized,
-                        amount: expenseAmount
+                        amount: totalExpenses
                     )
                     
-                    if expenseAmount != 0 {
+                    if totalExpenses != 0 {
                         Chart {
-                            ForEach(transactionRepository.dailyAmountOfTransactionsInCurrentMonth(type: .expense)) { item in
+                            ForEach(dailyExpenses) { item in
                                 LineMark(x: .value("Day", item.day),
-                                         y: .value("Value", item.amount))
+                                        y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
                                 .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
                                 .foregroundStyle(Color.error400)
                                 
                                 AreaMark(x: .value("Day", item.day),
-                                         y: .value("Value", item.amount))
+                                        y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
                                 .foregroundStyle(LinearGradient(colors: [.error400.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
@@ -63,24 +63,24 @@ struct CarouselOfChartsView: View {
                 .padding(.horizontal)
                 .tag(0)
                 
-                //CHART of incomes in actual month
+                // CHART of incomes in actual month
                 VStack {
                     titleOfChart(
                         text: "carousel_charts_incomes_current_month".localized,
-                        amount: incomeAmount
+                        amount: totalIncomes
                     )
                     
-                    if incomeAmount != 0 {
+                    if totalIncomes != 0 {
                         Chart {
-                            ForEach(transactionRepository.dailyAmountOfTransactionsInCurrentMonth(type: .income)) { item in
+                            ForEach(dailyIncomes) { item in
                                 LineMark(x: .value("Day", item.day),
-                                         y: .value("Value", item.amount))
+                                        y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
                                 .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
                                 .foregroundStyle(Color.primary500)
                                 
                                 AreaMark(x: .value("Day", item.day),
-                                         y: .value("Value", item.amount))
+                                        y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
                                 .foregroundStyle(LinearGradient(colors: [.primary500.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
@@ -105,9 +105,21 @@ struct CarouselOfChartsView: View {
             
             PageControl(maxPages: 2, currentPage: selectedChart)
         }
-    } // End body
+        .onAppear {
+            updateChartData()
+        }
+        .onChange(of: transactionStore.transactions.count) { _ in
+            updateChartData()
+        }
+    } // body
     
-    // MARK: ViewBuilder
+    private func updateChartData() {
+        dailyExpenses = transactionStore.dailyTransactions(for: .now, type: .expense)
+        dailyIncomes = transactionStore.dailyTransactions(for: .now, type: .income)
+        totalExpenses = dailyExpenses.map(\.amount).reduce(0, +)
+        totalIncomes = dailyIncomes.map(\.amount).reduce(0, +)
+    }
+    
     @ViewBuilder
     func titleOfChart(text: String, amount: Double) -> some View {
         HStack {
@@ -124,7 +136,7 @@ struct CarouselOfChartsView: View {
         }
         .padding()
     }
-} // End struct
+} // struct
 
 // MARK: - Preview
 #Preview {

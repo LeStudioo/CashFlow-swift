@@ -21,6 +21,11 @@ struct AnalyticsHomeView: View {
     // Custom
     @ObservedObject var filter = FilterManager.shared
     
+    @State private var dailyExpenses: [AmountOfTransactionsByDay] = []
+    @State private var dailyIncomes: [AmountOfTransactionsByDay] = []
+    @State private var dailySubscriptionsExpenses: [AmountOfTransactionsByDay] = []
+    @State private var dailySubscriptionsIncomes: [AmountOfTransactionsByDay] = []
+
     // MARK: -
     var body: some View {
         ScrollView {
@@ -29,28 +34,28 @@ struct AnalyticsHomeView: View {
                     CashFlowChart()
                     
                     AnalyticsLineChart(
-                        values: transactionRepository.dailyIncomeAmountsForSelectedMonth(selectedDate: filter.date),
+                        values: dailyIncomes,
                         config: .init(
                             title: "chart_incomes_incomes_in".localized,
                             mainColor: Color.primary500
                         )
                     )
                     AnalyticsLineChart(
-                        values: transactionRepository.dailyExpenseAmountsForSelectedMonth(selectedDate: filter.date),
+                        values: dailyExpenses,
                         config: .init(
                             title: "chart_expenses_expenses_in".localized,
                             mainColor: Color.error400
                         )
                     )
                     AnalyticsLineChart(
-                        values: transactionRepository.dailyAutomatedIncomeAmountsForSelectedMonth(selectedDate: filter.date),
+                        values: dailySubscriptionsIncomes,
                         config: .init(
                             title: "chart_auto_incomes_incomes_in".localized,
                             mainColor: Color.primary500
                         )
                     )
                     AnalyticsLineChart(
-                        values: transactionRepository.dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: filter.date),
+                        values: dailySubscriptionsExpenses,
                         config: .init(
                             title: "chart_auto_expenses_expenses_in".localized,
                             mainColor: Color.error400
@@ -72,19 +77,19 @@ struct AnalyticsHomeView: View {
         .scrollIndicators(.hidden)
         .navigationTitle("word_analytic".localized)
         .navigationBarTitleDisplayMode(.large)
-        //        .toolbar {
-        //            if !transactionRepository.transactions.isEmpty {
-        //                ToolbarItem(placement: .navigationBarTrailing) {
-        //                    NavigationButton(push: router.pushFilter()) {
-        //                        Image(systemName: "line.3.horizontal.decrease.circle")
-        //                            .foregroundStyle(Color(uiColor: .label))
-        //                            .font(.system(size: 18, weight: .medium, design: .rounded))
-        //                    }
-        //                }
-        //            }
-        //        }
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onAppear {
+            updateChartData()
+        }
     } // End body
+    
+    private func updateChartData() {
+        dailyExpenses = transactionRepository.dailyTransactions(for: .now, type: .expense)
+        dailyIncomes = transactionRepository.dailyTransactions(for: .now, type: .income)
+        dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: .now, type: .expense)
+        dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: .now, type: .income)
+    }
+    
 } // End struct
 
 // MARK: - Preview

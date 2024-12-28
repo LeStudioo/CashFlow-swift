@@ -77,7 +77,7 @@ struct CashFlowChart: View {
         })
         .task {
             if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                await accountRepository.fetchCashFlow(accountID: accountID, year: Date().year)
+                await accountRepository.fetchCashFlow(accountID: accountID, year: Date().year)                
             }
         }
     } // body

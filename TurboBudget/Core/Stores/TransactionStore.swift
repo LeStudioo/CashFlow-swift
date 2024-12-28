@@ -285,3 +285,11 @@ extension TransactionStore {
     }
     
 }
+
+extension TransactionStore {
+    
+    func getTransactionFromSubscriptions(in month: Date? = nil) -> [TransactionModel] {
+        return getTransactions(in: month)
+            .filter { $0.isFromSubscription == true }
+    }
+}

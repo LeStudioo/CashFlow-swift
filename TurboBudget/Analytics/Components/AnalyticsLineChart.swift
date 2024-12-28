@@ -40,16 +40,16 @@ struct AnalyticsLineChart: View {
                 }
                 .padding(8)
                 
-                Chart(values, id: \.self) { item in
-                    if let day = Calendar.current.dateComponents([.day], from: item.day).day {
-                        LineMark(x: .value("", day),
-                                 y: .value("", item.amount))
-                        .foregroundStyle(config.mainColor)
-                        .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                Chart {
+                    ForEach(values) { item in
+                        LineMark(x: .value("Day", item.day),
+                                y: .value("Value", item.amount))
                         .interpolationMethod(.catmullRom)
+                        .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                        .foregroundStyle(config.mainColor)
                         
-                        AreaMark(x: .value("", day),
-                                 y: .value("", item.amount))
+                        AreaMark(x: .value("Day", item.day),
+                                y: .value("Value", item.amount))
                         .interpolationMethod(.catmullRom)
                         .foregroundStyle(
                             LinearGradient(
@@ -60,7 +60,6 @@ struct AnalyticsLineChart: View {
                         )
                     }
                 }
-                .chartXScale(domain: 0...31)
             }
             .padding(8)
             .background {

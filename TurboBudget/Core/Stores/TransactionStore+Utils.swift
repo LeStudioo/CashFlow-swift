@@ -50,33 +50,6 @@ extension TransactionStore {
     private func calculateTotal(for transactions: [TransactionModel]) -> Double {
         return transactions.reduce(0) { $0 + ($1.amount ?? 0) }
     }
-    
-    private func createDailyAmounts(
-        for dates: [Date],
-        transactionFilter: (TransactionModel) -> Bool
-    ) -> [AmountOfTransactionsByDay] {
-        let amounts = dates.map { date -> AmountOfTransactionsByDay in
-            let amountOfDay = transactionsActualMonth
-                .filter { Calendar.current.isDate($0.date, inSameDayAs: date) }
-                .filter(transactionFilter)
-                .reduce(0.0) { $0 + ($1.amount ?? 0) }
-            
-            return AmountOfTransactionsByDay(day: date, amount: amountOfDay)
-        }
-        
-        let sortedAmounts = amounts.sorted { $0.day < $1.day }
-        return sortedAmounts
-    }
-    
-    // MARK: - Public Methods
-    func dailyAmountOfTransactionsInCurrentMonth(type: TransactionType) -> [AmountOfTransactionsByDay] {
-        let dates = Date().allDateOfMonth
-        return createDailyAmounts(for: dates) { $0.type == type }
-    }
-    
-    func amountOfTransactionsForCurrentMonth(type: TransactionType) -> Double {
-        return dailyAmountOfTransactionsInCurrentMonth(type: type).map(\.amount).reduce(0, +)
-    }
 }
 
 extension TransactionStore {
@@ -136,107 +109,58 @@ extension TransactionStore {
 
 extension TransactionStore {
     
-    func dailyIncomeAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsForTheChoosenMonth: [TransactionModel] = incomesForSelectedMonth(selectedDate: selectedDate)
-            .filter { !($0.isFromSubscription ?? false) }
-        
-        var array: [AmountOfTransactionsByDay] = []
-
-        let dates = selectedDate.allDateOfMonth
+    func dailyTransactions(for month: Date, type: TransactionType) -> [AmountOfTransactionsByDay] {
+        let dates = month.allDateOfMonth
+        var amountsByDate: [Date: Double] = [:]
         
         for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date)
-                    && CategoryStore.shared.findCategoryById(transaction.categoryID) != nil {
-                    amountOfDay += transaction.amount ?? 0
-                }
-            }
-            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+            amountsByDate[date] = 0
         }
         
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast()
-        return sortedArray
+        getTransactions(in: month)
+            .filter { $0.type == type }
+            .forEach { transaction in
+                if let matchingDate = dates.first(where: { Calendar.current.isDate($0, inSameDayAs: transaction.date) }) {
+                    amountsByDate[matchingDate, default: 0] += transaction.amount ?? 0
+                }
+            }
+        
+        let result: [AmountOfTransactionsByDay] = dates.map { date in
+            AmountOfTransactionsByDay(day: date, amount: amountsByDate[date] ?? 0)
+        }
+        
+        return result
     }
     
-    func dailyExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)
-            .filter { !($0.isFromSubscription ?? false) }
-                
-        var array: [AmountOfTransactionsByDay] = []
-        
-        let dates = selectedDate.allDateOfMonth
+    func dailySubscriptions(for month: Date, type: TransactionType) -> [AmountOfTransactionsByDay] {
+        let startDate = Date()
+        let dates = month.allDateOfMonth
+        var amountsByDate: [Date: Double] = [:]
         
         for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
-                    amountOfDay += transaction.amount ?? 0
-                }
-            }
-            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+            amountsByDate[date] = 0
         }
         
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast()
-        return sortedArray
-    }
-    
-}
-
-extension TransactionStore {
-    
-    func dailyAutomatedExpenseAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = expensesForSelectedMonth(selectedDate: selectedDate)
-            .filter { $0.isFromSubscription == true }
-        
-        var array: [AmountOfTransactionsByDay] = []
-        
-        let dates = selectedDate.allDateOfMonth
-        
-        for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsFromAutomationForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
-                    amountOfDay += transaction.amount ?? 0
+        getTransactionFromSubscriptions(in: month)
+            .filter { $0.type == type }
+            .forEach { transaction in
+                if let matchingDate = dates.first(where: { Calendar.current.isDate($0, inSameDayAs: transaction.date) }) {
+                    amountsByDate[matchingDate, default: 0] += transaction.amount ?? 0
                 }
             }
-            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        
+        let result: [AmountOfTransactionsByDay] = dates.map { date in
+            AmountOfTransactionsByDay(day: date, amount: amountsByDate[date] ?? 0)
         }
         
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast()
-        return sortedArray
-    }
-    
-    
-    func dailyAutomatedIncomeAmountsForSelectedMonth(selectedDate: Date) -> [AmountOfTransactionsByDay] {
-        let transactionsFromAutomationForTheChoosenMonth: [TransactionModel] = incomesForSelectedMonth(selectedDate: selectedDate)
-            .filter { $0.isFromSubscription == true }
-        
-        var array: [AmountOfTransactionsByDay] = []
-        
-        let dates = selectedDate.allDateOfMonth
-        
-        for date in dates {
-            var amountOfDay: Double = 0.0
-            
-            for transaction in transactionsFromAutomationForTheChoosenMonth {
-                if Calendar.current.isDate(transaction.date, inSameDayAs: date) {
-                    amountOfDay += transaction.amount ?? 0
-                }
-            }
-            array.append(AmountOfTransactionsByDay(day: date, amount: amountOfDay))
+        defer {
+            let diff = Date().timeIntervalSince(startDate)
+            NSLog("🤖 took \(diff) seconds to calculate daily income amounts")
         }
         
-        var sortedArray = array.sorted { $0.day < $1.day }
-        sortedArray.removeLast()
-        return sortedArray
+        return result
     }
+    
 }
 
 extension TransactionStore {
