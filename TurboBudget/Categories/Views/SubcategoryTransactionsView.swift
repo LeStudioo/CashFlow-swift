@@ -12,6 +12,7 @@ struct SubcategoryTransactionsView: View {
     
     // Builder
     var subcategory: SubcategoryModel
+    var selectedDate: Date
     
     // Repo
     @EnvironmentObject private var transactionStore: TransactionStore
@@ -58,7 +59,7 @@ struct SubcategoryTransactionsView: View {
             if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
                 List {
                     Section(content: {
-                        ForEach(transactionStore.getExpenses(for: subcategory, in: .now)) { transaction in
+                        ForEach(transactionStore.getExpenses(for: subcategory, in: selectedDate)) { transaction in
                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                                 TransactionRow(transaction: transaction)
                                     .padding(.horizontal)
@@ -70,9 +71,9 @@ struct SubcategoryTransactionsView: View {
                     }, header: {
                         //                                if filterTransactions == .month {
                         DetailOfExpensesAndIncomesByMonth(
-                            month: .now,
-                            amountOfExpenses: transactionStore.getExpenses(for: subcategory, in: .now).compactMap(\.amount).reduce(0, +),
-                            amountOfIncomes: transactionStore.getIncomes(for: subcategory, in: .now).compactMap(\.amount).reduce(0, +)
+                            month: selectedDate,
+                            amountOfExpenses: transactionStore.getExpenses(for: subcategory, in: selectedDate).compactMap(\.amount).reduce(0, +),
+                            amountOfIncomes: transactionStore.getIncomes(for: subcategory, in: selectedDate).compactMap(\.amount).reduce(0, +)
                         )
                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                         //                                } else if filterTransactions == .expenses || filterTransactions == .incomes {
@@ -138,5 +139,5 @@ struct SubcategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryTransactionsView(subcategory: .mock)
+    SubcategoryTransactionsView(subcategory: .mock, selectedDate: .now)
 }

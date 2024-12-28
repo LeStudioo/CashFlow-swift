@@ -10,7 +10,6 @@ import Foundation
 final class CategoriesHomeViewModel: ObservableObject {
     
     let categories = CategoryStore.shared.categories
-    let filter: Filter = .shared
         
     @Published var searchText: String = ""
 }

@@ -11,7 +11,7 @@ struct CategoryRow: View {
     
     // Builder
     var category: CategoryModel
-    var showChevron: Bool?
+    var selectedDate: Date
     
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
@@ -20,9 +20,15 @@ struct CategoryRow: View {
 	// Computed variables
     var stringAmount: String {
         if category.isRevenue {
-            return transactionStore.getIncomes(for: category, in: .now).compactMap(\.amount).reduce(0, +).toCurrency()
+            return transactionStore.getIncomes(for: category, in: selectedDate)
+                .compactMap(\.amount)
+                .reduce(0, +)
+                .toCurrency()
         } else {
-            return transactionStore.getExpenses(for: category, in: .now).compactMap(\.amount).reduce(0, +).toCurrency()
+            return transactionStore.getExpenses(for: category, in: selectedDate)
+                .compactMap(\.amount)
+                .reduce(0, +)
+                .toCurrency()
         }
     }
 
@@ -51,11 +57,9 @@ struct CategoryRow: View {
             
             Spacer()
             
-            if let showChevron, showChevron {
                 Image(systemName: "chevron.right")
                     .foregroundStyle(Color(uiColor: .label))
                     .font(.system(size: 14, weight: .semibold, design: .rounded))
-            }
         }
         .padding()
         .padding(.trailing, 8)
@@ -68,5 +72,5 @@ struct CategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryRow(category: .mock)
+    CategoryRow(category: .mock, selectedDate: .now)
 }

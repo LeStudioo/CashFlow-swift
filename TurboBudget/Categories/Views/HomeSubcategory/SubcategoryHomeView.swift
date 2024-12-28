@@ -13,6 +13,7 @@ struct SubcategoryHomeView: View {
     
     // Builder
     var category: CategoryModel
+    var selectedDate: Date
     
     // Custom
     @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
@@ -20,6 +21,7 @@ struct SubcategoryHomeView: View {
     // Environnement
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
+    @EnvironmentObject private var categoryStore: CategoryStore
     
     // Computed
     var searchResults: [SubcategoryModel] {
@@ -38,14 +40,15 @@ struct SubcategoryHomeView: View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack {
-                    if transactionStore.getExpenses(for: category, in: .now).isEmpty && transactionStore.getIncomes(for: category, in: .now).isEmpty {
+                    if transactionStore.getExpenses(for: category, in: selectedDate).isEmpty && transactionStore.getIncomes(for: category, in: selectedDate).isEmpty {
                         EmptyCategoryData()
                             .padding(.bottom, 8)
                     }
                     
                     if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
                         PieChart(
-                            slices: category.categorySlices,
+                            month: selectedDate,
+                            slices: categoryStore.subcategoriesSlices(for: category, in: selectedDate),
                             backgroundColor: Color.background100,
                             configuration: .init(style: .subcategory, space: 0.2, hole: 0.75)
                         )
@@ -59,8 +62,8 @@ struct SubcategoryHomeView: View {
                     }
                     
                     ForEach(searchResults) { subcategory in
-                        NavigationButton(push: router.pushSubcategoryTransactions(subcategory: subcategory)) {
-                            SubcategoryRow(subcategory: subcategory)
+                        NavigationButton(push: router.pushSubcategoryTransactions(subcategory: subcategory, selectedDate: selectedDate)) {
+                            SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
                         }
                         .padding(.bottom, 8)
                     }
@@ -86,5 +89,5 @@ struct SubcategoryHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryHomeView(category: .mock)
+    SubcategoryHomeView(category: .mock, selectedDate: .now)
 }

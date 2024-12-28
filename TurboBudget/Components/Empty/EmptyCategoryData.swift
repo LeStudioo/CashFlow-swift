@@ -24,11 +24,6 @@ struct EmptyCategoryData: View {
                 .font(Font.mediumText16())
                 .multilineTextAlignment(.center)
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
-        }
     } // body
 } // struct
 

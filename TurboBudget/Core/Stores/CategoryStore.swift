@@ -38,48 +38,73 @@ extension CategoryStore {
 
 extension CategoryStore {
     
-    var categoriesWithTransactions: [CategoryModel] {
-        var array: [CategoryModel] = []
-        let filterManager = FilterManager.shared
+    private func computeCategoryData(for month: Date) -> [Int?: CategoryTransactionData] {
+        let allMonthTransactions = TransactionStore.shared.getTransactions(in: month)
+        let transactionsByCategory = Dictionary(grouping: allMonthTransactions) { $0.category }
         
-        for category in self.categories {
-            let transactionsFiltered = category.transactions
-                .filter {
-                    Calendar.current.isDate(
-                        $0.date,
-                        equalTo: filterManager.date,
-                        toGranularity: .month
+        return Dictionary(uniqueKeysWithValues: categories
+            .compactMap { category in
+                guard let categoryID = category.id else { return nil }
+                let categoryTransactions = transactionsByCategory[category, default: []]
+                if categoryTransactions.isEmpty { return nil }
+                return (
+                    categoryID,
+                    CategoryTransactionData(
+                        category: category,
+                        transactions: categoryTransactions
                     )
-                }
-            if transactionsFiltered.isNotEmpty {
-                array.append(category)
-            }
-        }
-        
-        return array
-            .sorted { $0.name < $1.name }
+                )
+            })
     }
     
-    var categoriesSlices: [PieSliceData] {
-        var array: [PieSliceData] = []
+    private func computeSubcategoryData(for month: Date, in category: CategoryModel) -> [Int?: SubcategoryTransactionData] {
+        let allMonthTransactions = TransactionStore.shared.getTransactions(for: category, in: month)
+        let transactionsBySubcategory = Dictionary(grouping: allMonthTransactions) { $0.subcategory }
         
-        for category in self.categoriesWithTransactions.filter({ $0.id != 1 }) {
-            guard let categoryID = category.id else { continue }
-            array.append(
-                .init(
-                    categoryID: categoryID,
-                    iconName: category.icon,
-                    value: category.transactionsFiltered
-                        .map { $0.amount ?? 0 }
-                        .reduce(0, +),
-                    color: category.color
+        return Dictionary(uniqueKeysWithValues: (category.subcategories ?? [])
+            .compactMap { subcategory in
+                guard let subcategoryID = subcategory.id else { return nil }
+                let subcategoryTransactions = transactionsBySubcategory[subcategory, default: []]
+                if subcategoryTransactions.isEmpty { return nil }
+                return (
+                    subcategoryID,
+                    SubcategoryTransactionData(
+                        subcategory: subcategory,
+                        transactions: subcategoryTransactions
+                    )
                 )
-            )
-        }
-        
-        return array
+            })
     }
         
+    func categoriesSlices(for month: Date) -> [PieSliceData] {
+        let slices = computeCategoryData(for: month)
+            .values
+            .filter { !$0.category.isRevenue }
+            .map { data in
+                PieSliceData(
+                    categoryID: data.category.id!,
+                    iconName: data.category.icon,
+                    value: data.totalAmount,
+                    color: data.category.color
+                )
+            }
+        return slices
+    }
+    
+    func subcategoriesSlices(for category: CategoryModel, in month: Date) -> [PieSliceData] {
+        let slices = computeSubcategoryData(for: month, in: category)
+            .values
+            .map { data in
+                PieSliceData(
+                    categoryID: category.id!,
+                    subcategoryID: data.subcategory.id!,
+                    iconName: data.subcategory.icon,
+                    value: data.totalAmount,
+                    color: data.subcategory.color
+                )
+            }
+        return slices
+    }
 }
 
 // MARK: - Utils
@@ -93,11 +118,4 @@ extension CategoryStore {
         return self.subcategories.first(where: { $0.id == id })
     }
     
-//    var currentMonthExpenses: [TransactionModel] {
-//        return categories.flatMap { $0.currentMonthExpenses }
-//    }
-//    
-//    var currentMonthIncomes: [TransactionModel] {
-//        return categories.flatMap { $0.currentMonthIncomes }
-//    }
 }

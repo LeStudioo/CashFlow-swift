@@ -9,16 +9,12 @@
 			<dict>
 				<key>location-parameters</key>
 				<dict>
-					<key>EndingColumnNumber</key>
-					<string>0</string>
 					<key>EndingLineNumber</key>
-					<string>163</string>
-					<key>StartingColumnNumber</key>
-					<string>0</string>
+					<string>141</string>
 					<key>StartingLineNumber</key>
-					<string>162</string>
+					<string>141</string>
 					<key>Timestamp</key>
-					<string>756898366.8996741</string>
+					<string>757096002.976073</string>
 				</dict>
 				<key>rebasable-url</key>
 				<dict>
@@ -37,8 +33,8 @@
 				<string>
 </string>
 				<key>leading</key>
-				<string>    }
-}
+				<string>} // End struct
+
 </string>
 				<key>trailing</key>
 				<string>//var categoriesWithExpenses: [PredefinedCategory] {

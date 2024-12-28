@@ -17,54 +17,61 @@ struct CategoryHomeView: View {
     
     // Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
-
+    
+    @State private var selectedDate: Date = Date()
+    
     // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
+        ScrollView {
             if viewModel.categoriesFiltered.isNotEmpty {
-                ScrollView {
+                
+                VStack(spacing: 24) {
                     if viewModel.isChartDisplayed {
                         EmptyCategoryData()
-                            .padding(.bottom, 8)
+                            .padding(8)
                     } else if viewModel.searchText.isEmpty {
                         PieChart(
-                            slices: CategoryStore.shared.categoriesSlices,
+                            month: selectedDate,
+                            slices: CategoryStore.shared.categoriesSlices(for: selectedDate),
                             backgroundColor: Color.background100,
                             configuration: .init(style: .category, space: 0.2, hole: 0.75)
                         )
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .fill(Color.background100)
-                        }
-                        .padding(.bottom, 8)
+                        .padding(8)
                     }
                     
-                    ForEach(viewModel.categoriesFiltered) { category in
-                        let subcategories = category.subcategories
-                        Group {
-                            if let subcategories, !subcategories.isEmpty {
-                                NavigationButton(push: router.pushHomeSubcategories(category: category)) {
-                                    CategoryRow(category: category, showChevron: true)
-                                }
-                            } else {
-                                NavigationButton(push: router.pushCategoryTransactions(category: category)) {
-                                    CategoryRow(category: category, showChevron: true)
-                                }
+                    VStack(spacing: 8) {
+                        SwitchDateButton(date: $selectedDate, type: .month)
+                        SwitchDateButton(date: $selectedDate, type: .year)
+                    }
+                }
+                .padding(8)
+                .frame(maxWidth: .infinity)
+                .background {
+                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+                        .fill(Color.background100)
+                }
+                .padding(.bottom, 8)
+                
+                ForEach(viewModel.categoriesFiltered) { category in
+                    let subcategories = category.subcategories
+                    Group {
+                        if let subcategories, !subcategories.isEmpty {
+                            NavigationButton(push: router.pushHomeSubcategories(category: category, selectedDate: selectedDate)) {
+                                CategoryRow(category: category, selectedDate: selectedDate)
+                            }
+                        } else {
+                            NavigationButton(push: router.pushCategoryTransactions(category: category)) {
+                                CategoryRow(category: category, selectedDate: selectedDate)
                             }
                         }
-                        .foregroundStyle(Color.text)
-                        .padding(.bottom, 8)
                     }
-                    
-                    Rectangle()
-                        .frame(height: 100)
-                        .opacity(0)
-                } // ScrollView
-                .padding()
-                .scrollDismissesKeyboard(.immediately)
-                .scrollIndicators(.hidden)
+                    .foregroundStyle(Color.text)
+                    .padding(.bottom, 8)
+                }
+                
+                Rectangle()
+                    .frame(height: 100)
+                    .opacity(0)
             } else {
                 ErrorView(
                     searchResultsCount: viewModel.categoriesFiltered.count,
@@ -73,10 +80,10 @@ struct CategoryHomeView: View {
                     text: ""
                 )
             }
-        } // End VStack
-        .blur(radius: viewModel.filter.showMenu ? 3 : 0)
-        .disabled(viewModel.filter.showMenu)
-        .onTapGesture { withAnimation { viewModel.filter.showMenu = false } }
+        } // ScrollView
+        .padding()
+        .scrollDismissesKeyboard(.immediately)
+        .scrollIndicators(.hidden)
         .searchable(text: $viewModel.searchText.animation(), prompt: "word_search".localized)
         .navigationTitle("word_categories")
         .navigationBarTitleDisplayMode(.large)

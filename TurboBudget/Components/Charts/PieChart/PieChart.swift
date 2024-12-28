@@ -11,6 +11,7 @@ import SwiftUI
 struct PieChart: View {
     
     // Builder
+    var month: Date
     var slices: [PieSliceData]
     var backgroundColor: Color
     
@@ -109,7 +110,7 @@ struct PieChart: View {
                                             Text(subcat.name)
                                         }
                                     } else {
-                                        Text(monthDisplayedInPieChart())
+                                        Text(month.formatted(Date.FormatStyle().month(.wide).year()).capitalized)
                                     }
                                 }
                                 .font(Font.mediumText16())
@@ -138,28 +139,6 @@ struct PieChart: View {
     } // End body
 } // End struct
 
-extension PieChart {
-    
-    func monthDisplayedInPieChart() -> String {
-        let components = Calendar.current.dateComponents([.month, .year], from: filter.date)
-        
-//        if !filter.automation && !filter.total {
-            if let month = components.month, let year = components.year {
-                return Calendar.current.monthSymbols[month - 1].capitalized + " \(year)"
-            } else { return "" }
-//        } else if filter.automation && !filter.total {
-//            if let month = components.month {
-//                return Calendar.current.monthSymbols[month - 1]
-//            } else { return "" }
-//        } else if !filter.automation && filter.total {
-//            return "word_total".localized
-//        } else if filter.automation && filter.total {
-//            return "word_total_auto".localized
-//        }
-        
-//        return ""
-    }
-}
 
 //var categoriesWithExpenses: [PredefinedCategory] {
 //    var categoriesWithout0: [PredefinedCategory] = []

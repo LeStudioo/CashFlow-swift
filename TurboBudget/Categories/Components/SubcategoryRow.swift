@@ -11,12 +11,13 @@ struct SubcategoryRow: View {
     
     // Custom type
     var subcategory: SubcategoryModel
+    var selectedDate: Date
     
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // Computed var
     var stringAmount: String {
-        return transactionStore.getExpenses(for: subcategory, in: .now)
+        return transactionStore.getExpenses(for: subcategory, in: selectedDate)
             .compactMap(\.amount)
             .reduce(0, +)
             .toCurrency()
@@ -63,5 +64,5 @@ struct SubcategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryRow(subcategory: .mock)
+    SubcategoryRow(subcategory: .mock, selectedDate: .now)
 }

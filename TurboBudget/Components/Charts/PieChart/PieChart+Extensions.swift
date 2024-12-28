@@ -10,10 +10,12 @@ import SwiftUI
 extension PieChart {
     
     init(
+        month: Date,
         slices: [PieSliceData],
         backgroundColor: Color = .init(UIColor.systemBackground),
         configuration: Configuration = .init()
     ) {
+        self.month = month
         self.slices = slices
         self.backgroundColor = backgroundColor
         self.chartStyle = configuration.style
