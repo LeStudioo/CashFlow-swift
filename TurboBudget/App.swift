@@ -66,19 +66,46 @@ struct TurboBudgetApp: App {
                 case .loading:
                     SplashScreenView()
                 case .success:
-                    
-                    if preferencesSecurity.isSecurityReinforced {
-                        if scenePhase == .active {
-                            PageControllerView()
+                    Group {
+                        if preferencesSecurity.isSecurityReinforced {
+                            if scenePhase == .active {
+                                PageControllerView()
+                            } else {
+                                Image("LaunchScreen")
+                                    .resizable()
+                                    .edgesIgnoringSafeArea([.bottom, .top])
+                            }
                         } else {
-                            Image("LaunchScreen")
-                                .resizable()
-                                .edgesIgnoringSafeArea([.bottom, .top])
+                            PageControllerView()
                         }
-                    } else {
-                        PageControllerView()
                     }
-                    
+                    .task {
+                        await accountRepository.fetchAccounts()
+                        accountRepository.selectedAccount = accountRepository.mainAccount
+                        if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
+                            await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
+                            await subscriptionRepository.fetchSubscriptions(accountID: accountID)
+                            await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
+                            await budgetRepository.fetchBudgets(accountID: accountID)
+                            await creditCardRepository.fetchCreditCards(accountID: accountID)
+                            
+                            if preferencesSubscription.isNotificationsEnabled {
+                                for subscription in subscriptionRepository.subscriptions {
+                                    guard let subscriptionID = subscription.id else { continue }
+                                    
+                                    await NotificationsManager.shared.scheduleNotification(
+                                        for: .init(
+                                            id: subscriptionID,
+                                            title: "CashFlow",
+                                            message: subscription.notifMessage,
+                                            date: subscription.dateNotif
+                                        ),
+                                        daysBefore: preferencesSubscription.dayBeforeReceiveNotification
+                                    )
+                                }
+                            }
+                        }
+                    }
                 case .syncing:
                     SyncingView()
                 case .notSynced:
@@ -91,34 +118,6 @@ struct TurboBudgetApp: App {
                 SuccessfullCreationView()
                     .environmentObject(successfullModalManager)
             }
-            .task {
-                await accountRepository.fetchAccounts()
-                accountRepository.selectedAccount = accountRepository.mainAccount
-                if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
-                    await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
-                    await subscriptionRepository.fetchSubscriptions(accountID: accountID)
-                    await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
-                    await budgetRepository.fetchBudgets(accountID: accountID)
-                    await creditCardRepository.fetchCreditCards(accountID: accountID)
-                    
-                    if preferencesSubscription.isNotificationsEnabled {
-                        for subscription in subscriptionRepository.subscriptions {
-                            guard let subscriptionID = subscription.id else { continue }
-                            
-                            await NotificationsManager.shared.scheduleNotification(
-                                for: .init(
-                                    id: subscriptionID,
-                                    title: "CashFlow",
-                                    message: subscription.notifMessage,
-                                    date: subscription.dateNotif
-                                ),
-                                daysBefore: preferencesSubscription.dayBeforeReceiveNotification
-                            )
-                        }
-                    }
-                }
-            }
-            
             .environment(\.managedObjectContext, viewContext)
             .environmentObject(appManager)
             .environmentObject(router)

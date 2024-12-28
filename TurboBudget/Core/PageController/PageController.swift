@@ -44,7 +44,7 @@ struct PageControllerView: View {
             if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
             if pageControllerVM.isUnlocked {
                 ZStack(alignment: .bottom) {
-                    if accountRepository.mainAccount != nil {
+                    if accountRepository.selectedAccount != nil {
                         Group {
                             switch appManager.selectedTab {
                             case 0: HomeView()

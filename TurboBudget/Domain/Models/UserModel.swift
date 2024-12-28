@@ -7,13 +7,13 @@
 
 import Foundation
 
-class UserModel: Codable, Identifiable, ObservableObject {
-    @Published var id: Int?
-    @Published var firstName: String?
-    @Published var lastName: String?
-    @Published var email: String?
-    @Published var token: String?
-    @Published var refreshToken: String?
+struct UserModel: Codable, Identifiable {
+    var id: Int?
+    var firstName: String?
+    var lastName: String?
+    var email: String?
+    var token: String?
+    var refreshToken: String?
 
     // Initialiseur
     init(id: Int? = nil, firstName: String? = nil, lastName: String? = nil, email: String? = nil, token: String? = nil, refreshToken: String? = nil) {
@@ -31,7 +31,7 @@ class UserModel: Codable, Identifiable, ObservableObject {
     }
 
     // Implémentation de Decodable
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         firstName = try container.decodeIfPresent(String.self, forKey: .firstName)

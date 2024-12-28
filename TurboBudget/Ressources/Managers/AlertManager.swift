@@ -34,7 +34,7 @@ extension AlertManager {
 
 extension AlertManager {
     
-    func signOut() {
+    func signOut(dismiss: DismissAction) {
         self.present(
             title: Word.Classic.disconnect + " ?",
             message: "",
@@ -42,11 +42,12 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.signOut()
+                dismiss()
             }
         )
     }
     
-    func deleteUser() {
+    func deleteUser(dismiss: DismissAction) {
         self.present(
             title: "user_delete_account_title".localized,
             message: "user_delete_account_message".localized,
@@ -54,6 +55,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.deleteAccount()
+                dismiss()
             }
         )
     }

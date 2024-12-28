@@ -195,7 +195,7 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Button { alertManager.signOut() } label: {
+                Button { alertManager.signOut(dismiss: dismiss) } label: {
                     SettingRow(
                         icon: "rectangle.portrait.and.arrow.right.fill",
                         backgroundColor: Color.red,
@@ -203,7 +203,7 @@ struct SettingsHomeView: View {
                         isButton: true
                     )
                 }
-                Button { alertManager.deleteUser() } label: {
+                Button { alertManager.deleteUser(dismiss: dismiss) } label: {
                     SettingRow(
                         icon: "trash.fill",
                         backgroundColor: Color.red,
