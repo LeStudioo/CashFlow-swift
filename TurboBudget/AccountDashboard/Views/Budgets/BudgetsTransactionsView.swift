@@ -48,15 +48,7 @@ struct BudgetsTransactionsView: View {
         return array.filter { $0.date > Date().startOfMonth && $0.date < Date().endOfMonth }
     }
     
-    // Other
-    var numberFormatter: NumberFormatter {
-        let numFor = NumberFormatter()
-        numFor.numberStyle = .decimal
-        numFor.zeroSymbol = ""
-        return numFor
-    }
-    
-    // MARK: - body
+    // MARK: -
     var body: some View {
         VStack {
             if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
@@ -67,7 +59,10 @@ struct BudgetsTransactionsView: View {
                         }
                         .listRowSeparator(.hidden)
                     } header: {
-                        detailForExpenses()
+                        Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).toCurrency())
+                            .font(.mediumCustom(size: 22))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.vertical, 8)
                     }
                 }
                 .listStyle(.plain)
@@ -118,32 +113,7 @@ struct BudgetsTransactionsView: View {
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
         .background(Color.background.edgesIgnoringSafeArea(.all))
     } // body
-    
-    // MARK: ViewBuilder
-    @ViewBuilder
-    func detailForExpenses() -> some View {
-        HStack {
-            HStack(alignment: .bottom) {
-                Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).toCurrency())
-                    .font(.mediumCustom(size: 22))
-                Spacer()
-//                Button(action: { withAnimation { ascendingOrder.toggle() } }, label: {
-//                    HStack {
-//                        Text("word_expenses".localized)
-//                        Image(systemName: "arrow.up")
-//                            .rotationEffect(.degrees(ascendingOrder ? 180 : 0))
-//                    }
-//                })
-//                .foregroundStyle(Color.customGray)
-//                .font(.semiBoldSmall())
-            }
-            .font(.mediumCustom(size: 22))
-            
-            Spacer()
-        }
-        .padding([.horizontal, .top])
-    }
-} // End struct
+} // struct
 
 // MARK: - Preview
 #Preview {

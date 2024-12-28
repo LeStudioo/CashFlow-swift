@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct BudgetRow: View {
-
+    
     // Builder
     var budget: BudgetModel
     
@@ -26,9 +26,14 @@ struct BudgetRow: View {
                 .font(.mediumCustom(size: 20))
             
             HStack(alignment: .center) {
-                circleBudget(budget: currentBudget)
-                    .frame(width: 90, height: 90)
-                    .padding(8)
+                let value = budget.currentAmount / budget.amount
+                ProgressCircle(
+                    value: value,
+                    percentage: value * 10,
+                    color: budget.color
+                )
+                .frame(width: 90, height: 90)
+                .padding(8)
                 Spacer()
                 VStack(spacing: 10) {
                     HStack {
@@ -72,25 +77,6 @@ struct BudgetRow: View {
                 .fill(Color.background100)
         }
     } // body
-    
-    // MARK: ViewBuilder
-    @ViewBuilder
-    func circleBudget(budget: BudgetModel) -> some View {
-        let textInCircle: Double = budget.currentAmount / budget.amount * 10
-        ZStack {
-            Circle()
-                .stroke(style: StrokeStyle(lineWidth: 20))
-                .foregroundStyle(budget.color.opacity(0.5))
-            Circle()
-                .trim(from: 0, to: budget.currentAmount / budget.amount)
-                .stroke(style: StrokeStyle(lineWidth: 20, lineCap: .round))
-                .foregroundStyle(budget.color)
-                .rotationEffect(.degrees(-90))
-            Text(String(format: "%.1f", textInCircle * 10) + "%")
-                .font(.semiBoldSmall())
-                .foregroundStyle(Color(uiColor: .label))
-        }
-    }
 } // struct
 
 // MARK: - Preview

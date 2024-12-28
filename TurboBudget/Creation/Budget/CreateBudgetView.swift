@@ -12,7 +12,7 @@ struct CreateBudgetView: View {
     
     // Custom
     @StateObject private var viewModel: CreateBudgetViewModel = .init()
-    private let router: NavigationManager = .init(isPresented: .constant(.createBudget))
+    @StateObject private var router: NavigationManager = .init(isPresented: .constant(.createBudget))
     
     // Environment
     @Environment(\.dismiss) private var dismiss
