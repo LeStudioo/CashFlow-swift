@@ -90,13 +90,6 @@ extension TransactionStore {
 }
 
 extension TransactionStore {
-    
-    func amountCashFlowByMonth(month: Date) -> Double {
-        let amountOfExpenses = amountExpensesForSelectedMonth(month: month)
-        let amountOfIncomes = amountIncomesForSelectedMonth(month: month)
-        
-        return amountOfIncomes - amountOfExpenses
-    }
 
     func amountGainOrLossByMonth(month: Date) -> Double {
         let amountOfExpenses = amountExpensesForSelectedMonth(month: month)

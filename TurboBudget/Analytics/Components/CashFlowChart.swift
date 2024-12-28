@@ -22,8 +22,6 @@ struct CashFlowChart: View {
     
     // Boolean variables
     @State private var showAlert: Bool = false
-    
-    
     @State private var selectedYear: Int = Date().year
     
     // MARK: -
@@ -35,8 +33,7 @@ struct CashFlowChart: View {
                         .foregroundStyle(Color.customGray)
                         .font(Font.mediumSmall())
                     
-                    // TODO: Refaire
-                    Text(transactionRepository.amountCashFlowByMonth(month: filter.date).toCurrency())
+                    Text(accountRepository.cashFlowAmount(for: selectedDate).toCurrency())
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.semiBoldH3())
                 }

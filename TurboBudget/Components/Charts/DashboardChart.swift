@@ -11,6 +11,7 @@ struct DashboardChart: View {
     
     // Repository
     @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     var amountExpenses: Double {
         return transactionRepository.amountExpensesForSelectedMonth(month: .now)
@@ -19,7 +20,7 @@ struct DashboardChart: View {
         return transactionRepository.amountIncomesForSelectedMonth(month: .now)
     }
     var amountCashFlow: Double {
-        return transactionRepository.amountCashFlowByMonth(month: .now)
+        return accountStore.cashFlowAmount(for: .now)
     }
     var amountGainOrLoss: Double {
         return transactionRepository.amountGainOrLossByMonth(month: .now)

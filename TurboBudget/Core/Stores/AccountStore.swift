@@ -130,6 +130,17 @@ extension AccountStore {
 
 extension AccountStore {
     
+    func cashFlowAmount(for month: Date) -> Double {
+        let monthNum = month.month - 1
+        if cashflow.isNotEmpty {
+            return cashflow[monthNum]
+        } else { return 0 }
+    }
+    
+}
+
+extension AccountStore {
+    
     func findByID(_ id: Int) -> AccountModel? {
         return self.allAccounts.first(where: { $0.id == id })
     }
