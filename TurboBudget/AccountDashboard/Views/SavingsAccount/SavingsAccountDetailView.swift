@@ -10,8 +10,7 @@ import SwiftUI
 struct SavingsAccountDetailView: View {
     
     // Builder
-    @ObservedObject var savingsAccount: AccountModel
-    @StateObject private var savingsAccountRepository: SavingsAccountStore
+    @StateObject private var savingsAccountStore: SavingsAccountStore
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
@@ -25,14 +24,13 @@ struct SavingsAccountDetailView: View {
     
     // init
     init(savingsAccount: AccountModel) {
-        self._savingsAccount = ObservedObject(wrappedValue: savingsAccount)
-        self._savingsAccountRepository = StateObject(wrappedValue: .init(currentAccount: savingsAccount))
+        self._savingsAccountStore = StateObject(wrappedValue: .init(currentAccount: savingsAccount))
     }
     
     // MARK: - body
     var body: some View {
         List {
-            SavingsAccountInfos(savingsAccount: savingsAccount)
+            SavingsAccountInfos(savingsAccount: savingsAccountStore.currentAccount)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
             
@@ -43,7 +41,7 @@ struct SavingsAccountDetailView: View {
                             Group {
                                 if transfer.type == .transfer {
                                     TransferRow(transfer: transfer)
-                                        .environmentObject(savingsAccountRepository)
+                                        .environmentObject(savingsAccountStore)
                                 } else {
                                     TransactionRow(transaction: transfer)
                                         .disabled(true)
@@ -71,20 +69,20 @@ struct SavingsAccountDetailView: View {
         .scrollIndicators(.hidden)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationBarTitleDisplayMode(.large)
-        .navigationTitle(savingsAccount.name)
+        .navigationTitle(savingsAccountStore.currentAccount.name)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu(content: {
                     Button(
-                        action: { router.presentCreateTransactionForSavingsAccount(savingsAccount: savingsAccount) },
+                        action: { router.presentCreateTransactionForSavingsAccount(savingsAccount: savingsAccountStore.currentAccount) },
                         label: { Label(Word.Classic.add, systemImage: "plus") }
                     )
                     Button(
-                        action: { router.presentCreateTransfer(receiverAccount: savingsAccount) },
+                        action: { router.presentCreateTransfer(receiverAccount: savingsAccountStore.currentAccount) },
                         label: { Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right") }
                     )
                     Button(
-                        action: { router.presentCreateAccount(type: .savings, account: savingsAccount) },
+                        action: { router.presentCreateAccount(type: .savings, account: savingsAccountStore.currentAccount) },
                         label: { Label(Word.Classic.edit, systemImage: "pencil") }
                     )
                     Button(
@@ -100,11 +98,11 @@ struct SavingsAccountDetailView: View {
             }
         }
         .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
-                TextField(savingsAccount.name, text: $accountNameForDeleting)
+                TextField(savingsAccountStore.currentAccount.name, text: $accountNameForDeleting)
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
-                    if savingsAccount.name == accountNameForDeleting {
-                        if let accountID = savingsAccount.id {
+                    if savingsAccountStore.currentAccount.name == accountNameForDeleting {
+                        if let accountID = savingsAccountStore.currentAccount.id {
                             Task {
                                 await accountRepository.deleteAccount(accountID: accountID)
                                 dismiss()
@@ -114,7 +112,7 @@ struct SavingsAccountDetailView: View {
                 }, label: { Text(Word.Classic.delete) })
         }, message: { Text("account_detail_delete_account_desc".localized) })
         .task {
-            if let accountID = savingsAccount.id {
+            if let accountID = savingsAccountStore.currentAccount.id {
                 transferRepository.transfers = []
                 await transferRepository.fetchTransfersWithPagination(accountID: accountID)
             }

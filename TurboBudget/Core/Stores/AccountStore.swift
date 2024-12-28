@@ -135,13 +135,13 @@ extension AccountStore {
     }
     
     func setNewBalance(accountID: Int, newBalance: Double) {
-        if let account = accounts.first(where: { $0.id == accountID }) {
-            account._balance = newBalance
+        if let accountIndex = accounts.firstIndex(where: { $0.id == accountID }) {
+            self.accounts[accountIndex]._balance = newBalance
             if let selectedAccount, selectedAccount.id == accountID {
-                selectedAccount._balance = newBalance
+                self.selectedAccount?._balance = newBalance
             }
-        } else if let account = savingsAccounts.first(where: { $0.id == accountID }) {
-            account._balance = newBalance
+        } else if let savingsAccountIndex = savingsAccounts.firstIndex(where: { $0.id == accountID }) {
+            self.savingsAccounts[savingsAccountIndex]._balance = newBalance
         }
     }
     

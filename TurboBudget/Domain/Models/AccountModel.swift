@@ -12,12 +12,12 @@ enum AccountType: Int, CaseIterable {
     case savings = 1
 }
 
-class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var _name: String?
-    @Published var _balance: Double?
-    @Published var typeNum: Int?
-    @Published var maxAmount: Double?
+struct AccountModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var _name: String?
+    var _balance: Double?
+    var typeNum: Int?
+    var maxAmount: Double?
 
     /// Classic Account Initialiseur
     init(
@@ -79,7 +79,7 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         case typeNum = "type"
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         _name = try container.decodeIfPresent(String.self, forKey: ._name)
@@ -95,24 +95,6 @@ class AccountModel: Codable, Identifiable, Equatable, ObservableObject, Hashable
         try container.encodeIfPresent(_balance, forKey: ._balance)
         try container.encodeIfPresent(typeNum, forKey: .typeNum)
         try container.encodeIfPresent(maxAmount, forKey: .maxAmount)
-    }
-
-    // Fonction pour le protocole Equatable
-    static func == (lhs: AccountModel, rhs: AccountModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs._name == rhs._name &&
-               lhs._balance == rhs._balance &&
-               lhs.typeNum == rhs.typeNum &&
-               lhs.maxAmount == rhs.maxAmount
-    }
-
-    // Fonction pour le protocole Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(_name)
-        hasher.combine(_balance)
-        hasher.combine(typeNum)
-        hasher.combine(maxAmount)
     }
 }
 

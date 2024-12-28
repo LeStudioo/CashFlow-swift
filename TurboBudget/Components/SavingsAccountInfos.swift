@@ -10,7 +10,7 @@ import SwiftUI
 struct SavingsAccountInfos: View {
     
     // Builder
-    @ObservedObject var savingsAccount: AccountModel
+    var savingsAccount: AccountModel
     
     @State private var rowHeight: CGFloat = 0
     
