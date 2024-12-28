@@ -21,7 +21,7 @@ struct SavingsPlanRow: View {
 
     // MARK: - Body
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Rectangle()
                     .frame(width: 50, height: 50)
@@ -34,26 +34,31 @@ struct SavingsPlanRow: View {
                     }
                 
                 Spacer()
-                
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundStyle(Color(uiColor: .label))
             }
-            
-            Spacer()
-            
+                        
             Text(savingsPlan.name ?? "")
                 .font(.semiBoldText16())
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.text)
                 .lineLimit(1)
-                        
-            progressBar()
-                .padding(.bottom, 12)
-                .padding(.top, -10)
-            
+                .frame(maxHeight: .infinity, alignment: .top)
+                  
+            VStack(spacing: 5) {
+                HStack {
+                    Spacer()
+                    Text(formatNumber(savingsPlan.goalAmount ?? 0))
+                }
+                .font(.semiBoldVerySmall())
+                .foregroundStyle(Color.text)
+                
+                ProgressBarWithAmount(
+                    percentage: percentage,
+                    value: savingsPlan.currentAmount ?? 0
+                )
+                .frame(height: 28)
+            }
         }
         .padding(12)
-        .frame(height: 160)
+        .aspectRatio(1, contentMode: .fit)
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.background100)
@@ -72,47 +77,13 @@ struct SavingsPlanRow: View {
             }
         }
     } // body
-
-    // MARK: Fonctions
-    @ViewBuilder
-    func progressBar() -> some View {
-        VStack {
-            GeometryReader { geometry in
-                VStack(spacing: 5) {
-                    HStack {
-                        Spacer()
-                        Text(formatNumber(savingsPlan.goalAmount ?? 0))
-                    }
-                    .font(.semiBoldVerySmall())
-                    .foregroundStyle(Color(uiColor: .label))
-                    
-                    let widthCapsule = geometry.size.width * percentage
-                    let widthAmount = formatNumber(savingsPlan.currentAmount ?? 0).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * increaseWidthAmount
-                    
-                    Capsule()
-                        .frame(height: 24)
-                        .foregroundStyle(Color.background200)
-                        .overlay(alignment: .leading) {
-                            Capsule()
-                                .foregroundStyle(themeManager.theme.color)
-                                .frame(width: widthCapsule < widthAmount ? widthAmount : widthCapsule)
-                                .padding(3)
-                                .overlay(alignment: .trailing) {
-                                    Text(formatNumber(savingsPlan.currentAmount ?? 0))
-                                        .padding(.trailing, 12)
-                                        .font(.semiBoldVerySmall())
-                                        .foregroundStyle(Color(uiColor: .systemBackground))
-                                }
-                        }
-                }
-            }
-            .frame(height: 38)
-        }
-    }
 } // struct
 
 // MARK: - Preview
 #Preview {
     SavingsPlanRow(savingsPlan: .mockClassicSavingsPlan)
-        .frame(width: 180, height: 150)
+        .environmentObject(ThemeManager())
+        .frame(width: 180)
+        .padding()
+        .background(Color.background)
 }

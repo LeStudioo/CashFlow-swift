@@ -24,7 +24,6 @@ struct CategoryHomeView: View {
     var body: some View {
         ScrollView {
             if viewModel.categoriesFiltered.isNotEmpty {
-                
                 VStack(spacing: 24) {
                     if viewModel.isChartDisplayed {
                         EmptyCategoryData()
@@ -81,7 +80,7 @@ struct CategoryHomeView: View {
                 )
             }
         } // ScrollView
-        .padding()
+        .padding(.horizontal)
         .scrollDismissesKeyboard(.immediately)
         .scrollIndicators(.hidden)
         .searchable(text: $viewModel.searchText.animation(), prompt: "word_search".localized)

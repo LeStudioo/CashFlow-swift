@@ -40,7 +40,8 @@ struct SubcategoryHomeView: View {
         VStack(spacing: 0) {
             ScrollView {
                 VStack {
-                    if transactionStore.getExpenses(for: category, in: selectedDate).isEmpty && transactionStore.getIncomes(for: category, in: selectedDate).isEmpty {
+                    if transactionStore.getExpenses(for: category, in: selectedDate).isEmpty
+                        && transactionStore.getIncomes(for: category, in: selectedDate).isEmpty {
                         EmptyCategoryData()
                             .padding(.bottom, 8)
                     }

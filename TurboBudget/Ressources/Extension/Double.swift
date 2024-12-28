@@ -50,9 +50,9 @@ func formatNumber(_ n: Double) -> String {
         return "\(sign)\(UserCurrency.symbol)\(formatted)K"
         
     case 0...:
-        return UserCurrency.symbol + String(format: "%.1f", n)
+        return n.toCurrency()
         
     default:
-        return sign + UserCurrency.symbol + String(format: "%.1f", n)
+        return n.toCurrency()
     }
 }
