@@ -28,7 +28,7 @@ extension Date {
 extension Date {
     
     var day: Int {
-        var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         components.timeZone = Locale.current.timeZone
         if let day = components.day { return day } else { return 0 }
     }
@@ -39,13 +39,13 @@ extension Date {
     }
     
     var month: Int {
-        var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         components.timeZone = Locale.current.timeZone
         if let month = components.month { return month } else { return 0 }
     }
     
     var year: Int {
-        var components = Calendar.current.dateComponents([.day, .month, .year], from: .now)
+        var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         components.timeZone = Locale.current.timeZone
         if let year = components.year { return year } else { return 0 }
     }
@@ -78,6 +78,7 @@ extension Date {
 }
 
 extension Date {
+    
     var startOfMonth: Date {
         let comp: DateComponents = Calendar.current.dateComponents([.month, .year], from: self)
         return Calendar.current.date(from: comp)!
@@ -86,6 +87,27 @@ extension Date {
     var endOfMonth: Date {
         let start = self.startOfMonth
         return Calendar.current.date(byAdding: DateComponents(month: 1), to: start)!
+    }
+    
+    var oneMonthAgo: Date {
+        return Calendar.current.date(byAdding: .month, value: -1, to: self)!
+    }
+    
+    var inOneMonth: Date {
+        return Calendar.current.date(byAdding: .month, value: 1, to: self)!
+    }
+    
+    var inOneYear: Date {
+        return Calendar.current.date(byAdding: .year, value: 1, to: self)!
+    }
+    
+    var oneYearAgo: Date {
+        return Calendar.current.date(byAdding: .year, value: -1, to: self)!
+    }
+    
+    var startOfYear: Date {
+        let components = Calendar.current.dateComponents([.year], from: self)
+        return Calendar.current.date(from: components)!
     }
     
     var allDateOfMonth: [Date] {

@@ -11,6 +11,7 @@ import Charts
 struct AnalyticsLineChart: View {
     
     // builder
+    var selectedDate: Date
     var values: [AmountOfTransactionsByDay]
     var config: Configuration
     
@@ -22,18 +23,14 @@ struct AnalyticsLineChart: View {
     // MARK: -
     var body: some View {
         if amounts.reduce(0, +) != 0 {
-            let monthOfSelectedDate = Calendar.current.dateComponents([.month], from: filter.date)
-            
             VStack {
                 VStack(alignment: .leading, spacing: 10) {
-                    if let month = monthOfSelectedDate.month {
-                        Text(config.title + " " + Calendar.current.monthSymbols[month - 1])
-                            .foregroundStyle(Color.customGray)
-                            .font(Font.mediumSmall())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
+                    Text(config.title + " " + selectedDate.formatted(Date.FormatStyle().month(.wide).year()))
+                        .foregroundStyle(Color.customGray)
+                        .font(Font.mediumSmall())
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Text(amounts.reduce(0, +).toCurrency() )
+                    Text(amounts.reduce(0, +).toCurrency())
                         .foregroundStyle(Color(uiColor: .label))
                         .font(.semiBoldText18())
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -84,6 +81,7 @@ extension AnalyticsLineChart {
 // MARK: - Preview
 #Preview {
     AnalyticsLineChart(
+        selectedDate: .now,
         values: AmountOfTransactionsByDay.mockAll,
         config: .init(
             title: "chart_auto_expenses_expenses_in".localized,

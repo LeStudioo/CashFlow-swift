@@ -50,6 +50,8 @@ struct TurboBudgetApp: App {
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
     
+    @State private var isStartDataLoaded: Bool = false
+    
     // init
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
@@ -80,30 +82,33 @@ struct TurboBudgetApp: App {
                         }
                     }
                     .task {
-                        await accountRepository.fetchAccounts()
-                        accountRepository.selectedAccount = accountRepository.mainAccount
-                        if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
-                            await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
-                            await subscriptionRepository.fetchSubscriptions(accountID: accountID)
-                            await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
-                            await budgetRepository.fetchBudgets(accountID: accountID)
-                            await creditCardRepository.fetchCreditCards(accountID: accountID)
-                            
-                            if preferencesSubscription.isNotificationsEnabled {
-                                for subscription in subscriptionRepository.subscriptions {
-                                    guard let subscriptionID = subscription.id else { continue }
-                                    
-                                    await NotificationsManager.shared.scheduleNotification(
-                                        for: .init(
-                                            id: subscriptionID,
-                                            title: "CashFlow",
-                                            message: subscription.notifMessage,
-                                            date: subscription.dateNotif
-                                        ),
-                                        daysBefore: preferencesSubscription.dayBeforeReceiveNotification
-                                    )
+                        if !isStartDataLoaded {
+                            await accountRepository.fetchAccounts()
+                            accountRepository.selectedAccount = accountRepository.mainAccount
+                            if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
+                                await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
+                                await subscriptionRepository.fetchSubscriptions(accountID: accountID)
+                                await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
+                                await budgetRepository.fetchBudgets(accountID: accountID)
+                                await creditCardRepository.fetchCreditCards(accountID: accountID)
+                                
+                                if preferencesSubscription.isNotificationsEnabled {
+                                    for subscription in subscriptionRepository.subscriptions {
+                                        guard let subscriptionID = subscription.id else { continue }
+                                        
+                                        await NotificationsManager.shared.scheduleNotification(
+                                            for: .init(
+                                                id: subscriptionID,
+                                                title: "CashFlow",
+                                                message: subscription.notifMessage,
+                                                date: subscription.dateNotif
+                                            ),
+                                            daysBefore: preferencesSubscription.dayBeforeReceiveNotification
+                                        )
+                                    }
                                 }
                             }
+                            isStartDataLoaded = true
                         }
                     }
                 case .syncing:

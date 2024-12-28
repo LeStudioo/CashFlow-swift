@@ -25,15 +25,18 @@ struct AnalyticsHomeView: View {
     @State private var dailyIncomes: [AmountOfTransactionsByDay] = []
     @State private var dailySubscriptionsExpenses: [AmountOfTransactionsByDay] = []
     @State private var dailySubscriptionsIncomes: [AmountOfTransactionsByDay] = []
+    
+    @State private var selectedDate: Date = Date()
 
     // MARK: -
     var body: some View {
         ScrollView {
             if !transactionRepository.transactions.isEmpty {
                 VStack(spacing: 16) {
-                    CashFlowChart()
+                    CashFlowChart(selectedDate: $selectedDate)
                     
                     AnalyticsLineChart(
+                        selectedDate: selectedDate,
                         values: dailyIncomes,
                         config: .init(
                             title: "chart_incomes_incomes_in".localized,
@@ -41,6 +44,7 @@ struct AnalyticsHomeView: View {
                         )
                     )
                     AnalyticsLineChart(
+                        selectedDate: selectedDate,
                         values: dailyExpenses,
                         config: .init(
                             title: "chart_expenses_expenses_in".localized,
@@ -48,6 +52,7 @@ struct AnalyticsHomeView: View {
                         )
                     )
                     AnalyticsLineChart(
+                        selectedDate: selectedDate,
                         values: dailySubscriptionsIncomes,
                         config: .init(
                             title: "chart_auto_incomes_incomes_in".localized,
@@ -55,6 +60,7 @@ struct AnalyticsHomeView: View {
                         )
                     )
                     AnalyticsLineChart(
+                        selectedDate: selectedDate,
                         values: dailySubscriptionsExpenses,
                         config: .init(
                             title: "chart_auto_expenses_expenses_in".localized,
@@ -78,16 +84,19 @@ struct AnalyticsHomeView: View {
         .navigationTitle("word_analytic".localized)
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onChange(of: selectedDate) { _ in
+            updateChartData()
+        }
         .onAppear {
             updateChartData()
         }
     } // End body
     
     private func updateChartData() {
-        dailyExpenses = transactionRepository.dailyTransactions(for: .now, type: .expense)
-        dailyIncomes = transactionRepository.dailyTransactions(for: .now, type: .income)
-        dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: .now, type: .expense)
-        dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: .now, type: .income)
+        dailyExpenses = transactionRepository.dailyTransactions(for: selectedDate, type: .expense)
+        dailyIncomes = transactionRepository.dailyTransactions(for: selectedDate, type: .income)
+        dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
+        dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
     }
     
 } // End struct
