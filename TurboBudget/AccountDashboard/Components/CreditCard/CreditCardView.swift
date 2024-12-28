@@ -9,20 +9,28 @@ import SwiftUI
 
 struct CreditCardView: View {
     
-    @ObservedObject var creditCard: CreditCardModel
+    // Builder
+    var creditCard: CreditCardModel
+    
+    @EnvironmentObject private var creditCardStore: CreditCardStore
     
     @State private var isFlipped = false
 
+    var currentCreditCard: CreditCardModel {
+        return creditCardStore.creditCards.first { $0.id == creditCard.id } ?? creditCard
+    }
+    
+    // MARK: -
     var body: some View {
         ZStack {
-            CreditCardFrontView(creditCard: creditCard)
+            CreditCardFrontView(creditCard: currentCreditCard)
                 .rotation3DEffect(
                     .degrees(isFlipped ? 180 : 0),
                     axis: (x: 0.0, y: 1.0, z: 0.0)
                 )
                 .opacity(isFlipped ? 0 : 1)
 
-            CreditCardBackView(cvv: creditCard.cvc)
+            CreditCardBackView(cvv: currentCreditCard.cvc)
                 .rotation3DEffect(
                     .degrees(isFlipped ? 0 : -180),
                     axis: (x: 0.0, y: 1.0, z: 0.0)
@@ -34,11 +42,12 @@ struct CreditCardView: View {
                 isFlipped.toggle()
             }
         }
-    }
-}
+    } // body
+} // struct
 
+// MARK: - Front
 struct CreditCardFrontView: View {
-    @ObservedObject var creditCard: CreditCardModel
+    var creditCard: CreditCardModel
 
     var body: some View {
         CreditCardShape()
@@ -85,6 +94,7 @@ struct CreditCardFrontView: View {
     }
 }
 
+// MARK: - Back
 struct CreditCardBackView: View {
     let cvv: String
 

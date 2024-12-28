@@ -7,14 +7,14 @@
 
 import Foundation
 
-class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hashable {
-    @Published var id: Int?
-    @Published var uuid: UUID?
-    @Published var holder: String
-    @Published var number: String
-    @Published var cvc: String
-    @Published var expirateDate: String
-    @Published var limitByMonth: Double?
+struct CreditCardModel: Codable, Identifiable, Equatable, Hashable {
+    var id: Int?
+    var uuid: UUID?
+    var holder: String
+    var number: String
+    var cvc: String
+    var expirateDate: String
+    var limitByMonth: Double?
 
     // Initialiseur
     init(id: Int? = nil, uuid: UUID? = nil, holder: String, number: String, cvc: String, expirateDate: String, limitByMonth: Double? = nil) {
@@ -33,7 +33,7 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
     }
 
     // Implémentation de Decodable
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decodeIfPresent(Int.self, forKey: .id)
         uuid = try container.decodeIfPresent(UUID.self, forKey: .uuid)
@@ -54,28 +54,6 @@ class CreditCardModel: Codable, Identifiable, Equatable, ObservableObject, Hasha
         try container.encode(cvc, forKey: .cvc)
         try container.encode(expirateDate, forKey: .expirateDate)
         try container.encode(limitByMonth, forKey: .limitByMonth)
-    }
-
-    // Implémentation de Equatable
-    static func == (lhs: CreditCardModel, rhs: CreditCardModel) -> Bool {
-        return lhs.id == rhs.id &&
-               lhs.uuid == rhs.uuid &&
-               lhs.holder == rhs.holder &&
-               lhs.number == rhs.number &&
-               lhs.cvc == rhs.cvc &&
-               lhs.expirateDate == rhs.expirateDate &&
-                lhs.limitByMonth == rhs.limitByMonth
-    }
-
-    // Implémentation de Hashable
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(uuid)
-        hasher.combine(holder)
-        hasher.combine(number)
-        hasher.combine(cvc)
-        hasher.combine(expirateDate)
-        hasher.combine(limitByMonth)
     }
 }
 
