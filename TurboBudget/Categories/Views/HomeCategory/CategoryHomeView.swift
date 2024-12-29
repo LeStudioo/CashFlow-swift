@@ -60,7 +60,7 @@ struct CategoryHomeView: View {
                                 CategoryRow(category: category, selectedDate: selectedDate)
                             }
                         } else {
-                            NavigationButton(push: router.pushCategoryTransactions(category: category)) {
+                            NavigationButton(push: router.pushCategoryTransactions(category: category, selectedDate: selectedDate)) {
                                 CategoryRow(category: category, selectedDate: selectedDate)
                             }
                         }

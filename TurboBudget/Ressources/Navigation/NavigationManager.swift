@@ -74,8 +74,8 @@ class NavigationManager: Router {
         navigateTo(.homeCategories)
     }
     
-    func pushCategoryTransactions(category: CategoryModel) {
-        navigateTo(.categoryTransactions(category: category))
+    func pushCategoryTransactions(category: CategoryModel, selectedDate: Date) {
+        navigateTo(.categoryTransactions(category: category, selectedDate: selectedDate))
     }
     
     func pushHomeSubcategories(category: CategoryModel, selectedDate: Date) {
@@ -251,8 +251,8 @@ private extension NavigationManager {
                 
             case .homeCategories:
                 CategoryHomeView()
-            case .categoryTransactions(let category):
-                CategoryTransactionsView(category: category)
+            case .categoryTransactions(let category, let selectedDate):
+                CategoryTransactionsView(category: category, selectedDate: selectedDate)
             case .homeSubcategories(let category, let selectedDate):
                 SubcategoryHomeView(category: category, selectedDate: selectedDate)
             case .subcategoryTransactions(let subcategory, let selectedDate):

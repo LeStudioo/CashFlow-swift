@@ -13,6 +13,7 @@ struct CategoryTransactionsView: View {
     
     // Builder
     var category: CategoryModel
+    var selectedDate: Date
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -33,7 +34,7 @@ struct CategoryTransactionsView: View {
         VStack {
             if transactionStore.getTransactions(for: category).isNotEmpty {
                 List {
-                    let transactions = transactionStore.getTransactions(for: category, in: .now)
+                    let transactions = transactionStore.getTransactions(for: category, in: selectedDate)
                     Section(content: {
                         ForEach(transactions) { transaction in
                             NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
@@ -46,9 +47,9 @@ struct CategoryTransactionsView: View {
                         .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
                     }, header: {
                         DetailOfExpensesAndIncomesByMonth(
-                            month: .now,
-                            amountOfExpenses: transactionStore.getExpenses(transactions: transactions).compactMap(\.amount).reduce(0, +),
-                            amountOfIncomes: transactionStore.getIncomes(transactions: transactions).compactMap(\.amount).reduce(0, +)
+                            month: selectedDate,
+                            amountOfExpenses: transactionStore.getExpenses(transactions: transactions, in: selectedDate).compactMap(\.amount).reduce(0, +),
+                            amountOfIncomes: transactionStore.getIncomes(transactions: transactions, in: selectedDate).compactMap(\.amount).reduce(0, +)
                         )
                         .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                     })
@@ -107,5 +108,5 @@ struct CategoryTransactionsView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryTransactionsView(category: .mock)
+    CategoryTransactionsView(category: .mock, selectedDate: .now)
 }

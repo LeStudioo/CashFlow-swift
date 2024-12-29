@@ -45,7 +45,7 @@ enum NavigationDirection: Identifiable {
     case allArchivedSavingPlans(account: Account)
     
     case homeCategories
-    case categoryTransactions(category: CategoryModel)
+    case categoryTransactions(category: CategoryModel, selectedDate: Date)
     case homeSubcategories(category: CategoryModel, selectedDate: Date)
     case subcategoryTransactions(subcategory: SubcategoryModel, selectedDate: Date)
 
@@ -73,6 +73,7 @@ extension NavigationDirection: Equatable {
             (.allBudgets, .allBudgets),
             (.homeCategories, .homeCategories),
             (.homeSubcategories, .homeSubcategories),
+            (.categoryTransactions, .categoryTransactions),
             (.subcategoryTransactions, .subcategoryTransactions),
             (.homeSavingPlans, .homeSavingPlans),
             (.homeAutomations, .homeAutomations),
@@ -117,9 +118,6 @@ extension NavigationDirection: Equatable {
             
         case let (.budgetTransactions(lhsSubcategory), .budgetTransactions(rhsSubcategory)):
             return lhsSubcategory.id == rhsSubcategory.id
-            
-        case let (.categoryTransactions(lhsCategory), .categoryTransactions(rhsCategory)):
-            return lhsCategory.id == rhsCategory.id
             
         default:
             return false
