@@ -24,6 +24,8 @@ struct CashFlowChart: View {
     @State private var showAlert: Bool = false
     @State private var selectedYear: Int = Date().year
     
+    @State private var amount: String = ""
+    
     // MARK: -
     var body: some View {
         VStack(spacing: 12) {
@@ -33,9 +35,11 @@ struct CashFlowChart: View {
                         .foregroundStyle(Color.customGray)
                         .font(Font.mediumSmall())
                     
-                    Text(accountRepository.cashFlowAmount(for: selectedDate).toCurrency())
-                        .foregroundStyle(Color(uiColor: .label))
+                    Text(amount)
+                        .foregroundStyle(Color.text)
                         .font(.semiBoldH3())
+                        .animation(.smooth, value: amount)
+                        .contentTransition(.numericText())
                 }
                 Spacer()
             }
@@ -89,19 +93,21 @@ struct CashFlowChart: View {
         .onChange(of: selectedDate) { _ in
             if selectedDate.year != selectedYear {
                 selectedYear = selectedDate.year
-                fetchCashFlow()
+                Task {
+                    await fetchCashFlow()
+                }
             }
+            amount = accountRepository.cashFlowAmount(for: selectedDate).toCurrency()
         }
-        .onAppear {
-            fetchCashFlow()
+        .task {
+            await fetchCashFlow()
+            amount = accountRepository.cashFlowAmount(for: selectedDate).toCurrency()
         }
     } // body
     
-    func fetchCashFlow() {
-        Task {
-            if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                await accountRepository.fetchCashFlow(accountID: accountID, year: selectedDate.year)
-            }
+    func fetchCashFlow() async {
+        if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
+            await accountRepository.fetchCashFlow(accountID: accountID, year: selectedDate.year)
         }
     }
     

@@ -57,11 +57,19 @@ struct CategoryHomeView: View {
                     Group {
                         if let subcategories, !subcategories.isEmpty {
                             NavigationButton(push: router.pushHomeSubcategories(category: category, selectedDate: selectedDate)) {
-                                CategoryRow(category: category, selectedDate: selectedDate)
+                                CategoryRow(
+                                    category: category,
+                                    selectedDate: selectedDate,
+                                    amount: viewModel.categoryAmounts[category.id]?.amount.toCurrency() ?? "0"
+                                )
                             }
                         } else {
                             NavigationButton(push: router.pushCategoryTransactions(category: category, selectedDate: selectedDate)) {
-                                CategoryRow(category: category, selectedDate: selectedDate)
+                                CategoryRow(
+                                    category: category,
+                                    selectedDate: selectedDate,
+                                    amount: viewModel.categoryAmounts[category.id]?.amount.toCurrency() ?? "0"
+                                )
                             }
                         }
                     }
@@ -88,6 +96,9 @@ struct CategoryHomeView: View {
         .navigationTitle("word_categories")
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onAppear {
+            viewModel.calculateAllAmounts(for: selectedDate)
+        }
         .onChange(of: selectedDate) { _ in
             if let account = accountStore.selectedAccount, let accountID = account.id {
                 Task {
@@ -96,6 +107,7 @@ struct CategoryHomeView: View {
                         startDate: selectedDate,
                         endDate: selectedDate.endOfMonth
                     )
+                    viewModel.calculateAllAmounts(for: selectedDate)
                 }
             }
         }

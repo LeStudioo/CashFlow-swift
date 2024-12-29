@@ -12,26 +12,12 @@ struct CategoryRow: View {
     // Builder
     var category: CategoryModel
     var selectedDate: Date
+    var amount: String
     
     // Custom
     @ObservedObject var filter: Filter = sharedFilter
     @EnvironmentObject private var transactionStore: TransactionStore
-	
-	// Computed variables
-    var stringAmount: String {
-        if category.isRevenue {
-            return transactionStore.getIncomes(for: category, in: selectedDate)
-                .compactMap(\.amount)
-                .reduce(0, +)
-                .toCurrency()
-        } else {
-            return transactionStore.getExpenses(for: category, in: selectedDate)
-                .compactMap(\.amount)
-                .reduce(0, +)
-                .toCurrency()
-        }
-    }
-
+        
     // MARK: -
     var body: some View {
         HStack {
@@ -49,9 +35,9 @@ struct CategoryRow: View {
                     .font(.semiBoldCustom(size: 20))
                     .lineLimit(1)
                 
-                Text(stringAmount)
+                Text(amount)
                     .font(.semiBoldText18())
-                    .animation(.smooth, value: stringAmount)
+                    .animation(.smooth, value: amount)
                     .contentTransition(.numericText())
                     .foregroundStyle(.gray)
                     .lineLimit(1)
@@ -59,9 +45,9 @@ struct CategoryRow: View {
             
             Spacer()
             
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(Color(uiColor: .label))
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+            Image(systemName: "chevron.right")
+                .foregroundStyle(Color(uiColor: .label))
+                .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .padding()
         .padding(.trailing, 8)
@@ -69,10 +55,34 @@ struct CategoryRow: View {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.background100)
         }
-    } // End body
-} // End struct
+//        .onAppear {
+//            calculateAmount()
+//        }
+//        .onChange(of: selectedDate) { _ in
+//            calculateAmount()
+//        }
+//        .onChange(of: transactionStore.transactions) { _ in
+//            calculateAmount()
+//        }
+    } // body
+    
+//    private func calculateAmount() {
+//        if category.isRevenue {
+//            amount = transactionStore.getIncomes(for: category, in: selectedDate)
+//                .compactMap(\.amount)
+//                .reduce(0, +)
+//                .toCurrency()
+//        } else {
+//            amount = transactionStore.getExpenses(for: category, in: selectedDate)
+//                .compactMap(\.amount)
+//                .reduce(0, +)
+//                .toCurrency()
+//        }
+//    }
+    
+} // struct
 
 // MARK: - Preview
 #Preview {
-    CategoryRow(category: .mock, selectedDate: .now)
+    CategoryRow(category: .mock, selectedDate: .now, amount: "")
 }
