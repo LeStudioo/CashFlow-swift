@@ -54,9 +54,6 @@ struct PageControllerView: View {
                             default: EmptyView() // Can't arrived
                             }
                         }
-                        .blur(radius: viewModelCustomBar.showMenu ? 3 : 0)
-                        .disabled(viewModelCustomBar.showMenu)
-                        .onTapGesture { viewModelCustomBar.showMenu = false }
                     } else {
                         CustomEmptyView(
                             type: .empty(.account),
@@ -65,6 +62,12 @@ struct PageControllerView: View {
                     }
                     
                     CustomTabBar()
+                }
+                .blur(radius: viewModelCustomBar.showMenu ? 12 : 0)
+                .overlay {
+                    if viewModelCustomBar.showMenu {
+                        CreationSelectionView()
+                    }
                 }
                 .sheet(isPresented: $pageControllerVM.showOnboarding) {
                     OnboardingView()

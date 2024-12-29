@@ -99,8 +99,8 @@ struct TransactionRow: View {
         })
         .swipeActionsStyle(.cascade)
         .swipeActionWidth(90)
-        .swipeActionCornerRadius(15)
-        .swipeMinimumDistance(30)
+        .swipeActionCornerRadius(16)
+        .swipeMinimumDistance(40)
         .padding(.vertical, 4)
     } // body
 } // struct
