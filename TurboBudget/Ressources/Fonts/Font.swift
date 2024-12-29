@@ -17,6 +17,9 @@ extension Font {
     struct Title {
         static let semibold: Font = Font.custom(nameFontSemiBold, size: 24)
     }
+    struct Subtitle {
+        static let medium: Font = Font.custom(nameFontMedium, size: 20)
+    }
     struct Button {
         static let text: Font = Font.custom(nameFontSemiBold, size: 18)
     }

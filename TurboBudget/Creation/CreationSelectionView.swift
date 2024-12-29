@@ -20,6 +20,9 @@ struct CreationSelectionView: View {
     
     @ObservedObject var viewModel = CustomTabBarViewModel.shared
 
+    @State private var isQrCodeScannerPresented: Bool = false
+    @State private var identityToken: String = ""
+    
     // MARK: -
     var body: some View {
         VStack {
@@ -71,8 +74,14 @@ struct CreationSelectionView: View {
                     
                     NavigationButton(present: router.presentCreateTransaction()) { onPress() } label: {
                         Label(Word.Main.transaction, systemImage: "creditcard.and.123")
-                            
                     }
+#if DEBUG
+                    Button {
+                        isQrCodeScannerPresented.toggle()
+                    } label: {
+                        Text("Scan QRCode")
+                    }
+#endif
                 } else {
                     NavigationButton(present: router.presentCreateAccount(type: .classic)) {
                         viewModel.showMenu = false
@@ -82,7 +91,7 @@ struct CreationSelectionView: View {
                     }
                 }
             }
-            .font(.Button.text)
+            .font(.Subtitle.medium)
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundStyle(Color.text)
             .padding()
@@ -93,7 +102,6 @@ struct CreationSelectionView: View {
             Button {
                 withAnimation(.smooth) {
                     viewModel.showMenu = false
-                    VibrationManager.vibration()
                 }
             } label: {
                 Circle()
@@ -113,6 +121,9 @@ struct CreationSelectionView: View {
                 .opacity(0.1)
                 .blur(radius: 10)
         )
+        .sheet(isPresented: $isQrCodeScannerPresented) {
+            QRCodeScannerView(identityToken: $identityToken)
+        }
     } // body
     
     private func onPress() {

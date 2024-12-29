@@ -10,6 +10,7 @@ import Foundation
 enum AuthAPIRequester: APIRequestBuilder {
     case apple(body: AuthBody)
     case google(body: AuthBody)
+    case socket(body: AuthBody)
 }
 
 extension AuthAPIRequester {
@@ -17,6 +18,7 @@ extension AuthAPIRequester {
         switch self {
         case .apple:    return NetworkPath.Auth.apple
         case .google:   return NetworkPath.Auth.google
+        case .socket:   return NetworkPath.Auth.socket
         }
     }
     
@@ -29,13 +31,17 @@ extension AuthAPIRequester {
     }
     
     var isTokenNeeded: Bool {
-        return false
+        switch self {
+        case .apple, .google:   return false
+        case .socket:           return true
+        }
     }
     
     var body: Data? {
         switch self {
         case .apple(let body):  return try? JSONEncoder().encode(body)
         case .google(let body): return try? JSONEncoder().encode(body)
+        case .socket(let body): return try? JSONEncoder().encode(body)
         }
     }
 }

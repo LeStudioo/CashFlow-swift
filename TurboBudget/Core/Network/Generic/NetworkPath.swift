@@ -13,6 +13,7 @@ struct NetworkPath {
     struct Auth {
         static let apple: String = "/auth/apple"
         static let google: String = "/auth/google"
+        static let socket: String = "/auth/socket"
     }
     
     struct User {
