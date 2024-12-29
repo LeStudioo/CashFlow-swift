@@ -36,22 +36,26 @@ struct AnalyticsHomeView: View {
                 VStack(spacing: 16) {
                     CashFlowChart(selectedDate: $selectedDate)
                     
-                    AnalyticsLineChart(
-                        selectedDate: selectedDate,
-                        values: dailyIncomes,
-                        config: .init(
-                            title: "chart_incomes_incomes_in".localized,
-                            mainColor: Color.primary500
+                    NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .income)) {
+                        AnalyticsLineChart(
+                            selectedDate: selectedDate,
+                            values: dailyIncomes,
+                            config: .init(
+                                title: "chart_incomes_incomes_in".localized,
+                                mainColor: Color.primary500
+                            )
                         )
-                    )
-                    AnalyticsLineChart(
-                        selectedDate: selectedDate,
-                        values: dailyExpenses,
-                        config: .init(
-                            title: "chart_expenses_expenses_in".localized,
-                            mainColor: Color.error400
+                    }
+                    NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .expense)) {
+                        AnalyticsLineChart(
+                            selectedDate: selectedDate,
+                            values: dailyExpenses,
+                            config: .init(
+                                title: "chart_expenses_expenses_in".localized,
+                                mainColor: Color.error400
+                            )
                         )
-                    )
+                    }
                     AnalyticsLineChart(
                         selectedDate: selectedDate,
                         values: dailySubscriptionsIncomes,

@@ -16,6 +16,7 @@ enum NavigationDirection: Identifiable {
     case homeAutomations
     
     case analytics
+    case transactionsForMonth(month: Date, type: TransactionType)
     
     case createAccount(type: AccountType, account: AccountModel? = nil)
     case createBudget
@@ -78,6 +79,7 @@ extension NavigationDirection: Equatable {
             (.homeSavingPlans, .homeSavingPlans),
             (.homeAutomations, .homeAutomations),
             (.analytics, .analytics),
+            (.transactionsForMonth, .transactionsForMonth),
             (.transactionDetail, .transactionDetail),
             (.savingPlansDetail, .savingPlansDetail),
             (.subscriptionDetail, .subscriptionDetail),

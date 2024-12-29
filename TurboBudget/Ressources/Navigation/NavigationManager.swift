@@ -62,6 +62,10 @@ class NavigationManager: Router {
         navigateTo(.allBudgets)
     }
     
+    func pushTransactionsForMonth(month: Date, type: TransactionType) {
+        navigateTo(.transactionsForMonth(month: month, type: type))
+    }
+    
     func pushBudgetTransactions(subcategory: SubcategoryModel) {
         navigateTo(.budgetTransactions(subcategory: subcategory))
     }
@@ -200,6 +204,8 @@ private extension NavigationManager {
                 
             case .analytics:
                 AnalyticsHomeView()
+            case .transactionsForMonth(let month, let type):
+                TransactionsForMonthView(selectedDate: month, type: type)
                 
             case .createAccount(let type, let account):
                 CreateAccountView(type: type, account: account)

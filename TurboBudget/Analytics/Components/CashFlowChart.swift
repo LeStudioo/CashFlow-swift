@@ -61,7 +61,7 @@ struct CashFlowChart: View {
                         y: .value("y", value)
                     )
                     .foregroundStyle(selectedDate.month == (index + 1) ? Color.blue.gradient : themeManager.theme.color.gradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
                 }
             }
             .chartYAxis(.hidden)
