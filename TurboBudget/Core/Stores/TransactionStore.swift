@@ -11,7 +11,13 @@ final class TransactionStore: ObservableObject {
     static let shared = TransactionStore()
     
     @Published var transactions: [TransactionModel] = []
-            
+    
+    @Published private(set) var currentDateForFetch: Date = Date()
+    var dateFetched: [Date] = []
+}
+
+extension TransactionStore {
+    
     var expenses: [TransactionModel] {
         return transactions.filter { $0.type == .expense }
     }
@@ -63,6 +69,22 @@ extension TransactionStore {
         } catch { NetworkService.handleError(error: error) }
     }
     
+//    @MainActor
+//    func fetchTransactionsWithPagination(accountID: Int, startDate: Date, endDate: Date) async {
+//        do {
+//            let transactions = try await NetworkService.shared.sendRequest(
+//                apiBuilder: TransactionAPIRequester.fetchWithPagination(
+//                    accountID: accountID,
+//                    startDate: startDate,
+//                    endDate: endDate
+//                ),
+//                responseModel: [TransactionModel].self
+//            )
+//            self.transactions += transactions
+//            sortTransactionsByDate()
+//        } catch { NetworkService.handleError(error: error) }
+//    }
+    
     @MainActor
     func fetchTransactionsWithPagination(accountID: Int, perPage: Int = 50) async {
         do {
@@ -80,18 +102,21 @@ extension TransactionStore {
     }
     
     @MainActor
-    private func fetchTransactionsByPeriod(accountID: Int, startDate: String, endDate: String, type: TransactionType? = nil) async {
+    func fetchTransactionsByPeriod(accountID: Int, startDate: Date, endDate: Date, type: TransactionType? = nil) async {
+        guard dateFetched.filter({ Calendar.current.isDate($0, equalTo: startDate, toGranularity: .month) }).isEmpty else { return }
         do {
             let transactions = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.fetchByPeriod(
                     accountID: accountID,
-                    startDate: startDate,
-                    endDate: endDate,
+                    startDate: startDate.toQueryParam(),
+                    endDate: endDate.toQueryParam(),
                     type: type?.rawValue
                 ),
                 responseModel: [TransactionModel].self
             )
-            self.transactions = transactions
+            currentDateForFetch = startDate
+            self.dateFetched.append(currentDateForFetch)
+            self.transactions += transactions
             sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
@@ -183,13 +208,19 @@ extension TransactionStore {
 extension TransactionStore {
     
     func fetchTransactionsOfCurrentMonth(accountID: Int) async {
+        let startDate = Date().startOfMonth
+        let endDate = Date().endOfMonth
         await self.fetchTransactionsByPeriod(
             accountID: accountID,
-            startDate: Date().startOfMonth.toISO(),
-            endDate: Date().endOfMonth.toISO()
+            startDate: startDate,
+            endDate: endDate
         )
-        if self.transactions.count < 20 {
-            await self.fetchTransactionsWithPagination(accountID: accountID, perPage: 30)
+        if self.transactions.count < 15 {
+            await self.fetchTransactionsByPeriod(
+                accountID: accountID,
+                startDate: startDate.oneMonthAgo,
+                endDate: endDate.oneMonthAgo
+            )
         }
     }
     

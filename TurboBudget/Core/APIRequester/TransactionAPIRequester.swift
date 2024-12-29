@@ -60,6 +60,17 @@ extension TransactionAPIRequester {
         }
     }
     
+//    var parameters: [URLQueryItem]? {
+    //        switch self {
+    //        case .fetchWithPagination(_, let startDate, let endDate):
+    //            return [
+    //                .init(name: "startDate", value: "\(startDate.toQueryParam())"),
+    //                .init(name: "endDate", value: "\(endDate.toQueryParam())")
+    //            ]
+    //        default:  return nil
+    //        }
+    //    }
+        
     var isTokenNeeded: Bool {
         return true
     }

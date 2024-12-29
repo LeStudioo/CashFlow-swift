@@ -56,7 +56,15 @@ struct TransactionsListView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     Task {
                         if let selectedAccount = self.accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                            await self.transactionRepository.fetchTransactionsWithPagination(accountID: accountID)
+                            let startDateOneMonthAgo = self.transactionRepository.currentDateForFetch.oneMonthAgo
+                            let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
+                            await self.transactionRepository
+                                .fetchTransactionsByPeriod(
+                                    accountID: accountID,
+                                    startDate: startDateOneMonthAgo,
+                                    endDate: endDateOneMonthAgo
+                                )
+//                            await self.transactionRepository.fetchTransactionsWithPagination(accountID: accountID)
                             self.isLoading = false
                         }
                     }

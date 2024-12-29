@@ -23,6 +23,12 @@ extension Date {
         return formatter.string(from: self)
     }
     
+    func toQueryParam() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: self)
+    }
+    
 }
 
 extension Date {
