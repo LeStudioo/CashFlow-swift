@@ -10,7 +10,7 @@ import Foundation
 final class AppManager: ObservableObject {
     static let shared = AppManager()
     
-    @Published var viewState: ViewState = .idle
+    @Published var viewState: ApplicationState = .idle
     
     @Published var selectedTab: Int = 0
     @Published var menuIsPresented: Bool = false

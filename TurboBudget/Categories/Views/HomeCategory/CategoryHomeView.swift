@@ -60,7 +60,7 @@ struct CategoryHomeView: View {
                                 CategoryRow(
                                     category: category,
                                     selectedDate: selectedDate,
-                                    amount: viewModel.categoryAmounts[category.id]?.amount.toCurrency() ?? "0"
+                                    amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                                 )
                             }
                         } else {
@@ -68,7 +68,7 @@ struct CategoryHomeView: View {
                                 CategoryRow(
                                     category: category,
                                     selectedDate: selectedDate,
-                                    amount: viewModel.categoryAmounts[category.id]?.amount.toCurrency() ?? "0"
+                                    amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                                 )
                             }
                         }

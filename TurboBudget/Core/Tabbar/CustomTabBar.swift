@@ -58,7 +58,7 @@ struct CustomTabBar: View {
                 }
             }
         }
-    } // body
+    } // bodyTr
 } // struct
 
 // MARK: - Preview

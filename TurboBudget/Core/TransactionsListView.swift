@@ -22,9 +22,9 @@ struct TransactionsListView: View {
                 ForEach(transactions) { transaction in
                     NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                         TransactionRow(transaction: transaction)
-                            .padding(.horizontal)
                     }
                     .id(transaction.id)
+                    .padding(.horizontal)
                     .onAppear {
                         if transactionRepository.transactions.last?.id == transaction.id && !isLoading {
                             self.isLoading = true
@@ -37,8 +37,8 @@ struct TransactionsListView: View {
             } header: {
                 DetailOfExpensesAndIncomesByMonth(
                     month: month,
-                    amountOfExpenses: transactionRepository.amountExpensesForSelectedMonth(month: month),
-                    amountOfIncomes: transactionRepository.amountIncomesForSelectedMonth(month: month)
+                    amountOfExpenses: transactionRepository.getExpenses(in: month).compactMap(\.amount).reduce(0, +),
+                    amountOfIncomes: transactionRepository.getIncomes(in: month).compactMap(\.amount).reduce(0, +)
                 )
             } // Section
         } // List
