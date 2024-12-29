@@ -64,7 +64,8 @@ struct PieChart: View {
                     PieSlice(startAngle: angles[index], endAngle: angles[index + 1])
                         .fill(colors[index % colors.count])
                         .scaleEffect(self.activeSlice == slices[index] ? 1.05 : 1)
-                        .animation(Animation.spring(), value: activeSlice)
+                        .animation(.spring, value: activeSlice)
+                        .animation(.smooth, value: slices)
                         .overlay(
                             PieSlice(startAngle: angles[index], endAngle: angles[index + 1])
                                 .stroke(backgroundColor, lineWidth: lineWidth)

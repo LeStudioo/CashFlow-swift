@@ -91,8 +91,9 @@ extension Date {
     }
 
     var endOfMonth: Date {
-        let start = self.startOfMonth
-        return Calendar.current.date(byAdding: DateComponents(month: 1), to: start)!
+        let startOfNextMonth = Calendar.current.date(byAdding: DateComponents(month: 1), to: self.startOfMonth)!
+        let lastDayOfCurrentMonth = Calendar.current.date(byAdding: DateComponents(day: -1), to: startOfNextMonth)!
+        return lastDayOfCurrentMonth
     }
     
     var oneMonthAgo: Date {

@@ -13,6 +13,7 @@ struct CategoryHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // Custom type
@@ -87,6 +88,17 @@ struct CategoryHomeView: View {
         .navigationTitle("word_categories")
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onChange(of: selectedDate) { _ in
+            if let account = accountStore.selectedAccount, let accountID = account.id {
+                Task {
+                    await transactionStore.fetchTransactionsByPeriod(
+                        accountID: accountID,
+                        startDate: selectedDate,
+                        endDate: selectedDate.endOfMonth
+                    )
+                }
+            }
+        }
     } // body
 } // struct
 

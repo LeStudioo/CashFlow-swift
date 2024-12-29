@@ -13,6 +13,7 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
+    @EnvironmentObject private var accountRepository: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Environment
@@ -85,7 +86,16 @@ struct AnalyticsHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onChange(of: selectedDate) { _ in
-            updateChartData()
+            if let account = accountRepository.selectedAccount, let accountID = account.id {
+                Task {
+                    await transactionRepository.fetchTransactionsByPeriod(
+                        accountID: accountID,
+                        startDate: selectedDate,
+                        endDate: selectedDate.endOfMonth
+                    )
+                    updateChartData()
+                }
+            }
         }
         .onAppear {
             updateChartData()
@@ -93,10 +103,12 @@ struct AnalyticsHomeView: View {
     } // End body
     
     private func updateChartData() {
-        dailyExpenses = transactionRepository.dailyTransactions(for: selectedDate, type: .expense)
-        dailyIncomes = transactionRepository.dailyTransactions(for: selectedDate, type: .income)
-        dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
-        dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
+        withAnimation(.smooth) {
+            dailyExpenses = transactionRepository.dailyTransactions(for: selectedDate, type: .expense)
+            dailyIncomes = transactionRepository.dailyTransactions(for: selectedDate, type: .income)
+            dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
+            dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
+        }
     }
     
 } // End struct

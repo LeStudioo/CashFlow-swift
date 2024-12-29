@@ -58,13 +58,11 @@ struct TransactionsListView: View {
                         if let selectedAccount = self.accountRepository.selectedAccount, let accountID = selectedAccount.id {
                             let startDateOneMonthAgo = self.transactionRepository.currentDateForFetch.oneMonthAgo
                             let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
-                            await self.transactionRepository
-                                .fetchTransactionsByPeriod(
-                                    accountID: accountID,
-                                    startDate: startDateOneMonthAgo,
-                                    endDate: endDateOneMonthAgo
-                                )
-//                            await self.transactionRepository.fetchTransactionsWithPagination(accountID: accountID)
+                            await self.transactionRepository.fetchTransactionsByPeriod(
+                                accountID: accountID,
+                                startDate: startDateOneMonthAgo,
+                                endDate: endDateOneMonthAgo
+                            )
                             self.isLoading = false
                         }
                     }

@@ -51,6 +51,8 @@ struct CategoryRow: View {
                 
                 Text(stringAmount)
                     .font(.semiBoldText18())
+                    .animation(.smooth, value: stringAmount)
+                    .contentTransition(.numericText())
                     .foregroundStyle(.gray)
                     .lineLimit(1)
             }
