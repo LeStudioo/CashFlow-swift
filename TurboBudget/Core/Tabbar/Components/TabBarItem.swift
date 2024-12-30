@@ -40,7 +40,7 @@ struct TabBarItem: View {
     // MARK: - Functions
     func selectTab(_ tab: Int) {
         appManager.selectedTab = tab
-        appManager.menuIsPresented = false
+        appManager.isMenuPresented = false
         VibrationManager.vibration()
     }
 } // struct

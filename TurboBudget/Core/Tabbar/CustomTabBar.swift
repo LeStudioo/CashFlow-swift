@@ -15,14 +15,13 @@ struct CustomTabBar: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountStore
     @EnvironmentObject private var creditCardRepository: CreditCardStore
+    
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var alertManager: AlertManager
+    @EnvironmentObject private var appManager: AppManager
     @EnvironmentObject private var successfullModalManager: SuccessfullModalManager
     
-    // Custom type
-    @ObservedObject var viewModel = CustomTabBarViewModel.shared
-
     // Environement
     @Environment(\.colorScheme) private var colorScheme
     
@@ -53,7 +52,7 @@ struct CustomTabBar: View {
             .offset(y: -10)
             .onTapGesture {
                 withAnimation(.smooth) {
-                    viewModel.showMenu.toggle()
+                    appManager.isMenuPresented.toggle()
                     VibrationManager.vibration()
                 }
             }

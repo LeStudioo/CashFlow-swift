@@ -13,5 +13,5 @@ final class AppManager: ObservableObject {
     @Published var viewState: ApplicationState = .idle
     
     @Published var selectedTab: Int = 0
-    @Published var menuIsPresented: Bool = false
+    @Published var isMenuPresented: Bool = false
 }

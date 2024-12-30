@@ -25,7 +25,6 @@ struct PageControllerView: View {
     // Custom
     @StateObject private var icloudManager: ICloudManager = ICloudManager()
     @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
-    @ObservedObject var viewModelCustomBar = CustomTabBarViewModel.shared
     
     // Environement
     @Environment(\.scenePhase) private var scenePhase
@@ -63,10 +62,10 @@ struct PageControllerView: View {
                     
                     CustomTabBar()
                 }
-                .blur(radius: viewModelCustomBar.showMenu ? 12 : 0)
+                .blur(radius: appManager.isMenuPresented ? 12 : 0)
                 .overlay {
-                    if viewModelCustomBar.showMenu {
-                        CreationSelectionView()
+                    if appManager.isMenuPresented {
+                        MenuCreationView()
                     }
                 }
                 .sheet(isPresented: $pageControllerVM.showOnboarding) {
