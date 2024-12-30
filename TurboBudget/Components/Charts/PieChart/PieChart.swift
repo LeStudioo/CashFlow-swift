@@ -114,7 +114,7 @@ struct PieChart: View {
                                         Text(month.formatted(Date.FormatStyle().month(.wide).year()).capitalized)
                                     }
                                 }
-                                .font(Font.mediumText16())
+                                .font(Font.semiBoldSmall())
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                                 .foregroundStyle(Color.gray)

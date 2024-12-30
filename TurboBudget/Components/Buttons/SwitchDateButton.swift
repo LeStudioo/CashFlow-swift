@@ -64,13 +64,18 @@ struct SwitchDateButton: View {
     func changePeriodDate(inPast: Bool) {
         if inPast {
             switch type {
-            case .month:    date = date.oneMonthAgo.startOfMonth
-            case .year:     date = date.oneYearAgo.startOfYear
+            case .month:
+                date = date.oneMonthAgo.startOfMonth
+            case .year:
+                print("🔥 ACTUAL DATE : \(date)")
+                date = date.oneYearAgo.startOfYear
             }
         } else {
             switch type {
-            case .month:    date = date.inOneMonth.startOfMonth
-            case .year:     date = date.inOneYear.startOfMonth
+            case .month:
+                date = date.inOneMonth.startOfMonth
+            case .year:
+                date = date.inOneYear.startOfMonth
             }
         }
     }

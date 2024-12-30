@@ -42,7 +42,7 @@ struct AnalyticsLineChart: View {
                         LineMark(x: .value("Day", item.day),
                                 y: .value("Value", item.amount))
                         .interpolationMethod(.catmullRom)
-                        .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                        .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                         .foregroundStyle(config.mainColor)
                         
                         AreaMark(x: .value("Day", item.day),
@@ -57,8 +57,31 @@ struct AnalyticsLineChart: View {
                         )
                     }
                 }
+                .frame(height: 180)
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                            .foregroundStyle(Color.background200)
+                        AxisValueLabel {
+                            if let doubleValue = value.as(Double.self) {
+                                Text(doubleValue.toCurrency())
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .padding(.leading, 4)
+                            }
+                        }
+                    }
+                }
+                .chartXAxis {
+                    AxisMarks { _ in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                            .foregroundStyle(Color.background200)
+                        AxisValueLabel()
+                            .font(.system(size: 11, weight: .semibold))
+                            .offset(y: 4)
+                    }
+                }
             }
-            .padding(8)
+            .padding()
             .background {
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .fill(Color.background100)

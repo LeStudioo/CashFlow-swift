@@ -43,14 +43,38 @@ struct SavingsPlanChart: View {
                         y: .value("y", value)
                     )
                     .foregroundStyle(selectedDate.month == (index + 1) ? Color.blue.gradient : themeManager.theme.color.gradient)
-                    .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .offset(x: 0, y: value > 0 ? -2 : 2)
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: value > 0 ? 8 : 2,
+                            bottomLeadingRadius: value < 0 ? 8 : 2,
+                            bottomTrailingRadius: value < 0 ? 8 : 2,
+                            topTrailingRadius: value > 0 ? 8 : 2,
+                            style: .continuous
+                        )
+                    )
                 }
             }
-            .chartYAxis(.hidden)
+            .chartYAxis {
+                AxisMarks { value in
+                    AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(Color.background200)
+                    AxisValueLabel {
+                        if let doubleValue = value.as(Double.self) {
+                            Text(doubleValue.toCurrency())
+                                .font(.system(size: 11, weight: .semibold))
+                                .padding(.leading, 4)
+                        }
+                    }
+                }
+            }
             .chartXAxis {
                 AxisMarks { value in
                     let month = value.index > 11 ? "" : Calendar.current.monthSymbols[value.index]
-                    AxisValueLabel { Text(String(month.prefix(3))) }
+                    AxisValueLabel {
+                        Text(String(month.prefix(3)))
+                            .padding(.top, 8)
+                    }
                 }
             }
             .frame(height: 180)

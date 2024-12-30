@@ -27,11 +27,13 @@ struct CarouselOfChartsView: View {
         VStack {
             TabView(selection: $selectedChart) {
                 // CHART of expenses in actual month
-                VStack {
+                VStack(spacing: 8) {
                     titleOfChart(
                         text: "carousel_charts_expenses_current_month".localized,
                         amount: totalExpenses
                     )
+                    .padding(.horizontal)
+                    .padding(.top)
                     
                     if totalExpenses != 0 {
                         Chart {
@@ -39,7 +41,7 @@ struct CarouselOfChartsView: View {
                                 LineMark(x: .value("Day", item.day),
                                         y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
-                                .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                                .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                                 .foregroundStyle(Color.error400)
                                 
                                 AreaMark(x: .value("Day", item.day),
@@ -48,7 +50,29 @@ struct CarouselOfChartsView: View {
                                 .foregroundStyle(LinearGradient(colors: [.error400.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
                         }
-                        .padding(12)
+                        .chartYAxis {
+                            AxisMarks { value in
+                                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                                    .foregroundStyle(Color.background200)
+                                AxisValueLabel {
+                                    if let doubleValue = value.as(Double.self) {
+                                        Text(doubleValue.toCurrency())
+                                            .font(.system(size: 11, weight: .semibold))
+                                            .padding(.leading, 4)
+                                    }
+                                }
+                            }
+                        }
+                        .chartXAxis {
+                            AxisMarks { _ in
+                                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                                    .foregroundStyle(Color.background200)
+                                AxisValueLabel()
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .offset(y: 4)
+                            }
+                        }
+                        .padding()
                     } else {
                         Image("NoSpend\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
@@ -64,11 +88,13 @@ struct CarouselOfChartsView: View {
                 .tag(0)
                 
                 // CHART of incomes in actual month
-                VStack {
+                VStack(spacing: 8) {
                     titleOfChart(
                         text: "carousel_charts_incomes_current_month".localized,
                         amount: totalIncomes
                     )
+                    .padding(.horizontal)
+                    .padding(.top)
                     
                     if totalIncomes != 0 {
                         Chart {
@@ -76,7 +102,7 @@ struct CarouselOfChartsView: View {
                                 LineMark(x: .value("Day", item.day),
                                         y: .value("Value", item.amount))
                                 .interpolationMethod(.catmullRom)
-                                .lineStyle(StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round))
+                                .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                                 .foregroundStyle(Color.primary500)
                                 
                                 AreaMark(x: .value("Day", item.day),
@@ -85,7 +111,29 @@ struct CarouselOfChartsView: View {
                                 .foregroundStyle(LinearGradient(colors: [.primary500.opacity(0.6), .clear], startPoint: .top, endPoint: .bottom))
                             }
                         }
-                        .padding(12)
+                        .chartYAxis {
+                            AxisMarks { value in
+                                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                                    .foregroundStyle(Color.background200)
+                                AxisValueLabel {
+                                    if let doubleValue = value.as(Double.self) {
+                                        Text(doubleValue.toCurrency())
+                                            .font(.system(size: 11, weight: .semibold))
+                                            .padding(.leading, 4)
+                                    }
+                                }
+                            }
+                        }
+                        .chartXAxis {
+                            AxisMarks { _ in
+                                AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                                    .foregroundStyle(Color.background200)
+                                AxisValueLabel()
+                                    .font(.system(size: 11, weight: .semibold))
+                                    .offset(y: 4)
+                            }
+                        }
+                        .padding()
                     } else {
                         Image("NoAccount\(themeManager.theme.nameNotLocalized.capitalized)")
                             .resizable()
@@ -101,7 +149,7 @@ struct CarouselOfChartsView: View {
                 .tag(1)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-            .frame(height: 250)
+            .frame(height: 300)
             
             PageControl(maxPages: 2, currentPage: selectedChart)
         }
@@ -134,7 +182,6 @@ struct CarouselOfChartsView: View {
             }
             Spacer()
         }
-        .padding()
     }
 } // struct
 

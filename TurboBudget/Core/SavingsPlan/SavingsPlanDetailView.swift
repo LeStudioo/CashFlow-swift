@@ -59,6 +59,7 @@ struct SavingsPlanDetailView: View {
                 .lineLimit(2)
                      
             VStack(spacing: 40) {
+                let amountContributed = contributionStore.getAmountOfContributions()
                 VStack(spacing: 8) {
                     ProgressBar(percentage: currentSavingsPlan.percentageComplete)
                         .frame(height: 48)
@@ -70,7 +71,7 @@ struct SavingsPlanDetailView: View {
                     DetailRow(
                         icon: "building.columns.fill",
                         text: Word.Classic.contributed,
-                        value: contributionStore.getAmountOfContributions().toCurrency()
+                        value: amountContributed.toCurrency()
                     )
                     DetailRow(
                         icon: "flag.fill",
@@ -80,7 +81,9 @@ struct SavingsPlanDetailView: View {
                 }
                
                 VStack(spacing: 8) {
-                    SavingsPlanChart()
+                    if amountContributed != 0 {
+                        SavingsPlanChart()
+                    }
                     if currentSavingsPlan.endDate != nil {
                         DetailRow(
                             icon: "flag.fill",
