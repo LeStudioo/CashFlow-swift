@@ -62,12 +62,6 @@ struct PageControllerView: View {
                     
                     CustomTabBar()
                 }
-                .blur(radius: appManager.isMenuPresented ? 12 : 0)
-                .overlay {
-                    if appManager.isMenuPresented {
-                        CreationMenuView()
-                    }
-                }
                 .sheet(isPresented: $pageControllerVM.showOnboarding) {
                     OnboardingView()
                 }

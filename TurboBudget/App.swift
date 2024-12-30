@@ -119,6 +119,12 @@ struct TurboBudgetApp: App {
                     LoginView()
                 }
             }
+            .blur(radius: appManager.isMenuPresented ? 12 : 0)
+            .overlay {
+                if appManager.isMenuPresented {
+                    CreationMenuView()
+                }
+            }
             .overlay(alignment: .bottom) {
                 SuccessfullCreationView()
                     .environmentObject(successfullModalManager)

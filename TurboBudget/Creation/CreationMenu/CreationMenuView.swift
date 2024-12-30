@@ -141,7 +141,6 @@ struct CreationMenuView: View {
                             .foregroundStyle(Color.textReversed)
                     }
             }
-            .offset(y: -30)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(

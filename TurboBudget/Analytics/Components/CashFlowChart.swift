@@ -115,13 +115,13 @@ struct CashFlowChart: View {
             )
         })
         .onChange(of: selectedDate) { _ in
-            if selectedDate.year != selectedYear {
-                selectedYear = selectedDate.year
-                Task {
+            Task {
+                if selectedDate.year != selectedYear {
+                    selectedYear = selectedDate.year
                     await fetchCashFlow()
                 }
+                amount = accountRepository.cashFlowAmount(for: selectedDate).toCurrency()
             }
-            amount = accountRepository.cashFlowAmount(for: selectedDate).toCurrency()
         }
         .task {
             await fetchCashFlow()

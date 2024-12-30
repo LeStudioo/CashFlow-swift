@@ -45,11 +45,7 @@ struct AccountDashboardView: View {
                 }
             }
             
-            VStack(spacing: 16) {
-                if store.isCashFlowPro {
-                    DashboardChart()
-                }
-                
+            VStack(spacing: 16) {                
                 NavigationButton(push: router.pushAccountStatistics()) {
                     DashboardRow(
                         config: .init(

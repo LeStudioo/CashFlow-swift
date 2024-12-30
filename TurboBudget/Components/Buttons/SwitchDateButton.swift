@@ -67,15 +67,14 @@ struct SwitchDateButton: View {
             case .month:
                 date = date.oneMonthAgo.startOfMonth
             case .year:
-                print("🔥 ACTUAL DATE : \(date)")
-                date = date.oneYearAgo.startOfYear
+                date = date.oneYearAgo
             }
         } else {
             switch type {
             case .month:
                 date = date.inOneMonth.startOfMonth
             case .year:
-                date = date.inOneYear.startOfMonth
+                date = date.inOneYear
             }
         }
     }
