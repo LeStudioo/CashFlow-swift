@@ -20,7 +20,7 @@ struct SwitchDateButton: View {
     // MARK: -
     var body: some View {
         HStack {
-            Button {
+            DelayedButton(delay: 0.1) {
                 changePeriodDate(inPast: true)
                 VibrationManager.vibration()
             } label: {
@@ -35,7 +35,7 @@ struct SwitchDateButton: View {
                 .frame(maxWidth: .infinity)
                 .animation(.smooth, value: date)
             
-            Button {
+            DelayedButton(delay: 0.1) {
                 changePeriodDate(inPast: false)
                 VibrationManager.vibration()
             } label: {

@@ -31,16 +31,6 @@ extension TransactionStore {
         return transactions.filter { $0.type == .income }
     }
     
-    var monthsOfTransactions: [Date] {
-        let calendar = Calendar.current
-        
-        let uniqueMonths = Set(transactions.map {
-            calendar.dateComponents([.month, .year], from: $0.date)
-        })
-        
-        return uniqueMonths.compactMap { calendar.date(from: $0) }.sorted(by: >)
-    }
-    
     var transactionsByMonth: [Date: [TransactionModel]] {
         let groupedByMonth = Dictionary(grouping: transactions) { transaction in
             Calendar.current.date(from: Calendar.current.dateComponents([.month, .year], from: transaction.date))!
@@ -104,6 +94,7 @@ extension TransactionStore {
     @MainActor
     func fetchTransactionsByPeriod(accountID: Int, startDate: Date, endDate: Date, type: TransactionType? = nil) async {
         guard dateFetched.filter({ Calendar.current.isDate($0, equalTo: startDate, toGranularity: .month) }).isEmpty else { return }
+        
         do {
             let transactions = try await NetworkService.shared.sendRequest(
                 apiBuilder: TransactionAPIRequester.fetchByPeriod(
@@ -274,7 +265,15 @@ extension TransactionStore {
     }
     
     func getExpenses(in month: Date? = nil) -> [TransactionModel] {
-        return filterTransactions(inMonth: month, ofType: .expense)
+        let startDate = Date()
+        let expenses = filterTransactions(inMonth: month, ofType: .expense)
+        
+        defer {
+            let diff = Date().timeIntervalSince(startDate) * 1000
+            NSLog("🤖 getExpenses took \(diff) ms")
+        }
+        
+        return expenses
     }
     
     func getExpenses(for category: CategoryModel, in month: Date? = nil) -> [TransactionModel] {

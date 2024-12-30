@@ -128,8 +128,8 @@ struct AnalyticsHomeView: View {
         withAnimation(.smooth) {
             dailyExpenses = transactionRepository.dailyTransactions(for: selectedDate, type: .expense)
             dailyIncomes = transactionRepository.dailyTransactions(for: selectedDate, type: .income)
-            dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
-            dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
+//            dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
+//            dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
         }
     }
     

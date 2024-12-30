@@ -37,8 +37,12 @@ struct TransactionsListView: View {
             } header: {
                 DetailOfExpensesAndIncomesByMonth(
                     month: month,
-                    amountOfExpenses: transactionRepository.getExpenses(in: month).compactMap(\.amount).reduce(0, +),
-                    amountOfIncomes: transactionRepository.getIncomes(in: month).compactMap(\.amount).reduce(0, +)
+                    amountOfExpenses: transactions.filter { $0.type == .expense }
+                        .compactMap(\.amount)
+                        .reduce(0, +),
+                    amountOfIncomes: transactions.filter { $0.type == .income }
+                        .compactMap(\.amount)
+                        .reduce(0, +)
                 )
             } // Section
         } // List

@@ -104,29 +104,22 @@ extension TransactionStore {
     
     func dailyTransactions(for month: Date, type: TransactionType) -> [AmountByDay] {
         let dates = month.allDateOfMonth
-        var amountsByDate: [Date: Double] = [:]
-        
-        for date in dates {
-            amountsByDate[date] = 0
-        }
+        var amountsByDate = Dictionary(uniqueKeysWithValues: dates.map { ($0, 0.0) })
         
         getTransactions(in: month)
+            .lazy
             .filter { $0.type == type }
             .forEach { transaction in
-                if let matchingDate = dates.first(where: { Calendar.current.isDate($0, inSameDayAs: transaction.date) }) {
-                    amountsByDate[matchingDate, default: 0] += transaction.amount ?? 0
-                }
+                let dayStart = Calendar.current.startOfDay(for: transaction.date)
+                amountsByDate[dayStart, default: 0] += transaction.amount ?? 0
             }
         
-        let result: [AmountByDay] = dates.map { date in
-            AmountByDay(day: date, amount: amountsByDate[date] ?? 0)
-        }
+        let result: [AmountByDay] = dates.map { AmountByDay(day: $0, amount: amountsByDate[$0] ?? 0) }
         
         return result
     }
     
     func dailySubscriptions(for month: Date, type: TransactionType) -> [AmountByDay] {
-        let startDate = Date()
         let dates = month.allDateOfMonth
         var amountsByDate: [Date: Double] = [:]
         
@@ -144,11 +137,6 @@ extension TransactionStore {
         
         let result: [AmountByDay] = dates.map { date in
             AmountByDay(day: date, amount: amountsByDate[date] ?? 0)
-        }
-        
-        defer {
-            let diff = Date().timeIntervalSince(startDate)
-            NSLog("🤖 took \(diff) seconds to calculate daily income amounts")
         }
         
         return result
