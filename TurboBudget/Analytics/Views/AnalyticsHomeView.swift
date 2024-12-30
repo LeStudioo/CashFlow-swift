@@ -22,10 +22,10 @@ struct AnalyticsHomeView: View {
     // Custom
     @ObservedObject var filter = FilterManager.shared
     
-    @State private var dailyExpenses: [AmountOfTransactionsByDay] = []
-    @State private var dailyIncomes: [AmountOfTransactionsByDay] = []
-    @State private var dailySubscriptionsExpenses: [AmountOfTransactionsByDay] = []
-    @State private var dailySubscriptionsIncomes: [AmountOfTransactionsByDay] = []
+    @State private var dailyExpenses: [AmountByDay] = []
+    @State private var dailyIncomes: [AmountByDay] = []
+    @State private var dailySubscriptionsExpenses: [AmountByDay] = []
+    @State private var dailySubscriptionsIncomes: [AmountByDay] = []
     
     @State private var selectedDate: Date = Date()
 
@@ -37,38 +37,38 @@ struct AnalyticsHomeView: View {
                     CashFlowChart(selectedDate: $selectedDate)
                     
                     NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .income)) {
-                        AnalyticsLineChart(
+                        GenericLineChart(
                             selectedDate: selectedDate,
                             values: dailyIncomes,
                             config: .init(
-                                title: "chart_incomes_incomes_in".localized,
+                                title: "chart_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
                                 mainColor: Color.primary500
                             )
                         )
                     }
                     NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .expense)) {
-                        AnalyticsLineChart(
+                        GenericLineChart(
                             selectedDate: selectedDate,
                             values: dailyExpenses,
                             config: .init(
-                                title: "chart_expenses_expenses_in".localized,
+                                title: "chart_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
                                 mainColor: Color.error400
                             )
                         )
                     }
-                    AnalyticsLineChart(
+                    GenericLineChart(
                         selectedDate: selectedDate,
                         values: dailySubscriptionsIncomes,
                         config: .init(
-                            title: "chart_auto_incomes_incomes_in".localized,
+                            title: "chart_auto_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
                             mainColor: Color.primary500
                         )
                     )
-                    AnalyticsLineChart(
+                    GenericLineChart(
                         selectedDate: selectedDate,
                         values: dailySubscriptionsExpenses,
                         config: .init(
-                            title: "chart_auto_expenses_expenses_in".localized,
+                            title: "chart_auto_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
                             mainColor: Color.error400
                         )
                     )

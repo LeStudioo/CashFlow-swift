@@ -102,7 +102,7 @@ extension TransactionStore {
 
 extension TransactionStore {
     
-    func dailyTransactions(for month: Date, type: TransactionType) -> [AmountOfTransactionsByDay] {
+    func dailyTransactions(for month: Date, type: TransactionType) -> [AmountByDay] {
         let dates = month.allDateOfMonth
         var amountsByDate: [Date: Double] = [:]
         
@@ -118,14 +118,14 @@ extension TransactionStore {
                 }
             }
         
-        let result: [AmountOfTransactionsByDay] = dates.map { date in
-            AmountOfTransactionsByDay(day: date, amount: amountsByDate[date] ?? 0)
+        let result: [AmountByDay] = dates.map { date in
+            AmountByDay(day: date, amount: amountsByDate[date] ?? 0)
         }
         
         return result
     }
     
-    func dailySubscriptions(for month: Date, type: TransactionType) -> [AmountOfTransactionsByDay] {
+    func dailySubscriptions(for month: Date, type: TransactionType) -> [AmountByDay] {
         let startDate = Date()
         let dates = month.allDateOfMonth
         var amountsByDate: [Date: Double] = [:]
@@ -142,8 +142,8 @@ extension TransactionStore {
                 }
             }
         
-        let result: [AmountOfTransactionsByDay] = dates.map { date in
-            AmountOfTransactionsByDay(day: date, amount: amountsByDate[date] ?? 0)
+        let result: [AmountByDay] = dates.map { date in
+            AmountByDay(day: date, amount: amountsByDate[date] ?? 0)
         }
         
         defer {

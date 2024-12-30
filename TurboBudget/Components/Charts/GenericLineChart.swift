@@ -1,0 +1,109 @@
+//
+//  GenericLineChart.swift
+//  CashFlow
+//
+//  Created by Theo Sementa on 30/12/2024.
+//
+
+import SwiftUI
+import Charts
+
+struct GenericLineChart: View {
+    
+    // builder
+    var selectedDate: Date
+    var values: [AmountByDay]
+    var config: Configuration
+    
+    // Computed
+    var amounts: [Double] {
+        return values.map(\.amount)
+    }
+    
+    // MARK: -
+    var body: some View {
+        VStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(config.title)
+                    .foregroundStyle(Color.customGray)
+                    .font(Font.mediumSmall())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text(amounts.reduce(0, +).toCurrency())
+                    .foregroundStyle(Color.text)
+                    .font(.semiBoldH3())
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(8)
+            
+            Chart {
+                ForEach(values) { item in
+                    LineMark(x: .value("Day", item.day),
+                            y: .value("Value", item.amount))
+                    .interpolationMethod(.catmullRom)
+                    .lineStyle(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
+                    .foregroundStyle(config.mainColor)
+                    
+                    AreaMark(x: .value("Day", item.day),
+                            y: .value("Value", item.amount))
+                    .interpolationMethod(.catmullRom)
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [config.mainColor.opacity(0.6), .clear],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+                }
+            }
+            .frame(height: 180)
+            .chartYAxis {
+                AxisMarks { value in
+                    AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(Color.background200)
+                    AxisValueLabel {
+                        if let doubleValue = value.as(Double.self) {
+                            Text(doubleValue.toCurrency())
+                                .font(.system(size: 11, weight: .semibold))
+                                .padding(.leading, 4)
+                        }
+                    }
+                }
+            }
+            .chartXAxis {
+                AxisMarks { _ in
+                    AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
+                        .foregroundStyle(Color.background200)
+                    AxisValueLabel()
+                        .font(.system(size: 11, weight: .semibold))
+                        .offset(y: 4)
+                }
+            }
+        }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color.background100)
+        }
+    } // body
+} // struct
+
+// MARK: - Configuration
+extension GenericLineChart {
+    struct Configuration {
+        var title: String
+        var mainColor: Color
+    }
+}
+
+// MARK: - Preview
+#Preview {
+    GenericLineChart(
+        selectedDate: .now,
+        values: [.mockToday, .mockTomorrow],
+        config: .init(
+            title: "Preview chart",
+            mainColor: Color.error400
+        )
+    )
+}

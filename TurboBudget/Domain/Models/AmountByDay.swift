@@ -1,5 +1,5 @@
 //
-//  AmountOfTransactionsByDay.swift
+//  AmountByDay.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 25/07/2023.
@@ -7,29 +7,29 @@
 
 import Foundation
 
-struct AmountOfTransactionsByDay: Hashable, Identifiable {
+struct AmountByDay: Hashable, Identifiable {
     let id: UUID = UUID()
     var day: Date
     var amount: Double
 }
 
-extension AmountOfTransactionsByDay {
-    static let mockToday = AmountOfTransactionsByDay(
+extension AmountByDay {
+    static let mockToday = AmountByDay(
         day: Date(),
         amount: 150.0
     )
     
-    static let mockTomorrow = AmountOfTransactionsByDay(
+    static let mockTomorrow = AmountByDay(
         day: Calendar.current.date(byAdding: .day, value: 1, to: Date())!,
         amount: 200.5
     )
     
-    static let mockYesterday = AmountOfTransactionsByDay(
+    static let mockYesterday = AmountByDay(
         day: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
         amount: 75.3
     )
     
-    static let mockAll: [AmountOfTransactionsByDay] = [
+    static let mockAll: [AmountByDay] = [
         .mockYesterday,
         .mockToday,
         .mockTomorrow
