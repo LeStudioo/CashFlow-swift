@@ -23,8 +23,9 @@ struct SavingsPlanDetailView: View {
     @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
     @EnvironmentObject private var contributionRepository: ContributionStore
     
-    // State or Binding String
+   
     @State private var savingPlanNote: String = ""
+    
     
     // Enum
     enum Field: CaseIterable {
@@ -65,64 +66,59 @@ struct SavingsPlanDetailView: View {
                         .frame(height: 48)
                     DetailRow(
                         icon: UserCurrency.name + "sign.circle.fill",
-                        text: "Restant",
+                        text: "TBL Restant",
                         value: currentSavingsPlan.amountToTheGoal.toCurrency()
                     )
                     DetailRow(
                         icon: "building.columns.fill",
-                        text: "Contribué",
-                        value: contributionRepository.getContributions(type: .addition)
-                            .compactMap(\.amount)
-                            .reduce(0, +)
-                            .toCurrency()
+                        text: "TBL Contribué",
+                        value: contributionRepository.getAmountOfContributions().toCurrency()
                     )
                     DetailRow(
                         icon: "flag.fill",
-                        text: "Objectif final",
+                        text: "TBL Objectif final",
                         value: currentSavingsPlan.goalAmount?.toCurrency() ?? ""
                     )
                 }
                
                 VStack(spacing: 8) {
+                    SavingsPlanChart()
                     if currentSavingsPlan.endDate != nil {
                         DetailRow(
                             icon: "flag.fill",
-                            text: "Objectif mensuel",
+                            text: "TBL Objectif mensuel",
                             value: currentSavingsPlan.monthlyGoalAmount.toCurrency()
                         )
                     }
                     DetailRow(
                         icon: "building.columns.fill",
-                        text: "Contribué ce mois-ci",
-                        value: contributionRepository.getContributions(in: .now, type: .addition)
-                            .compactMap(\.amount)
-                            .reduce(0, +)
-                            .toCurrency()
+                        text: "TBL Contribué ce mois-ci",
+                        value: contributionRepository.getAmountOfContributions(in: .now).toCurrency()
                     )
                 }
                 
                 VStack(spacing: 8) {
                     DetailRow(
                         icon: "calendar",
-                        text: "Date de début",
+                        text: "TBL Date de début",
                         value: currentSavingsPlan.startDate.formatted(date: .abbreviated, time: .omitted)
                     )
                     DetailRow(
                         icon: "clock.fill",
-                        text: "Jours écoulés",
+                        text: "TBL Jours écoulés",
                         value: "\(currentSavingsPlan.daysSinceStart)"
                     )
                     
                     if let endDate = currentSavingsPlan.endDate {
                         DetailRow(
                             icon: "hourglass",
-                            text: "Jours restants",
+                            text: "TBL Jours restants",
                             value: "\(currentSavingsPlan.daysRemaining)"
                         )
                         
                         DetailRow(
                             icon: "calendar",
-                            text: "Date de fin",
+                            text: "TBL Date de fin",
                             value: endDate.formatted(date: .abbreviated, time: .omitted)
                         )
                     }

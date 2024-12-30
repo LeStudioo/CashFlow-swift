@@ -88,6 +88,24 @@ extension ContributionStore {
         self.contributions.sort { $0.date > $1.date }
     }
     
+    func getContributionsAmountByMonth(for year: Int) -> [Double] {
+        var contributionsByMonth = Array(repeating: 0.0, count: 12)
+        
+        let contributionsFiltered: [ContributionModel] = contributions
+            .filter { $0.date.year == year }
+        
+        let grouped = Dictionary(grouping: contributionsFiltered) { Calendar.current.component(.month, from: $0.date) }
+        
+        for (month, contributions) in grouped {
+            let additions = contributions.filter { $0.type == .addition }.compactMap(\.amount).reduce(0, +)
+            let withdrawals = contributions.filter { $0.type == .withdrawal }.compactMap(\.amount).reduce(0, +)
+            let totalAmount = additions - withdrawals
+            contributionsByMonth[month - 1] = totalAmount
+        }
+        
+        return contributionsByMonth
+    }
+    
     func getContributions(in month: Date? = nil, type: ContributionType? = nil) -> [ContributionModel] {
         return contributions
             .filter { $0.type == type }
@@ -96,5 +114,11 @@ extension ContributionStore {
                     return Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month)
                 } else { return true }
             }
+    }
+    
+    func getAmountOfContributions(in month: Date? = nil) -> Double {
+        let additions = getContributions(in: month, type: .addition).compactMap(\.amount).reduce(0, +)
+        let withdrawals = getContributions(in: month, type: .withdrawal).compactMap(\.amount).reduce(0, +)
+        return additions - withdrawals
     }
 }
