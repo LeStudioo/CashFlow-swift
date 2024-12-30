@@ -21,11 +21,9 @@ struct SavingsPlanDetailView: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
-    @EnvironmentObject private var contributionRepository: ContributionStore
+    @EnvironmentObject private var contributionStore: ContributionStore
     
-   
     @State private var savingPlanNote: String = ""
-    
     
     // Enum
     enum Field: CaseIterable {
@@ -72,7 +70,7 @@ struct SavingsPlanDetailView: View {
                     DetailRow(
                         icon: "building.columns.fill",
                         text: "TBL Contribué",
-                        value: contributionRepository.getAmountOfContributions().toCurrency()
+                        value: contributionStore.getAmountOfContributions().toCurrency()
                     )
                     DetailRow(
                         icon: "flag.fill",
@@ -93,7 +91,7 @@ struct SavingsPlanDetailView: View {
                     DetailRow(
                         icon: "building.columns.fill",
                         text: "TBL Contribué ce mois-ci",
-                        value: contributionRepository.getAmountOfContributions(in: .now).toCurrency()
+                        value: contributionStore.getAmountOfContributions(in: .now).toCurrency()
                     )
                 }
                 
@@ -139,14 +137,14 @@ struct SavingsPlanDetailView: View {
                         }
                     }
                     
-                    if contributionRepository.contributions.isNotEmpty {
-                        ForEach(contributionRepository.contributions) { contribution in
+                    if contributionStore.contributions.isNotEmpty {
+                        ForEach(contributionStore.contributions) { contribution in
                             ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
                         }
                     } else {
                         CustomEmptyView(
                             type: .empty(.contributions),
-                            isDisplayed: contributionRepository.contributions.isEmpty
+                            isDisplayed: contributionStore.contributions.isEmpty
                         )
                         .padding(.top)
                     }

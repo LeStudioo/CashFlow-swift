@@ -172,28 +172,7 @@ struct SettingsHomeView: View {
                 })
             }
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
-            
-            Section {
-                Button(action: { }, label: {
-                    SettingRow(
-                        icon: "lock.fill",
-                        backgroundColor: Color.blue,
-                        text: "setting_home_privacy_policy".localized,
-                        isButton: true
-                    )
-                })
-                
-                Button(action: { URLManager.Setting.showTermsAndConditions() }, label: {
-                    SettingRow(
-                        icon: "hand.raised.fill",
-                        backgroundColor: Color.blue,
-                        text: "setting_home_terms_conditions".localized,
-                        isButton: true
-                    )
-                })
-            }
-            .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
-            
+                        
             Section {
                 Button { alertManager.signOut(dismiss: dismiss) } label: {
                     SettingRow(
@@ -215,13 +194,25 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                Text("setting_home_made_by".localized)
-                    .foregroundStyle(Color.text)
-                    .font(.semiBoldText16())
-                    .frame(maxWidth: .infinity)
+                Group {
+                    Text("v\(Bundle.main.releaseVersionNumber ?? "")")
+                        .foregroundStyle(Color.text)
+                        .font(.semiBoldText16())
+                    
+                    Button(action: { URLManager.Setting.showTermsAndConditions() }, label: {
+                        Label("setting_home_terms_conditions".localized, systemImage: "hand.raised.fill")
+                    })
+                    
+                    Button(action: { }, label: {
+                        Label("setting_home_privacy_policy".localized, systemImage: "lock.fill")
+                    })
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
             }
+            .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
-            .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
+            .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             
         } // End Form
         .environment(\.defaultMinListRowHeight, 0)
