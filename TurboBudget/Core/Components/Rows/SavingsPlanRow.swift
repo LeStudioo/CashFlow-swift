@@ -14,12 +14,13 @@ struct SavingsPlanRow: View {
 
     // Environnement
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
+    
+    var currentSavingsPlan: SavingsPlanModel {
+        return savingsPlanStore.savingsPlans.first { $0.id == savingsPlan.id } ?? savingsPlan
+    }
 
-    // State or Binding Int, Float and Double
-    @State private var percentage: Double = 0
-    @State private var increaseWidthAmount: Double = 0
-
-    // MARK: - Body
+    // MARK: -
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
@@ -28,7 +29,7 @@ struct SavingsPlanRow: View {
                     .foregroundStyle(Color.background200)
                     .cornerRadius(12)
                     .overlay {
-                        Text(savingsPlan.emoji ?? "")
+                        Text(currentSavingsPlan.emoji ?? "")
                             .font(.system(size: 24, weight: .semibold, design: .rounded))
                             .shadow(radius: 2, y: 2)
                     }
@@ -36,7 +37,7 @@ struct SavingsPlanRow: View {
                 Spacer()
             }
                         
-            Text(savingsPlan.name ?? "")
+            Text(currentSavingsPlan.name ?? "")
                 .font(.semiBoldText16())
                 .foregroundStyle(Color.text)
                 .lineLimit(1)
@@ -45,14 +46,14 @@ struct SavingsPlanRow: View {
             VStack(spacing: 5) {
                 HStack {
                     Spacer()
-                    Text(formatNumber(savingsPlan.goalAmount ?? 0))
+                    Text(formatNumber(currentSavingsPlan.goalAmount ?? 0))
                 }
                 .font(.semiBoldVerySmall())
                 .foregroundStyle(Color.text)
                 
                 ProgressBarWithAmount(
-                    percentage: percentage,
-                    value: savingsPlan.currentAmount ?? 0
+                    percentage: currentSavingsPlan.percentageComplete,
+                    value: currentSavingsPlan.currentAmount ?? 0
                 )
                 .frame(height: 28)
             }
@@ -62,19 +63,6 @@ struct SavingsPlanRow: View {
         .background {
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(Color.background100)
-        }
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(.spring()) {
-                    guard let currentAmount = savingsPlan.currentAmount, let goalAmount = savingsPlan.goalAmount else { return }
-                    if currentAmount / goalAmount >= 0.96 {
-                        percentage = 0.96
-                    } else {
-                        percentage = currentAmount / goalAmount
-                    }
-                    increaseWidthAmount = 1.1
-                }
-            }
         }
     } // body
 } // struct

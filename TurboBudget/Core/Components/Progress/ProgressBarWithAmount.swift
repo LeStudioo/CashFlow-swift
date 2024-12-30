@@ -15,6 +15,8 @@ struct ProgressBarWithAmount: View {
     
     @EnvironmentObject private var themeManager: ThemeManager
     
+    @State private var progressBarWidth: CGFloat = 0
+    
     var valueString: String {
         return formatNumber(value)
     }
@@ -22,25 +24,29 @@ struct ProgressBarWithAmount: View {
     // MARK: -
     var body: some View {
         GeometryReader { geometry in
-            let widthText = formatNumber(value).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.4
-            let widthPercentage = geometry.size.width * min(1, percentage)
-            
             RoundedRectangle(cornerRadius: 8, style: .continuous)
                 .fill(Color.background200)
                 .overlay(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(themeManager.theme.color)
-                        .frame(width: max(widthText, widthPercentage))
+                        .frame(width: progressBarWidth)
                         .overlay(alignment: .trailing) {
                             Text(valueString)
+                                .opacity(progressBarWidth != 0 ? 1 : 0)
                                 .padding(.trailing, 8)
                                 .font(.semiBoldVerySmall())
                                 .foregroundStyle(Color(uiColor: .systemBackground))
                                 .padding(.leading, 8)
                                 .fixedSize(horizontal: true, vertical: false)
                         }
+                        .animation(.smooth.delay(0.3), value: progressBarWidth)
                 }
-         }
+                .onAppear {
+                    let widthText = formatNumber(value).widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.4
+                    let widthPercentage = geometry.size.width * min(1, percentage)
+                    progressBarWidth = max(widthText, widthPercentage)
+                }
+        }
     } // body
 } // struct
 
