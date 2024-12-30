@@ -1,5 +1,5 @@
 //
-//  MenuCreationView.swift
+//  CreationMenuView.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 29/12/2024.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AlertKit
 
-struct MenuCreationView: View {
+struct CreationMenuView: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountRepository: AccountStore
@@ -19,13 +19,12 @@ struct MenuCreationView: View {
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var appManager: AppManager
 
-    @State private var isQrCodeScannerPresented: Bool = false
-    @State private var identityToken: String = ""
+    @State private var isPresented: Bool = false
     
-    private var menuActions: [MenuCreationAction] {
+    private var menuActions: [CreationMenuAction] {
         if accountRepository.mainAccount != nil {
-            return [
-                MenuCreationAction(
+            var actions: [CreationMenuAction] = [
+                CreationMenuAction(
                     title: Word.Main.creditCard,
                     icon: "creditcard.fill",
                     present: { router.presentCreateCreditCard() },
@@ -38,7 +37,7 @@ struct MenuCreationView: View {
                         }
                     }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Main.savingsAccount,
                     icon: "building.columns",
                     present: { router.presentCreateAccount(type: .savings) },
@@ -49,17 +48,17 @@ struct MenuCreationView: View {
                         }
                     }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Main.transfer,
                     icon: "arrow.left.arrow.right",
                     present: { router.presentCreateTransfer() }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Main.savingsPlan,
                     icon: "dollarsign.square.fill",
                     present: { router.presentCreateSavingsPlan() }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Classic.budget,
                     icon: "chart.pie.fill",
                     present: { router.presentCreateBudget() },
@@ -70,20 +69,32 @@ struct MenuCreationView: View {
                         }
                     }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Main.subscription,
                     icon: "clock.arrow.circlepath",
                     present: { router.presentCreateSubscription() }
                 ),
-                MenuCreationAction(
+                CreationMenuAction(
                     title: Word.Main.transaction,
                     icon: "creditcard.and.123",
                     present: { router.presentCreateTransaction() }
                 )
             ]
+            
+            #if DEBUG
+            actions.append(
+                CreationMenuAction(
+                    title: "TBL Scan QRCode",
+                    icon: "qrcode",
+                    present: { router.presentQrCodeScanner() }
+                )
+            )
+            #endif
+            
+            return actions
         } else {
             return [
-                MenuCreationAction(
+                CreationMenuAction(
                     title: "word_account".localized,
                     icon: "person",
                     present: { router.presentCreateAccount(type: .classic) }
@@ -96,10 +107,17 @@ struct MenuCreationView: View {
     var body: some View {
         VStack {
             VStack(alignment: .leading, spacing: 40) {
-                ForEach(menuActions) { action in
-                    MenuCreationButton(action: action) {
+                ForEach(Array(menuActions.enumerated()), id: \.offset) { index, action in
+                    CreationMenuButton(action: action) {
                         onPress()
                     }
+                    .offset(y: isPresented ? 0 : 50)
+                    .opacity(isPresented ? 1 : 0)
+                    .animation(
+                        .spring(response: 0.3)
+                        .delay(Double(index) * 0.1),
+                        value: isPresented
+                    )
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -131,8 +149,8 @@ struct MenuCreationView: View {
                 .opacity(0.1)
                 .blur(radius: 10)
         )
-        .sheet(isPresented: $isQrCodeScannerPresented) {
-            QRCodeScannerView(identityToken: $identityToken)
+        .onAppear {
+            isPresented = true
         }
     } // body
     
@@ -145,5 +163,5 @@ struct MenuCreationView: View {
 
 // MARK: - Preview
 #Preview {
-    MenuCreationView()
+    CreationMenuView()
 }

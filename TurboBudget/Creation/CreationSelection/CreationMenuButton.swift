@@ -1,5 +1,5 @@
 //
-//  MenuCreationButton.swift
+//  CreationMenuButton.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 30/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MenuCreationAction: Identifiable {
+struct CreationMenuAction: Identifiable {
     let id = UUID()
     let title: String
     let icon: String
@@ -30,8 +30,8 @@ struct MenuCreationAction: Identifiable {
     }
 }
 
-struct MenuCreationButton: View {
-    let action: MenuCreationAction
+struct CreationMenuButton: View {
+    let action: CreationMenuAction
     let onPress: () -> Void
     
     var body: some View {
@@ -49,10 +49,9 @@ struct MenuCreationButton: View {
     }
 }
 
-
 // MARK: - Preview
 #Preview {
-    MenuCreationButton(
+    CreationMenuButton(
         action: .init(
             title: "Preview",
             icon: "person.crop.circle",

@@ -65,7 +65,7 @@ struct PageControllerView: View {
                 .blur(radius: appManager.isMenuPresented ? 12 : 0)
                 .overlay {
                     if appManager.isMenuPresented {
-                        MenuCreationView()
+                        CreationMenuView()
                     }
                 }
                 .sheet(isPresented: $pageControllerVM.showOnboarding) {

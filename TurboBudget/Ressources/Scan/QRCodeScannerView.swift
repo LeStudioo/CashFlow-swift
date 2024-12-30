@@ -9,12 +9,11 @@ import SwiftUI
 
 struct QRCodeScannerView: View {
     
-    // Builder
-    @Binding var identityToken: String
-    
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var themeManager: ThemeManager
     
+    @State private var identityToken: String = ""
+        
     // MARK: -
     var body: some View {
         ZStack {
@@ -54,5 +53,5 @@ struct QRCodeScannerView: View {
 
 // MARK: - Preview
 #Preview {
-    QRCodeScannerView(identityToken: .constant(""))
+    QRCodeScannerView()
 }

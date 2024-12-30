@@ -171,6 +171,10 @@ class NavigationManager: Router {
         presentSheet(.createTransactionForSavingsAccount(savingsAccount: savingsAccount, transaction: transaction))
     }
     
+    func presentQrCodeScanner(dismissAction: (() -> Void)? = nil) {
+        presentSheet(.qrCodeScanner, dismissAction)
+    }
+    
     func presentSelectCategory(
         category: Binding<CategoryModel?>,
         subcategory: Binding<SubcategoryModel?>,
@@ -225,6 +229,8 @@ private extension NavigationManager {
                 CreateCreditCardView()
             case .createTransactionForSavingsAccount(let savingsAccount, let transaction):
                 CreateTransactionForSavingsAccountView(savingsAccount: savingsAccount, transaction: transaction)
+            case .qrCodeScanner:
+                QRCodeScannerView()
                 
             case .selectCategory(let category, let subcategory):
                 SelectCategoryView(selectedCategory: category, selectedSubcategory: subcategory)
