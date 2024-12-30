@@ -51,6 +51,16 @@ struct Word {
         static let delete: String = "word_delete".localized
         static let deleteAccount: String = "word_delete_account".localized
         static let statistics: String = "word_statistics".localized
+        static let remaining: String = "word_remaining".localized
+        static let contributed: String = "word_contributed".localized
+        static let finalTarget: String = "word_finalTarget".localized
+        static let monthlyTarget: String = "word_monthlyTarget".localized
+        static let contributedThisMonth: String = "word_contributedThisMonth".localized
+        static let startDate: String = "word_startDate".localized
+        static let daysElapsed: String = "word_daysElapsed".localized
+        static let daysRemaining: String = "word_daysRemaining".localized
+        static let endDate: String = "word_endDate".localized
+
     }
     
     struct AppIntent {

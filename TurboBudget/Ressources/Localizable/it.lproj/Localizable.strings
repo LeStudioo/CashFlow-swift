@@ -81,6 +81,24 @@
 
 "word_savings" = "Risparmio";
 
+"word_remaining" = "Rimanente";
+
+"word_contributed" = "Contribuito";
+
+"word_finalTarget" = "Obiettivo finale";
+
+"word_monthlyTarget" = "Obiettivo mensile";
+
+"word_contributedThisMonth" = "Contributo questo mese";
+
+"word_startDate" = "Data di inizio";
+
+"word_daysElapsed" = "Trascorsero i giorni";
+
+"word_daysRemaining" = "Giorni rimanenti";
+
+"word_endDate" = "Data di fine";
+
 //MARK: - Main
 "word_transaction" = "Transazione";
 

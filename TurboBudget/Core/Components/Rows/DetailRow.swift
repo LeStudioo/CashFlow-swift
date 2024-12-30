@@ -36,7 +36,9 @@ struct DetailRow: View {
                     Text(text)
                         .font(.mediumText16())
                         .foregroundStyle(Color.text)
-                        .multilineTextAlignment(.leading)
+                        .lineLimit(1)
+//                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: true, vertical: true)
                 }
                 
                 Text(value)

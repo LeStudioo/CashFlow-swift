@@ -81,6 +81,24 @@
 
 "word_savings" = "Savings";
 
+"word_remaining" = "Remaining";
+
+"word_contributed" = "Contributed";
+
+"word_finalTarget" = "Final target";
+
+"word_monthlyTarget" = "Monthly target";
+
+"word_contributedThisMonth" = "Contributed this month";
+
+"word_startDate" = "Start date";
+
+"word_daysElapsed" = "Days elapsed";
+
+"word_daysRemaining" = "Days remaining";
+
+"word_endDate" = "End date";
+
 //MARK: - Main
 "word_transaction" = "Transaction";
 

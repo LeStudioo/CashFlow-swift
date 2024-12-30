@@ -33,7 +33,7 @@ struct TransactionDetailPredictedCategoryRow: View {
         } label: {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
-                    CustomOrSystemImage(systemImage: icon, size: 12)
+                    CustomOrSystemImage(systemImage: icon, size: 12, color: Color.text)
                         .padding(6)
                         .background {
                             Circle()

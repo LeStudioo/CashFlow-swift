@@ -64,17 +64,17 @@ struct SavingsPlanDetailView: View {
                         .frame(height: 48)
                     DetailRow(
                         icon: UserCurrency.name + "sign.circle.fill",
-                        text: "TBL Restant",
+                        text: Word.Classic.remaining,
                         value: currentSavingsPlan.amountToTheGoal.toCurrency()
                     )
                     DetailRow(
                         icon: "building.columns.fill",
-                        text: "TBL Contribué",
+                        text: Word.Classic.contributed,
                         value: contributionStore.getAmountOfContributions().toCurrency()
                     )
                     DetailRow(
                         icon: "flag.fill",
-                        text: "TBL Objectif final",
+                        text: Word.Classic.finalTarget,
                         value: currentSavingsPlan.goalAmount?.toCurrency() ?? ""
                     )
                 }
@@ -84,13 +84,13 @@ struct SavingsPlanDetailView: View {
                     if currentSavingsPlan.endDate != nil {
                         DetailRow(
                             icon: "flag.fill",
-                            text: "TBL Objectif mensuel",
+                            text: Word.Classic.monthlyTarget,
                             value: currentSavingsPlan.monthlyGoalAmount.toCurrency()
                         )
                     }
                     DetailRow(
                         icon: "building.columns.fill",
-                        text: "TBL Contribué ce mois-ci",
+                        text: Word.Classic.contributedThisMonth,
                         value: contributionStore.getAmountOfContributions(in: .now).toCurrency()
                     )
                 }
@@ -98,25 +98,25 @@ struct SavingsPlanDetailView: View {
                 VStack(spacing: 8) {
                     DetailRow(
                         icon: "calendar",
-                        text: "TBL Date de début",
+                        text: Word.Classic.startDate,
                         value: currentSavingsPlan.startDate.formatted(date: .abbreviated, time: .omitted)
                     )
                     DetailRow(
                         icon: "clock.fill",
-                        text: "TBL Jours écoulés",
+                        text: Word.Classic.daysElapsed,
                         value: "\(currentSavingsPlan.daysSinceStart)"
                     )
                     
                     if let endDate = currentSavingsPlan.endDate {
                         DetailRow(
                             icon: "hourglass",
-                            text: "TBL Jours restants",
+                            text: Word.Classic.daysRemaining,
                             value: "\(currentSavingsPlan.daysRemaining)"
                         )
                         
                         DetailRow(
                             icon: "calendar",
-                            text: "TBL Date de fin",
+                            text: Word.Classic.endDate,
                             value: endDate.formatted(date: .abbreviated, time: .omitted)
                         )
                     }
