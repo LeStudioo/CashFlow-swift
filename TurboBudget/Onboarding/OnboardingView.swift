@@ -138,7 +138,7 @@ struct OnboardingView: View {
                         Text(title)
                             .font(.boldCustom(size: sizeTitleOnboarding))
                             .multilineTextAlignment(.center)
-                            .foregroundStyle(Color(uiColor: .label))
+                            .foregroundStyle(Color.text)
                         
                         Text(desc)
                             .foregroundStyle(.secondary400)

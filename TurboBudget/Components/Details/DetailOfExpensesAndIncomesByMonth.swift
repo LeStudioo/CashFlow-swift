@@ -25,7 +25,7 @@ struct DetailOfExpensesAndIncomesByMonth: View {
             VStack(alignment: .leading) {
                 Text(month.formatted(.monthAndYear).capitalized)
                     .font(.mediumCustom(size: 22))
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                 
                 if store.isCashFlowPro {
                     HStack {

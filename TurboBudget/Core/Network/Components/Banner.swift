@@ -96,7 +96,7 @@ struct BannerView: View {
             .foregroundStyle(style == .error ? Color.white : Color(uiColor: .systemBackground))
             .padding(24)
             .frame(maxWidth: .infinity)
-            .background(style == .error ? Color.red : Color(uiColor: .label))
+            .background(style == .error ? Color.red : Color.text)
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .onTapGesture {
                 onCancelTapped()

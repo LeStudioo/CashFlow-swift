@@ -27,7 +27,7 @@ struct SettingRow: View {
                 .cornerRadius(6)
             
             Text(text)
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.text)
                 .fixedSize(horizontal: false, vertical: true)
                 .frame(maxWidth: .infinity, alignment: .leading)
             

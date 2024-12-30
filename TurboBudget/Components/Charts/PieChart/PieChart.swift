@@ -121,12 +121,12 @@ struct PieChart: View {
                                 .isDisplayed(isInteractive)
                                 
                                 Text((self.activeSlice == nil ? values.reduce(0, +).toCurrency() : activeSlice?.value.toCurrency()) ?? "")
-                                    .foregroundStyle(Color(uiColor: .label))
+                                    .foregroundStyle(Color.text)
                                     .font(.semiBoldCustom(size: 20))
                                 
                                 if activeSlice != nil {
                                     Text(percentage.formatWith(2) + "%")
-                                        .foregroundStyle(Color(uiColor: .label))
+                                        .foregroundStyle(Color.text)
                                         .font(Font.mediumText16())
                                 }
                             }

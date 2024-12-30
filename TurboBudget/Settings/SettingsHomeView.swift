@@ -216,7 +216,7 @@ struct SettingsHomeView: View {
             
             Section {
                 Text("setting_home_made_by".localized)
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                     .font(.semiBoldText16())
                     .frame(maxWidth: .infinity)
             }

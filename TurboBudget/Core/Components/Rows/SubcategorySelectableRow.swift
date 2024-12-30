@@ -32,7 +32,7 @@ struct SubcategorySelectableRow: View {
                 
                 Text(subcategory.name)
                     .font(.semiBoldSmall())
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }

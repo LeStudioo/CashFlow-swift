@@ -33,6 +33,28 @@ extension Date {
 
 extension Date {
     
+    func monthsBetween(to date: Date) -> Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.month], from: self, to: date)
+        return components.month ?? 0
+    }
+    
+    func daysSince() -> Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: self, to: Date())
+        return components.day ?? 0
+    }
+    
+    func daysTo() -> Int {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: Date(), to: self)
+        return components.day ?? 0
+    }
+    
+}
+
+extension Date {
+    
     var day: Int {
         var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
         components.timeZone = Locale.current.timeZone

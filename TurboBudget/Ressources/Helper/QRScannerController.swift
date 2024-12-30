@@ -103,9 +103,7 @@ class Coordinator: NSObject, AVCaptureMetadataOutputObjectsDelegate {
             
             if metadataObj.type == AVMetadataObject.ObjectType.qr,
                let result = metadataObj.stringValue {
-                
                 scanResult = result
-                print(scanResult)
             }
         }
     }

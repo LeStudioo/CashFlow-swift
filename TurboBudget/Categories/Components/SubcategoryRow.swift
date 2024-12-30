@@ -39,7 +39,7 @@ struct SubcategoryRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(subcategory.name)
                     .font(.semiBoldCustom(size: 20))
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                     .lineLimit(1)
                 
                 Text(stringAmount)

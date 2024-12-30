@@ -46,7 +46,7 @@ struct CategoryRow: View {
             Spacer()
             
             Image(systemName: "chevron.right")
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.text)
                 .font(.system(size: 14, weight: .semibold, design: .rounded))
         }
         .padding()

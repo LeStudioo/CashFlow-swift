@@ -27,7 +27,7 @@ struct ProgressCircle: View {
                 .rotationEffect(.degrees(-90))
             Text(String(format: "%.1f", percentage) + "%")
                 .font(.semiBoldSmall())
-                .foregroundStyle(Color(uiColor: .label))
+                .foregroundStyle(Color.text)
         }
     } // body
 } // struct

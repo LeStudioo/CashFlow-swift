@@ -204,6 +204,8 @@
 
 "empty_savingsPlans_create" = "Crea un plan de ahorro";
 
+"empty_contributions_desc" = "Aún no has registrado ninguna contribución. ¡Empiece ahora!";
+
 "empty_savingsAccounts_desc" = "Aún no has agregado una cuenta de ahorros. ¡Empiece ahora!";
 
 "empty_savingsAccounts_create" = "Crear una cuenta de ahorros";

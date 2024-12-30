@@ -18,7 +18,7 @@ struct DismissButtonInSheet: View {
             Spacer()
             Button(action: { dismiss() }, label: {
                 Image(systemName: "xmark")
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
             })
         }

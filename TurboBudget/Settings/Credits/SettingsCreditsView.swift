@@ -45,7 +45,7 @@ struct SettingsCreditsView: View {
                                     }
                                 Text(license.name)
                                     .font(Font.mediumText16())
-                                    .foregroundStyle(Color(uiColor: .label))
+                                    .foregroundStyle(Color.text)
                                 Spacer()
                                 Image(systemName: "arrow.up.forward")
                                     .foregroundStyle(.secondary300)

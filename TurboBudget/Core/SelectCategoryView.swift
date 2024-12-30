@@ -119,7 +119,7 @@ struct SelectCategoryView: View {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button(action: { dismiss() }, label: {
                         Image(systemName: "xmark")
-                            .foregroundStyle(Color(uiColor: .label))
+                            .foregroundStyle(Color.text)
                             .font(.system(size: 18, weight: .semibold))
                     })
                 }

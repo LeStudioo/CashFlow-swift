@@ -31,7 +31,7 @@ struct AnalyticsLineChart: View {
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Text(amounts.reduce(0, +).toCurrency())
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.semiBoldText18())
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }

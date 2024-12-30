@@ -26,7 +26,7 @@ struct PeopleRow: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text(people.name)
                         .font(.semiBoldText18())
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                     Text(people.job)
                         .font(Font.mediumSmall())
                         .foregroundStyle(Color.customGray)

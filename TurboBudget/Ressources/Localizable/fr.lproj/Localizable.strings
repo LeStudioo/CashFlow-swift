@@ -204,6 +204,8 @@
 
 "empty_savingsPlans_create" = "Créer un plan d'épargne";
 
+"empty_contributions_desc" = "Vous n'avez encore enregistré aucune contribution pour le moment. Commencez dès maintenant !";
+
 "empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment. Commencez dès maintenant !";
 
 "empty_savingsAccounts_create" = "Créer un compte épargne";

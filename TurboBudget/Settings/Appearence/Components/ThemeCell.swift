@@ -39,7 +39,7 @@ struct ThemeCell: View {
                     }
                 Text(type.name)
                     .font(.semiBoldText16())
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
             }
         })
     } // body

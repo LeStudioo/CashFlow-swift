@@ -92,7 +92,7 @@ struct SavingsAccountDetailView: View {
                     )
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }

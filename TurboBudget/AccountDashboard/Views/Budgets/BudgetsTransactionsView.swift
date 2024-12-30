@@ -105,7 +105,7 @@ struct BudgetsTransactionsView: View {
                     Button(role: .destructive, action: { showDeleteBudget.toggle() }, label: { Label("word_delete".localized, systemImage: "trash") })
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }

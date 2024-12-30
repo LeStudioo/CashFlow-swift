@@ -204,6 +204,8 @@
 
 "empty_savingsPlans_create" = "Erstellen Sie einen Sparplan";
 
+"empty_contributions_desc" = "Sie haben noch keine Beiträge registriert. Starten Sie jetzt!";
+
 "empty_savingsAccounts_desc" = "Sie haben noch kein Sparkonto hinzugefügt. Legen Sie jetzt los!";
 
 "empty_savingsAccounts_create" = "Erstellen Sie ein Sparkonto";
@@ -317,7 +319,7 @@
 
 "tip_already_have_shortcut" = "Ich habe die Verknüpfung bereits erhalten";
 
-"tip_applepay_desc_one" = "Verwenden Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt von CashFlow abzurufen.";
+"tip_applepay_desc_one" = "Nutzen Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt aus CashFlow abzurufen.";
 
 "tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
 

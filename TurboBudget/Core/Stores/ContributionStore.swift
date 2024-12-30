@@ -88,4 +88,13 @@ extension ContributionStore {
         self.contributions.sort { $0.date > $1.date }
     }
     
+    func getContributions(in month: Date? = nil, type: ContributionType? = nil) -> [ContributionModel] {
+        return contributions
+            .filter { $0.type == type }
+            .filter {
+                if let month {
+                    return Calendar.current.isDate($0.date, equalTo: month, toGranularity: .month)
+                } else { return true }
+            }
+    }
 }

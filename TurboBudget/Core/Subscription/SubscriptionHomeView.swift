@@ -63,7 +63,7 @@ struct SubscriptionHomeView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationButton(present: router.presentCreateSubscription()) {
                     Image(systemName: "plus")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 }
             }

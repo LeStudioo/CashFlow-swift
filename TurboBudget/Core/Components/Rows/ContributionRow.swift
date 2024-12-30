@@ -63,7 +63,6 @@ struct ContributionRow: View {
         .swipeActionsStyle(.cascade)
         .swipeActionCornerRadius(15)
         .swipeMinimumDistance(30)
-        .padding(.horizontal, 12)
         .padding(.vertical, 2)
     } // body
 } // struct

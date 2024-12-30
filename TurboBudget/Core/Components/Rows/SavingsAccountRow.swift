@@ -25,7 +25,7 @@ struct SavingsAccountRow: View {
                     .overlay {
                         Image(systemName: "building.columns.fill")
                             .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color(uiColor: .label))
+                            .foregroundStyle(Color.text)
                             .shadow(radius: 2, y: 2)
                     }
                 Spacer()

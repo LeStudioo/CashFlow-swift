@@ -165,7 +165,7 @@
 
 "title_new_subscription" = "Nuova automazione";
 
-"title_update_subscription" = "Abbonamento di aggiornamento";
+"title_update_subscription" = "Aggiorna abbonamento";
 
 "title_home_subscriptions" = "Nuova automazione";
 
@@ -203,6 +203,8 @@
 "empty_savingsPlans_desc" = "Non hai ancora registrato un piano di risparmio. Inizia ora!";
 
 "empty_savingsPlans_create" = "Crea un piano di risparmio";
+
+"empty_contributions_desc" = "Non hai ancora registrato alcun contributo. Inizia ora!";
 
 "empty_savingsAccounts_desc" = "Non hai ancora aggiunto un conto di risparmio. Inizia ora!";
 
@@ -503,7 +505,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 

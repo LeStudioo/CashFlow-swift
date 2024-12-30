@@ -49,7 +49,7 @@ struct SavingsPlanDetailView: View {
                         .shadow(color: themeManager.theme.color, radius: 4, y: 2)
                         .overlay {
                             Text(currentSavingsPlan.emoji ?? "")
-                                .font(.system(size: 24, weight: .semibold, design: .rounded))
+                                .font(.system(size: 32, weight: .semibold, design: .rounded))
                                 .shadow(radius: 2, y: 2)
                         }
                 }
@@ -58,54 +58,107 @@ struct SavingsPlanDetailView: View {
                 .titleAdjustSize()
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
-            
-            VStack(spacing: 6) {
-                HStack {
-                    Text(0.toCurrency())
-                    Spacer()
-                    Text(currentSavingsPlan.goalAmount?.toCurrency() ?? "")
+                     
+            VStack(spacing: 40) {
+                VStack(spacing: 8) {
+                    ProgressBar(percentage: currentSavingsPlan.percentageComplete)
+                        .frame(height: 48)
+                    DetailRow(
+                        icon: UserCurrency.name + "sign.circle.fill",
+                        text: "Restant",
+                        value: currentSavingsPlan.amountToTheGoal.toCurrency()
+                    )
+                    DetailRow(
+                        icon: "building.columns.fill",
+                        text: "Contribué",
+                        value: contributionRepository.getContributions(type: .addition)
+                            .compactMap(\.amount)
+                            .reduce(0, +)
+                            .toCurrency()
+                    )
+                    DetailRow(
+                        icon: "flag.fill",
+                        text: "Objectif final",
+                        value: currentSavingsPlan.goalAmount?.toCurrency() ?? ""
+                    )
                 }
-                .font(.semiBoldText16())
-                .foregroundStyle(Color.text)
+               
+                VStack(spacing: 8) {
+                    if currentSavingsPlan.endDate != nil {
+                        DetailRow(
+                            icon: "flag.fill",
+                            text: "Objectif mensuel",
+                            value: currentSavingsPlan.monthlyGoalAmount.toCurrency()
+                        )
+                    }
+                    DetailRow(
+                        icon: "building.columns.fill",
+                        text: "Contribué ce mois-ci",
+                        value: contributionRepository.getContributions(in: .now, type: .addition)
+                            .compactMap(\.amount)
+                            .reduce(0, +)
+                            .toCurrency()
+                    )
+                }
                 
-                ProgressBar(percentage: currentSavingsPlan.percentageComplete)
-                    .frame(height: 48)
-            }
-            .padding(.horizontal, 12)
-            .padding(.bottom, 8)
-            
-            if let endDate = currentSavingsPlan.endDate {
-                DetailRow(
-                    icon: "calendar",
-                    text: Word.Classic.finalTargetDate,
-                    value: endDate.formatted(date: .abbreviated, time: .omitted)
-                )
-                .padding(.horizontal, 12)
-            }
-            
-            TransactionDetailNoteRow(note: $savingPlanNote)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
+                VStack(spacing: 8) {
+                    DetailRow(
+                        icon: "calendar",
+                        text: "Date de début",
+                        value: currentSavingsPlan.startDate.formatted(date: .abbreviated, time: .omitted)
+                    )
+                    DetailRow(
+                        icon: "clock.fill",
+                        text: "Jours écoulés",
+                        value: "\(currentSavingsPlan.daysSinceStart)"
+                    )
+                    
+                    if let endDate = currentSavingsPlan.endDate {
+                        DetailRow(
+                            icon: "hourglass",
+                            text: "Jours restants",
+                            value: "\(currentSavingsPlan.daysRemaining)"
+                        )
                         
-            HStack {
-                Text("word_contributions".localized)
-                    .font(.semiBoldCustom(size: 22))
-                Spacer()
-                Button(action: { router.presentCreateContribution(savingsPlan: currentSavingsPlan) }, label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 22, weight: .medium, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .label))
-                })
+                        DetailRow(
+                            icon: "calendar",
+                            text: "Date de fin",
+                            value: endDate.formatted(date: .abbreviated, time: .omitted)
+                        )
+                    }
+                }
+              
+                TransactionDetailNoteRow(note: $savingPlanNote)
+                
+                VStack(spacing: 8) {
+                    HStack {
+                        Text("word_contributions".localized)
+                            .font(.semiBoldCustom(size: 22))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        NavigationButton(present: router.presentCreateContribution(savingsPlan: currentSavingsPlan)) {
+                            Image(systemName: "plus")
+                                .font(.system(size: 22, weight: .medium, design: .rounded))
+                                .foregroundStyle(Color.text)
+                        }
+                    }
+                    
+                    if contributionRepository.contributions.isNotEmpty {
+                        ForEach(contributionRepository.contributions) { contribution in
+                            ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
+                        }
+                    } else {
+                        CustomEmptyView(
+                            type: .empty(.contributions),
+                            isDisplayed: contributionRepository.contributions.isEmpty
+                        )
+                        .padding(.top)
+                    }
+                }
+                .padding(.bottom)
             }
-            .padding(.top)
-            .padding(.horizontal, 12)
-            
-            ForEach(contributionRepository.contributions) { contribution in
-                ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
-            }
-            
-            Spacer()
         } // ScrollView
+        .padding(.horizontal)
         .scrollIndicators(.hidden)
         .onAppear {
             savingPlanNote = currentSavingsPlan.note ?? ""
@@ -146,7 +199,7 @@ struct SavingsPlanDetailView: View {
                     )
                 }, label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 })
             }

@@ -42,7 +42,7 @@ struct CreateAccountView: View {
                     if onboardingAction == nil {
                         Button(action: { dismiss() }, label: {
                             Image(systemName: "xmark")
-                                .foregroundStyle(Color(uiColor: .label))
+                                .foregroundStyle(Color.text)
                                 .font(.system(size: 18, weight: .semibold))
                         })
                     }

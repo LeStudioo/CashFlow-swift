@@ -48,7 +48,7 @@ struct BudgetsHomeView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 NavigationButton(present: router.presentCreateBudget()) {
                     Image(systemName: "plus")
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .font(.system(size: 18, weight: .medium, design: .rounded))
                 }
             }

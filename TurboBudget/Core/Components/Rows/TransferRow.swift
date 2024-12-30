@@ -57,7 +57,7 @@ struct TransferRow: View {
                         .font(Font.mediumSmall())
                     Text(isSender ? Word.Classic.sent : Word.Classic.received)
                         .font(.semiBoldText18())
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color.text)
                         .lineLimit(1)
                 }
                 

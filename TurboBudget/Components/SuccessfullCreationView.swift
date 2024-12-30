@@ -40,7 +40,7 @@ struct SuccessfullCreationView: View {
                     VStack(spacing: 16) {
                         Text(succesfullModalManager.title)
                             .font(.semiBoldCustom(size: 28))
-                            .foregroundStyle(Color(uiColor: .label))
+                            .foregroundStyle(Color.text)
                         
                         Text(succesfullModalManager.subtitle)
                             .font(.mediumSmall())

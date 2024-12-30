@@ -164,6 +164,9 @@ struct Word {
             static let desc: String = "empty_savingsPlans_desc".localized
             static let create: String = "empty_savingsPlans_create".localized
         }
+        struct Contribution {
+            static let desc: String = "empty_contributions_desc".localized
+        }
         struct SavingsAccount {
             static let desc: String = "empty_savingsAccounts_desc".localized
             static let create: String = "empty_savingsAccounts_create".localized

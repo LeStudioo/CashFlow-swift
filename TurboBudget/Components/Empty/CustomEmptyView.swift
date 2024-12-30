@@ -18,7 +18,11 @@ struct CustomEmptyView: View {
     
     var isSituation: Bool {
         switch type {
-        case .empty:        return true
+        case .empty(let situation):
+            switch situation {
+            case .contributions: return false
+            default: return true
+            }
         case .noResults:    return false
         }
     }
@@ -105,6 +109,7 @@ enum CustomEmptyViewSituation {
     case transactions
     case subscriptions
     case savingsPlan
+    case contributions
     case savingsAccount
     case analytics
     
@@ -117,6 +122,8 @@ enum CustomEmptyViewSituation {
         case .subscriptions:
             return "NoAutomation" // TBL To edit to subscription
         case .savingsPlan:
+            return "NoSavingPlan"
+        case .contributions:
             return "NoSavingPlan"
         case .savingsAccount:
             return "NoSavingPlan"
@@ -135,6 +142,8 @@ enum CustomEmptyViewSituation {
             return Word.Empty.Subscription.desc
         case .savingsPlan:
             return Word.Empty.SavingsPlan.desc
+        case .contributions:
+            return Word.Empty.Contribution.desc
         case .savingsAccount:
             return Word.Empty.SavingsAccount.desc
         case .analytics:
@@ -152,6 +161,8 @@ enum CustomEmptyViewSituation {
             return Word.Empty.Subscription.create
         case .savingsPlan:
             return Word.Empty.SavingsPlan.create
+        case .contributions:
+            return ""
         case .savingsAccount:
             return Word.Empty.SavingsAccount.create
         case .analytics:
@@ -171,6 +182,8 @@ enum CustomEmptyViewSituation {
             router.presentCreateSavingsPlan()
         case .savingsAccount:
             router.presentCreateAccount(type: .savings)
+        case .contributions:
+            break
         case .analytics:
             router.presentCreateTransaction()
         }

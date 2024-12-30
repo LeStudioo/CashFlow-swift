@@ -84,17 +84,32 @@ struct SavingsPlanModel: Codable, Identifiable, Equatable, Hashable {
 
 extension SavingsPlanModel {
     
-    var amountToTheGoal: Double {
-        guard let goalAmount, let currentAmount else { return 0 }
-        return goalAmount - currentAmount
-    }
-    
     var startDate: Date {
         return self.startDateString?.toDate() ?? .now
     }
     
     var endDate: Date? {
         return self.endDateString?.toDate()
+    }
+    
+    var daysSinceStart: Int {
+        return max(0, startDate.daysSince())
+    }
+    
+    var daysRemaining: Int {
+        guard let endDate else { return 0 }
+        return max(0, endDate.daysTo())
+    }
+    
+    var amountToTheGoal: Double {
+        guard let goalAmount else { return 0 }
+        return max(0, goalAmount - (currentAmount ?? 0))
+    }
+    
+    var monthlyGoalAmount: Double {
+        guard let goalAmount, let endDate else { return 0 }
+        let monthsBetween = startDate.monthsBetween(to: endDate)
+        return goalAmount / Double(monthsBetween)
     }
     
     var percentageComplete: Double {

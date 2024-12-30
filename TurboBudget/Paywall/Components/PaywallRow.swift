@@ -32,7 +32,7 @@ struct PaywallRow: View {
                 Text(title)
                     .font(.semiBoldText16())
                     .lineLimit(1)
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
                 Text(text)
                     .font(Font.mediumSmall())
                     .multilineTextAlignment(.leading)
@@ -44,7 +44,7 @@ struct PaywallRow: View {
             
             if isDetailed {
                 Image(systemName: "chevron.right")
-                    .foregroundStyle(Color(uiColor: .label))
+                    .foregroundStyle(Color.text)
             }
         }
     } // body
