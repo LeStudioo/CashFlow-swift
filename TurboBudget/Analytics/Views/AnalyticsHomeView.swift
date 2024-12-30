@@ -20,21 +20,39 @@ struct AnalyticsHomeView: View {
     @EnvironmentObject private var router: NavigationManager
     
     // Custom
-    @ObservedObject var filter = FilterManager.shared
-    
     @State private var dailyExpenses: [AmountByDay] = []
     @State private var dailyIncomes: [AmountByDay] = []
     @State private var dailySubscriptionsExpenses: [AmountByDay] = []
     @State private var dailySubscriptionsIncomes: [AmountByDay] = []
     
     @State private var selectedDate: Date = Date()
+    @State private var selectedYear: Int = Date().year
+    @State private var amount: Double = 0
 
     // MARK: -
     var body: some View {
         ScrollView {
             if !transactionRepository.transactions.isEmpty {
                 VStack(spacing: 16) {
-                    CashFlowChart(selectedDate: $selectedDate)
+                    GenericBarChart(
+                        title: "cashflowchart_title".localized,
+                        selectedDate: $selectedDate,
+                        values: accountRepository.cashflow,
+                        amount: amount
+                    )
+                    .onChange(of: selectedDate) { _ in
+                        Task {
+                            if selectedDate.year != selectedYear {
+                                selectedYear = selectedDate.year
+                                await fetchCashFlow()
+                            }
+                            amount = accountRepository.cashFlowAmount(for: selectedDate)
+                        }
+                    }
+                    .task {
+                        await fetchCashFlow()
+                        amount = accountRepository.cashFlowAmount(for: selectedDate)
+                    }
                     
                     NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .income)) {
                         GenericLineChart(
@@ -104,7 +122,7 @@ struct AnalyticsHomeView: View {
         .onAppear {
             updateChartData()
         }
-    } // End body
+    } // body
     
     private func updateChartData() {
         withAnimation(.smooth) {
@@ -115,7 +133,13 @@ struct AnalyticsHomeView: View {
         }
     }
     
-} // End struct
+    func fetchCashFlow() async {
+        if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
+            await accountRepository.fetchCashFlow(accountID: accountID, year: selectedDate.year)
+        }
+    }
+    
+} // struct
 
 // MARK: - Preview
 #Preview {

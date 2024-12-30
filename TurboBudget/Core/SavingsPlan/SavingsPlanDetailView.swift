@@ -30,6 +30,11 @@ struct SavingsPlanDetailView: View {
         case note
     }
     @FocusState var focusedField: Field?
+    
+    @State private var selectedDate: Date = Date()
+    @State private var selectedYear: Int = Date().year
+    @State private var contributionsByMonth: [Double] = []
+    @State private var amount: Double = 0
         
     var currentSavingsPlan: SavingsPlanModel {
         return savingsPlanStore.savingsPlans.first { $0.id == savingsPlan.id } ?? savingsPlan
@@ -82,7 +87,27 @@ struct SavingsPlanDetailView: View {
                
                 VStack(spacing: 8) {
                     if amountContributed != 0 {
-                        SavingsPlanChart()
+                        GenericBarChart(
+                            title: selectedDate.formatted(Date.FormatStyle().month(.wide).year()).capitalized,
+                            selectedDate: $selectedDate,
+                            values: contributionsByMonth,
+                            amount: amount
+                        )
+                        .onChange(of: selectedDate) { _ in
+                            if selectedDate.year != selectedYear {
+                                selectedYear = selectedDate.year
+                                contributionsByMonth = contributionStore.getContributionsAmountByMonth(for: selectedDate.year)
+                            }
+                            amount = contributionsByMonth[selectedDate.month - 1]
+                        }
+                        .onChange(of: contributionStore.contributions.count) { _ in
+                            contributionsByMonth = contributionStore.getContributionsAmountByMonth(for: selectedDate.year)
+                            amount = contributionsByMonth[selectedDate.month - 1]
+                        }
+                        .onAppear {
+                            contributionsByMonth = contributionStore.getContributionsAmountByMonth(for: selectedDate.year)
+                            amount = contributionsByMonth[selectedDate.month - 1]
+                        }
                     }
                     if currentSavingsPlan.endDate != nil {
                         DetailRow(
