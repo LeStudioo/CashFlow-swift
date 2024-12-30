@@ -99,11 +99,7 @@ extension SavingsPlanModel {
     
     var percentageComplete: Double {
         guard let goalAmount, let currentAmount else { return 0 }        
-        if currentAmount / goalAmount >= 0.96 {
-            return 0.96
-        } else {
-            return currentAmount / goalAmount
-        }
+        return currentAmount / goalAmount
     }
     
 }

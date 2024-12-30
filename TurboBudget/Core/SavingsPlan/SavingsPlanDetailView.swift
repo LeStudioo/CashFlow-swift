@@ -36,17 +36,6 @@ struct SavingsPlanDetailView: View {
         return savingsPlanStore.savingsPlans.first { $0.id == savingsPlan.id } ?? savingsPlan
     }
     
-    var percentage: Double {
-        guard let currentAmount = currentSavingsPlan.currentAmount else { return 0 }
-        guard let goalAmount = currentSavingsPlan.goalAmount else { return 0 }
-        
-        if currentAmount / goalAmount > 0.98 {
-            return 0.98
-        } else {
-            return currentAmount / goalAmount
-        }
-    }
-        
     // MARK: -
     var body: some View {
         ScrollView {
@@ -79,7 +68,7 @@ struct SavingsPlanDetailView: View {
                 .font(.semiBoldText16())
                 .foregroundStyle(Color.text)
                 
-                ProgressBar(percentage: percentage)
+                ProgressBar(percentage: currentSavingsPlan.percentageComplete)
                     .frame(height: 48)
             }
             .padding(.horizontal, 12)
