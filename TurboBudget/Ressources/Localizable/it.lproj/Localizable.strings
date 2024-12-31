@@ -181,11 +181,11 @@
 
 "title_new_transfer" = "Nuovo trasferimento";
 
-"title_new_subscription" = "Nuova automazione";
+"title_new_subscription" = "Nuovo abbonamento";
 
 "title_update_subscription" = "Aggiorna abbonamento";
 
-"title_home_subscriptions" = "Nuova automazione";
+"title_home_subscriptions" = "Nuovo abbonamento";
 
 "title_new_savingsPlan" = "Nuovo piano di risparmio";
 
@@ -259,7 +259,7 @@
 
 "successful_subscription_new_title" = "Abbonamento creato!";
 
-"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta al tuo elenco di abbonamenti.";
+"successful_subscription_new_desc" = "La tua iscrizione è stata elaborata e aggiunta all'elenco delle tue iscrizioni.";
 
 "successful_subscription_update_title" = "Abbonamento modificato!";
 
@@ -401,7 +401,7 @@
 
 "whatsnew_ui" = "Interfaccia utente migliorata, più adatta alle tue esigenze e più efficiente";
 
-"whatsnew_stats" = "È ora disponibile un riepilogo delle transazioni per l'anno corrente e per quelli precedenti";
+"whatsnew_stats" = "È ora disponibile un riepilogo delle transazioni per l'anno corrente e quelli precedenti";
 
 "whatsnew_creditcard" = "Ora conserva le tue carte di credito in modo sicuro nell'applicazione (portachiavi Apple)";
 
@@ -523,7 +523,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla modifiche";
+"word_cancel_changes" = "Annulla le modifiche";
 
 "word_return" = "Indietro";
 

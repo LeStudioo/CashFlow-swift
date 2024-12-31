@@ -181,11 +181,11 @@
 
 "title_new_transfer" = "Neuer Transfer";
 
-"title_new_subscription" = "Neue Automatisierung";
+"title_new_subscription" = "Neues Abonnement";
 
 "title_update_subscription" = "Upgrade-Abonnement";
 
-"title_home_subscriptions" = "Neue Automatisierung";
+"title_home_subscriptions" = "Neues Abonnement";
 
 "title_new_savingsPlan" = "Neuer Sparplan";
 
@@ -337,7 +337,7 @@
 
 "tip_already_have_shortcut" = "Ich habe die Verknüpfung bereits erhalten";
 
-"tip_applepay_desc_one" = "Nutzen Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt aus CashFlow abzurufen.";
+"tip_applepay_desc_one" = "Verwenden Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt von CashFlow abzurufen.";
 
 "tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
 
@@ -390,7 +390,7 @@
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 

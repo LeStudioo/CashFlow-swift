@@ -76,6 +76,9 @@ struct CreateTransactionView: View {
                         .onChange(of: viewModel.selectedCategory) { newValue in
                             if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
                                 viewModel.transactionType = .expense
+                            } else if newValue == CategoryModel.revenue {
+                                viewModel.transactionType = .income
+                                viewModel.selectedSubcategory = nil
                             }
                         }
                         

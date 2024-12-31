@@ -76,6 +76,9 @@ struct CreateSubscriptionView: View {
                         .onChange(of: viewModel.selectedCategory) { newValue in
                             if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
                                 viewModel.type = .expense
+                            } else if newValue == CategoryModel.revenue {
+                                viewModel.type = .income
+                                viewModel.selectedSubcategory = nil
                             }
                         }
                         

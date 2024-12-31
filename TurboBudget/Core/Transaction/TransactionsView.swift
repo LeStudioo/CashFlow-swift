@@ -9,20 +9,12 @@
 
 import SwiftUI
 
-enum FilterForRecentTransaction: Int, CaseIterable {
-    case month, expenses, incomes, category
-}
-
 struct TransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
-        
-    // String variables
-    @State private var searchText: String = ""
-    
+            
     // MARK: -
     var body: some View {
         TransactionsListView()
@@ -37,6 +29,14 @@ struct TransactionsView: View {
             .navigationBarBackButtonHidden(true)
             .toolbar {
                 ToolbarDismissPushButton()
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationButton(present: router.presentCreateTransaction()) {
+                        Image(systemName: "plus")
+                            .foregroundStyle(Color.text)
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                    }
+                }
             }
     } // body
 } // struct

@@ -181,11 +181,11 @@
 
 "title_new_transfer" = "Nueva transferencia";
 
-"title_new_subscription" = "Nueva automatización";
+"title_new_subscription" = "Nueva suscripción";
 
 "title_update_subscription" = "Suscripción de actualización";
 
-"title_home_subscriptions" = "Nueva automatización";
+"title_home_subscriptions" = "Nueva suscripción";
 
 "title_new_savingsPlan" = "Nuevo plan de ahorro";
 
@@ -208,7 +208,7 @@
 //MARK: - Empty
 "empty_accounts_desc" = "¡Crea tu primera cuenta para comenzar a usar CashFlow!";
 
-"empty_accounts_create" = "Crear una cuenta";
+"empty_accounts_create" = "Crea una cuenta";
 
 "empty_transactions_desc" = "Aún no has registrado ninguna transacción. ¡Empiece ahora!";
 
@@ -373,7 +373,7 @@
 
 "creditcard_maxCard" = "Importe máximo alcanzado";
 
-"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta.";
+"creditcard_maxCard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
 
 "creditcard_delete_title" = "Eliminar la tarjeta de crédito";
 

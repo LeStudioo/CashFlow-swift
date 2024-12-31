@@ -5,7 +5,7 @@
 
 "word_price" = "Price";
 
-"word_typeOfTransaction" = "Transaction Type";
+"word_typeOfTransaction" = "Transaction type";
 
 "word_typeOfContribution" = "Contribution type";
 
@@ -181,7 +181,7 @@
 
 "title_new_transfer" = "New transfer";
 
-"title_new_subscription" = "New automation";
+"title_new_subscription" = "New subscription";
 
 "title_update_subscription" = "Update subscription";
 
