@@ -33,14 +33,17 @@ struct AccountDashboardView: View {
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                     
-                    VStack(spacing: -2) {
-                        Text("account_detail_avail_balance".localized)
-                            .font(Font.mediumText16())
-                            .foregroundStyle(Color.customGray)
+                    VStack(alignment: .leading) {
+                            Text(account.balance.toCurrency())
+                                .titleAdjustSize()
+                                .animation(.default, value: account.balance)
+                                .contentTransition(.numericText())
                         
-                        Text(account.balance.toCurrency())
-                            .titleAdjustSize()
+                        Text("home_screen_available_balance".localized)
+                            .foregroundStyle(Color.customGray)
+                            .font(Font.mediumText16())
                     }
+                    .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
                 }
             }
