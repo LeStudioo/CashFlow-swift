@@ -65,12 +65,7 @@ extension SubscriptionStore {
                 responseModel: SubscriptionModel.self
             )
             if let index = self.subscriptions.map(\.id).firstIndex(of: subscriptionID) {
-                self.subscriptions[index].name = subscription.name
-                self.subscriptions[index].amount = subscription.amount
-                self.subscriptions[index].frequencyDate = subscription.frequencyDate
-                self.subscriptions[index].frequencyNum = subscription.frequencyNum
-                self.subscriptions[index].categoryID = subscription.categoryID
-                self.subscriptions[index].subcategoryID = subscription.subcategoryID
+                self.subscriptions[index] = subscription
                 sortSubscriptionsByDate()
             }
             return subscription

@@ -60,12 +60,7 @@ extension SavingsPlanStore {
                 responseModel: SavingsPlanModel.self
             )
             if let index = self.savingsPlans.map(\.id).firstIndex(of: savingsPlanID) {
-                self.savingsPlans[index].name = savingsPlan.name
-                self.savingsPlans[index].emoji = savingsPlan.emoji
-                self.savingsPlans[index].goalAmount = savingsPlan.goalAmount
-                self.savingsPlans[index].startDateString = savingsPlan.startDateString
-                self.savingsPlans[index].endDateString = savingsPlan.endDateString
-                self.savingsPlans[index].note = savingsPlan.note
+                self.savingsPlans[index] = savingsPlan
             }
         } catch { NetworkService.handleError(error: error) }
     }
