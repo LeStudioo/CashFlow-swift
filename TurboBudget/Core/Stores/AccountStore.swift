@@ -32,15 +32,12 @@ extension AccountStore {
     @MainActor
     func fetchAccounts() async {
         do {
-            let accounts = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.fetch,
-                responseModel: [AccountModel].self
-            )
+            let accounts = try await AccountService.fetchAll()
+            
             self.accounts = accounts.filter { $0.type == .classic }
-            if self.accounts.count == 1 {
-                self.selectedAccount = self.accounts.first
-            }
             self.savingsAccounts = accounts.filter { $0.type == .savings }
+
+            self.selectedAccount = self.accounts.first
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -48,10 +45,7 @@ extension AccountStore {
     @MainActor
     func createAccount(body: AccountModel) async -> AccountModel? {
         do {
-            let account = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.create(body: body),
-                responseModel: AccountModel.self
-            )
+            let account = try await AccountService.create(body: body)
             if account.type == .classic {
                 self.accounts.append(account)
             } else if account.type == .savings {
@@ -67,22 +61,19 @@ extension AccountStore {
     @MainActor
     func updateAccount(accountID: Int, body: AccountModel) async {
         do {
-            let account = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.update(accountID: accountID, body: body),
-                responseModel: AccountModel.self
-            )
+            let account = try await AccountService.update(id: accountID, body: body)
+            
             if account.type == .classic {
-                if let index = self.accounts.map(\.id).firstIndex(of: account.id) {
-                    self.accounts[index]._name = account.name
+                if let index = self.accounts.firstIndex(where: { $0.id == accountID }) {
+                    self.accounts[index] = account
                     if selectedAccount?.id == accountID {
                         selectedAccount = nil
                         selectedAccount = self.accounts[index]
                     }
                 }
             } else if account.type == .savings {
-                if let index = self.savingsAccounts.map(\.id).firstIndex(of: account.id) {
-                    self.savingsAccounts[index]._name = account.name
-                    self.savingsAccounts[index].maxAmount = account.maxAmount
+                if let index = self.savingsAccounts.firstIndex(where: { $0.id == accountID }) {
+                    self.savingsAccounts[index] = account
                 }
             }
         } catch { NetworkService.handleError(error: error) }
@@ -91,11 +82,11 @@ extension AccountStore {
     @MainActor
     func deleteAccount(accountID: Int) async {
         do {
-            try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.delete(accountID: accountID)
-            )
+            try await AccountService.delete(id: accountID)
+            
             self.accounts.removeAll { $0.id == accountID }
             self.savingsAccounts.removeAll { $0.id == accountID }
+            
             if selectedAccount?.id == accountID {
                 TransactionStore.shared.transactions = []
                 SubscriptionStore.shared.subscriptions = []
@@ -108,22 +99,14 @@ extension AccountStore {
     @MainActor
     func fetchCashFlow(accountID: Int, year: Int) async {
         do {
-            let results = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.cashflow(accountID: accountID, year: year),
-                responseModel: [Double].self
-            )
-            self.cashflow = results
+            self.cashflow = try await AccountService.fetchCashFlow(id: accountID, year: year)
         } catch { NetworkService.handleError(error: error) }
     }
     
     @MainActor
     func fetchStats(accountID: Int, withSavings: Bool) async {
         do {
-            let results = try await NetworkService.shared.sendRequest(
-                apiBuilder: AccountAPIRequester.stats(accountID: accountID, withSavings: withSavings),
-                responseModel: StatisticsModel.self
-            )
-            self.stats = results
+            self.stats = try await AccountService.fetchStats(id: accountID, withSavings: withSavings)
         } catch { NetworkService.handleError(error: error) }
     }
 }
