@@ -18,32 +18,15 @@ extension SavingsPlanStore {
     @MainActor
     func fetchSavingsPlans(accountID: Int) async {
         do {
-            let savingsPlans = try await NetworkService.shared.sendRequest(
-                apiBuilder: SavingsPlanAPIRequester.fetch(accountID: accountID),
-                responseModel: [SavingsPlanModel].self
-            )
-            self.savingsPlans = savingsPlans
+            self.savingsPlans = try await SavingsPlanService.fetchAll(for: accountID)
         } catch { NetworkService.handleError(error: error) }
     }
     
-    @MainActor
-    func createSavingsPlan(accountID: Int, body: SavingsPlanModel) async {
-        do {
-            let savingsPlan = try await NetworkService.shared.sendRequest(
-                apiBuilder: SavingsPlanAPIRequester.create(accountID: accountID, body: body),
-                responseModel: SavingsPlanModel.self
-            )
-            self.savingsPlans.append(savingsPlan)
-        } catch { NetworkService.handleError(error: error) }
-    }
-    
+    @discardableResult
     @MainActor
     func createSavingsPlan(accountID: Int, body: SavingsPlanModel) async -> SavingsPlanModel? {
         do {
-            let savingsPlan = try await NetworkService.shared.sendRequest(
-                apiBuilder: SavingsPlanAPIRequester.create(accountID: accountID, body: body),
-                responseModel: SavingsPlanModel.self
-            )
+            let savingsPlan = try await SavingsPlanService.create(accountID: accountID, body: body)
             self.savingsPlans.append(savingsPlan)
             return savingsPlan
         } catch {
@@ -55,11 +38,8 @@ extension SavingsPlanStore {
     @MainActor
     func updateSavingsPlan(savingsPlanID: Int, body: SavingsPlanModel) async {
         do {
-            let savingsPlan = try await NetworkService.shared.sendRequest(
-                apiBuilder: SavingsPlanAPIRequester.update(savingsplanID: savingsPlanID, body: body),
-                responseModel: SavingsPlanModel.self
-            )
-            if let index = self.savingsPlans.map(\.id).firstIndex(of: savingsPlanID) {
+            let savingsPlan = try await SavingsPlanService.update(savingsPlanID: savingsPlanID, body: body)
+            if let index = self.savingsPlans.firstIndex(where: { $0.id == savingsPlan.id }) {
                 self.savingsPlans[index] = savingsPlan
             }
         } catch { NetworkService.handleError(error: error) }
@@ -68,12 +48,13 @@ extension SavingsPlanStore {
     @MainActor
     func deleteSavingsPlan(savingsPlanID: Int) async {
         do {
-            try await NetworkService.shared.sendRequest(
-                apiBuilder: SavingsPlanAPIRequester.delete(savingsplanID: savingsPlanID)
-            )
-            self.savingsPlans.removeAll { $0.id == savingsPlanID } 
+            try await SavingsPlanService.delete(savingsPlanID: savingsPlanID)
+            if let index = self.savingsPlans.firstIndex(where: { $0.id == savingsPlanID }) {
+                self.savingsPlans.remove(at: index)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
+    
 }
 
 extension SavingsPlanStore {
