@@ -14,6 +14,7 @@ struct TransactionRow: View {
     
     // Builder
     var transaction: TransactionModel
+    var isEditable: Bool = true
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
@@ -65,21 +66,23 @@ struct TransactionRow: View {
                         .fill(Color.background100)
                 }
             }, trailingActions: { context in
-            SwipeAction(action: {
-                router.presentCreateTransaction(transaction: currentTransaction)
-                context.state.wrappedValue = .closed
-            }, label: { _ in
-                VStack(spacing: 5) {
-                    Image(systemName: "pencil")
-                        .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text(Word.Classic.edit)
-                        .font(.semiBoldCustom(size: 10))
+                if isEditable {
+                    SwipeAction(action: {
+                        router.presentCreateTransaction(transaction: currentTransaction)
+                        context.state.wrappedValue = .closed
+                    }, label: { _ in
+                        VStack(spacing: 5) {
+                            Image(systemName: "pencil")
+                                .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            Text(Word.Classic.edit)
+                                .font(.semiBoldCustom(size: 10))
+                        }
+                        .foregroundStyle(Color.textReversed)
+                    }, background: { _ in
+                        Rectangle()
+                            .foregroundStyle(.blue)
+                    })
                 }
-                .foregroundStyle(Color.textReversed)
-            }, background: { _ in
-                Rectangle()
-                    .foregroundStyle(.blue)
-            })
             
             SwipeAction(action: {
                 AlertManager.shared.deleteTransaction(transaction: currentTransaction)

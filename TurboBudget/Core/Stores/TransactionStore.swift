@@ -182,7 +182,10 @@ extension TransactionStore {
                 apiBuilder: TransactionAPIRequester.delete(id: transactionID),
                 responseModel: TransactionResponseWithBalance.self
             )
-            self.transactions.removeAll { $0.id == transactionID }
+            if let index = self.transactions.firstIndex(where: { $0.id == transactionID }) {
+                self.transactions.remove(at: index)
+            }
+            TransferStore.shared.transfers.removeAll { $0.id == transactionID }
             if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }

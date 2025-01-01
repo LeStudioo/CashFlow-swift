@@ -22,6 +22,10 @@ struct SavingsAccountDetailView: View {
     @State private var accountNameForDeleting: String = ""
     @State private var isDeleting: Bool = false
     
+    var currentAccount: AccountModel {
+        return accountRepository.savingsAccounts.first { $0.id == savingsAccountStore.currentAccount.id }  ?? savingsAccountStore.currentAccount
+    }
+    
     // init
     init(savingsAccount: AccountModel) {
         self._savingsAccountStore = StateObject(wrappedValue: .init(currentAccount: savingsAccount))
@@ -30,7 +34,7 @@ struct SavingsAccountDetailView: View {
     // MARK: - body
     var body: some View {
         List {
-            SavingsAccountInfos(savingsAccount: savingsAccountStore.currentAccount)
+            SavingsAccountInfos(savingsAccount: currentAccount)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
             
@@ -43,8 +47,7 @@ struct SavingsAccountDetailView: View {
                                     TransferRow(transfer: transfer)
                                         .environmentObject(savingsAccountStore)
                                 } else {
-                                    TransactionRow(transaction: transfer)
-                                        .disabled(true)
+                                    TransactionRow(transaction: transfer, isEditable: false)
                                 }
                             }
                             .padding(.horizontal)
