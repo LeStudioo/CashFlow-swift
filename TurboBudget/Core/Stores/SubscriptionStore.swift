@@ -30,11 +30,7 @@ extension SubscriptionStore {
     @MainActor
     func fetchSubscriptions(accountID: Int) async {
         do {
-            let subscriptions = try await NetworkService.shared.sendRequest(
-                apiBuilder: SubscriptionAPIRequester.fetch(accountID: accountID),
-                responseModel: [SubscriptionModel].self
-            )
-            self.subscriptions = subscriptions
+            self.subscriptions = try await SubscriptionService.fetchAll(for: accountID)
             sortSubscriptionsByDate()
         } catch { NetworkService.handleError(error: error) }
     }
@@ -43,10 +39,7 @@ extension SubscriptionStore {
     @MainActor
     func createSubscription(accountID: Int, body: SubscriptionModel, shouldReturn: Bool = false) async -> SubscriptionModel? {
         do {
-            let subscription = try await NetworkService.shared.sendRequest(
-                apiBuilder: SubscriptionAPIRequester.create(accountID: accountID, body: body),
-                responseModel: SubscriptionModel.self
-            )
+            let subscription = try await SubscriptionService.create(accountID: accountID, body: body)
             self.subscriptions.append(subscription)
             sortSubscriptionsByDate()
             return shouldReturn ? subscription : nil
@@ -60,11 +53,8 @@ extension SubscriptionStore {
     @MainActor
     func updateSubscription(subscriptionID: Int, body: SubscriptionModel) async -> SubscriptionModel? {
         do {
-            let subscription = try await NetworkService.shared.sendRequest(
-                apiBuilder: SubscriptionAPIRequester.update(subscriptionID: subscriptionID, body: body),
-                responseModel: SubscriptionModel.self
-            )
-            if let index = self.subscriptions.map(\.id).firstIndex(of: subscriptionID) {
+            let subscription = try await SubscriptionService.update(subscriptionID: subscriptionID, body: body)
+            if let index = self.subscriptions.firstIndex(where: { $0.id == subscriptionID }) {
                 self.subscriptions[index] = subscription
                 sortSubscriptionsByDate()
             }
@@ -78,10 +68,10 @@ extension SubscriptionStore {
     @MainActor
     func deleteSubscription(subscriptionID: Int) async {
         do {
-            try await NetworkService.shared.sendRequest(
-                apiBuilder: SubscriptionAPIRequester.delete(subscriptionID: subscriptionID)
-            )
-            self.subscriptions.removeAll(where: { $0.id == subscriptionID })
+            try await SubscriptionService.delete(subscriptionID: subscriptionID)
+            if let index = self.subscriptions.firstIndex(where: { $0.id == subscriptionID }) {
+                self.subscriptions.remove(at: index)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     
