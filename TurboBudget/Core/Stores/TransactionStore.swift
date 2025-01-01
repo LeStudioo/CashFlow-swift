@@ -48,65 +48,20 @@ extension TransactionStore {
 extension TransactionStore {
     
     @MainActor
-    func fetchTransactions(accountID: Int) async {
-        do {
-            let transactions = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.fetch(accountID: accountID),
-                responseModel: [TransactionModel].self
-            )
-            self.transactions = transactions
-            sortTransactionsByDate()
-        } catch { NetworkService.handleError(error: error) }
-    }
-    
-//    @MainActor
-//    func fetchTransactionsWithPagination(accountID: Int, startDate: Date, endDate: Date) async {
-//        do {
-//            let transactions = try await NetworkService.shared.sendRequest(
-//                apiBuilder: TransactionAPIRequester.fetchWithPagination(
-//                    accountID: accountID,
-//                    startDate: startDate,
-//                    endDate: endDate
-//                ),
-//                responseModel: [TransactionModel].self
-//            )
-//            self.transactions += transactions
-//            sortTransactionsByDate()
-//        } catch { NetworkService.handleError(error: error) }
-//    }
-    
-    @MainActor
-    func fetchTransactionsWithPagination(accountID: Int, perPage: Int = 50) async {
-        do {
-            let transactions = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.fetchWithPagination(
-                    accountID: accountID,
-                    perPage: perPage,
-                    skip: self.transactions.count
-                ),
-                responseModel: [TransactionModel].self
-            )
-            self.transactions += transactions
-            sortTransactionsByDate()
-        } catch { NetworkService.handleError(error: error) }
-    }
-    
-    @MainActor
     func fetchTransactionsByPeriod(accountID: Int, startDate: Date, endDate: Date, type: TransactionType? = nil) async {
         guard dateFetched.filter({ Calendar.current.isDate($0, equalTo: startDate, toGranularity: .month) }).isEmpty else { return }
         
         do {
-            let transactions = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.fetchByPeriod(
-                    accountID: accountID,
-                    startDate: startDate.toQueryParam(),
-                    endDate: endDate.toQueryParam(),
-                    type: type?.rawValue
-                ),
-                responseModel: [TransactionModel].self
+            let transactions = try await TransactionService.fetchTransactionsByPeriod(
+                accountID: accountID,
+                startDate: startDate,
+                endDate: endDate,
+                type: type
             )
+            
             currentDateForFetch = startDate
             self.dateFetched.append(currentDateForFetch)
+            
             self.transactions += transactions
             sortTransactionsByDate()
         } catch { NetworkService.handleError(error: error) }
@@ -117,10 +72,8 @@ extension TransactionStore {
     @MainActor
     func createTransaction(accountID: Int, body: TransactionModel, shouldReturn: Bool = false, addInRepo: Bool = true) async -> TransactionModel? {
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
-                responseModel: TransactionResponseWithBalance.self
-            )
+            let response = try await TransactionService.create(accountID: accountID, body: body)
+            
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 if addInRepo {
                     self.transactions.append(transaction)
@@ -141,10 +94,8 @@ extension TransactionStore {
     @MainActor
     func updateTransaction(accountID: Int, transactionID: Int, body: TransactionModel, shouldReturn: Bool = false) async -> TransactionModel? {
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.update(id: transactionID, body: body),
-                responseModel: TransactionResponseWithBalance.self
-            )
+            let response = try await TransactionService.update(transactionID: transactionID, body: body)
+            
             if let transaction = response.transaction, let newBalance = response.newBalance {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
                     self.transactions[index] = transaction
@@ -163,11 +114,7 @@ extension TransactionStore {
     @MainActor
     func fetchCategory(name: String, transactionID: Int? = nil) async -> TransactionFetchCategoryResponse? {
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.fetchCategory(name: name, transactionID: transactionID),
-                responseModel: TransactionFetchCategoryResponse.self
-            )
-            return response
+            return try await TransactionService.fetchRecommendedCategory(name: name, transactionID: transactionID)
         } catch {
             NetworkService.handleError(error: error)
             return nil
@@ -178,14 +125,13 @@ extension TransactionStore {
     func deleteTransaction(transactionID: Int) async {
         let accountRepo: AccountStore = .shared
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransactionAPIRequester.delete(id: transactionID),
-                responseModel: TransactionResponseWithBalance.self
-            )
+            let response = try await TransactionService.delete(transactionID: transactionID)
+            
             if let index = self.transactions.firstIndex(where: { $0.id == transactionID }) {
                 self.transactions.remove(at: index)
             }
             TransferStore.shared.transfers.removeAll { $0.id == transactionID }
+            
             if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
@@ -198,11 +144,13 @@ extension TransactionStore {
     func fetchTransactionsOfCurrentMonth(accountID: Int) async {
         let startDate = Date().startOfMonth
         let endDate = Date().endOfMonth
+        
         await self.fetchTransactionsByPeriod(
             accountID: accountID,
             startDate: startDate,
             endDate: endDate
         )
+        
         if self.transactions.count < 15 {
             await self.fetchTransactionsByPeriod(
                 accountID: accountID,
