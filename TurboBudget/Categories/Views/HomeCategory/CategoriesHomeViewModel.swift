@@ -25,13 +25,14 @@ final class CategoriesHomeViewModel: ObservableObject {
         
     @Published var categoryAmounts: [Int?: CategoryAmount] = [:]
     @Published var searchText: String = ""
+    
+    @Published var selectedDate: Date = Date()
 }
 
 extension CategoriesHomeViewModel {
     
     var isChartDisplayed: Bool {
-        let transactionStore: TransactionStore = .shared
-        return transactionStore.getExpenses(in: .now).isEmpty && transactionStore.getIncomes(in: .now).isEmpty
+        return !TransactionStore.shared.getExpenses(in: selectedDate).isEmpty
     }
     
     var categoriesFiltered: [CategoryModel] {

@@ -19,20 +19,18 @@ struct CategoryHomeView: View {
     // Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
     
-    @State private var selectedDate: Date = Date()
-    
     // MARK: -
     var body: some View {
         ScrollView {
             if viewModel.categoriesFiltered.isNotEmpty {
                 VStack(spacing: 24) {
-                    if viewModel.isChartDisplayed {
+                    if !viewModel.isChartDisplayed {
                         EmptyCategoryData()
                             .padding(8)
                     } else if viewModel.searchText.isEmpty {
                         PieChart(
-                            month: selectedDate,
-                            slices: CategoryStore.shared.categoriesSlices(for: selectedDate),
+                            month: viewModel.selectedDate,
+                            slices: CategoryStore.shared.categoriesSlices(for: viewModel.selectedDate),
                             backgroundColor: Color.background100,
                             configuration: .init(style: .category, space: 0.2, hole: 0.75)
                         )
@@ -40,8 +38,8 @@ struct CategoryHomeView: View {
                     }
                     
                     VStack(spacing: 8) {
-                        SwitchDateButton(date: $selectedDate, type: .month)
-                        SwitchDateButton(date: $selectedDate, type: .year)
+                        SwitchDateButton(date: $viewModel.selectedDate, type: .month)
+                        SwitchDateButton(date: $viewModel.selectedDate, type: .year)
                     }
                 }
                 .padding(8)
@@ -56,18 +54,18 @@ struct CategoryHomeView: View {
                     let subcategories = category.subcategories
                     Group {
                         if let subcategories, !subcategories.isEmpty {
-                            NavigationButton(push: router.pushHomeSubcategories(category: category, selectedDate: selectedDate)) {
+                            NavigationButton(push: router.pushHomeSubcategories(category: category, selectedDate: viewModel.selectedDate)) {
                                 CategoryRow(
                                     category: category,
-                                    selectedDate: selectedDate,
+                                    selectedDate: viewModel.selectedDate,
                                     amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                                 )
                             }
                         } else {
-                            NavigationButton(push: router.pushCategoryTransactions(category: category, selectedDate: selectedDate)) {
+                            NavigationButton(push: router.pushCategoryTransactions(category: category, selectedDate: viewModel.selectedDate)) {
                                 CategoryRow(
                                     category: category,
-                                    selectedDate: selectedDate,
+                                    selectedDate: viewModel.selectedDate,
                                     amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                                 )
                             }
@@ -97,17 +95,17 @@ struct CategoryHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
-            viewModel.calculateAllAmounts(for: selectedDate)
+            viewModel.calculateAllAmounts(for: viewModel.selectedDate)
         }
-        .onChange(of: selectedDate) { _ in
+        .onChange(of: viewModel.selectedDate) { _ in
             if let account = accountStore.selectedAccount, let accountID = account.id {
                 Task {
                     await transactionStore.fetchTransactionsByPeriod(
                         accountID: accountID,
-                        startDate: selectedDate,
-                        endDate: selectedDate.endOfMonth
+                        startDate: viewModel.selectedDate,
+                        endDate: viewModel.selectedDate.endOfMonth
                     )
-                    viewModel.calculateAllAmounts(for: selectedDate)
+                    viewModel.calculateAllAmounts(for: viewModel.selectedDate)
                 }
             }
         }
