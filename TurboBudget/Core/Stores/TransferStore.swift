@@ -45,22 +45,24 @@ extension TransferStore {
     @MainActor
     func createTransfer(senderAccountID: Int, receiverAccountID: Int, body: TransferBody) async -> TransactionModel? {
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransferAPIRequester.transfer(senderAccountID: senderAccountID, receiverAccountID: receiverAccountID, body: body),
-                responseModel: TransferResponseWithBalances.self
-            )
-            if let transfer = response.transaction, let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
-                AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
-                AccountStore.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
-                self.transfers.append(transfer)
-                sortTransfersByDate()
-                if let selectedAccountID = AccountStore.shared.selectedAccount?.id, senderAccountID == selectedAccountID || receiverAccountID == selectedAccountID {
-                    TransactionStore.shared.transactions.append(transfer)
-                    TransactionStore.shared.sortTransactionsByDate()
-                }
-                return transfer
+            let response = try await TransferService.create(from: senderAccountID, to: receiverAccountID, body: body)
+            
+            guard let transfer = response.transaction else { return nil }
+            guard let senderNewBalance = response.senderNewBalance else { return nil }
+            guard let receiverNewBalance = response.receiverNewBalance else { return nil }
+            
+            AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
+            AccountStore.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
+            self.transfers.append(transfer)
+            sortTransfersByDate()
+            
+            if let selectedAccountID = AccountStore.shared.selectedAccount?.id, senderAccountID == selectedAccountID
+                || receiverAccountID == selectedAccountID {
+                TransactionStore.shared.transactions.append(transfer)
+                TransactionStore.shared.sortTransactionsByDate()
             }
-            return nil
+            
+            return transfer
         } catch {
             NetworkService.handleError(error: error)
             return nil
@@ -70,10 +72,8 @@ extension TransferStore {
     @MainActor
     func deleteTransfer(transferID: Int) async {
         do {
-            let response = try await NetworkService.shared.sendRequest(
-                apiBuilder: TransferAPIRequester.delete(transferID: transferID),
-                responseModel: TransferResponseWithBalances.self
-            )
+            let response = try await TransferService.delete(id: transferID)
+            
             guard let transfer = transfers.first(where: { $0.id == transferID }) else { return }
             guard let senderAccountID = transfer.senderAccountID, let receiverAccountID = transfer.receiverAccountID else { return }
             
@@ -81,7 +81,10 @@ extension TransferStore {
                 AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)
                 AccountStore.shared.setNewBalance(accountID: receiverAccountID, newBalance: receiverNewBalance)
             }
-            self.transfers.removeAll(where: { $0.id == transferID })
+            
+            if let index = self.transfers.firstIndex(where: { $0.id == transferID }) {
+                self.transfers.remove(at: index)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     
