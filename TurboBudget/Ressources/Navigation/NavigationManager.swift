@@ -273,7 +273,7 @@ private extension NavigationManager {
             case .whatsNew:
                 WhatsNewView()
             case .paywall:
-                PaywallScreenView()
+                PaywallView()
                 
             case .settings:
                 SettingsHomeView()

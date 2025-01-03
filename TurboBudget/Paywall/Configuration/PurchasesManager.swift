@@ -10,7 +10,7 @@ import StoreKit
 
 @MainActor
 class PurchasesManager: NSObject, ObservableObject {
-    let productIDs: [String] = ["cashflowpro_199_1m_3d0", "com.Sementa.CashFlow.lifetime"]
+    let productIDs: [String] = ["com.Sementa.CashFlow.lifetime"]
     var purchasedProductIDs: Set<String> = []
     
     @Published var products: [Product] = []
@@ -18,9 +18,9 @@ class PurchasesManager: NSObject, ObservableObject {
     @Published var isCashFlowPro: Bool = false
     private var updates: Task<Void, Never>?
     
-    var subscription: Product? {
-        return self.products.first
-    }
+//    var subscription: Product? {
+//        return self.products.first
+//    }
     
     var lifetime: Product? {
         return self.products.last

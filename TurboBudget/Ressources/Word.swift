@@ -273,6 +273,7 @@ struct Word {
     }
     
     struct Paywall {
+        static let lifetime: String = "paywall_lifetime".localized
         struct SavingsAccount {
             static let desc: String = "paywall_savingsaccounts_desc".localized
         }

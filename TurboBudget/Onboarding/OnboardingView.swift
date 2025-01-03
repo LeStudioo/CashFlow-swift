@@ -75,7 +75,7 @@ struct OnboardingView: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }.tag(5)
                 
-                PaywallScreenView(isXmarkPresented: false)
+                PaywallView(isXmarkPresented: false)
                     .tag(6)
                     .overlay(alignment: .topTrailing) {
                         Button(action: { dismiss() }, label: {

@@ -1,5 +1,5 @@
 //
-//  PaywallScreenView.swift
+//  PaywallView.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 20/08/2023.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct PaywallScreenView: View {
+struct PaywallView: View {
     
     // EnvironmentObject
     @EnvironmentObject private var store: PurchasesManager
@@ -103,7 +103,7 @@ struct PaywallScreenView: View {
             Spacer()
             
             VStack(spacing: 8) {
-                if let subscription = store.subscription, !store.isCashFlowPro {
+                if let subscription = store.lifetime, !store.isCashFlowPro {
                     AsyncButton {
                         if let product = store.products.first {
                             await store.buyProduct(product)
@@ -111,7 +111,7 @@ struct PaywallScreenView: View {
                     } label: {
                         let fakePrice = subscription.price * 2
                         PaywallPayementRow(
-                            price: subscription.price.toCurrency() + " / " + "word_month".localized.lowercased(),
+                            price: subscription.price.toCurrency(),
                             promoText: fakePrice.toCurrency()
                         )
                     }
@@ -140,6 +140,6 @@ struct PaywallScreenView: View {
 
 // MARK: - Preview
 #Preview {
-    PaywallScreenView()
+    PaywallView()
         .environmentObject(PurchasesManager())
 }

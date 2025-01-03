@@ -183,7 +183,7 @@
 
 "title_new_subscription" = "Nuovo abbonamento";
 
-"title_update_subscription" = "Aggiorna abbonamento";
+"title_update_subscription" = "Abbonamento di aggiornamento";
 
 "title_home_subscriptions" = "Nuovo abbonamento";
 
@@ -523,7 +523,7 @@
 
 "word_yes" = "Sì";
 
-"word_cancel_changes" = "Annulla le modifiche";
+"word_cancel_changes" = "Annulla modifiche";
 
 "word_return" = "Indietro";
 
@@ -746,6 +746,8 @@
 "paywall_thanks" = "Grazie per il tuo sostegno!";
 
 "paywall_restore" = "Ripristina CashFlow Pro";
+
+"paywall_lifetime" = "Per la vita";
 
 "paywall_monthly_subscription" = "Abbonamento mensile";
 

@@ -747,6 +747,8 @@
 
 "paywall_restore" = "Restaurar CashFlow Pro";
 
+"paywall_lifetime" = "De por vida";
+
 "paywall_monthly_subscription" = "Suscripción mensual";
 
 //MARK: - SettingAccountView

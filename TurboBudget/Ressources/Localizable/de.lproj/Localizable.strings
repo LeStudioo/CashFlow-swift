@@ -337,7 +337,7 @@
 
 "tip_already_have_shortcut" = "Ich habe die Verknüpfung bereits erhalten";
 
-"tip_applepay_desc_one" = "Verwenden Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt von CashFlow abzurufen.";
+"tip_applepay_desc_one" = "Nutzen Sie die Apple Pay-Verknüpfung, um Ihre Transaktionen direkt aus CashFlow abzurufen.";
 
 "tip_applepay_desc_two" = "Sie müssen sie nicht manuell eingeben, CashFlow übernimmt alles für Sie!";
 
@@ -390,7 +390,7 @@
 
 "statistics_total_expenses_by_week" = "Durchschnittliche wöchentliche Ausgaben";
 
-"statistics_total_incomes_by_week" = "Durchschnittliches Wocheneinkommen";
+"statistics_total_incomes_by_week" = "Durchschnittliches wöchentliches Einkommen";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 
@@ -746,6 +746,8 @@
 "paywall_thanks" = "Vielen Dank für Ihre Unterstützung!";
 
 "paywall_restore" = "CashFlow Pro wiederherstellen";
+
+"paywall_lifetime" = "Fürs Leben";
 
 "paywall_monthly_subscription" = "Monatsabonnement";
 
