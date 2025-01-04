@@ -73,12 +73,15 @@ extension NavigationDirection: Equatable {
         case (.pageController, .pageController),
             (.allSavingsAccount, .allSavingsAccount),
             (.allBudgets, .allBudgets),
+            (.home, .home),
             (.homeCategories, .homeCategories),
             (.homeSubcategories, .homeSubcategories),
             (.categoryTransactions, .categoryTransactions),
             (.subcategoryTransactions, .subcategoryTransactions),
+            (.budgetTransactions, .budgetTransactions),
             (.homeSavingPlans, .homeSavingPlans),
             (.homeAutomations, .homeAutomations),
+            (.savingsAccountDetail, .savingsAccountDetail),
             (.analytics, .analytics),
             (.transactionsForMonth, .transactionsForMonth),
             (.transactionDetail, .transactionDetail),
@@ -98,6 +101,7 @@ extension NavigationDirection: Equatable {
             (.selectCategory, .selectCategory),
             (.accountDashboard, .accountDashboard),
             (.accountStatistics, .accountStatistics),
+            (.allArchivedSavingPlans, .allArchivedSavingPlans),
             (.paywall, .paywall),
             (.whatsNew, .whatsNew),
             (.settings, .settings),
@@ -110,18 +114,6 @@ extension NavigationDirection: Equatable {
             (.settingsApplePay, .settingsApplePay),
             (.settingsCredits, .settingsCredits):
             return true
-            
-        case let (.home(lhsAccount), .home(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
-            
-        case let (.savingsAccountDetail(lhsSavingsAccount), .savingsAccountDetail(rhsSavingsAccount)):
-            return lhsSavingsAccount.id == rhsSavingsAccount.id
-            
-        case let (.allArchivedSavingPlans(lhsAccount), .allArchivedSavingPlans(rhsAccount)):
-            return lhsAccount.id == rhsAccount.id
-            
-        case let (.budgetTransactions(lhsSubcategory), .budgetTransactions(rhsSubcategory)):
-            return lhsSubcategory.id == rhsSubcategory.id
             
         default:
             return false
