@@ -27,7 +27,7 @@ struct OnboardingView: View {
     var sizeTitleOnboarding: CGFloat {
         if isLittleIphone {
             return 26
-        } else if isIPad {
+        } else if UIDevice.isIpad {
             return 30
         } else { return 28 }
     }
@@ -35,7 +35,7 @@ struct OnboardingView: View {
     var sizeDescOnboarding: CGFloat {
         if isLittleIphone {
             return 16
-        } else if isIPad {
+        } else if UIDevice.isIpad {
             return 20
         } else { return 18 }
     }

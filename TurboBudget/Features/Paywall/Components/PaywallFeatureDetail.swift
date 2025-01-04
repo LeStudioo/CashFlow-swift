@@ -52,7 +52,7 @@ struct PaywallFeatureDetail: View {
                             .padding(.bottom)
                             .if(imageWithout.isEmpty) { view in
                                 view
-                                    .padding(.horizontal, isIPad ? 64 : 48)
+                                    .padding(.horizontal, UIDevice.isIpad ? 64 : 48)
                             }
                     }
                 }

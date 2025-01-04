@@ -11,7 +11,7 @@ import SwiftUI
 struct Title: ViewModifier {
     
     var sizeTitle: CGFloat {
-        if isIPad {  }
+        if UIDevice.isIpad {  }
         
         if UIScreen.main.bounds.width < 390 {
             return 24

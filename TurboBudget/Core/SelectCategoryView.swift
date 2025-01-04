@@ -100,7 +100,7 @@ struct SelectCategoryView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .shadow(radius: 4, y: 4)
-                            .frame(width: isIPad
+                            .frame(width: UIDevice.isIpad
                                    ? UIScreen.main.bounds.width / 3
                                    : UIScreen.main.bounds.width / 1.5
                             )

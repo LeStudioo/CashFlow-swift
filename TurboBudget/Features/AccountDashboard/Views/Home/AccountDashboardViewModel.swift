@@ -18,7 +18,7 @@ final class AccountDashboardViewModel: ObservableObject {
     
     // Computed var
     var columns: [GridItem] {
-        if isIPad {
+        if UIDevice.isIpad {
             return [GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16)]
         } else {
             return [GridItem(spacing: 16), GridItem(spacing: 16)]

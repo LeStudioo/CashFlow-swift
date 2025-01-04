@@ -12,7 +12,7 @@ struct SavingsAccountRow: View {
     // Builder
     var savingsAccount: AccountModel
     
-    let width = isIPad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
+    let width = UIDevice.isIpad ? UIScreen.main.bounds.width / 4 - 16 : UIScreen.main.bounds.width / 2 - 16
     
     // MARK: -
     var body: some View {

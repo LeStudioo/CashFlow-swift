@@ -9,20 +9,6 @@ import Foundation
 import UIKit
 import LocalAuthentication
 
-enum BiometricType {
-    case none
-    case touch
-    case face
-    
-    var name: String {
-        switch self {
-        case .none: return "fail"
-        case .touch: return "TouchID"
-        case .face: return "FaceID"
-        }
-    }
-}
-
 extension UIDevice {
     
     static var biometry: BiometricType {
@@ -42,6 +28,10 @@ extension UIDevice {
         }
         
         return .none
+    }
+    
+    static var isIpad: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad
     }
     
 }

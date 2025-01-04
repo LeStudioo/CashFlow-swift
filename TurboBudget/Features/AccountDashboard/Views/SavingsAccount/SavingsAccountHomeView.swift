@@ -25,7 +25,7 @@ struct SavingsAccountHomeView: View {
     }
     
     var columns: [GridItem] {
-        if isIPad {
+        if UIDevice.isIpad {
             return [GridItem(), GridItem(), GridItem(), GridItem()]
         } else {
             return [GridItem(), GridItem()]

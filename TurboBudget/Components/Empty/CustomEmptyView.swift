@@ -34,7 +34,7 @@ struct CustomEmptyView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .shadow(radius: 4, y: 4)
-                .frame(width:  UIScreen.main.bounds.width / (isIPad ? 3 : 1.5))
+                .frame(width:  UIScreen.main.bounds.width / (UIDevice.isIpad ? 3 : 1.5))
             
             Text(getDescription())
                 .font(.semiBoldText16())

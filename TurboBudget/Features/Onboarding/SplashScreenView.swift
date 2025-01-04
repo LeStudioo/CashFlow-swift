@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SplashScreenView: View {
     var body: some View {
-        Image(isIPad ? "LaunchScreenIPad" : "LaunchScreen")
+        Image(UIDevice.isIpad ? "LaunchScreenIPad" : "LaunchScreen")
             .resizable()
             .scaledToFill()
             .edgesIgnoringSafeArea([.bottom, .top])
