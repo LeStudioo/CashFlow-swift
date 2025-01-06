@@ -79,11 +79,9 @@ struct CategoryHomeView: View {
                     .frame(height: 100)
                     .opacity(0)
             } else {
-                ErrorView(
-                    searchResultsCount: viewModel.categoriesFiltered.count,
-                    searchText: viewModel.searchText,
-                    image: "",
-                    text: ""
+                CustomEmptyView(
+                    type: .noResults(viewModel.searchText),
+                    isDisplayed: viewModel.categoriesFiltered.isEmpty && !viewModel.searchText.isEmpty
                 )
             }
         } // ScrollView

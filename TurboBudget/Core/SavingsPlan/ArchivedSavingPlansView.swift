@@ -51,12 +51,12 @@ struct ArchivedSavingPlansView: View {
                     }
                 } // End ScrollView
             } else { // SearchResult == 0
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "",
-                    text: ""
-                )
+//                ErrorView(
+//                    searchResultsCount: searchResults.count,
+//                    searchText: searchText,
+//                    image: "",
+//                    text: ""
+//                )
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))

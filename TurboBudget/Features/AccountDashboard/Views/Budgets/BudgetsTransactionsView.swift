@@ -32,26 +32,10 @@ struct BudgetsTransactionsView: View {
     @State private var showEditMaxAmount: Bool = false
     @State private var showDeleteBudget: Bool = false
 
-	// Computed variables
-    var searchResults: [TransactionModel] {
-        var array: [TransactionModel] = []
-        if searchText.isEmpty {
-            if ascendingOrder {
-                array = subcategory.expenses
-                    .sorted { $0.amount ?? 0 < $1.amount ?? 0 }.reversed()
-            } else {
-                array = subcategory.expenses
-                    .sorted { $0.amount ?? 0 < $1.amount ?? 0 }
-            }
-        } else { array = subcategory.transactions.filter { $0.name.localizedCaseInsensitiveContains(searchText) } }
-        
-        return array.filter { $0.date > Date().startOfMonth && $0.date < Date().endOfMonth }
-    }
-    
     // MARK: -
     var body: some View {
         VStack {
-            if subcategory.transactions.isNotEmpty && searchResults.isNotEmpty {
+            if subcategory.transactions.isNotEmpty {
                 List(transactionStore.getExpenses(for: subcategory, in: .now)) { transaction in
                     Section {
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
@@ -59,7 +43,7 @@ struct BudgetsTransactionsView: View {
                         }
                         .listRowSeparator(.hidden)
                     } header: {
-                        Text(searchResults.map({ $0.amount ?? 0 }).reduce(0, +).toCurrency())
+                        Text(subcategory.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.compactMap(\.amount).reduce(0, +).toCurrency())
                             .font(.mediumCustom(size: 22))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 8)
@@ -68,11 +52,9 @@ struct BudgetsTransactionsView: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
             } else { // No Transaction
-                ErrorView(
-                    searchResultsCount: searchResults.count,
-                    searchText: searchText,
-                    image: "NoTransaction",
-                    text: "budgets_transactions_no_transaction".localized
+                CustomEmptyView(
+                    type: .empty(.transactions),
+                    isDisplayed: subcategory.transactions.isEmpty
                 )
             }
         }
