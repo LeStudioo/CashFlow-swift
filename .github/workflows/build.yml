@@ -19,7 +19,7 @@ jobs:
         run: brew install swiftlint
 
       - name: Run SwiftLint
-        run: swiftlint lint --quiet --reporter json CashFlow
+        run: swiftlint lint --quiet --reporter json TurboBudget
 
       - uses: sonarsource/sonarqube-scan-action@master
         env:
