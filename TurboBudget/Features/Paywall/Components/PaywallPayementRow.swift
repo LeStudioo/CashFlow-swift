@@ -16,7 +16,7 @@ struct PaywallPayementRow: View {
     var body: some View {
         HStack {
             Text(Word.Paywall.lifetime)
-                .font(Font.mediumText16())
+                .font(Font.semiBoldText16())
                 .multilineTextAlignment(.leading)
                 .frame(maxWidth: .infinity, alignment: .leading)
             

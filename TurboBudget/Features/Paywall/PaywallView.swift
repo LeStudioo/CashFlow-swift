@@ -14,6 +14,9 @@ struct PaywallView: View {
     @EnvironmentObject private var store: PurchasesManager
     var isXmarkPresented: Bool = true
     
+    @State private var timeRemaining: TimeInterval = 3 * 3600 // 3 hours in seconds
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     // MARK: -
     var body: some View {
         NavigationStack {
@@ -103,17 +106,33 @@ struct PaywallView: View {
             Spacer()
             
             VStack(spacing: 8) {
-                if let subscription = store.lifetime, !store.isCashFlowPro {
-                    AsyncButton {
-                        if let product = store.products.first {
-                            await store.buyProduct(product)
+                if let lifetime = store.lifetime, !store.isCashFlowPro {
+                    VStack(spacing: 16) {
+//                        Text(timeString(from: timeRemaining))
+//                            .font(.Title.semibold)
+//                            .foregroundColor(Color.white)
+//                            .onReceive(timer) { _ in
+//                                if timeRemaining > 0 {
+//                                    timeRemaining -= 1
+//                                }
+//                            }
+//                        
+//                        Text("Il ne reste plus que 3 produits à acheter avant la fin de la promo !")
+//                            .multilineTextAlignment(.center)
+//                            .foregroundStyle(Color.red)
+//                            .font(.Body.semibold)
+                        
+                        AsyncButton {
+                            if let product = store.products.first {
+                                await store.buyProduct(product)
+                            }
+                        } label: {
+                            let fakePrice = lifetime.price * 2
+                            PaywallPayementRow(
+                                price: lifetime.price.toCurrency(),
+                                promoText: fakePrice.toCurrency()
+                            )
                         }
-                    } label: {
-                        let fakePrice = subscription.price * 2
-                        PaywallPayementRow(
-                            price: subscription.price.toCurrency(),
-                            promoText: fakePrice.toCurrency()
-                        )
                     }
                 } else {
                     Text("paywall_thanks".localized)
@@ -134,8 +153,18 @@ struct PaywallView: View {
                 .padding(.trailing, 8)
             }
             .padding(.horizontal)
+            .padding(.top)
+            .background(Color.background200)
         } // NavigationStack
     } // body
+    
+    private func timeString(from timeInterval: TimeInterval) -> String {
+            let hours = Int(timeInterval) / 3600
+            let minutes = Int(timeInterval) / 60 % 60
+            let seconds = Int(timeInterval) % 60
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        }
+    
 } // struct
 
 // MARK: - Preview

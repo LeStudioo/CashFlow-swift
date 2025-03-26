@@ -10,7 +10,7 @@ import StoreKit
 
 @MainActor
 class PurchasesManager: NSObject, ObservableObject {
-    let productIDs: [String] = ["com.Sementa.CashFlow.lifetime"]
+    let productIDs: [String] = ["com.Sementa.CashFlow.lifetime", "com.Sementa.CashFlow.lifetime2"]
     var purchasedProductIDs: Set<String> = []
     
     @Published var products: [Product] = []
@@ -23,7 +23,11 @@ class PurchasesManager: NSObject, ObservableObject {
 //    }
     
     var lifetime: Product? {
-        return self.products.last
+        return self.products.filter { $0.id == "com.Sementa.CashFlow.lifetime2" }.first
+    }
+    
+    var lifetimePromo: Product? {
+        return self.products.filter { $0.id == "com.Sementa.CashFlow.lifetime" }.first
     }
     
     // init

@@ -33,6 +33,13 @@ extension Date {
 
 extension Date {
     
+    func hasPassed(days: Int) -> Bool {
+        guard let targetDate = Calendar.current.date(byAdding: .day, value: days, to: self) else {
+            return false
+        }
+        return Date() >= targetDate
+    }
+    
     func monthsBetween(to date: Date) -> Int {
         let calendar = Calendar.current
         let components = calendar.dateComponents([.month], from: self, to: date)
