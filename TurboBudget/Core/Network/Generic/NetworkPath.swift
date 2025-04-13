@@ -8,7 +8,7 @@
 import Foundation
 
 struct NetworkPath {
-    static let baseURL: String = "https://theodev.myftp.org:81"
+    static let baseURL: String = "https://cashflow.lazyy.fr"
     
     struct Auth {
         static let apple: String = "/auth/apple"

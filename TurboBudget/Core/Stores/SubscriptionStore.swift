@@ -76,3 +76,11 @@ extension SubscriptionStore {
     }
     
 }
+
+extension SubscriptionStore {
+    
+    func reset() {
+        subscriptions.removeAll()
+    }
+    
+}

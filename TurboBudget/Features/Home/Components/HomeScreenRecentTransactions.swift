@@ -11,7 +11,7 @@ struct HomeScreenRecentTransactions: View {
     
     // EnvironmentObject
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Preferences
     @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
@@ -22,8 +22,8 @@ struct HomeScreenRecentTransactions: View {
             VStack {
                 HomeScreenComponentHeader(type: .recentTransactions)
                 
-                if transactionRepository.transactions.isNotEmpty {
-                    ForEach(transactionRepository.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
+                if transactionStore.transactions.isNotEmpty {
+                    ForEach(transactionStore.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
                         NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
                             TransactionRow(transaction: transaction)
                         }

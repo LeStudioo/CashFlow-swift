@@ -49,6 +49,11 @@ struct CreationMenuView: View {
                     }
                 ),
                 CreationMenuAction(
+                    title: "word_account".localized,
+                    icon: "person",
+                    present: { router.presentCreateAccount(type: .classic) }
+                ),
+                CreationMenuAction(
                     title: Word.Main.transfer,
                     icon: "arrow.left.arrow.right",
                     present: { router.presentCreateTransfer() }

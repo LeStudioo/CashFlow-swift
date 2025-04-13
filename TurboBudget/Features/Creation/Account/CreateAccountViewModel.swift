@@ -77,9 +77,7 @@ extension CreateAccountViewModel {
         let body: AccountModel
         
         if type == .classic {
-            body = .init(
-                name: name
-            )
+            body = .init(name: name)
         } else {
             body = .init(
                 name: name,

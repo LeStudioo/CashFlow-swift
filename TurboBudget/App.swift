@@ -23,7 +23,7 @@ struct TurboBudgetApp: App {
     
     // New Repository
     @StateObject private var userRepository: UserStore = .shared
-    @StateObject private var accountRepository: AccountStore = .shared
+    @StateObject private var accountStore: AccountStore = .shared
     @StateObject private var categoryRepository: CategoryStore = .shared
     @StateObject private var transactionRepository: TransactionStore = .shared
     @StateObject private var transferRepository: TransferStore = .shared
@@ -49,9 +49,7 @@ struct TurboBudgetApp: App {
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
     @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
-    
-    @State private var isStartDataLoaded: Bool = false
-    
+        
     // init
     init() {
         UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
@@ -82,33 +80,16 @@ struct TurboBudgetApp: App {
                         }
                     }
                     .task {
-                        if !isStartDataLoaded {
-                            await accountRepository.fetchAccounts()
-                            accountRepository.selectedAccount = accountRepository.mainAccount
-                            if let mainAccount = accountRepository.mainAccount, let accountID = mainAccount.id {
-                                await transactionRepository.fetchTransactionsOfCurrentMonth(accountID: accountID)
-                                await subscriptionRepository.fetchSubscriptions(accountID: accountID)
-                                await savingsPlanRepository.fetchSavingsPlans(accountID: accountID)
-                                await budgetRepository.fetchBudgets(accountID: accountID)
-                                await creditCardRepository.fetchCreditCards(accountID: accountID)
-                                
-                                if preferencesSubscription.isNotificationsEnabled {
-                                    for subscription in subscriptionRepository.subscriptions {
-                                        guard let subscriptionID = subscription.id else { continue }
-                                        
-                                        await NotificationsManager.shared.scheduleNotification(
-                                            for: .init(
-                                                id: subscriptionID,
-                                                title: "CashFlow",
-                                                message: subscription.notifMessage,
-                                                date: subscription.dateNotif
-                                            ),
-                                            daysBefore: preferencesSubscription.dayBeforeReceiveNotification
-                                        )
-                                    }
-                                }
-                            }
-                            isStartDataLoaded = true
+                        if !appManager.isStartDataLoaded {
+                            await accountStore.fetchAccounts()
+                            await appManager.loadStartData()
+                            appManager.isStartDataLoaded = true
+                        }
+                    }
+                    .onChange(of: accountStore.selectedAccount) { _ in
+                        appManager.resetAllStoresData()
+                        Task {
+                            await appManager.loadStartData()
                         }
                     }
                 case .syncing:
@@ -140,7 +121,7 @@ struct TurboBudgetApp: App {
             
             // New Repository
             .environmentObject(userRepository)
-            .environmentObject(accountRepository)
+            .environmentObject(accountStore)
             .environmentObject(categoryRepository)
             .environmentObject(transactionRepository)
             .environmentObject(transferRepository)
@@ -163,11 +144,13 @@ struct TurboBudgetApp: App {
                 UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
                 csManager.applyColorScheme()
                 
+                // OLD COREDATA
                 accountRepo.fetchMainAccount()
                 transactionRepo.fetchTransactions()
                 automationRepo.fetchAutomations()
                 savingPlanRepo.fetchSavingsPlans()
                 budgetRepo.fetchBudgets()
+                // END OLD COREDATA
             }
             .alert(alertManager)
             .sheet(isPresented: $modalManager.isPresented, onDismiss: { modalManager.isPresented = false }) {

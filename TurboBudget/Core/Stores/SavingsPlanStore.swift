@@ -66,3 +66,12 @@ extension SavingsPlanStore {
     }
     
 }
+
+extension SavingsPlanStore {
+    
+    func reset() {
+        self.savingsPlans.removeAll()
+    }
+    
+}
+

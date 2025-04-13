@@ -268,3 +268,13 @@ extension TransactionStore {
             .filter { $0.isFromSubscription == true }
     }
 }
+
+extension TransactionStore {
+    
+    func reset() {
+        transactions.removeAll()
+        dateFetched.removeAll()
+    }
+    
+}
+

@@ -56,3 +56,13 @@ extension CreditCardStore {
     }
     
 }
+
+extension CreditCardStore {
+ 
+    func reset() {
+        self.creditCards.removeAll()
+        self.uuids.removeAll()
+    }
+    
+}
+

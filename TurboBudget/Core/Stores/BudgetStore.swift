@@ -68,3 +68,11 @@ extension BudgetStore {
         } catch { NetworkService.handleError(error: error) }
     }
 }
+
+extension BudgetStore {
+ 
+    func reset() {
+        self.budgets.removeAll()
+    }
+    
+}

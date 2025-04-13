@@ -99,7 +99,8 @@ struct GenericBarChart: View {
     GenericBarChart(
         title: "",
         selectedDate: .constant(.now),
-        values: [12, 34, 56, 42, 35],
+        values: [12, 34, 56, 42, 35, 0, 0, 0, 0, 0, 0, 0],
         amount: 340
     )
+    .environmentObject(ThemeManager.shared)
 }

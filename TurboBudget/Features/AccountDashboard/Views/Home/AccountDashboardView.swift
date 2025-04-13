@@ -17,7 +17,7 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var themeManager: ThemeManager
         
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var creditCardRepository: CreditCardStore
     
     @StateObject private var viewModel: AccountDashboardViewModel = .init()
@@ -25,13 +25,24 @@ struct AccountDashboardView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            if let account = accountRepository.selectedAccount {
+            if let account = accountStore.selectedAccount {
                 VStack {
-                    Text(account.name)
-                        .titleAdjustSize()
-                        .foregroundStyle(themeManager.theme.color)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
+                    Menu {
+                        ForEach(accountStore.accounts) { account in
+                            Button {
+                                accountStore.selectedAccount = account
+                            } label: {
+                                Text(account.name)
+                            }
+                        }
+                    } label: {
+                        Text(account.name)
+                            .titleAdjustSize()
+                            .foregroundStyle(themeManager.theme.color)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                    }
+
                     
                     VStack(alignment: .leading) {
                             Text(account.balance.toCurrency())
@@ -134,7 +145,7 @@ struct AccountDashboardView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Menu(content: {
-                    if let account = accountRepository.selectedAccount {
+                    if let account = accountStore.selectedAccount {
                         Button(
                             action: { router.presentCreateAccount(type: .classic, account: account) },
                             label: { Label(Word.Classic.edit, systemImage: "pencil") }
@@ -146,7 +157,7 @@ struct AccountDashboardView: View {
                             role: .destructive,
                             action: {
                                 Task {
-                                    if let account = accountRepository.selectedAccount, let accountID = account.id {
+                                    if let account = accountStore.selectedAccount, let accountID = account.id {
                                         await creditCardRepository.deleteCreditCard(accountID: accountID, cardID: uuid)
                                     }
                                 }
@@ -187,22 +198,22 @@ struct AccountDashboardView: View {
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 Task {
-                    if let account = accountRepository.selectedAccount, let accountID = account.id {
-                        await accountRepository.updateAccount(accountID: accountID, body: .init(name: viewModel.accountName))
+                    if let account = accountStore.selectedAccount, let accountID = account.id {
+                        await accountStore.updateAccount(accountID: accountID, body: .init(name: viewModel.accountName))
                     }
                 }
             }, label: { Text("word_validate".localized) })
         })
         .alert("account_detail_delete_account".localized, isPresented: $viewModel.isDeleting, actions: {
-            if let account = accountRepository.selectedAccount {
+            if let account = accountStore.selectedAccount {
                 TextField(account.name, text: $viewModel.accountNameForDeleting)
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
                     if account.name == viewModel.accountNameForDeleting {
                         if let accountID = account.id {
                             Task {
-                                await accountRepository.deleteAccount(accountID: accountID)
-                                accountRepository.selectedAccount = accountRepository.accounts.first
+                                await accountStore.deleteAccount(accountID: accountID)
+                                accountStore.selectedAccount = accountStore.accounts.first
                                 TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
                             }
                         }

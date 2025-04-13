@@ -37,7 +37,7 @@ extension AccountStore {
             self.accounts = accounts.filter { $0.type == .classic }
             self.savingsAccounts = accounts.filter { $0.type == .savings }
 
-            self.selectedAccount = self.accounts.first
+            self.selectedAccount = self.accounts.sorted { $0.createdAt ?? .now < $1.createdAt ?? .now }.first
         } catch { NetworkService.handleError(error: error) }
     }
     

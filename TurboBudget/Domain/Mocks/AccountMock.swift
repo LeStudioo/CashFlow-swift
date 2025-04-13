@@ -12,14 +12,16 @@ extension AccountModel {
         id: 1,
         name: "Mock Account",
         balance: 5_000,
-        typeNum: AccountType.classic.rawValue
+        typeNum: AccountType.classic.rawValue,
+        createdAtRaw: "2024-11-15T12:00:00Z"
     )
     
     static let mockClassicAccount2: AccountModel = .init(
         id: 2,
         name: "Mock Account 2",
         balance: 8_000,
-        typeNum: AccountType.classic.rawValue
+        typeNum: AccountType.classic.rawValue,
+        createdAtRaw: "2024-11-15T12:00:00Z"
     )
     
     static let mockSavingsAccount: AccountModel = .init(

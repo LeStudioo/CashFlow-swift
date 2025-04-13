@@ -18,18 +18,21 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
     var _balance: Double?
     var typeNum: Int?
     var maxAmount: Double?
+    var createdAtRaw: String?
 
     /// Classic Account Initialiseur
     init(
         id: Int? = nil,
         name: String? = nil,
         balance: Double? = nil,
-        typeNum: Int? = nil
+        typeNum: Int? = nil,
+        createdAtRaw: String? = nil
     ) {
         self.id = id
         self._name = name
         self._balance = balance
         self.typeNum = typeNum
+        self.createdAtRaw = createdAtRaw
     }
     
     /// Savings Account Initialiseur
@@ -38,13 +41,15 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         name: String? = nil,
         balance: Double? = nil,
         typeNum: Int? = nil,
-        maxAmount: Double? = nil
+        maxAmount: Double? = nil,
+        createdAtRaw: String? = nil
     ) {
         self.id = id
         self._name = name
         self._balance = balance
         self.typeNum = typeNum
         self.maxAmount = maxAmount
+        self.createdAtRaw = createdAtRaw
     }
     
     /// Classic Account Body
@@ -77,24 +82,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         case _name = "name"
         case _balance = "balance"
         case typeNum = "type"
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        _name = try container.decodeIfPresent(String.self, forKey: ._name)
-        _balance = try container.decodeIfPresent(Double.self, forKey: ._balance)
-        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
-        maxAmount = try container.decodeIfPresent(Double.self, forKey: .maxAmount)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(_name, forKey: ._name)
-        try container.encodeIfPresent(_balance, forKey: ._balance)
-        try container.encodeIfPresent(typeNum, forKey: .typeNum)
-        try container.encodeIfPresent(maxAmount, forKey: .maxAmount)
+        case createdAtRaw = "createdAt"
     }
 }
 
@@ -111,6 +99,11 @@ extension AccountModel {
     var type: AccountType? {
         guard let typeNum else { return nil }
         return AccountType(rawValue: typeNum)
+    }
+    
+    var createdAt: Date? {
+        guard let createdAtRaw else { return nil }
+        return createdAtRaw.toDate()
     }
     
 }
