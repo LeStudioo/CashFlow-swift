@@ -17,7 +17,7 @@ struct CreateAccountView: View {
     var onboardingAction: (() async -> Void)?
     
     @StateObject private var viewModel: CreateAccountViewModel
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     // Environment
     @Environment(\.dismiss) private var dismiss

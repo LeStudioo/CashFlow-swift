@@ -13,7 +13,7 @@ import Charts
 struct AnalyticsHomeView: View {
     
     // Builder
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Environment
@@ -37,7 +37,7 @@ struct AnalyticsHomeView: View {
                     GenericBarChart(
                         title: "cashflowchart_title".localized,
                         selectedDate: $selectedDate,
-                        values: accountRepository.cashflow,
+                        values: accountStore.cashflow,
                         amount: amount
                     )
                     .onChange(of: selectedDate) { _ in
@@ -46,12 +46,12 @@ struct AnalyticsHomeView: View {
                                 selectedYear = selectedDate.year
                                 await fetchCashFlow()
                             }
-                            amount = accountRepository.cashFlowAmount(for: selectedDate)
+                            amount = accountStore.cashFlowAmount(for: selectedDate)
                         }
                     }
                     .task {
                         await fetchCashFlow()
-                        amount = accountRepository.cashFlowAmount(for: selectedDate)
+                        amount = accountStore.cashFlowAmount(for: selectedDate)
                     }
                     
                     NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .income)) {
@@ -108,7 +108,7 @@ struct AnalyticsHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onChange(of: selectedDate) { _ in
-            if let account = accountRepository.selectedAccount, let accountID = account.id {
+            if let account = accountStore.selectedAccount, let accountID = account.id {
                 Task {
                     await transactionRepository.fetchTransactionsByPeriod(
                         accountID: accountID,
@@ -134,8 +134,8 @@ struct AnalyticsHomeView: View {
     }
     
     func fetchCashFlow() async {
-        if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-            await accountRepository.fetchCashFlow(accountID: accountID, year: selectedDate.year)
+        if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+            await accountStore.fetchCashFlow(accountID: accountID, year: selectedDate.year)
         }
     }
     

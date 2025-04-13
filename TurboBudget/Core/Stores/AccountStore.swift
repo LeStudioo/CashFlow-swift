@@ -21,10 +21,6 @@ final class AccountStore: ObservableObject {
     var allAccounts: [AccountModel] {
         return accounts + savingsAccounts
     }
-    
-    var mainAccount: AccountModel? {
-        return accounts.first
-    }
 }
 
 extension AccountStore {

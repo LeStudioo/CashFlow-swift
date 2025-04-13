@@ -17,7 +17,7 @@ struct PageControllerView: View {
     @EnvironmentObject private var router: NavigationManager
     
     // New Repository
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     // Old Reposiyory
     @EnvironmentObject private var accountRepo: AccountRepositoryOld
@@ -43,7 +43,7 @@ struct PageControllerView: View {
             if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
             if pageControllerVM.isUnlocked {
                 ZStack(alignment: .bottom) {
-                    if accountRepository.selectedAccount != nil {
+                    if accountStore.selectedAccount != nil {
                         Group {
                             switch appManager.selectedTab {
                             case 0: HomeView()
@@ -75,7 +75,7 @@ struct PageControllerView: View {
                 router.presentWhatsNew()
             }
             
-            if accountRepository.mainAccount != nil && !preferencesGeneral.isAlreadyOpen {
+            if accountStore.selectedAccount != nil && !preferencesGeneral.isAlreadyOpen {
                 pageControllerVM.showOnboarding = false
                 preferencesGeneral.isAlreadyOpen = true
             } else if !preferencesGeneral.isAlreadyOpen {

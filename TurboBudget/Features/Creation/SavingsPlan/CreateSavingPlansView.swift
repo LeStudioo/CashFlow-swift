@@ -16,7 +16,7 @@ struct CreateSavingPlansView: View {
     @StateObject private var viewModel: CreateSavingsPlanViewModel
     
     // Custom
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
     @EnvironmentObject private var contributionRepository: ContributionStore
     

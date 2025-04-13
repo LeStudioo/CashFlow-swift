@@ -15,14 +15,14 @@ extension AlertManager {
         self.present(
             title: "alert_cashflow_pro_title".localized,
             message: "alert_cashflow_pro_desc".localized,
-            buttonTitle: "alert_cashflow_pro_see".localized,
+            buttonTitle: "alert_cashflow_pro_action_button".localized,
             isDestructive: false,
             action: {
                 router.presentPaywall()
             }
         )
     }
-    
+    // TODO: LOCALIZATION
     func onlyOneCreditCardByAccount() {
         self.present(
             title: Word.CreditCard.maxCard,
@@ -89,6 +89,21 @@ extension AlertManager {
             action: {
                 if let transactionID = transaction.id {
                     await TransactionStore.shared.deleteTransaction(transactionID: transactionID)
+                    if let dismissAction { dismissAction() }
+                }
+            }
+        )
+    }
+    
+    func deleteTransfer(transfer: TransactionModel, dismissAction: DismissAction? = nil) {
+        self.present(
+            title: "alert_transfer_delete_title".localized,
+            message: "alert_transfer_delete_message".localized,
+            buttonTitle: Word.Classic.delete,
+            isDestructive: true,
+            action: {
+                if let transactionID = transfer.id {
+                    await TransferStore.shared.deleteTransfer(transferID: transactionID)
                     if let dismissAction { dismissAction() }
                 }
             }

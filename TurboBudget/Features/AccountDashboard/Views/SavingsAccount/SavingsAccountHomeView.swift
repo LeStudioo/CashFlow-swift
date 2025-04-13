@@ -14,12 +14,12 @@ struct SavingsAccountHomeView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var purchaseManager: PurchasesManager
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @Environment(\.dismiss) private var dismiss
     
     // Computed variables
     var totalSavings: Double {
-        return accountRepository.savingsAccounts
+        return accountStore.savingsAccounts
             .map { $0.balance }
             .reduce(0, +)
     }
@@ -35,7 +35,7 @@ struct SavingsAccountHomeView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            if !accountRepository.savingsAccounts.isEmpty {
+            if !accountStore.savingsAccounts.isEmpty {
                 VStack(spacing: -2) {
                     Text(Word.SavingsAccount.totalSavings)
                         .font(Font.mediumText16())
@@ -47,7 +47,7 @@ struct SavingsAccountHomeView: View {
                 .padding(.vertical, 12)
                 
                 LazyVGrid(columns: columns, spacing: 12, content: {
-                    ForEach(accountRepository.savingsAccounts) { account in
+                    ForEach(accountStore.savingsAccounts) { account in
                         NavigationButton(push: router.pushSavingsAccountDetail(savingsAccount: account)) {
                             SavingsAccountRow(savingsAccount: account)
                         }
@@ -69,7 +69,7 @@ struct SavingsAccountHomeView: View {
                         
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    if purchaseManager.isCashFlowPro || accountRepository.savingsAccounts.isEmpty {
+                    if purchaseManager.isCashFlowPro || accountStore.savingsAccounts.isEmpty {
                         router.presentCreateAccount(type: .savings)
                     } else {
                         alertManager.showPaywall(router: router)

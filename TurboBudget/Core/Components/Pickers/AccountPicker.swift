@@ -13,7 +13,7 @@ struct AccountPicker: View {
     var title: String
     @Binding var selected: AccountModel?
     
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     // MARK: -
     var body: some View {
@@ -23,7 +23,7 @@ struct AccountPicker: View {
                 .font(.system(size: 12, weight: .regular))
             
             Menu(content: {
-                ForEach(accountRepository.allAccounts) { account in
+                ForEach(accountStore.allAccounts) { account in
                     Button { selected = account } label: {
                         Text(account.name)
                     }

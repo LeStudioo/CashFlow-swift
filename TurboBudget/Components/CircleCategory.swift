@@ -14,7 +14,7 @@ struct CircleCategory: View {
     var subcategory: SubcategoryModel?
     var transaction: TransactionModel?
     
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     // MARK: -
     var body: some View {
@@ -41,7 +41,7 @@ struct CircleCategory: View {
                     Image(systemName: category.icon)
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(Color(uiColor: .systemBackground))
-                } else if let transaction, transaction.type == .transfer, let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
+                } else if let transaction, transaction.type == .transfer, let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
                     Circle()
                         .foregroundStyle(accountID == transaction.senderAccountID ? .error400 : .primary500)
                         .shadow(radius: 4, y: 4)

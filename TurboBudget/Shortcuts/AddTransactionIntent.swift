@@ -97,7 +97,7 @@ struct AddTransactionIntent: AppIntent {
         do {
             try await userRepository.loginWithToken()
             await accountRepository.fetchAccounts()
-            if let account = accountRepository.mainAccount, let accountID = account.id {
+            if let account = accountRepository.selectedAccount, let accountID = account.id {
                 await transactionRepository.createTransaction(accountID: accountID, body: body)
             }
             

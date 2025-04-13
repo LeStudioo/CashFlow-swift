@@ -10,7 +10,7 @@ import SwiftUI
 struct TransactionsListView: View {
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
     
     @State private var isLoading: Bool = false
@@ -59,7 +59,7 @@ struct TransactionsListView: View {
             if newValue {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     Task {
-                        if let selectedAccount = self.accountRepository.selectedAccount, let accountID = selectedAccount.id {
+                        if let selectedAccount = self.accountStore.selectedAccount, let accountID = selectedAccount.id {
                             let startDateOneMonthAgo = self.transactionRepository.currentDateForFetch.oneMonthAgo
                             let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
                             await self.transactionRepository.fetchTransactionsByPeriod(

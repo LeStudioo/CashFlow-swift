@@ -19,7 +19,7 @@ struct TransferRow: View {
     var location: TransferRowLocation = .savingsAccount
     @EnvironmentObject private var savingsAccountRepository: SavingsAccountStore
     @EnvironmentObject private var transferRepository: TransferStore
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
         
     // State or Binding Bool
     @State private var isDeleting: Bool = false
@@ -28,7 +28,7 @@ struct TransferRow: View {
     var isSender: Bool {
         switch location {
         case .successfulSheet:
-            return accountRepository.selectedAccount?.id == transfer.senderAccountID
+            return accountStore.selectedAccount?.id == transfer.senderAccountID
         case .savingsAccount:
             return savingsAccountRepository.currentAccount.id == transfer.senderAccountID
         }

@@ -15,7 +15,7 @@ struct SavingsAccountDetailView: View {
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var transferRepository: TransferStore
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     @Environment(\.dismiss) private var dismiss
     
@@ -23,7 +23,7 @@ struct SavingsAccountDetailView: View {
     @State private var isDeleting: Bool = false
     
     var currentAccount: AccountModel {
-        return accountRepository.savingsAccounts.first { $0.id == savingsAccountStore.currentAccount.id }  ?? savingsAccountStore.currentAccount
+        return accountStore.savingsAccounts.first { $0.id == savingsAccountStore.currentAccount.id }  ?? savingsAccountStore.currentAccount
     }
     
     // init
@@ -107,7 +107,7 @@ struct SavingsAccountDetailView: View {
                     if savingsAccountStore.currentAccount.name == accountNameForDeleting {
                         if let accountID = savingsAccountStore.currentAccount.id {
                             Task {
-                                await accountRepository.deleteAccount(accountID: accountID)
+                                await accountStore.deleteAccount(accountID: accountID)
                                 dismiss()
                             }
                         }

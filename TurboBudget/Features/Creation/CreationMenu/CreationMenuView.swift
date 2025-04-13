@@ -11,7 +11,7 @@ import AlertKit
 struct CreationMenuView: View {
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var creditCardRepository: CreditCardStore
     
     @EnvironmentObject private var store: PurchasesManager
@@ -22,7 +22,7 @@ struct CreationMenuView: View {
     @State private var isPresented: Bool = false
     
     private var menuActions: [CreationMenuAction] {
-        if accountRepository.mainAccount != nil {
+        if accountStore.selectedAccount != nil {
             var actions: [CreationMenuAction] = [
                 CreationMenuAction(
                     title: Word.Main.creditCard,
@@ -41,9 +41,9 @@ struct CreationMenuView: View {
                     title: Word.Main.savingsAccount,
                     icon: "building.columns",
                     present: { router.presentCreateAccount(type: .savings) },
-                    isDisabled: !accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro,
+                    isDisabled: !accountStore.savingsAccounts.isEmpty && !store.isCashFlowPro,
                     onTapAction: {
-                        if !accountRepository.savingsAccounts.isEmpty && !store.isCashFlowPro {
+                        if !accountStore.savingsAccounts.isEmpty && !store.isCashFlowPro {
                             alertManager.showPaywall(router: router)
                         }
                     }

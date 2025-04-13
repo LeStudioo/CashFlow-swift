@@ -16,7 +16,7 @@ struct OnboardingView: View {
     @Environment(\.dismiss) private var dismiss
     
     // Repo
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
 
     @State private var actualPage: Int = 1
     
@@ -70,7 +70,7 @@ struct OnboardingView: View {
                 
                 CreateAccountView(type: .classic) {
                     actualPage += 1
-                    await accountRepository.fetchAccounts()
+                    await accountStore.fetchAccounts()
                     preferencesGeneral.isAlreadyOpen = true
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }.tag(5)

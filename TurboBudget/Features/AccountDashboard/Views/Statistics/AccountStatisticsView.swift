@@ -9,14 +9,14 @@ import SwiftUI
 
 struct AccountStatisticsView: View {
     
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     @State private var withSavings: Bool = false
     
     // MARK: -
     var body: some View {
         ScrollView {
-            if let stats = accountRepository.stats {
+            if let stats = accountStore.stats {
                 VStack(spacing: 24) {
                     Toggle(isOn: $withSavings, label: {
                         Text(Word.Statistics.withSavings)
@@ -123,14 +123,14 @@ struct AccountStatisticsView: View {
             ToolbarDismissPushButton()
         }
         .task {
-            if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                await accountRepository.fetchStats(accountID: accountID, withSavings: withSavings)
+            if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+                await accountStore.fetchStats(accountID: accountID, withSavings: withSavings)
             }
         }
         .onChange(of: withSavings) { newValue in
             Task {
-                if let selectedAccount = accountRepository.selectedAccount, let accountID = selectedAccount.id {
-                    await accountRepository.fetchStats(accountID: accountID, withSavings: newValue)
+                if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+                    await accountStore.fetchStats(accountID: accountID, withSavings: newValue)
                 }
             }
         }

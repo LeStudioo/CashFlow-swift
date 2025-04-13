@@ -18,7 +18,7 @@ struct TransactionRow: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     
     var currentTransaction: TransactionModel {
         return transactionStore.transactions.first { $0.id == transaction.id } ?? transaction
@@ -85,7 +85,11 @@ struct TransactionRow: View {
                 }
             
             SwipeAction(action: {
-                AlertManager.shared.deleteTransaction(transaction: currentTransaction)
+                if transaction.type == .transfer {
+                    AlertManager.shared.deleteTransfer(transfer: currentTransaction)
+                } else {
+                    AlertManager.shared.deleteTransaction(transaction: currentTransaction)
+                }
                 context.state.wrappedValue = .closed
             }, label: { _ in
                 VStack(spacing: 5) {

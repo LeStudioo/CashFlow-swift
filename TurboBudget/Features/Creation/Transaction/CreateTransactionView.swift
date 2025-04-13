@@ -18,7 +18,7 @@ struct CreateTransactionView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
     
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
     
     // Enum

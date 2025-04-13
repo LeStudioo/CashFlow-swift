@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeHeader: View {
     
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var accountRepository: AccountStore
+    @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionRepository: TransactionStore
     @EnvironmentObject private var purchaseManager: PurchasesManager
     
@@ -18,7 +18,7 @@ struct HomeHeader: View {
     var body: some View {
         HStack(spacing: 16) {
             VStack(alignment: .leading) {
-                if let account = accountRepository.selectedAccount {
+                if let account = accountStore.selectedAccount {
                     Text(account.balance.toCurrency())
                         .titleAdjustSize()
                         .animation(.default, value: account.balance)
