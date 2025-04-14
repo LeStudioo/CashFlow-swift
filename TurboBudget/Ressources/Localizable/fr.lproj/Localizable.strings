@@ -1,1158 +1,264 @@
-//MARK: - Classic
-"word_category" = "Catégorie";
-
-"word_name" = "Nom";
-
-"word_price" = "Prix";
-
-"word_typeOfTransaction" = "Type de transaction";
-
-"word_typeOfContribution" = "Type de contribution";
-
-"word_date" = "Date";
-
-"word_recommended" = "Recommandé";
-
-"word_expense" = "Dépense";
-
-"word_income" = "Revenu";
-
-"word_dayOfAutomation" = "Jour de l'automatisation";
-
-"word_initialAmount" = "Montant de départ";
-
-"word_amountToReach" = "Montant à atteindre";
-
-"word_finalTargetDate" = "Date final de l'objectif";
-
-"word_startTargetDate" = "Date du début de l'objectif";
-
-"word_edit" = "Modifier";
-
-"word_create" = "Créer";
-
-"word_senderAccount" = "Compte émetteur";
-
-"word_receiverAccount" = "Compte destinataire";
-
-"word_subscriptionFuturDate" = "Date du prochain prélèvement";
-
-"word_frequency" = "Fréquence";
-
-"word_received" = "Reçu";
-
-"word_sent" = "Envoyé";
-
-"word_retry" = "Réessayer";
-
-"word_enable" = "Activer";
-
-"word_add" = "Ajouter";
-
-"word_days" = "jours";
-
-"word_light" = "Clair";
-
-"word_dark" = "Sombre";
-
-"word_system" = "Système";
-
-"word_note" = "Note";
-
-"word_budget" = "Budget";
-
-"word_maxAmount" = "Montant maximum";
-
-"word_currentAmount" = "Montant actuel";
-
-"word_continue" = "Continuer";
-
-"word_amount" = "Montant";
-
-"word_notifications" = "Notifications";
-
-"word_disconnect" = "Déconnexion";
-
-"word_delete" = "Supprimer";
-
-"word_delete_account" = "Supprimer mon compte";
-
-"word_statistics" = "Statistiques";
-
-"word_savings" = "Epargne";
-
-"word_remaining" = "Restant";
-
-"word_contributed" = "Contribué";
-
-"word_finalTarget" = "Objectif final";
-
-"word_monthlyTarget" = "Objectif mensuel";
-
-"word_contributedThisMonth" = "Contribué ce mois-ci";
-
-"word_startDate" = "Date de début";
-
-"word_daysElapsed" = "Jours écoulés";
-
-"word_daysRemaining" = "Jours restants";
-
-"word_endDate" = "Date de fin";
-
-//MARK: - Main
-"word_transaction" = "Transaction";
-
-"word_transactions" = "Transactions";
-
-"word_subscription" = "Abonnement";
-
-"word_subscriptions" = "Abonnements";
-
-"word_savingsplan" = "Plan d'épargne";
-
-"word_savingsplans" = "Plans d'épargne";
-
-"word_transfer" = "Transfert";
-
-"word_transfers" = "Transferts";
-
-"word_savings_account" = "Compte épargne";
-
-"word_savings_accounts" = "Comptes épargne";
-
-"word_creditcard" = "Carte de crédit";
-
-"word_creditcards" = "Cartes de crédit";
-
-//MARK: - Preposition
-"word_preposition_to" = "vers";
-
-"word_preposition_from" = "de";
-
-//MARK: - Temporality
-"temporality_today" = "Aujourd'hui";
-
-"temporality_yesterday" = "Hier";
-
-"temporality_tomorrow" = "Demain";
-
-"temporality_two_days_ago" = "Il y a 2 jours";
-
-"temporality_in_two_days" = "Dans 2 jours";
-
-"temporality_week" = "Semaine";
-
-"temporality_month" = "Mois";
-
-"temporality_year" = "Année";
-
-"temporality_this_week" = "Cette semaine";
-
-"temporality_last_week" = "La semaine dernière";
-
-"temporality_this_month" = "Ce mois-ci";
-
-"temporality_last_month" = "Le mois dernier";
-
-"temporality_this_year" = "Cette année";
-
-"temporality_last_year" = "L’année dernière";
-
-//MARK: - Create
-"create_add_category" = "Ajouter une catégorie";
-
-//MARK: - Frequency
-"frequency_weekly" = "Hebdomadaire";
-
-"frequency_monthly" = "Mensuel";
-
-"frequency_yearly" = "Annuel";
-
-//MARK: - Title
-"title_new_account" = "Nouveau compte";
-
-"title_update_account" = "Modifier le compte";
-
-"title_new_transaction" = "Nouvelle transaction";
-
-"title_update_transaction" = "Modifier la transaction";
-
-"title_home_transactions" = "Mes transactions";
-
-"title_new_transfer" = "Nouveau transfert";
-
-"title_new_subscription" = "Nouveau abonnement";
-
-"title_update_subscription" = "Modifier l'abonnement";
-
-"title_home_subscriptions" = "Mes abonnements";
-
-"title_new_savingsPlan" = "Nouveau plan d'épargne";
-
-"title_update_savingsPlan" = "Modifier le plan d'épargne";
-
-"title_home_savingsPlans" = "Mes plans d'épargne";
-
-"title_new_budget" = "Nouveau budget";
-
-"title_new_creditcard" = "Nouvelle carte de crédit";
-
-"title_setting_general" = "Général";
-
-"title_setting_security" = "Sécurité";
-
-"title_setting_display" = "Affichage";
-
-"title_setting_credits" = "Crédits";
-
-//MARK: - Empty
-"empty_accounts_desc" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
-
-"empty_accounts_create" = "Créer un compte";
-
-"empty_transactions_desc" = "Vous n'avez encore enregistré aucune transaction pour le moment. Commencez dès maintenant !";
-
-"empty_transactions_create" = "Créer une transaction";
-
-"empty_subscriptions_desc" = "Vous n'avez encore enregistré aucun abonnement pour le moment. Commencez dès maintenant !";
-
-"empty_subscriptions_create" = "Créer un abonnement";
-
-"empty_savingsPlans_desc" = "Vous n'avez encore enregistré aucun plan d'épargne pour le moment. Commencez dès maintenant !";
-
-"empty_savingsPlans_create" = "Créer un plan d'épargne";
-
-"empty_contributions_desc" = "Vous n'avez encore enregistré aucune contribution pour le moment. Commencez dès maintenant !";
-
-"empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment. Commencez dès maintenant !";
-
-"empty_savingsAccounts_create" = "Créer un compte épargne";
-
-//MARK: - Login
-"login_connection" = "Connexion";
-
-"login_message" = "Pour ne jamais perdre vos données d'un appareil à un autre, connectez-vous dès maintenant avec Apple ou Google.\n\nC’est simple, pratique et recommandé !";
-
-"login_google" = "Se connecter avec Google";
-
-"login_apple" = "Se connecter avec Apple";
-
-//MARK: - Sync
-"sync_continue_without_data" = "Continuer sans mes données";
-
-"sync_sorry_message" = "Désolé, nous n'avons pas pu récupérer vos données...";
-
-"sync_fetching" = "Nous sommes entrain de récupérer vos données...";
-
-//MARK: - SuccessfulManager
-"successful_transaction_new_title" = "Transaction créée !";
-
-"successful_transaction_new_desc" = "Votre transaction a été traitée et ajoutée à votre liste de transactions.";
-
-"successful_transaction_update_title" = "Transaction modifiée !";
-
-"successful_transaction_update_desc" = "Votre transaction a été mise à jour dans votre liste de transactions.";
-
-"successful_transfer_new_title" = "Transfert créé !";
-
-"successful_transfer_new_desc" = "Votre transfert a été traitée et appliqué.";
-
-"successful_subscription_new_title" = "Abonnement crée !";
-
-"successful_subscription_new_desc" = "Votre abonnement a été traité et ajouté à votre liste d'abonnements.";
-
-"successful_subscription_update_title" = "Abonnement modifié !";
-
-"successful_subscription_update_desc" = "Votre abonnement a été mise à jour dans votre liste d'abonnements.";
-
-"successful_savingsplan_new_title" = "Plan d'épargne créé !";
-
-"successful_savingsplan_new_desc" = "Votre plan d'épargne a été traité et ajouté à votre liste de plans d'épargne.";
-
-"successful_savingsplan_update_title" = "Plan d'épargne modifié !";
-
-"successful_savingsplan_update_desc" = "Votre plan d'épargne a été mise à jour dans votre liste de plans d'épargne.";
-
-"successful_contribution_new_title" = "Contribution créé !";
-
-"successful_contribution_new_desc" = "Votre contribution a été traité et ajouté à votre plan d'épargne.";
-
-"successful_contribution_update_title" = "Contribution modifiée !";
-
-"successful_contribution_update_desc" = "Votre contribution a été mise à jour dans votre plan d'épargne.";
-
-//MARK: - Settings
-"setting_general_haptic_feedback" = "Retour haptique";
-
-"setting_security_description" = "pour sécuriser votre application et vos données.";
-
-"setting_security_plus" = "Sécurité +";
-
-"setting_security_plus_description" = "Masquer le contenu de l'application lorsque l'application est en arrière-plan.";
-
-"setting_display_displayed_home_screen" = "Affiché sur l'écran d'accueil";
-
-"setting_display_nbr_subscriptions" = "Nombre d'abonnements";
-
-"setting_display_nbr_savingsplans" = "Nombre de plans d'épargne";
-
-"setting_display_nbr_transactions" = "Nombre de transactions";
-
-"setting_appearence_app_icons" = "Icônes de l'application";
-
-"setting_appearence_tint_color" = "Couleur de teinte";
-
-"setting_credits_founders" = "Fondateurs";
-
-"setting_credits_designers" = "Designers";
-
-"setting_credits_licences" = "Licences";
-
-"setting_applepay_addcategory" = "Ajouter automatiquement une catégorie";
-
-"setting_applepay_footer" = "Cette option permet d'ajouter la catégorie associé à votre transaction. Cette fonctionnalité est expérimental ";
-
-//MARK: - SavingsAccount
-"savings_account_total_savings" = "Épargne total";
-
-//MARK: - Paywall
-"paywall_savingsaccounts_desc" = "Compte d'épargne illimité pour une meilleure gestion de votre argent";
-
-"paywall_creditcards_desc" = "Ajouter votre carte de crédit qui sera stockée en sécurité dans le Keychain de votre iPhone.";
-
-//MARK: - Notifications
-"notifications_day_before" = "jours avant";
-
-"notifications_footer" = "Activer les notifications pour être informé avant qu'un abonnement ne soit effectué";
-
-"notifications_will_removed" = "seront débités dans";
-
-"notifications_will_added" = "seront ajoutés dans";
-
-//MARK: - AppIntent
-"appIntent_createTransaction" = "Créer une transaction";
-
-//MARK: - Tips
-"tip_how_to_do" = "Comment faire ?";
-
-"tip_already_have_shortcut" = "J'ai déjà le raccourci";
-
-"tip_applepay_desc_one" = "Avec le raccourci Apple Pay, récupérez vos transactions directement dans CashFlow.";
-
-"tip_applepay_desc_two" = "Plus besoin de les saisir manuellement, CashFlow s'occupe de tout pour vous !";
-
-//MARK: - Delete
-"delete_transaction_title" = "Supprimer une transaction";
-
-"delete_transaction_expense_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera remboursé sur votre compte.";
-
-"delete_transaction_income_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera débité de votre compte.";
-
-"delete_subscription_title" = "Supprimer un abonnement";
-
-"delete_subscription_message" = "Vous êtes sur le point de supprimer l'un de vos abonnements.";
-
-"delete_contribution_title" = "Supprimer une contribution";
-
-"delete_contribution_message" = "Vous êtes sur le point de supprimer l'une de vos contributions.";
-
-//MARK: - CreditCard
-"creditcard_expire" = "EXPIRE";
-
-"creditcard_numbers" = "Numéros de cartes";
-
-"creditcard_holder" = "Titulaire de la carte";
-
-"creditcard_date" = "Date d'expiration";
-
-"creditcard_cvv" = "CVC";
-
-"creditcard_limit" = "Plafond de la carte";
-
-"creditcard_security" = "Les cartes de crédit ne sont pas stockées sur nos serveurs. Elles sont stockées dans le trousseau de votre iPhone.";
-
-"creditcard_maxCard" = "Montant maximum atteint";
-
-"creditcard_maxCard_message" = "Une seule carte de crédit est autorisée par compte";
-
-"creditcard_delete_title" = "Supprimer la carte de crédit";
-
-//MARK: - Statistics
-"statistics_total" = "Total";
-
-"statistics_total_expenses" = "Total dépensé";
-
-"statistics_total_incomes" = "Total gagné";
-
-"statistics_total_expenses_by_month" = "Dépenses mensuelles moyennes";
-
-"statistics_total_incomes_by_month" = "Revenus mensuelles moyen";
-
-"statistics_total_expenses_by_week" = "Dépenses hebdomadaires moyennes";
-
-"statistics_total_incomes_by_week" = "Revenus hebdomadaires moyen";
-
-"statistics_with_savings" = "Prendre en compte les épargnes et placements.";
-
-//MARK: - WhatsNew
-"whatsnew_title" = "Quoi de neuf ?";
-
-"whatsnew_ui_title" = "Interface utilisateur";
-
-"whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
-
-"whatsnew_stats" = "Un récapitulatif des transactions pour l'année en cours et précedente est désormais disponible";
-
-"whatsnew_creditcard" = "Stocké maintenant vos cartes de crédit de manière sécurisée dans l'application (Apple Keychain)";
-
-"whatsnew_applepay_title" = "Paramètre Apple Pay";
-
-"whatsnew_applepay" = "Nous pouvons maintenant ajouter directement la bonne catégorie à vos transactions faites avec Apple Pay";
-
-"whatsnew_subscription" = "Vous pouvez maintenant consulter le détail d'un abonnement";
-
-//MARK: - UserAccount
-"user_delete_account_title" = "Supprimer mon compte";
-
-"user_delete_account_message" = "En supprimant votre compte, toutes vos données associées seront définitivement effacées. Cette action est irréversible. Êtes-vous sûr ?";
-
-//MARK: - General Words
-"word_transactions" = "Transactions";
-
-"word_automation" = "Automatisation";
-
-"word_automations" = "Automatisations";
-
-"word_savingsplans" = "Plans d'épargne";
-
-"word_budgets" = "Budgets";
-
-"word_account" = "Compte";
-
-"word_home" = "Accueil";
-
-"word_analytic" = "Stats";
-
-"word_statistics" = "Statistiques";
-
-"word_type" = "Type";
-
-"word_categories" = "Catégories";
-
-"word_subcategory" = "Sous-catégorie";
-
-"word_subcategories" = "Sous-catégories";
-
-"word_financial_advice" = "Conseil financier";
-
-"word_cancel" = "Annuler";
-
-"word_validate" = "Valider";
-
-"word_expense" = "Dépense";
-
-"word_expenses" = "Dépenses";
-
-"word_automation_expense" = "Dépense automatisée";
-
-"word_automations_expenses" = "Dépenses automatisées";
-
-"word_income" = "Revenu";
-
-"word_incomes" = "Revenus";
-
-"word_automation_income" = "Revenu automatisé";
-
-"word_automations_incomes" = "Revenus automatisés";
-
-"word_ok" = "OK";
-
-"word_notification" = "Notification";
-
-"word_notifications" = "Notifications";
-
-"word_no_results" = "Aucun résultat pour";
-
-"word_reset" = "Réinitialiser";
-
-"word_DELETE" = "SUPPRIMER";
-
-"word_month" = "Mois";
-
-"word_filter" = "Filtre";
-
-"word_search" = "Rechercher";
-
-"word_archived_transactions" = "Transactions archivées";
-
-"word_archived_savingsplans" = "Plans d'épargne archivés";
-
-"word_contributions" = "Contributions";
-
-"word_rename" = "Renommer";
-
-"word_new_name" = "Nouveau nom";
-
-"word_unarchive" = "Désarchiver";
-
-"word_archive" = "Archiver";
-
-"word_UNARCHIVE" = "DÉSARCHIVER";
-
-"word_ARCHIVE" = "ARCHIVER";
-
-"word_share" = "Partager";
-
-"word_json" = "JSON";
-
-"word_qrcode" = "QR Code";
-
-"word_QRCODE" = "QR CODE";
-
-"word_recent_transactions" = "Transactions récentes";
-
-"word_alert" = "Alerte";
-
-"word_alerts" = "Alertes";
-
-"word_total" = "Total";
-
-"word_total_auto" = "Automatisations totales";
-
-"word_scanner" = "Scanner";
-
-"word_yes" = "Oui";
-
-"word_cancel_changes" = "Annuler les modifications";
-
-"word_return" = "Retour";
-
-"by_month_word" = "Par mois";
-
-"only_expenses_word" = "Uniquement les dépenses";
-
-"only_incomes_word" = "Uniquement les revenus";
-
-"sort_by_word" = "Trier par";
-
-"date_word" = "Date";
-
-"ascending_order_word" = "Ordre croissant";
-
-"descending_order_word" = "Ordre décroissant";
-
-"alphabetic_word" = "Alphabétique";
-
-//MARK: - Error Message
-"error_message_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
-
-"error_message_savingsplan" = "Créez votre premier plan d'épargne !";
-
-"error_message_no_data_day" = "Aucune donnée pour ce jour.";
-
-"error_message_no_data_month" = "Aucune donnée pour ce mois.";
-
-//MARK: - PageControllerView
-"alert_request_biometric" = "Sécurisez vos données.";
-
-"alert_recover_data" = "Nous essayons de récupérer vos données. Veuillez patienter, s'il vous plaît.";
-
-//MARK: - OnboardingScreenView
-"onboarding_button_start" = "Commencer";
-
-"onboarding_button_next" = "Suivant";
-
-"name_first_transaction" = "Argent de départ";
-
-"onboarding_page1_title" = "Bienvenue sur CashFlow !";
-
-"onboarding_page1_desc" = "Suivez vos dépenses, analysez vos habitudes de dépenses, identifiez les domaines où vous pouvez économiser et prenez le contrôle de votre argent facilement";
-
-"onboarding_page2_title" = "Moyen facile de suivre vos finances";
-
-"onboarding_page2_desc" = "Toutes vos activités financières seront enregistrées et affichées de manière brève et claire";
-
-"onboarding_page3_title" = "Préparez vos finances pour l'avenir";
-
-"onboarding_page3_desc" = "Fonctionnalités qui peuvent vous faciliter l'économie et la planification financière future";
-
-"onboarding_page4_title" = "Nouvelle expérience dans la gestion de l'argent";
-
-"onboarding_page4_desc" = "Commencez maintenant et ressentez une nouvelle expérience amusante dans la gestion de vos finances";
-
-//MARK: - AddAccountView
-"account_new" = "Nouveau compte";
-
-"account_name" = "Nom du compte";
-
-"account_placeholder_name" = "Compte de Theo";
-
 "account_balance" = "Solde du compte";
-
-"account_placeholder_balance" = "10 000 €";
-
-"account_placeholder_maxAmount" = "50 000 €";
 
 "account_card_limit" = "Limite de la carte";
 
-"account_placeholder_card_limit" = "3 000 €";
+"account_detail_add_credit_card" = "Ajouter une carte de crédit";
+
+"account_detail_alert_almost_exceeded" = "Le plafond est bientôt dépassé !";
+
+"account_detail_alert_exceeded" = "Le plafond a été dépassée.";
+
+"account_detail_avail_balance" = "Solde disponible";
+
+"account_detail_card_limit" = "Plafond de la carte";
+
+"account_detail_card_remaining" = "Restants";
+
+"account_detail_cashflow" = "Flux de trésorerie";
+
+"account_detail_delete_account" = "Supprimer un compte";
+
+"account_detail_delete_account_desc" = "Vous êtes sur le point de supprimer l'un de vos comptes. Entrez son nom pour le supprimer.";
+
+"account_detail_edit" = "Modifier le plafond";
+
+"account_detail_edit_desc" = "Vous pouvez changer le plafond de votre carte.";
+
+"account_detail_gain" = "Gain";
+
+"account_detail_loss" = "Perte";
+
+"account_detail_new_name" = "Nouveau nom";
+
+"account_detail_no_account" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
+
+"account_detail_rename" = "Renommer";
 
 "account_info_credit_card" = "Vous pourrez ajouter une carte de crédit en consultant votre compte.";
 
-//MARK: - AddAutomationView
-"automation_new" = "Nouvelle automatisation";
+"account_name" = "Nom du compte";
 
-"automation_title" = "Titre";
+"account_new" = "Nouveau compte";
+
+"account_placeholder_balance" = "10 000 €";
+
+"account_placeholder_card_limit" = "3 000 €";
+
+"account_placeholder_maxAmount" = "50 000 €";
+
+"account_placeholder_name" = "Compte de Theo";
+
+"advice_yourself" = "Se payer en premier";
+
+"advice_yourself_desc" = "De l'argent vient d'entrer dans votre compte. N'oubliez pas d'en mettre de côté avant de payer quoi que ce soit. Cela vous aidera à construire une base financière solide pour l'avenir.";
+
+/*  */
+"alert_cashflow_pro_action_button" = "Voir";
+
+"alert_cashflow_pro_desc" = "Pour accéder à cette fonctionnalité, vous devez avoir CashFlow Pro.";
+
+/*  */
+"alert_cashflow_pro_message" = "Pour accéder à cette fonctionnalité, vous devez avoir CashFlow Pro.";
+
+"alert_cashflow_pro_see" = "Voir";
+
+/*  */
+"alert_cashflow_pro_title" = "CashFlow Pro";
+
+/*  */
+"alert_creditcard_message" = "Une seule carte de crédit est autorisée par compte";
+
+/*  */
+"alert_creditcard_title" = "Montant maximum atteint";
+
+"alert_notification_desc" = "Vous devez activer les notifications dans les paramètres.";
+
+"alert_notification_title" = "Notification manquante";
+
+"alert_recover_data" = "Nous essayons de récupérer vos données. Veuillez patienter, s'il vous plaît.";
+
+"alert_request_biometric" = "Sécurisez vos données.";
+
+/*  */
+"alert_transaction_delete_title" = "Supprimer une transaction";
+
+/*  */
+"alert_transaction_expense_message" = "Vous êtes sur le point de supprimer une de vos transactions, le montant de cette transaction sera remboursé sur votre compte.";
+
+/*  */
+"alert_transaction_income_message" = "Vous êtes sur le point de supprimer une de vos transactions, le montant de cette transaction sera retiré de votre compte.";
+
+/*  */
+"alert_transfer_delete_message" = "Vous êtes sur le point de supprimer un de vos transferts, le montant du transfert sera remboursé sur le compte émetteur et supprimé du compte destinataire.";
+
+/*  */
+"alert_transfer_delete_title" = "Supprimer un transfert";
+
+"alerts_amount_savingsplan" = "Votre montant de départ est supérieur à votre montant final. Ce n'est pas possible.";
+
+"alerts_budget_already_exist" = "Un budget existe déjà dans cette sous-catégorie. Si vous en créez un autre, l'ancien sera remplacé.";
+
+"alerts_duplicate_found" = "Une transaction avec le même nom et la même sous-catégorie existe déjà.";
+
+"alerts_no_bugets_exceeded" = "Cette transaction ne peut pas être effectuée car elle dépasserait votre budget. Cependant, vos préférences indiquent que le dépassement du budget n'est pas autorisé.";
+
+"alerts_no_bugets_exceeded_title" = "Bloquer les dépenses pour une catégorie";
+
+"alerts_no_card_limit_exceeded" = "En conséquence de cette dépense, le montant maximum sur votre carte sera dépassé, mais vos préférences empêchent que cela se produise.";
+
+"alerts_no_card_limit_exceeded_title" = "Bloquer les dépenses";
+
+"alerts_no_negative_balance" = "Après cette dépense, votre solde sera négatif, mais selon vos préférences, votre compte ne peut pas afficher un solde négatif.";
+
+"alerts_no_negative_balance_title" = "Le compte peut être négatif";
+
+"alerts_successful_budget_almost_exceeded" = "Votre budget est sur le point d'être atteint. Faites plus attention à vos dépenses futures.";
+
+"alerts_successful_budget_exceeded" = "Votre budget a été dépassé. Cela ne devrait pas se produire, respectez votre budget à l'avenir.";
+
+"alerts_successful_card_limit_almost_exceeded" = "Votre limite de carte est sur le point d'être atteinte. Faites plus attention à vos dépenses futures.";
+
+"alerts_successful_card_limit_exceeded" = "Votre limite de carte a été dépassée. Cela ne devrait pas se produire, respectez votre limite de carte à l'avenir.";
+
+"alerts_title" = "Alertes";
+
+"alphabetic_word" = "Alphabétique";
+
+"analytic_home_no_stats" = "Créez votre première transaction pour voir les statistiques !";
+
+"analytic_home_title" = "Analytiques";
+
+"appIntent_createTransaction" = "Créer une transaction";
+
+"ascending_order_word" = "Ordre croissant";
+
+"automation_monthly" = "Mensuelle";
+
+"automation_new" = "Nouvelle automatisation";
 
 "automation_placeholder_amount" = "0.00";
 
 "automation_recurrence" = "Récurrence";
 
-"automation_monthly" = "Mensuelle";
-
-"automation_yearly" = "Annuelle";
-
 "automation_successful" = "Automatisation créée";
-
-"automation_successful_desc" = "Votre automatisation a été traitée";
 
 "automation_successful_date" = "Date & Heure";
 
-//MARK: - AddBudgetView
+"automation_successful_desc" = "Votre automatisation a été traitée";
+
+"automation_title" = "Titre";
+
+"automation_yearly" = "Annuelle";
+
+"automations_for_home_no_auto" = "Ajoutez votre première automatisation en appuyant sur le bouton +.";
+
+"automations_for_home_title" = "Mes automatisations";
+
+"automations_home_no_auto" = "Créez votre première automatisation !";
+
+"budget_cell_actual" = "Actuel";
+
+"budget_cell_max" = "Maximum";
+
+"budget_cell_overrun" = "Dépassement";
+
 "budget_placeholder_amount" = "0.00";
 
 "budget_successful" = "Budget créé";
 
 "budget_successful_desc" = "Votre budget a été traité";
 
-//MARK: - AddCardView
-"card_no_cvv" = "Le CVV ne vous est pas demandé pour assurer une sécurité maximale.";
-
-"card_scan_text" = "Scannez votre carte de crédit";
-
-"card_scan_button" = "Scanner la carte";
-
-//MARK: - AddContributionView
-"contribution_new" = "Nouvelle contribution";
-
-"contribution_placeholder_amount" = "0.00";
-
-"contribution_add" = "Ajouter";
-
-"contribution_withdraw" = "Retirer";
-
-"contribution_alert_more_final_amount" = "⚠️ Vous ne pouvez pas ajouter plus que le montant final.";
-
-"contribution_alert_for_finish" = "pour terminer le plan d'épargne.";
-
-"contribution_alert_take_more_amount" = "⚠️ Vous ne pouvez pas retirer plus que ce qui est sur le plan d'épargne.";
-
-//MARK: - AddSavingsPlanView
-"savingsplan_new" = "Nouveau plan d'épargne";
-
-"savingsplan_emoji" = "Emoji";
-
-"savingsplan_title" = "Titre";
-
-"savingsplan_start" = "Début";
-
-"savingsplan_end" = "Fin";
-
-"savingsplan_placeholder_amount" = "0.00";
-
-"savingsplan_end_date" = "Ajouter une date de fin";
-
-"savingsplan_end_date_picker" = "Date de fin";
-
-"savingsplan_successful" = "Plan d'épargne créé";
-
-"savingsplan_successful_desc" = "Votre plan d'épargne a été traité";
-
-//MARK: - AddTransactionView
-"transaction_new" = "Nouvelle transaction";
-
-"transaction_alert_quality_purchase" = "N'oubliez pas que vos achats doivent être de qualité pour durer dans le temps.";
-
-"transaction_title" = "Titre";
-
-"transaction_recommended_category" = "Catégorie recommandée";
-
-"transaction_placeholder_amount" = "0.00";
-
-"transaction_alert_no_spend_challenge_title" = "Défi sans-dépense activé";
-
-"transaction_alert_no_spend_challenge_desc" = "Le défi sans-dépense est activé. Êtes-vous sûr de vouloir effectuer cette transaction ?";
-
-"transaction_successful" = "Transaction créée";
-
-"transaction_successful_desc" = "Votre transaction a été traitée";
-
-"transaction_successful_date" = "Date & Heure";
-
-//MARK: - RecoverTransactionsView
-"recover_transaction" = "Récupérer une transaction";
-
-"recover_enter_json" = "Entrez votre JSON";
-
-"recover_error_json" = "Le JSON que vous avez fourni contient une ou plusieurs erreurs.";
-
-"recover_scan_qrcode" = "Scanner un QRCode";
-
-"recover_import_qrcode" = "Importer un QRCode";
-
-"recover_error_qrcode" = "Aucun QRCode sur cette image";
-
-"recover_button" = "Récupérer";
-
-"recover_successful" = "Récupération réussite";
-
-"recover_successful_desc" = "Votre transaction a été récupérée";
-
-"recover_successful_date" = "Date & Heure";
-
-"recover_successful_rename" = "Renommer";
-
-"recover_successful_new_name" = "Nouveau nom";
-
-//MARK: - PaywallScreenView
-"paywall_title" = "CashFlow Pro";
-
-"paywall_budgets_desc" = "Fixez des limites de dépenses pour une catégorie particulière.";
-
-"paywall_detailled_budgets" = "Les budgets sont une super fonctionnalité pour délimité vos dépenses. Grâce à eux vous pouvez vous fixez un palier à ne pas dépasser et ainsi continuer de faire attention à vos dépenses.";
-
-"paywall_statistics_desc" = "Voir plus de statistiques sur vos transactions.";
-
-"paywall_detailled_statistics" = "Suivez mieux vos dépenses grâce à des statistiques détaillées. Découvrez instantanément vos gains ou pertes du mois avec le widget sur la page de votre compte.";
-
-"paywall_category_desc" = "Triez vos catégories par jour.";
-
-"paywall_detailled_category" = "Gérez vos transactions avec précision en les triant par jour !";
-
-"paywall_automations_desc" = "Automatisez les contributions que vous faites à un plan d'épargne.";
-
-"paywall_financial_advice_desc" = "Débloquez de nouveaux outils pour respecter tous les conseils financiers.";
-
-"paywall_support_dev" = "Soutenez le développeur";
-
-"paywall_support_dev_desc" = "En achetant, vous soutenez le développeur indépendant derrière ce projet.";
-
-"paywall_prediction_title" = "Prédiction";
-
-"paywall_prediction_desc" = "Prédiction de la catégorie en fonction de vos habitudes pour faciliter l'ajout d'une dépense.";
-
-"paywall_detailled_prediction" = "Ne vous embétez plus à trouver la bonne catégorie pour votre transaction, CashFlow peut le faire pour vous !";
-
-"paywall_thanks" = "Merci pour votre soutien !";
-
-"paywall_restore" = "Restaurer CashFlow Pro";
-
-"paywall_lifetime" = "À vie";
-
-"paywall_monthly_subscription" = "Abonnement mensuel";
-
-//MARK: - SettingAccountView
-"setting_account_negative_desc" = "Choisissez si votre compte peut être négatif ou non.";
-
-"setting_account_negative" = "Le compte peut être négatif";
-
-"setting_account_card_limit_exceeds_desc" = "Bloque les dépenses si la limite de la carte est dépassée.";
-
-"setting_account_card_limit_exceeds" = "Bloquer les dépenses";
-
-"setting_account_percentage_alert_desc" = "Le pourcentage par lequel la limite de la carte doit être dépassée pour que l'alerte soit affichée.";
-
-"setting_account_percentage_alert" = "Pourcentage de limite de carte";
-
-//MARK: - SettingBudgetsView
-"setting_budgets_exceeded_desc" = "Bloque les dépenses dans une sous-catégorie si le montant du budget est dépassé.";
-
-"setting_budgets_exceeded" = "Bloquer les dépenses dans une sous-catégorie";
-
-"setting_budgets_percentage_alert" = "Pourcentage du budget requis pour afficher l'alerte.";
-
-"setting_budgets_percentage" = "Pourcentage du budget";
-
-//MARK: - SettingCreditsView
-"setting_credits_licences_title" = "Licences";
-
-"setting_credits_licences_desc" = "Licences du paquet";
-
-//MARK: - SettingDisplayView
-"setting_display_title" = "Affichage";
-
-"setting_display_displayed_home_screen" = "Affiché sur l'écran d'accueil";
-
-"setting_display_recent_transactions" = "Transactions récentes";
-
-"setting_display_nbr_automations" = "Nombre d'automatisations";
-
-"setting_display_nbr_savingsplans" = "Nombre de plans d'épargne";
-
-"setting_display_nbr_transactions" = "Nombre de transactions";
-
-"setting_display_displayed_analytics" = "Affiché sur l'écran analytique";
-
-"setting_display_order_charts" = "Ordre des graphiques";
-
-//MARK: - SettingFinancialAdviceView
-"setting_financiel_advice_first" = "1. 50-30-20";
-
-"setting_financiel_advice_first_desc" = "La règle 50-30-20 est une approche courante pour gérer votre budget. Selon cette règle, vous devriez allouer : \n- 50% de vos revenus aux dépenses essentielles telles que le logement, la nourriture et les services publics.\n- 30% de vos revenus aux dépenses discrétionnaires, telles que les loisirs et les sorties.\n- 20% de vos revenus aux économies et au remboursement des dettes.\nCela peut servir de ligne directrice pour équilibrer vos dépenses, épargner et planifier votre avenir financier. Cependant, il est important de l'adapter à votre situation personnelle et à vos objectifs spécifiques.";
-
-"setting_financiel_advice_second" = "2. Paiement uniquement en espèces";
-
-"setting_financiel_advice_second_desc" = "Limitez vos dépenses en n'utilisant que des espèces pour vos achats quotidiens. Une fois que vous avez utilisé votre allocation en espèces pour la période (par exemple, chaque semaine ou chaque mois), vous arrêtez de dépenser jusqu'à la période suivante. Cette approche vous encourage à être plus conscient de vos dépenses et à réfléchir davantage avant d'acheter quelque chose.";
-
-"setting_financiel_advice_third" = "3. Période de réflexion";
-
-"setting_financiel_advice_third_desc" = "Avant de faire un achat important, attendez une période de temps définie, généralement quelques jours à une semaine. Pendant ce temps, évaluez si l'achat est vraiment nécessaire et si vous en aurez encore besoin après la période de réflexion. Cela vous aidera à éviter les achats impulsifs et à vous assurer que vos décisions d'achat sont basées sur de véritables besoins plutôt que sur des envies momentanées.";
-
-"setting_financiel_advice_fourth" = "4. L'objectif financier";
-
-"setting_financiel_advice_fourth_desc" = "Fixez-vous un objectif financier spécifique et réaliste, comme économiser pour un voyage, un achat important ou rembourser une dette. Puis divisez cet objectif en étapes plus petites et élaborez un plan pour atteindre chaque étape. Avoir un objectif concret vous motive à épargner et à suivre votre progression. Cela peut également vous aider à rester concentré sur vos priorités financières.";
-
-"setting_financiel_advice_fifth" = "5. Défi sans dépense";
-
-"setting_financiel_advice_fifth_desc" = "Choisissez une période spécifique, comme une semaine ou un mois, pendant laquelle vous vous engagez à ne pas dépenser d'argent pour des articles non essentiels. Durant cette période, questionnez chaque achat potentiel et demandez-vous si vous en avez vraiment besoin. Cela peut vous aider à prendre conscience de vos habitudes de dépenses et à identifier les domaines où vous pourriez réduire vos dépenses sur le long terme.";
-
-"setting_financiel_advice_sixth" = "6. Acheter de la qualité";
-
-"setting_financiel_advice_sixth_desc" = "Plutôt que de choisir des produits bon marché qui risquent de se détériorer rapidement, optez pour des articles de meilleure qualité, même s'ils sont plus chers initialement. Ces produits ont tendance à durer plus longtemps, ce qui peut vous faire économiser de l'argent sur le long terme en évitant les remplacements fréquents. Cependant, assurez-vous de faire vos recherches pour vous assurer que le produit de qualité vaut vraiment le prix plus élevé.";
-
-"setting_financiel_advice_seventh" = "7. Se payer en premier";
-
-"setting_financiel_advice_seventh_desc" = "Traitez vos économies comme une dépense inévitable. Chaque fois que vous recevez un revenu, mettez de côté une portion pour les économies avant de payer vos autres dépenses. Cela vous aide à prioriser les économies et à construire une base financière solide pour l'avenir.";
-
-"setting_financiel_advice_eighth" = "8. Automatisation financière";
-
-"setting_financiel_advice_eighth_desc" = "Mettez en place des transferts automatiques de votre compte bancaire principal vers votre compte d'épargne ou d'investissement dès que vous recevez votre salaire. Cela vous permet de mettre de l'argent de côté sans y penser et vous aide à atteindre vos objectifs financiers plus rapidement.";
-
-"setting_financiel_advice_ninth" = "9. Inventaire avant achat";
-
-"setting_financiel_advice_ninth_desc" = "Avant d'acheter un nouvel article, faites un inventaire de ce que vous possédez déjà dans cette catégorie. Cela vous empêche d'acheter des doublons ou des articles similaires dont vous n'avez pas vraiment besoin. C'est une excellente façon de réduire les dépenses inutiles et d'acheter de manière plus réfléchie.";
-
-"setting_financiel_advice_tenth" = "10. Diversification des revenus";
-
-"setting_financiel_advice_tenth_desc" = "Recherchez activement des moyens supplémentaires de gagner de l'argent en dehors de votre revenu principal, que ce soit par le biais de jobs à temps partiel, du freelancing, de l'investissement, ou en créant des sources de revenus passifs telles que la location immobilière. La diversification des revenus peut vous offrir une plus grande sécurité financière et la capacité d'atteindre vos objectifs plus rapidement.";
-
-"setting_financiel_advice_steps" = "Activer les étapes pour tous les plans d'épargne";
-
-"setting_financiel_advice_challenge" = "Défi sans dépense";
-
-"setting_financiel_advice_quality" = "Acheter de la qualité";
-
-"setting_financiel_advice_yourself" = "Se payer en premier";
-
-"setting_financiel_advice_duplicate" = "Activer la recherche de doublons";
-
-//MARK: - SettingHomeView
-"setting_home_same_day" = "Le même jour";
-
-"setting_home_one_day_before" = "1 jour avant";
-
-"setting_home_two_days_before" = "2 jours avant";
-
-"setting_home_five_days_before" = "5 jours avant";
-
-"setting_home_ten_days_before" = "10 jours avant";
-
-"setting_home_title" = "Paramètres";
-
-"setting_home_cashflow_pro" = "CashFlow Pro";
-
-"setting_home_appearance" = "Apparence";
-
-"setting_home_notification_desc" = "Choisissez quand vos notifications seront envoyées lorsque vous les activez.";
-
-"setting_home_notification_picker_time_desc" = "Sélectionnez l'heure à laquelle les notifications sont envoyées.";
-
-"setting_home_notification_picker_time" = "Heure de notification";
-
-"setting_home_write_review" = "Écrire un avis";
-
-"setting_home_share_app" = "Partager l'application";
-
-"setting_home_report_bug" = "Signaler un bug";
-
-"setting_home_new_features" = "Suggérer de nouvelles fonctionnalités";
-
-"setting_home_more_from_dev" = "Plus de cet éditeur";
-
-"setting_home_privacy_policy" = "Politique de confidentialité";
-
-"setting_home_terms_conditions" = "Conditions d'utilisation";
-
-"setting_home_danger" = "Zone de Danger";
-
-"setting_home_reset_settings" = "Réinitialiser TOUS les paramètres";
-
-"setting_home_reset_settings_desc" = "Vous êtes sur le point de réinitialiser tous vos paramètres.";
-
-"setting_home_reset_data" = "Supprimer TOUTES LES DONNÉES";
-
-"setting_home_reset_data_desc" = "Vous êtes sur le point de supprimer toutes vos données.";
-
-"setting_home_made_by" = "Fait avec ❤ par Théo Sementa";
-
-"setting_home_alert_share_desc" = "Téléchargez CashFlow maintenant, votre nouvel allié financier !";
-
-//MARK: - SettingSavingPlansView
-"setting_savingsplans_nbr_days_archiving_desc" = "Choisissez un nombre de jours après lesquels le plan d'épargne sera archivé (il doit être terminé pour être archivé).";
-
-"setting_savingsplans_automatic_archiving" = "Archivage automatique";
-
-"setting_savingsplans_nbr_days" = "Nombre de jours";
-
-//MARK: - SettingTransactionsView
-"setting_transactions_auto_archiving_desc" = "Choisissez un nombre de jours après lesquels la transaction sera archivée.";
-
-"setting_transactions_auto_archiving" = "Archivage automatique";
-
-"setting_transactions_nbr_days" = "Nombre de jours";
-
-//MARK: - AnalyticsHomeView
-"analytic_home_no_stats" = "Créez votre première transaction pour voir les statistiques !";
-
-"analytic_home_title" = "Analytiques";
-
-//MARK: - CashFlowChart
-"cashflowchart_title" = "Flux de trésorerie";
-
-"cashflowchart_alert_title" = "CashFlow graphique";
-
-"cashflowchart_alert_desc" = "Ce graphique est le résultat de l'addition de tous les revenus et dépenses pour chaque mois.";
-
-//MARK: - IncomesChosenMonthChart
-"chart_incomes_incomes_in" = "Revenus en";
-
-//MARK: - ExpensesChosenMonthChart
-"chart_expenses_expenses_in" = "Dépenses en";
-
-//MARK: - IncomesFromAutomationsChosenMonthChart
-"chart_auto_incomes_incomes_in" = "Revenus automatisés en";
-
-//MARK: - ExpensesFromAutomationsChosenMonthChart
-"chart_auto_expenses_expenses_in" = "Dépenses automatisés en";
-
-//MARK: - AutomationsForHomeScreen
-"automations_for_home_title" = "Mes automatisations";
-
-"automations_for_home_no_auto" = "Ajoutez votre première automatisation en appuyant sur le bouton +.";
-
-//MARK: - SavingPlansForHomeScreen
-"savingsplans_for_home_title" = "Mes plans d'épargne";
-
-"savingsplans_for_home_no_savings_plan" = "Ajoutez votre premier plan d'épargne en appuyant sur le bouton +.";
-
-//MARK: - AccountHomeView
-"account_detail_avail_balance" = "Solde disponible";
-
-"account_detail_cashflow" = "Flux de trésorerie";
-
-"account_detail_gain" = "Gain";
-
-"account_detail_loss" = "Perte";
-
-"account_detail_add_credit_card" = "Ajouter une carte de crédit";
-
-"account_detail_card_limit" = "Plafond de la carte";
-
-"account_detail_card_remaining" = "Restants";
-
-"account_detail_alert_almost_exceeded" = "Le plafond est bientôt dépassé !";
-
-"account_detail_alert_exceeded" = "Le plafond a été dépassée.";
-
-"account_detail_rename" = "Renommer";
-
-"account_detail_edit" = "Modifier le plafond";
-
-"account_detail_new_name" = "Nouveau nom";
-
-"account_detail_edit_desc" = "Vous pouvez changer le plafond de votre carte.";
-
-"account_detail_delete_account" = "Supprimer un compte";
-
-"account_detail_delete_account_desc" = "Vous êtes sur le point de supprimer l'un de vos comptes. Entrez son nom pour le supprimer.";
-
-"account_detail_no_account" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
-
-//MARK: - SavingPlanDetailView
-"savingsplan_detail_end_date" = "Date de fin";
-
-"savingsplan_detail_note" = "Ajouter une note à ce plan d'épargne...";
-
-"savingsplan_detail_disable_steps" = "Désactiver les étapes";
-
-"savingsplan_detail_enable_steps" = "Activer les étapes";
-
-"savingsplan_detail_add_contribution" = "Ajouter une contribution";
-
-"savingsplan_detail_delete_savingsplan" = "Supprimer un plan d'épargne";
-
-"savingsplan_detail_delete_savingsplan_desc" = "Vous êtes sur le point de supprimer l'un de vos plans d'épargne.";
-
-"savingsplan_detail_step" = "Étape";
-
-"savingsplan_detail_total" = "Total";
-
-//MARK: - TransactionDetailView
-"transaction_detail_amount" = "Montant";
-
-"transaction_detail_date" = "Date";
-
-"transaction_detail_note" = "Ajouter une note à cette transaction...";
-
-//MARK: - AutomationsHomeView
-"automations_home_no_auto" = "Créez votre première automatisation !";
-
-//MARK: - BudgetsHomeView
 "budgets_home_no_budget" = "Créez votre premier budget !";
-
-//MARK: - BudgetsTransactionsView
-"budgets_transactions_no_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
-
-"budgets_transactions_editing" = "Édition";
 
 "budgets_transactions_amount" = "Montant";
 
-"budgets_transactions_edit" = "Modifier";
-
-"budgets_transactions_edit_desc" = "Vous pouvez modifier le montant maximal de ce budget.";
+"budgets_transactions_button_edit" = "Modifier le montant maximal";
 
 "budgets_transactions_delete_budget" = "Supprimer un budget";
 
 "budgets_transactions_delete_budget_desc" = "Vous êtes sur le point de supprimer l'un de vos budgets. Êtes-vous sûr ?";
 
-"budgets_transactions_button_edit" = "Modifier le montant maximal";
+"budgets_transactions_edit" = "Modifier";
 
-//MARK: - CardViewEditable
+"budgets_transactions_edit_desc" = "Vous pouvez modifier le montant maximal de ce budget.";
+
+"budgets_transactions_editing" = "Édition";
+
+"budgets_transactions_no_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
+
+"by_month_word" = "Par mois";
+
 "card_editable_holder" = "NOM DU TITULAIRE DE LA CARTE";
 
-//MARK: - CarouselOfChartsView
+"card_no_cvv" = "Le CVV ne vous est pas demandé pour assurer une sécurité maximale.";
+
+"card_scan_button" = "Scanner la carte";
+
+"card_scan_text" = "Scannez votre carte de crédit";
+
 "carousel_charts_expenses_current_month" = "Dépenses du mois en cours";
 
 "carousel_charts_incomes_current_month" = "Revenus du mois en cours";
 
-//MARK: - HomeScreenView
-"home_screen_available_balance" = "Solde disponible";
+"cashflowchart_alert_desc" = "Ce graphique est le résultat de l'addition de tous les revenus et dépenses pour chaque mois.";
 
-"home_screen_no_transaction" = "Créez votre première transaction !";
+"cashflowchart_alert_title" = "CashFlow graphique";
 
-"home_screen_no_account" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
+"cashflowchart_title" = "Flux de trésorerie";
 
-"home_screen_title" = "Accueil";
-
-//MARK: - AdviceView
-"advice_yourself_desc" = "De l'argent vient d'entrer dans votre compte. N'oubliez pas d'en mettre de côté avant de payer quoi que ce soit. Cela vous aidera à construire une base financière solide pour l'avenir.";
-
-"advice_yourself" = "Se payer en premier";
-
-//MARK: - AlertsView
-"alerts_no_negative_balance" = "Après cette dépense, votre solde sera négatif, mais selon vos préférences, votre compte ne peut pas afficher un solde négatif.";
-
-"alerts_no_card_limit_exceeded" = "En conséquence de cette dépense, le montant maximum sur votre carte sera dépassé, mais vos préférences empêchent que cela se produise.";
-
-"alerts_no_bugets_exceeded" = "Cette transaction ne peut pas être effectuée car elle dépasserait votre budget. Cependant, vos préférences indiquent que le dépassement du budget n'est pas autorisé.";
-
-"alerts_amount_savingsplan" = "Votre montant de départ est supérieur à votre montant final. Ce n'est pas possible.";
-
-"alerts_duplicate_found" = "Une transaction avec le même nom et la même sous-catégorie existe déjà.";
-
-"alerts_title" = "Alertes";
-
-"alerts_no_negative_balance_title" = "Le compte peut être négatif";
-
-"alerts_no_card_limit_exceeded_title" = "Bloquer les dépenses";
-
-"alerts_no_bugets_exceeded_title" = "Bloquer les dépenses pour une catégorie";
-
-"alerts_duplicate_found" = "Recherche de doublons";
-
-//MARK: - AlertViewForBudget
-"alerts_budget_already_exist" = "Un budget existe déjà dans cette sous-catégorie. Si vous en créez un autre, l'ancien sera remplacé.";
-
-//MARK: - AlertViewForSuccessful
-"alerts_successful_card_limit_almost_exceeded" = "Votre limite de carte est sur le point d'être atteinte. Faites plus attention à vos dépenses futures.";
-
-"alerts_successful_card_limit_exceeded" = "Votre limite de carte a été dépassée. Cela ne devrait pas se produire, respectez votre limite de carte à l'avenir.";
-
-"alerts_successful_budget_almost_exceeded" = "Votre budget est sur le point d'être atteint. Faites plus attention à vos dépenses futures.";
-
-"alerts_successful_budget_exceeded" = "Votre budget a été dépassé. Cela ne devrait pas se produire, respectez votre budget à l'avenir.";
-
-//MARK: - WhatCategoryView
-"what_category_title" = "Dans quelle catégorie ?";
-
-//MARK: - QRCodeForTransactionSheetView
-"qrcode_transactions_share" = "Partagez avec vos amis !";
-
-"qrcode_transactions_how" = "Comment récupérer cette transaction ?";
-
-"qrcode_recover_transactions" = "Retrouvez la transaction en ouvrant le menu +, le même menu que pour l'ajout d'une transaction. Vous trouverez ensuite le bouton permettant de scanner ce QRCode.";
-
-//MARK: - FilterView
-"filter_by_day" = "Par jour";
-
-"filter_only_auto" = "Automatisations seulement";
-
-"filter_total" = "Total";
-
-//MARK: - CellBudgetView
-"budget_cell_max" = "Maximum";
-
-"budget_cell_actual" = "Actuel";
-
-"budget_cell_overrun" = "Dépassement";
-
-//MARK: - CellContributionView
-"contribution_cell_withdrawn" = "Argent retiré";
-
-"contribution_cell_added" = "Argent ajouté";
-
-//MARK: - CellTransactionForAutomationView
-//MARK: - ThemeColor
-"theme_green" = "Vert";
-
-"theme_blue" = "Bleu";
-
-"theme_purple" = "Violet";
-
-"theme_red" = "Rouge";
-
-//MARK: - AddTransactionIntent
-"shortcut_title" = "Créer une transaction";
-
-"shortcut_desc" = "Le raccourci permet de créer une transaction sans que vous ayez à rentrer dans l'app. Si le nom de la transaction est identique à une transaction passé alors il prendra la même catégorie, sinon il sera dans 'à catégoriser'.";
-
-"shortcut_first_para_title" = "Titre";
-
-"shortcut_first_para_desc" = "Ceci est le nom de votre transaction.";
-
-"shortcut_first_para_dialog" = "Entrer un titre";
-
-"shortcut_second_para_title" = "Montant";
-
-"shortcut_second_para_desc" = "Ceci est le montant de votre transaction.";
-
-"shortcut_second_para_dialog" = "Entrer le montant";
-
-"shortcut_all_para" = "Créer une transaction de ${amount} pour ${title}";
-
-"shortcut_result" = "Transaction de %@ %@ pour %@";
-
-"shortcut_main_title" = "Nouvelle transaction dans CashFlow";
-
-"shortcuts_name_one" = "Créer une transaction";
-
-"shortcuts_name_two" = "Créer une transaction dans ${applicationName}";
-
-//MARK: - A Categoriser
 "category00_name" = "A catégoriser";
 
-//MARK: - Buying & Shopping
+"category10_name" = "Santé";
+
+"category10_subcategory1_name" = "Médecin";
+
+"category10_subcategory2_name" = "Assurance mutuelle";
+
+"category10_subcategory3_name" = "Optique";
+
+"category10_subcategory4_name" = "Pharmacie";
+
+"category10_subcategory5_name" = "Autres";
+
+"category11_name" = "Transport";
+
+"category11_subcategory10_name" = "Transport en commun";
+
+"category11_subcategory11_name" = "Autres";
+
+"category11_subcategory1_name" = "Assurance véhicule";
+
+"category11_subcategory2_name" = "Avion, Train, Bateau";
+
+"category11_subcategory3_name" = "Carburant";
+
+"category11_subcategory4_name" = "Entretien, Équipement du véhicule";
+
+"category11_subcategory5_name" = "Location de véhicule";
+
+"category11_subcategory6_name" = "Péage";
+
+"category11_subcategory7_name" = "Prêt de véhicule";
+
+"category11_subcategory8_name" = "Parking";
+
+"category11_subcategory9_name" = "Taxi, VTC";
+
+"category12_name" = "Travail & Études";
+
+"category12_subcategory1_name" = "Frais professionnels";
+
+"category12_subcategory2_name" = "Dépenses";
+
+"category12_subcategory3_name" = "Prêts étudiants";
+
+"category12_subcategory4_name" = "Repas au travail";
+
+"category12_subcategory5_name" = "Autres";
+
 "category1_name" = "Achats & Shopping";
+
+"category1_subcategory10_name" = "Autres";
 
 "category1_subcategory1_name" = "Articles de sport";
 
@@ -1172,9 +278,6 @@
 
 "category1_subcategory9_name" = "Vêtements, Chaussures, Accessoires";
 
-"category1_subcategory10_name" = "Autres";
-
-//MARK: - Food & Restaurants
 "category2_name" = "Alimentation & Restaurants";
 
 "category2_subcategory1_name" = "Marché";
@@ -1187,7 +290,6 @@
 
 "category2_subcategory5_name" = "Autres";
 
-//MARK: - Animals
 "category3_name" = "Animaux";
 
 "category3_subcategory1_name" = "Jouets";
@@ -1200,13 +302,10 @@
 
 "category3_subcategory5_name" = "Autres";
 
-//MARK: - Credits
 "category4_name" = "Crédits";
 
-//MARK: - Savings & Investments
 "category5_name" = "Epargne & Investissements";
 
-//MARK: - Taxes & charges
 "category6_name" = "Taxes & Frais";
 
 "category6_subcategory1_name" = "Amendes";
@@ -1223,7 +322,6 @@
 
 "category6_subcategory7_name" = "Autres";
 
-//MARK: - Housing & Utilities
 "category7_name" = "Logement & Services Publics";
 
 "category7_subcategory1_name" = "Assurance habitation";
@@ -1244,7 +342,6 @@
 
 "category7_subcategory9_name" = "Autres";
 
-//MARK: - Leisure & Holidays
 "category8_name" = "Loisirs & Vacances";
 
 "category8_subcategory1_name" = "Multimédia";
@@ -1261,107 +358,936 @@
 
 "category8_subcategory7_name" = "Autres";
 
-//MARK: - Withdrawals
 "category9_name" = "Retraits";
 
-//MARK: - Health
-"category10_name" = "Santé";
+"chart_auto_expenses_expenses_in" = "Dépenses automatisés en";
 
-"category10_subcategory1_name" = "Médecin";
+"chart_auto_incomes_incomes_in" = "Revenus automatisés en";
 
-"category10_subcategory2_name" = "Assurance mutuelle";
+"chart_expenses_expenses_in" = "Dépenses en";
 
-"category10_subcategory3_name" = "Optique";
+"chart_incomes_incomes_in" = "Revenus en";
 
-"category10_subcategory4_name" = "Pharmacie";
+"contribution_add" = "Ajouter";
 
-"category10_subcategory5_name" = "Autres";
+"contribution_alert_for_finish" = "pour terminer le plan d'épargne.";
 
-//MARK: - Transport
-"category11_name" = "Transport";
+"contribution_alert_more_final_amount" = "⚠️ Vous ne pouvez pas ajouter plus que le montant final.";
 
-"category11_subcategory1_name" = "Assurance véhicule";
+"contribution_alert_take_more_amount" = "⚠️ Vous ne pouvez pas retirer plus que ce qui est sur le plan d'épargne.";
 
-"category11_subcategory2_name" = "Avion, Train, Bateau";
+"contribution_cell_added" = "Argent ajouté";
 
-"category11_subcategory3_name" = "Carburant";
+"contribution_cell_withdrawn" = "Argent retiré";
 
-"category11_subcategory4_name" = "Entretien, Équipement du véhicule";
+"contribution_new" = "Nouvelle contribution";
 
-"category11_subcategory5_name" = "Location de véhicule";
+"contribution_placeholder_amount" = "0.00";
 
-"category11_subcategory6_name" = "Péage";
+"contribution_withdraw" = "Retirer";
 
-"category11_subcategory7_name" = "Prêt de véhicule";
+"create_add_category" = "Ajouter une catégorie";
 
-"category11_subcategory8_name" = "Parking";
+"creditcard_cvv" = "CVC";
 
-"category11_subcategory9_name" = "Taxi, VTC";
+"creditcard_date" = "Date d'expiration";
 
-"category11_subcategory10_name" = "Transport en commun";
+"creditcard_delete_title" = "Supprimer la carte de crédit";
 
-"category11_subcategory11_name" = "Autres";
+"creditcard_expire" = "EXPIRE";
 
-//MARK: - Work & Study
-"category12_name" = "Travail & Études";
+"creditcard_holder" = "Titulaire de la carte";
 
-"category12_subcategory1_name" = "Frais professionnels";
+"creditcard_limit" = "Plafond de la carte";
 
-"category12_subcategory2_name" = "Dépenses";
+"creditcard_maxCard" = "Montant maximum atteint";
 
-"category12_subcategory3_name" = "Prêts étudiants";
+"creditcard_maxCard_message" = "Une seule carte de crédit est autorisée par compte";
 
-"category12_subcategory4_name" = "Repas au travail";
+"creditcard_numbers" = "Numéros de cartes";
 
-"category12_subcategory5_name" = "Autres";
+"creditcard_security" = "Les cartes de crédit ne sont pas stockées sur nos serveurs. Elles sont stockées dans le trousseau de votre iPhone.";
 
-//MARK: - Alert CashFlow Pro
-"alert_cashflow_pro_title" = "CashFlow Pro";
+"date_word" = "Date";
 
-"alert_cashflow_pro_desc" = "Pour accéder à cette fonctionnalité, vous devez avoir CashFlow Pro.";
+"delete_contribution_message" = "Vous êtes sur le point de supprimer l'une de vos contributions.";
 
-"alert_cashflow_pro_see" = "Voir";
+"delete_contribution_title" = "Supprimer une contribution";
 
-//MARK: - Alert Notification
-"alert_notification_title" = "Notification manquante";
+"delete_subscription_message" = "Vous êtes sur le point de supprimer l'un de vos abonnements.";
 
-"alert_notification_desc" = "Vous devez activer les notifications dans les paramètres.";
+"delete_subscription_title" = "Supprimer un abonnement";
 
-//MARK: - SampleData
-"sample_retrait" = "Retrait";
+"delete_transaction_expense_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera remboursé sur votre compte.";
 
-"sample_repas_travail" = "Repas au travail";
+"delete_transaction_income_message" = "Vous êtes sur le point de supprimer l'une de vos transactions, le montant de cette transaction sera débité de votre compte.";
 
-"sample_boite" = "Boite de nuit";
+"delete_transaction_title" = "Supprimer une transaction";
 
-"sample_croquette" = "Croquette Unna";
+"descending_order_word" = "Ordre décroissant";
 
-"sample_cadeau" = "Cadeau";
+"empty_accounts_create" = "Créer un compte";
+
+"empty_accounts_desc" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
+
+"empty_contributions_desc" = "Vous n'avez encore enregistré aucune contribution pour le moment. Commencez dès maintenant !";
+
+"empty_savingsAccounts_create" = "Créer un compte épargne";
+
+"empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment. Commencez dès maintenant !";
+
+"empty_savingsPlans_create" = "Créer un plan d'épargne";
+
+"empty_savingsPlans_desc" = "Vous n'avez encore enregistré aucun plan d'épargne pour le moment. Commencez dès maintenant !";
+
+"empty_subscriptions_create" = "Créer un abonnement";
+
+"empty_subscriptions_desc" = "Vous n'avez encore enregistré aucun abonnement pour le moment. Commencez dès maintenant !";
+
+"empty_transactions_create" = "Créer une transaction";
+
+"empty_transactions_desc" = "Vous n'avez encore enregistré aucune transaction pour le moment. Commencez dès maintenant !";
+
+"error_message_no_data_day" = "Aucune donnée pour ce jour.";
+
+"error_message_no_data_month" = "Aucune donnée pour ce mois.";
+
+"error_message_savingsplan" = "Créez votre premier plan d'épargne !";
+
+"error_message_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
+
+"filter_by_day" = "Par jour";
+
+"filter_only_auto" = "Automatisations seulement";
+
+"filter_total" = "Total";
+
+"frequency_monthly" = "Mensuel";
+
+"frequency_weekly" = "Hebdomadaire";
+
+"frequency_yearly" = "Annuel";
+
+"home_screen_available_balance" = "Solde disponible";
+
+"home_screen_no_account" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
+
+"home_screen_no_transaction" = "Créez votre première transaction !";
+
+"home_screen_title" = "Accueil";
+
+"login_apple" = "Se connecter avec Apple";
+
+"login_connection" = "Connexion";
+
+"login_google" = "Se connecter avec Google";
+
+"login_message" = "Pour ne jamais perdre vos données d'un appareil à un autre, connectez-vous dès maintenant avec Apple ou Google.
+
+C’est simple, pratique et recommandé !";
+
+"name_first_transaction" = "Argent de départ";
+
+"notifications_day_before" = "jours avant";
+
+"notifications_footer" = "Activer les notifications pour être informé avant qu'un abonnement ne soit effectué";
+
+"notifications_will_added" = "seront ajoutés dans";
+
+"notifications_will_removed" = "seront débités dans";
+
+"onboarding_button_next" = "Suivant";
+
+"onboarding_button_start" = "Commencer";
+
+"onboarding_page1_desc" = "Suivez vos dépenses, analysez vos habitudes de dépenses, identifiez les domaines où vous pouvez économiser et prenez le contrôle de votre argent facilement";
+
+"onboarding_page1_title" = "Bienvenue sur CashFlow !";
+
+"onboarding_page2_desc" = "Toutes vos activités financières seront enregistrées et affichées de manière brève et claire";
+
+"onboarding_page2_title" = "Moyen facile de suivre vos finances";
+
+"onboarding_page3_desc" = "Fonctionnalités qui peuvent vous faciliter l'économie et la planification financière future";
+
+"onboarding_page3_title" = "Préparez vos finances pour l'avenir";
+
+"onboarding_page4_desc" = "Commencez maintenant et ressentez une nouvelle expérience amusante dans la gestion de vos finances";
+
+"onboarding_page4_title" = "Nouvelle expérience dans la gestion de l'argent";
+
+"only_expenses_word" = "Uniquement les dépenses";
+
+"only_incomes_word" = "Uniquement les revenus";
+
+"paywall_automations_desc" = "Automatisez les contributions que vous faites à un plan d'épargne.";
+
+"paywall_budgets_desc" = "Fixez des limites de dépenses pour une catégorie particulière.";
+
+"paywall_category_desc" = "Triez vos catégories par jour.";
+
+"paywall_creditcards_desc" = "Ajouter votre carte de crédit qui sera stockée en sécurité dans le Keychain de votre iPhone.";
+
+"paywall_detailled_budgets" = "Les budgets sont une super fonctionnalité pour délimité vos dépenses. Grâce à eux vous pouvez vous fixez un palier à ne pas dépasser et ainsi continuer de faire attention à vos dépenses.";
+
+"paywall_detailled_category" = "Gérez vos transactions avec précision en les triant par jour !";
+
+"paywall_detailled_prediction" = "Ne vous embétez plus à trouver la bonne catégorie pour votre transaction, CashFlow peut le faire pour vous !";
+
+"paywall_detailled_statistics" = "Suivez mieux vos dépenses grâce à des statistiques détaillées. Découvrez instantanément vos gains ou pertes du mois avec le widget sur la page de votre compte.";
+
+"paywall_financial_advice_desc" = "Débloquez de nouveaux outils pour respecter tous les conseils financiers.";
+
+"paywall_lifetime" = "À vie";
+
+"paywall_monthly_subscription" = "Abonnement mensuel";
+
+"paywall_prediction_desc" = "Prédiction de la catégorie en fonction de vos habitudes pour faciliter l'ajout d'une dépense.";
+
+"paywall_prediction_title" = "Prédiction";
+
+"paywall_restore" = "Restaurer CashFlow Pro";
+
+"paywall_savingsaccounts_desc" = "Compte d'épargne illimité pour une meilleure gestion de votre argent";
+
+"paywall_statistics_desc" = "Voir plus de statistiques sur vos transactions.";
+
+"paywall_support_dev" = "Soutenez le développeur";
+
+"paywall_support_dev_desc" = "En achetant, vous soutenez le développeur indépendant derrière ce projet.";
+
+"paywall_thanks" = "Merci pour votre soutien !";
+
+"paywall_title" = "CashFlow Pro";
+
+"qrcode_recover_transactions" = "Retrouvez la transaction en ouvrant le menu +, le même menu que pour l'ajout d'une transaction. Vous trouverez ensuite le bouton permettant de scanner ce QRCode.";
+
+"qrcode_transactions_how" = "Comment récupérer cette transaction ?";
+
+"qrcode_transactions_share" = "Partagez avec vos amis !";
+
+"recover_button" = "Récupérer";
+
+"recover_enter_json" = "Entrez votre JSON";
+
+"recover_error_json" = "Le JSON que vous avez fourni contient une ou plusieurs erreurs.";
+
+"recover_error_qrcode" = "Aucun QRCode sur cette image";
+
+"recover_import_qrcode" = "Importer un QRCode";
+
+"recover_scan_qrcode" = "Scanner un QRCode";
+
+"recover_successful" = "Récupération réussite";
+
+"recover_successful_date" = "Date & Heure";
+
+"recover_successful_desc" = "Votre transaction a été récupérée";
+
+"recover_successful_new_name" = "Nouveau nom";
+
+"recover_successful_rename" = "Renommer";
+
+"recover_transaction" = "Récupérer une transaction";
 
 "sample_account_name" = "Compte de Théo";
 
-//MARK: - NewUpdate
-"update_first_feat_title" = "Scanner un ticket";
+"sample_boite" = "Boite de nuit";
 
-"update_first_feat_desc" = "Les tickets de caisse sont désormais scannable via l'app.";
+"sample_cadeau" = "Cadeau";
 
-"update_second_feat_title" = "Compatible sur iPad";
+"sample_croquette" = "Croquette Unna";
 
-"update_second_feat_desc" = "Avec cette nouvelle mise à jour CashFlow est disponible sur iPad.";
+"sample_repas_travail" = "Repas au travail";
 
-"update_third_feat_title" = "Synchronisation iCloud";
+"sample_retrait" = "Retrait";
 
-"update_third_feat_desc" = "La synchronisation entre des appareils avec le même compte iCloud est instantané.";
+"savings_account_total_savings" = "Épargne total";
 
-"update_fourth_feat_title" = "Scanner une carte bleu";
+"savingsplan_detail_add_contribution" = "Ajouter une contribution";
 
-"update_fourth_feat_desc" = "Les cartes bleus sont mainteant scanné avec le scan d'Apple.";
+"savingsplan_detail_delete_savingsplan" = "Supprimer un plan d'épargne";
 
-"update_fifth_feat_title" = "Raccourci";
+"savingsplan_detail_delete_savingsplan_desc" = "Vous êtes sur le point de supprimer l'un de vos plans d'épargne.";
+
+"savingsplan_detail_disable_steps" = "Désactiver les étapes";
+
+"savingsplan_detail_enable_steps" = "Activer les étapes";
+
+"savingsplan_detail_end_date" = "Date de fin";
+
+"savingsplan_detail_note" = "Ajouter une note à ce plan d'épargne...";
+
+"savingsplan_detail_step" = "Étape";
+
+"savingsplan_detail_total" = "Total";
+
+"savingsplan_emoji" = "Emoji";
+
+"savingsplan_end" = "Fin";
+
+"savingsplan_end_date" = "Ajouter une date de fin";
+
+"savingsplan_end_date_picker" = "Date de fin";
+
+"savingsplan_new" = "Nouveau plan d'épargne";
+
+"savingsplan_placeholder_amount" = "0.00";
+
+"savingsplan_start" = "Début";
+
+"savingsplan_successful" = "Plan d'épargne créé";
+
+"savingsplan_successful_desc" = "Votre plan d'épargne a été traité";
+
+"savingsplan_title" = "Titre";
+
+"savingsplans_for_home_no_savings_plan" = "Ajoutez votre premier plan d'épargne en appuyant sur le bouton +.";
+
+"savingsplans_for_home_title" = "Mes plans d'épargne";
+
+"setting_account_card_limit_exceeds" = "Bloquer les dépenses";
+
+"setting_account_card_limit_exceeds_desc" = "Bloque les dépenses si la limite de la carte est dépassée.";
+
+"setting_account_negative" = "Le compte peut être négatif";
+
+"setting_account_negative_desc" = "Choisissez si votre compte peut être négatif ou non.";
+
+"setting_account_percentage_alert" = "Pourcentage de limite de carte";
+
+"setting_account_percentage_alert_desc" = "Le pourcentage par lequel la limite de la carte doit être dépassée pour que l'alerte soit affichée.";
+
+"setting_appearence_app_icons" = "Icônes de l'application";
+
+"setting_appearence_tint_color" = "Couleur de teinte";
+
+"setting_applepay_addcategory" = "Ajouter automatiquement une catégorie";
+
+"setting_applepay_footer" = "Cette option permet d'ajouter la catégorie associé à votre transaction. Cette fonctionnalité est expérimental ";
+
+"setting_budgets_exceeded" = "Bloquer les dépenses dans une sous-catégorie";
+
+"setting_budgets_exceeded_desc" = "Bloque les dépenses dans une sous-catégorie si le montant du budget est dépassé.";
+
+"setting_budgets_percentage" = "Pourcentage du budget";
+
+"setting_budgets_percentage_alert" = "Pourcentage du budget requis pour afficher l'alerte.";
+
+"setting_credits_designers" = "Designers";
+
+"setting_credits_founders" = "Fondateurs";
+
+"setting_credits_licences" = "Licences";
+
+"setting_credits_licences_desc" = "Licences du paquet";
+
+"setting_credits_licences_title" = "Licences";
+
+"setting_display_displayed_analytics" = "Affiché sur l'écran analytique";
+
+"setting_display_displayed_home_screen" = "Affiché sur l'écran d'accueil";
+
+"setting_display_nbr_automations" = "Nombre d'automatisations";
+
+"setting_display_nbr_savingsplans" = "Nombre de plans d'épargne";
+
+"setting_display_nbr_subscriptions" = "Nombre d'abonnements";
+
+"setting_display_nbr_transactions" = "Nombre de transactions";
+
+"setting_display_order_charts" = "Ordre des graphiques";
+
+"setting_display_recent_transactions" = "Transactions récentes";
+
+"setting_display_title" = "Affichage";
+
+"setting_financiel_advice_challenge" = "Défi sans dépense";
+
+"setting_financiel_advice_duplicate" = "Activer la recherche de doublons";
+
+"setting_financiel_advice_eighth" = "8. Automatisation financière";
+
+"setting_financiel_advice_eighth_desc" = "Mettez en place des transferts automatiques de votre compte bancaire principal vers votre compte d'épargne ou d'investissement dès que vous recevez votre salaire. Cela vous permet de mettre de l'argent de côté sans y penser et vous aide à atteindre vos objectifs financiers plus rapidement.";
+
+"setting_financiel_advice_fifth" = "5. Défi sans dépense";
+
+"setting_financiel_advice_fifth_desc" = "Choisissez une période spécifique, comme une semaine ou un mois, pendant laquelle vous vous engagez à ne pas dépenser d'argent pour des articles non essentiels. Durant cette période, questionnez chaque achat potentiel et demandez-vous si vous en avez vraiment besoin. Cela peut vous aider à prendre conscience de vos habitudes de dépenses et à identifier les domaines où vous pourriez réduire vos dépenses sur le long terme.";
+
+"setting_financiel_advice_first" = "1. 50-30-20";
+
+"setting_financiel_advice_first_desc" = "La règle 50-30-20 est une approche courante pour gérer votre budget. Selon cette règle, vous devriez allouer : 
+- 50%% de vos revenus aux dépenses essentielles telles que le logement, la nourriture et les services publics.
+- 30%% de vos revenus aux dépenses discrétionnaires, telles que les loisirs et les sorties.
+- 20%% de vos revenus aux économies et au remboursement des dettes.
+Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner et planifier votre avenir financier. Cependant, il est important de l'adapter à votre situation personnelle et à vos objectifs spécifiques.";
+
+"setting_financiel_advice_fourth" = "4. L'objectif financier";
+
+"setting_financiel_advice_fourth_desc" = "Fixez-vous un objectif financier spécifique et réaliste, comme économiser pour un voyage, un achat important ou rembourser une dette. Puis divisez cet objectif en étapes plus petites et élaborez un plan pour atteindre chaque étape. Avoir un objectif concret vous motive à épargner et à suivre votre progression. Cela peut également vous aider à rester concentré sur vos priorités financières.";
+
+"setting_financiel_advice_ninth" = "9. Inventaire avant achat";
+
+"setting_financiel_advice_ninth_desc" = "Avant d'acheter un nouvel article, faites un inventaire de ce que vous possédez déjà dans cette catégorie. Cela vous empêche d'acheter des doublons ou des articles similaires dont vous n'avez pas vraiment besoin. C'est une excellente façon de réduire les dépenses inutiles et d'acheter de manière plus réfléchie.";
+
+"setting_financiel_advice_quality" = "Acheter de la qualité";
+
+"setting_financiel_advice_second" = "2. Paiement uniquement en espèces";
+
+"setting_financiel_advice_second_desc" = "Limitez vos dépenses en n'utilisant que des espèces pour vos achats quotidiens. Une fois que vous avez utilisé votre allocation en espèces pour la période (par exemple, chaque semaine ou chaque mois), vous arrêtez de dépenser jusqu'à la période suivante. Cette approche vous encourage à être plus conscient de vos dépenses et à réfléchir davantage avant d'acheter quelque chose.";
+
+"setting_financiel_advice_seventh" = "7. Se payer en premier";
+
+"setting_financiel_advice_seventh_desc" = "Traitez vos économies comme une dépense inévitable. Chaque fois que vous recevez un revenu, mettez de côté une portion pour les économies avant de payer vos autres dépenses. Cela vous aide à prioriser les économies et à construire une base financière solide pour l'avenir.";
+
+"setting_financiel_advice_sixth" = "6. Acheter de la qualité";
+
+"setting_financiel_advice_sixth_desc" = "Plutôt que de choisir des produits bon marché qui risquent de se détériorer rapidement, optez pour des articles de meilleure qualité, même s'ils sont plus chers initialement. Ces produits ont tendance à durer plus longtemps, ce qui peut vous faire économiser de l'argent sur le long terme en évitant les remplacements fréquents. Cependant, assurez-vous de faire vos recherches pour vous assurer que le produit de qualité vaut vraiment le prix plus élevé.";
+
+"setting_financiel_advice_steps" = "Activer les étapes pour tous les plans d'épargne";
+
+"setting_financiel_advice_tenth" = "10. Diversification des revenus";
+
+"setting_financiel_advice_tenth_desc" = "Recherchez activement des moyens supplémentaires de gagner de l'argent en dehors de votre revenu principal, que ce soit par le biais de jobs à temps partiel, du freelancing, de l'investissement, ou en créant des sources de revenus passifs telles que la location immobilière. La diversification des revenus peut vous offrir une plus grande sécurité financière et la capacité d'atteindre vos objectifs plus rapidement.";
+
+"setting_financiel_advice_third" = "3. Période de réflexion";
+
+"setting_financiel_advice_third_desc" = "Avant de faire un achat important, attendez une période de temps définie, généralement quelques jours à une semaine. Pendant ce temps, évaluez si l'achat est vraiment nécessaire et si vous en aurez encore besoin après la période de réflexion. Cela vous aidera à éviter les achats impulsifs et à vous assurer que vos décisions d'achat sont basées sur de véritables besoins plutôt que sur des envies momentanées.";
+
+"setting_financiel_advice_yourself" = "Se payer en premier";
+
+"setting_general_haptic_feedback" = "Retour haptique";
+
+"setting_home_alert_share_desc" = "Téléchargez CashFlow maintenant, votre nouvel allié financier !";
+
+"setting_home_appearance" = "Apparence";
+
+"setting_home_cashflow_pro" = "CashFlow Pro";
+
+"setting_home_danger" = "Zone de Danger";
+
+"setting_home_five_days_before" = "5 jours avant";
+
+"setting_home_made_by" = "Fait avec ❤ par Théo Sementa";
+
+"setting_home_more_from_dev" = "Plus de cet éditeur";
+
+"setting_home_new_features" = "Suggérer de nouvelles fonctionnalités";
+
+"setting_home_notification_desc" = "Choisissez quand vos notifications seront envoyées lorsque vous les activez.";
+
+"setting_home_notification_picker_time" = "Heure de notification";
+
+"setting_home_notification_picker_time_desc" = "Sélectionnez l'heure à laquelle les notifications sont envoyées.";
+
+"setting_home_one_day_before" = "1 jour avant";
+
+"setting_home_privacy_policy" = "Politique de confidentialité";
+
+"setting_home_report_bug" = "Signaler un bug";
+
+"setting_home_reset_data" = "Supprimer TOUTES LES DONNÉES";
+
+"setting_home_reset_data_desc" = "Vous êtes sur le point de supprimer toutes vos données.";
+
+"setting_home_reset_settings" = "Réinitialiser TOUS les paramètres";
+
+"setting_home_reset_settings_desc" = "Vous êtes sur le point de réinitialiser tous vos paramètres.";
+
+"setting_home_same_day" = "Le même jour";
+
+"setting_home_share_app" = "Partager l'application";
+
+"setting_home_ten_days_before" = "10 jours avant";
+
+"setting_home_terms_conditions" = "Conditions d'utilisation";
+
+"setting_home_title" = "Paramètres";
+
+"setting_home_two_days_before" = "2 jours avant";
+
+"setting_home_write_review" = "Écrire un avis";
+
+"setting_savingsplans_automatic_archiving" = "Archivage automatique";
+
+"setting_savingsplans_nbr_days" = "Nombre de jours";
+
+"setting_savingsplans_nbr_days_archiving_desc" = "Choisissez un nombre de jours après lesquels le plan d'épargne sera archivé (il doit être terminé pour être archivé).";
+
+"setting_security_description" = "pour sécuriser votre application et vos données.";
+
+"setting_security_plus" = "Sécurité +";
+
+"setting_security_plus_description" = "Masquer le contenu de l'application lorsque l'application est en arrière-plan.";
+
+"setting_transactions_auto_archiving" = "Archivage automatique";
+
+"setting_transactions_auto_archiving_desc" = "Choisissez un nombre de jours après lesquels la transaction sera archivée.";
+
+"setting_transactions_nbr_days" = "Nombre de jours";
+
+"shortcut_all_para" = "Créer une transaction de ${amount} pour ${title}";
+
+"shortcut_desc" = "Le raccourci permet de créer une transaction sans que vous ayez à rentrer dans l'app. Si le nom de la transaction est identique à une transaction passé alors il prendra la même catégorie, sinon il sera dans 'à catégoriser'.";
+
+"shortcut_main_title" = "Nouvelle transaction dans CashFlow";
+
+"shortcut_parameter_amount_description" = "Ceci est le montant de votre transaction.";
+
+"shortcut_parameter_amount_dialog" = "Entrer le montant";
+
+"shortcut_parameter_amount_title" = "Montant";
+
+"shortcut_parameter_title_description" = "Ceci est le nom de votre transaction.";
+
+"shortcut_parameter_title_dialog" = "Entrer un titre";
+
+"shortcut_parameter_title_title" = "Titre";
+
+"shortcut_result_label" = "Transaction de %@ %@ pour %@";
+
+"shortcut_title" = "Créer une transaction";
+
+"shortcuts_name_one" = "Créer une transaction";
+
+"shortcuts_name_two" = "Créer une transaction dans ${applicationName}";
+
+"sort_by_word" = "Trier par";
+
+"statistics_total" = "Total";
+
+"statistics_total_expenses" = "Total dépensé";
+
+"statistics_total_expenses_by_month" = "Dépenses mensuelles moyennes";
+
+"statistics_total_expenses_by_week" = "Dépenses hebdomadaires moyennes";
+
+"statistics_total_incomes" = "Total gagné";
+
+"statistics_total_incomes_by_month" = "Revenus mensuelles moyen";
+
+"statistics_total_incomes_by_week" = "Revenus hebdomadaires moyen";
+
+"statistics_with_savings" = "Prendre en compte les épargnes et placements.";
+
+"successful_contribution_new_desc" = "Votre contribution a été traité et ajouté à votre plan d'épargne.";
+
+"successful_contribution_new_title" = "Contribution créé !";
+
+"successful_contribution_update_desc" = "Votre contribution a été mise à jour dans votre plan d'épargne.";
+
+"successful_contribution_update_title" = "Contribution modifiée !";
+
+"successful_savingsplan_new_desc" = "Votre plan d'épargne a été traité et ajouté à votre liste de plans d'épargne.";
+
+"successful_savingsplan_new_title" = "Plan d'épargne créé !";
+
+"successful_savingsplan_update_desc" = "Votre plan d'épargne a été mise à jour dans votre liste de plans d'épargne.";
+
+"successful_savingsplan_update_title" = "Plan d'épargne modifié !";
+
+"successful_subscription_new_desc" = "Votre abonnement a été traité et ajouté à votre liste d'abonnements.";
+
+"successful_subscription_new_title" = "Abonnement crée !";
+
+"successful_subscription_update_desc" = "Votre abonnement a été mise à jour dans votre liste d'abonnements.";
+
+"successful_subscription_update_title" = "Abonnement modifié !";
+
+"successful_transaction_new_desc" = "Votre transaction a été traitée et ajoutée à votre liste de transactions.";
+
+"successful_transaction_new_title" = "Transaction créée !";
+
+"successful_transaction_update_desc" = "Votre transaction a été mise à jour dans votre liste de transactions.";
+
+"successful_transaction_update_title" = "Transaction modifiée !";
+
+"successful_transfer_new_desc" = "Votre transfert a été traitée et appliqué.";
+
+"successful_transfer_new_title" = "Transfert créé !";
+
+"sync_continue_without_data" = "Continuer sans mes données";
+
+"sync_fetching" = "Nous sommes entrain de récupérer vos données...";
+
+"sync_sorry_message" = "Désolé, nous n'avons pas pu récupérer vos données...";
+
+"temporality_in_two_days" = "Dans 2 jours";
+
+"temporality_last_month" = "Le mois dernier";
+
+"temporality_last_week" = "La semaine dernière";
+
+"temporality_last_year" = "L’année dernière";
+
+"temporality_month" = "Mois";
+
+"temporality_this_month" = "Ce mois-ci";
+
+"temporality_this_week" = "Cette semaine";
+
+"temporality_this_year" = "Cette année";
+
+"temporality_today" = "Aujourd'hui";
+
+"temporality_tomorrow" = "Demain";
+
+"temporality_two_days_ago" = "Il y a 2 jours";
+
+"temporality_week" = "Semaine";
+
+"temporality_year" = "Année";
+
+"temporality_yesterday" = "Hier";
+
+"theme_blue" = "Bleu";
+
+"theme_green" = "Vert";
+
+"theme_purple" = "Violet";
+
+"theme_red" = "Rouge";
+
+"tip_already_have_shortcut" = "J'ai déjà le raccourci";
+
+"tip_applepay_desc_one" = "Avec le raccourci Apple Pay, récupérez vos transactions directement dans CashFlow.";
+
+"tip_applepay_desc_two" = "Plus besoin de les saisir manuellement, CashFlow s'occupe de tout pour vous !";
+
+"tip_how_to_do" = "Comment faire ?";
+
+"title_home_savingsPlans" = "Mes plans d'épargne";
+
+"title_home_subscriptions" = "Mes abonnements";
+
+"title_home_transactions" = "Mes transactions";
+
+"title_new_account" = "Nouveau compte";
+
+"title_new_budget" = "Nouveau budget";
+
+"title_new_creditcard" = "Nouvelle carte de crédit";
+
+"title_new_savingsPlan" = "Nouveau plan d'épargne";
+
+"title_new_subscription" = "Nouveau abonnement";
+
+"title_new_transaction" = "Nouvelle transaction";
+
+"title_new_transfer" = "Nouveau transfert";
+
+"title_setting_credits" = "Crédits";
+
+"title_setting_display" = "Affichage";
+
+"title_setting_general" = "Général";
+
+"title_setting_security" = "Sécurité";
+
+"title_update_account" = "Modifier le compte";
+
+"title_update_savingsPlan" = "Modifier le plan d'épargne";
+
+"title_update_subscription" = "Modifier l'abonnement";
+
+"title_update_transaction" = "Modifier la transaction";
+
+"transaction_alert_no_spend_challenge_desc" = "Le défi sans-dépense est activé. Êtes-vous sûr de vouloir effectuer cette transaction ?";
+
+"transaction_alert_no_spend_challenge_title" = "Défi sans-dépense activé";
+
+"transaction_alert_quality_purchase" = "N'oubliez pas que vos achats doivent être de qualité pour durer dans le temps.";
+
+"transaction_detail_amount" = "Montant";
+
+"transaction_detail_date" = "Date";
+
+"transaction_detail_note" = "Ajouter une note à cette transaction...";
+
+"transaction_new" = "Nouvelle transaction";
+
+"transaction_placeholder_amount" = "0.00";
+
+"transaction_recommended_category" = "Catégorie recommandée";
+
+"transaction_successful" = "Transaction créée";
+
+"transaction_successful_date" = "Date & Heure";
+
+"transaction_successful_desc" = "Votre transaction a été traitée";
+
+"transaction_title" = "Titre";
 
 "update_fifth_feat_desc" = "Un raccourci est mainteant disponible pour l'éxécuter lors d'un payement avec Apple Pay par exemple.";
 
-"update_sixth_feat_title" = "Prédiction de catégorie";
+"update_fifth_feat_title" = "Raccourci";
+
+"update_first_feat_desc" = "Les tickets de caisse sont désormais scannable via l'app.";
+
+"update_first_feat_title" = "Scanner un ticket";
+
+"update_fourth_feat_desc" = "Les cartes bleus sont mainteant scanné avec le scan d'Apple.";
+
+"update_fourth_feat_title" = "Scanner une carte bleu";
+
+"update_second_feat_desc" = "Avec cette nouvelle mise à jour CashFlow est disponible sur iPad.";
+
+"update_second_feat_title" = "Compatible sur iPad";
 
 "update_sixth_feat_desc" = "Si vous disposez de CashFlow Pro, une catégorie vous sera proposée lorsque vous ajouterez une transaction.";
+
+"update_sixth_feat_title" = "Prédiction de catégorie";
+
+"update_third_feat_desc" = "La synchronisation entre des appareils avec le même compte iCloud est instantané.";
+
+"update_third_feat_title" = "Synchronisation iCloud";
+
+"user_delete_account_message" = "En supprimant votre compte, toutes vos données associées seront définitivement effacées. Cette action est irréversible. Êtes-vous sûr ?";
+
+"user_delete_account_title" = "Supprimer mon compte";
+
+"what_category_title" = "Dans quelle catégorie ?";
+
+"whatsnew_applepay" = "Nous pouvons maintenant ajouter directement la bonne catégorie à vos transactions faites avec Apple Pay";
+
+"whatsnew_applepay_title" = "Paramètre Apple Pay";
+
+"whatsnew_creditcard" = "Stocké maintenant vos cartes de crédit de manière sécurisée dans l'application (Apple Keychain)";
+
+"whatsnew_stats" = "Un récapitulatif des transactions pour l'année en cours et précedente est désormais disponible";
+
+"whatsnew_subscription" = "Vous pouvez maintenant consulter le détail d'un abonnement";
+
+"whatsnew_title" = "Quoi de neuf ?";
+
+"whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
+
+"whatsnew_ui_title" = "Interface utilisateur";
+
+"word_ARCHIVE" = "ARCHIVER";
+
+"word_DELETE" = "SUPPRIMER";
+
+"word_QRCODE" = "QR CODE";
+
+"word_UNARCHIVE" = "DÉSARCHIVER";
+
+"word_account" = "Compte";
+
+"word_add" = "Ajouter";
+
+"word_alert" = "Alerte";
+
+"word_alerts" = "Alertes";
+
+"word_amount" = "Montant";
+
+"word_amountToReach" = "Montant à atteindre";
+
+"word_analytic" = "Stats";
+
+"word_archive" = "Archiver";
+
+"word_archived_savingsplans" = "Plans d'épargne archivés";
+
+"word_archived_transactions" = "Transactions archivées";
+
+"word_automation" = "Automatisation";
+
+"word_automation_expense" = "Dépense automatisée";
+
+"word_automation_income" = "Revenu automatisé";
+
+"word_automations" = "Automatisations";
+
+"word_automations_expenses" = "Dépenses automatisées";
+
+"word_automations_incomes" = "Revenus automatisés";
+
+"word_budget" = "Budget";
+
+"word_budgets" = "Budgets";
+
+"word_cancel" = "Annuler";
+
+"word_cancel_changes" = "Annuler les modifications";
+
+"word_categories" = "Catégories";
+
+"word_category" = "Catégorie";
+
+"word_continue" = "Continuer";
+
+"word_contributed" = "Contribué";
+
+"word_contributedThisMonth" = "Contribué ce mois-ci";
+
+"word_contributions" = "Contributions";
+
+"word_create" = "Créer";
+
+"word_creditcard" = "Carte de crédit";
+
+"word_creditcards" = "Cartes de crédit";
+
+"word_currentAmount" = "Montant actuel";
+
+"word_dark" = "Sombre";
+
+"word_date" = "Date";
+
+"word_dayOfAutomation" = "Jour de l'automatisation";
+
+"word_days" = "jours";
+
+"word_daysElapsed" = "Jours écoulés";
+
+"word_daysRemaining" = "Jours restants";
+
+/*  */
+"word_delete" = "Supprimer";
+
+"word_delete_account" = "Supprimer mon compte";
+
+"word_disconnect" = "Déconnexion";
+
+"word_edit" = "Modifier";
+
+"word_enable" = "Activer";
+
+"word_endDate" = "Date de fin";
+
+"word_expense" = "Dépense";
+
+"word_expenses" = "Dépenses";
+
+"word_filter" = "Filtre";
+
+"word_finalTarget" = "Objectif final";
+
+"word_finalTargetDate" = "Date final de l'objectif";
+
+"word_financial_advice" = "Conseil financier";
+
+"word_frequency" = "Fréquence";
+
+"word_home" = "Accueil";
+
+"word_income" = "Revenu";
+
+"word_incomes" = "Revenus";
+
+"word_initialAmount" = "Montant de départ";
+
+"word_json" = "JSON";
+
+"word_light" = "Clair";
+
+"word_maxAmount" = "Montant maximum";
+
+"word_month" = "Mois";
+
+"word_monthlyTarget" = "Objectif mensuel";
+
+"word_name" = "Nom";
+
+"word_new_name" = "Nouveau nom";
+
+"word_no_results" = "Aucun résultat pour";
+
+"word_note" = "Note";
+
+"word_notification" = "Notification";
+
+"word_notifications" = "Notifications";
+
+"word_ok" = "OK";
+
+"word_preposition_from" = "de";
+
+"word_preposition_to" = "vers";
+
+"word_price" = "Prix";
+
+"word_qrcode" = "QR Code";
+
+"word_received" = "Reçu";
+
+"word_receiverAccount" = "Compte destinataire";
+
+"word_recent_transactions" = "Transactions récentes";
+
+"word_recommended" = "Recommandé";
+
+"word_remaining" = "Restant";
+
+"word_rename" = "Renommer";
+
+"word_reset" = "Réinitialiser";
+
+"word_retry" = "Réessayer";
+
+"word_return" = "Retour";
+
+"word_savings" = "Epargne";
+
+"word_savings_account" = "Compte épargne";
+
+"word_savings_accounts" = "Comptes épargne";
+
+"word_savingsplan" = "Plan d'épargne";
+
+"word_savingsplans" = "Plans d'épargne";
+
+"word_scanner" = "Scanner";
+
+"word_search" = "Rechercher";
+
+"word_senderAccount" = "Compte émetteur";
+
+"word_sent" = "Envoyé";
+
+"word_share" = "Partager";
+
+"word_startDate" = "Date de début";
+
+"word_startTargetDate" = "Date du début de l'objectif";
+
+"word_statistics" = "Statistiques";
+
+"word_subcategories" = "Sous-catégories";
+
+"word_subcategory" = "Sous-catégorie";
+
+"word_subscription" = "Abonnement";
+
+"word_subscriptionFuturDate" = "Date du prochain prélèvement";
+
+"word_subscriptions" = "Abonnements";
+
+"word_system" = "Système";
+
+"word_total" = "Total";
+
+"word_total_auto" = "Automatisations totales";
+
+"word_transaction" = "Transaction";
+
+"word_transactions" = "Transactions";
+
+"word_transfer" = "Transfert";
+
+"word_transfers" = "Transferts";
+
+"word_type" = "Type";
+
+"word_typeOfContribution" = "Type de contribution";
+
+"word_typeOfTransaction" = "Type de transaction";
+
+"word_unarchive" = "Désarchiver";
+
+"word_validate" = "Valider";
+
+"word_yes" = "Oui";
 

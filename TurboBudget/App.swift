@@ -87,9 +87,11 @@ struct TurboBudgetApp: App {
                         }
                     }
                     .onChange(of: accountStore.selectedAccount) { _ in
-                        appManager.resetAllStoresData()
-                        Task {
-                            await appManager.loadStartData()
+                        if appManager.isStartDataLoaded {
+                            appManager.resetAllStoresData()
+                            Task {
+                                await appManager.loadStartData()
+                            }
                         }
                     }
                 case .syncing:

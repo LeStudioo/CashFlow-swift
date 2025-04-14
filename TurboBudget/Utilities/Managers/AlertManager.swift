@@ -3,7 +3,7 @@
 //  CashFlow
 //
 //  Created by Theo Sementa on 17/08/2024.
-//
+//  Localized with Toglee on 14/04/2025
 
 import Foundation
 import AlertKit
@@ -22,11 +22,11 @@ extension AlertManager {
             }
         )
     }
-    // TODO: LOCALIZATION
+
     func onlyOneCreditCardByAccount() {
         self.present(
-            title: Word.CreditCard.maxCard,
-            message: Word.CreditCard.maxCardMessage
+            title: "alert_creditcard_title".localized,
+            message: "alert_creditcard_message".localized
         )
     }
     
@@ -36,9 +36,9 @@ extension AlertManager {
     
     func signOut(dismiss: DismissAction) {
         self.present(
-            title: Word.Classic.disconnect + " ?",
+            title: "alert_signout_title".localized,
             message: "",
-            buttonTitle: Word.Classic.disconnect,
+            buttonTitle: "alert_signout_action_button".localized,
             isDestructive: true,
             action: {
                 await UserStore.shared.signOut()
@@ -49,9 +49,9 @@ extension AlertManager {
     
     func deleteUser(dismiss: DismissAction) {
         self.present(
-            title: "user_delete_account_title".localized,
-            message: "user_delete_account_message".localized,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_user_account_delete_title".localized,
+            message: "alert_user_account_delete_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 await UserStore.shared.deleteAccount()
@@ -67,9 +67,9 @@ extension AlertManager {
     
     func deleteAccount(account: AccountModel, dismissAction: DismissAction? = nil) {
         self.present(
-            title: "account_detail_delete_account".localized,
-            message: "account_detail_delete_account_desc".localized,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_account_delete_title".localized,
+            message: "alert_account_delete_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let accountID = account.id {
@@ -82,9 +82,11 @@ extension AlertManager {
     
     func deleteTransaction(transaction: TransactionModel, dismissAction: DismissAction? = nil) {
         self.present(
-            title: Word.Delete.Transaction.title,
-            message: transaction.type == .expense ? Word.Delete.Transaction.expenseMessage : Word.Delete.Transaction.incomeMessage,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_transaction_delete_title".localized,
+            message: transaction.type == .expense
+            ? "alert_transaction_expense_message".localized
+            : "alert_transaction_income_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let transactionID = transaction.id {
@@ -99,7 +101,7 @@ extension AlertManager {
         self.present(
             title: "alert_transfer_delete_title".localized,
             message: "alert_transfer_delete_message".localized,
-            buttonTitle: Word.Classic.delete,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let transactionID = transfer.id {
@@ -112,9 +114,9 @@ extension AlertManager {
     
     func deleteSubscription(subscription: SubscriptionModel, dismissAction: DismissAction? = nil) {
         self.present(
-            title: Word.Delete.Subscription.title,
-            message: Word.Delete.Subscription.message,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_subscription_delete_title".localized,
+            message: "alert_subscription_delete_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let subscriptionID = subscription.id {
@@ -127,9 +129,9 @@ extension AlertManager {
     
     func deleteSavingsPlan(savingsPlan: SavingsPlanModel, dismissAction: DismissAction? = nil) {
         self.present(
-            title: "savingsplan_detail_delete_savingsplan".localized,
-            message: "savingsplan_detail_delete_savingsplan_desc".localized,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_savingsplan_delete_title".localized,
+            message: "alert_savingsplan_delete_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let savingsPlanID = savingsPlan.id {
@@ -142,9 +144,9 @@ extension AlertManager {
     
     func deleteContribution(savingsPlan: SavingsPlanModel, contribution: ContributionModel) {
         self.present(
-            title: Word.Delete.Contribution.title,
-            message: Word.Delete.Contribution.message,
-            buttonTitle: Word.Classic.delete,
+            title: "alert_contribution_delete_title".localized,
+            message: "alert_contribution_delete_message".localized,
+            buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
                 if let contributionID = contribution.id, let savingsPlanID = savingsPlan.id {

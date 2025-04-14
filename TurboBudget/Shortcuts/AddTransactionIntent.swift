@@ -11,12 +11,20 @@ import AppIntents
 struct AddTransactionIntent: AppIntent {
     
     static let title: LocalizedStringResource = "shortcut_title"
-    static let description: LocalizedStringResource = "shortcut_desc"
+    static let description: LocalizedStringResource = "shortcut_desccription"
     
-    @Parameter(title: "shortcut_first_para_title", description: "shortcut_first_para_desc", requestValueDialog: "shortcut_first_para_dialog")
+    @Parameter(
+        title: "shortcut_parameter_title_title",
+        description: "shortcut_parameter_title_description",
+        requestValueDialog: "shortcut_parameter_title_dialog"
+    )
     var title: String
     
-    @Parameter(title: "shortcut_second_para_title", description: "shortcut_second_para_desc", requestValueDialog: "shortcut_second_para_dialog")
+    @Parameter(
+        title: "shortcut_parameter_amount_title",
+        description: "shortcut_parameter_amount_description",
+        requestValueDialog: "shortcut_parameter_amount_dialog"
+    )
     var amount: String
     
     func perform() async throws -> some IntentResult & ProvidesDialog {
@@ -103,7 +111,7 @@ struct AddTransactionIntent: AppIntent {
             
             let amountString: String = extractNumberString(from: amount)
             
-            let formatString = "shortcut_result".localized
+            let formatString = "shortcut_result_label".localized
             let formattedText = String(format: formatString, amountString, UserCurrency.symbol, title)
             
             return .result(dialog: IntentDialog(stringLiteral: formattedText))
