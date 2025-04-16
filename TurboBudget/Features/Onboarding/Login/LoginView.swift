@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import NetworkKit
 
 struct LoginView: View {
     
@@ -51,7 +52,7 @@ struct LoginView: View {
                         if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
                             if let appleIDToken = credential.identityToken, let idTokenString = String(data: appleIDToken, encoding: .utf8) {
                                 Task {
-                                    let user = try await NetworkService.shared.sendRequest(
+                                    let user = try await NetworkService.sendRequest(
                                         apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
                                         responseModel: UserModel.self
                                     )

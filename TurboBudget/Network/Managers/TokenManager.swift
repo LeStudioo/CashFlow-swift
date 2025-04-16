@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 class TokenManager: ObservableObject {
     static let shared = TokenManager()
@@ -28,7 +29,7 @@ extension TokenManager {
     func refreshToken() async throws {
         if let refreshTokenInKeychain = KeychainManager.shared.retrieveItemFromKeychain(id: KeychainService.refreshToken.rawValue, type: String.self), !refreshTokenInKeychain.isEmpty {
             do {
-                let user = try await NetworkService.shared.sendRequest(
+                let user = try await NetworkService.sendRequest(
                     apiBuilder: UserAPIRequester.refreshToken(refreshToken: refreshTokenInKeychain),
                     responseModel: UserModel.self
                 )

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum TransactionAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum TransferAPIRequester: APIRequestBuilder {
     case transfer(senderAccountID: Int, receiverAccountID: Int, body: TransferBody)

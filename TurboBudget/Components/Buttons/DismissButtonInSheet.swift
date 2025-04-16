@@ -22,7 +22,7 @@ struct DismissButtonInSheet: View {
                     .font(.system(size: 22, weight: .semibold, design: .rounded))
             })
         }
-        .padding(isLittleIphone ? 8 : 12)
+        .padding(UIDevice.isLittleIphone ? 8 : 12)
         .padding([.top, .trailing], 8)
     } // body
 } // struct

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class TransactionStore: ObservableObject {
     static let shared = TransactionStore()

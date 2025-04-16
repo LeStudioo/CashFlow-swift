@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class TransferStore: ObservableObject {
     static let shared = TransferStore()
@@ -28,7 +29,7 @@ extension TransferStore {
     @MainActor
     func fetchTransfersWithPagination(accountID: Int, perPage: Int = 50) async {
         do {
-            let transfers = try await NetworkService.shared.sendRequest(
+            let transfers = try await NetworkService.sendRequest(
                 apiBuilder: TransactionAPIRequester.fetchWithPagination(
                     accountID: accountID,
                     perPage: perPage,

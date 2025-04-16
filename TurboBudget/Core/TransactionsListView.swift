@@ -11,13 +11,13 @@ struct TransactionsListView: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     @State private var isLoading: Bool = false
     
     // MARK: -
     var body: some View {
-        List(transactionRepository.transactionsByMonth.sorted(by: { $0.key > $1.key }), id: \.key) { month, transactions in
+        List(transactionStore.transactionsByMonth.sorted(by: { $0.key > $1.key }), id: \.key) { month, transactions in
             Section {
                 ForEach(transactions) { transaction in
                     NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
@@ -26,7 +26,7 @@ struct TransactionsListView: View {
                     .id(transaction.id)
                     .padding(.horizontal)
                     .onAppear {
-                        if transactionRepository.transactions.last?.id == transaction.id && !isLoading {
+                        if transactionStore.transactions.last?.id == transaction.id && !isLoading {
                             self.isLoading = true
                         }
                     }
@@ -54,15 +54,15 @@ struct TransactionsListView: View {
                 CashFlowLoader()
             }
         }
-        .animation(.smooth, value: transactionRepository.transactions.count)
+        .animation(.smooth, value: transactionStore.transactions.count)
         .onChange(of: isLoading) { newValue in
             if newValue {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     Task {
                         if let selectedAccount = self.accountStore.selectedAccount, let accountID = selectedAccount.id {
-                            let startDateOneMonthAgo = self.transactionRepository.currentDateForFetch.oneMonthAgo
+                            let startDateOneMonthAgo = self.transactionStore.currentDateForFetch.oneMonthAgo
                             let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
-                            await self.transactionRepository.fetchTransactionsByPeriod(
+                            await self.transactionStore.fetchTransactionsByPeriod(
                                 accountID: accountID,
                                 startDate: startDateOneMonthAgo,
                                 endDate: endDateOneMonthAgo

@@ -14,6 +14,7 @@
 		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
 		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
+		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
 				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
+				D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */,
 				D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */,
 				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
 			);
@@ -108,6 +110,7 @@
 				D9300BF92CE63B4100194630 /* GoogleSignInSwift */,
 				D912D0092D140523006DF5DC /* AlertKit */,
 				D94594F62D16A03A00A989F0 /* NotificationKit */,
+				D97F63EE2DAFA3240060B741 /* NetworkKit */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -138,7 +141,6 @@
 				fr,
 				es,
 				de,
-				it,
 			);
 			mainGroup = 81A7077A2A3B6B4C00BEB0BF;
 			packageReferences = (
@@ -148,6 +150,7 @@
 				D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */,
 				D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */,
+				D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -330,7 +333,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250103;
+				CURRENT_PROJECT_VERSION = 20250416;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				DEVELOPMENT_TEAM = 8TMMB69WBG;
@@ -358,7 +361,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sementa.CashFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -380,7 +383,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250103;
+				CURRENT_PROJECT_VERSION = 20250416;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				DEVELOPMENT_TEAM = 8TMMB69WBG;
@@ -408,7 +411,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.Sementa.CashFlow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
@@ -493,6 +496,14 @@
 				minimumVersion = 1.2.3;
 			};
 		};
+		D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theosementa/NetworkKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -530,6 +541,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
 			productName = MCEmojiPicker;
+		};
+		D97F63EE2DAFA3240060B741 /* NetworkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */;
+			productName = NetworkKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

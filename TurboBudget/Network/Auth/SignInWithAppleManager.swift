@@ -7,6 +7,7 @@
 
 import Foundation
 import AuthenticationServices
+import NetworkKit
 
 class SignInWithAppleManager: NSObject {
     
@@ -31,7 +32,7 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
                         
             Task {
-                let user = try await NetworkService.shared.sendRequest(
+                let user = try await NetworkService.sendRequest(
                     apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
                     responseModel: UserModel.self
                 )

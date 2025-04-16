@@ -13,7 +13,7 @@ struct TransactionsView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
             
     // MARK: -
     var body: some View {
@@ -21,7 +21,7 @@ struct TransactionsView: View {
             .overlay {
                 CustomEmptyView(
                     type: .empty(.transactions),
-                    isDisplayed: transactionRepository.transactions.isEmpty
+                    isDisplayed: transactionStore.transactions.isEmpty
                 )
             }
             .navigationTitle(Word.Main.transactions)

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class CategoryStore: ObservableObject {
     static let shared = CategoryStore()
@@ -25,7 +26,7 @@ extension CategoryStore {
     @MainActor
     private func fetchCategories() async {
         do {
-            let categories = try await NetworkService.shared.sendRequest(
+            let categories = try await NetworkService.sendRequest(
                 apiBuilder: CategoryAPIRequester.fetchCategories,
                 responseModel: [CategoryModel].self
             )

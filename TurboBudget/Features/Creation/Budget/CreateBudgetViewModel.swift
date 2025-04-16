@@ -21,14 +21,14 @@ final class CreateBudgetViewModel: ObservableObject {
 extension CreateBudgetViewModel {
     
     func createBudget(dismiss: DismissAction) {
-        let accountRepository: AccountStore = .shared
-        let budgetRepository: BudgetStore = .shared
+        let accountStore: AccountStore = .shared
+        let budgetStore: BudgetStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
+        guard let account = accountStore.selectedAccount, let accountID = account.id else { return }
         
         Task {
-            if let budget = await budgetRepository.createBudget(
+            if let budget = await budgetStore.createBudget(
                 accountID: accountID,
                 body: .init(
                     amount: amountBudget.toDouble(),

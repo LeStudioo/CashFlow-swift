@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class UserStore: ObservableObject {
     static let shared = UserStore()
@@ -22,7 +23,7 @@ extension UserStore {
     @MainActor
     func register(body: UserModel) async {
         do {
-            let user = try await NetworkService.shared.sendRequest(
+            let user = try await NetworkService.sendRequest(
                 apiBuilder: UserAPIRequester.register(body: body),
                 responseModel: UserModel.self
             )
@@ -59,7 +60,7 @@ extension UserStore {
     @MainActor
     func deleteAccount() async {
         do {
-            try await NetworkService.shared.sendRequest(
+            try await NetworkService.sendRequest(
                 apiBuilder: UserAPIRequester.delete
             )
             TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")

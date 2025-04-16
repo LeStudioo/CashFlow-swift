@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class AccountStore: ObservableObject {
     static let shared = AccountStore()
@@ -13,7 +14,7 @@ final class AccountStore: ObservableObject {
     @Published var accounts: [AccountModel] = []
     @Published var savingsAccounts: [AccountModel] = []
     
-    @Published var selectedAccount: AccountModel?
+    @Published private(set) var selectedAccount: AccountModel?
     
     @Published var cashflow: [Double] = []
     @Published var stats: StatisticsModel?
@@ -133,6 +134,11 @@ extension AccountStore {
         } else if let savingsAccountIndex = savingsAccounts.firstIndex(where: { $0.id == accountID }) {
             self.savingsAccounts[savingsAccountIndex]._balance = newBalance
         }
+    }
+    
+    func setNewAccount(account: AccountModel?) {
+        guard let account else { return }
+        self.selectedAccount = account
     }
     
 }

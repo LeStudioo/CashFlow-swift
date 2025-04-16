@@ -12,8 +12,8 @@ struct SavingsPlansHomeView: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
-    @EnvironmentObject private var contributionRepository: ContributionStore
+    @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
+    @EnvironmentObject private var contributionStore: ContributionStore
         
     // String variables
     @State private var searchText: String = ""
@@ -21,9 +21,9 @@ struct SavingsPlansHomeView: View {
     // Computed var
     private var searchResults: [SavingsPlanModel] {
         if searchText.isEmpty {
-            return savingsPlanRepository.savingsPlans
+            return savingsPlanStore.savingsPlans
         } else {
-            return savingsPlanRepository.savingsPlans.filter { $0.name?.localizedStandardContains(searchText) ?? false }
+            return savingsPlanStore.savingsPlans.filter { $0.name?.localizedStandardContains(searchText) ?? false }
         }
     }
     
@@ -38,7 +38,7 @@ struct SavingsPlansHomeView: View {
                     NavigationButton(push: router.pushSavingPlansDetail(savingsPlan: savingsPlan), action: {
                         Task {
                             if let savingsPlanID = savingsPlan.id {
-                                await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
+                                await contributionStore.fetchContributions(savingsplanID: savingsPlanID)
                             }
                         }
                     }) {
@@ -53,7 +53,7 @@ struct SavingsPlansHomeView: View {
         .overlay {
             CustomEmptyView(
                 type: (searchResults.isEmpty && !searchText.isEmpty) ? .noResults(searchText) : .empty(.savingsPlan),
-                isDisplayed: savingsPlanRepository.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
+                isDisplayed: savingsPlanStore.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
             )
         }
         .navigationTitle(Word.Main.savingsPlans)

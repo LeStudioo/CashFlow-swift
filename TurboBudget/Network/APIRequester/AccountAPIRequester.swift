@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum AccountAPIRequester: APIRequestBuilder {
     case fetch

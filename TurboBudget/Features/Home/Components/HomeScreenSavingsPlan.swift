@@ -13,8 +13,8 @@ struct HomeScreenSavingsPlan: View {
         
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
-    @EnvironmentObject private var contributionRepository: ContributionStore
+    @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
+    @EnvironmentObject private var contributionStore: ContributionStore
     
     // Preferences
     @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
@@ -30,15 +30,15 @@ struct HomeScreenSavingsPlan: View {
         VStack {
             HomeScreenComponentHeader(type: .savingsPlan)
             
-            if !savingsPlanRepository.savingsPlans.isEmpty {
+            if !savingsPlanStore.savingsPlans.isEmpty {
                 LazyVGrid(columns: layout, alignment: .center) {
-                    ForEach(savingsPlanRepository.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
+                    ForEach(savingsPlanStore.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
                         NavigationButton(
                             push: router.pushSavingPlansDetail(savingsPlan: savingsPlan),
                             action: {
                                 Task {
                                     if let savingsPlanID = savingsPlan.id {
-                                        await contributionRepository.fetchContributions(savingsplanID: savingsPlanID)
+                                        await contributionStore.fetchContributions(savingsplanID: savingsPlanID)
                                     }
                                 }
                             }, label: {
@@ -52,7 +52,7 @@ struct HomeScreenSavingsPlan: View {
                 HomeScreenEmptyRow(type: .savingsPlan)
             }
         }
-        .animation(.smooth, value: savingsPlanRepository.savingsPlans.count)
+        .animation(.smooth, value: savingsPlanStore.savingsPlans.count)
         .isDisplayed(preferencesDisplayHome.savingsPlan_isDisplayed)
     } // End body
 } // End struct

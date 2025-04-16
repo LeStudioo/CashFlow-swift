@@ -118,7 +118,7 @@ struct CreateSubscriptionView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(

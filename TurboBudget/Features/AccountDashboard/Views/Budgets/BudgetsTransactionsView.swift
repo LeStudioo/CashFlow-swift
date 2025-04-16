@@ -14,7 +14,7 @@ struct BudgetsTransactionsView: View {
     // Builder
     var subcategory: SubcategoryModel
     
-    @EnvironmentObject private var budgetRepository: BudgetStore
+    @EnvironmentObject private var budgetStore: BudgetStore
     @EnvironmentObject private var transactionStore: TransactionStore
 
     // Environment
@@ -67,7 +67,7 @@ struct BudgetsTransactionsView: View {
             Button(role: .destructive, action: {
                 if let budget = subcategory.budget, let budgetID = budget.id {
                     Task {
-                        await budgetRepository.deleteBudget(budgetID: budgetID)
+                        await budgetStore.deleteBudget(budgetID: budgetID)
                         dismiss()
                     }
                 }

@@ -6,32 +6,33 @@
 //
 
 import Foundation
+import NetworkKit
 
 struct SubscriptionService {
     
     static func fetchAll(for accountID: Int) async throws -> [SubscriptionModel] {
-        return try await NetworkService.shared.sendRequest(
+        return try await NetworkService.sendRequest(
             apiBuilder: SubscriptionAPIRequester.fetch(accountID: accountID),
             responseModel: [SubscriptionModel].self
         )
     }
     
     static func create(accountID: Int, body: SubscriptionModel) async throws -> SubscriptionModel {
-        return try await NetworkService.shared.sendRequest(
+        return try await NetworkService.sendRequest(
             apiBuilder: SubscriptionAPIRequester.create(accountID: accountID, body: body),
             responseModel: SubscriptionModel.self
         )
     }
     
     static func update(subscriptionID: Int, body: SubscriptionModel) async throws -> SubscriptionModel {
-        return try await NetworkService.shared.sendRequest(
+        return try await NetworkService.sendRequest(
             apiBuilder: SubscriptionAPIRequester.update(subscriptionID: subscriptionID, body: body),
             responseModel: SubscriptionModel.self
         )
     }
     
     static func delete(subscriptionID: Int) async throws {
-        try await NetworkService.shared.sendRequest(
+        try await NetworkService.sendRequest(
             apiBuilder: SubscriptionAPIRequester.delete(subscriptionID: subscriptionID)
         )
     }

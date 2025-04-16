@@ -13,7 +13,7 @@ struct HomeScreenSubscription: View {
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
+    @EnvironmentObject private var subscriptionStore: SubscriptionStore
     @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences
@@ -24,9 +24,9 @@ struct HomeScreenSubscription: View {
         VStack {
             HomeScreenComponentHeader(type: .subscription)
             
-            if !subscriptionRepository.subscriptions.isEmpty {
+            if !subscriptionStore.subscriptions.isEmpty {
                 VStack {
-                    ForEach(subscriptionRepository.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
+                    ForEach(subscriptionStore.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
                         NavigationButton(push: router.pushSubscriptionDetail(subscription: subscription)) {
                             SubscriptionRow(subscription: subscription)
                         }

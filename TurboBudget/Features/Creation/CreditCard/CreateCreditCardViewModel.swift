@@ -25,7 +25,7 @@ extension CreateCreditCardViewModel {
     @MainActor
     func createCreditCard(dismiss: DismissAction) {
         guard let account = AccountStore.shared.selectedAccount, let accountID = account.id else { return }
-        let creditCardRepository: CreditCardStore = .shared
+        let creditCardStore: CreditCardStore = .shared
         
         let randomUUID = UUID()
         let newCreditCard = CreditCardModel(
@@ -38,9 +38,9 @@ extension CreateCreditCardViewModel {
         )
         
         Task {
-            await creditCardRepository.createCreditCard(accountID: accountID, uuid: randomUUID)
+            await creditCardStore.createCreditCard(accountID: accountID, uuid: randomUUID)
             KeychainManager.shared.setItemToKeychain(id: randomUUID.uuidString, data: newCreditCard)
-            creditCardRepository.creditCards.append(newCreditCard)
+            creditCardStore.creditCards.append(newCreditCard)
             dismiss()
         }
     }

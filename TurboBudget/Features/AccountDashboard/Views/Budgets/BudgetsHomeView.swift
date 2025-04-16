@@ -16,11 +16,11 @@ struct BudgetsHomeView: View {
     
     // Environnement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var budgetRepository: BudgetStore
+    @EnvironmentObject private var budgetStore: BudgetStore
     
     // MARK: -
     var body: some View {
-        List(budgetRepository.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
+        List(budgetStore.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
             VStack(spacing: 16) {
                 CategoryHeader(category: category)
                 

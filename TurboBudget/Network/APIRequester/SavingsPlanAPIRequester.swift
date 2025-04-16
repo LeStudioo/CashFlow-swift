@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum SavingsPlanAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)

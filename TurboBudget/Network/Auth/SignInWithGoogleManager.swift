@@ -9,6 +9,7 @@
 // https://github.com/google/GoogleSignIn-iOS/issues/378
 import SwiftUI
 import GoogleSignIn
+import NetworkKit
 
 class SignInWithGoogleManager: ObservableObject {
     
@@ -46,7 +47,7 @@ extension SignInWithGoogleManager {
             Task {
                 await self.getUserInfo()
                 
-                let user = try await NetworkService.shared.sendRequest(
+                let user = try await NetworkService.sendRequest(
                     apiBuilder: AuthAPIRequester.google(body: .init(identityToken: googleToken.tokenString)),
                     responseModel: UserModel.self
                 )

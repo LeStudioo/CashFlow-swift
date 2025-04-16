@@ -33,11 +33,11 @@ extension CreateTransferViewModel {
         guard let senderAccount, let receiverAccount else { return }
         guard let senderAccountID = senderAccount.id, let receiverAccountID = receiverAccount.id else { return }
         
-        let transferRepository: TransferStore = .shared
+        let transferStore: TransferStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
-            if let transfer = await transferRepository.createTransfer(
+            if let transfer = await transferStore.createTransfer(
                 senderAccountID: senderAccountID,
                 receiverAccountID: receiverAccountID,
                 body: .init(

@@ -26,7 +26,7 @@ final class CreateTransactionViewModel: ObservableObject {
         if let transaction {
             self.transaction = transaction
             self.transactionTitle = transaction.name
-            self.transactionAmount = transaction.amount?.formatted() ?? ""
+            self.transactionAmount = transaction.amount?.toString() ?? ""
             self.transactionType = transaction.type
             self.transactionDate = transaction.date
             self.selectedCategory = transaction.category
@@ -64,45 +64,41 @@ final class CreateTransactionViewModel: ObservableObject {
         )
     }
     
-    func createTransaction(dismiss: DismissAction) {
-        let accountRepository: AccountStore = .shared
-        let transactionRepository: TransactionStore = .shared
+    func createTransaction(dismiss: DismissAction) async {
+        let accountStore: AccountStore = .shared
+        let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        Task {
-            guard let account = accountRepository.selectedAccount else { return }
-            guard let accountID = account.id else { return }
-                        
-            if let transaction = await transactionRepository.createTransaction(
-                accountID: accountID,
-                body: bodyForCreation(),
-                shouldReturn: true
-            ) {
-                await dismiss()
-                await successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
-            }
+        guard let account = accountStore.selectedAccount else { return }
+        guard let accountID = account.id else { return }
+        
+        if let transaction = await transactionStore.createTransaction(
+            accountID: accountID,
+            body: bodyForCreation(),
+            shouldReturn: true
+        ) {
+            await dismiss()
+            await successfullModalManager.showSuccessfulTransaction(type: .new, transaction: transaction)
         }
     }
     
-    func updateTransaction(dismiss: DismissAction) {
-        let accountRepository: AccountStore = .shared
-        let transactionRepository: TransactionStore = .shared
+    func updateTransaction(dismiss: DismissAction) async {
+        let accountStore: AccountStore = .shared
+        let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        Task {
-            guard let account = accountRepository.selectedAccount else { return }
-            guard let accountID = account.id else { return }
-            guard let transactionID = transaction?.id else { return }
-            
-            if let transaction = await transactionRepository.updateTransaction(
-                accountID: accountID,
-                transactionID: transactionID,
-                body: bodyForCreation(),
-                shouldReturn: true
-            ) {
-                await dismiss()
-                await successfullModalManager.showSuccessfulTransaction(type: .update, transaction: transaction)
-            }
+        guard let account = accountStore.selectedAccount else { return }
+        guard let accountID = account.id else { return }
+        guard let transactionID = transaction?.id else { return }
+        
+        if let transaction = await transactionStore.updateTransaction(
+            accountID: accountID,
+            transactionID: transactionID,
+            body: bodyForCreation(),
+            shouldReturn: true
+        ) {
+            await dismiss()
+            await successfullModalManager.showSuccessfulTransaction(type: .update, transaction: transaction)
         }
     }
         

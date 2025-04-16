@@ -16,7 +16,7 @@ struct SelectCategoryView: View {
     @Binding var selectedSubcategory: SubcategoryModel?
     
     // Custom
-    @EnvironmentObject private var categoryRepository: CategoryStore
+    @EnvironmentObject private var categoryStore: CategoryStore
     @EnvironmentObject private var themeManager: ThemeManager
     
     // Environnements
@@ -27,7 +27,7 @@ struct SelectCategoryView: View {
     
     // Computed variables
     var categoriesFiltered: [CategoryModel] {
-        return categoryRepository.categories
+        return categoryStore.categories
             .filter { !$0.isRevenue }
             .searchFor(searchText)
     }

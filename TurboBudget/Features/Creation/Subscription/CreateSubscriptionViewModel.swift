@@ -63,15 +63,15 @@ extension CreateSubscriptionViewModel {
     }
     
     func createNewSubscription(dismiss: DismissAction) {
-        let accountRepository: AccountStore = .shared
-        let subscriptionRepository: SubscriptionStore = .shared
+        let accountStore: AccountStore = .shared
+        let subscriptionStore: SubscriptionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
-            guard let account = accountRepository.selectedAccount else { return }
+            guard let account = accountStore.selectedAccount else { return }
             guard let accountID = account.id else { return }
             
-            if let newSubscritpion = await subscriptionRepository.createSubscription(
+            if let newSubscritpion = await subscriptionStore.createSubscription(
                 accountID: accountID,
                 body: bodyForCreation(),
                 shouldReturn: true
@@ -86,11 +86,11 @@ extension CreateSubscriptionViewModel {
     }
     
     func updateSubscription(dismiss: DismissAction) {
-        let subscriptionRepository: SubscriptionStore = .shared
+        let subscriptionStore: SubscriptionStore = .shared
         
         Task {
             if let subscription, let subscriptionID = subscription.id {
-                if let updatedSubscription = await subscriptionRepository.updateSubscription(
+                if let updatedSubscription = await subscriptionStore.updateSubscription(
                     subscriptionID: subscriptionID,
                     body: bodyForCreation()
                 ) {

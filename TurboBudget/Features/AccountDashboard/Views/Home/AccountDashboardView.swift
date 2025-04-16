@@ -16,9 +16,10 @@ struct AccountDashboardView: View {
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var appManager: AppManager
         
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var creditCardRepository: CreditCardStore
+    @EnvironmentObject private var creditCardStore: CreditCardStore
     
     @StateObject private var viewModel: AccountDashboardViewModel = .init()
     
@@ -30,7 +31,7 @@ struct AccountDashboardView: View {
                     Menu {
                         ForEach(accountStore.accounts) { account in
                             Button {
-                                accountStore.selectedAccount = account
+                                accountStore.setNewAccount(account: account)
                             } label: {
                                 Text(account.name)
                             }
@@ -42,7 +43,14 @@ struct AccountDashboardView: View {
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
                     }
-
+                    .onChange(of: accountStore.selectedAccount) { _ in
+                        if appManager.isStartDataLoaded {
+                            appManager.resetAllStoresData()
+                            Task {
+                                await appManager.loadStartData()
+                            }
+                        }
+                    }
                     
                     VStack(alignment: .leading) {
                             Text(account.balance.toCurrency())
@@ -130,7 +138,7 @@ struct AccountDashboardView: View {
                     }
                 })
                 
-                if let creditCard = creditCardRepository.creditCards.first {
+                if let creditCard = creditCardStore.creditCards.first {
                     CreditCardView(creditCard: creditCard)
                 }
             }
@@ -152,13 +160,13 @@ struct AccountDashboardView: View {
                         )
                     }
                     
-                    if let creditCard = creditCardRepository.creditCards.first, let uuid = creditCard.uuid {
+                    if let creditCard = creditCardStore.creditCards.first, let uuid = creditCard.uuid {
                         Button(
                             role: .destructive,
                             action: {
                                 Task {
                                     if let account = accountStore.selectedAccount, let accountID = account.id {
-                                        await creditCardRepository.deleteCreditCard(accountID: accountID, cardID: uuid)
+                                        await creditCardStore.deleteCreditCard(accountID: accountID, cardID: uuid)
                                     }
                                 }
                             },
@@ -213,7 +221,7 @@ struct AccountDashboardView: View {
                         if let accountID = account.id {
                             Task {
                                 await accountStore.deleteAccount(accountID: accountID)
-                                accountStore.selectedAccount = accountStore.accounts.first
+                                accountStore.setNewAccount(account: accountStore.accounts.first)
                                 TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
                             }
                         }

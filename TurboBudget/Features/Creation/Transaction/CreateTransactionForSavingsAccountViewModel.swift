@@ -46,13 +46,13 @@ extension CreateTransactionForSavingsAccountViewModel {
     
     @MainActor
     func createTransaction(dismiss: DismissAction) {
-        let transactionRepository: TransactionStore = .shared
+        let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
             guard let accountID = savingsAccount.id else { return }
                         
-            if let transaction = await transactionRepository.createTransaction(
+            if let transaction = await transactionStore.createTransaction(
                 accountID: accountID,
                 body: bodyForCreation(),
                 shouldReturn: true,
@@ -67,14 +67,14 @@ extension CreateTransactionForSavingsAccountViewModel {
     
     @MainActor
     func updateTransaction(dismiss: DismissAction) {
-        let transactionRepository: TransactionStore = .shared
+        let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
             guard let accountID = savingsAccount.id else { return }
             guard let transactionID = transaction?.id else { return }
             
-            if let transaction = await transactionRepository.updateTransaction(
+            if let transaction = await transactionStore.updateTransaction(
                 accountID: accountID,
                 transactionID: transactionID,
                 body: bodyForCreation(),

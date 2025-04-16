@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NetworkKit
 
 struct QRCodeScannerView: View {
     
@@ -41,7 +42,7 @@ struct QRCodeScannerView: View {
         .onChange(of: identityToken) { _ in
             Task {
                 do {
-                    try await NetworkService.shared.sendRequest(
+                    try await NetworkService.sendRequest(
                         apiBuilder: AuthAPIRequester.socket(body: .init(identityToken: identityToken))
                     )
                     dismiss()

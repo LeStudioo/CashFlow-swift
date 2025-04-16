@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum AuthAPIRequester: APIRequestBuilder {
     case apple(body: AuthBody)

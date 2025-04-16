@@ -36,11 +36,11 @@ extension CreateContributionViewModel {
     
     func createContribution(dismiss: DismissAction) {
         guard let savingsPlanID = savingsPlan.id else { return }
-        let contributionRepository: ContributionStore = .shared
+        let contributionStore: ContributionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
-            if let contribution = await contributionRepository.createContribution(
+            if let contribution = await contributionStore.createContribution(
                 savingsplanID: savingsPlanID,
                 body: .init(
                     amount: amount.toDouble(),

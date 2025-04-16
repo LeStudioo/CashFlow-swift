@@ -17,8 +17,8 @@ struct CreateSavingPlansView: View {
     
     // Custom
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var savingsPlanRepository: SavingsPlanStore
-    @EnvironmentObject private var contributionRepository: ContributionStore
+    @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
+    @EnvironmentObject private var contributionStore: ContributionStore
     
     // Environment
     @Environment(\.dismiss) private var dismiss
@@ -126,7 +126,7 @@ struct CreateSavingPlansView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(

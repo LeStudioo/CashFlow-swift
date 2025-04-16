@@ -14,7 +14,7 @@ struct SavingsAccountDetailView: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var transferRepository: TransferStore
+    @EnvironmentObject private var transferStore: TransferStore
     @EnvironmentObject private var accountStore: AccountStore
     
     @Environment(\.dismiss) private var dismiss
@@ -38,9 +38,9 @@ struct SavingsAccountDetailView: View {
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
             
-            ForEach(transferRepository.monthsOfTransfers, id: \.self) { month in
+            ForEach(transferStore.monthsOfTransfers, id: \.self) { month in
                 Section(content: {
-                    ForEach(transferRepository.transfers) { transfer in
+                    ForEach(transferStore.transfers) { transfer in
                         if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
                             Group {
                                 if transfer.type == .transfer {
@@ -59,8 +59,8 @@ struct SavingsAccountDetailView: View {
                 }, header: {
                     DetailOfTransferByMonth(
                         month: month,
-                        amountOfSavings: transferRepository.amountOfSavingsByMonth(month: month),
-                        amountOfWithdrawal: transferRepository.amountOfWithdrawalByMonth(month: month)
+                        amountOfSavings: transferStore.amountOfSavingsByMonth(month: month),
+                        amountOfWithdrawal: transferStore.amountOfWithdrawalByMonth(month: month)
                     )
                     .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
                 })
@@ -116,8 +116,8 @@ struct SavingsAccountDetailView: View {
         }, message: { Text("account_detail_delete_account_desc".localized) })
         .task {
             if let accountID = savingsAccountStore.currentAccount.id {
-                transferRepository.transfers = []
-                await transferRepository.fetchTransfersWithPagination(accountID: accountID)
+                transferStore.transfers = []
+                await transferStore.fetchTransfersWithPagination(accountID: accountID)
             }
         }
     } // body

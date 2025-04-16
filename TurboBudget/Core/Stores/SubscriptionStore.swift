@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class SubscriptionStore: ObservableObject {
     static let shared = SubscriptionStore()

@@ -14,7 +14,7 @@ struct AnalyticsHomeView: View {
     
     // Builder
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Environment
     @EnvironmentObject private var router: NavigationManager
@@ -32,7 +32,7 @@ struct AnalyticsHomeView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            if !transactionRepository.transactions.isEmpty {
+            if !transactionStore.transactions.isEmpty {
                 VStack(spacing: 16) {
                     GenericBarChart(
                         title: "cashflowchart_title".localized,
@@ -99,7 +99,7 @@ struct AnalyticsHomeView: View {
             } else {
                 CustomEmptyView(
                     type: .empty(.analytics),
-                    isDisplayed: transactionRepository.transactions.isEmpty
+                    isDisplayed: transactionStore.transactions.isEmpty
                 )
             }
         } // ScrollView
@@ -110,7 +110,7 @@ struct AnalyticsHomeView: View {
         .onChange(of: selectedDate) { _ in
             if let account = accountStore.selectedAccount, let accountID = account.id {
                 Task {
-                    await transactionRepository.fetchTransactionsByPeriod(
+                    await transactionStore.fetchTransactionsByPeriod(
                         accountID: accountID,
                         startDate: selectedDate,
                         endDate: selectedDate.endOfMonth
@@ -126,10 +126,10 @@ struct AnalyticsHomeView: View {
     
     private func updateChartData() {
         withAnimation(.smooth) {
-            dailyExpenses = transactionRepository.dailyTransactions(for: selectedDate, type: .expense)
-            dailyIncomes = transactionRepository.dailyTransactions(for: selectedDate, type: .income)
-            dailySubscriptionsExpenses = transactionRepository.dailySubscriptions(for: selectedDate, type: .expense)
-            dailySubscriptionsIncomes = transactionRepository.dailySubscriptions(for: selectedDate, type: .income)
+            dailyExpenses = transactionStore.dailyTransactions(for: selectedDate, type: .expense)
+            dailyIncomes = transactionStore.dailyTransactions(for: selectedDate, type: .income)
+            dailySubscriptionsExpenses = transactionStore.dailySubscriptions(for: selectedDate, type: .expense)
+            dailySubscriptionsIncomes = transactionStore.dailySubscriptions(for: selectedDate, type: .income)
         }
     }
     

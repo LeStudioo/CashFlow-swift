@@ -18,7 +18,7 @@ struct TransferRow: View {
     var transfer: TransactionModel
     var location: TransferRowLocation = .savingsAccount
     @EnvironmentObject private var savingsAccountRepository: SavingsAccountStore
-    @EnvironmentObject private var transferRepository: TransferStore
+    @EnvironmentObject private var transferStore: TransferStore
     @EnvironmentObject private var accountStore: AccountStore
         
     // State or Binding Bool
@@ -107,7 +107,7 @@ struct TransferRow: View {
             Button(role: .destructive, action: {
                 Task {
                     if let transferID = transfer.id {
-                        await transferRepository.deleteTransfer(transferID: transferID)
+                        await transferStore.deleteTransfer(transferID: transferID)
                     }
                 }
             }, label: { Text("word_delete".localized) })

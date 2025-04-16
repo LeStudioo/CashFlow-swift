@@ -3,7 +3,7 @@
 //  CashFlow
 //
 //  Created by KaayZenn on 13/10/2023.
-//
+//  Localized with Toglee on 16/04/2025
 
 import CoreData
 import AppIntents
@@ -87,9 +87,9 @@ struct AddTransactionIntent: AppIntent {
         
         let finalNumber = extractNumber(from: amount)
         
-        let userRepository: UserStore = .shared
-        let accountRepository: AccountStore = .shared
-        let transactionRepository: TransactionStore = .shared
+        let userStore: UserStore = .shared
+        let accountStore: AccountStore = .shared
+        let transactionStore: TransactionStore = .shared
         
         let body: TransactionModel = .init(
             _name: title,
@@ -103,10 +103,10 @@ struct AddTransactionIntent: AppIntent {
         )
                 
         do {
-            try await userRepository.loginWithToken()
-            await accountRepository.fetchAccounts()
-            if let account = accountRepository.selectedAccount, let accountID = account.id {
-                await transactionRepository.createTransaction(accountID: accountID, body: body)
+            try await userStore.loginWithToken()
+            await accountStore.fetchAccounts()
+            if let account = accountStore.selectedAccount, let accountID = account.id {
+                await transactionStore.createTransaction(accountID: accountID, body: body)
             }
             
             let amountString: String = extractNumberString(from: amount)

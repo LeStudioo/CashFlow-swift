@@ -16,9 +16,9 @@ extension SubscriptionDetailViewModel {
     
     @MainActor
     func updateCategory(subscriptionID: Int) {
-        let accountRepository: AccountStore = .shared
-        let subscriptionRepository: SubscriptionStore = .shared
-        guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
+        let accountStore: AccountStore = .shared
+        let subscriptionStore: SubscriptionStore = .shared
+        guard let account = accountStore.selectedAccount, let accountID = account.id else { return }
         
         var body: SubscriptionModel = .init()
         
@@ -35,7 +35,7 @@ extension SubscriptionDetailViewModel {
             }
             
             Task {
-                await subscriptionRepository.updateSubscription(
+                await subscriptionStore.updateSubscription(
                     subscriptionID: subscriptionID,
                     body: body
                 )

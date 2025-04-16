@@ -23,13 +23,13 @@ extension TransactionDetailViewModel {
     func updateTransaction(transactionID: Int?) {
         guard let transactionID else { return }
         
-        let transactionRepository: TransactionStore = .shared
+        let transactionStore: TransactionStore = .shared
         let accountReposiotry: AccountStore = .shared
         
         guard let account = accountReposiotry.selectedAccount, let accountID = account.id else { return }
         
         Task {
-            await transactionRepository.updateTransaction(
+            await transactionStore.updateTransaction(
                 accountID: accountID,
                 transactionID: transactionID,
                 body: .init(note: note)
@@ -44,9 +44,9 @@ extension TransactionDetailViewModel {
 
     @MainActor
     func updateCategory(transactionID: Int) {
-        let accountRepository: AccountStore = .shared
-        let transactionRepository: TransactionStore = .shared
-        guard let account = accountRepository.selectedAccount, let accountID = account.id else { return }
+        let accountStore: AccountStore = .shared
+        let transactionStore: TransactionStore = .shared
+        guard let account = accountStore.selectedAccount, let accountID = account.id else { return }
         
         var body: TransactionModel = .init()
         
@@ -63,7 +63,7 @@ extension TransactionDetailViewModel {
             }
             
             Task {
-                await transactionRepository.updateTransaction(
+                await transactionStore.updateTransaction(
                     accountID: accountID,
                     transactionID: transactionID,
                     body: body

@@ -54,7 +54,7 @@ struct CreateBudgetView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(Word.Title.Budget.new)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {

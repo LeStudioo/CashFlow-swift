@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NetworkKit
 
 struct CreateTransactionView: View {
     
@@ -19,7 +20,7 @@ struct CreateTransactionView: View {
     @EnvironmentObject private var store: PurchasesManager
     
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Enum
     enum Field: CaseIterable {
@@ -115,18 +116,19 @@ struct CreateTransactionView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(
                     type: transaction == nil ? .creation : .edition,
                     isActive: viewModel.validateTrasaction()
                 ) {
+                    NetworkService.cancelAllTasks()
                     VibrationManager.vibration()
                     if transaction == nil {
-                        viewModel.createTransaction(dismiss: dismiss)
+                       await viewModel.createTransaction(dismiss: dismiss)
                     } else {
-                        viewModel.updateTransaction(dismiss: dismiss)
+                        await viewModel.updateTransaction(dismiss: dismiss)
                     }
                 }
                 

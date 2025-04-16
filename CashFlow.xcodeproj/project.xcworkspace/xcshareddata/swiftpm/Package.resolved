@@ -1,5 +1,5 @@
 {
-  "originHash" : "2ff075d6e63277bb7ba952f970908421f67e4c7ad881c5d5bfa0328542b448d8",
+  "originHash" : "3606e564b32e8474d25502e7179bd1ee41c179be4555a1fc5d20af2362fff1c6",
   "pins" : [
     {
       "identity" : "alertkit",
@@ -80,6 +80,15 @@
       "state" : {
         "revision" : "e0b4903b75ae1cc418d276d84d1cb946b8a1d73c",
         "version" : "1.2.3"
+      }
+    },
+    {
+      "identity" : "networkkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/NetworkKit",
+      "state" : {
+        "revision" : "7f7e8523b564b7bcc5d7b16fcb56fca692b92b6a",
+        "version" : "1.0.1"
       }
     },
     {

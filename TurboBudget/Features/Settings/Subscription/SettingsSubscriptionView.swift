@@ -10,7 +10,7 @@ import NotificationKit
 
 struct SettingsSubscriptionView: View {
     
-    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
+    @EnvironmentObject private var subscriptionStore: SubscriptionStore
     @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
     
     // MARK: -
@@ -37,7 +37,7 @@ struct SettingsSubscriptionView: View {
             Task {
                 if newValue {
                     if await NotificationsManager.shared.requestNotificationPermission() {
-                        for subscription in subscriptionRepository.subscriptions {
+                        for subscription in subscriptionStore.subscriptions {
                             guard let subscriptionID = subscription.id else { continue }
                             
                             await NotificationsManager.shared.scheduleNotification(
@@ -62,7 +62,7 @@ struct SettingsSubscriptionView: View {
         .onChange(of: preferencesSubscription.dayBeforeReceiveNotification) { newValue in
             NotificationsManager.shared.removeAllPendingNotifications()
             Task {
-                for subscription in subscriptionRepository.subscriptions {
+                for subscription in subscriptionStore.subscriptions {
                     guard let subscriptionID = subscription.id else { continue }
                     
                     await NotificationsManager.shared.scheduleNotification(

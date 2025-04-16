@@ -12,7 +12,7 @@ struct CreationMenuView: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var creditCardRepository: CreditCardStore
+    @EnvironmentObject private var creditCardStore: CreditCardStore
     
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager
@@ -28,11 +28,11 @@ struct CreationMenuView: View {
                     title: Word.Main.creditCard,
                     icon: "creditcard.fill",
                     present: { router.presentCreateCreditCard() },
-                    isDisabled: !store.isCashFlowPro || !creditCardRepository.creditCards.isEmpty,
+                    isDisabled: !store.isCashFlowPro || !creditCardStore.creditCards.isEmpty,
                     onTapAction: {
                         if !store.isCashFlowPro {
                             alertManager.showPaywall(router: router)
-                        } else if !creditCardRepository.creditCards.isEmpty {
+                        } else if !creditCardStore.creditCards.isEmpty {
                             alertManager.onlyOneCreditCardByAccount()
                         }
                     }

@@ -75,7 +75,7 @@ struct CreateTransactionForSavingsAccountView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(viewModel.transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(

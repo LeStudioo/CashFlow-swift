@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class SavingsPlanStore: ObservableObject {
     static let shared = SavingsPlanStore()

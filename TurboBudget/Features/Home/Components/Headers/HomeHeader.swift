@@ -11,7 +11,7 @@ struct HomeHeader: View {
     
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var transactionRepository: TransactionStore
+    @EnvironmentObject private var transactionStore: TransactionStore
     @EnvironmentObject private var purchaseManager: PurchasesManager
     
     // MARK: -
@@ -41,9 +41,6 @@ struct HomeHeader: View {
                     .font(.system(size: 18, weight: .medium, design: .rounded))
             }
         }
-//        .onChange(of: transactionRepository.transactions.count) { _ in
-//            // Keep to reload account.balance
-//        }
     } // body
 } // struct
 

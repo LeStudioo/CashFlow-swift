@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 final class ContributionStore: ObservableObject {
     static let shared = ContributionStore()
@@ -18,7 +19,7 @@ extension ContributionStore {
     @MainActor
     func fetchContributions(savingsplanID: Int) async {
         do {
-            let contributions = try await NetworkService.shared.sendRequest(
+            let contributions = try await NetworkService.sendRequest(
                 apiBuilder: ContributionAPIRequester.fetch(savingsplanID: savingsplanID),
                 responseModel: [ContributionModel].self
             )
@@ -31,7 +32,7 @@ extension ContributionStore {
     @MainActor
     func createContribution(savingsplanID: Int, body: ContributionModel) async -> ContributionModel? {
         do {
-            let response = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.sendRequest(
                 apiBuilder: ContributionAPIRequester.create(savingsplanID: savingsplanID, body: body),
                 responseModel: ContributionResponseWithAmount.self
             )
@@ -52,7 +53,7 @@ extension ContributionStore {
     @MainActor
     func updateContribution(savingsplanID: Int, contributionID: Int, body: ContributionModel) async {
         do {
-            let response = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.sendRequest(
                 apiBuilder: ContributionAPIRequester.update(savingsplanID: savingsplanID, contributionID: contributionID, body: body),
                 responseModel: ContributionResponseWithAmount.self
             )
@@ -69,7 +70,7 @@ extension ContributionStore {
     @MainActor
     func deleteContribution(savingsplanID: Int, contributionID: Int) async {
         do {
-            let response = try await NetworkService.shared.sendRequest(
+            let response = try await NetworkService.sendRequest(
                 apiBuilder: ContributionAPIRequester.delete(savingsplanID: savingsplanID, contributionID: contributionID),
                 responseModel: ContributionResponseWithAmount.self
             )

@@ -65,7 +65,7 @@ struct CreateTransferView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text(Word.Title.Transfer.new)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(

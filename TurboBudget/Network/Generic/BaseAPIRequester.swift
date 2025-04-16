@@ -1,28 +1,12 @@
 //
-//  APIRequestBuilder.swift
-//  LifeFlow
+//  BaseAPIRequester.swift
+//  NetworkBestPracticesSwiftUI
 //
-//  Created by Theo Sementa on 09/03/2024.
+//  Created by Theo Sementa on 03/02/2025.
 //
 
 import Foundation
-
-public enum HTTPMethod: String {
-    case GET
-    case POST
-    case PUT
-    case DELETE
-}
-
-public protocol APIRequestBuilder {
-    var path: String { get }
-    var httpMethod: HTTPMethod { get }
-    var parameters: [URLQueryItem]? { get }
-    var isTokenNeeded: Bool { get }
-    var headers: [(key: String, value: String)]? { get }
-    var body: Data? { get }
-    var urlRequest: URLRequest? { get }
-}
+import NetworkKit
 
 extension APIRequestBuilder {
     
@@ -37,16 +21,16 @@ extension APIRequestBuilder {
     
     var urlRequest: URLRequest? {
         let urlString = NetworkPath.baseURL + path
-        
+
         var components = URLComponents(string: urlString)
         if let parameters {
             components?.queryItems = parameters
         }
-        
+
         guard let url = components?.url else {
             return nil
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
         if let headers {
@@ -54,11 +38,11 @@ extension APIRequestBuilder {
                 request.addValue($0.value, forHTTPHeaderField: $0.key)
             }
         }
-        
+
         if let body {
             request.httpBody = body
         }
-        
+
         return request
     }
     

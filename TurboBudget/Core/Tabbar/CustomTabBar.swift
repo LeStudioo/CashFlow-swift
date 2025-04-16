@@ -14,7 +14,7 @@ struct CustomTabBar: View {
     // Repo
     @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var creditCardRepository: CreditCardStore
+    @EnvironmentObject private var creditCardStore: CreditCardStore
     
     @EnvironmentObject private var store: PurchasesManager
     @EnvironmentObject private var themeManager: ThemeManager

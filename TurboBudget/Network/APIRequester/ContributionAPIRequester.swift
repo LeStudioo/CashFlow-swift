@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum ContributionAPIRequester: APIRequestBuilder {
     case fetch(savingsplanID: Int)

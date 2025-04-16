@@ -74,7 +74,7 @@ struct CreateContributionView: View {
                 
                 ToolbarItem(placement: .principal) {
                     Text("contribution_new".localized)
-                        .font(.system(size: isLittleIphone ? 16 : 18, weight: .medium))
+                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
                 }
                 
                 ToolbarValidationButtonView(isActive: viewModel.isContributionValid()) {

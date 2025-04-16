@@ -13,7 +13,7 @@ struct SubscriptionHomeView: View {
     
     // Environement
     @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var subscriptionRepository: SubscriptionStore
+    @EnvironmentObject private var subscriptionStore: SubscriptionStore
     @Environment(\.dismiss) private var dismiss
     
     // State or Binding Orientation
@@ -22,7 +22,7 @@ struct SubscriptionHomeView: View {
     // MARK: -
     var body: some View {
         List {
-            ForEach(subscriptionRepository.subscriptionsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
+            ForEach(subscriptionStore.subscriptionsByMonth.sorted(by: { $0.key < $1.key }), id: \.key) { month, subscriptions in
                 Section {
                     ForEach(subscriptions, id: \.self) { subscription in
                         NavigationButton(push: router.pushSubscriptionDetail(subscription: subscription)) {
@@ -33,8 +33,8 @@ struct SubscriptionHomeView: View {
                 } header: {
                     DetailOfExpensesAndIncomesByMonth(
                         month: month,
-                        amountOfExpenses: subscriptionRepository.amountExpensesByMonth(month: month),
-                        amountOfIncomes: subscriptionRepository.amountIncomesByMonth(month: month)
+                        amountOfExpenses: subscriptionStore.amountExpensesByMonth(month: month),
+                        amountOfIncomes: subscriptionStore.amountIncomesByMonth(month: month)
                     )
                 }
             }
@@ -46,11 +46,11 @@ struct SubscriptionHomeView: View {
         .scrollContentBackground(.hidden)
         .scrollIndicators(.hidden)
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .animation(.smooth, value: subscriptionRepository.subscriptions.count)
+        .animation(.smooth, value: subscriptionStore.subscriptions.count)
         .overlay {
             CustomEmptyView(
                 type: .empty(.subscriptions),
-                isDisplayed: subscriptionRepository.subscriptions.isEmpty
+                isDisplayed: subscriptionStore.subscriptions.isEmpty
             )
         }
         .navigationTitle(Word.Main.subscriptions.localized)

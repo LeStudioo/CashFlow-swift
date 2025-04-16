@@ -25,7 +25,7 @@ struct OnboardingView: View {
 	
 	// Computed var
     var sizeTitleOnboarding: CGFloat {
-        if isLittleIphone {
+        if UIDevice.isLittleIphone {
             return 26
         } else if UIDevice.isIpad {
             return 30
@@ -33,7 +33,7 @@ struct OnboardingView: View {
     }
 
     var sizeDescOnboarding: CGFloat {
-        if isLittleIphone {
+        if UIDevice.isLittleIphone {
             return 16
         } else if UIDevice.isIpad {
             return 20
@@ -134,7 +134,7 @@ struct OnboardingView: View {
                         .frame(height: UIScreen.main.bounds.height / 2 - 30)
                         .foregroundStyle(colorScheme == .light ? .primary0 : .secondary500)
                     
-                    VStack(spacing: isLittleIphone ? 20 : 40) {
+                    VStack(spacing: UIDevice.isLittleIphone ? 20 : 40) {
                         Text(title)
                             .font(.boldCustom(size: sizeTitleOnboarding))
                             .multilineTextAlignment(.center)

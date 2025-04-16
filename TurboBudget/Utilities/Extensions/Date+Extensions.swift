@@ -25,6 +25,8 @@ extension Date {
     
     func toQueryParam() -> String {
         let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.dateFormat = "yyyy-MM-dd"
         return formatter.string(from: self)
     }
@@ -115,13 +117,17 @@ extension Date {
 extension Date {
     
     var startOfMonth: Date {
-        let comp: DateComponents = Calendar.current.dateComponents([.month, .year], from: self)
-        return Calendar.current.date(from: comp)!
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.autoupdatingCurrent
+        let components = calendar.dateComponents([.year, .month], from: self)
+        return  calendar.date(from: components)!
     }
-
+    
     var endOfMonth: Date {
-        let startOfNextMonth = Calendar.current.date(byAdding: DateComponents(month: 1), to: self.startOfMonth)!
-        let lastDayOfCurrentMonth = Calendar.current.date(byAdding: DateComponents(day: -1), to: startOfNextMonth)!
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.autoupdatingCurrent
+        calendar.locale = Locale.current
+        let lastDayOfCurrentMonth = calendar.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth)!
         return lastDayOfCurrentMonth
     }
     

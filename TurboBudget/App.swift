@@ -22,23 +22,16 @@ struct TurboBudgetApp: App {
     @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.pageController))
     
     // New Repository
-    @StateObject private var userRepository: UserStore = .shared
+    @StateObject private var userStore: UserStore = .shared
     @StateObject private var accountStore: AccountStore = .shared
-    @StateObject private var categoryRepository: CategoryStore = .shared
-    @StateObject private var transactionRepository: TransactionStore = .shared
-    @StateObject private var transferRepository: TransferStore = .shared
-    @StateObject private var subscriptionRepository: SubscriptionStore = .shared
-    @StateObject private var savingsPlanRepository: SavingsPlanStore = .shared
-    @StateObject private var contributionRepository: ContributionStore = .shared
-    @StateObject private var budgetRepository: BudgetStore = .shared
-    @StateObject private var creditCardRepository: CreditCardStore = .shared
-    
-    // Repository
-    @StateObject private var accountRepo: AccountRepositoryOld = .shared
-    @StateObject private var transactionRepo: TransactionRepositoryOld = .shared
-    @StateObject private var automationRepo: AutomationRepositoryOld = .shared
-    @StateObject private var savingPlanRepo: SavingPlanRepositoryOld = .shared
-    @StateObject private var budgetRepo: BudgetRepositoryOld = .shared
+    @StateObject private var categoryStore: CategoryStore = .shared
+    @StateObject private var transactionStore: TransactionStore = .shared
+    @StateObject private var transferStore: TransferStore = .shared
+    @StateObject private var subscriptionStore: SubscriptionStore = .shared
+    @StateObject private var savingsPlanStore: SavingsPlanStore = .shared
+    @StateObject private var contributionStore: ContributionStore = .shared
+    @StateObject private var budgetStore: BudgetStore = .shared
+    @StateObject private var creditCardStore: CreditCardStore = .shared
     
     @StateObject private var filterManager: FilterManager = .shared
     @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
@@ -86,14 +79,6 @@ struct TurboBudgetApp: App {
                             appManager.isStartDataLoaded = true
                         }
                     }
-                    .onChange(of: accountStore.selectedAccount) { _ in
-                        if appManager.isStartDataLoaded {
-                            appManager.resetAllStoresData()
-                            Task {
-                                await appManager.loadStartData()
-                            }
-                        }
-                    }
                 case .syncing:
                     SyncingView()
                 case .notSynced:
@@ -122,23 +107,16 @@ struct TurboBudgetApp: App {
             .environmentObject(themeManager)
             
             // New Repository
-            .environmentObject(userRepository)
+            .environmentObject(userStore)
             .environmentObject(accountStore)
-            .environmentObject(categoryRepository)
-            .environmentObject(transactionRepository)
-            .environmentObject(transferRepository)
-            .environmentObject(subscriptionRepository)
-            .environmentObject(savingsPlanRepository)
-            .environmentObject(contributionRepository)
-            .environmentObject(budgetRepository)
-            .environmentObject(creditCardRepository)
-            
-            // Old Repository
-            .environmentObject(accountRepo)
-            .environmentObject(transactionRepo)
-            .environmentObject(automationRepo)
-            .environmentObject(savingPlanRepo)
-            .environmentObject(budgetRepo)
+            .environmentObject(categoryStore)
+            .environmentObject(transactionStore)
+            .environmentObject(transferStore)
+            .environmentObject(subscriptionStore)
+            .environmentObject(savingsPlanStore)
+            .environmentObject(contributionStore)
+            .environmentObject(budgetStore)
+            .environmentObject(creditCardStore)
             
             .environmentObject(filterManager)
             .environmentObject(successfullModalManager)
@@ -147,11 +125,11 @@ struct TurboBudgetApp: App {
                 csManager.applyColorScheme()
                 
                 // OLD COREDATA
-                accountRepo.fetchMainAccount()
-                transactionRepo.fetchTransactions()
-                automationRepo.fetchAutomations()
-                savingPlanRepo.fetchSavingsPlans()
-                budgetRepo.fetchBudgets()
+                AccountRepositoryOld.shared.fetchMainAccount()
+                TransactionRepositoryOld.shared.fetchTransactions()
+                AutomationRepositoryOld.shared.fetchAutomations()
+                SavingPlanRepositoryOld.shared.fetchSavingsPlans()
+                BudgetRepositoryOld.shared.fetchBudgets()
                 // END OLD COREDATA
             }
             .alert(alertManager)
@@ -170,7 +148,7 @@ struct TurboBudgetApp: App {
                 await purchasesManager.loadProducts()
                 
                 do {
-                    try await userRepository.loginWithToken()
+                    try await userStore.loginWithToken()
                     appManager.viewState = .success
                 } catch {
                     appManager.viewState = .failed

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 struct TransferService {
     
@@ -14,7 +15,7 @@ struct TransferService {
         to receiverAccountID: Int,
         body: TransferBody
     ) async throws -> TransferResponseWithBalances {
-        return try await NetworkService.shared.sendRequest(
+        return try await NetworkService.sendRequest(
             apiBuilder: TransferAPIRequester.transfer(
                 senderAccountID: senderAccountID,
                 receiverAccountID: receiverAccountID,
@@ -25,7 +26,7 @@ struct TransferService {
     }
     
     static func delete(id: Int) async throws -> TransferResponseWithBalances {
-        return try await NetworkService.shared.sendRequest(
+        return try await NetworkService.sendRequest(
             apiBuilder: TransferAPIRequester.delete(transferID: id),
             responseModel: TransferResponseWithBalances.self
         )

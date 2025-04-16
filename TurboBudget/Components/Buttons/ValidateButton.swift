@@ -21,7 +21,7 @@ struct ValidateButton: View {
             ZStack {
                 Capsule()
                     .foregroundStyle(themeManager.theme.color)
-                    .frame(height: isLittleIphone ? 50 : 60)
+                    .frame(height: UIDevice.isLittleIphone ? 50 : 60)
                     .if(validate, transform: { view in
                         view.shadow(color: themeManager.theme.color, radius: 8)
                     })

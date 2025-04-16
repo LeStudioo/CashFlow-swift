@@ -1,26 +1,27 @@
 //
-//  SubscriptionAPIRequester.swift
+//  BudgetAPIRequester.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 15/11/2024.
 //
 
 import Foundation
+import NetworkKit
 
-enum SubscriptionAPIRequester: APIRequestBuilder {
+enum BudgetAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)
-    case create(accountID: Int, body: SubscriptionModel)
-    case update(subscriptionID: Int, body: SubscriptionModel)
-    case delete(subscriptionID: Int)
+    case create(accountID: Int, body: BudgetModel)
+    case update(budgetID: Int, body: BudgetModel)
+    case delete(budgetID: Int)
 }
 
-extension SubscriptionAPIRequester {
+extension BudgetAPIRequester {
     var path: String {
         switch self {
-        case .fetch(let accountID):             return NetworkPath.Subscription.base(accountID: accountID)
-        case .create(let accountID, _):         return NetworkPath.Subscription.base(accountID: accountID)
-        case .update(let subscriptionID, _):    return NetworkPath.Subscription.update(id: subscriptionID)
-        case .delete(let subscriptionID):       return NetworkPath.Subscription.delete(id: subscriptionID)
+        case .fetch(let accountID):     return NetworkPath.Budget.base(accountID: accountID)
+        case .create(let accountID, _): return NetworkPath.Budget.base(accountID: accountID)
+        case .update(let budgetID, _):  return NetworkPath.Budget.update(id: budgetID)
+        case .delete(let budgetID):     return NetworkPath.Budget.delete(id: budgetID)
         }
     }
     

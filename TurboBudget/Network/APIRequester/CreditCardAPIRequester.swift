@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkKit
 
 enum CreditCardAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)

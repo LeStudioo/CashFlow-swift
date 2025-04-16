@@ -53,18 +53,18 @@ extension CreateSavingsPlanViewModel {
     }
     
     func createSavingsPlan(dismiss: DismissAction) {
-        let accountRepository: AccountStore = .shared
-        let savingsPlanRepository: SavingsPlanStore = .shared
-        let contributionRepository: ContributionStore = .shared
+        let accountStore: AccountStore = .shared
+        let savingsPlanStore: SavingsPlanStore = .shared
+        let contributionStore: ContributionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
-            guard let account = accountRepository.selectedAccount else { return }
+            guard let account = accountStore.selectedAccount else { return }
             guard let accountID = account.id else { return }
             
-            if let savingsPlan = await savingsPlanRepository.createSavingsPlan(accountID: accountID, body: bodyForCreation()) {
+            if let savingsPlan = await savingsPlanStore.createSavingsPlan(accountID: accountID, body: bodyForCreation()) {
                 if let savingsPlanID = savingsPlan.id, savingPlanAmountOfStart.toDouble() != 0 {
-                    await contributionRepository.createContribution(
+                    await contributionStore.createContribution(
                         savingsplanID: savingsPlanID,
                         body: .init(
                             amount: savingPlanAmountOfStart.toDouble(),
@@ -81,14 +81,14 @@ extension CreateSavingsPlanViewModel {
     }
     
     func updateSavingsPlan(dismiss: DismissAction) {
-        let savingsPlanRepository: SavingsPlanStore = .shared
+        let savingsPlanStore: SavingsPlanStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
         Task {
             guard let savingsPlan else { return }
             guard let savingsPlanID = savingsPlan.id else { return }
             
-            await savingsPlanRepository.updateSavingsPlan(
+            await savingsPlanStore.updateSavingsPlan(
                 savingsPlanID: savingsPlanID,
                 body: bodyForCreation()
             )
