@@ -19,17 +19,17 @@ enum NavigationDirection: Identifiable {
     case transactionsForMonth(month: Date, type: TransactionType) // DONE
     
     case createAccount(type: AccountType, account: AccountModel? = nil) // DONE
-    case createBudget
+    case createBudget // DONE
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil) // DONE
     case createContribution(savingsPlan: SavingsPlanModel)
     case createTransaction(transaction: TransactionModel? = nil) // DONE
     case createSubscription(subscription: SubscriptionModel? = nil) // DONE
-    case createTransfer(receiverAccount: AccountModel? = nil)
+    case createTransfer(receiverAccount: AccountModel? = nil) // DONE
     case createCreditCard
     case createTransactionForSavingsAccount(savingsAccount: AccountModel, transaction: TransactionModel? = nil)
     case qrCodeScanner
         
-    case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>)
+    case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>) // DONE
     
     case allTransactions // DONE
     case transactionDetail(transaction: TransactionModel) // DONE
@@ -42,12 +42,12 @@ enum NavigationDirection: Identifiable {
     case accountStatistics // DONE
     case allSavingsAccount // DONE
     case savingsAccountDetail(savingsAccount: AccountModel) // DONE
-    case allBudgets
-    case budgetTransactions(subcategory: SubcategoryModel)
-    case allArchivedSavingPlans(account: Account)
+    case allBudgets // DONE
+    case budgetTransactions(subcategory: SubcategoryModel) // DONE
+    case allArchivedSavingPlans(account: Account) // NOT TO DONE
     
-    case homeCategories
-    case categoryTransactions(category: CategoryModel, selectedDate: Date)
+    case homeCategories // DONE
+    case categoryTransactions(category: CategoryModel, selectedDate: Date) // DONE
     case homeSubcategories(category: CategoryModel, selectedDate: Date)
     case subcategoryTransactions(subcategory: SubcategoryModel, selectedDate: Date)
 
