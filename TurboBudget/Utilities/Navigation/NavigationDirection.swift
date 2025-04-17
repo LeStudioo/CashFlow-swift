@@ -40,8 +40,8 @@ enum NavigationDirection: Identifiable {
     
     case accountDashboard // DONE
     case accountStatistics // DONE
-    case allSavingsAccount
-    case savingsAccountDetail(savingsAccount: AccountModel)
+    case allSavingsAccount // DONE
+    case savingsAccountDetail(savingsAccount: AccountModel) // DONE
     case allBudgets
     case budgetTransactions(subcategory: SubcategoryModel)
     case allArchivedSavingPlans(account: Account)

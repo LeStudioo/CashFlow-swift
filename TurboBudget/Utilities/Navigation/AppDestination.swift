@@ -10,6 +10,7 @@ import NavigationKit
 
 enum AppDestination: AppDestinationProtocol {
     case account(AccountDestination)
+    case savingsAccount(SavingsAccountDestination)
     case transaction(TransactionDestination)
     case subscription(SubscriptionDestination)
     case savingsPlan(SavingsPlanDestination)
@@ -21,6 +22,8 @@ enum AppDestination: AppDestinationProtocol {
         switch self {
         case .account(let accountDestination):
             accountDestination.body(route: route)
+        case .savingsAccount(let savingsAccountDestination):
+            savingsAccountDestination.body(route: route)
         case .transaction(let transactionDestination):
             transactionDestination.body(route: route)
         case .subscription(let subscriptionDestination):
