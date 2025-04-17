@@ -13,7 +13,7 @@ enum NavigationDirection: Identifiable {
     
     case home(account: Account)
     case homeSavingPlans // DONE
-    case homeAutomations
+    case homeAutomations // DONE
     
     case analytics
     case transactionsForMonth(month: Date, type: TransactionType) // DONE
@@ -23,7 +23,7 @@ enum NavigationDirection: Identifiable {
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil) // DONE
     case createContribution(savingsPlan: SavingsPlanModel)
     case createTransaction(transaction: TransactionModel? = nil) // DONE
-    case createSubscription(subscription: SubscriptionModel? = nil)
+    case createSubscription(subscription: SubscriptionModel? = nil) // DONE
     case createTransfer(receiverAccount: AccountModel? = nil)
     case createCreditCard
     case createTransactionForSavingsAccount(savingsAccount: AccountModel, transaction: TransactionModel? = nil)
@@ -36,7 +36,7 @@ enum NavigationDirection: Identifiable {
     
     case savingPlansDetail(savingsPlan: SavingsPlanModel) // DONE
     
-    case subscriptionDetail(subscription: SubscriptionModel)
+    case subscriptionDetail(subscription: SubscriptionModel) // DONE
     
     case accountDashboard
     case accountStatistics
