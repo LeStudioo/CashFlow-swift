@@ -14,6 +14,7 @@ enum AppDestination: AppDestinationProtocol {
     case transaction(TransactionDestination)
     case subscription(SubscriptionDestination)
     case savingsPlan(SavingsPlanDestination)
+    case budget(BudgetsDestination)
     case settings(SettingsDestination)
     
     var id: Self { self }
@@ -30,6 +31,8 @@ enum AppDestination: AppDestinationProtocol {
             subscriptionDestination.body(route: route)
         case .savingsPlan(let savingsPlanDestination):
             savingsPlanDestination.body(route: route)
+        case .budget(let budgetDestination):
+            budgetDestination.body(route: route)
         case .settings(let settingsDestination):
             settingsDestination.body(route: route)
         }
