@@ -18,7 +18,7 @@ enum NavigationDirection: Identifiable {
     case analytics
     case transactionsForMonth(month: Date, type: TransactionType) // DONE
     
-    case createAccount(type: AccountType, account: AccountModel? = nil)
+    case createAccount(type: AccountType, account: AccountModel? = nil) // DONE
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil) // DONE
     case createContribution(savingsPlan: SavingsPlanModel)
@@ -38,8 +38,8 @@ enum NavigationDirection: Identifiable {
     
     case subscriptionDetail(subscription: SubscriptionModel) // DONE
     
-    case accountDashboard
-    case accountStatistics
+    case accountDashboard // DONE
+    case accountStatistics // DONE
     case allSavingsAccount
     case savingsAccountDetail(savingsAccount: AccountModel)
     case allBudgets
