@@ -12,7 +12,7 @@ enum NavigationDirection: Identifiable {
     case pageController
     
     case home(account: Account)
-    case homeSavingPlans
+    case homeSavingPlans // DONE
     case homeAutomations
     
     case analytics
@@ -54,15 +54,15 @@ enum NavigationDirection: Identifiable {
     case whatsNew
     case paywall
     
-    case settings
-    case settingsDebug
-    case settingsGeneral
-    case settingsSecurity
-    case settingsAppearence
-    case settingsDisplay
-    case settingsSubscription
-    case settingsCredits
-    case settingsApplePay
+    case settings  // DONE
+    case settingsDebug  // DONE
+    case settingsGeneral  // DONE
+    case settingsSecurity  // DONE
+    case settingsAppearence  // DONE
+    case settingsDisplay  // DONE
+    case settingsSubscription  // DONE
+    case settingsCredits  // DONE
+    case settingsApplePay  // DONE
     
     var id: Self { self }
 }

@@ -15,6 +15,7 @@
 		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
+		D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F64B92DB156ED0060B741 /* NavigationKit */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +52,7 @@
 				D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */,
 				D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */,
 				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
+				D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +113,7 @@
 				D912D0092D140523006DF5DC /* AlertKit */,
 				D94594F62D16A03A00A989F0 /* NotificationKit */,
 				D97F63EE2DAFA3240060B741 /* NetworkKit */,
+				D97F64B92DB156ED0060B741 /* NavigationKit */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -151,6 +154,7 @@
 				D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */,
 				D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */,
 				D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */,
+				D97F64B82DB156ED0060B741 /* XCRemoteSwiftPackageReference "NavigationKit" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -504,6 +508,14 @@
 				minimumVersion = 1.0.1;
 			};
 		};
+		D97F64B82DB156ED0060B741 /* XCRemoteSwiftPackageReference "NavigationKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theosementa/NavigationKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -546,6 +558,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */;
 			productName = NetworkKit;
+		};
+		D97F64B92DB156ED0060B741 /* NavigationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D97F64B82DB156ED0060B741 /* XCRemoteSwiftPackageReference "NavigationKit" */;
+			productName = NavigationKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
