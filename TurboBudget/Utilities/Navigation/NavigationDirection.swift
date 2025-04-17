@@ -20,7 +20,7 @@ enum NavigationDirection: Identifiable {
     
     case createAccount(type: AccountType, account: AccountModel? = nil)
     case createBudget
-    case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil)
+    case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil) // DONE
     case createContribution(savingsPlan: SavingsPlanModel)
     case createTransaction(transaction: TransactionModel? = nil)
     case createSubscription(subscription: SubscriptionModel? = nil)
@@ -34,7 +34,7 @@ enum NavigationDirection: Identifiable {
     case allTransactions
     case transactionDetail(transaction: TransactionModel)
     
-    case savingPlansDetail(savingsPlan: SavingsPlanModel)
+    case savingPlansDetail(savingsPlan: SavingsPlanModel) // DONE
     
     case subscriptionDetail(subscription: SubscriptionModel)
     
