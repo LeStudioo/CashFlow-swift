@@ -16,13 +16,13 @@ enum NavigationDirection: Identifiable {
     case homeAutomations
     
     case analytics
-    case transactionsForMonth(month: Date, type: TransactionType)
+    case transactionsForMonth(month: Date, type: TransactionType) // DONE
     
     case createAccount(type: AccountType, account: AccountModel? = nil)
     case createBudget
     case createSavingsPlan(savingsPlan: SavingsPlanModel? = nil) // DONE
     case createContribution(savingsPlan: SavingsPlanModel)
-    case createTransaction(transaction: TransactionModel? = nil)
+    case createTransaction(transaction: TransactionModel? = nil) // DONE
     case createSubscription(subscription: SubscriptionModel? = nil)
     case createTransfer(receiverAccount: AccountModel? = nil)
     case createCreditCard
@@ -31,8 +31,8 @@ enum NavigationDirection: Identifiable {
         
     case selectCategory(category: Binding<CategoryModel?>, subcategory: Binding<SubcategoryModel?>)
     
-    case allTransactions
-    case transactionDetail(transaction: TransactionModel)
+    case allTransactions // DONE
+    case transactionDetail(transaction: TransactionModel) // DONE
     
     case savingPlansDetail(savingsPlan: SavingsPlanModel) // DONE
     

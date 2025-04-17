@@ -9,7 +9,7 @@ import SwiftUICore
 import NavigationKit
 
 enum SavingsPlanDestination: AppDestinationProtocol {
-    case home
+    case list
     case create(savingsPlan: SavingsPlanModel? = nil)
     case detail(savingsPlan: SavingsPlanModel)
     
@@ -17,7 +17,7 @@ enum SavingsPlanDestination: AppDestinationProtocol {
     
     func body(route: Route) -> some View {
         switch self {
-        case .home:
+        case .list:
             SavingsPlansHomeView()
         case .create(let savingsPlan):
             CreateSavingPlansView(savingsPlan: savingsPlan)

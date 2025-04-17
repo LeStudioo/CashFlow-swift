@@ -9,6 +9,7 @@ import SwiftUICore
 import NavigationKit
 
 enum AppDestination: AppDestinationProtocol {
+    case transaction(TransactionDestination)
     case savingsPlan(SavingsPlanDestination)
     case settings(SettingsDestination)
     
@@ -16,6 +17,8 @@ enum AppDestination: AppDestinationProtocol {
     
     func body(route: Route) -> some View {
         switch self {
+        case .transaction(let transactionDestination):
+            transactionDestination.body(route: route)
         case .savingsPlan(let savingsPlanDestination):
             savingsPlanDestination.body(route: route)
         case .settings(let settingsDestination):
