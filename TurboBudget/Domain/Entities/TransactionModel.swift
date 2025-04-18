@@ -41,6 +41,10 @@ struct TransactionModel: Codable, Identifiable, Equatable, Hashable {
     var senderAccountID: Int?
     var receiverAccountID: Int?
     
+    var address: String?
+    var lat: Double?
+    var long: Double?
+    
     /// Transaction init
     init(
         id: Int? = nil,
@@ -55,7 +59,10 @@ struct TransactionModel: Codable, Identifiable, Equatable, Hashable {
         isFromApplePay: Bool? = nil,
         nameFromApplePay: String? = nil,
         autoCat: Bool? = nil,
-        note: String? = nil
+        note: String? = nil,
+        address: String? = nil,
+        lat: Double? = nil,
+        long: Double? = nil
     ) {
         self.id = id
         self._name = _name
@@ -70,6 +77,9 @@ struct TransactionModel: Codable, Identifiable, Equatable, Hashable {
         self.nameFromApplePay = nameFromApplePay
         self.autoCat = autoCat
         self.note = note
+        self.address = address
+        self.lat = lat
+        self.long = long
     }
     
     /// Classic Transaction Body
@@ -127,44 +137,9 @@ struct TransactionModel: Codable, Identifiable, Equatable, Hashable {
         case _name = "name"
         case typeNum = "type"
         case dateISO = "date"
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        _name = try container.decodeIfPresent(String.self, forKey: ._name)
-        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
-        dateISO = try container.decodeIfPresent(String.self, forKey: .dateISO)
-        creationDate = try container.decodeIfPresent(String.self, forKey: .creationDate)
-        categoryID = try container.decodeIfPresent(Int.self, forKey: .categoryID)
-        subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
-        isFromSubscription = try container.decodeIfPresent(Bool.self, forKey: .isFromSubscription)
-        isFromApplePay = try container.decodeIfPresent(Bool.self, forKey: .isFromApplePay)
-        autoCat = try container.decodeIfPresent(Bool.self, forKey: .autoCat)
-        nameFromApplePay = try container.decodeIfPresent(String.self, forKey: .nameFromApplePay)
-        senderAccountID = try container.decodeIfPresent(Int.self, forKey: .senderAccountID)
-        receiverAccountID = try container.decodeIfPresent(Int.self, forKey: .receiverAccountID)
-        note = try container.decodeIfPresent(String.self, forKey: .note)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(_name, forKey: ._name)
-        try container.encodeIfPresent(amount, forKey: .amount)
-        try container.encodeIfPresent(typeNum, forKey: .typeNum)
-        try container.encodeIfPresent(dateISO, forKey: .dateISO)
-        try container.encodeIfPresent(creationDate, forKey: .creationDate)
-        try container.encodeIfPresent(categoryID, forKey: .categoryID)
-        try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
-        try container.encodeIfPresent(isFromSubscription, forKey: .isFromSubscription)
-        try container.encodeIfPresent(isFromApplePay, forKey: .isFromApplePay)
-        try container.encodeIfPresent(nameFromApplePay, forKey: .nameFromApplePay)
-        try container.encodeIfPresent(autoCat, forKey: .autoCat)
-        try container.encodeIfPresent(senderAccountID, forKey: .senderAccountID)
-        try container.encodeIfPresent(receiverAccountID, forKey: .receiverAccountID)
-        try container.encodeIfPresent(note, forKey: .note)
+        case address
+        case lat
+        case long
     }
 }
 

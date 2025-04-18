@@ -351,6 +351,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = NSFaceIDUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = NSLocationAlwaysAndWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = NSLocationAlwaysUsageDescription;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSSiriUsageDescription = NSSiriUsageDescription;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -401,6 +404,9 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = NSCameraUsageDescription;
 				INFOPLIST_KEY_NSFaceIDUsageDescription = NSFaceIDUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = NSLocationAlwaysAndWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = NSLocationAlwaysUsageDescription;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSSiriUsageDescription = NSSiriUsageDescription;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;

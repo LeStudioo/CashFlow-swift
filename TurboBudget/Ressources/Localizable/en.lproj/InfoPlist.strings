@@ -9,3 +9,7 @@
 "NSFaceIDUsageDescription" = "Secures your data.";
 
 "NSCameraUsageDescription" = "We need access to your camera to scan qrcodes, credit cards or receipts.";
+
+"NSLocationWhenInUseUsageDescription" = "CashFlow needs your position to add it to your expenses.";
+"NSLocationAlwaysUsageDescription" = "CashFlow needs your position to add it to your expenses.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "CashFlow needs your position to add it to your expenses.";

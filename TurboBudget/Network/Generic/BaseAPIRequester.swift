@@ -13,6 +13,7 @@ extension APIRequestBuilder {
     var headers: [(key: String, value: String)]? {
         var header = [(String, String)]()
         header.append(("Content-Type", "application/json"))
+        header.append(("Language", Locale.current.identifier))
         if isTokenNeeded {
             header.append(("Authorization", "Bearer \(TokenManager.shared.token)"))
         }
