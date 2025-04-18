@@ -98,5 +98,5 @@ extension CustomTextField {
         )
     }
     .padding()
-    .background(Color.background)
+    .background(Color.black.opacity(0.2))
 }

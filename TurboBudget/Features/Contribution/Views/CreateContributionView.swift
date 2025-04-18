@@ -31,6 +31,14 @@ struct CreateContributionView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     CustomTextField(
+                        text: $viewModel.name,
+                        config: .init(
+                            title: "contribution_create_name".localized,
+                            placeholder: "contribution_create_placeholder_name".localized
+                        )
+                    )
+                    
+                    CustomTextField(
                         text: $viewModel.amount.max(9),
                         config: .init(
                             title: Word.Classic.amount,

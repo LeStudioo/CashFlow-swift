@@ -21,13 +21,15 @@ enum ContributionType: Int, CaseIterable {
 
 struct ContributionModel: Codable, Identifiable, Equatable, Hashable {
     var id: Int?
+    var name: String?
     var amount: Double?
     var typeNum: Int? // ContributionType
     var dateString: String?
 
     // Initialiseur
-    init(id: Int? = nil, amount: Double? = nil, typeNum: Int? = nil, dateString: String? = nil) {
+    init(id: Int? = nil, name: String? = nil, amount: Double? = nil, typeNum: Int? = nil, dateString: String? = nil) {
         self.id = id
+        self.name = name
         self.amount = amount
         self.typeNum = typeNum
         self.dateString = dateString
@@ -35,25 +37,9 @@ struct ContributionModel: Codable, Identifiable, Equatable, Hashable {
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, amount
+        case id, name, amount
         case dateString = "date"
         case typeNum = "type"
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
-        dateString = try container.decodeIfPresent(String.self, forKey: .dateString)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(amount, forKey: .amount)
-        try container.encodeIfPresent(typeNum, forKey: .typeNum)
-        try container.encodeIfPresent(dateString, forKey: .dateString)
     }
 }
 

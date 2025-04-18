@@ -13,6 +13,7 @@ final class CreateContributionViewModel: ObservableObject {
     // builder
     var savingsPlan: SavingsPlanModel
     
+    @Published var name: String = ""
     @Published var amount: String = ""
     @Published var type: ContributionType = .addition
     @Published var date: Date = Date()
@@ -42,9 +43,11 @@ extension CreateContributionViewModel {
         if let contribution = await contributionStore.createContribution(
             savingsplanID: savingsPlanID,
             body: .init(
+                name: name.isEmpty ? nil : name,
                 amount: amount.toDouble(),
                 typeNum: type.rawValue,
-                dateString: date.toISO())
+                dateString: date.toISO()
+            )
         ) {
             await dismiss()
             await successfullModalManager.showSuccessfulContribution(

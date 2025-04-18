@@ -16,11 +16,19 @@ struct ContributionRow: View {
     var savingsPlan: SavingsPlanModel
     var contribution: ContributionModel
     
+    var contributionName: String {
+        if let name = contribution.name, !name.isEmpty {
+            return name
+        } else {
+            return contribution.type == .withdrawal ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized
+        }
+    }
+    
     // MARK: -
     var body: some View {
         SwipeView(label: {
             HStack {
-                Text(contribution.type == .withdrawal ? "contribution_cell_withdrawn".localized : "contribution_cell_added".localized)
+                Text(contributionName)
                     .font(Font.mediumText16())
                 Spacer()
                 VStack(alignment: .trailing, spacing: 3) {
