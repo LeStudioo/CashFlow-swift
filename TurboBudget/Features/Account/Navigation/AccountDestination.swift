@@ -9,7 +9,8 @@ import SwiftUICore
 import NavigationKit
 
 enum AccountDestination: AppDestinationProtocol {
-    case create(type: AccountType, account: AccountModel? = nil)
+    case create
+    case update(account: AccountModel)
     case dashboard
     case statistics
     
@@ -17,8 +18,10 @@ enum AccountDestination: AppDestinationProtocol {
     
     func body(route: Route) -> some View {
         switch self {
-        case .create(let type, let account):
-            CreateAccountView(type: type, account: account)
+        case .create:
+            CreateAccountView(type: .classic)
+        case .update(let account):
+            CreateAccountView(type: .classic, account: account)
         case .dashboard:
             AccountDashboardView()
         case .statistics:

@@ -11,7 +11,8 @@ import NavigationKit
 enum TransactionDestination: AppDestinationProtocol {
     case list
     case specificList(month: Date, type: TransactionType)
-    case create(transaction: TransactionModel? = nil)
+    case create
+    case update(transaction: TransactionModel)
     case detail(transaction: TransactionModel)
     
     var id: Self { self }
@@ -22,7 +23,9 @@ enum TransactionDestination: AppDestinationProtocol {
             TransactionsView()
         case .specificList(let month, let type):
             TransactionsForMonthView(selectedDate: month, type: type)
-        case .create(let transaction):
+        case .create:
+            CreateTransactionView()
+        case .update(let transaction):
             CreateTransactionView(transaction: transaction)
         case .detail(let transaction):
             TransactionDetailView(transaction: transaction)

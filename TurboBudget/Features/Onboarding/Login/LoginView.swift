@@ -60,22 +60,14 @@ struct LoginView: View {
                                     if let token = user.token, let refreshToken = user.refreshToken {
                                         TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
                                         UserStore.shared.currentUser = user
-                                        
-                                        do {
-                                            AppManager.shared.viewState = .syncing
-                                            try await DataForServer.shared.syncOldDataToServer()
-                                            PersistenceController.clearOldDatabase()
-                                            AppManager.shared.viewState = .success
-                                        } catch {
-                                            AppManager.shared.viewState = .notSynced
-                                        }
+                                        AppManager.shared.appState = .success
                                     }
                                 }
                             } else {
-                                AppManager.shared.viewState = .failed
+                                AppManager.shared.appState = .failed
                             }
                         } else {
-                            AppManager.shared.viewState = .failed
+                            AppManager.shared.appState = .failed
                         }
                     case .failure(let error):
                         print("Authorisation failed: \(error.localizedDescription)")

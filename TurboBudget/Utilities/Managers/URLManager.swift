@@ -34,7 +34,7 @@ final class URLManager {
             }
         }
         enum Tutos: String {
-            case importFromApplePay = "https://theodev.myftp.org/cashflow/tutos/import-from-applepay"
+            case importFromApplePay = "https://lazyy.fr/cashflow/tutos/import-from-applepay"
         }
     }
 
@@ -70,7 +70,6 @@ final class URLManager {
             static func showDeepl() {
                 URLManager.openURL(url: PredefinedURL.Setting.Credits.deepl.rawValue)
             }
-            
             
             static func showSwipeActions() {
                 URLManager.openURL(url: PredefinedURL.Setting.Credits.swipeActions.rawValue)

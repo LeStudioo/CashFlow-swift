@@ -8,11 +8,11 @@
 // Refactor 25/02/2024
 
 import SwiftUI
+import NavigationKit
 
 struct HomeScreenSavingsPlan: View {
         
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
     @EnvironmentObject private var contributionStore: ContributionStore
     
@@ -34,14 +34,16 @@ struct HomeScreenSavingsPlan: View {
                 LazyVGrid(columns: layout, alignment: .center) {
                     ForEach(savingsPlanStore.savingsPlans.prefix(preferencesDisplayHome.savingsPlan_value)) { savingsPlan in
                         NavigationButton(
-                            push: router.pushSavingPlansDetail(savingsPlan: savingsPlan),
-                            action: {
+                            route: .push,
+                            destination: AppDestination.savingsPlan(.detail(savingsPlan: savingsPlan)),
+                            onNavigate: {
                                 Task {
                                     if let savingsPlanID = savingsPlan.id {
                                         await contributionStore.fetchContributions(savingsplanID: savingsPlanID)
                                     }
                                 }
-                            }, label: {
+                            },
+                            label: {
                                 SavingsPlanRow(savingsPlan: savingsPlan)
                             }
                         )

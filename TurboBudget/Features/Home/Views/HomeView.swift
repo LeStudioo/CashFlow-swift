@@ -10,11 +10,11 @@
 import SwiftUI
 import CoreData
 import StoreKit
+import NavigationKit
 
 struct HomeView: View {
         
-    @EnvironmentObject private var router: NavigationManager
-    @EnvironmentObject private var modalManager: ModalManager
+    @EnvironmentObject private var router: Router<AppDestination>
     @EnvironmentObject private var purchasesManager: PurchasesManager
     
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
@@ -50,7 +50,7 @@ struct HomeView: View {
         .onAppear {
             preferencesGeneral.numberOfOpenings += 1
             if (preferencesGeneral.numberOfOpenings % 6 == 0) && !preferencesGeneral.isApplePayEnabled {
-                modalManager.presentTipApplePayShortcut()
+                router.present(route: .modalFitContent, .tips(.applePayShortcut))
             }
             if preferencesGeneral.numberOfOpenings > 8 && !preferencesGeneral.isReviewPopupPresented {
                 Task { @MainActor in
@@ -59,7 +59,7 @@ struct HomeView: View {
                 }
             }
             if preferencesGeneral.numberOfOpenings % 20 == 0 && !purchasesManager.isCashFlowPro {
-                router.presentPaywall()
+                router.present(route: .sheet, .shared(.paywall))
             }
         }
     } // body

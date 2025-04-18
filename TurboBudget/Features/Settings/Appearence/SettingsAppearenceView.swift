@@ -14,7 +14,7 @@ struct SettingsAppearenceView: View {
         ScrollView {
             VStack(spacing: 16) {
                 HStack(spacing: 16) {
-                    ThemeCell(type: .unspecified)
+                    ThemeCell(type: .system)
                     ThemeCell(type: .light)
                     ThemeCell(type: .dark)
                 }
@@ -35,6 +35,6 @@ struct SettingsAppearenceView: View {
 // MARK: - Preview
 #Preview {
     SettingsAppearenceView()
-        .environmentObject(ColorSchemeManager())
+        .environmentObject(AppearanceManager())
         .environmentObject(ThemeManager())
 }

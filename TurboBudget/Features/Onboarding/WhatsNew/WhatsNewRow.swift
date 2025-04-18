@@ -19,7 +19,7 @@ struct WhatsNewRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
-                .font(.system(size: 40))
+                .font(.system(size: 32))
                 .frame(width: 50)
                 .foregroundStyle(iconColor)
             

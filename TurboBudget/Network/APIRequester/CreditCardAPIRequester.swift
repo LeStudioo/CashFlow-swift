@@ -42,7 +42,7 @@ extension CreditCardAPIRequester {
     var body: Data? {
         switch self {
         case .fetch:                    return nil
-        case .create(_ ,let cardUUID):  return try? JSONEncoder().encode(["uuid": cardUUID.uuidString])
+        case .create(_, let cardUUID):  return try? JSONEncoder().encode(["uuid": cardUUID.uuidString])
         case .delete:                   return nil
         }
     }

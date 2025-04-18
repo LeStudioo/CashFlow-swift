@@ -57,10 +57,9 @@ extension TransactionStore {
     func expensesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsExpenses: [TransactionModel] = []
         
-        for transaction in expenses {
-            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
-                transactionsExpenses.append(transaction)
-            }
+        for transaction in expenses
+        where Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
+            transactionsExpenses.append(transaction)
         }
         return transactionsExpenses
     }
@@ -74,10 +73,9 @@ extension TransactionStore {
     func incomesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
         var transactionsIncomes: [TransactionModel] = []
         
-        for transaction in incomes {
-            if Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
-                transactionsIncomes.append(transaction)
-            }
+        for transaction in incomes
+        where Calendar.current.isDate(transaction.date, equalTo: selectedDate, toGranularity: .month) {
+            transactionsIncomes.append(transaction)
         }
         return transactionsIncomes
     }

@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct HomeScreenComponentHeader: View {
     
     // Builder
     var type: HomeScreenComponentHeaderType
     
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
-        NavigationButton(push: type.route(router: router)) {
+        NavigationButton(route: .push, destination: type.destination) {
             HStack {
                 Text(type.title)
                     .foregroundStyle(Color.customGray)
@@ -46,11 +46,11 @@ enum HomeScreenComponentHeaderType {
         }
     }
     
-    func route(router: NavigationManager) {
+    var destination: AppDestination {
         switch self {
-        case .recentTransactions:   return router.pushAllTransactions()
-        case .savingsPlan:          return router.pushHomeSavingPlans()
-        case .subscription:         return router.pushHomeAutomations()
+        case .recentTransactions:   return AppDestination.transaction(.list)
+        case .savingsPlan:          return AppDestination.savingsPlan(.list)
+        case .subscription:         return AppDestination.subscription(.list)
         }
     }
 }

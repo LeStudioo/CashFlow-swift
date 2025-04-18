@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct SettingsDebugView: View {
     
     @State private var showOnboarding: Bool = false
+    @EnvironmentObject private var router: Router<AppDestination>
     
     // MARK: -
     var body: some View {
@@ -20,11 +22,6 @@ struct SettingsDebugView: View {
                 } label: {
                     Text("Reset refresh token")
                 }
-                Button {
-                    PersistenceController.clearOldDatabase()
-                } label: {
-                    Text("Clear local DB")
-                }
             }
             
             Section {
@@ -34,7 +31,7 @@ struct SettingsDebugView: View {
                     Text("Show onboarding")
                 }
                 Button {
-                    ModalManager.shared.present(TipApplePayShortcutView())
+                    router.present(route: .modalFitContent, .tips(.applePayShortcut))
                 } label: {
                     Text("Show tip Apple Pay")
                 }

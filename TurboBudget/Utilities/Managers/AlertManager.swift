@@ -8,17 +8,18 @@
 import Foundation
 import AlertKit
 import SwiftUI
+import NavigationKit
 
 extension AlertManager {
     
-    func showPaywall(router: NavigationManager) {
+    func showPaywall(router: Router<AppDestination>) {
         self.present(
             title: "alert_cashflow_pro_title".localized,
             message: "alert_cashflow_pro_desc".localized,
             buttonTitle: "alert_cashflow_pro_action_button".localized,
             isDestructive: false,
             action: {
-                router.presentPaywall()
+                router.present(route: .sheet, .shared(.paywall))
             }
         )
     }

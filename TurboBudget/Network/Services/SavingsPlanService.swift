@@ -31,7 +31,7 @@ struct SavingsPlanService {
         )
     }
     
-    static func delete(savingsPlanID: Int) async throws -> Void {
+    static func delete(savingsPlanID: Int) async throws {
         try await NetworkService.sendRequest(
             apiBuilder: SavingsPlanAPIRequester.delete(savingsplanID: savingsPlanID)
         )

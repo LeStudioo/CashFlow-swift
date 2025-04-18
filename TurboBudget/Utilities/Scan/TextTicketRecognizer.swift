@@ -89,7 +89,7 @@ final class TextTicketRecognizer {
 
             let datePatterns = [
                 "\\b\\d{1,2}[/.]\\d{1,2}[/.]\\d{2}\\b",
-                "\\b\\d{1,2}[/.]\\d{1,2}[/.]\\d{4}\\b",
+                "\\b\\d{1,2}[/.]\\d{1,2}[/.]\\d{4}\\b"
             ]
 
             for pattern in datePatterns {

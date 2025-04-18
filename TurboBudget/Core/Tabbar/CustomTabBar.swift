@@ -12,7 +12,6 @@ import AlertKit
 struct CustomTabBar: View {
     
     // Repo
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var creditCardStore: CreditCardStore
     

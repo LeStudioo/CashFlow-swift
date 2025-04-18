@@ -10,22 +10,22 @@ import SwiftUI
 struct ThemeCell: View {
     
     // Builder
-    var type: ColorScheme
+    var type: Appearance
     
-    @EnvironmentObject var csManager: ColorSchemeManager
+    @EnvironmentObject var csManager: AppearanceManager
     @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
-        Button(action: { csManager.colorScheme = type }, label: {
+        Button(action: { csManager.appearance = type }, label: {
             VStack {
                 background()
                     .frame(height: 50)
                     .overlay {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .stroke(
-                                csManager.colorScheme == type ? themeManager.theme.color : Color.text,
-                                lineWidth: csManager.colorScheme == type ? 3 : 1)
+                                csManager.appearance == type ? themeManager.theme.color : Color.text,
+                                lineWidth: csManager.appearance == type ? 3 : 1)
                         
                         if type == .light {
                             Image(systemName: "sun.max.fill")
@@ -47,7 +47,7 @@ struct ThemeCell: View {
     @ViewBuilder
     func background() -> some View {
         switch type {
-        case .unspecified:
+        case .system:
             RoundedRectangle(cornerRadius: 16, style: .continuous)
                 .fill(
                     LinearGradient(
@@ -73,11 +73,11 @@ struct ThemeCell: View {
 // MARK: - Preview
 #Preview {
     HStack(spacing: 8) {
-        ThemeCell(type: .unspecified)
+        ThemeCell(type: .system)
         ThemeCell(type: .light)
         ThemeCell(type: .dark)
     }
-    .environmentObject(ColorSchemeManager())
+    .environmentObject(AppearanceManager())
     .environmentObject(ThemeManager())
     .padding()
 }

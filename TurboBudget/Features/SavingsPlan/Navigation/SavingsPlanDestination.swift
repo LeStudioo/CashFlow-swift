@@ -10,7 +10,8 @@ import NavigationKit
 
 enum SavingsPlanDestination: AppDestinationProtocol {
     case list
-    case create(savingsPlan: SavingsPlanModel? = nil)
+    case create
+    case update(savingsPlan: SavingsPlanModel)
     case detail(savingsPlan: SavingsPlanModel)
     
     var id: Self { self }
@@ -19,7 +20,9 @@ enum SavingsPlanDestination: AppDestinationProtocol {
         switch self {
         case .list:
             SavingsPlansHomeView()
-        case .create(let savingsPlan):
+        case .create:
+            CreateSavingPlansView()
+        case .update(let savingsPlan):
             CreateSavingPlansView(savingsPlan: savingsPlan)
         case .detail(let savingsPlan):
             SavingsPlanDetailView(savingsPlan: savingsPlan)

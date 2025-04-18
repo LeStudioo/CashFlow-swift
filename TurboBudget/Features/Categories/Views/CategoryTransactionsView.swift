@@ -8,6 +8,7 @@
 // Localizations 01/10/2023
 
 import SwiftUI
+import NavigationKit
 
 struct CategoryTransactionsView: View {
     
@@ -16,7 +17,6 @@ struct CategoryTransactionsView: View {
     var selectedDate: Date
     
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // String variables
@@ -33,17 +33,22 @@ struct CategoryTransactionsView: View {
         VStack {
             if transactionsFiltered.isNotEmpty {
                 List {
-                    Section(content: {
-                        ForEach(transactionsFiltered) { transaction in
-                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                TransactionRow(transaction: transaction)
+                    Section(
+                        content: {
+                            ForEach(transactionsFiltered) { transaction in
+                                NavigationButton(
+                                    route: .push,
+                                    destination: AppDestination.transaction(.detail(transaction: transaction))
+                                ) {
+                                    TransactionRow(transaction: transaction)
+                                }
                             }
-                        }
-                        .padding(.horizontal)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                        .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                    }, header: {
+                            .padding(.horizontal)
+                            .listRowSeparator(.hidden)
+                            .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                        },
+                        header: {
                         DetailOfExpensesAndIncomesByMonth(
                             month: selectedDate,
                             amountOfExpenses: amountExpense,

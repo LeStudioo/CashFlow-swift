@@ -10,7 +10,8 @@ import NavigationKit
 
 enum SubscriptionDestination: AppDestinationProtocol {
     case list
-    case create(subscription: SubscriptionModel? = nil)
+    case create
+    case update(subscription: SubscriptionModel)
     case detail(subscription: SubscriptionModel)
     
     var id: Self { self }
@@ -19,7 +20,9 @@ enum SubscriptionDestination: AppDestinationProtocol {
         switch self {
         case .list:
             SubscriptionHomeView()
-        case .create(let subscription):
+        case .create:
+            CreateSubscriptionView()
+        case .update(let subscription):
             CreateSubscriptionView(subscription: subscription)
         case .detail(let subscription):
             SubscriptionDetailView(subscription: subscription)

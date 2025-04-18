@@ -8,11 +8,11 @@
 // Localizations 01/10/2023
 
 import SwiftUI
+import NavigationKit
 
 struct CategoryHomeView: View {
     
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
     
@@ -52,24 +52,17 @@ struct CategoryHomeView: View {
                 
                 ForEach(viewModel.categoriesFiltered) { category in
                     let subcategories = category.subcategories
-                    Group {
-                        if let subcategories, !subcategories.isEmpty {
-                            NavigationButton(push: router.pushHomeSubcategories(category: category, selectedDate: viewModel.selectedDate)) {
-                                CategoryRow(
-                                    category: category,
-                                    selectedDate: viewModel.selectedDate,
-                                    amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
-                                )
-                            }
-                        } else {
-                            NavigationButton(push: router.pushCategoryTransactions(category: category, selectedDate: viewModel.selectedDate)) {
-                                CategoryRow(
-                                    category: category,
-                                    selectedDate: viewModel.selectedDate,
-                                    amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
-                                )
-                            }
-                        }
+                    NavigationButton(
+                        route: .push,
+                        destination: (subcategories?.isEmpty == false
+                        ? AppDestination.subcategory(.list(category: category, selectedDate: viewModel.selectedDate))
+                        : AppDestination.category(.transactions(category: category, selectedDate: viewModel.selectedDate)))
+                    ) {
+                        CategoryRow(
+                            category: category,
+                            selectedDate: viewModel.selectedDate,
+                            amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
+                        )
                     }
                     .foregroundStyle(Color.text)
                     .padding(.bottom, 8)

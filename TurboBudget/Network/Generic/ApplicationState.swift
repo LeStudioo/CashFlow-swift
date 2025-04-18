@@ -12,6 +12,4 @@ enum ApplicationState {
     case loading
     case success
     case failed
-    case syncing
-    case notSynced
 }

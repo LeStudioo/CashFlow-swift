@@ -9,16 +9,14 @@
 import SwiftUI
 import UIKit
 import Charts
+import NavigationKit
 
 struct AnalyticsHomeView: View {
     
-    // Builder
+    // Stores
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
-    
-    // Environment
-    @EnvironmentObject private var router: NavigationManager
-    
+        
     // Custom
     @State private var dailyExpenses: [AmountByDay] = []
     @State private var dailyIncomes: [AmountByDay] = []
@@ -54,26 +52,32 @@ struct AnalyticsHomeView: View {
                         amount = accountStore.cashFlowAmount(for: selectedDate)
                     }
                     
-                    NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .income)) {
-                        GenericLineChart(
-                            selectedDate: selectedDate,
-                            values: dailyIncomes,
-                            config: .init(
-                                title: "chart_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                                mainColor: Color.primary500
+                    NavigationButton(
+                        route: .push,
+                        destination: AppDestination.transaction(.specificList(month: selectedDate, type: .income))) {
+                            GenericLineChart(
+                                selectedDate: selectedDate,
+                                values: dailyIncomes,
+                                config: .init(
+                                    title: "chart_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                    mainColor: Color.primary500
+                                )
                             )
-                        )
-                    }
-                    NavigationButton(push: router.pushTransactionsForMonth(month: selectedDate, type: .expense)) {
-                        GenericLineChart(
-                            selectedDate: selectedDate,
-                            values: dailyExpenses,
-                            config: .init(
-                                title: "chart_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                                mainColor: Color.error400
+                        }
+                    
+                    NavigationButton(
+                        route: .push,
+                        destination: AppDestination.transaction(.specificList(month: selectedDate, type: .expense))) {
+                            GenericLineChart(
+                                selectedDate: selectedDate,
+                                values: dailyExpenses,
+                                config: .init(
+                                    title: "chart_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                    mainColor: Color.error400
+                                )
                             )
-                        )
-                    }
+                        }
+                    
                     GenericLineChart(
                         selectedDate: selectedDate,
                         values: dailySubscriptionsIncomes,

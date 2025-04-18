@@ -6,10 +6,10 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct HomeHeader: View {
     
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
     @EnvironmentObject private var purchaseManager: PurchasesManager
@@ -35,7 +35,7 @@ struct HomeHeader: View {
                 PremiumButton()
             }
             
-            NavigationButton(push: router.pushSettings()) {
+            NavigationButton(route: .push, destination: AppDestination.settings(.home)) {
                 Image(systemName: "gearshape.fill")
                     .foregroundStyle(Color.text)
                     .font(.system(size: 18, weight: .medium, design: .rounded))

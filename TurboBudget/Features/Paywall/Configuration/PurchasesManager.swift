@@ -22,11 +22,11 @@ class PurchasesManager: NSObject, ObservableObject {
 //        return self.products.first
 //    }
     
-    var lifetime: Product? {
+    var newLifetime: Product? {
         return self.products.filter { $0.id == "com.Sementa.CashFlow.lifetime2" }.first
     }
     
-    var lifetimePromo: Product? {
+    var lifetime: Product? {
         return self.products.filter { $0.id == "com.Sementa.CashFlow.lifetime" }.first
     }
     

@@ -21,9 +21,9 @@ class SignInWithGoogleManager: ObservableObject {
 extension SignInWithGoogleManager {
     
     func getUserInfo() async {
-        if (GIDSignIn.sharedInstance.currentUser != nil) {
+        if GIDSignIn.sharedInstance.currentUser != nil {
             let user = GIDSignIn.sharedInstance.currentUser
-            guard (user != nil) else { return }
+            guard user != nil else { return }
             
             self.isLoggedIn = true
         } else {
@@ -33,7 +33,8 @@ extension SignInWithGoogleManager {
     
     @MainActor
     func signIn() {
-       guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.keyWindow?.rootViewController else { return }
+       guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.keyWindow?.rootViewController
+        else { return }
         
         GIDSignIn.sharedInstance.signIn(withPresenting: presentingViewController) { user, error in
             if let error {
@@ -55,15 +56,7 @@ extension SignInWithGoogleManager {
                 if let token = user.token, let refreshToken = user.refreshToken {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
                     UserStore.shared.currentUser = user
-
-                    do {
-                        AppManager.shared.viewState = .syncing
-                        try await DataForServer.shared.syncOldDataToServer()
-                        PersistenceController.clearOldDatabase()
-                        AppManager.shared.viewState = .success
-                    } catch {
-                        AppManager.shared.viewState = .notSynced
-                    }
+                    AppManager.shared.appState = .success
                 }
             }
         }

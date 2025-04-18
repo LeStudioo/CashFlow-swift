@@ -56,7 +56,7 @@
          </CommandLineArgument>
       </CommandLineArguments>
       <StoreKitConfigurationFileReference
-         identifier = "../../TurboBudget/Paywall/Configuration/MainStoreKitConfiguration.storekit">
+         identifier = "../../TurboBudget/Features/Paywall/Configuration/MainStoreKitConfiguration.storekit">
       </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction

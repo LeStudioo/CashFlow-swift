@@ -9,29 +9,24 @@
 import SwiftUI
 import CloudKit
 import CoreData
+import NavigationKit
 
 struct PageControllerView: View {
     
     // Environment
     @EnvironmentObject private var appManager: AppManager
-    @EnvironmentObject private var router: NavigationManager
-    
-    // New Repository
     @EnvironmentObject private var accountStore: AccountStore
     
-    // Old Reposiyory
-    @EnvironmentObject private var accountRepo: AccountRepositoryOld
+    @StateObject private var homeRouter: Router<AppDestination> = .init()
+    @StateObject private var analyticsRouter: Router<AppDestination> = .init()
+    @StateObject private var dashboardRouter: Router<AppDestination> = .init()
+    @StateObject private var categoryRouter: Router<AppDestination> = .init()
+    @StateObject private var routerManager: AppRouterManager = .shared
     
-    // Custom
-    @StateObject private var icloudManager: ICloudManager = ICloudManager()
-    @StateObject private var pageControllerVM: PageControllerViewModel = PageControllerViewModel()
+    @StateObject private var viewModel: PageControllerViewModel = .init()
     
     // Environement
     @Environment(\.scenePhase) private var scenePhase
-    
-    // EnvironmentObject
-    @EnvironmentObject var csManager: ColorSchemeManager
-    @EnvironmentObject private var store: PurchasesManager
     
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
@@ -40,60 +35,95 @@ struct PageControllerView: View {
     // MARK: - body
     var body: some View {
         VStack {
-            if !pageControllerVM.launchScreenEnd { LaunchScreen(launchScreenEnd: $pageControllerVM.launchScreenEnd) }
-            if pageControllerVM.isUnlocked {
+            if !viewModel.launchScreenEnd { LaunchScreen(launchScreenEnd: $viewModel.launchScreenEnd) }
+            if viewModel.isUnlocked {
                 ZStack(alignment: .bottom) {
                     if accountStore.selectedAccount != nil {
-                        Group {
-                            switch appManager.selectedTab {
-                            case 0: HomeView()
-                            case 1: AnalyticsHomeView()
-                            case 3: AccountDashboardView()
-                            case 4: CategoryHomeView()
-                            default: EmptyView() // Can't arrived
+                        TabView(selection: $appManager.selectedTab) {
+                            RoutedNavigationStack(router: homeRouter) {
+                                AppDestination.shared(.home).body(route: .push)
+                            }
+                            .tag(0)
+                            .toolbar(.hidden, for: .tabBar)
+                            
+                            RoutedNavigationStack(router: analyticsRouter) {
+                                AppDestination.shared(.analytics).body(route: .push)
+                            }
+                            .tag(1)
+                            .toolbar(.hidden, for: .tabBar)
+                            
+                            RoutedNavigationStack(router: dashboardRouter) {
+                                AppDestination.account(.dashboard).body(route: .push)
+                            }
+                            .tag(2)
+                            .toolbar(.hidden, for: .tabBar)
+
+                            RoutedNavigationStack(router: categoryRouter) {
+                                AppDestination.category(.list).body(route: .push)
+                            }
+                            .tag(3)
+                            .toolbar(.hidden, for: .tabBar)
+                        }
+                        .onAppear {
+                            if !appManager.isRoutersRegistered {
+                                routerManager.register(router: homeRouter, for: .home)
+                                routerManager.register(router: analyticsRouter, for: .analytics)
+                                routerManager.register(router: dashboardRouter, for: .dashboard)
+                                routerManager.register(router: categoryRouter, for: .category)
+                                appManager.isRoutersRegistered = true
                             }
                         }
                     } else {
-                        CustomEmptyView(
-                            type: .empty(.account),
-                            isDisplayed: true
-                        )
+                        RoutedNavigationStack(router: homeRouter) {
+                            CustomEmptyView(
+                                type: .empty(.account),
+                                isDisplayed: true
+                            )
+                        }
                     }
                     
-                    CustomTabBar()
+                    if !routerManager.isNavigationInProgress {
+                        CustomTabBar()
+                    }
                 }
-                .sheet(isPresented: $pageControllerVM.showOnboarding) {
+                .sheet(isPresented: $viewModel.showOnboarding) {
                     OnboardingView()
+                }
+                .blur(radius: appManager.isMenuPresented ? 12 : 0)
+                .overlay {
+                    if appManager.isMenuPresented {
+                        CreationMenuView()
+                    }
                 }
                 .edgesIgnoringSafeArea(.bottom)
                 .ignoresSafeArea(.keyboard)
             } // End if unlocked
         }
-        .padding(pageControllerVM.isUnlocked ? 0 : 0)
-        .onChange(of: pageControllerVM.launchScreenEnd, perform: { newValue in
-            if (preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen) {
-                router.presentWhatsNew()
+        .padding(viewModel.isUnlocked ? 0 : 0)
+        .onChange(of: viewModel.launchScreenEnd, perform: { newValue in
+            if preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen {
+                homeRouter.present(route: .sheet, .shared(.whatsNew))
             }
             
             if accountStore.selectedAccount != nil && !preferencesGeneral.isAlreadyOpen {
-                pageControllerVM.showOnboarding = false
+                viewModel.showOnboarding = false
                 preferencesGeneral.isAlreadyOpen = true
             } else if !preferencesGeneral.isAlreadyOpen {
-                pageControllerVM.showOnboarding = true
+                viewModel.showOnboarding = true
             }
             
-            // LaunchScreen ended and no data in iCloud
-            if newValue && (icloudManager.icloudDataStatus == .none || icloudManager.icloudDataStatus == .error) {
+            // LaunchScreen ended
+            if newValue {
                 // Already open + app close
                 if !UserDefaults.standard.bool(forKey: "appIsOpen") && preferencesGeneral.isAlreadyOpen {
                     if preferencesSecurity.isBiometricEnabled {
-                        pageControllerVM.authenticate()
+                        viewModel.authenticate()
                     } else {
-                        withAnimation { pageControllerVM.isUnlocked = true }
+                        withAnimation { viewModel.isUnlocked = true }
                         UserDefaults.standard.set(true, forKey: "appIsOpen")
                     }
                 } else {
-                    withAnimation { pageControllerVM.isUnlocked = true }
+                    withAnimation { viewModel.isUnlocked = true }
                     UserDefaults.standard.set(true, forKey: "appIsOpen")
                 }
             }

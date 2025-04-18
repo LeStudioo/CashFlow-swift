@@ -8,13 +8,12 @@
 // Refactor 25/02/2024
 
 import SwiftUI
+import NavigationKit
 
 struct HomeScreenSubscription: View {
     
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var subscriptionStore: SubscriptionStore
-    @EnvironmentObject private var automationRepo: AutomationRepositoryOld
     
     // Preferences
     @StateObject var preferencesDisplayHome: PreferencesDisplayHome = .shared
@@ -27,7 +26,10 @@ struct HomeScreenSubscription: View {
             if !subscriptionStore.subscriptions.isEmpty {
                 VStack {
                     ForEach(subscriptionStore.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
-                        NavigationButton(push: router.pushSubscriptionDetail(subscription: subscription)) {
+                        NavigationButton(
+                            route: .push,
+                            destination: AppDestination.subscription(.detail(subscription: subscription))
+                        ) {
                             SubscriptionRow(subscription: subscription)
                         }
                     }

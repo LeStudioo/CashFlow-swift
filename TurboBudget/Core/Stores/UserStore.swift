@@ -54,7 +54,7 @@ extension UserStore {
     func signOut() async {
         TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
         self.currentUser = nil
-        AppManager.shared.viewState = .failed
+        AppManager.shared.appState = .failed
     }
     
     @MainActor
@@ -65,7 +65,7 @@ extension UserStore {
             )
             TokenManager.shared.setTokenAndRefreshToken(token: "", refreshToken: "")
             self.currentUser = nil
-            AppManager.shared.viewState = .failed
+            AppManager.shared.appState = .failed
         } catch { NetworkService.handleError(error: error) }
     }
 }

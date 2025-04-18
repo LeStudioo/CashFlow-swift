@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct TransactionsForMonthView: View {
     
@@ -14,7 +15,6 @@ struct TransactionsForMonthView: View {
     var type: TransactionType
     
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // String variables
@@ -30,9 +30,11 @@ struct TransactionsForMonthView: View {
                 List {
                     Section(content: {
                         ForEach(transactionsFiltered) { transaction in
-                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
-                                TransactionRow(transaction: transaction)
-                            }
+                            NavigationButton(
+                                route: .push,
+                                destination: AppDestination.transaction(.detail(transaction: transaction))) {
+                                    TransactionRow(transaction: transaction)
+                                }
                         }
                         .padding(.horizontal)
                         .listRowSeparator(.hidden)

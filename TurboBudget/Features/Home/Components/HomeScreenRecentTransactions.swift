@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct HomeScreenRecentTransactions: View {
     
     // EnvironmentObject
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // Preferences
@@ -24,7 +24,7 @@ struct HomeScreenRecentTransactions: View {
                 
                 if transactionStore.transactions.isNotEmpty {
                     ForEach(transactionStore.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
-                        NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
+                        NavigationButton(route: .push, destination: AppDestination.transaction(.detail(transaction: transaction))) {
                             TransactionRow(transaction: transaction)
                         }
                     }

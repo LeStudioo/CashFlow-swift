@@ -33,13 +33,13 @@ struct TabBarContent: View {
                 TabBarItem(
                     icon: "creditcard",
                     title: "word_account".localized,
-                    tag: 3
+                    tag: 2
                 )
                 
                 TabBarItem(
                     icon: "rectangle.stack",
                     title: "word_type".localized,
-                    tag: 4
+                    tag: 3
                 )
             }
             .padding(.bottom, 16)

@@ -7,6 +7,7 @@
 // Localizations 01/10/2023
 
 import SwiftUI
+import NavigationKit
 
 struct SubcategoryTransactionsView: View {
     
@@ -16,10 +17,7 @@ struct SubcategoryTransactionsView: View {
     
     // Repo
     @EnvironmentObject private var transactionStore: TransactionStore
-    
-    // Environnement
-    @EnvironmentObject private var router: NavigationManager
-    
+        
     // State or Binding String
     @State private var searchText: String = ""
     
@@ -33,7 +31,10 @@ struct SubcategoryTransactionsView: View {
                 List {
                     Section(content: {
                         ForEach(transactionsFiltered) { transaction in
-                            NavigationButton(push: router.pushTransactionDetail(transaction: transaction)) {
+                            NavigationButton(
+                                route: .push,
+                                destination: AppDestination.transaction(.detail(transaction: transaction))
+                            ) {
                                 TransactionRow(transaction: transaction)
                             }
                         }

@@ -7,11 +7,11 @@
 
 import SwiftUI
 import AlertKit
+import NavigationKit
 
 struct SettingsHomeView: View {
     
     // Environment
-    @EnvironmentObject private var router: NavigationManager
     @EnvironmentObject private var alertManager: AlertManager
     @EnvironmentObject private var userStore: UserStore
     @Environment(\.dismiss) private var dismiss
@@ -27,7 +27,10 @@ struct SettingsHomeView: View {
         Form {
 #if DEBUG
             Section {
-                NavigationButton(present: router.pushSettingsDebug()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.debug)
+                ) {
                     SettingRow(
                         icon: "hammer.fill",
                         backgroundColor: Color.blue,
@@ -39,7 +42,10 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
 #endif
             Section {
-                NavigationButton(present: router.presentPaywall()) {
+                NavigationButton(
+                    route: .sheet,
+                    destination: AppDestination.shared(.paywall)
+                ) {
                     SettingRow(
                         icon: "crown.fill",
                         backgroundColor: Color.primary500,
@@ -51,7 +57,10 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsGeneral()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.general)
+                ) {
                     SettingRow(
                         icon: "gearshape.fill",
                         backgroundColor: Color.gray,
@@ -60,7 +69,10 @@ struct SettingsHomeView: View {
                     )
                 }
                 
-                NavigationButton(push: router.pushSettingsSecurity()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.security)
+                ) {
                     SettingRow(
                         icon: "lock.fill",
                         backgroundColor: Color.green,
@@ -72,7 +84,10 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsAppearence()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.appearance)
+                ) {
                     SettingRow(
                         icon: "sun.max.fill",
                         backgroundColor: Color.indigo,
@@ -81,7 +96,10 @@ struct SettingsHomeView: View {
                     )
                 }
                 
-                NavigationButton(push: router.pushSettingsDisplay()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.display)
+                ) {
                     SettingRow(
                         icon: "apps.iphone",
                         backgroundColor: Color.blue,
@@ -93,7 +111,10 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsSubscription()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.subscription)
+                ) {
                     SettingRow(
                         icon: "clock.arrow.circlepath",
                         backgroundColor: Color.red,
@@ -102,7 +123,10 @@ struct SettingsHomeView: View {
                     )
                 }
                 
-                NavigationButton(push: store.isCashFlowPro ? router.pushSettingsApplePay() : router.presentPaywall()) {
+                NavigationButton(
+                    route: store.isCashFlowPro ? .push : .sheet,
+                    destination: store.isCashFlowPro ? AppDestination.settings(.applePay) : AppDestination.shared(.paywall)
+                ) {
                     SettingRow(
                         icon: "creditcard.fill",
                         backgroundColor: Color.purple,
@@ -153,7 +177,10 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
-                NavigationButton(push: router.pushSettingsCredits()) {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.settings(.credits)
+                ) {
                     SettingRow(
                         icon: "person.fill",
                         backgroundColor: Color.indigo,

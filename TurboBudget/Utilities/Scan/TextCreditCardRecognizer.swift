@@ -90,7 +90,7 @@ final class TextCreditCardRecognizer {
                 for candidate in candidates {
                     print("🔥 candidate : \(candidate.string)")
                     let components = candidate.string.split(separator: " ")
-                    if let firstComponent = components.first, extractDate(from: String(firstComponent)) != nil  {
+                    if let firstComponent = components.first, extractDate(from: String(firstComponent)) != nil {
                         return String(firstComponent)
                     }
                 }

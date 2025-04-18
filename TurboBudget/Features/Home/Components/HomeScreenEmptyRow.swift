@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct HomeScreenEmptyRow: View {
     
     // Builder
     var type: HomeScreenEmptyRowType
-    
-    @EnvironmentObject private var router: NavigationManager
-    
+        
     // MARK: -
     var body: some View {
-        NavigationButton(present: type.route(router: router)) {
+        NavigationButton(route: .sheet, destination: type.destination) {
             HStack {
                 Text(type.title)
                     .font(Font.mediumText16())
@@ -61,11 +60,11 @@ enum HomeScreenEmptyRowType {
         }
     }
     
-    func route(router: NavigationManager) {
+    var destination: AppDestination {
         switch self {
-        case .savingsPlan:          return router.presentCreateSavingsPlan()
-        case .subscription:         return router.presentCreateSubscription()
-        case .recentTransactions:   return router.presentCreateTransaction()
+        case .savingsPlan:          return AppDestination.savingsPlan(.create)
+        case .subscription:         return AppDestination.subscription(.create)
+        case .recentTransactions:   return AppDestination.transaction(.create)
         }
     }
 }

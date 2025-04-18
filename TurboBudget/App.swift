@@ -14,14 +14,14 @@ struct TurboBudgetApp: App {
     
     // Custom type
     @StateObject private var appManager: AppManager = .shared
-    @StateObject private var csManager = ColorSchemeManager()
+    @StateObject private var appearanceManager = AppearanceManager()
     @StateObject private var purchasesManager = PurchasesManager()
     @StateObject private var alertManager: AlertManager = .shared
     @StateObject private var themeManager: ThemeManager = .shared
-    @StateObject private var modalManager: ModalManager = .shared
-    @StateObject private var router: NavigationManager = NavigationManager(isPresented: .constant(.pageController))
+    @StateObject private var filterManager: FilterManager = .shared
+    @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
     
-    // New Repository
+    // Stores
     @StateObject private var userStore: UserStore = .shared
     @StateObject private var accountStore: AccountStore = .shared
     @StateObject private var categoryStore: CategoryStore = .shared
@@ -32,9 +32,6 @@ struct TurboBudgetApp: App {
     @StateObject private var contributionStore: ContributionStore = .shared
     @StateObject private var budgetStore: BudgetStore = .shared
     @StateObject private var creditCardStore: CreditCardStore = .shared
-    
-    @StateObject private var filterManager: FilterManager = .shared
-    @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
     
     // Environment
     @Environment(\.scenePhase) private var scenePhase
@@ -52,8 +49,8 @@ struct TurboBudgetApp: App {
     // MARK: -
     var body: some Scene {
         WindowGroup {
-            NavStack(router: router) {
-                switch appManager.viewState {
+            Group {
+                switch appManager.appState {
                 case .idle:
                     SplashScreenView()
                 case .loading:
@@ -79,34 +76,22 @@ struct TurboBudgetApp: App {
                             appManager.isStartDataLoaded = true
                         }
                     }
-                case .syncing:
-                    SyncingView()
-                case .notSynced:
-                    NotSyncedView()
                 case .failed:
                     LoginView()
-                }
-            }
-            .blur(radius: appManager.isMenuPresented ? 12 : 0)
-            .overlay {
-                if appManager.isMenuPresented {
-                    CreationMenuView()
                 }
             }
             .overlay(alignment: .bottom) {
                 SuccessfullCreationView()
                     .environmentObject(successfullModalManager)
             }
-            .environment(\.managedObjectContext, viewContext)
             .environmentObject(appManager)
-            .environmentObject(router)
-            .environmentObject(csManager)
+            .environmentObject(appearanceManager)
             .environmentObject(purchasesManager)
             .environmentObject(alertManager)
-            .environmentObject(modalManager)
             .environmentObject(themeManager)
+            .environmentObject(filterManager)
+            .environmentObject(successfullModalManager)
             
-            // New Repository
             .environmentObject(userStore)
             .environmentObject(accountStore)
             .environmentObject(categoryStore)
@@ -118,40 +103,16 @@ struct TurboBudgetApp: App {
             .environmentObject(budgetStore)
             .environmentObject(creditCardStore)
             
-            .environmentObject(filterManager)
-            .environmentObject(successfullModalManager)
-            .onAppear {
-                UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-                csManager.applyColorScheme()
-                
-                // OLD COREDATA
-                AccountRepositoryOld.shared.fetchMainAccount()
-                TransactionRepositoryOld.shared.fetchTransactions()
-                AutomationRepositoryOld.shared.fetchAutomations()
-                SavingPlanRepositoryOld.shared.fetchSavingsPlans()
-                BudgetRepositoryOld.shared.fetchBudgets()
-                // END OLD COREDATA
-            }
+            .preferredColorScheme(appearanceManager.appearance.colorScheme)
             .alert(alertManager)
-            .sheet(isPresented: $modalManager.isPresented, onDismiss: { modalManager.isPresented = false }) {
-                if let view = modalManager.content {
-                    AnyView(view)
-                        .padding(24)
-                        .onGetHeight { height in
-                            self.modalManager.currentHeight = height
-                        }
-                        .presentationDetents([.height(modalManager.currentHeight)])
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
             .task {
                 await purchasesManager.loadProducts()
                 
                 do {
                     try await userStore.loginWithToken()
-                    appManager.viewState = .success
+                    appManager.appState = .success
                 } catch {
-                    appManager.viewState = .failed
+                    appManager.appState = .failed
                 }
             }
         }

@@ -45,6 +45,11 @@ extension AccountStore {
             let account = try await AccountService.create(body: body)
             if account.type == .classic {
                 self.accounts.append(account)
+                if selectedAccount == nil {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        self.selectedAccount = account
+                    }
+                }
             } else if account.type == .savings {
                 self.savingsAccounts.append(account)
             }
@@ -85,10 +90,11 @@ extension AccountStore {
             self.savingsAccounts.removeAll { $0.id == accountID }
             
             if selectedAccount?.id == accountID {
-                TransactionStore.shared.transactions = []
-                SubscriptionStore.shared.subscriptions = []
-                SavingsPlanStore.shared.savingsPlans = []
-                BudgetStore.shared.budgets = []
+                TransactionStore.shared.reset()
+                SubscriptionStore.shared.reset()
+                SavingsPlanStore.shared.reset()
+                BudgetStore.shared.reset()
+                selectedAccount = nil
             }
         } catch { NetworkService.handleError(error: error) }
     }
