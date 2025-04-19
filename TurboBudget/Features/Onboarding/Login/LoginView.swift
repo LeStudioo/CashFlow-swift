@@ -29,7 +29,7 @@ struct LoginView: View {
                     .padding(64)
                 
                 VStack(spacing: 8) {
-                    Text("login_connection".localized)
+                    Text("CashFlow")
                         .font(.semiBoldH2())
                     
                     Text("login_message".localized)

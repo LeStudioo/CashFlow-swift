@@ -13,6 +13,8 @@ struct SettingsSubscriptionView: View {
     @EnvironmentObject private var subscriptionStore: SubscriptionStore
     @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
     
+//    @PreferencesSubscription(\)
+    
     // MARK: -
     var body: some View {
         Form {

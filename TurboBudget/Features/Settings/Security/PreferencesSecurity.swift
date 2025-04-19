@@ -6,14 +6,21 @@
 //
 
 import Foundation
+import Combine
 
 final class PreferencesSecurity: ObservableObject {
     static let shared = PreferencesSecurity()
-        
-    @CustomUserDefault("isFaceIDEnabled", defaultValue: false) // PreferencesSecurity_isBiometricEnabled
-    var isBiometricEnabled: Bool
     
-    @CustomUserDefault("isSecurityPlusEnabled", defaultValue: false) // PreferencesSecurity_isSecurityReinforced
-    var isSecurityReinforced: Bool
+    let objectWillChange = PassthroughSubject<Void, Never>()
+        
+    @UserDefault("isFaceIDEnabled", defaultValue: false) // PreferencesSecurity_isBiometricEnabled
+    var isBiometricEnabled: Bool {
+        willSet { objectWillChange.send() }
+    }
+    
+    @UserDefault("isSecurityPlusEnabled", defaultValue: false) // PreferencesSecurity_isSecurityReinforced
+    var isSecurityReinforced: Bool {
+        willSet { objectWillChange.send() }
+    }
     
 }

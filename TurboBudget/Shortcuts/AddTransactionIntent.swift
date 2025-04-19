@@ -91,11 +91,6 @@ struct AddTransactionIntent: AppIntent {
         let accountStore: AccountStore = .shared
         let transactionStore: TransactionStore = .shared
         
-        let isAddCategoryAutomaticallyEnabled = UserDefaultsManager.shared.get(
-            Bool.self,
-            forKey: UserDefaultsKeys.Preferences.ApplePay.isAddCategoryAutomaticallyEnabled
-        ) ?? false
-        
         var body: TransactionModel = .init(
             _name: title,
             amount: finalNumber,
@@ -104,10 +99,10 @@ struct AddTransactionIntent: AppIntent {
             categoryID: 0,
             isFromApplePay: true,
             nameFromApplePay: title,
-            autoCat: isAddCategoryAutomaticallyEnabled
+            autoCat: PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled
         )
         
-        if LocationManager.shared.isLocationEnabled {
+        if LocationManager.shared.isLocationEnabled && PreferencesApplePay.shared.isAddAddressAutomaticallyEnabled {
             let location = LocationManager.shared.getCurrentLocation()
             if let location, let address = try await LocationManager.shared.getCurrentAddress(location: location) {
                 body.address = address

@@ -455,9 +455,7 @@
 
 "login_google" = "Melden Sie sich mit Google an";
 
-"login_message" = "Um Ihre Daten nie von einem Gerät auf ein anderes zu verlieren, verbinden Sie sich jetzt mit Apple oder Google.
-
-Es ist einfach, bequem und empfehlenswert!";
+"login_message" = "Um Ihre Daten nie von einem Gerät auf ein anderes zu verlieren, verbinden Sie sich jetzt mit Apple oder Google.!";
 
 "name_first_transaction" = "Startgeld";
 

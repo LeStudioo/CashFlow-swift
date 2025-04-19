@@ -9,14 +9,13 @@ import SwiftUI
 
 struct SettingsApplePayView: View {
         
-    @State private var isAddCategoryAutomaticallyEnabled: Bool = false
-    @State private var isAddAddressAutomaticallyEnabled: Bool = false
+    @StateObject private var preferences: PreferencesApplePay = .shared
     
     // MARK: -
     var body: some View {
         Form {
             Section {
-                Toggle(isOn: $isAddCategoryAutomaticallyEnabled) {
+                Toggle(isOn: $preferences.isAddCategoryAutomaticallyEnabled) {
                     Text(Word.Setting.ApplePay.addCategory)
                 }
             } footer: {
@@ -24,29 +23,18 @@ struct SettingsApplePayView: View {
             }
             
             Section {
-                Toggle(isOn: $isAddAddressAutomaticallyEnabled) {
+                Toggle(isOn: $preferences.isAddAddressAutomaticallyEnabled) {
                     Text("settings_preferences_applepay_address".localized)
                 }
             } footer: {
                 Text("settings_preferences_applepay_address_footer".localized)
             }
-            .onChange(of: isAddAddressAutomaticallyEnabled) { newValue in
+            .onChange(of: preferences.isAddAddressAutomaticallyEnabled) { newValue in
                 if newValue { LocationManager.shared.requestLocationPermission() }
             }
         }
         .navigationTitle("Apple Pay")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            isAddCategoryAutomaticallyEnabled = UserDefaultsManager.shared.get(
-                Bool.self,
-                forKey: UserDefaultsKeys.Preferences.ApplePay.isAddCategoryAutomaticallyEnabled
-            ) ?? false
-            
-            isAddAddressAutomaticallyEnabled = UserDefaultsManager.shared.get(
-                Bool.self,
-                forKey: UserDefaultsKeys.Preferences.ApplePay.isAddAddressAutomaticallyEnabled
-            ) ?? false
-        }
     } // body
 } // struct
 

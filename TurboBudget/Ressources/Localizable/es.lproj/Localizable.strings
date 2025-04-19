@@ -455,9 +455,7 @@
 
 "login_google" = "Iniciar sesión con Google";
 
-"login_message" = "Para no perder nunca tus datos de un dispositivo a otro, conéctate ahora con Apple o Google.
-
-¡Es simple, conveniente y recomendado!";
+"login_message" = "Para no perder nunca tus datos de un dispositivo a otro, conéctate ahora con Apple o Google.";
 
 "name_first_transaction" = "Dinero inicial";
 

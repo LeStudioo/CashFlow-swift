@@ -518,9 +518,7 @@
 
 "login_google" = "Sign in with Google";
 
-"login_message" = "To never lose your data from one device to another, connect now with Apple or Google.
-
-It's simple, convenient and recommended!";
+"login_message" = "To never lose your data from one device to another, connect now with Apple or Google.";
 
 "name_first_transaction" = "Starting money";
 

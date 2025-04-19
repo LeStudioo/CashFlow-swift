@@ -6,29 +6,46 @@
 //
 
 import Foundation
+import Combine
 
 final class PreferencesGeneral: ObservableObject {
     static let shared = PreferencesGeneral()
         
-    @CustomUserDefault("isDataSynced", defaultValue: false) // PreferencesGeneral_isDataSynced
-    var isDataSynced: Bool
+    let objectWillChange = PassthroughSubject<Void, Never>()
     
-    @CustomUserDefault("PreferencesGeneral_numberOfOpenings", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
-    var numberOfOpenings: Int
+    @UserDefault("isDataSynced", defaultValue: false) // PreferencesGeneral_isDataSynced
+    var isDataSynced: Bool {
+        willSet { objectWillChange.send() }
+    }
     
-    @CustomUserDefault("PreferencesGeneral_isReviewPopupPresented", defaultValue: false) // PreferencesGeneral_isReviewPopupPresented
-    var isReviewPopupPresented: Bool
+    @UserDefault("PreferencesGeneral_numberOfOpenings", defaultValue: 0) // PreferencesGeneral_numberOfOpenings
+    var numberOfOpenings: Int {
+        willSet { objectWillChange.send() }
+    }
     
-    @CustomUserDefault("alreadyOpen", defaultValue: false) // PreferencesGeneral_isAlreadyOpen
-    var isAlreadyOpen: Bool
+    @UserDefault("PreferencesGeneral_isReviewPopupPresented", defaultValue: false) // PreferencesGeneral_isReviewPopupPresented
+    var isReviewPopupPresented: Bool {
+        willSet { objectWillChange.send() }
+    }
     
-    @CustomUserDefault("hapticFeedback", defaultValue: true) // PreferencesGeneral_hapticFeedback
-    var hapticFeedback: Bool
+    @UserDefault("alreadyOpen", defaultValue: false) // PreferencesGeneral_isAlreadyOpen
+    var isAlreadyOpen: Bool {
+        willSet { objectWillChange.send() }
+    }
+    
+    @UserDefault("hapticFeedback", defaultValue: true) // PreferencesGeneral_hapticFeedback
+    var hapticFeedback: Bool {
+        willSet { objectWillChange.send() }
+    }
 
-    @CustomUserDefault("PreferencesGeneral_whatsnewv2.0.2", defaultValue: false)
-    var isWhatsNewSeen: Bool
+    @UserDefault("PreferencesGeneral_whatsnewv2.0.2", defaultValue: false)
+    var isWhatsNewSeen: Bool {
+        willSet { objectWillChange.send() }
+    }
     
     // MARK: - Tips
-    @CustomUserDefault("PreferencesGeneral_isApplePayEnabled", defaultValue: false)
-    var isApplePayEnabled: Bool
+    @UserDefault("PreferencesGeneral_isApplePayEnabled", defaultValue: false)
+    var isApplePayEnabled: Bool {
+        willSet { objectWillChange.send() }
+    }
 }
