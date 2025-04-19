@@ -27,6 +27,55 @@ struct PaywallView: View {
                 VStack(spacing: 24) {
                     NavigationLink(destination: {
                         PaywallFeatureDetail(
+                            title: "paywall_prediction_title".localized,
+                            imageWithout: [],
+                            imageWith: ["predictionPaywallDetailled"],
+                            desc: "paywall_detailled_prediction".localized
+                        )
+                    }, label: {
+                        PaywallRow(
+                            systemName: "sparkles",
+                            title: "paywall_prediction_title".localized,
+                            text: "paywall_prediction_desc".localized,
+                            color: .red,
+                            isDetailed: true
+                        )
+                    })
+                    
+                    PaywallRow(
+                        systemName: "apple.logo",
+                        title: "paywall_item_applepay_title".localized,
+                        text: "paywall_item_applepay_description".localized,
+                        color: .indigo,
+                        isDetailed: false
+                    )
+                    
+                    PaywallRow(
+                        systemName: "creditcard.and.123",
+                        title: Word.Main.creditCard,
+                        text: Word.Paywall.CreditCard.desc,
+                        color: .green,
+                        isDetailed: false
+                    )
+                    
+                    PaywallRow(
+                        systemName: "creditcard.fill",
+                        title: "paywall_item_account_title".localized,
+                        text: "paywall_item_account_description".localized,
+                        color: .orange,
+                        isDetailed: false
+                    )
+                    
+                    PaywallRow(
+                        systemName: "building.columns.fill",
+                        title: Word.Main.savingsAccounts,
+                        text: Word.Paywall.SavingsAccount.desc,
+                        color: .blue,
+                        isDetailed: false
+                    )
+                    
+                    NavigationLink(destination: {
+                        PaywallFeatureDetail(
                             title: "word_budgets".localized,
                             imageWithout: [],
                             imageWith: ["budgetPaywallDetailled"],
@@ -41,14 +90,6 @@ struct PaywallView: View {
                             isDetailed: true
                         )
                     })
-                    
-                    PaywallRow(
-                        systemName: "creditcard.fill",
-                        title: Word.Main.creditCard,
-                        text: Word.Paywall.CreditCard.desc,
-                        color: .green,
-                        isDetailed: false
-                    )
                     
                     NavigationLink(destination: {
                         PaywallFeatureDetail(
@@ -66,31 +107,7 @@ struct PaywallView: View {
                             isDetailed: true
                         )
                     })
-                    NavigationLink(destination: {
-                        PaywallFeatureDetail(
-                            title: "paywall_prediction_title".localized,
-                            imageWithout: [],
-                            imageWith: ["predictionPaywallDetailled"],
-                            desc: "paywall_detailled_prediction".localized
-                        )
-                    }, label: {
-                        PaywallRow(
-                            systemName: "sparkles",
-                            title: "paywall_prediction_title".localized,
-                            text: "paywall_prediction_desc".localized,
-                            color: .red,
-                            isDetailed: true
-                        )
-                    })
-                    
-                    PaywallRow(
-                        systemName: "building.columns.fill",
-                        title: Word.Main.savingsAccounts,
-                        text: Word.Paywall.SavingsAccount.desc,
-                        color: .green,
-                        isDetailed: false
-                    )
-                    
+
                     PaywallRow(
                         systemName: "person.fill",
                         title: "paywall_support_dev".localized,

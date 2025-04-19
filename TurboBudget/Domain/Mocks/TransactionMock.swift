@@ -17,7 +17,9 @@ extension TransactionModel {
         dateISO: Date().toISO(),
         creationDate: Date().toISO(),
         categoryID: CategoryModel.mock.id,
-        subcategoryID: SubcategoryModel.mock.id
+        subcategoryID: SubcategoryModel.mock.id,
+        lat: 49.253518498825116,
+        long: 6.05911732080831
     )
     
     static let mockTransferTransaction: TransactionModel = .init(

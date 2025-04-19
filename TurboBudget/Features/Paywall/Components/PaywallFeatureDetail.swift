@@ -18,7 +18,7 @@ struct PaywallFeatureDetail: View {
     var body: some View {
         ScrollView {
             Text(title)
-                .font(.semiBoldH3())
+                .font(DesignSystem.FontDS.Title.semibold)
             
             Text(desc)
                 .font(.mediumText16())

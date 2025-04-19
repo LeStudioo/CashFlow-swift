@@ -49,7 +49,7 @@ struct DetailRow: View {
             }
             .padding()
             .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous)
                     .fill(Color.background100)
             }
         }

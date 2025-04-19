@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUICore
+import CoreLocation
 
 enum TransactionType: Int, CaseIterable {
     case expense = 0
@@ -159,6 +160,10 @@ extension TransactionModel {
     
     var date: Date {
         return self.dateISO?.toDate() ?? .now
+    }
+    
+    var coordinates: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat ?? 0, longitude: long ?? 0)
     }
 
 }

@@ -14,17 +14,12 @@ final class CategoryStore: ObservableObject {
     @Published var categories: [CategoryModel] = []
     @Published var subcategories: [SubcategoryModel] = []
     
-    private init() {
-        Task {
-            await fetchCategories()
-        }
-    }
 }
 
 extension CategoryStore {
     
     @MainActor
-    private func fetchCategories() async {
+    func fetchCategories() async {
         do {
             let categories = try await NetworkService.sendRequest(
                 apiBuilder: CategoryAPIRequester.fetchCategories,
@@ -117,6 +112,11 @@ extension CategoryStore {
     
     func findSubcategoryById(_ id: Int?) -> SubcategoryModel? {
         return self.subcategories.first(where: { $0.id == id })
+    }
+    
+    func reset() {
+        self.categories = []
+        self.subcategories = []
     }
     
 }

@@ -30,10 +30,12 @@ extension AppManager {
         let savingsPlanStore: SavingsPlanStore = .shared
         let budgetStore: BudgetStore = .shared
         let creditCardStore: CreditCardStore = .shared
+        let categoryStore: CategoryStore = .shared
         
         let preferencesSubscription: PreferencesSubscription = .shared
         
         if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+            await categoryStore.fetchCategories()
             await transactionStore.fetchTransactionsOfCurrentMonth(accountID: accountID)
             await subscriptionStore.fetchSubscriptions(accountID: accountID)
             await savingsPlanStore.fetchSavingsPlans(accountID: accountID)
@@ -65,12 +67,14 @@ extension AppManager {
         let savingsPlanStore: SavingsPlanStore = .shared
         let budgetStore: BudgetStore = .shared
         let creditCardStore: CreditCardStore = .shared
+        let categoryStore: CategoryStore = .shared
         
         transactionStore.reset()
         subscriptionStore.reset()
         savingsPlanStore.reset()
         budgetStore.reset()
         creditCardStore.reset()
+        categoryStore.reset()
     }
     
 }

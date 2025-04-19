@@ -20,6 +20,7 @@ struct TurboBudgetApp: App {
     @StateObject private var themeManager: ThemeManager = .shared
     @StateObject private var filterManager: FilterManager = .shared
     @StateObject private var successfullModalManager: SuccessfullModalManager = .shared
+    @StateObject private var networkMonitor = NetworkMonitor()
     
     // Stores
     @StateObject private var userStore: UserStore = .shared
@@ -76,8 +77,10 @@ struct TurboBudgetApp: App {
                             appManager.isStartDataLoaded = true
                         }
                     }
-                case .failed:
+                case .needLogin:
                     LoginView()
+                case .noInternet:
+                    NoInternetView()
                 }
             }
             .overlay(alignment: .bottom) {
@@ -106,13 +109,31 @@ struct TurboBudgetApp: App {
             .preferredColorScheme(appearanceManager.appearance.colorScheme)
             .alert(alertManager)
             .task {
+                if !networkMonitor.isConnected {
+                    appManager.appState = .noInternet
+                    return
+                }
+                
                 await purchasesManager.loadProducts()
+                if let user = userStore.currentUser, user.isPremium == false, purchasesManager.isCashFlowPro {
+                    // TODO: - Update user premium status
+                }
                 
                 do {
                     try await userStore.loginWithToken()
                     appManager.appState = .success
                 } catch {
-                    appManager.appState = .failed
+                    appManager.appState = .needLogin
+                }
+            }
+            .onChange(of: networkMonitor.isConnected) { newValue in
+                Task {
+                    if newValue {
+                        try await userStore.loginWithToken()
+                        appManager.appState = .success
+                    } else {
+                        appManager.appState = .noInternet
+                    }
                 }
             }
         }

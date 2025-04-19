@@ -36,7 +36,7 @@ struct SubscriptionDetailView: View {
                         .foregroundColor(currentSubscription.color)
                     
                     Text(currentSubscription.name ?? "")
-                        .font(.semiBoldH3())
+                        .font(DesignSystem.FontDS.Title.semibold)
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                 }

@@ -31,7 +31,7 @@ struct GenericLineChart: View {
                 
                 Text(amounts.reduce(0, +).toCurrency())
                     .foregroundStyle(Color.text)
-                    .font(.semiBoldH3())
+                    .font(DesignSystem.FontDS.Title.semibold)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(8)

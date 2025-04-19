@@ -55,7 +55,13 @@ struct CreationMenuView: View {
                 CreationMenuAction(
                     title: "word_account".localized,
                     icon: "person",
-                    destination: .account(.create)
+                    destination: .account(.create),
+                    isDisabled: !accountStore.accounts.isEmpty && !store.isCashFlowPro,
+                    onTapAction: {
+                        if !accountStore.accounts.isEmpty && !store.isCashFlowPro {
+                            alertManager.showPaywall(router: router)
+                        }
+                    }
                 ),
                 CreationMenuAction(
                     title: Word.Main.transfer,

@@ -15,6 +15,7 @@ struct CategoryHomeView: View {
     // Environment
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
+    @EnvironmentObject private var categoryStore: CategoryStore
     
     // Custom type
     @StateObject private var viewModel: CategoriesHomeViewModel = .init()
@@ -87,6 +88,9 @@ struct CategoryHomeView: View {
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
             viewModel.calculateAllAmounts(for: viewModel.selectedDate)
+        }
+        .refreshable {
+            await categoryStore.fetchCategories()
         }
         .onChange(of: viewModel.selectedDate) { _ in
             if let account = accountStore.selectedAccount, let accountID = account.id {

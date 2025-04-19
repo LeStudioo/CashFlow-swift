@@ -107,7 +107,7 @@ struct AccountDashboardView: View {
                     NavigationButton(route: .push, destination: AppDestination.subscription(.list)) {
                         DashboardRow(
                             config: .init(
-                                icon: "gearshape.2.fill",
+                                icon: "clock.arrow.circlepath",
                                 text: Word.Main.subscriptions
                             )
                         )

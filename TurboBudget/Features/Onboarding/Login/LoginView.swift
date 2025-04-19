@@ -20,22 +20,27 @@ struct LoginView: View {
     var body: some View {
         VStack {
             VStack(spacing: 0) {
-                Image(.logoCashFlow)
+                Image(.logoWalletCashFlow)
                     .resizable()
                     .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
+                    .padding(4)
+                    .background(Color.background200, in: .rect(cornerRadius: 36, style: .continuous))
+                    .padding(64)
                 
                 VStack(spacing: 8) {
                     Text("login_connection".localized)
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.semiBoldH2())
                     
                     Text("login_message".localized)
+                        .font(.mediumText16())
                         .multilineTextAlignment(.center)
                 }
             }
             
             Spacer()
             
-            VStack(spacing: 16) {
+            VStack(spacing: DesignSystem.Spacing.standard) {
                 SignInButton(
                     config: .init(
                         icon: .googleLogo,
@@ -64,10 +69,10 @@ struct LoginView: View {
                                     }
                                 }
                             } else {
-                                AppManager.shared.appState = .failed
+                                AppManager.shared.appState = .needLogin
                             }
                         } else {
-                            AppManager.shared.appState = .failed
+                            AppManager.shared.appState = .needLogin
                         }
                     case .failure(let error):
                         print("Authorisation failed: \(error.localizedDescription)")
@@ -75,11 +80,11 @@ struct LoginView: View {
                 }
                 // black button
                 .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous))
                 .frame(height: 48)
             }
         }
-        .padding(.horizontal)
+        .padding(DesignSystem.Padding.large)
     } // body
 } // struct
 

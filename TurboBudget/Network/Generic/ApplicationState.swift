@@ -11,5 +11,6 @@ enum ApplicationState {
     case idle
     case loading
     case success
-    case failed
+    case needLogin
+    case noInternet
 }

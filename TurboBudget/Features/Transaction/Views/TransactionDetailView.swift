@@ -34,15 +34,21 @@ struct TransactionDetailView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 32) {
-                VStack(spacing: 4) {
-                    Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
-                        .font(.system(size: 48, weight: .heavy))
-                        .foregroundColor(currentTransaction.color)
-                    
-                    Text(currentTransaction.name)
-                        .font(.semiBoldH3())
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
+                VStack(spacing: 8) {
+                    VStack(spacing: 4) {
+                        Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
+                            .font(.system(size: 48, weight: .heavy))
+                            .foregroundColor(currentTransaction.color)
+                        
+                        Text(currentTransaction.name)
+                            .font(DesignSystem.FontDS.Title.semibold)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                    }
+                    if currentTransaction.isFromSubscription == true {
+                        Text("transaction_detail_automatically_created".localized)
+                            .font(.mediumText16())
+                    }
                 }
                 
                 if let categoryFound = viewModel.bestCategory {
@@ -64,7 +70,10 @@ struct TransactionDetailView: View {
                     DetailRow(
                         icon: "calendar",
                         text: "transaction_detail_date".localized,
-                        value: currentTransaction.date.formatted(date: .complete, time: .omitted).capitalized
+                        value: currentTransaction.date.formatted(
+                            date: .complete,
+                            time: currentTransaction.isFromApplePay == true ? .shortened : .omitted
+                        ).capitalized
                     )
                     
                     if let category = currentTransaction.category {
@@ -86,6 +95,14 @@ struct TransactionDetailView: View {
                     }
                     
                     TransactionDetailNoteRow(note: $viewModel.note)
+                    
+                    if currentTransaction.lat != nil && currentTransaction.long != nil {
+                        if #available(iOS 17.0, *) {
+                            TransactionMapRow(transaction: currentTransaction)
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    }
                 }
             }
             .padding(.horizontal)
