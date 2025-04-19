@@ -1,14 +1,14 @@
-////
-////  UserDefaultWrapper.swift
-////  CashFlow
-////
-////  Created by Theo Sementa on 17/11/2024.
-////
 //
-//import Foundation
-//import Combine
+//  UserDefaultWrapper.swift
+//  CashFlow
 //
-//// static let appGroup = Preferences(userDefaults: .init(suiteName: "group.sementa.cashflow")!)
+//  Created by Theo Sementa on 17/11/2024.
+//
+
+import Foundation
+import Combine
+
+// static let appGroup = Preferences(userDefaults: .init(suiteName: "group.sementa.cashflow")!)
 
 @propertyWrapper
 class CustomUserDefault<T> {

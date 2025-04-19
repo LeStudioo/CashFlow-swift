@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/theosementa/NavigationKit",
       "state" : {
-        "revision" : "a92c7538203d69956b7da561c88a38200b459a5e",
-        "version" : "1.0.8"
+        "revision" : "335b61409f19f70526429388c990beb93b0e047d",
+        "version" : "1.0.9"
       }
     },
     {
@@ -105,8 +105,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/theosementa/NotificationKit",
       "state" : {
-        "branch" : "main",
-        "revision" : "203aad2695dc85c4ffdd41e2d78f2d0a93ba5e18"
+        "revision" : "f94bed80a6eabdabf763fda927e45b14e14262d7",
+        "version" : "1.0.5"
       }
     },
     {

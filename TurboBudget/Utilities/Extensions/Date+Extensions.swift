@@ -166,6 +166,20 @@ extension Date {
         return dates
     }
     
+    var oneWeekLater: Date {
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .weekOfYear, value: 1, to: self)!
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+        return calendar.date(from: components)!
+    }
+    
+    var twoWeekLater: Date {
+        let calendar = Calendar.current
+        let date = calendar.date(byAdding: .weekOfYear, value: 2, to: self)!
+        let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: date)
+        return calendar.date(from: components)!
+    }
+    
 }
 
 extension Date {

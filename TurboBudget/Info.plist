@@ -26,5 +26,18 @@
 	<array>
 		<string>location</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>heart.fill</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>quick_action_subtitle</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>quick_action_title</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>firstAction</string>
+		</dict>
+	</array>
 </dict>
 </plist>

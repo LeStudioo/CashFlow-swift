@@ -33,9 +33,9 @@ struct TransactionDetailView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            VStack(spacing: 32) {
-                VStack(spacing: 8) {
-                    VStack(spacing: 4) {
+            VStack(spacing: DesignSystem.Spacing.extraLarge) {
+                VStack(spacing: DesignSystem.Spacing.small) {
+                    VStack(spacing: DesignSystem.Spacing.extraSmall) {
                         Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
                             .font(.system(size: 48, weight: .heavy))
                             .foregroundColor(currentTransaction.color)
@@ -66,7 +66,7 @@ struct TransactionDetailView: View {
                     )
                 }
                 
-                VStack(spacing: 12) {
+                VStack(spacing: DesignSystem.Spacing.medium) {
                     DetailRow(
                         icon: "calendar",
                         text: "transaction_detail_date".localized,
@@ -106,7 +106,7 @@ struct TransactionDetailView: View {
                 }
             }
             .padding(.horizontal)
-            .padding(.top, 32)
+            .padding(.top, DesignSystem.Padding.extraLarge)
         } // ScrollView
         .scrollIndicators(.hidden)
         .onAppear { 

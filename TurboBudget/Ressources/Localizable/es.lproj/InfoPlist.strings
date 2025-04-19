@@ -13,3 +13,6 @@
 "NSLocationWhenInUseUsageDescription" = "CashFlow necesita tu posición para añadirla a tus gastos.";
 "NSLocationAlwaysUsageDescription" = "CashFlow necesita tu posición para añadirla a tus gastos.";
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "CashFlow necesita tu posición para añadirla a tus gastos.";
+
+"quick_action_subtitle" = "Comparta su opinión con nosotros";
+"quick_action_title" = "¡Por favor, no te vayas!";

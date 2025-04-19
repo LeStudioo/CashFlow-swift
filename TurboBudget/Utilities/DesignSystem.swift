@@ -4,6 +4,7 @@
 //
 //  Created by Theo Sementa on 19/04/2025.
 //
+// swiftlint:disable nesting
 
 import Foundation
 import SwiftUICore
@@ -49,6 +50,8 @@ extension DesignSystem {
 // MARK: - Padding
 extension DesignSystem {
     struct Padding {
+        /// `Value = 8`
+        static let small: CGFloat = 8
         /// `Value = 12`
         static let medium: CGFloat = 12
         /// `Value = 16`
@@ -63,6 +66,10 @@ extension DesignSystem {
 // MARK: - Spacing
 extension DesignSystem {
     struct Spacing {
+        /// `Value = 4`
+        static let extraSmall: CGFloat = 4
+        /// `Value = 8`
+        static let small: CGFloat = 8
         /// `Value = 12`
         static let medium: CGFloat = 12
         /// `Value = 16`
@@ -77,6 +84,8 @@ extension DesignSystem {
 // MARK: - Corner Radius
 extension DesignSystem {
     struct CornerRadius {
+        /// `Value = 8`
+        static let small: CGFloat = 8
         /// `Value = 12`
         static let medium: CGFloat = 12
         /// `Value = 16`

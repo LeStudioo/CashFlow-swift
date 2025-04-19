@@ -138,6 +138,18 @@ struct SettingsHomeView: View {
             .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
             
             Section {
+                Button(action: { URLManager.openURL(url: URLManager.PredefinedURL.Tutos.importFromApplePay.rawValue) }, label: {
+                    SettingRow(
+                        icon: "creditcard.fill",
+                        backgroundColor: Color.purple,
+                        text: "settings_applepay_shortcut_button".localized,
+                        isButton: true
+                    )
+                })
+            }
+            .listRowInsets(.init(top: 10, leading: 16, bottom: 10, trailing: 16))
+            
+            Section {
                 Button(action: { URLManager.Setting.writeReview() }, label: {
                     SettingRow(
                         icon: "star.fill",

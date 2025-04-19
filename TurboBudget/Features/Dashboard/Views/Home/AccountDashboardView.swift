@@ -38,11 +38,18 @@ struct AccountDashboardView: View {
                             }
                         }
                     } label: {
-                        Text(account.name)
-                            .titleAdjustSize()
-                            .foregroundStyle(themeManager.theme.color)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
+                        HStack(spacing: DesignSystem.Spacing.small) {
+                            Text(account.name)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                            
+                            Image(.iconChevronUpDown)
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 24, height: 24)
+                        }
+                        .font(DesignSystem.FontDS.Title.semibold)
+                        .foregroundStyle(themeManager.theme.color)
                     }
                     .onChange(of: accountStore.selectedAccount) { _ in
                         if appManager.isStartDataLoaded {

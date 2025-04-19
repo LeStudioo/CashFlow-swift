@@ -20,8 +20,11 @@ struct NoInternetView: View {
                 .shadow(radius: 4, y: 4)
                 .frame(width: UIScreen.main.bounds.width / (UIDevice.isIpad ? 3 : 1.5))
             
-            Text("There is a connection error. Please check your internet connection.") // TODO: TBL
-                .font(.semiBoldText16())
+            Text("OOPS...")
+                .font(DesignSystem.FontDS.Subtitle.medium)
+            
+            Text("no_internet_description".localized)
+                .font(DesignSystem.FontDS.Text.medium)
                 .multilineTextAlignment(.center)
         }
     } // body

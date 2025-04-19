@@ -125,10 +125,6 @@ extension Font {
     static func semiBoldText18() -> Font {
         return Font.custom(nameFontSemiBold, size: 18)
     }
-    /// `This font is in "SemiBold 24"`
-    static func semiBoldH3() -> Font {
-        return Font.custom(nameFontSemiBold, size: 24)
-    }
     /// `This font is in "SemiBold 32"`
     static func semiBoldH2() -> Font {
         return Font.custom(nameFontSemiBold, size: 32)

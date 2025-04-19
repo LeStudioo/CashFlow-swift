@@ -42,7 +42,7 @@ struct SettingsSubscriptionView: View {
                             
                             await NotificationsManager.shared.scheduleNotification(
                                 for: .init(
-                                    id: subscriptionID,
+                                    id: "\(subscriptionID)",
                                     title: "CashFlow",
                                     message: subscription.notifMessage,
                                     date: subscription.dateNotif
@@ -67,7 +67,7 @@ struct SettingsSubscriptionView: View {
                     
                     await NotificationsManager.shared.scheduleNotification(
                         for: .init(
-                            id: subscriptionID,
+                            id: "\(subscriptionID)",
                             title: "CashFlow",
                             message: subscription.notifMessage,
                             date: subscription.dateNotif

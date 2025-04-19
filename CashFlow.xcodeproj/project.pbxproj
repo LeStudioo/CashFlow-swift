@@ -499,8 +499,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/theosementa/NotificationKit";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
 			};
 		};
 		D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */ = {

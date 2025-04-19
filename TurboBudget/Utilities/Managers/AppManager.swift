@@ -48,7 +48,7 @@ extension AppManager {
                     
                     await NotificationsManager.shared.scheduleNotification(
                         for: .init(
-                            id: subscriptionID,
+                            id: "\(subscriptionID)",
                             title: "CashFlow",
                             message: subscription.notifMessage,
                             date: subscription.dateNotif
@@ -56,6 +56,29 @@ extension AppManager {
                         daysBefore: preferencesSubscription.dayBeforeReceiveNotification
                     )
                 }
+                
+                await NotificationsManager.shared.removePendingNotification(for: "notification-oneWeekLater")
+                await NotificationsManager.shared.removePendingNotification(for: "notification-twoWeekLater")
+                
+                await NotificationsManager.shared.scheduleNotification(
+                    for: .init(
+                        id: "notification-oneWeekLater",
+                        title: "CashFlow",
+                        message: "notification_one_week_later_message".localized,
+                        date: Date().oneWeekLater
+                    ),
+                    daysBefore: 0
+                )
+                
+                await NotificationsManager.shared.scheduleNotification(
+                    for: .init(
+                        id: "notification-twoWeekLater",
+                        title: "CashFlow",
+                        message: "notification_two_week_later_message".localized,
+                        date: Date().twoWeekLater
+                    ),
+                    daysBefore: 0
+                )
             }
         }
     }
