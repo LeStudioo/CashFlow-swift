@@ -416,6 +416,12 @@
 
 "contribution_cell_withdrawn" = "Money withdrawn";
 
+/*  */
+"contribution_create_name" = "Name (optionnal)";
+
+/*  */
+"contribution_create_placeholder_name" = "March contribution";
+
 "contribution_new" = "New contribution";
 
 "contribution_placeholder_amount" = "0.00";
@@ -518,9 +524,19 @@
 
 "login_google" = "Sign in with Google";
 
-"login_message" = "To never lose your data from one device to another, connect now with Apple or Google.";
+"login_message" = "CashFlow helps you track your expenses, plan your budgets and manage your money better, every day.
+Simple, fast, secure - your financial peace of mind starts here.";
 
 "name_first_transaction" = "Starting money";
+
+/*  */
+"no_internet_description" = "There is a connection error. Please check your internet connection.";
+
+/*  */
+"notification_one_week_later_message" = "It's been a while since we've seen you!";
+
+/*  */
+"notification_two_week_later_message" = "We miss you!";
 
 "notifications_day_before" = "days before";
 
@@ -571,6 +587,18 @@
 "paywall_detailled_statistics" = "Track your expenses better with detailed statistics. Instantly discover your monthly gains or losses with the widget on your account page.";
 
 "paywall_financial_advice_desc" = "Unlock new tools to follow all financial advice.";
+
+/*  */
+"paywall_item_account_description" = "Unlimited bank accounts for perfect money management";
+
+/*  */
+"paywall_item_account_title" = "Bank accounts";
+
+/*  */
+"paywall_item_applepay_description" = "Automatic addition of a category, ability to retrieve purchase position";
+
+/*  */
+"paywall_item_applepay_title" = "Apple Pay";
 
 "paywall_lifetime" = "Lifetime";
 
@@ -860,9 +888,18 @@ This can serve as a guideline for balancing your spending, saving and planning y
 
 "setting_transactions_nbr_days" = "Number of days";
 
+/*  */
+"settings_applepay_shortcut_button" = "Activate Apple Pay shortcut";
+
+/*  */
+"settings_preferences_applepay_address" = "Automatically add position";
+
+/*  */
+"settings_preferences_applepay_address_footer" = "Automatically add location to a payment with ApplePay";
+
 "shortcut_all_para" = "Create a transaction of ${amount} for ${title}";
 
-"shortcut_desc" = "The shortcut allows you to create a transaction without having to enter the app. If the transaction name is the same as a past transaction, it will take the same category; otherwise, it will be in 'To categorise'.";
+"shortcut_desccription" = "The shortcut allows you to create a transaction without having to enter the app. If the transaction name is the same as a past transaction, it will take the same category; otherwise, it will be in 'To categorise'.";
 
 "shortcut_main_title" = "New transaction in CashFlow";
 
@@ -1033,6 +1070,9 @@ This can serve as a guideline for balancing your spending, saving and planning y
 "transaction_alert_quality_purchase" = "Remember that your purchases should be of quality to last over time.";
 
 "transaction_detail_amount" = "Amount";
+
+/*  */
+"transaction_detail_automatically_created" = "Created automatically";
 
 "transaction_detail_date" = "Date";
 

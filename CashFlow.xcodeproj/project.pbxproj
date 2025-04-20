@@ -148,6 +148,10 @@
 				es,
 				de,
 				it,
+				"de 2",
+				"en 2",
+				"es 2",
+				"fr 2",
 			);
 			mainGroup = 81A7077A2A3B6B4C00BEB0BF;
 			packageReferences = (
