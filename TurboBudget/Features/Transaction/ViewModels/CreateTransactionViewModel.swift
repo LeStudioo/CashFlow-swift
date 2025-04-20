@@ -70,7 +70,7 @@ final class CreateTransactionViewModel: ObservableObject {
         let successfullModalManager: SuccessfullModalManager = .shared
         
         guard let account = accountStore.selectedAccount else { return }
-        guard let accountID = account.id else { return }
+        guard let accountID = account._id else { return }
         
         if let transaction = await transactionStore.createTransaction(
             accountID: accountID,
@@ -88,7 +88,7 @@ final class CreateTransactionViewModel: ObservableObject {
         let successfullModalManager: SuccessfullModalManager = .shared
         
         guard let account = accountStore.selectedAccount else { return }
-        guard let accountID = account.id else { return }
+        guard let accountID = account._id else { return }
         guard let transactionID = transaction?.id else { return }
         
         if let transaction = await transactionStore.updateTransaction(

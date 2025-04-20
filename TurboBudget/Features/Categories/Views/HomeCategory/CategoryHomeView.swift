@@ -93,7 +93,7 @@ struct CategoryHomeView: View {
             await categoryStore.fetchCategories()
         }
         .onChange(of: viewModel.selectedDate) { _ in
-            if let account = accountStore.selectedAccount, let accountID = account.id {
+            if let account = accountStore.selectedAccount, let accountID = account._id {
                 Task {
                     await transactionStore.fetchTransactionsByPeriod(
                         accountID: accountID,

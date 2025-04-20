@@ -171,7 +171,7 @@ extension TransactionModel {
 extension TransactionModel {
     
     var isSender: Bool {
-        guard let selectedAccount = AccountStore.shared.selectedAccount, let accountID = selectedAccount.id else { return false }
+        guard let selectedAccount = AccountStore.shared.selectedAccount, let accountID = selectedAccount._id else { return false }
         return senderAccountID == accountID
     }
     

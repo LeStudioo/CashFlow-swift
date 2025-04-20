@@ -839,6 +839,15 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "shortcut_main_title" = "Neue Transaktion in CashFlow";
 
+/*  */
+"shortcut_parameter_account_description" = "Das Konto, auf dem die Transaktion erstellt werden soll";
+
+/*  */
+"shortcut_parameter_account_dialog" = "Wählen Sie ein Konto";
+
+/*  */
+"shortcut_parameter_account_title" = "Konto";
+
 "shortcut_parameter_amount_description" = "Dies ist der Betrag Ihrer Transaktion.";
 
 "shortcut_parameter_amount_dialog" = "Betrag eingeben";

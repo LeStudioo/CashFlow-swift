@@ -23,7 +23,7 @@ struct SavingsAccountDetailView: View {
     @State private var isDeleting: Bool = false
     
     var currentAccount: AccountModel {
-        return accountStore.savingsAccounts.first { $0.id == savingsAccountStore.currentAccount.id }  ?? savingsAccountStore.currentAccount
+        return accountStore.savingsAccounts.first { $0._id == savingsAccountStore.currentAccount._id }  ?? savingsAccountStore.currentAccount
     }
     
     // init
@@ -113,7 +113,7 @@ struct SavingsAccountDetailView: View {
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
                     if savingsAccountStore.currentAccount.name == accountNameForDeleting {
-                        if let accountID = savingsAccountStore.currentAccount.id {
+                        if let accountID = savingsAccountStore.currentAccount._id {
                             Task {
                                 await accountStore.deleteAccount(accountID: accountID)
                                 dismiss()
@@ -123,7 +123,7 @@ struct SavingsAccountDetailView: View {
                 }, label: { Text(Word.Classic.delete) })
         }, message: { Text("account_detail_delete_account_desc".localized) })
         .task {
-            if let accountID = savingsAccountStore.currentAccount.id {
+            if let accountID = savingsAccountStore.currentAccount._id {
                 transferStore.transfers = []
                 await transferStore.fetchTransfersWithPagination(accountID: accountID)
             }

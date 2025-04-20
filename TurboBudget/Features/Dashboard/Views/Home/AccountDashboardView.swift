@@ -175,7 +175,7 @@ struct AccountDashboardView: View {
                             role: .destructive,
                             action: {
                                 Task {
-                                    if let account = accountStore.selectedAccount, let accountID = account.id {
+                                    if let account = accountStore.selectedAccount, let accountID = account._id {
                                         await creditCardStore.deleteCreditCard(accountID: accountID, cardID: uuid)
                                     }
                                 }
@@ -215,7 +215,7 @@ struct AccountDashboardView: View {
             Button(action: { return }, label: { Text("word_cancel".localized) })
             Button(action: {
                 Task {
-                    if let account = accountStore.selectedAccount, let accountID = account.id {
+                    if let account = accountStore.selectedAccount, let accountID = account._id {
                         await accountStore.updateAccount(accountID: accountID, body: .init(name: viewModel.accountName))
                     }
                 }
@@ -227,7 +227,7 @@ struct AccountDashboardView: View {
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
                     if account.name == viewModel.accountNameForDeleting {
-                        if let accountID = account.id {
+                        if let accountID = account._id {
                             Task {
                                 await accountStore.deleteAccount(accountID: accountID)
                                 accountStore.setNewAccount(account: accountStore.accounts.first)

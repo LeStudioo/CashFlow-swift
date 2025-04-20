@@ -68,7 +68,7 @@ extension CreateSubscriptionViewModel {
         let successfullModalManager: SuccessfullModalManager = .shared
         
         guard let account = accountStore.selectedAccount else { return }
-        guard let accountID = account.id else { return }
+        guard let accountID = account._id else { return }
         
         if let newSubscritpion = await subscriptionStore.createSubscription(
             accountID: accountID,

@@ -26,7 +26,7 @@ extension TransactionDetailViewModel {
         let transactionStore: TransactionStore = .shared
         let accountReposiotry: AccountStore = .shared
         
-        guard let account = accountReposiotry.selectedAccount, let accountID = account.id else { return }
+        guard let account = accountReposiotry.selectedAccount, let accountID = account._id else { return }
         
         Task {
             await transactionStore.updateTransaction(
@@ -46,7 +46,7 @@ extension TransactionDetailViewModel {
     func updateCategory(transactionID: Int) {
         let accountStore: AccountStore = .shared
         let transactionStore: TransactionStore = .shared
-        guard let account = accountStore.selectedAccount, let accountID = account.id else { return }
+        guard let account = accountStore.selectedAccount, let accountID = account._id else { return }
         
         var body: TransactionModel = .init()
         

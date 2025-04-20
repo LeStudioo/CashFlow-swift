@@ -23,73 +23,31 @@ struct AddTransactionIntent: AppIntent {
     @Parameter(
         title: "shortcut_parameter_amount_title",
         description: "shortcut_parameter_amount_description",
+        inputOptions: .init(keyboardType: .numberPad),
         requestValueDialog: "shortcut_parameter_amount_dialog"
     )
     var amount: String
     
+    @Parameter(
+        title: "shortcut_parameter_account_title",
+        description: "shortcut_parameter_account_description",
+        requestValueDialog: "shortcut_parameter_account_dialog"
+    )
+    var account: AccountModel?
+    
     func perform() async throws -> some IntentResult & ProvidesDialog {
-                
-        func extractNumberString(from string: String) -> String {
-            var numberString: String = ""
-            var finalNumber: Double = 0.0
-            var numbers: [Int] = []
-            
-            let regex = try? NSRegularExpression(pattern: "\\d+", options: [])
-            
-            regex?.enumerateMatches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) { match, _, _ in
-                if let match = match, let range = Range(match.range, in: string) {
-                    let number = String(string[range])
-                    if let intValue = Int(number) {
-                        numbers.append(intValue)
-                    }
-                }
-            }
-            
-            numberString = String(numbers[0])
-            if numbers.count > 1 {
-                let decimalPart = numbers[1] < 10 ? String("0" + String(numbers[1])) : String(numbers[1])
-                numberString += "." + decimalPart
-                finalNumber = Double(numberString) ?? 0 / 100
-            } else {
-                finalNumber = Double(numberString) ?? 0
-            }
-            
-            return String(format: "%.2f", finalNumber)
-        }
-        
-        func extractNumber(from string: String) -> Double {
-            var numberString: String = ""
-            var finalNumber: Double = 0.0
-            var numbers: [Int] = []
-            
-            let regex = try? NSRegularExpression(pattern: "\\d+", options: [])
-            
-            regex?.enumerateMatches(in: string, options: [], range: NSRange(location: 0, length: string.utf16.count)) { match, _, _ in
-                if let match = match, let range = Range(match.range, in: string) {
-                    let number = String(string[range])
-                    if let intValue = Int(number) {
-                        numbers.append(intValue)
-                    }
-                }
-            }
-            
-            numberString = String(numbers[0])
-            if numbers.count > 1 {
-                let decimalPart = numbers[1] < 10 ? String("0" + String(numbers[1])) : String(numbers[1])
-                numberString += "." + decimalPart
-                finalNumber = Double(numberString) ?? 0 / 100
-            } else {
-                finalNumber = Double(numberString) ?? 0
-            }
-            
-            return finalNumber
-        }
-        
-        let finalNumber = extractNumber(from: amount)
-        
         let userStore: UserStore = .shared
         let accountStore: AccountStore = .shared
         let transactionStore: TransactionStore = .shared
+        
+        func extractAmount(from input: String) -> Double {
+            let allowedCharacters = CharacterSet.decimalDigits.union(CharacterSet(charactersIn: ".,"))
+            let filtered = input.components(separatedBy: allowedCharacters.inverted).joined()
+            let normalized = filtered.replacingOccurrences(of: ",", with: ".")
+            return Double(normalized) ?? 0.0
+        }
+        
+        let finalNumber = extractAmount(from: amount)
         
         var body: TransactionModel = .init(
             _name: title,
@@ -114,14 +72,16 @@ struct AddTransactionIntent: AppIntent {
         do {
             try await userStore.loginWithToken()
             await accountStore.fetchAccounts()
-            if let account = accountStore.selectedAccount, let accountID = account.id {
-                await transactionStore.createTransaction(accountID: accountID, body: body)
+            
+            let selectedAccount = account ?? accountStore.selectedAccount
+            
+            if let selectedAccount, let accountID = selectedAccount._id {
+                let addInStore = AccountStore.shared.selectedAccount?._id == accountID
+                await transactionStore.createTransaction(accountID: accountID, body: body, addInRepo: addInStore)
             }
-            
-            let amountString: String = extractNumberString(from: amount)
-            
+                        
             let formatString = "shortcut_result_label".localized
-            let formattedText = String(format: formatString, amountString, UserCurrency.symbol, title)
+            let formattedText = String(format: formatString, finalNumber.toString(), UserCurrency.symbol, title)
             
             return .result(dialog: IntentDialog(stringLiteral: formattedText))
         } catch {
@@ -129,4 +89,52 @@ struct AddTransactionIntent: AppIntent {
         }
     }
     
+}
+
+extension AccountModel: AppEntity {
+    public static var typeDisplayRepresentation: TypeDisplayRepresentation {
+        return TypeDisplayRepresentation(name: "Account")
+    }
+    
+    public static var defaultQuery = AccountQuery()
+    
+    public var displayRepresentation: DisplayRepresentation {
+        return DisplayRepresentation(
+            title: "\(name)",
+            subtitle: "\(balance.toString(maxDigits: 2)) \(UserCurrency.symbol)"
+        )
+    }
+    
+    public typealias ID = String // swiftlint:disable:this type_name
+    
+    public var entityID: ID {
+        if let id = _id {
+            return String(id)
+        }
+        return UUID().uuidString // Fallback if no ID is available
+    }
+}
+
+// Create a query to fetch all accounts
+struct AccountQuery: EntityQuery {
+    func entities(for identifiers: [AccountModel.ID]) async throws -> [AccountModel] {
+        let accountStore = AccountStore.shared
+        await accountStore.fetchAccounts()
+        
+        return accountStore.allAccounts.filter { account in
+            if let id = account._id {
+                return identifiers.contains(String(id))
+            }
+            return false
+        }
+    }
+    
+    func suggestedEntities() async throws -> [AccountModel] {
+        let userStore: UserStore = .shared
+        try await userStore.loginWithToken()
+        
+        let accountStore = AccountStore.shared
+        await accountStore.fetchAccounts()
+        return accountStore.accounts
+    }
 }

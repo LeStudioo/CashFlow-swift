@@ -34,7 +34,7 @@ extension AppManager {
         
         let preferencesSubscription: PreferencesSubscription = .shared
         
-        if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+        if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount._id {
             await categoryStore.fetchCategories()
             await transactionStore.fetchTransactionsOfCurrentMonth(accountID: accountID)
             await subscriptionStore.fetchSubscriptions(accountID: accountID)

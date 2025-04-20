@@ -152,6 +152,10 @@
 				"en 2",
 				"es 2",
 				"fr 2",
+				"de 3",
+				"en 3",
+				"es 3",
+				"fr 3",
 			);
 			mainGroup = 81A7077A2A3B6B4C00BEB0BF;
 			packageReferences = (

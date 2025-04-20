@@ -57,7 +57,7 @@ extension TransferStore {
             self.transfers.append(transfer)
             sortTransfersByDate()
             
-            if let selectedAccountID = AccountStore.shared.selectedAccount?.id, senderAccountID == selectedAccountID
+            if let selectedAccountID = AccountStore.shared.selectedAccount?._id, senderAccountID == selectedAccountID
                 || receiverAccountID == selectedAccountID {
                 TransactionStore.shared.transactions.append(transfer)
                 TransactionStore.shared.sortTransactionsByDate()

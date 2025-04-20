@@ -133,7 +133,7 @@ extension TransactionStore {
             }
             TransferStore.shared.transfers.removeAll { $0.id == transactionID }
             
-            if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account.id {
+            if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account._id {
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
         } catch { NetworkService.handleError(error: error) }

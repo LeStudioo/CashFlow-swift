@@ -123,13 +123,13 @@ struct AccountStatisticsView: View {
             ToolbarDismissPushButton()
         }
         .task {
-            if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+            if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount._id {
                 await accountStore.fetchStats(accountID: accountID, withSavings: withSavings)
             }
         }
         .onChange(of: withSavings) { newValue in
             Task {
-                if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+                if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount._id {
                     await accountStore.fetchStats(accountID: accountID, withSavings: newValue)
                 }
             }

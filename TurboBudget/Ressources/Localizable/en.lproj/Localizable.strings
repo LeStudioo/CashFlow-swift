@@ -903,6 +903,15 @@ This can serve as a guideline for balancing your spending, saving and planning y
 
 "shortcut_main_title" = "New transaction in CashFlow";
 
+/*  */
+"shortcut_parameter_account_description" = "The account on which the transaction will be created";
+
+/*  */
+"shortcut_parameter_account_dialog" = "Choose an account";
+
+/*  */
+"shortcut_parameter_account_title" = "Account";
+
 "shortcut_parameter_amount_description" = "This is the amount of your transaction.";
 
 "shortcut_parameter_amount_dialog" = "Enter the amount";

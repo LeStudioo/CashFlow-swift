@@ -41,7 +41,9 @@ struct CircleCategory: View {
                     Image(systemName: category.icon)
                         .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(Color(uiColor: .systemBackground))
-                } else if let transaction, transaction.type == .transfer, let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+                } else if let transaction, transaction.type == .transfer,
+                          let selectedAccount = accountStore.selectedAccount,
+                          let accountID = selectedAccount._id {
                     Circle()
                         .foregroundStyle(accountID == transaction.senderAccountID ? .error400 : .primary500)
                         .shadow(radius: 4, y: 4)

@@ -49,7 +49,7 @@ extension CreateTransactionForSavingsAccountViewModel {
         let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        guard let accountID = savingsAccount.id else { return }
+        guard let accountID = savingsAccount._id else { return }
         
         if let transaction = await transactionStore.createTransaction(
             accountID: accountID,
@@ -68,7 +68,7 @@ extension CreateTransactionForSavingsAccountViewModel {
         let transactionStore: TransactionStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        guard let accountID = savingsAccount.id else { return }
+        guard let accountID = savingsAccount._id else { return }
         guard let transactionID = transaction?.id else { return }
         
         if let transaction = await transactionStore.updateTransaction(

@@ -25,7 +25,7 @@ extension CreateBudgetViewModel {
         let budgetStore: BudgetStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared
         
-        guard let account = accountStore.selectedAccount, let accountID = account.id else { return }
+        guard let account = accountStore.selectedAccount, let accountID = account._id else { return }
         
         if let budget = await budgetStore.createBudget(
             accountID: accountID,

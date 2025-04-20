@@ -24,7 +24,7 @@ extension CreateCreditCardViewModel {
     
     @MainActor
     func createCreditCard(dismiss: DismissAction) async {
-        guard let account = AccountStore.shared.selectedAccount, let accountID = account.id else { return }
+        guard let account = AccountStore.shared.selectedAccount, let accountID = account._id else { return }
         let creditCardStore: CreditCardStore = .shared
         
         let randomUUID = UUID()

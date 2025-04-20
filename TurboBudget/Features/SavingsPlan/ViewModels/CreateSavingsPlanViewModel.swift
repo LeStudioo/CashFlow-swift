@@ -59,7 +59,7 @@ extension CreateSavingsPlanViewModel {
         let successfullModalManager: SuccessfullModalManager = .shared
         
         guard let account = accountStore.selectedAccount else { return }
-        guard let accountID = account.id else { return }
+        guard let accountID = account._id else { return }
         
         if let savingsPlan = await savingsPlanStore.createSavingsPlan(accountID: accountID, body: bodyForCreation()) {
             if let savingsPlanID = savingsPlan.id, savingPlanAmountOfStart.toDouble() != 0 {

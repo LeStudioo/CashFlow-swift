@@ -840,6 +840,15 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 
 "shortcut_main_title" = "Nueva transacción en CashFlow";
 
+/*  */
+"shortcut_parameter_account_description" = "La cuenta en la que se creará la transacción";
+
+/*  */
+"shortcut_parameter_account_dialog" = "Elija una cuenta";
+
+/*  */
+"shortcut_parameter_account_title" = "Cuenta";
+
 "shortcut_parameter_amount_description" = "Este es el monto de tu transacción.";
 
 "shortcut_parameter_amount_dialog" = "Ingresar el monto";

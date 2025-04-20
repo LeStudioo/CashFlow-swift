@@ -73,7 +73,7 @@ extension AlertManager {
             buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
-                if let accountID = account.id {
+                if let accountID = account._id {
                     await AccountStore.shared.deleteAccount(accountID: accountID)
                     if let dismissAction { dismissAction() }
                 }

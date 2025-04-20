@@ -62,7 +62,7 @@ struct TransactionsListView: View {
             if newValue {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
                     Task {
-                        if let selectedAccount = self.accountStore.selectedAccount, let accountID = selectedAccount.id {
+                        if let selectedAccount = self.accountStore.selectedAccount, let accountID = selectedAccount._id {
                             let startDateOneMonthAgo = self.transactionStore.currentDateForFetch.oneMonthAgo
                             let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
                             await self.transactionStore.fetchTransactionsByPeriod(

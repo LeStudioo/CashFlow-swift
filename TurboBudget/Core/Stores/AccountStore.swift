@@ -66,15 +66,15 @@ extension AccountStore {
             let account = try await AccountService.update(id: accountID, body: body)
             
             if account.type == .classic {
-                if let index = self.accounts.firstIndex(where: { $0.id == accountID }) {
+                if let index = self.accounts.firstIndex(where: { $0._id == accountID }) {
                     self.accounts[index] = account
-                    if selectedAccount?.id == accountID {
+                    if selectedAccount?._id == accountID {
                         selectedAccount = nil
                         selectedAccount = self.accounts[index]
                     }
                 }
             } else if account.type == .savings {
-                if let index = self.savingsAccounts.firstIndex(where: { $0.id == accountID }) {
+                if let index = self.savingsAccounts.firstIndex(where: { $0._id == accountID }) {
                     self.savingsAccounts[index] = account
                 }
             }
@@ -86,10 +86,10 @@ extension AccountStore {
         do {
             try await AccountService.delete(id: accountID)
             
-            self.accounts.removeAll { $0.id == accountID }
-            self.savingsAccounts.removeAll { $0.id == accountID }
+            self.accounts.removeAll { $0._id == accountID }
+            self.savingsAccounts.removeAll { $0._id == accountID }
             
-            if selectedAccount?.id == accountID {
+            if selectedAccount?._id == accountID {
                 TransactionStore.shared.reset()
                 SubscriptionStore.shared.reset()
                 SavingsPlanStore.shared.reset()
@@ -128,16 +128,16 @@ extension AccountStore {
 extension AccountStore {
     
     func findByID(_ id: Int) -> AccountModel? {
-        return self.allAccounts.first(where: { $0.id == id })
+        return self.allAccounts.first(where: { $0._id == id })
     }
     
     func setNewBalance(accountID: Int, newBalance: Double) {
-        if let accountIndex = accounts.firstIndex(where: { $0.id == accountID }) {
+        if let accountIndex = accounts.firstIndex(where: { $0._id == accountID }) {
             self.accounts[accountIndex]._balance = newBalance
-            if let selectedAccount, selectedAccount.id == accountID {
+            if let selectedAccount, selectedAccount._id == accountID {
                 self.selectedAccount?._balance = newBalance
             }
-        } else if let savingsAccountIndex = savingsAccounts.firstIndex(where: { $0.id == accountID }) {
+        } else if let savingsAccountIndex = savingsAccounts.firstIndex(where: { $0._id == accountID }) {
             self.savingsAccounts[savingsAccountIndex]._balance = newBalance
         }
     }

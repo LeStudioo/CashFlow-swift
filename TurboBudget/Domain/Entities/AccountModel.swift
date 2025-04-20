@@ -13,12 +13,16 @@ enum AccountType: Int, CaseIterable {
 }
 
 struct AccountModel: Codable, Identifiable, Equatable, Hashable {
-    var id: Int?
+    var _id: Int?
     var _name: String?
     var _balance: Double?
     var typeNum: Int?
     var maxAmount: Double?
     var createdAtRaw: String?
+    
+    var id: String {
+        return String(_id ?? 0)
+    }
 
     /// Classic Account Initialiseur
     init(
@@ -28,7 +32,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         typeNum: Int? = nil,
         createdAtRaw: String? = nil
     ) {
-        self.id = id
+        self._id = id
         self._name = name
         self._balance = balance
         self.typeNum = typeNum
@@ -44,7 +48,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         maxAmount: Double? = nil,
         createdAtRaw: String? = nil
     ) {
-        self.id = id
+        self._id = id
         self._name = name
         self._balance = balance
         self.typeNum = typeNum
@@ -78,7 +82,8 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, maxAmount
+        case maxAmount
+        case _id = "id"
         case _name = "name"
         case _balance = "balance"
         case typeNum = "type"

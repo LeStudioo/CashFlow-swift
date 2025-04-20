@@ -112,7 +112,7 @@ struct AnalyticsHomeView: View {
         .navigationBarTitleDisplayMode(.large)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .onChange(of: selectedDate) { _ in
-            if let account = accountStore.selectedAccount, let accountID = account.id {
+            if let account = accountStore.selectedAccount, let accountID = account._id {
                 Task {
                     await transactionStore.fetchTransactionsByPeriod(
                         accountID: accountID,
@@ -138,7 +138,7 @@ struct AnalyticsHomeView: View {
     }
     
     func fetchCashFlow() async {
-        if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount.id {
+        if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount._id {
             await accountStore.fetchCashFlow(accountID: accountID, year: selectedDate.year)
         }
     }

@@ -28,9 +28,9 @@ struct TransferRow: View {
     var isSender: Bool {
         switch location {
         case .successfulSheet:
-            return accountStore.selectedAccount?.id == transfer.senderAccountID
+            return accountStore.selectedAccount?._id == transfer.senderAccountID
         case .savingsAccount:
-            return savingsAccountRepository.currentAccount.id == transfer.senderAccountID
+            return savingsAccountRepository.currentAccount._id == transfer.senderAccountID
         }
     }
 

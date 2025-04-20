@@ -31,7 +31,7 @@ extension CreateTransferViewModel {
     
     func createTransfer(dismiss: DismissAction) async {
         guard let senderAccount, let receiverAccount else { return }
-        guard let senderAccountID = senderAccount.id, let receiverAccountID = receiverAccount.id else { return }
+        guard let senderAccountID = senderAccount._id, let receiverAccountID = receiverAccount._id else { return }
         
         let transferStore: TransferStore = .shared
         let successfullModalManager: SuccessfullModalManager = .shared

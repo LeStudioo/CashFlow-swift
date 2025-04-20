@@ -71,7 +71,7 @@ extension CreateAccountViewModel {
     }
     
     func updateAccount(dismiss: DismissAction) async {
-        guard let account, let accountID = account.id else { return }
+        guard let account, let accountID = account._id else { return }
         
         let accountStore: AccountStore = .shared
         let body: AccountModel

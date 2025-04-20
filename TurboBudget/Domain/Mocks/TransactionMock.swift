@@ -28,7 +28,7 @@ extension TransactionModel {
         typeNum: TransactionType.transfer.rawValue,
         dateISO: Date().toISO(),
         creationDate: Date().toISO(),
-        senderAccountID: AccountModel.mockClassicAccount.id,
-        receiverAccountID: AccountModel.mockSavingsAccount.id
+        senderAccountID: AccountModel.mockClassicAccount._id,
+        receiverAccountID: AccountModel.mockSavingsAccount._id
     )
 }

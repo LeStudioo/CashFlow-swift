@@ -14,32 +14,32 @@ final class PreferencesDisplayHome: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
         
     @UserDefault("isSavingPlansDisplayedHomeScreen", defaultValue: true) // PreferencesDisplayHome_savingsPlan_isDisplayed
-    var savingsPlan_isDisplayed: Bool{
+    var savingsPlan_isDisplayed: Bool {
         willSet { objectWillChange.send() }
     }
     
     @UserDefault("numberOfSavingPlansDisplayedInHomeScreen", defaultValue: 4) // PreferencesDisplayHome_savingsPlan_value
-    var savingsPlan_value: Int{
+    var savingsPlan_value: Int {
         willSet { objectWillChange.send() }
     }
 
     @UserDefault("isAutomationsDisplayedHomeScreen", defaultValue: true) // PreferencesDisplayHome_subscription_isDisplayed
-    var subscription_isDisplayed: Bool{
+    var subscription_isDisplayed: Bool {
         willSet { objectWillChange.send() }
     }
     
     @UserDefault("numberOfAutomationsDisplayedInHomeScreen", defaultValue: 4) // PreferencesDisplayHome_subscription_value
-    var subscription_value: Int{
+    var subscription_value: Int {
         willSet { objectWillChange.send() }
     }
     
     @UserDefault("isRecentTransactionsDisplayedHomeScreen", defaultValue: true) // PreferencesDisplayHome_transaction_isDisplayed
-    var transaction_isDisplayed: Bool{
+    var transaction_isDisplayed: Bool {
         willSet { objectWillChange.send() }
     }
 
     @UserDefault("numberOfRecentTransactionDisplayedInHomeScreen", defaultValue: 5) // PreferencesDisplayHome_transaction_value
-    var transaction_value: Int{
+    var transaction_value: Int {
         willSet { objectWillChange.send() }
     }
 }
