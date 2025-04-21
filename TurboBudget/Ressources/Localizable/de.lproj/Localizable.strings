@@ -52,12 +52,36 @@
 
 "advice_yourself_desc" = "Geld ist soeben auf Ihr Konto eingegangen. Vergessen Sie nicht, etwas beiseite zu legen, bevor Sie irgendetwas ausgeben. Dies wird Ihnen helfen, eine solide finanzielle Grundlage für die Zukunft zu schaffen.";
 
+/*  */
+"alert_account_delete_message" = "Sie sind dabei, eines Ihrer Konten zu löschen. Geben Sie seinen Namen ein, um es zu löschen.";
+
+/*  */
+"alert_account_delete_title" = "Ein Konto löschen";
+
+/*  */
+"alert_cashflow_pro_action_button" = "Anzeigen";
+
 "alert_cashflow_pro_desc" = "Um auf diese Funktion zugreifen zu können, benötigen Sie CashFlow Pro.";
+
+/*  */
+"alert_cashflow_pro_message" = "Um auf diese Funktion zugreifen zu können, benötigen Sie CashFlow Pro.";
 
 "alert_cashflow_pro_see" = "Anzeigen";
 
 /*  */
 "alert_cashflow_pro_title" = "CashFlow Pro";
+
+/*  */
+"alert_contribution_delete_message" = "Sie sind dabei, einen Ihrer Beiträge zu löschen.";
+
+/*  */
+"alert_contribution_delete_title" = "Einen Beitrag löschen";
+
+/*  */
+"alert_creditcard_message" = "Es ist nur eine Kreditkarte pro Konto zulässig";
+
+/*  */
+"alert_creditcard_title" = "Maximaler Betrag erreicht";
 
 "alert_notification_desc" = "Sie müssen Benachrichtigungen in den Einstellungen aktivieren.";
 
@@ -66,6 +90,42 @@
 "alert_recover_data" = "Wir versuchen, Ihre Daten wiederherzustellen. Bitte haben Sie Geduld.";
 
 "alert_request_biometric" = "Sichern Sie Ihre Daten.";
+
+/*  */
+"alert_savingsplan_delete_message" = "Sie sind dabei, einen Ihrer Sparpläne zu löschen.";
+
+/*  */
+"alert_savingsplan_delete_title" = "Einen Sparplan löschen";
+
+/*  */
+"alert_signout_action_button" = "Abmeldung";
+
+/*  */
+"alert_signout_title" = "Trennen?";
+
+/*  */
+"alert_subscription_delete_message" = "Sie sind dabei, eines Ihrer Abonnements zu löschen.";
+
+/*  */
+"alert_subscription_delete_title" = "Ein Abonnement löschen";
+
+/*  */
+"alert_transaction_delete_title" = "Eine Transaktion löschen";
+
+/*  */
+"alert_transaction_expense_message" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen. Der Betrag dieser Transaktion wird Ihrem Konto gutgeschrieben.";
+
+/*  */
+"alert_transaction_income_message" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen. Der Betrag dieser Transaktion wird von Ihrem Konto abgebucht.";
+
+/*  */
+"alert_transfer_delete_title" = "Eine Übertragung löschen";
+
+/*  */
+"alert_user_account_delete_message" = "Durch die Löschung Ihres Kontos werden alle damit verbundenen Daten dauerhaft gelöscht. Diese Aktion ist irreversibel. Bist du sicher?";
+
+/*  */
+"alert_user_account_delete_title" = "Mein Konto löschen";
 
 "alerts_amount_savingsplan" = "Ihr Anfangsbetrag ist höher als Ihr Endbetrag. Das ist nicht möglich.";
 
@@ -1084,8 +1144,6 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "whatsnew_ui_title" = "Benutzeroberfläche";
 
 "word_ARCHIVE" = "ARCHIVIEREN";
-
-"word_DELETE" = "LÖSCHEN";
 
 "word_QRCODE" = "QR-CODE";
 

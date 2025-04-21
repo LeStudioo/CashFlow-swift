@@ -52,12 +52,36 @@
 
 "advice_yourself_desc" = "Dinero ha entrado en tu cuenta. No olvides apartar una parte antes de pagar cualquier cosa. Esto te ayudará a construir una base financiera sólida para el futuro.";
 
+/*  */
+"alert_account_delete_message" = "Está a punto de eliminar una de sus cuentas. Introduzca su nombre para eliminarla.";
+
+/*  */
+"alert_account_delete_title" = "Eliminar una cuenta";
+
+/*  */
+"alert_cashflow_pro_action_button" = "Ver";
+
 "alert_cashflow_pro_desc" = "Para acceder a esta función, debes tener CashFlow Pro.";
+
+/*  */
+"alert_cashflow_pro_message" = "Para acceder a esta función, debes tener CashFlow Pro.";
 
 "alert_cashflow_pro_see" = "Ver";
 
 /*  */
 "alert_cashflow_pro_title" = "CashFlow Pro";
+
+/*  */
+"alert_contribution_delete_message" = "Estás a punto de eliminar una de tus contribuciones.";
+
+/*  */
+"alert_contribution_delete_title" = "Eliminar una contribución";
+
+/*  */
+"alert_creditcard_message" = "Sólo se permite una tarjeta de crédito por cuenta";
+
+/*  */
+"alert_creditcard_title" = "Importe máximo alcanzado";
 
 "alert_notification_desc" = "Debes activar las notificaciones en la configuración.";
 
@@ -66,6 +90,42 @@
 "alert_recover_data" = "Estamos intentando recuperar tus datos. Por favor, espera, por favor.";
 
 "alert_request_biometric" = "Protege tus datos.";
+
+/*  */
+"alert_savingsplan_delete_message" = "Está a punto de eliminar uno de sus planes de ahorro.";
+
+/*  */
+"alert_savingsplan_delete_title" = "Eliminar un plan de ahorro";
+
+/*  */
+"alert_signout_action_button" = "Cierre de sesión";
+
+/*  */
+"alert_signout_title" = "Desconectar?";
+
+/*  */
+"alert_subscription_delete_message" = "Estás a punto de eliminar una de tus suscripciones.";
+
+/*  */
+"alert_subscription_delete_title" = "Eliminar una suscripción";
+
+/*  */
+"alert_transaction_delete_title" = "Eliminar una transacción";
+
+/*  */
+"alert_transaction_expense_message" = "Está a punto de eliminar una de sus transacciones, el monto de esta transacción será reembolsado a su cuenta.";
+
+/*  */
+"alert_transaction_income_message" = "Está a punto de eliminar una de sus transacciones, el monto de esta transacción se retirará de su cuenta.";
+
+/*  */
+"alert_transfer_delete_title" = "Suprimir una transferencia";
+
+/*  */
+"alert_user_account_delete_message" = "Al eliminar su cuenta, todos los datos asociados se borrarán permanentemente. Esta acción es irreversible. ¿Está seguro?";
+
+/*  */
+"alert_user_account_delete_title" = "Eliminar mi cuenta";
 
 "alerts_amount_savingsplan" = "Tu monto inicial es mayor que tu monto final. Esto no es posible.";
 
@@ -1085,8 +1145,6 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "whatsnew_ui_title" = "Interfaz de usuario";
 
 "word_ARCHIVE" = "ARCHIVAR";
-
-"word_DELETE" = "BORRAR";
 
 "word_QRCODE" = "CÓDIGO QR";
 

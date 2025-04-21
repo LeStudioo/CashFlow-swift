@@ -53,6 +53,12 @@
 "advice_yourself_desc" = "De l'argent vient d'entrer dans votre compte. N'oubliez pas d'en mettre de côté avant de payer quoi que ce soit. Cela vous aidera à construire une base financière solide pour l'avenir.";
 
 /*  */
+"alert_account_delete_message" = "Vous êtes sur le point de supprimer un de vos comptes. Entrez son nom pour le supprimer.";
+
+/*  */
+"alert_account_delete_title" = "Supprimer un compte";
+
+/*  */
 "alert_cashflow_pro_action_button" = "Voir";
 
 "alert_cashflow_pro_desc" = "Pour accéder à cette fonctionnalité, vous devez avoir CashFlow Pro.";
@@ -64,6 +70,12 @@
 
 /*  */
 "alert_cashflow_pro_title" = "CashFlow Pro";
+
+/*  */
+"alert_contribution_delete_message" = "Vous êtes sur le point de supprimer l'une de vos contributions.";
+
+/*  */
+"alert_contribution_delete_title" = "Supprimer une contribution";
 
 /*  */
 "alert_creditcard_message" = "Une seule carte de crédit est autorisée par compte";
@@ -80,6 +92,24 @@
 "alert_request_biometric" = "Sécurisez vos données.";
 
 /*  */
+"alert_savingsplan_delete_message" = "Vous êtes sur le point de supprimer un de vos plans d'épargne.";
+
+/*  */
+"alert_savingsplan_delete_title" = "Supprimer un plan d'épargne";
+
+/*  */
+"alert_signout_action_button" = "Déconnexion";
+
+/*  */
+"alert_signout_title" = "Déconnexion?";
+
+/*  */
+"alert_subscription_delete_message" = "Vous êtes sur le point de supprimer l'un de vos abonnements.";
+
+/*  */
+"alert_subscription_delete_title" = "Supprimer un abonnement";
+
+/*  */
 "alert_transaction_delete_title" = "Supprimer une transaction";
 
 /*  */
@@ -93,6 +123,12 @@
 
 /*  */
 "alert_transfer_delete_title" = "Supprimer un transfert";
+
+/*  */
+"alert_user_account_delete_message" = "En supprimant votre compte, toutes vos données associées seront définitivement effacées. Cette action est irréversible. Êtes-vous sûr ?";
+
+/*  */
+"alert_user_account_delete_title" = "Supprimer mon compte";
 
 "alerts_amount_savingsplan" = "Votre montant de départ est supérieur à votre montant final. Ce n'est pas possible.";
 
@@ -1112,8 +1148,6 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 "whatsnew_ui_title" = "Interface utilisateur";
 
 "word_ARCHIVE" = "ARCHIVER";
-
-"word_DELETE" = "SUPPRIMER";
 
 "word_QRCODE" = "QR CODE";
 
