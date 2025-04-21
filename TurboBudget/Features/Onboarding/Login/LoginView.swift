@@ -40,6 +40,24 @@ struct LoginView: View {
             
             Spacer()
             
+            #if DEBUG
+            Button {
+                Task {
+                    do {
+                        let user = try await NetworkService.sendRequest(apiBuilder: UserAPIRequester.login(
+                            email: "test.user@example.com",
+                            password: "password"
+                        ), responseModel: UserModel.self)
+                        TokenManager.shared.setTokenAndRefreshToken(token: user.token ?? "", refreshToken: user.refreshToken ?? "")
+                        UserStore.shared.currentUser = user
+                        AppManager.shared.appState = .success
+                    } catch { }
+                }
+            } label: {
+                Text("Login mocks")
+            }
+            #endif
+            
             VStack(spacing: DesignSystem.Spacing.standard) {
                 SignInButton(
                     config: .init(

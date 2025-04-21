@@ -121,6 +121,8 @@
 /*  */
 "alert_transfer_delete_title" = "Suprimir una transferencia";
 
+"alert_transfer_delete_message" = "Va a eliminar una de sus transferencias, el importe de la transferencia se reembolsará a la cuenta remitente y se eliminará de la cuenta receptora.";
+
 /*  */
 "alert_user_account_delete_message" = "Al eliminar su cuenta, todos los datos asociados se borrarán permanentemente. Esta acción es irreversible. ¿Está seguro?";
 

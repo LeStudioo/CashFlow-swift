@@ -19,6 +19,7 @@ struct NetworkPath {
     struct User {
         static let base: String = "/user"
         static let me: String = "/user/me"
+        static let login: String = "/user/login"
         static let register: String = "/user/register"
         static func refreshToken(refreshToken: String) -> String {
             return "/user/refresh-token/\(refreshToken)"

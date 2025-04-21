@@ -121,6 +121,8 @@
 /*  */
 "alert_transfer_delete_title" = "Eine Übertragung löschen";
 
+"alert_transfer_delete_message" = "Sie sind dabei, eine Ihrer Überweisungen zu löschen. Der Betrag der Überweisung wird dem Senderkonto erstattet und vom Empfängerkonto gelöscht.";
+
 /*  */
 "alert_user_account_delete_message" = "Durch die Löschung Ihres Kontos werden alle damit verbundenen Daten dauerhaft gelöscht. Diese Aktion ist irreversibel. Bist du sicher?";
 
