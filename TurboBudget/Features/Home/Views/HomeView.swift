@@ -32,7 +32,7 @@ struct HomeView: View {
                 CarouselOfChartsView()
                     .padding(.bottom, 24)
                 
-                VStack(spacing: 24) {
+                VStack(spacing: 32) {
                     HomeScreenSubscription()
                     HomeScreenRecentTransactions()
                     HomeScreenSavingsPlan()

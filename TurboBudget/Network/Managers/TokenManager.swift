@@ -27,7 +27,10 @@ extension TokenManager {
     
     @MainActor
     func refreshToken() async throws {
-        if let refreshTokenInKeychain = KeychainManager.shared.retrieveItemFromKeychain(id: KeychainService.refreshToken.rawValue, type: String.self), !refreshTokenInKeychain.isEmpty {
+        if let refreshTokenInKeychain = KeychainManager.shared.retrieveItemFromKeychain(
+            id: KeychainService.refreshToken.rawValue,
+            type: String.self
+        ), !refreshTokenInKeychain.isEmpty {
             do {
                 let user = try await NetworkService.sendRequest(
                     apiBuilder: UserAPIRequester.refreshToken(refreshToken: refreshTokenInKeychain),

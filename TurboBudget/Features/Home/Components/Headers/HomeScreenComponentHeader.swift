@@ -18,7 +18,11 @@ struct HomeScreenComponentHeader: View {
     // MARK: -
     var body: some View {
         NavigationButton(route: .push, destination: type.destination) {
-            HStack {
+            HStack(spacing: 8) {
+                Image(systemName: type.icon)
+                    .foregroundStyle(Color.customGray)
+                    .font(.system(size: 20, weight: .medium, design: .rounded))
+                
                 Text(type.title)
                     .foregroundStyle(Color.customGray)
                     .font(.semiBoldCustom(size: 22))
@@ -51,6 +55,14 @@ enum HomeScreenComponentHeaderType {
         case .recentTransactions:   return AppDestination.transaction(.list)
         case .savingsPlan:          return AppDestination.savingsPlan(.list)
         case .subscription:         return AppDestination.subscription(.list)
+        }
+    }
+    
+    var icon: String {
+        switch self {
+        case .recentTransactions:   return "creditcard.and.123"
+        case .savingsPlan:          return "dollarsign.square.fill"
+        case .subscription:         return "clock.arrow.circlepath"
         }
     }
 }

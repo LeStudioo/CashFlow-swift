@@ -51,7 +51,7 @@ struct AccountDashboardView: View {
                         .font(DesignSystem.FontDS.Title.semibold)
                         .foregroundStyle(themeManager.theme.color)
                     }
-                    .onChange(of: accountStore.selectedAccount) { _ in
+                    .onChange(of: accountStore.selectedAccount?.id) { _ in
                         if appManager.isStartDataLoaded {
                             appManager.resetAllStoresData()
                             Task {

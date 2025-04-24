@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// swiftlint:disable:next type_name
 final class CreateTransactionForSavingsAccountViewModel: ObservableObject {
     
     var savingsAccount: AccountModel

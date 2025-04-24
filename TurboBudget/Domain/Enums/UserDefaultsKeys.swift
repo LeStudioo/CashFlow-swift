@@ -11,7 +11,7 @@ struct UserDefaultsKeys {
     
     struct Preferences {
         
-        struct ApplePay {
+        struct ApplePay { // swiftlint:disable:this nesting
             static let isAddCategoryAutomaticallyEnabled: String = "PreferencesApplePay_isAddCategoryAutomaticallyEnabled"
             static let isAddAddressAutomaticallyEnabled: String = "PreferencesApplePay_isAddAddressAutomaticallyEnabled"
         }

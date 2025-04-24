@@ -16,20 +16,17 @@ struct HomeScreenEmptyRow: View {
     // MARK: -
     var body: some View {
         NavigationButton(route: .sheet, destination: type.destination) {
-            HStack {
+            VStack(spacing: 24) {
                 Text(type.title)
                     .font(Font.mediumText16())
-                    .foregroundStyle(Color.text)
-                    .multilineTextAlignment(.leading)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.center)
                 
-                Image(type.image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .shadow(radius: 4, y: 4)
+                Image(systemName: "plus")
+                    .font(.system(size: 24, weight: .semibold))
             }
-            .padding()
-            .frame(height: 160)
+            
+            .foregroundStyle(Color.text)
+            .padding(24)
             .background {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)
                     .fill(Color.background100)

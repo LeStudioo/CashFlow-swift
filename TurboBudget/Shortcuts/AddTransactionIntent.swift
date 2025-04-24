@@ -60,7 +60,7 @@ struct AddTransactionIntent: AppIntent {
             autoCat: PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled
         )
         
-        if LocationManager.shared.isLocationEnabled && PreferencesApplePay.shared.isAddAddressAutomaticallyEnabled {
+        if PreferencesApplePay.shared.isAddAddressAutomaticallyEnabled && LocationManager.shared.isLocationEnabled {
             let location = LocationManager.shared.getCurrentLocation()
             if let location, let address = try await LocationManager.shared.getCurrentAddress(location: location) {
                 body.address = address
@@ -72,11 +72,9 @@ struct AddTransactionIntent: AppIntent {
         do {
             try await userStore.loginWithToken()
             await accountStore.fetchAccounts()
-            
-            let selectedAccount = account ?? accountStore.selectedAccount
-            
-            if let selectedAccount, let accountID = selectedAccount._id {
-                let addInStore = AccountStore.shared.selectedAccount?._id == accountID
+                        
+            if let account, let accountID = account._id {
+                let addInStore = accountStore.selectedAccount?._id == accountID
                 await transactionStore.createTransaction(accountID: accountID, body: body, addInRepo: addInStore)
             }
                         
