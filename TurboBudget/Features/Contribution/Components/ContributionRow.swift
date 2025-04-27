@@ -58,7 +58,7 @@ struct ContributionRow: View {
                 VStack(spacing: 5) {
                     Image(systemName: "trash")
                         .font(.system(size: 20, weight: .semibold, design: .rounded))
-                    Text("word_DELETE".localized)
+                    Text("word_delete".localized)
                         .font(.semiBoldCustom(size: 10))
                 }
                 .foregroundStyle(Color(uiColor: .systemBackground))

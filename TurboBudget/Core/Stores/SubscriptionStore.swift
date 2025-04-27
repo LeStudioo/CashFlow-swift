@@ -15,7 +15,7 @@ final class SubscriptionStore: ObservableObject {
     
     var subscriptionsByMonth: [Date: [SubscriptionModel]] {
         let groupedByMonth = Dictionary(grouping: subscriptions) { subscription in
-            Calendar.current.date(from: Calendar.current.dateComponents([.month, .year], from: subscription.date))!
+            Calendar.current.date(from: Calendar.current.dateComponents([.month, .year], from: subscription.frequencyDate))!
         }
         
         return groupedByMonth
@@ -38,7 +38,7 @@ extension SubscriptionStore {
     
     @discardableResult
     @MainActor
-    func createSubscription(accountID: Int, body: SubscriptionModel, shouldReturn: Bool = false) async -> SubscriptionModel? {
+    func createSubscription(accountID: Int, body: SubscriptionDTO, shouldReturn: Bool = false) async -> SubscriptionModel? {
         do {
             let subscription = try await SubscriptionService.create(accountID: accountID, body: body)
             self.subscriptions.append(subscription)
@@ -52,7 +52,7 @@ extension SubscriptionStore {
     
     @discardableResult
     @MainActor
-    func updateSubscription(subscriptionID: Int, body: SubscriptionModel) async -> SubscriptionModel? {
+    func updateSubscription(subscriptionID: Int, body: SubscriptionDTO) async -> SubscriptionModel? {
         do {
             let subscription = try await SubscriptionService.update(subscriptionID: subscriptionID, body: body)
             if let index = self.subscriptions.firstIndex(where: { $0.id == subscriptionID }) {

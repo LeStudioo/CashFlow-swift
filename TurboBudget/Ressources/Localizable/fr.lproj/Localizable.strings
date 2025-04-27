@@ -472,23 +472,23 @@
 
 "empty_accounts_desc" = "Créez votre premier compte pour commencer à utiliser CashFlow !";
 
-"empty_contributions_desc" = "Vous n'avez encore enregistré aucune contribution pour le moment. Commencez dès maintenant !";
+"empty_contributions_desc" = "Vous n'avez encore enregistré aucune contribution pour le moment.";
 
 "empty_savingsAccounts_create" = "Créer un compte épargne";
 
-"empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment. Commencez dès maintenant !";
+"empty_savingsAccounts_desc" = "Vous n'avez pas ajouté de compte épargne pourt le moment.";
 
 "empty_savingsPlans_create" = "Créer un plan d'épargne";
 
-"empty_savingsPlans_desc" = "Vous n'avez encore enregistré aucun plan d'épargne pour le moment. Commencez dès maintenant !";
+"empty_savingsPlans_desc" = "Vous n'avez encore enregistré aucun plan d'épargne pour le moment.";
 
 "empty_subscriptions_create" = "Créer un abonnement";
 
-"empty_subscriptions_desc" = "Vous n'avez encore enregistré aucun abonnement pour le moment. Commencez dès maintenant !";
+"empty_subscriptions_desc" = "Vous n'avez encore enregistré aucun abonnement pour le moment.";
 
 "empty_transactions_create" = "Créer une transaction";
 
-"empty_transactions_desc" = "Vous n'avez encore enregistré aucune transaction pour le moment. Commencez dès maintenant !";
+"empty_transactions_desc" = "Vous n'avez encore enregistré aucune transaction pour le moment.";
 
 "error_message_no_data_day" = "Aucune donnée pour ce jour.";
 

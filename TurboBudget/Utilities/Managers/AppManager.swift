@@ -43,12 +43,10 @@ extension AppManager {
             await creditCardStore.fetchCreditCards(accountID: accountID)
             
             if preferencesSubscription.isNotificationsEnabled {
-                for subscription in subscriptionStore.subscriptions {
-                    guard let subscriptionID = subscription.id else { continue }
-                    
+                for subscription in subscriptionStore.subscriptions {                    
                     await NotificationsManager.shared.scheduleNotification(
                         for: .init(
-                            id: "\(subscriptionID)",
+                            id: "\(subscription.id)",
                             title: "CashFlow",
                             message: subscription.notifMessage,
                             date: subscription.dateNotif

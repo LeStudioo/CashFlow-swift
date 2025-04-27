@@ -40,11 +40,9 @@ struct SettingsSubscriptionView: View {
                 if newValue {
                     if await NotificationsManager.shared.requestNotificationPermission() {
                         for subscription in subscriptionStore.subscriptions {
-                            guard let subscriptionID = subscription.id else { continue }
-                            
                             await NotificationsManager.shared.scheduleNotification(
                                 for: .init(
-                                    id: "\(subscriptionID)",
+                                    id: "\(subscription.id)",
                                     title: "CashFlow",
                                     message: subscription.notifMessage,
                                     date: subscription.dateNotif
@@ -65,11 +63,9 @@ struct SettingsSubscriptionView: View {
             NotificationsManager.shared.removeAllPendingNotifications()
             Task {
                 for subscription in subscriptionStore.subscriptions {
-                    guard let subscriptionID = subscription.id else { continue }
-                    
                     await NotificationsManager.shared.scheduleNotification(
                         for: .init(
-                            id: "\(subscriptionID)",
+                            id: "\(subscription.id)",
                             title: "CashFlow",
                             message: subscription.notifMessage,
                             date: subscription.dateNotif

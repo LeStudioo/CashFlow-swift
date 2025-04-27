@@ -24,8 +24,8 @@ struct HomeScreenEmptyRow: View {
                 Image(systemName: "plus")
                     .font(.system(size: 24, weight: .semibold))
             }
-            
             .foregroundStyle(Color.text)
+            .frame(maxWidth: .infinity)
             .padding(24)
             .background {
                 RoundedRectangle(cornerRadius: 20, style: .continuous)

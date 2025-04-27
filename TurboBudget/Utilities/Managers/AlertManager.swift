@@ -120,10 +120,8 @@ extension AlertManager {
             buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
-                if let subscriptionID = subscription.id {
-                    await SubscriptionStore.shared.deleteSubscription(subscriptionID: subscriptionID)
-                    if let dismissAction { dismissAction() }
-                }
+                await SubscriptionStore.shared.deleteSubscription(subscriptionID: subscription.id)
+                if let dismissAction { dismissAction() }
             }
         )
     }

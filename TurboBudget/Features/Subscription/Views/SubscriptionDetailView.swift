@@ -28,47 +28,67 @@ struct SubscriptionDetailView: View {
     
     // MARK: -
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical) {
             VStack(spacing: 32) {
                 VStack(spacing: 4) {
-                    Text("\(currentSubscription.symbol) \(currentSubscription.amount?.toCurrency() ?? "")")
+                    Text("\(currentSubscription.symbol) \(currentSubscription.amount.toCurrency())")
                         .font(.system(size: 48, weight: .heavy))
                         .foregroundColor(currentSubscription.color)
                     
-                    Text(currentSubscription.name ?? "")
+                    Text(currentSubscription.name)
                         .font(DesignSystem.FontDS.Title.semibold)
                         .multilineTextAlignment(.center)
                         .lineLimit(2)
                 }
                 
-                VStack(spacing: 12) {
-                    DetailRow(
-                        icon: "clock.arrow.circlepath",
-                        text: Word.Classic.frequency,
-                        value: currentSubscription.frequency?.name ?? ""
-                    )
-                    
-                    DetailRow(
-                        icon: "calendar",
-                        text: "transaction_detail_date".localized,
-                        value: currentSubscription.date.formatted(date: .complete, time: .omitted).capitalized
-                    )
-                    
-                    if let category = currentSubscription.category {
+                VStack(spacing: 40) {
+                    VStack(spacing: 12) {
                         DetailRow(
-                            icon: category.icon,
-                            value: category.name,
-                            iconBackgroundColor: category.color) {
-                                presentChangeCategory()
-                            }
+                            icon: "clock.arrow.circlepath",
+                            text: Word.Classic.frequency,
+                            value: currentSubscription.frequency.name
+                        )
                         
-                        if let subcategory = currentSubscription.subcategory {
+                        DetailRow(
+                            icon: "calendar",
+                            text: "subscription_next_transaction".localized,
+                            value: currentSubscription.frequencyDate.formatted(date: .complete, time: .omitted).capitalized
+                        )
+                    }
+                    
+                    VStack(spacing: 12) {
+                        if let category = currentSubscription.category {
                             DetailRow(
-                                icon: subcategory.icon,
-                                value: subcategory.name,
-                                iconBackgroundColor: subcategory.color) {
+                                icon: category.icon,
+                                value: category.name,
+                                iconBackgroundColor: category.color) {
                                     presentChangeCategory()
                                 }
+                            
+                            if let subcategory = currentSubscription.subcategory {
+                                DetailRow(
+                                    icon: subcategory.icon,
+                                    value: subcategory.name,
+                                    iconBackgroundColor: subcategory.color) {
+                                        presentChangeCategory()
+                                    }
+                            }
+                        }
+                    }
+                    
+                    if let firstSubscriptionDate = currentSubscription.firstSubscriptionDate {
+                        VStack(spacing: 12) {
+                            DetailRow(
+                                icon: "calendar",
+                                text: "subscription_first_subscription_date".localized,
+                                value: firstSubscriptionDate.formatted(date: .complete, time: .omitted).capitalized
+                            )
+                            
+                            DetailRow(
+                                icon: "calendar",
+                                text: "Number of payement".localized, // TODO: TBL
+                                value: firstSubscriptionDate.monthsBetween(to: .now).formatted()
+                            )
                         }
                     }
                 }
@@ -120,8 +140,8 @@ extension SubscriptionDetailView {
                 selectedSubcategory: $viewModel.selectedSubcategory
             ))
         ) {
-            if let subscriptionID = currentSubscription.id, viewModel.selectedCategory != nil {
-                viewModel.updateCategory(subscriptionID: subscriptionID)
+            if viewModel.selectedCategory != nil {
+                viewModel.updateCategory(subscriptionID:  currentSubscription.id)
             }
         }
     }

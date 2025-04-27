@@ -19,7 +19,7 @@ extension SubscriptionDetailViewModel {
         let accountStore: AccountStore = .shared
         let subscriptionStore: SubscriptionStore = .shared
         
-        var body: SubscriptionModel = .init()
+        var body: SubscriptionDTO = .init()
         
         if let selectedCategory, let newCategory = CategoryStore.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id

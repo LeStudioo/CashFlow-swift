@@ -22,86 +22,40 @@ enum SubscriptionFrequency: Int, Codable, CaseIterable {
     }
 }
 
-struct SubscriptionModel: Codable, Identifiable, Equatable, Hashable {
-    var id: Int?
-    var name: String?
-    var amount: Double?
-    var typeNum: Int?
-    var frequencyNum: Int? // SubscriptionFrequency
-    var frequencyDate: String?
-    var categoryID: Int?
+struct SubscriptionModel: Identifiable, Equatable, Hashable {
+    var id: Int
+    var name: String
+    var amount: Double
+    var type: TransactionType
+    var frequency: SubscriptionFrequency
+    var frequencyDate: Date
+    var categoryID: Int
     var subcategoryID: Int?
+    var firstSubscriptionDate: Date?
 
     // Initialiseur
     init(
-        id: Int? = nil,
-        name: String? = nil,
-        amount: Double? = nil,
-        typeNum: Int? = nil,
-        frequencyNum: Int? = nil,
-        frequencyDate: String? = nil,
-        categoryID: Int? = nil,
-        subcategoryID: Int? = nil
-    ) {
-        self.id = id
-        self.name = name
-        self.amount = amount
-        self.typeNum = typeNum
-        self.frequencyNum = frequencyNum
-        self.frequencyDate = frequencyDate
-        self.categoryID = categoryID
-        self.subcategoryID = subcategoryID
-    }
-    
-    /// Body
-    init(
+        id: Int,
         name: String,
         amount: Double,
         type: TransactionType,
         frequency: SubscriptionFrequency,
         frequencyDate: Date,
         categoryID: Int,
-        subcategoryID: Int? = nil
+        subcategoryID: Int? = nil,
+        firstSubscriptionDate: Date? = nil
     ) {
+        self.id = id
         self.name = name
         self.amount = amount
-        self.typeNum = type.rawValue
-        self.frequencyNum = frequency.rawValue
-        self.frequencyDate = frequencyDate.toISO()
+        self.type = type
+        self.frequency = frequency
+        self.frequencyDate = frequencyDate
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
+        self.firstSubscriptionDate = firstSubscriptionDate
     }
-
-    // Conformance au protocole Codable
-    private enum CodingKeys: String, CodingKey {
-        case id, name, amount, frequencyDate, frequencyDay, categoryID, subcategoryID
-        case typeNum = "type"
-        case frequencyNum = "frequency"
-    }
-
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decodeIfPresent(Int.self, forKey: .id)
-        name = try container.decodeIfPresent(String.self, forKey: .name)
-        amount = try container.decodeIfPresent(Double.self, forKey: .amount)
-        typeNum = try container.decodeIfPresent(Int.self, forKey: .typeNum)
-        frequencyNum = try container.decodeIfPresent(Int.self, forKey: .frequencyNum)
-        frequencyDate = try container.decodeIfPresent(String.self, forKey: .frequencyDate)
-        categoryID = try container.decodeIfPresent(Int.self, forKey: .categoryID)
-        subcategoryID = try container.decodeIfPresent(Int.self, forKey: .subcategoryID)
-    }
-
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(id, forKey: .id)
-        try container.encodeIfPresent(name, forKey: .name)
-        try container.encodeIfPresent(amount, forKey: .amount)
-        try container.encodeIfPresent(typeNum, forKey: .typeNum)
-        try container.encodeIfPresent(frequencyNum, forKey: .frequencyNum)
-        try container.encodeIfPresent(frequencyDate, forKey: .frequencyDate)
-        try container.encodeIfPresent(categoryID, forKey: .categoryID)
-        try container.encodeIfPresent(subcategoryID, forKey: .subcategoryID)
-    }
+    
 }
 
 extension SubscriptionModel {
@@ -113,19 +67,7 @@ extension SubscriptionModel {
     var subcategory: SubcategoryModel? {
         return CategoryStore.shared.findSubcategoryById(subcategoryID)
     }
-    
-    var type: TransactionType {
-        return TransactionType(rawValue: typeNum ?? 0) ?? .expense
-    }
-    
-    var frequency: SubscriptionFrequency? {
-        return SubscriptionFrequency(rawValue: frequencyNum ?? 0)
-    }
-    
-    var date: Date {
-        return self.frequencyDate?.toDate() ?? .now
-    }
-    
+
     var symbol: String {
         switch type {
         case .expense:  return "-"
@@ -148,14 +90,14 @@ extension SubscriptionModel {
     var notifMessage: String {
         let daysBefore = PreferencesSubscription.shared.dayBeforeReceiveNotification
         let notifMessage = self.type == .expense ? Word.Notifications.willRemoved : Word.Notifications.willAdded
-        return "\(self.amount ?? 0)\(UserCurrency.symbol) \(notifMessage) \(daysBefore) \(Word.Classic.days). (\(self.name ?? ""))"
+        return "\(self.amount)\(UserCurrency.symbol) \(notifMessage) \(daysBefore) \(Word.Classic.days). (\(self.name))"
     }
     
     var dateNotif: Date {
-        var components = Calendar.current.dateComponents([.minute, .hour, .day, .month, .year], from: date)
+        var components = Calendar.current.dateComponents([.minute, .hour, .day, .month, .year], from: frequencyDate)
         components.hour = 10
         components.minute = 0
         components.timeZone = TimeZone.current
-        return Calendar.current.date(from: components) ?? date
+        return Calendar.current.date(from: components) ?? frequencyDate
     }
 }

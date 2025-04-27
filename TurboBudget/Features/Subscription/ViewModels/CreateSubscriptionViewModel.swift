@@ -26,11 +26,11 @@ class CreateSubscriptionViewModel: ObservableObject {
     init(subscription: SubscriptionModel? = nil) {
         self.subscription = subscription
         if let subscription {
-            self.name = subscription.name ?? ""
-            self.amount = subscription.amount?.formatted() ?? ""
+            self.name = subscription.name
+            self.amount = subscription.amount.formatted()
             self.type = subscription.type
-            self.frequency = subscription.frequency ?? .monthly
-            self.frequencyDate = subscription.date
+            self.frequency = subscription.frequency
+            self.frequencyDate = subscription.frequencyDate
             self.selectedCategory = subscription.category
             self.selectedSubcategory = subscription.subcategory
         }
@@ -50,7 +50,7 @@ extension CreateSubscriptionViewModel {
         }
     }
     
-    func bodyForCreation() -> SubscriptionModel {
+    func bodyForCreation() -> SubscriptionDTO {
         return .init(
             name: name,
             amount: amount.toDouble(),
@@ -86,9 +86,9 @@ extension CreateSubscriptionViewModel {
     func updateSubscription(dismiss: DismissAction) async {
         let subscriptionStore: SubscriptionStore = .shared
         
-        if let subscription, let subscriptionID = subscription.id {
+        if let subscription {
             if let updatedSubscription = await subscriptionStore.updateSubscription(
-                subscriptionID: subscriptionID,
+                subscriptionID: subscription.id,
                 body: bodyForCreation()
             ) {
                 await dismiss()

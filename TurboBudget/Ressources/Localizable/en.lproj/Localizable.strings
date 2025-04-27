@@ -472,23 +472,23 @@
 
 "empty_accounts_desc" = "Create your first account to start using CashFlow!";
 
-"empty_contributions_desc" = "You haven't registered any contributions yet. Start now!";
+"empty_contributions_desc" = "You haven't registered any contributions yet.";
 
 "empty_savingsAccounts_create" = "Create a savings account";
 
-"empty_savingsAccounts_desc" = "You haven't added a savings account yet. Start now!";
+"empty_savingsAccounts_desc" = "You haven't added a savings account yet.";
 
 "empty_savingsPlans_create" = "Create a savings plan";
 
-"empty_savingsPlans_desc" = "You haven't registered any savings plans yet. Start now!";
+"empty_savingsPlans_desc" = "You haven't registered any savings plans yet.";
 
 "empty_subscriptions_create" = "Create a subscription";
 
-"empty_subscriptions_desc" = "You haven't registered any subscriptions yet. Start now!";
+"empty_subscriptions_desc" = "You haven't registered any subscriptions yet.";
 
 "empty_transactions_create" = "Create a transaction";
 
-"empty_transactions_desc" = "You haven't registered any transactions yet. Start now!";
+"empty_transactions_desc" = "You haven't registered any transactions yet.";
 
 "error_message_no_data_day" = "No data for this day.";
 

@@ -10,8 +10,8 @@ import NetworkKit
 
 enum SubscriptionAPIRequester: APIRequestBuilder {
     case fetch(accountID: Int)
-    case create(accountID: Int, body: SubscriptionModel)
-    case update(subscriptionID: Int, body: SubscriptionModel)
+    case create(accountID: Int, body: SubscriptionDTO)
+    case update(subscriptionID: Int, body: SubscriptionDTO)
     case delete(subscriptionID: Int)
 }
 

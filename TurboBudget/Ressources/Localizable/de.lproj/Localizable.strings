@@ -119,9 +119,10 @@
 "alert_transaction_income_message" = "Sie sind dabei, eine Ihrer Transaktionen zu löschen. Der Betrag dieser Transaktion wird von Ihrem Konto abgebucht.";
 
 /*  */
-"alert_transfer_delete_title" = "Eine Übertragung löschen";
-
 "alert_transfer_delete_message" = "Sie sind dabei, eine Ihrer Überweisungen zu löschen. Der Betrag der Überweisung wird dem Senderkonto erstattet und vom Empfängerkonto gelöscht.";
+
+/*  */
+"alert_transfer_delete_title" = "Eine Übertragung löschen";
 
 /*  */
 "alert_user_account_delete_message" = "Durch die Löschung Ihres Kontos werden alle damit verbundenen Daten dauerhaft gelöscht. Diese Aktion ist irreversibel. Bist du sicher?";
@@ -471,23 +472,23 @@
 
 "empty_accounts_desc" = "Erstellen Sie Ihr erstes Konto, um CashFlow zu nutzen!";
 
-"empty_contributions_desc" = "Sie haben noch keine Beiträge registriert. Starten Sie jetzt!";
+"empty_contributions_desc" = "Sie haben noch keine Beiträge registriert.";
 
 "empty_savingsAccounts_create" = "Erstellen Sie ein Sparkonto";
 
-"empty_savingsAccounts_desc" = "Sie haben noch kein Sparkonto hinzugefügt. Legen Sie jetzt los!";
+"empty_savingsAccounts_desc" = "Sie haben noch kein Sparkonto hinzugefügt.";
 
 "empty_savingsPlans_create" = "Erstellen Sie einen Sparplan";
 
-"empty_savingsPlans_desc" = "Sie haben noch keinen Sparplan registriert. Legen Sie jetzt los!";
+"empty_savingsPlans_desc" = "Sie haben noch keinen Sparplan registriert.";
 
 "empty_subscriptions_create" = "Erstellen Sie ein Abonnement";
 
-"empty_subscriptions_desc" = "Sie haben noch kein Abonnement registriert. Legen Sie jetzt los!";
+"empty_subscriptions_desc" = "Sie haben noch kein Abonnement registriert.";
 
 "empty_transactions_create" = "Erstellen Sie eine Transaktion";
 
-"empty_transactions_desc" = "Sie haben noch keine Transaktionen erfasst. Legen Sie jetzt los!";
+"empty_transactions_desc" = "Sie haben noch keine Transaktionen erfasst.";
 
 "error_message_no_data_day" = "Keine Daten für diesen Tag.";
 

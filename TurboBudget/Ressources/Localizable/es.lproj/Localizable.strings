@@ -119,9 +119,10 @@
 "alert_transaction_income_message" = "Está a punto de eliminar una de sus transacciones, el monto de esta transacción se retirará de su cuenta.";
 
 /*  */
-"alert_transfer_delete_title" = "Suprimir una transferencia";
-
 "alert_transfer_delete_message" = "Va a eliminar una de sus transferencias, el importe de la transferencia se reembolsará a la cuenta remitente y se eliminará de la cuenta receptora.";
+
+/*  */
+"alert_transfer_delete_title" = "Suprimir una transferencia";
 
 /*  */
 "alert_user_account_delete_message" = "Al eliminar su cuenta, todos los datos asociados se borrarán permanentemente. Esta acción es irreversible. ¿Está seguro?";
@@ -471,23 +472,23 @@
 
 "empty_accounts_desc" = "¡Crea tu primera cuenta para comenzar a usar CashFlow!";
 
-"empty_contributions_desc" = "Aún no has registrado ninguna contribución. ¡Empiece ahora!";
+"empty_contributions_desc" = "Aún no has registrado ninguna contribución.";
 
 "empty_savingsAccounts_create" = "Crear una cuenta de ahorros";
 
-"empty_savingsAccounts_desc" = "Aún no has agregado una cuenta de ahorros. ¡Empiece ahora!";
+"empty_savingsAccounts_desc" = "Aún no has agregado una cuenta de ahorros.";
 
 "empty_savingsPlans_create" = "Crea un plan de ahorro";
 
-"empty_savingsPlans_desc" = "Aún no has registrado ningún plan de ahorro. ¡Empiece ahora!";
+"empty_savingsPlans_desc" = "Aún no has registrado ningún plan de ahorro.";
 
 "empty_subscriptions_create" = "Crear una suscripción";
 
-"empty_subscriptions_desc" = "Aún no has registrado ninguna suscripción. ¡Empiece ahora!";
+"empty_subscriptions_desc" = "Aún no has registrado ninguna suscripción.";
 
 "empty_transactions_create" = "Crear una transacción";
 
-"empty_transactions_desc" = "Aún no has registrado ninguna transacción. ¡Empiece ahora!";
+"empty_transactions_desc" = "Aún no has registrado ninguna transacción.";
 
 "error_message_no_data_day" = "No hay datos para este día.";
 

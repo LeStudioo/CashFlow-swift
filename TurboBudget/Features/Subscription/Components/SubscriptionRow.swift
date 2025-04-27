@@ -38,7 +38,7 @@ struct SubscriptionRow: View {
                             .foregroundStyle(Color.customGray)
                             .font(.Text.medium)
                         
-                        Text(subscription.name ?? "")
+                        Text(subscription.name)
                             .font(.semiBoldText18())
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
@@ -47,12 +47,12 @@ struct SubscriptionRow: View {
                     Spacer()
                     
                     VStack(alignment: .trailing, spacing: 5) {
-                        Text("\(subscription.symbol) \(subscription.amount?.toCurrency() ?? "")")
+                        Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
                             .font(.semiBoldText16())
                             .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
                             .lineLimit(1)
                         
-                        Text(subscription.date.withTemporality)
+                        Text(subscription.frequencyDate.withTemporality)
                             .font(.Text.medium)
                             .foregroundStyle(Color.customGray)
                             .lineLimit(1)

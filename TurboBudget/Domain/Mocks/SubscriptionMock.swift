@@ -13,8 +13,9 @@ extension SubscriptionModel {
         id: 1,
         name: "Mock Subscription Expense",
         amount: 45,
-        typeNum: TransactionType.expense.rawValue,
-        frequencyNum: SubscriptionFrequency.monthly.rawValue,
+        type: TransactionType.expense,
+        frequency: SubscriptionFrequency.monthly,
+        frequencyDate: Date(),
         categoryID: 2,
         subcategoryID: 1
     )
