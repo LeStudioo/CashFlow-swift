@@ -141,7 +141,7 @@ extension SubscriptionDetailView {
             ))
         ) {
             if viewModel.selectedCategory != nil {
-                viewModel.updateCategory(subscriptionID:  currentSubscription.id)
+                viewModel.updateCategory(subscriptionID: currentSubscription.id)
             }
         }
     }

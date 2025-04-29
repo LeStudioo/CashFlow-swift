@@ -18,6 +18,11 @@ extension String {
         return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
+    func toInt() -> Int {
+        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
+        return Int(stringFormated) ?? 0
+    }
+    
     func toDouble() -> Double {
         let stringFormated = self.replacingOccurrences(of: ",", with: ".")
         return Double(stringFormated) ?? 0

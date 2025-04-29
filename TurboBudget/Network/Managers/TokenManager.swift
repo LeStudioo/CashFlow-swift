@@ -40,6 +40,7 @@ extension TokenManager {
                 if let refreshToken = user.refreshToken, let token = user.token {
                     self.token = token
                     KeychainManager.shared.setItemToKeychain(id: KeychainService.refreshToken.rawValue, data: refreshToken)
+                    KeychainManager.shared.setItemToKeychain(id: KeychainService.token.rawValue, data: token)
                     
                     UserStore.shared.currentUser = user
                 } else {

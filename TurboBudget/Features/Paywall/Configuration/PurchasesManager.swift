@@ -63,7 +63,7 @@ extension PurchasesManager {
                 // Successful purhcase
                 await transaction.finish()
                 await self.updatePurchasedProducts()
-                // TODO: - Update user premium status
+                await UserStore.shared.update(body: .init(isPremium: true))
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone

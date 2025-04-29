@@ -13,6 +13,7 @@ final class AccountStore: ObservableObject {
     
     @Published var accounts: [AccountModel] = []
     @Published var savingsAccounts: [AccountModel] = []
+    @Published var classicAccounts: [AccountModel] = []
     
     @Published private(set) var selectedAccount: AccountModel?
     
@@ -32,9 +33,15 @@ extension AccountStore {
             let accounts = try await AccountService.fetchAll()
             
             self.accounts = accounts.filter { $0.type == .classic }
+            self.classicAccounts = accounts.filter { $0.type == .classic }
             self.savingsAccounts = accounts.filter { $0.type == .savings }
 
-            self.selectedAccount = self.accounts.sorted { $0.createdAt ?? .now < $1.createdAt ?? .now }.first
+            if PreferencesAccount.shared.mainAccountId == 0 {
+                self.selectedAccount = self.accounts.sorted { $0.createdAt ?? .now < $1.createdAt ?? .now }.first
+                PreferencesAccount.shared.mainAccountId = self.selectedAccount?._id ?? 0
+            } else {
+                self.selectedAccount = findByID(PreferencesAccount.shared.mainAccountId)
+            }
         } catch { NetworkService.handleError(error: error) }
     }
     

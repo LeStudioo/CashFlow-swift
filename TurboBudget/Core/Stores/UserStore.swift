@@ -58,6 +58,14 @@ extension UserStore {
     }
     
     @MainActor
+    func update(body: UserModel) async {
+        do {
+            let updatedUser = try await UserService.update(body: body)
+            self.currentUser = updatedUser
+        } catch { NetworkService.handleError(error: error) }
+    }
+    
+    @MainActor
     func deleteAccount() async {
         do {
             try await NetworkService.sendRequest(

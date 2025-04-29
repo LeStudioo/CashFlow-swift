@@ -14,8 +14,18 @@ extension APIRequestBuilder {
         var header = [(String, String)]()
         header.append(("Content-Type", "application/json"))
         header.append(("Language", Locale.current.identifier))
+        #if DEBUG
+        header.append(("Environment", "debug"))
+        #else
+        header.append(("Environment", "prod"))
+        #endif
         if isTokenNeeded {
-            header.append(("Authorization", "Bearer \(TokenManager.shared.token)"))
+            if TokenManager.shared.token.isEmpty {
+                let token = KeychainManager.shared.retrieveItemFromKeychain(id: KeychainService.token.rawValue, type: String.self) ?? ""
+                header.append(("Authorization", "Bearer \(token)"))
+            } else {
+                header.append(("Authorization", "Bearer \(TokenManager.shared.token)"))
+            }
         }
         return header
     }

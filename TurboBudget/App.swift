@@ -115,12 +115,12 @@ struct TurboBudgetApp: App {
                 }
                 
                 await purchasesManager.loadProducts()
-                if let user = userStore.currentUser, user.isPremium == false, purchasesManager.isCashFlowPro {
-                    // TODO: - Update user premium status
-                }
                 
                 do {
                     try await userStore.loginWithToken()
+                    if let user = userStore.currentUser, user.isPremium == false, purchasesManager.isCashFlowPro {
+                        await UserStore.shared.update(body: .init(isPremium: true))
+                    }
                     appManager.appState = .success
                 } catch {
                     appManager.appState = .needLogin

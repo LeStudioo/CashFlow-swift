@@ -16,7 +16,6 @@ extension SubscriptionDetailViewModel {
     
     @MainActor
     func updateCategory(subscriptionID: Int) {
-        let accountStore: AccountStore = .shared
         let subscriptionStore: SubscriptionStore = .shared
         
         var body: SubscriptionDTO = .init()

@@ -10,6 +10,7 @@ import Security
 
 enum KeychainService: String {
     case refreshToken
+    case token
 }
 
 final class KeychainManager {

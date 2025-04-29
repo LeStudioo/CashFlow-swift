@@ -15,6 +15,7 @@ enum SettingsDestination: AppDestinationProtocol {
     case security
     case appearance
     case display
+    case account
     case subscription
     case credits
     case applePay
@@ -35,6 +36,8 @@ enum SettingsDestination: AppDestinationProtocol {
             SettingsAppearenceView()
         case .display:
             SettingsDisplayView()
+        case .account:
+            SettingsAccountView()
         case .subscription:
             SettingsSubscriptionView()
         case .credits:

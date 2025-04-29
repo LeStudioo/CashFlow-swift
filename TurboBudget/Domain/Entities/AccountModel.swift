@@ -19,6 +19,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
     var typeNum: Int?
     var maxAmount: Double?
     var createdAtRaw: String?
+    var isMain: Bool?
     
     var id: String {
         return String(_id ?? 0)
@@ -30,13 +31,15 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         name: String? = nil,
         balance: Double? = nil,
         typeNum: Int? = nil,
-        createdAtRaw: String? = nil
+        createdAtRaw: String? = nil,
+        isMain: Bool? = nil
     ) {
         self._id = id
         self._name = name
         self._balance = balance
         self.typeNum = typeNum
         self.createdAtRaw = createdAtRaw
+        self.isMain = isMain
     }
     
     /// Savings Account Initialiseur
@@ -46,7 +49,8 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         balance: Double? = nil,
         typeNum: Int? = nil,
         maxAmount: Double? = nil,
-        createdAtRaw: String? = nil
+        createdAtRaw: String? = nil,
+        isMain: Bool? = nil
     ) {
         self._id = id
         self._name = name
@@ -54,6 +58,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         self.typeNum = typeNum
         self.maxAmount = maxAmount
         self.createdAtRaw = createdAtRaw
+        self.isMain = isMain
     }
     
     /// Classic Account Body
@@ -88,6 +93,7 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
         case _balance = "balance"
         case typeNum = "type"
         case createdAtRaw = "createdAt"
+        case isMain
     }
 }
 

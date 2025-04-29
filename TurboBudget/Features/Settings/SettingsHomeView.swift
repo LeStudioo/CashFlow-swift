@@ -113,6 +113,18 @@ struct SettingsHomeView: View {
             Section {
                 NavigationButton(
                     route: .push,
+                    destination: AppDestination.settings(.account)
+                ) {
+                    SettingRow(
+                        icon: "person.fill",
+                        backgroundColor: Color.primary500,
+                        text: "word_account".localized,
+                        isButton: false
+                    )
+                }
+                
+                NavigationButton(
+                    route: .push,
                     destination: AppDestination.settings(.subscription)
                 ) {
                     SettingRow(

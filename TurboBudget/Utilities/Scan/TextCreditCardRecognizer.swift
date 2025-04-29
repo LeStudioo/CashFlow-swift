@@ -105,7 +105,7 @@ final class TextCreditCardRecognizer {
             let textString = ($0 as? VNRecognizedTextObservation)?.topCandidates(1).first?.string
             // Valider si la chaîne ressemble à un numéro de carte de crédit via une expression régulière
             let cardRegex = #"^\d{4} \d{4} \d{4} \d{4}$"#
-            if let _ = textString?.range(of: cardRegex, options: .regularExpression) {
+            if textString?.range(of: cardRegex, options: .regularExpression) != nil {
                 return textString
             }
             return nil
