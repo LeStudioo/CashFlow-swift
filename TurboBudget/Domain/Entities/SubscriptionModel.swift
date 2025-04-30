@@ -8,20 +8,6 @@
 import Foundation
 import SwiftUICore
 
-enum SubscriptionFrequency: Int, Codable, CaseIterable {
-    case monthly = 0
-    case yearly = 1
-    case weekly = 2
-    
-    var name: String {
-        switch self {
-        case .monthly: return Word.Frequency.monthly
-        case .yearly: return Word.Frequency.yearly
-        case .weekly: return Word.Frequency.weekly
-        }
-    }
-}
-
 struct SubscriptionModel: Identifiable, Equatable, Hashable {
     var id: Int
     var name: String
@@ -32,6 +18,7 @@ struct SubscriptionModel: Identifiable, Equatable, Hashable {
     var categoryID: Int
     var subcategoryID: Int?
     var firstSubscriptionDate: Date?
+    var transactions: [TransactionModel]?
 
     // Initialiseur
     init(
@@ -43,7 +30,8 @@ struct SubscriptionModel: Identifiable, Equatable, Hashable {
         frequencyDate: Date,
         categoryID: Int,
         subcategoryID: Int? = nil,
-        firstSubscriptionDate: Date? = nil
+        firstSubscriptionDate: Date? = nil,
+        transactions: [TransactionModel]? = nil
     ) {
         self.id = id
         self.name = name
@@ -54,6 +42,7 @@ struct SubscriptionModel: Identifiable, Equatable, Hashable {
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
         self.firstSubscriptionDate = firstSubscriptionDate
+        self.transactions = transactions
     }
     
 }

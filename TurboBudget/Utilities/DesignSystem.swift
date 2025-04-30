@@ -50,6 +50,8 @@ extension DesignSystem {
 // MARK: - Padding
 extension DesignSystem {
     struct Padding {
+        /// `Value = 4`
+        static let extraSmall: CGFloat = 8
         /// `Value = 8`
         static let small: CGFloat = 8
         /// `Value = 12`

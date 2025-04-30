@@ -125,7 +125,7 @@ struct PieChart: View {
                                     .font(.semiBoldCustom(size: 20))
                                 
                                 if activeSlice != nil {
-                                    Text(percentage.formatWith(2) + "%")
+                                    Text(percentage.toString() + "%")
                                         .foregroundStyle(Color.text)
                                         .font(Font.mediumText16())
                                 }

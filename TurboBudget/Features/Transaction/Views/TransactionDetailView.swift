@@ -36,11 +36,11 @@ struct TransactionDetailView: View {
             VStack(spacing: DesignSystem.Spacing.extraLarge) {
                 VStack(spacing: DesignSystem.Spacing.small) {
                     VStack(spacing: DesignSystem.Spacing.extraSmall) {
-                        Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
+                        Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
                             .font(.system(size: 48, weight: .heavy))
                             .foregroundColor(currentTransaction.color)
                         
-                        Text(currentTransaction.name)
+                        Text(currentTransaction.nameDisplayed)
                             .font(DesignSystem.FontDS.Title.semibold)
                             .multilineTextAlignment(.center)
                             .lineLimit(2)
@@ -59,9 +59,7 @@ struct TransactionDetailView: View {
                         action: {
                             viewModel.selectedCategory = categoryFound
                             if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                            if let transactionID = currentTransaction.id {
-                                viewModel.updateCategory(transactionID: transactionID)
-                            }
+                            viewModel.updateCategory(transactionID: currentTransaction.id)
                         }
                     )
                 }
@@ -94,6 +92,22 @@ struct TransactionDetailView: View {
                         }
                     }
                     
+                    if let senderAccount = currentTransaction.senderAccount {
+                        DetailRow(
+                            icon: "antenna.radiowaves.left.and.right",
+                            text: Word.Classic.senderAccount,
+                            value: senderAccount.name
+                        )
+                    }
+                    
+                    if let receiverAccount = currentTransaction.receiverAccount {
+                        DetailRow(
+                            icon: "tray.fill",
+                            text:  Word.Classic.receiverAccount,
+                            value: receiverAccount.name
+                        )
+                    }
+                    
                     TransactionDetailNoteRow(note: $viewModel.note)
                     
                     if currentTransaction.lat != nil && currentTransaction.long != nil {
@@ -113,10 +127,10 @@ struct TransactionDetailView: View {
             viewModel.note = currentTransaction.note ?? ""
         }
         .task {
-            if store.isCashFlowPro && currentTransaction.categoryID == 0 {
-                guard !currentTransaction.name.isBlank else { return }
-                guard let transactionID = currentTransaction.id else { return }
-                if let response = await transactionStore.fetchCategory(name: currentTransaction.name, transactionID: transactionID) {
+            if store.isCashFlowPro && currentTransaction.category?.id == 0 {
+                guard !currentTransaction.nameDisplayed.isBlank else { return }
+                let transactionID = currentTransaction.id
+                if let response = await transactionStore.fetchCategory(name: currentTransaction.nameDisplayed, transactionID: transactionID) {
                     if let cat = response.cat {
                         viewModel.bestCategory = CategoryStore.shared.findCategoryById(cat)
                     }
@@ -176,8 +190,8 @@ extension TransactionDetailView {
             )
             )
         ) {
-            if let transactionID = currentTransaction.id, viewModel.selectedCategory != nil {
-                viewModel.updateCategory(transactionID: transactionID)
+            if viewModel.selectedCategory != nil {
+                viewModel.updateCategory(transactionID: currentTransaction.id)
             }
         }
     }

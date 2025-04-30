@@ -22,9 +22,7 @@ struct ValidateButton: View {
                 Capsule()
                     .foregroundStyle(themeManager.theme.color)
                     .frame(height: UIDevice.isLittleIphone ? 50 : 60)
-                    .if(validate, transform: { view in
-                        view.shadow(color: themeManager.theme.color, radius: 8)
-                    })
+                    .shadow(color: validate ? themeManager.theme.color : Color.clear, radius: validate ? 8 : 0)
                 HStack {
                     Spacer()
                     Text("word_validate".localized)

@@ -71,11 +71,11 @@ extension TransactionStore {
     /// Create transaction, add it to repository and optionally return it
     @discardableResult
     @MainActor
-    func createTransaction(accountID: Int, body: TransactionModel, shouldReturn: Bool = false, addInRepo: Bool = true) async -> TransactionModel? {
+    func createTransaction(accountID: Int, body: TransactionDTO, shouldReturn: Bool = false, addInRepo: Bool = true) async -> TransactionModel? {
         do {
             let response = try await TransactionService.create(accountID: accountID, body: body)
             
-            if let transaction = response.transaction, let newBalance = response.newBalance {
+            if let transaction = try response.transaction?.toModel(), let newBalance = response.newBalance {
                 if addInRepo {
                     self.transactions.append(transaction)
                     sortTransactionsByDate()
@@ -93,11 +93,11 @@ extension TransactionStore {
     /// Create transaction and optionally return it
     @discardableResult
     @MainActor
-    func updateTransaction(accountID: Int, transactionID: Int, body: TransactionModel, shouldReturn: Bool = false) async -> TransactionModel? {
+    func updateTransaction(accountID: Int, transactionID: Int, body: TransactionDTO, shouldReturn: Bool = false) async -> TransactionModel? {
         do {
             let response = try await TransactionService.update(transactionID: transactionID, body: body)
             
-            if let transaction = response.transaction, let newBalance = response.newBalance {
+            if let transaction = try response.transaction?.toModel(), let newBalance = response.newBalance {
                 if let index = self.transactions.map(\.id).firstIndex(of: transaction.id) {
                     self.transactions[index] = transaction
                     sortTransactionsByDate()

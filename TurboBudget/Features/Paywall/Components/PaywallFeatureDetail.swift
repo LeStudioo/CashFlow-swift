@@ -50,10 +50,7 @@ struct PaywallFeatureDetail: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(.bottom)
-                            .if(imageWithout.isEmpty) { view in
-                                view
-                                    .padding(.horizontal, UIDevice.isIpad ? 64 : 48)
-                            }
+                            .padding(.horizontal, imageWithout.isEmpty ? (UIDevice.isIpad ? 64 : 48) : 0)
                     }
                 }
             }

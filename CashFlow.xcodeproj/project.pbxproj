@@ -16,6 +16,7 @@
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
 		D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F64B92DB156ED0060B741 /* NavigationKit */; };
+		D980E52C2DC1E928005025E1 /* TheoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D980E52B2DC1E928005025E1 /* TheoKit */; };
 		D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9887FE12AA457A400AFC915 /* StoreKit.framework */; };
 		D9F5C2222DB39458008267F5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D9F5C2212DB39458008267F5 /* README.md */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
 				D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */,
+				D980E52C2DC1E928005025E1 /* TheoKit in Frameworks */,
 				D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */,
 				D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */,
 				D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */,
@@ -117,6 +119,7 @@
 				D94594F62D16A03A00A989F0 /* NotificationKit */,
 				D97F63EE2DAFA3240060B741 /* NetworkKit */,
 				D97F64B92DB156ED0060B741 /* NavigationKit */,
+				D980E52B2DC1E928005025E1 /* TheoKit */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -175,6 +178,7 @@
 				D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */,
 				D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */,
 				D97F64B82DB156ED0060B741 /* XCRemoteSwiftPackageReference "NavigationKit" */,
+				D980E52A2DC1E928005025E1 /* XCRemoteSwiftPackageReference "TheoKit" */,
 			);
 			productRefGroup = 81A707842A3B6B4C00BEB0BF /* Products */;
 			projectDirPath = "";
@@ -360,7 +364,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250416;
+				CURRENT_PROJECT_VERSION = 20250430;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -412,7 +416,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250416;
+				CURRENT_PROJECT_VERSION = 20250430;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -543,6 +547,14 @@
 				minimumVersion = 1.0.6;
 			};
 		};
+		D980E52A2DC1E928005025E1 /* XCRemoteSwiftPackageReference "TheoKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/theosementa/TheoKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -590,6 +602,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D97F64B82DB156ED0060B741 /* XCRemoteSwiftPackageReference "NavigationKit" */;
 			productName = NavigationKit;
+		};
+		D980E52B2DC1E928005025E1 /* TheoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D980E52A2DC1E928005025E1 /* XCRemoteSwiftPackageReference "TheoKit" */;
+			productName = TheoKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -30,13 +30,13 @@ struct TransactionMapRow: View {
             Group {
                 if UIImage(systemName: systemImage) != nil {
                     Marker(
-                        transaction.name,
+                        transaction.nameDisplayed,
                         systemImage: systemImage,
                         coordinate: transaction.coordinates
                     )
                 } else {
                     Marker(
-                        transaction.name,
+                        transaction.nameDisplayed,
                         image: systemImage,
                         coordinate: transaction.coordinates
                     )

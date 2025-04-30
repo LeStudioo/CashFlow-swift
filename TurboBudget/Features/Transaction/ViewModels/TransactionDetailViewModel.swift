@@ -48,7 +48,7 @@ extension TransactionDetailViewModel {
         let transactionStore: TransactionStore = .shared
         guard let account = accountStore.selectedAccount, let accountID = account._id else { return }
         
-        var body: TransactionModel = .init()
+        var body: TransactionDTO = .init()
         
         if let selectedCategory, let newCategory = CategoryStore.shared.findCategoryById(selectedCategory.id) {
             body.categoryID = newCategory.id

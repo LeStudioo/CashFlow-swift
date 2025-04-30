@@ -12,7 +12,7 @@ import NavigationKit
 struct SubscriptionDetailView: View {
     
     // Builder
-    var subscription: SubscriptionModel
+    var subscriptionId: Int
     
     // Custom type
     @EnvironmentObject private var router: Router<AppDestination>
@@ -22,109 +22,115 @@ struct SubscriptionDetailView: View {
     // Environement
     @Environment(\.dismiss) private var dismiss
     
-    var currentSubscription: SubscriptionModel {
-        return subscriptionStore.subscriptions.first { $0.id == subscription.id } ?? subscription
+    var subscription: SubscriptionModel? {
+        return subscriptionStore.subscriptions.first { $0.id == subscriptionId }
     }
     
     // MARK: -
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(spacing: 32) {
-                VStack(spacing: 4) {
-                    Text("\(currentSubscription.symbol) \(currentSubscription.amount.toCurrency())")
-                        .font(.system(size: 48, weight: .heavy))
-                        .foregroundColor(currentSubscription.color)
-                    
-                    Text(currentSubscription.name)
-                        .font(DesignSystem.FontDS.Title.semibold)
-                        .multilineTextAlignment(.center)
-                        .lineLimit(2)
-                }
-                
-                VStack(spacing: 40) {
-                    VStack(spacing: 12) {
-                        DetailRow(
-                            icon: "clock.arrow.circlepath",
-                            text: Word.Classic.frequency,
-                            value: currentSubscription.frequency.name
-                        )
+        if let subscription {
+            ScrollView(.vertical) {
+                VStack(spacing: 32) {
+                    VStack(spacing: 4) {
+                        Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
+                            .font(.system(size: 48, weight: .heavy))
+                            .foregroundColor(subscription.color)
                         
-                        DetailRow(
-                            icon: "calendar",
-                            text: "subscription_next_transaction".localized,
-                            value: currentSubscription.frequencyDate.formatted(date: .complete, time: .omitted).capitalized
-                        )
+                        Text(subscription.name)
+                            .font(DesignSystem.FontDS.Title.semibold)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
                     }
                     
-                    VStack(spacing: 12) {
-                        if let category = currentSubscription.category {
+                    VStack(spacing: 40) {
+                        VStack(spacing: 12) {
                             DetailRow(
-                                icon: category.icon,
-                                value: category.name,
-                                iconBackgroundColor: category.color) {
-                                    presentChangeCategory()
-                                }
+                                icon: "clock.arrow.circlepath",
+                                text: Word.Classic.frequency,
+                                value: subscription.frequency.name
+                            )
                             
-                            if let subcategory = currentSubscription.subcategory {
+                            DetailRow(
+                                icon: "calendar",
+                                text: "subscription_next_transaction".localized,
+                                value: subscription.frequencyDate.formatted(date: .complete, time: .omitted).capitalized
+                            )
+                        }
+                        
+                        VStack(spacing: 12) {
+                            if let category = subscription.category {
                                 DetailRow(
-                                    icon: subcategory.icon,
-                                    value: subcategory.name,
-                                    iconBackgroundColor: subcategory.color) {
+                                    icon: category.icon,
+                                    value: category.name,
+                                    iconBackgroundColor: category.color) {
                                         presentChangeCategory()
                                     }
+                                
+                                if let subcategory = subscription.subcategory {
+                                    DetailRow(
+                                        icon: subcategory.icon,
+                                        value: subcategory.name,
+                                        iconBackgroundColor: subcategory.color) {
+                                            presentChangeCategory()
+                                        }
+                                }
+                            }
+                        }
+                        
+                        //                    if let transactions = subscription.transactions {
+                        //                        Text(transactions.count.formatted())
+                        //                    }
+                        
+                        if let firstSubscriptionDate = subscription.firstSubscriptionDate {
+                            VStack(spacing: 12) {
+                                DetailRow(
+                                    icon: "calendar",
+                                    text: "subscription_first_subscription_date".localized,
+                                    value: firstSubscriptionDate.formatted(date: .complete, time: .omitted).capitalized
+                                )
+                                
+                                DetailRow(
+                                    icon: "dollarsign",
+                                    text: "subscription_number_of_transactions".localized,
+                                    value: firstSubscriptionDate.monthsBetween(.now).formatted()
+                                )
                             }
                         }
                     }
-                    
-                    if let firstSubscriptionDate = currentSubscription.firstSubscriptionDate {
-                        VStack(spacing: 12) {
-                            DetailRow(
-                                icon: "calendar",
-                                text: "subscription_first_subscription_date".localized,
-                                value: firstSubscriptionDate.formatted(date: .complete, time: .omitted).capitalized
-                            )
-                            
-                            DetailRow(
-                                icon: "calendar",
-                                text: "Number of payement".localized, // TODO: TBL
-                                value: firstSubscriptionDate.monthsBetween(to: .now).formatted()
-                            )
+                }
+                .padding(.horizontal)
+                .padding(.top, 32)
+            } // ScrollView
+            .scrollIndicators(.hidden)
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarDismissPushButton()
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Menu {
+                        NavigationButton(
+                            route: .sheet,
+                            destination: AppDestination.subscription(.update(subscription: subscription))
+                        ) {
+                            Label(Word.Classic.edit, systemImage: "pencil")
                         }
+                        Button(
+                            role: .destructive,
+                            action: { AlertManager.shared.deleteSubscription(subscription: subscription, dismissAction: dismiss) },
+                            label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                        )
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.text)
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
                     }
                 }
+                
+                ToolbarDismissKeyboardButtonView()
             }
-            .padding(.horizontal)
-            .padding(.top, 32)
-        } // ScrollView
-        .scrollIndicators(.hidden)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarDismissPushButton()
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    NavigationButton(
-                        route: .sheet,
-                        destination: AppDestination.subscription(.update(subscription: currentSubscription))
-                    ) {
-                        Label(Word.Classic.edit, systemImage: "pencil")
-                    }
-                    Button(
-                        role: .destructive,
-                        action: { AlertManager.shared.deleteSubscription(subscription: currentSubscription, dismissAction: dismiss) },
-                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
-                    )
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
-
-            ToolbarDismissKeyboardButtonView()
+            .background(Color.background.edgesIgnoringSafeArea(.all))
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
     } // body
 } // struct
 
@@ -141,7 +147,7 @@ extension SubscriptionDetailView {
             ))
         ) {
             if viewModel.selectedCategory != nil {
-                viewModel.updateCategory(subscriptionID: currentSubscription.id)
+                viewModel.updateCategory(subscriptionID: subscriptionId)
             }
         }
     }
@@ -150,5 +156,5 @@ extension SubscriptionDetailView {
 
 // MARK: - Preview
 #Preview {
-    SubscriptionDetailView(subscription: .mockClassicSubscriptionExpense)
+    SubscriptionDetailView(subscriptionId: 0)
 }

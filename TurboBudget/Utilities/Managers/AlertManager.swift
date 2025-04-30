@@ -90,10 +90,8 @@ extension AlertManager {
             buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
-                if let transactionID = transaction.id {
-                    await TransactionStore.shared.deleteTransaction(transactionID: transactionID)
-                    if let dismissAction { dismissAction() }
-                }
+                await TransactionStore.shared.deleteTransaction(transactionID: transaction.id)
+                if let dismissAction { dismissAction() }
             }
         )
     }
@@ -105,10 +103,8 @@ extension AlertManager {
             buttonTitle: "word_delete".localized,
             isDestructive: true,
             action: {
-                if let transactionID = transfer.id {
-                    await TransferStore.shared.deleteTransfer(transferID: transactionID)
-                    if let dismissAction { dismissAction() }
-                }
+                await TransferStore.shared.deleteTransfer(transferID: transfer.id)
+                if let dismissAction { dismissAction() }
             }
         )
     }

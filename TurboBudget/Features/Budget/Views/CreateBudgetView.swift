@@ -13,59 +13,54 @@ struct CreateBudgetView: View {
     
     // Custom
     @StateObject private var viewModel: CreateBudgetViewModel = .init()
-    @StateObject private var router: Router<AppDestination> = .init()
     
     // Environment
     @Environment(\.dismiss) private var dismiss
     
     // MARK: - body
     var body: some View {
-        RoutedNavigationStack(router: router) {
-            ScrollView {
-                VStack(spacing: 24) {
-                    SelectCategoryButton(
-                        selectedCategory: $viewModel.selectedCategory,
-                        selectedSubcategory: $viewModel.selectedSubcategory
+        ScrollView {
+            VStack(spacing: 24) {
+                SelectCategoryButton(
+                    selectedCategory: $viewModel.selectedCategory,
+                    selectedSubcategory: $viewModel.selectedSubcategory
+                )
+                
+                CustomTextField(
+                    text: $viewModel.amountBudget,
+                    config: .init(
+                        title: Word.Classic.maxAmount,
+                        placeholder: "300",
+                        style: .amount
                     )
-                    .environmentObject(router)
-                    
-                    CustomTextField(
-                        text: $viewModel.amountBudget,
-                        config: .init(
-                            title: Word.Classic.maxAmount,
-                            placeholder: "300",
-                            style: .amount
-                        )
-                    )
-                }
-                .padding(.horizontal, 24)
-                .padding(.top)
-            } // End ScrollView
-            .scrollIndicators(.hidden)
-            .scrollDismissesKeyboard(.immediately)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarDismissButtonView {
-                    if viewModel.isBudgetInCreation() {
-                        viewModel.presentingConfirmationDialog.toggle()
-                    } else {
-                        dismiss()
-                    }
-                }
-                
-                ToolbarItem(placement: .principal) {
-                    Text(Word.Title.Budget.new)
-                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-                }
-                
-                ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {
-                    VibrationManager.vibration()
-                    await viewModel.createBudget(dismiss: dismiss)
-                }
-                
-                ToolbarDismissKeyboardButtonView()
+                )
             }
-        } // End NavStack
+            .padding(.horizontal, 24)
+            .padding(.top)
+        } // End ScrollView
+        .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.interactively)
+        .toolbar {
+            ToolbarDismissButtonView {
+                if viewModel.isBudgetInCreation() {
+                    viewModel.presentingConfirmationDialog.toggle()
+                } else {
+                    dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(Word.Title.Budget.new)
+                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
+            }
+            
+            ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {
+                VibrationManager.vibration()
+                await viewModel.createBudget(dismiss: dismiss)
+            }
+            
+            ToolbarDismissKeyboardButtonView()
+        }
         .interactiveDismissDisabled(viewModel.isBudgetInCreation()) {
             viewModel.presentingConfirmationDialog.toggle()
         }
@@ -73,6 +68,9 @@ struct CreateBudgetView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: .bottom)
     } // End body
 } // End struct
 

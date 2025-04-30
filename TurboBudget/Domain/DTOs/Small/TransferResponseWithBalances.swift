@@ -10,5 +10,5 @@ import Foundation
 struct TransferResponseWithBalances: Codable {
     var senderNewBalance: Double?
     var receiverNewBalance: Double?
-    var transaction: TransactionModel?
+    var transaction: TransactionDTO?
 }

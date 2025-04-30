@@ -41,7 +41,7 @@ extension CategoriesHomeViewModel {
     
     func calculateAllAmounts(for date: Date) {
         let transactionStore: TransactionStore = .shared
-        let groupedTransactions = Dictionary(grouping: transactionStore.transactions) { $0.categoryID }
+        let groupedTransactions = Dictionary(grouping: transactionStore.transactions) { $0.category?.id }
         
         var newAmounts: [Int?: CategoryAmount] = [:]
         
@@ -53,7 +53,7 @@ extension CategoriesHomeViewModel {
                     return transaction.date >= startOfMonth && transaction.date <= endOfMonth
                 }
                 .reduce(0.0) { sum, transaction in
-                    sum + (transaction.amount ?? 0)
+                    sum + transaction.amount
                 }
             
             newAmounts[categoryId] = CategoryAmount(categoryId: categoryId, amount: totalAmount)

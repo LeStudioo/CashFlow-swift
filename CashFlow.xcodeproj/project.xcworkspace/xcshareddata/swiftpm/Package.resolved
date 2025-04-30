@@ -1,5 +1,5 @@
 {
-  "originHash" : "78e36cebd9867ba3047efaaf735d9caa379d167d8261b498994efcad49bf7ab4",
+  "originHash" : "49de618716dedd74c088c6a37e7ad180c8997455513b7e890cc445c26ffc7c43",
   "pins" : [
     {
       "identity" : "alertkit",
@@ -125,6 +125,15 @@
       "state" : {
         "revision" : "41e6f6dce02d8cfa164f8c5461a41340850ca3ab",
         "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "theokit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/TheoKit",
+      "state" : {
+        "revision" : "478d7c81072da97c001c0786cfbfc41b35c5e621",
+        "version" : "1.0.1"
       }
     }
   ],

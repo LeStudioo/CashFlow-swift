@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SubscriptionDTO: Codable, Identifiable, Equatable, Hashable {
+struct SubscriptionDTO: Codable {
     var id: Int?
     var name: String?
     var amount: Double?
@@ -17,6 +17,7 @@ struct SubscriptionDTO: Codable, Identifiable, Equatable, Hashable {
     var categoryID: Int?
     var subcategoryID: Int?
     var firstSubscriptionDate: String?
+    var transactions: [TransactionDTO]?
 
     // Initialiseur
     init(
@@ -28,7 +29,8 @@ struct SubscriptionDTO: Codable, Identifiable, Equatable, Hashable {
         frequencyDate: String? = nil,
         categoryID: Int? = nil,
         subcategoryID: Int? = nil,
-        firstSubscriptionDate: String? = nil
+        firstSubscriptionDate: String? = nil,
+        transactions: [TransactionDTO]? = nil
     ) {
         self.id = id
         self.name = name
@@ -39,6 +41,7 @@ struct SubscriptionDTO: Codable, Identifiable, Equatable, Hashable {
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
         self.firstSubscriptionDate = firstSubscriptionDate
+        self.transactions = transactions
     }
     
     /// Body
@@ -62,10 +65,10 @@ struct SubscriptionDTO: Codable, Identifiable, Equatable, Hashable {
 
     // Conformance au protocole Codable
     private enum CodingKeys: String, CodingKey {
-        case id, name, amount, frequencyDate, categoryID, subcategoryID
+        case id, name, amount, frequencyDate, categoryID, subcategoryID, transactions
         case typeNum = "type"
         case frequencyNum = "frequency"
-        case firstSubscriptionDate = "creationDate"
+        case firstSubscriptionDate
     }
 }
 
@@ -86,6 +89,8 @@ extension SubscriptionDTO {
             throw NetworkError.unknown
         }
         
+        let transactionModels = try? transactions?.map { try $0.toModel() }
+        
         return SubscriptionModel(
             id: id,
             name: name,
@@ -95,7 +100,8 @@ extension SubscriptionDTO {
             frequencyDate: date,
             categoryID: categoryID,
             subcategoryID: subcategoryID,
-            firstSubscriptionDate: firstSubscriptionDate?.toDate()
+            firstSubscriptionDate: firstSubscriptionDate?.toDate(),
+            transactions: transactionModels
         )
     }
     

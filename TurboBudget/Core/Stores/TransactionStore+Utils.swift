@@ -11,12 +11,12 @@ extension TransactionStore {
     
     func transactionsByCategory(_ categoryID: Int?) -> [TransactionModel] {
         return self.transactions
-            .filter { $0.categoryID == categoryID }
+            .filter { $0.category?.id == categoryID }
     }
     
     func transactionsBySubcategory(_ subcategoryID: Int?) -> [TransactionModel] {
         return self.transactions
-            .filter { $0.subcategoryID == subcategoryID }
+            .filter { $0.subcategory?.id == subcategoryID }
     }
     
     func sortTransactionsByDate() {
@@ -48,7 +48,7 @@ extension TransactionStore {
     }
     
     private func calculateTotal(for transactions: [TransactionModel]) -> Double {
-        return transactions.reduce(0) { $0 + ($1.amount ?? 0) }
+        return transactions.reduce(0) { $0 + ($1.amount) }
     }
 }
 
@@ -66,8 +66,7 @@ extension TransactionStore {
     
     func amountExpensesForSelectedMonth(month: Date) -> Double {
         return expensesForSelectedMonth(selectedDate: month)
-            .map({ $0.amount ?? 0 })
-            .reduce(0, +)
+            .map(\.amount).reduce(0, +)
     }
     
     func incomesForSelectedMonth(selectedDate: Date) -> [TransactionModel] {
@@ -82,8 +81,7 @@ extension TransactionStore {
     
     func amountIncomesForSelectedMonth(month: Date) -> Double {
         return incomesForSelectedMonth(selectedDate: month)
-            .map({ $0.amount ?? 0 })
-            .reduce(0, +)
+            .map(\.amount).reduce(0, +)
     }
 }
 
@@ -109,7 +107,7 @@ extension TransactionStore {
             .filter { $0.type == type }
             .forEach { transaction in
                 let dayStart = Calendar.current.startOfDay(for: transaction.date)
-                amountsByDate[dayStart, default: 0] += transaction.amount ?? 0
+                amountsByDate[dayStart, default: 0] += transaction.amount
             }
         
         let result: [AmountByDay] = dates.map { AmountByDay(day: $0, amount: amountsByDate[$0] ?? 0) }
@@ -129,7 +127,7 @@ extension TransactionStore {
             .filter { $0.type == type }
             .forEach { transaction in
                 if let matchingDate = dates.first(where: { Calendar.current.isDate($0, inSameDayAs: transaction.date) }) {
-                    amountsByDate[matchingDate, default: 0] += transaction.amount ?? 0
+                    amountsByDate[matchingDate, default: 0] += transaction.amount
                 }
             }
         
@@ -157,11 +155,11 @@ extension TransactionStore {
         for transaction in self.transactions {
             if let dateOfMonthSelected {
                 if Calendar.current.isDate(transaction.date, equalTo: dateOfMonthSelected, toGranularity: .month)
-                    && CategoryStore.shared.findCategoryById(transaction.categoryID) != nil {
+                    && CategoryStore.shared.findCategoryById(transaction.category?.id) != nil {
                     if transaction.type == .expense {
-                        amount -= transaction.amount ?? 0
+                        amount -= transaction.amount
                     } else if transaction.type == .income {
-                        amount += transaction.amount ?? 0
+                        amount += transaction.amount
                     }
                 }
             } else { print("⚠️ dateOfMonthSelected is NIL") }

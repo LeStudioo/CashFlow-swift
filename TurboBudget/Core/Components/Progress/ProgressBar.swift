@@ -17,13 +17,14 @@ struct ProgressBar: View {
     @State private var isAnimated: Bool = false
     
     var percentageString: String {
-        return "\(Int(percentage * 100)) %"
+        let percentage = percentage * 100
+        return percentage.toString(maxDigits: 0) + " %"
     }
     
     // MARK: -
     var body: some View {
         GeometryReader { geometry in
-            let widthText = percentageString.widthOfString(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.8
+            let widthText = percentageString.width(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.8
             let widthPercentage = geometry.size.width * min(1, percentage)
             let progressWidth = max(widthText, widthPercentage)
             

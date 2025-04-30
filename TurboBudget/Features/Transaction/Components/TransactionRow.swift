@@ -41,7 +41,7 @@ struct TransactionRow: View {
                             .foregroundStyle(Color.customGray)
                             .font(.Text.medium)
                         
-                        Text(currentTransaction.name)
+                        Text(currentTransaction.nameDisplayed)
                             .font(.semiBoldText18())
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
@@ -50,7 +50,7 @@ struct TransactionRow: View {
                     Spacer()
                     
                     VStack(alignment: .trailing, spacing: 5) {
-                        Text("\(currentTransaction.symbol) \(currentTransaction.amount?.toCurrency() ?? "")")
+                        Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
                             .font(.semiBoldText16())
                             .foregroundStyle(currentTransaction.color)
                             .lineLimit(1)

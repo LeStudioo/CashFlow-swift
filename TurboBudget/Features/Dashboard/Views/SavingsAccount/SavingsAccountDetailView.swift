@@ -39,24 +39,29 @@ struct SavingsAccountDetailView: View {
                 .listRowSeparator(.hidden)
             
             ForEach(transferStore.monthsOfTransfers, id: \.self) { month in
-                Section(content: {
-                    ForEach(transferStore.transfers) { transfer in
-                        if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
-                            Group {
-                                if transfer.type == .transfer {
-                                    TransferRow(transfer: transfer)
-                                        .environmentObject(savingsAccountStore)
-                                } else {
-                                    TransactionRow(transaction: transfer, isEditable: false)
+                Section(
+                    content: {
+                        ForEach(transferStore.transfers) { transfer in
+                            if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
+                                NavigationButton(
+                                    route: .push,
+                                    destination: AppDestination.transaction(.detail(transaction: transfer))
+                                ) {
+                                    if transfer.type == .transfer {
+                                        TransferRow(transfer: transfer)
+                                    } else {
+                                        TransactionRow(transaction: transfer, isEditable: false)
+                                    }
                                 }
+                                .environmentObject(savingsAccountStore)
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
-                    }
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                }, header: {
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
+                        .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                    },
+                    header: {
                     DetailOfTransferByMonth(
                         month: month,
                         amountOfSavings: transferStore.amountOfSavingsByMonth(month: month),

@@ -9,5 +9,5 @@ import Foundation
 
 struct TransactionResponseWithBalance: Codable {
     var newBalance: Double?
-    var transaction: TransactionModel?
+    var transaction: TransactionDTO?
 }

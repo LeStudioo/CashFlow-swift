@@ -25,8 +25,8 @@ final class CreateTransactionViewModel: ObservableObject {
     init(transaction: TransactionModel? = nil) {
         if let transaction {
             self.transaction = transaction
-            self.transactionTitle = transaction.name
-            self.transactionAmount = transaction.amount?.toString() ?? ""
+            self.transactionTitle = transaction.nameDisplayed
+            self.transactionAmount = transaction.amount.toString()
             self.transactionType = transaction.type
             self.transactionDate = transaction.date
             self.selectedCategory = transaction.category
@@ -52,9 +52,9 @@ final class CreateTransactionViewModel: ObservableObject {
         }
     }
     
-    func bodyForCreation() -> TransactionModel {
-        return TransactionModel(
-            _name: transactionTitle.trimmingCharacters(in: .whitespaces),
+    func bodyForCreation() -> TransactionDTO {
+        return TransactionDTO(
+            name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
             typeNum: transactionType.rawValue,
             dateISO: transactionDate.toISO(),

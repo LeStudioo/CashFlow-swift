@@ -14,6 +14,7 @@ struct AccountPicker: View {
     @Binding var selected: AccountModel?
     
     @EnvironmentObject private var accountStore: AccountStore
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -
     var body: some View {
@@ -22,21 +23,20 @@ struct AccountPicker: View {
                 .padding(.leading, 8)
                 .font(.system(size: 12, weight: .regular))
             
-            Menu(content: {
+            Picker(selection: $selected) {
                 ForEach(accountStore.allAccounts) { account in
-                    Button { selected = account } label: {
+                    Button { } label: {
                         Text(account.name)
-                    }
+                        Text(account.balance.toCurrency())
+                    }.tag(account)
                 }
-            }, label: {
+            } label: {
                 Text(selected?.name ?? "")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding()
-            })
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .foregroundStyle(Color.background200)
             }
+            .fullWidth(.trailing)
+            .tint(themeManager.theme.color)
+            .padding(8)
+            .roundedRectangleBorder(Color.background200, radius: 16)
         }
     } // body
 } // struct

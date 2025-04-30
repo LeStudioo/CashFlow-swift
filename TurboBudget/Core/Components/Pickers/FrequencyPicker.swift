@@ -21,32 +21,18 @@ struct FrequencyPicker: View {
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {
-                ForEach(SubscriptionFrequency.allCases, id: \.self) { type in
-                    Button {
-                        withAnimation { selected = type }
-                    } label: {
-                        Text(type.name)
-                            .lineLimit(1)
-                            .foregroundStyle(Color.text)
+                Spacer()
+                Picker(selection: $selected) {
+                    ForEach(SubscriptionFrequency.allCases, id: \.self) { type in
+                        Text(type.name).tag(type)
                     }
-                    .padding(.vertical)
-                    .frame(maxWidth: .infinity)
+                } label: {
+                    Text(selected.name)
                 }
+                .tint(themeManager.theme.color)
+                .padding(8)
             }
-            .background {
-                GeometryReader { geo in
-                    let itemSize = (geo.size.width / CGFloat(SubscriptionFrequency.allCases.count))
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .foregroundStyle(Color.background200)
-                        .overlay(alignment: .leading) {
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .foregroundStyle(themeManager.theme.color)
-                                .frame(width: itemSize)
-                                .offset(x: itemSize * CGFloat(selected.rawValue))
-                                .animation(.smooth, value: selected)
-                        }
-                }
-            }
+            .roundedRectangleBorder(Color.background200, radius: 16)
         }
     } // body
 } // struct

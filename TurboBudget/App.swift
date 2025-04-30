@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import NotificationKit
+import TheoKit
 
 @main
 struct TurboBudgetApp: App {

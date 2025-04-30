@@ -83,7 +83,7 @@ struct CreateAccountView: View {
             }
         } // End ScrollView
         .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.immediately)
+        .scrollDismissesKeyboard(.interactively)
         .ignoresSafeArea(.keyboard)
         .overlay(alignment: .bottom) {
             CreateButton(
@@ -111,6 +111,8 @@ struct CreateAccountView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
     } // body
 } // struct
 

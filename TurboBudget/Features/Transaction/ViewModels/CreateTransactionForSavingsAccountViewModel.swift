@@ -24,8 +24,8 @@ final class CreateTransactionForSavingsAccountViewModel: ObservableObject {
         self.savingsAccount = savingsAccount
         self.transaction = transaction
         if let transaction {
-            self.transactionTitle = transaction.name
-            self.transactionAmount = transaction.amount?.formatted() ?? ""
+            self.transactionTitle = transaction.nameDisplayed
+            self.transactionAmount = transaction.amount.formatted()
             self.transactionDate = transaction.date
         }
     }
@@ -33,9 +33,9 @@ final class CreateTransactionForSavingsAccountViewModel: ObservableObject {
 
 extension CreateTransactionForSavingsAccountViewModel {
     
-    func bodyForCreation() -> TransactionModel {
-        return TransactionModel(
-            _name: transactionTitle.trimmingCharacters(in: .whitespaces),
+    func bodyForCreation() -> TransactionDTO {
+        return TransactionDTO(
+            name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
             typeNum: TransactionType.income.rawValue,
             dateISO: transactionDate.toISO(),

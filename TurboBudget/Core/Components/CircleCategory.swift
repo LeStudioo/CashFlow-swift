@@ -44,12 +44,14 @@ struct CircleCategory: View {
                 } else if let transaction, transaction.type == .transfer,
                           let selectedAccount = accountStore.selectedAccount,
                           let accountID = selectedAccount._id {
+                    let isSender = accountID == transaction.senderAccount?._id
                     Circle()
-                        .foregroundStyle(accountID == transaction.senderAccountID ? .error400 : .primary500)
+                        .foregroundStyle(isSender ? .error400 : .primary500)
                         .shadow(radius: 4, y: 4)
                         .frame(width: 34)
                     
-                    Text(UserCurrency.symbol)
+                    Image(systemName: isSender ? "antenna.radiowaves.left.and.right" : "tray.fill")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundStyle(Color(uiColor: .systemBackground))
                 } else {
                     Circle()

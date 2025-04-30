@@ -23,7 +23,7 @@ struct SavingsAccountInfos: View {
                 value: savingsAccount.balance.toCurrency()
             )
             .onGetHeight { height in
-                rowHeight = height
+                rowHeight = height - 8
             }
             
             if let maxAmount = savingsAccount.maxAmount {
@@ -34,7 +34,7 @@ struct SavingsAccountInfos: View {
                 )
                 
                 ProgressBar(percentage: savingsAccount.balance / maxAmount)
-                    .frame(height: rowHeight - 8)
+                    .frame(height: rowHeight)
             }
         }
     } // body

@@ -48,9 +48,9 @@ struct AddTransactionIntent: AppIntent {
         }
         
         let finalNumber = extractAmount(from: amount)
-        
-        var body: TransactionModel = .init(
-            _name: title,
+                
+        var body: TransactionDTO = .init(
+            name: title,
             amount: finalNumber,
             typeNum: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),

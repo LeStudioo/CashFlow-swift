@@ -12,7 +12,7 @@ enum SubscriptionDestination: AppDestinationProtocol {
     case list
     case create
     case update(subscription: SubscriptionModel)
-    case detail(subscription: SubscriptionModel)
+    case detail(subscriptionId: Int)
     
     var id: Self { self }
     
@@ -24,8 +24,8 @@ enum SubscriptionDestination: AppDestinationProtocol {
             CreateSubscriptionView()
         case .update(let subscription):
             CreateSubscriptionView(subscription: subscription)
-        case .detail(let subscription):
-            SubscriptionDetailView(subscription: subscription)
+        case .detail(let subscriptionId):
+            SubscriptionDetailView(subscriptionId: subscriptionId)
         }
     }
     

@@ -13,6 +13,7 @@ struct CreateTransferView: View {
     @StateObject private var viewModel: CreateTransferViewModel
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var themeManager: ThemeManager
     
     // init
     init(receiverAccount: AccountModel? = nil) {
@@ -21,8 +22,8 @@ struct CreateTransferView: View {
     
     // MARK: -
     var body: some View {
-        NavigationStack {
-            ScrollView {
+        ScrollView {
+            VStack(spacing: 40) {
                 VStack(spacing: 24) {
                     CustomTextField(
                         text: $viewModel.amount,
@@ -48,37 +49,67 @@ struct CreateTransferView: View {
                         selected: $viewModel.receiverAccount
                     )
                 }
-                .padding(.horizontal, 24)
-                .padding(.top)
-            } // End ScrollView
-            .scrollIndicators(.hidden)
-            .scrollDismissesKeyboard(.immediately)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarDismissButtonView {
-                    if viewModel.isTransferInCreation() {
-                        viewModel.presentingConfirmationDialog.toggle()
-                    } else {
-                        dismiss()
+                
+                if !viewModel.amount.isBlank {
+                    VStack(alignment: .leading, spacing: 24) {
+                        Text("Montant après transaction") // TODO: TBL
+                            .font(.mediumH3())
+                            .fullWidth(.leading)
+                        
+                        let amount = viewModel.amount.toDouble()
+                        if let senderAccount = viewModel.senderAccount {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(senderAccount.name)
+                                    .font(.mediumText16())
+                                    .foregroundStyle(themeManager.theme.color)
+                                Text((senderAccount.balance - amount).toCurrency())
+                                    .font(.boldText18())
+                                    .contentTransition(.numericText())
+                            }
+                        }
+                        
+                        if let receiverAccount = viewModel.receiverAccount {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(receiverAccount.name)
+                                    .font(.mediumText16())
+                                    .foregroundStyle(themeManager.theme.color)
+                                Text((receiverAccount.balance + amount).toCurrency())
+                                    .font(.boldText18())
+                                    .contentTransition(.numericText())
+                            }
+                        }
                     }
                 }
-                
-                ToolbarItem(placement: .principal) {
-                    Text(Word.Title.Transfer.new)
-                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-                }
-                
-                ToolbarValidationButtonView(
-                    type: .creation,
-                    isActive: viewModel.isTransferValid()
-                ) {
-                    VibrationManager.vibration()
-                    await viewModel.createTransfer(dismiss: dismiss)
-                }
-                
-                ToolbarDismissKeyboardButtonView()
             }
-        } // NavigationStack
+            .padding(.horizontal, 24)
+            .padding(.top)
+        } // End ScrollView
+        .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.interactively)
+        .toolbar {
+            ToolbarDismissButtonView {
+                if viewModel.isTransferInCreation() {
+                    viewModel.presentingConfirmationDialog.toggle()
+                } else {
+                    dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(Word.Title.Transfer.new)
+                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
+            }
+            
+            ToolbarValidationButtonView(
+                type: .creation,
+                isActive: viewModel.isTransferValid()
+            ) {
+                VibrationManager.vibration()
+                await viewModel.createTransfer(dismiss: dismiss)
+            }
+            
+            ToolbarDismissKeyboardButtonView()
+        }
         .interactiveDismissDisabled(viewModel.isTransferInCreation()) {
             viewModel.presentingConfirmationDialog.toggle()
         }
@@ -86,6 +117,9 @@ struct CreateTransferView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: .bottom)
     } // body
 } // struct
 

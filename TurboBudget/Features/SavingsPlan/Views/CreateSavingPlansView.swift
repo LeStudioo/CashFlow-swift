@@ -37,113 +37,110 @@ struct CreateSavingPlansView: View {
     
     // MARK: -
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                VStack(spacing: 24) {
-                    HStack(alignment: .bottom, spacing: 8) {
-                        CustomTextField(
-                            text: $viewModel.name,
-                            config: .init(
-                                title: Word.Classic.name,
-                                placeholder: "MacBook Pro"
-                            )
-                        )
-                        .focused($focusedField, equals: .title)
-                        .submitLabel(.next)
-                        .onSubmit {
-                            focusedField = .amountOfStart
-                        }
-                        
-                        Button(action: { viewModel.showEmojiPicker.toggle() }, label: {
-                            Text(viewModel.emoji)
-                                .font(.system(size: 16))
-                                .padding(15)
-                                .background {
-                                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                        .fill(Color.background200)
-                                }
-                        })
-                        .emojiPicker(
-                            isPresented: $viewModel.showEmojiPicker,
-                            selectedEmoji: $viewModel.emoji
-                        )
-                    }
-                    
-                    if savingsPlan == nil {
-                        CustomTextField(
-                            text: $viewModel.savingPlanAmountOfStart,
-                            config: .init(
-                                title: Word.Classic.initialAmount,
-                                placeholder: "0.00",
-                                style: .amount
-                            )
-                        )
-                        .focused($focusedField, equals: .amountOfStart)
-                        .submitLabel(.next)
-                        .onSubmit {
-                            focusedField = .amountOfEnd
-                        }
-                    }
-                    
+        ScrollView {
+            VStack(spacing: 24) {
+                HStack(alignment: .bottom, spacing: 8) {
                     CustomTextField(
-                        text: $viewModel.goalAmount,
+                        text: $viewModel.name,
                         config: .init(
-                            title: Word.Classic.amountToReach,
-                            placeholder: "1 000",
+                            title: Word.Classic.name,
+                            placeholder: "MacBook Pro"
+                        )
+                    )
+                    .focused($focusedField, equals: .title)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amountOfStart
+                    }
+                    
+                    Button(action: { viewModel.showEmojiPicker.toggle() }, label: {
+                        Text(viewModel.emoji)
+                            .font(.system(size: 16))
+                            .padding(15)
+                            .background {
+                                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                                    .fill(Color.background200)
+                            }
+                    })
+                    .emojiPicker(
+                        isPresented: $viewModel.showEmojiPicker,
+                        selectedEmoji: $viewModel.emoji
+                    )
+                }
+                
+                if savingsPlan == nil {
+                    CustomTextField(
+                        text: $viewModel.savingPlanAmountOfStart,
+                        config: .init(
+                            title: Word.Classic.initialAmount,
+                            placeholder: "0.00",
                             style: .amount
                         )
                     )
-                    .focused($focusedField, equals: .amountOfEnd)
-                    .submitLabel(.done)
-                    
-                    CustomDatePickerWithToggle(
-                        title: Word.Classic.startTargetDate,
-                        date: $viewModel.startDate,
-                        isEnabled: .constant(true)
-                    )
-                    
-                    CustomDatePickerWithToggle(
-                        title: Word.Classic.finalTargetDate,
-                        date: $viewModel.endDate,
-                        isEnabled: $viewModel.isEndDate,
-                        withRange: true
-                    )
-                }
-                .padding(.horizontal, 24)
-                .padding(.top)
-            } // End ScrollView
-            .scrollIndicators(.hidden)
-            .scrollDismissesKeyboard(.immediately)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarDismissButtonView {
-                    if viewModel.isSavingPlansInCreation() {
-                        viewModel.presentingConfirmationDialog.toggle()
-                    } else {
-                        dismiss()
+                    .focused($focusedField, equals: .amountOfStart)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amountOfEnd
                     }
                 }
                 
-                ToolbarItem(placement: .principal) {
-                    Text(savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update)
-                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-                }
+                CustomTextField(
+                    text: $viewModel.goalAmount,
+                    config: .init(
+                        title: Word.Classic.amountToReach,
+                        placeholder: "1 000",
+                        style: .amount
+                    )
+                )
+                .focused($focusedField, equals: .amountOfEnd)
+                .submitLabel(.done)
                 
-                ToolbarValidationButtonView(
-                    type: savingsPlan == nil ? .creation : .edition,
-                    isActive: viewModel.validateSavingPlan()
-                ) {
-                    VibrationManager.vibration()
-                    if savingsPlan == nil {
-                        await viewModel.createSavingsPlan(dismiss: dismiss)
-                    } else {
-                        await viewModel.updateSavingsPlan(dismiss: dismiss)
-                    }
-                }
+                CustomDatePickerWithToggle(
+                    title: Word.Classic.startTargetDate,
+                    date: $viewModel.startDate,
+                    isEnabled: .constant(true)
+                )
                 
-                ToolbarDismissKeyboardButtonView()
+                CustomDatePickerWithToggle(
+                    title: Word.Classic.finalTargetDate,
+                    date: $viewModel.endDate,
+                    isEnabled: $viewModel.isEndDate,
+                    withRange: true
+                )
             }
-        } // End NavStack
+            .padding(.horizontal, 24)
+            .padding(.top)
+        } // End ScrollView
+        .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.interactively)
+        .toolbar {
+            ToolbarDismissButtonView {
+                if viewModel.isSavingPlansInCreation() {
+                    viewModel.presentingConfirmationDialog.toggle()
+                } else {
+                    dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update)
+                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
+            }
+            
+            ToolbarValidationButtonView(
+                type: savingsPlan == nil ? .creation : .edition,
+                isActive: viewModel.validateSavingPlan()
+            ) {
+                VibrationManager.vibration()
+                if savingsPlan == nil {
+                    await viewModel.createSavingsPlan(dismiss: dismiss)
+                } else {
+                    await viewModel.updateSavingsPlan(dismiss: dismiss)
+                }
+            }
+            
+            ToolbarDismissKeyboardButtonView()
+        }
         .interactiveDismissDisabled(viewModel.isSavingPlansInCreation()) {
             viewModel.presentingConfirmationDialog.toggle()
         }
@@ -151,6 +148,9 @@ struct CreateSavingPlansView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: .bottom)
     } // End body
 } // End struct
 

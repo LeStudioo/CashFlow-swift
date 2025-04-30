@@ -85,7 +85,7 @@ extension SubcategoryModel {
 extension SubcategoryModel {
     
     var transactions: [TransactionModel] {
-        return TransactionStore.shared.transactions.filter { $0.subcategoryID == self.id }
+        return TransactionStore.shared.transactions.filter { $0.subcategory?.id == self.id }
     }
     
     /// Transactions of type expense in a Category

@@ -11,24 +11,28 @@ extension TransactionModel {
     
     static let mockClassicTransaction: TransactionModel = .init(
         id: 1,
-        _name: "Mock Classic Transaction",
+        name: "Mock Classic Transaction",
         amount: 20,
-        typeNum: TransactionType.expense.rawValue,
-        dateISO: Date().toISO(),
-        creationDate: Date().toISO(),
-        categoryID: CategoryModel.mock.id,
-        subcategoryID: SubcategoryModel.mock.id,
+        type: TransactionType.expense,
+        date: .now,
+        creationDate: .now,
+        category: CategoryModel.mock,
+        subcategory: SubcategoryModel.mock,
+        isFromSubscription: false,
+        isFromApplePay: false,
         lat: 49.253518498825116,
         long: 6.05911732080831
     )
     
     static let mockTransferTransaction: TransactionModel = .init(
         id: 2,
+        name: "",
         amount: 300,
-        typeNum: TransactionType.transfer.rawValue,
-        dateISO: Date().toISO(),
-        creationDate: Date().toISO(),
-        senderAccountID: AccountModel.mockClassicAccount._id,
-        receiverAccountID: AccountModel.mockSavingsAccount._id
+        type: TransactionType.transfer,
+        date: Date(),
+        isFromSubscription: false,
+        isFromApplePay: false,
+        senderAccount: AccountModel.mockClassicAccount,
+        receiverAccount: AccountModel.mockSavingsAccount
     )
 }

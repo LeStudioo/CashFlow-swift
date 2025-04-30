@@ -27,7 +27,7 @@ struct SubscriptionHomeView: View {
                     ForEach(subscriptions, id: \.self) { subscription in
                         NavigationButton(
                             route: .push,
-                            destination: AppDestination.subscription(.detail(subscription: subscription))
+                            destination: AppDestination.subscription(.detail(subscriptionId: subscription.id))
                         ) {
                             SubscriptionRow(subscription: subscription)
                                 .padding(.horizontal)
@@ -41,9 +41,8 @@ struct SubscriptionHomeView: View {
                     )
                 }
             }
-            .listRowSeparator(.hidden)
-            .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+            .noDefaultStyle()
+            .padding(.vertical, 4)
         } // End List
         .listStyle(.plain)
         .scrollContentBackground(.hidden)

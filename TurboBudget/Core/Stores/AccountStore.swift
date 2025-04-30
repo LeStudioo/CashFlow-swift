@@ -134,7 +134,7 @@ extension AccountStore {
 
 extension AccountStore {
     
-    func findByID(_ id: Int) -> AccountModel? {
+    func findByID(_ id: Int?) -> AccountModel? {
         return self.allAccounts.first(where: { $0._id == id })
     }
     

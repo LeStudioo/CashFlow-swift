@@ -23,18 +23,18 @@ struct TransactionService {
                 endDate: endDate.toQueryParam(),
                 type: type?.rawValue
             ),
-            responseModel: [TransactionModel].self
-        )
+            responseModel: [TransactionDTO].self
+        ).map { try $0.toModel() }
     }
     
-    static func create(accountID: Int, body: TransactionModel) async throws -> TransactionResponseWithBalance {
+    static func create(accountID: Int, body: TransactionDTO) async throws -> TransactionResponseWithBalance {
         return try await NetworkService.sendRequest(
             apiBuilder: TransactionAPIRequester.create(accountID: accountID, body: body),
             responseModel: TransactionResponseWithBalance.self
         )
     }
     
-    static func update(transactionID: Int, body: TransactionModel) async throws -> TransactionResponseWithBalance {
+    static func update(transactionID: Int, body: TransactionDTO) async throws -> TransactionResponseWithBalance {
         return try await NetworkService.sendRequest(
             apiBuilder: TransactionAPIRequester.update(id: transactionID, body: body),
             responseModel: TransactionResponseWithBalance.self

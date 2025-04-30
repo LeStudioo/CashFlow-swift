@@ -15,7 +15,6 @@ struct CreateTransactionView: View {
     var transaction: TransactionModel?
     
     @StateObject private var viewModel: CreateTransactionViewModel
-    @StateObject private var router: Router<AppDestination> = .init()
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
@@ -37,104 +36,100 @@ struct CreateTransactionView: View {
     
     // MARK: -
     var body: some View {
-        RoutedNavigationStack(router: router) {
-            ScrollView {
-                VStack(spacing: 24) {
-                    CustomTextField(
-                        text: $viewModel.transactionTitle,
-                        config: .init(
-                            title: Word.Classic.name,
-                            placeholder: "category11_subcategory3_name".localized
-                        )
+        ScrollView {
+            VStack(spacing: 24) {
+                CustomTextField(
+                    text: $viewModel.transactionTitle,
+                    config: .init(
+                        title: Word.Classic.name,
+                        placeholder: "category11_subcategory3_name".localized
                     )
-                    .focused($focusedField, equals: .title)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .amount
+                )
+                .focused($focusedField, equals: .title)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .amount
+                }
+                
+                CustomTextField(
+                    text: $viewModel.transactionAmount,
+                    config: .init(
+                        title: Word.Classic.price,
+                        placeholder: "64,87",
+                        style: .amount
+                    )
+                )
+                .focused($focusedField, equals: .amount)
+                
+                TransactionTypePicker(selected: $viewModel.transactionType)
+                
+                VStack(spacing: 6) {
+                    SelectCategoryButton(
+                        selectedCategory: $viewModel.selectedCategory,
+                        selectedSubcategory: $viewModel.selectedSubcategory
+                    )
+                    .onChange(of: viewModel.transactionType) { newValue in
+                        viewModel.onChangeType(newValue: newValue)
+                    }
+                    .onChange(of: viewModel.selectedCategory) { newValue in
+                        if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
+                            viewModel.transactionType = .expense
+                        } else if newValue == CategoryModel.revenue {
+                            viewModel.transactionType = .income
+                            viewModel.selectedSubcategory = nil
+                        }
                     }
                     
-                    CustomTextField(
-                        text: $viewModel.transactionAmount,
-                        config: .init(
-                            title: Word.Classic.price,
-                            placeholder: "64,87",
-                            style: .amount
-                        )
-                    )
-                    .focused($focusedField, equals: .amount)
-                    
-                    TransactionTypePicker(selected: $viewModel.transactionType)
-                    
-                    VStack(spacing: 6) {
-                        SelectCategoryButton(
+                    if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                        RecommendedCategoryButton(
+                            transactionName: viewModel.transactionTitle,
+                            type: $viewModel.transactionType,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
-                        .environmentObject(router)
-                        .onChange(of: viewModel.transactionType) { newValue in
-                            viewModel.onChangeType(newValue: newValue)
-                        }
-                        .onChange(of: viewModel.selectedCategory) { newValue in
-                            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                                viewModel.transactionType = .expense
-                            } else if newValue == CategoryModel.revenue {
-                                viewModel.transactionType = .income
-                                viewModel.selectedSubcategory = nil
-                            }
-                        }
-                        
-                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                            RecommendedCategoryButton(
-                                transactionName: viewModel.transactionTitle,
-                                type: $viewModel.transactionType,
-                                selectedCategory: $viewModel.selectedCategory,
-                                selectedSubcategory: $viewModel.selectedSubcategory
-                            )
-                        }
-                    }
-                    .animation(.smooth, value: viewModel.transactionTitle)
-                    
-                    CustomDatePicker(
-                        title: Word.Classic.date,
-                        date: $viewModel.transactionDate
-                    )
-                }
-                .padding(.horizontal, 24)
-                .padding(.top)                
-            } // End ScrollView
-            .scrollIndicators(.hidden)
-            .scrollDismissesKeyboard(.immediately)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarDismissButtonView {
-                    if viewModel.isTransactionInCreation() {
-                        viewModel.presentingConfirmationDialog.toggle()
-                    } else {
-                        dismiss()
                     }
                 }
+                .animation(.smooth, value: viewModel.transactionTitle)
                 
-                ToolbarItem(placement: .principal) {
-                    Text(transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update)
-                        .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-                }
-                
-                ToolbarValidationButtonView(
-                    type: transaction == nil ? .creation : .edition,
-                    isActive: viewModel.validateTrasaction()
-                ) {
-                    NetworkService.cancelAllTasks()
-                    VibrationManager.vibration()
-                    if transaction == nil {
-                       await viewModel.createTransaction(dismiss: dismiss)
-                    } else {
-                        await viewModel.updateTransaction(dismiss: dismiss)
-                    }
-                }
-                
-                ToolbarDismissKeyboardButtonView()
+                CustomDatePicker(
+                    title: Word.Classic.date,
+                    date: $viewModel.transactionDate
+                )
             }
-        } // End NavStack
+            .padding(.horizontal, 24)
+            .padding(.top)
+        } // End ScrollView
+        .scrollDismissesKeyboard(.interactively)
+        .scrollIndicators(.hidden)
+        .toolbar {
+            ToolbarDismissButtonView {
+                if viewModel.isTransactionInCreation() {
+                    viewModel.presentingConfirmationDialog.toggle()
+                } else {
+                    dismiss()
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                Text(transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update)
+                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
+            }
+            
+            ToolbarValidationButtonView(
+                type: transaction == nil ? .creation : .edition,
+                isActive: viewModel.validateTrasaction()
+            ) {
+                NetworkService.cancelAllTasks()
+                VibrationManager.vibration()
+                if transaction == nil {
+                    await viewModel.createTransaction(dismiss: dismiss)
+                } else {
+                    await viewModel.updateTransaction(dismiss: dismiss)
+                }
+            }
+            
+            ToolbarDismissKeyboardButtonView()
+        }
         .interactiveDismissDisabled(viewModel.isTransactionInCreation()) {
             viewModel.presentingConfirmationDialog.toggle()
         }
@@ -142,6 +137,9 @@ struct CreateTransactionView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarTitleDisplayMode(.inline)
+        .ignoresSafeArea(edges: .bottom)
     } // End body
 } // End struct
 

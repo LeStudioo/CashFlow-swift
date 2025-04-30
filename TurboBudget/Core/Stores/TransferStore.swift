@@ -35,8 +35,8 @@ extension TransferStore {
                     perPage: perPage,
                     skip: self.transfers.count
                 ),
-                responseModel: [TransactionModel].self
-            )
+                responseModel: [TransactionDTO].self
+            ).map { try $0.toModel() }
             self.transfers += transfers
             sortTransfersByDate()
         } catch { NetworkService.handleError(error: error) }
@@ -48,7 +48,7 @@ extension TransferStore {
         do {
             let response = try await TransferService.create(from: senderAccountID, to: receiverAccountID, body: body)
             
-            guard let transfer = response.transaction else { return nil }
+            guard let transfer = try response.transaction?.toModel() else { return nil }
             guard let senderNewBalance = response.senderNewBalance else { return nil }
             guard let receiverNewBalance = response.receiverNewBalance else { return nil }
             
@@ -76,7 +76,7 @@ extension TransferStore {
             let response = try await TransferService.delete(id: transferID)
             
             guard let transfer = transfers.first(where: { $0.id == transferID }) else { return }
-            guard let senderAccountID = transfer.senderAccountID, let receiverAccountID = transfer.receiverAccountID else { return }
+            guard let senderAccountID = transfer.senderAccount?._id, let receiverAccountID = transfer.receiverAccount?._id else { return }
             
             if let senderNewBalance = response.senderNewBalance, let receiverNewBalance = response.receiverNewBalance {
                 AccountStore.shared.setNewBalance(accountID: senderAccountID, newBalance: senderNewBalance)

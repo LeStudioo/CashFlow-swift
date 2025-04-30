@@ -13,8 +13,8 @@ enum TransactionAPIRequester: APIRequestBuilder {
     case fetchWithPagination(accountID: Int, perPage: Int, skip: Int)
     case fetchByPeriod(accountID: Int, startDate: String, endDate: String, type: Int? = nil)
     case fetchCategory(name: String, transactionID: Int? = nil)
-    case create(accountID: Int, body: TransactionModel)
-    case update(id: Int, body: TransactionModel)
+    case create(accountID: Int, body: TransactionDTO)
+    case update(id: Int, body: TransactionDTO)
     case delete(id: Int)
 }
 

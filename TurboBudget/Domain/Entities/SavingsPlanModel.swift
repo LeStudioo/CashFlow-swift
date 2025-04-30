@@ -108,7 +108,7 @@ extension SavingsPlanModel {
     
     var monthlyGoalAmount: Double {
         guard let goalAmount, let endDate else { return 0 }
-        let monthsBetween = startDate.monthsBetween(to: endDate)
+        let monthsBetween = startDate.monthsBetween(endDate)
         return goalAmount / Double(monthsBetween)
     }
     

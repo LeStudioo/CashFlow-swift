@@ -10,18 +10,6 @@ import SwiftUI
 
 extension Double {
     
-    func toString(maxDigits: Int = 2) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = maxDigits
-        return formatter.string(from: NSNumber(value: self)) ?? ""
-    }
-    
-    func formatWith(_ digit: Int) -> String {
-        return String(format: "%.\(digit)f", self)
-    }
-    
     func reduceScale(to places: Int) -> Double {
         let multiplier = pow(10, Double(places))
         let newDecimal = multiplier * self // Move the decimal right

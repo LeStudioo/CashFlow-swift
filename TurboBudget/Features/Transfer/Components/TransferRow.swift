@@ -28,9 +28,9 @@ struct TransferRow: View {
     var isSender: Bool {
         switch location {
         case .successfulSheet:
-            return accountStore.selectedAccount?._id == transfer.senderAccountID
+            return accountStore.selectedAccount?._id == transfer.senderAccount?._id
         case .savingsAccount:
-            return savingsAccountRepository.currentAccount._id == transfer.senderAccountID
+            return savingsAccountRepository.currentAccount._id == transfer.senderAccount?._id
         }
     }
 
@@ -47,7 +47,8 @@ struct TransferRow: View {
                             .shadow(radius: 4, y: 4)
                             .frame(width: 34)
                         
-                        Text(UserCurrency.symbol)
+                        Image(systemName: isSender ? "antenna.radiowaves.left.and.right" : "tray.fill")
+                            .font(.system(size: 14, weight: .semibold, design: .rounded))
                             .foregroundStyle(Color(uiColor: .systemBackground))
                     }
                 
@@ -64,7 +65,7 @@ struct TransferRow: View {
                 Spacer()
                 
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text("\(isSender ? "-" : "+") \((transfer.amount ?? 0).toCurrency())")
+                    Text("\(isSender ? "-" : "+") \((transfer.amount).toCurrency())")
                         .font(.semiBoldText16())
                         .foregroundStyle(isSender ? .error400 : .primary500)
                         .lineLimit(1)
@@ -106,13 +107,11 @@ struct TransferRow: View {
             Button(role: .cancel, action: { cancelDeleting.toggle(); return }, label: { Text("word_cancel".localized) })
             Button(role: .destructive, action: {
                 Task {
-                    if let transferID = transfer.id {
-                        await transferStore.deleteTransfer(transferID: transferID)
-                    }
+                    await transferStore.deleteTransfer(transferID: transfer.id)
                 }
             }, label: { Text("word_delete".localized) })
         }, message: {
-            Text((transfer.amount ?? 0) < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
+            Text((transfer.amount) < 0 ? "transfer_detail_alert_if_expense".localized : "transfer_detail_alert_if_income".localized)
         })
     } // body
 } // struct

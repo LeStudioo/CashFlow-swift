@@ -9,37 +9,6 @@ import Foundation
 import SwiftUI
 
 extension String {
-    
-    var localized: String {
-        return NSLocalizedString(self, comment: "")
-    }
-    
-    var isBlank: Bool {
-        return trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-    }
-    
-    func toInt() -> Int {
-        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
-        return Int(stringFormated) ?? 0
-    }
-    
-    func toDouble() -> Double {
-        let stringFormated = self.replacingOccurrences(of: ",", with: ".")
-        return Double(stringFormated) ?? 0
-    }
-    
-    func toDate() -> Date? {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
-        return isoFormatter.date(from: self)
-    }
-    
-    func widthOfString(usingFont font: UIFont) -> CGFloat {
-         let fontAttributes = [NSAttributedString.Key.font: font]
-         let size = self.size(withAttributes: fontAttributes)
-         return size.width
-     }
-    
     func matches(for regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)
