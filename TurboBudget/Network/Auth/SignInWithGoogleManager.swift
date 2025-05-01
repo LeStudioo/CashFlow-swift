@@ -10,6 +10,7 @@
 import SwiftUI
 import GoogleSignIn
 import NetworkKit
+import StatsKit
 
 class SignInWithGoogleManager: ObservableObject {
     
@@ -57,6 +58,8 @@ extension SignInWithGoogleManager {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
                     UserStore.shared.currentUser = user
                     AppManager.shared.appState = .success
+                    
+                    EventService.sendEvent(key: .userRegisterGoogle)
                 }
             }
         }

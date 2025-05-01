@@ -149,6 +149,7 @@ struct TransactionDetailView: View {
         .onDisappear {
             if viewModel.note != currentTransaction.note && !viewModel.note.isBlank {
                 viewModel.updateTransaction(transactionID: currentTransaction.id)
+                EventService.sendEvent(key: .transactionNoteAdded)
             }
         }
         .navigationBarTitleDisplayMode(.inline)

@@ -198,6 +198,7 @@ struct SavingsPlanDetailView: View {
                             savingsPlanID: savingsPlanID,
                             body: .init(note: savingPlanNote)
                         )
+                        EventService.sendEvent(key: .savingsPlanNoteAdded)
                     }
                 }
             }

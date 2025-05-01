@@ -12,7 +12,8 @@ enum EventKeys: String {
     case appSession = "app_session"
     case appPaywall = "app_paywall"
     
-    case userRegister = "user_register"
+    case userRegisterApple = "user_register_apple"
+    case userRegisterGoogle = "user_register_google"
     case userPremium = "user_premium"
     case userLogout = "user_logout"
     case userDeleted = "user_deleted"

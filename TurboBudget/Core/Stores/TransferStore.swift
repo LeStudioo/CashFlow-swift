@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import StatsKit
 
 final class TransferStore: ObservableObject {
     static let shared = TransferStore()
@@ -62,7 +63,7 @@ extension TransferStore {
                 TransactionStore.shared.transactions.append(transfer)
                 TransactionStore.shared.sortTransactionsByDate()
             }
-            
+            EventService.sendEvent(key: .transferCreated)
             return transfer
         } catch {
             NetworkService.handleError(error: error)
@@ -85,6 +86,7 @@ extension TransferStore {
             
             if let index = self.transfers.firstIndex(where: { $0.id == transferID }) {
                 self.transfers.remove(at: index)
+                EventService.sendEvent(key: .transferDeleted)
             }
         } catch { NetworkService.handleError(error: error) }
     }

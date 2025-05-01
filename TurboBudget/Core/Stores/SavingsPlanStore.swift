@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import StatsKit
 
 final class SavingsPlanStore: ObservableObject {
     static let shared = SavingsPlanStore()
@@ -29,6 +30,7 @@ extension SavingsPlanStore {
         do {
             let savingsPlan = try await SavingsPlanService.create(accountID: accountID, body: body)
             self.savingsPlans.append(savingsPlan)
+            EventService.sendEvent(key: .sacingsPlanCreated)
             return savingsPlan
         } catch {
             NetworkService.handleError(error: error)
@@ -42,6 +44,7 @@ extension SavingsPlanStore {
             let savingsPlan = try await SavingsPlanService.update(savingsPlanID: savingsPlanID, body: body)
             if let index = self.savingsPlans.firstIndex(where: { $0.id == savingsPlan.id }) {
                 self.savingsPlans[index] = savingsPlan
+                EventService.sendEvent(key: .savingsPlanUpdated)
             }
         } catch { NetworkService.handleError(error: error) }
     }
@@ -52,6 +55,7 @@ extension SavingsPlanStore {
             try await SavingsPlanService.delete(savingsPlanID: savingsPlanID)
             if let index = self.savingsPlans.firstIndex(where: { $0.id == savingsPlanID }) {
                 self.savingsPlans.remove(at: index)
+                EventService.sendEvent(key: .savingsPlanDeleted)
             }
         } catch { NetworkService.handleError(error: error) }
     }

@@ -58,6 +58,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.deleteAccount()
+                EventService.sendEvent(key: .userDeleted)
                 dismiss()
             }
         )

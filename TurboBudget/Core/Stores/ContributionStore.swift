@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import StatsKit
 
 final class ContributionStore: ObservableObject {
     static let shared = ContributionStore()
@@ -40,6 +41,7 @@ extension ContributionStore {
                 self.contributions.append(contribution)
                 sortContributionsByDate()
                 SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                EventService.sendEvent(key: .contributionCreated)
                 return contribution
             }
             
@@ -62,6 +64,7 @@ extension ContributionStore {
                     self.contributions[index] = contribution
                     sortContributionsByDate()
                     SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
+                    EventService.sendEvent(key: .contributionUpdated)
                 }
             }
         } catch { NetworkService.handleError(error: error) }
@@ -78,6 +81,7 @@ extension ContributionStore {
                 SavingsPlanStore.shared.setNewAmount(savingsPlanID: savingsplanID, newAmount: newAmount)
             }
             self.contributions.removeAll(where: { $0.id == contributionID })
+            EventService.sendEvent(key: .contributionDeleted)
         } catch { NetworkService.handleError(error: error) }
     }
     

@@ -8,6 +8,7 @@
 import Foundation
 import AuthenticationServices
 import NetworkKit
+import StatsKit
 
 class SignInWithAppleManager: NSObject {
     
@@ -41,6 +42,8 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
                     UserStore.shared.currentUser = user
                     AppManager.shared.appState = .success
+                    
+                    EventService.sendEvent(key: .userRegisterApple)
                 }
             }
         }
