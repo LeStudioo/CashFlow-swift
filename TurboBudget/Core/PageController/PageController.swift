@@ -103,7 +103,7 @@ struct PageControllerView: View {
         .padding(viewModel.isUnlocked ? 0 : 0)
         .onChange(of: viewModel.launchScreenEnd, perform: { newValue in
             if preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen {
-                homeRouter.present(route: .sheet, .shared(.whatsNew))
+                homeRouter.present(route: .modalFitContent, .shared(.whatsNew))
             }
             
             if accountStore.selectedAccount != nil && !preferencesGeneral.isAlreadyOpen {

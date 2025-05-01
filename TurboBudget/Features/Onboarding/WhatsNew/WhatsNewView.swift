@@ -12,10 +12,11 @@ struct WhatsNewView: View {
     @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openURL) private var openURL
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 32) {
+        VStack(spacing: 64) {
             VStack {
                 Text(Word.WhatsNew.title)
                     .font(.largeTitle)
@@ -26,59 +27,33 @@ struct WhatsNewView: View {
             }
             .padding(.top, 32)
             
-            ScrollView {
-                VStack(spacing: 24) {
-                    WhatsNewRow(
-                        icon: "chart.bar.fill",
-                        iconColor: Color.primary500,
-                        title: Word.Classic.statistics,
-                        message: Word.WhatsNew.stats
-                    )
-                    
-                    WhatsNewRow(
-                        icon: "creditcard.fill",
-                        iconColor: Color.blue,
-                        title: Word.Main.creditCards,
-                        message: Word.WhatsNew.creditcard
-                    )
-                    
-                    WhatsNewRow(
-                        icon: "gearshape.2.fill",
-                        iconColor: Color.orange,
-                        title: Word.WhatsNew.applePayTitle,
-                        message: Word.WhatsNew.applePay
-                    )
-                    
-                    WhatsNewRow(
-                        icon: "clock.arrow.circlepath",
-                        iconColor: Color.red,
-                        title: Word.Main.subscriptions,
-                        message: Word.WhatsNew.subscription
-                    )
-                    
-                    WhatsNewRow(
-                        icon: "sparkles",
-                        iconColor: Color.purple,
-                        title: Word.WhatsNew.userInterfaceTitle,
-                        message: Word.WhatsNew.userInterface
-                    )
-                }
-            }
-            .scrollIndicators(.hidden)
-            .padding(.horizontal, 24)
-            
-            Button {
-                preferencesGeneral.isWhatsNewSeen = true
-                dismiss()
-            } label: {
-                Text(Word.Classic.continue)
+            VStack(spacing: 24) {
+                Button {
+                   
+                } label: {
+                    HStack {
+                        Text("whatsnew_features".localized)
+                        Spacer()
+                        Image(systemName: "arrow.up.right")
+                    }
                     .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity)
+                    .fullWidth()
                     .foregroundStyle(Color.white)
                     .padding()
-                    .background {
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    }
+                    .roundedRectangleBorder(.blue, radius: 16)
+                }
+                
+                Button {
+                    preferencesGeneral.isWhatsNewSeen = true
+                    dismiss()
+                } label: {
+                    Text(Word.Classic.continue)
+                        .fontWeight(.semibold)
+                        .fullWidth()
+                        .foregroundStyle(Color.white)
+                        .padding()
+                        .roundedRectangleBorder(.background200, radius: 16)
+                }
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 24)
@@ -92,5 +67,6 @@ struct WhatsNewView: View {
         .sheet(isPresented: .constant(true)) {
             WhatsNewView()
                 .preferredColorScheme(.dark)
+                .presentationDetents([.medium])
         }
 }
