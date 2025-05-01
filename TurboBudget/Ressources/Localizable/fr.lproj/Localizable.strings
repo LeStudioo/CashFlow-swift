@@ -222,6 +222,12 @@
 
 "budgets_transactions_no_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
 
+/*  */
+"bugfix_204_preferences" = "Les préférences étaient mal mises à jour";
+
+/*  */
+"bugfix_204_transactions" = "Les transactions effectuées le 31 du mois n’étaient pas affichées dans la liste";
+
 "by_month_word" = "Par mois";
 
 "card_editable_holder" = "NOM DU TITULAIRE DE LA CARTE";
@@ -497,6 +503,30 @@
 "error_message_savingsplan" = "Créez votre premier plan d'épargne !";
 
 "error_message_transaction" = "Cliquez sur le bouton plus pour créer une transaction.";
+
+/*  */
+"feature_204_applepay" = "Sélection d’un compte dans le raccourci Apple Pay";
+
+/*  */
+"feature_204_categories" = "Amélioration de la prédiction des catégories";
+
+/*  */
+"feature_204_contribution" = "Les contributions peuvent désormais avoir un nom";
+
+/*  */
+"feature_204_futur_amount" = "Visualisation des montants futurs des comptes lors de la création d’un transfert";
+
+/*  */
+"feature_204_select_account" = "Sélection d’un compte par défaut dans les préférences";
+
+/*  */
+"feature_204_transfer_subscription" = "Plus de détails sur les abonnements et les transferts";
+
+/*  */
+"feature_pro_204_account" = "Création de comptes en illimité";
+
+/*  */
+"feature_pro_204_applepay" = "La localisation peut être récupérée lors d’une dépense avec Apple Pay";
 
 "filter_by_day" = "Par jour";
 
@@ -1146,6 +1176,9 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 
 "whatsnew_creditcard" = "Stocké maintenant vos cartes de crédit de manière sécurisée dans l'application (Apple Keychain)";
 
+/*  */
+"whatsnew_features" = "Voir les nouvelles fonctionnalités";
+
 "whatsnew_stats" = "Un récapitulatif des transactions pour l'année en cours et précedente est désormais disponible";
 
 "whatsnew_subscription" = "Vous pouvez maintenant consulter le détail d'un abonnement";
@@ -1155,8 +1188,6 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 "whatsnew_ui" = "Amélioration de l'interface utilisateur, plus adaptée à vos besoin et plus performante";
 
 "whatsnew_ui_title" = "Interface utilisateur";
-
-"whatsnew_features" = "Voir les nouvelles fonctionnalités";
 
 "word_ARCHIVE" = "ARCHIVER";
 

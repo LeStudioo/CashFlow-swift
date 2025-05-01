@@ -222,6 +222,12 @@
 
 "budgets_transactions_no_transaction" = "Klicken Sie auf die Plus-Schaltfläche, um eine Transaktion zu erstellen.";
 
+/*  */
+"bugfix_204_preferences" = "Voreinstellungen wurden nicht korrekt aktualisiert";
+
+/*  */
+"bugfix_204_transactions" = "Transaktionen, die am 31. des Monats durchgeführt wurden, wurden in der Liste nicht angezeigt.";
+
 "by_month_word" = "Pro Monat";
 
 "card_editable_holder" = "KARTENINHABERNAME";
@@ -497,6 +503,30 @@
 "error_message_savingsplan" = "Erstellen Sie Ihr erstes Sparkonto!";
 
 "error_message_transaction" = "Klicken Sie auf die Schaltfläche \"Hinzufügen\", um eine Transaktion zu erstellen.";
+
+/*  */
+"feature_204_applepay" = "Auswählen eines Kontos in der Apple Pay-Verknüpfung";
+
+/*  */
+"feature_204_categories" = "Verbesserte Kategorievorhersage";
+
+/*  */
+"feature_204_contribution" = "Beiträge können jetzt einen Namen haben";
+
+/*  */
+"feature_204_futur_amount" = "Künftige Kontobeträge bei der Erstellung einer Überweisung anzeigen";
+
+/*  */
+"feature_204_select_account" = "Auswählen eines Standardkontos in den Einstellungen";
+
+/*  */
+"feature_204_transfer_subscription" = "Weitere Einzelheiten zu Abonnements und Überweisungen";
+
+/*  */
+"feature_pro_204_account" = "Unbegrenzte Kontoerstellung";
+
+/*  */
+"feature_pro_204_applepay" = "Standort kann beim Bezahlen mit Apple Pay abgerufen werden";
 
 "filter_by_day" = "Pro Tag";
 
@@ -1145,6 +1175,9 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "whatsnew_creditcard" = "Speichern Sie Ihre Kreditkarten jetzt sicher in der Anwendung (Apple-Schlüsselbund).";
 
+/*  */
+"whatsnew_features" = "Neue Funktionen ansehen";
+
 "whatsnew_stats" = "Eine Zusammenfassung der Transaktionen für das laufende Jahr und die Vorjahre ist jetzt verfügbar";
 
 "whatsnew_subscription" = "Sie können jetzt die Details eines Abonnements anzeigen";
@@ -1154,8 +1187,6 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "whatsnew_ui" = "Verbesserte Benutzeroberfläche, besser an Ihre Bedürfnisse angepasst und effizienter";
 
 "whatsnew_ui_title" = "Benutzeroberfläche";
-
-"whatsnew_features" = "Neue Funktionen ansehen";
 
 "word_ARCHIVE" = "ARCHIVIEREN";
 

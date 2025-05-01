@@ -222,6 +222,12 @@
 
 "budgets_transactions_no_transaction" = "Click on the plus button to create a transaction.";
 
+/*  */
+"bugfix_204_preferences" = "Preferences were incorrectly updated";
+
+/*  */
+"bugfix_204_transactions" = "Transactions carried out on the 31st of the month were not displayed in the list.";
+
 "by_month_word" = "By month";
 
 "card_editable_holder" = "CARD HOLDER NAME";
@@ -497,6 +503,30 @@
 "error_message_savingsplan" = "Create your first savings plan!";
 
 "error_message_transaction" = "Click on the plus button to create a transaction.";
+
+/*  */
+"feature_204_applepay" = "Selecting an account in the Apple Pay shortcut";
+
+/*  */
+"feature_204_categories" = "Improved category prediction";
+
+/*  */
+"feature_204_contribution" = "Contributions can now have a name";
+
+/*  */
+"feature_204_futur_amount" = "View future account amounts when creating a transfer";
+
+/*  */
+"feature_204_select_account" = "Selecting a default account in the preferences";
+
+/*  */
+"feature_204_transfer_subscription" = "More details on subscriptions and transfers";
+
+/*  */
+"feature_pro_204_account" = "Unlimited account creation";
+
+/*  */
+"feature_pro_204_applepay" = "Location can be retrieved when spending with Apple Pay";
 
 "filter_by_day" = "By day";
 
@@ -1146,6 +1176,9 @@ This can serve as a guideline for balancing your spending, saving and planning y
 
 "whatsnew_creditcard" = "Now store your credit cards securely in the application (Apple Keychain)";
 
+/*  */
+"whatsnew_features" = "See the new features";
+
 "whatsnew_stats" = "A summary of transactions for the current and previous years is now available";
 
 "whatsnew_subscription" = "You can now view the details of a subscription";
@@ -1155,8 +1188,6 @@ This can serve as a guideline for balancing your spending, saving and planning y
 "whatsnew_ui" = "Improved user interface, better adapted to your needs and more efficient";
 
 "whatsnew_ui_title" = "User interface";
-
-"whatsnew_features" = "See the new features";
 
 "word_ARCHIVE" = "ARCHIVE";
 

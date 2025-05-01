@@ -222,6 +222,12 @@
 
 "budgets_transactions_no_transaction" = "Haz clic en el botón más para crear una transacción.";
 
+/*  */
+"bugfix_204_preferences" = "Las preferencias se actualizaron incorrectamente";
+
+/*  */
+"bugfix_204_transactions" = "Las transacciones realizadas el 31 de cada mes no aparecían en la lista.";
+
 "by_month_word" = "Por mes";
 
 "card_editable_holder" = "NOMBRE DEL TITULAR DE LA TARJETA";
@@ -497,6 +503,30 @@
 "error_message_savingsplan" = "¡Crea tu primer plan de ahorro!";
 
 "error_message_transaction" = "Haz clic en el botón de más para crear una transacción.";
+
+/*  */
+"feature_204_applepay" = "Seleccionar una cuenta en el acceso directo de Apple Pay";
+
+/*  */
+"feature_204_categories" = "Mejora de la predicción de categorías";
+
+/*  */
+"feature_204_contribution" = "Ahora las contribuciones pueden tener un nombre";
+
+/*  */
+"feature_204_futur_amount" = "Ver importes de cuentas futuras al crear una transferencia";
+
+/*  */
+"feature_204_select_account" = "Seleccionar una cuenta por defecto en las preferencias";
+
+/*  */
+"feature_204_transfer_subscription" = "Más información sobre abonos y transferencias";
+
+/*  */
+"feature_pro_204_account" = "Creación ilimitada de cuentas";
+
+/*  */
+"feature_pro_204_applepay" = "Se puede recuperar la ubicación al gastar con Apple Pay";
 
 "filter_by_day" = "Por día";
 
@@ -1146,6 +1176,9 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 
 "whatsnew_creditcard" = "Ahora almacene sus tarjetas de crédito de forma segura en la aplicación (Apple Keychain)";
 
+/*  */
+"whatsnew_features" = "Ver las novedades";
+
 "whatsnew_stats" = "Ya está disponible un resumen de las transacciones del año actual y anterior.";
 
 "whatsnew_subscription" = "Ahora puedes ver los detalles de una suscripción.";
@@ -1155,8 +1188,6 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "whatsnew_ui" = "Interfaz de usuario mejorada, mejor adaptada a tus necesidades y más eficiente";
 
 "whatsnew_ui_title" = "Interfaz de usuario";
-
-"whatsnew_features" = "Ver las novedades";
 
 "word_ARCHIVE" = "ARCHIVAR";
 
