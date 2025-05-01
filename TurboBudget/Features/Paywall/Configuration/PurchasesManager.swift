@@ -7,6 +7,7 @@
 
 import Foundation
 import StoreKit
+import StatsKit
 
 @MainActor
 class PurchasesManager: NSObject, ObservableObject {
@@ -64,6 +65,7 @@ extension PurchasesManager {
                 await transaction.finish()
                 await self.updatePurchasedProducts()
                 await UserStore.shared.update(body: .init(isPremium: true))
+                EventService.sendEvent(key: .userPremium)
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone

@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import StatsKit
 
 final class PreferencesApplePay: ObservableObject {
     static let shared = PreferencesApplePay()
@@ -15,12 +16,18 @@ final class PreferencesApplePay: ObservableObject {
     
     @UserDefault(UserDefaultsKeys.Preferences.ApplePay.isAddCategoryAutomaticallyEnabled, defaultValue: false)
     var isAddCategoryAutomaticallyEnabled: Bool {
-        willSet { objectWillChange.send() }
+        willSet {
+            if newValue { EventService.sendEvent(key: .preferenceApplePayAutocat) }
+            objectWillChange.send()
+        }
     }
     
     @UserDefault(UserDefaultsKeys.Preferences.ApplePay.isAddAddressAutomaticallyEnabled, defaultValue: false)
     var isAddAddressAutomaticallyEnabled: Bool {
-        willSet { objectWillChange.send() }
+        willSet {
+            if newValue { EventService.sendEvent(key: .preferenceApplePayPosition) }
+            objectWillChange.send()
+        }
     }
     
 }

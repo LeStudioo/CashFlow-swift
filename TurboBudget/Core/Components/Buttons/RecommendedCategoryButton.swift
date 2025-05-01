@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StatsKit
 
 struct RecommendedCategoryButton: View {
     
@@ -42,6 +43,7 @@ struct RecommendedCategoryButton: View {
                         withAnimation { type = .expense }
                     }
                     if let subcategoryFound { selectedSubcategory = subcategoryFound }
+                    EventService.sendEvent(key: .autocatSuggestionAccepeted)
                 }
             }
         }

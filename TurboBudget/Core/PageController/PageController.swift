@@ -10,6 +10,7 @@ import SwiftUI
 import CloudKit
 import CoreData
 import NavigationKit
+import StatsKit
 
 struct PageControllerView: View {
     
@@ -132,6 +133,9 @@ struct PageControllerView: View {
             if newValue != .active {
                 UserDefaults.standard.set(false, forKey: "appIsOpen")
             }
+        }
+        .onAppear {
+            EventService.sendEvent(key: .appSession)
         }
     } // body
 } // struct

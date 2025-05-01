@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StatsKit
 
 struct CreateCreditCardView: View {
     
@@ -69,7 +70,7 @@ struct CreateCreditCardView: View {
                 if viewModel.isCreditCardInCreation() {
                     viewModel.presentingConfirmationDialog.toggle()
                 } else {
-                    dismiss()
+                    dismissAction()
                 }
             }
             
@@ -92,12 +93,18 @@ struct CreateCreditCardView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
     } // body
+    
+    func dismissAction() {
+        EventService.sendEvent(key: .creditcardCreationCanceled)
+        dismiss()
+    }
+    
 } // struct
 
 // MARK: - Preview

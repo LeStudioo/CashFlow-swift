@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import StatsKit
 
 struct SettingsHomeView: View {
     
@@ -292,6 +293,9 @@ struct SettingsHomeView: View {
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarDismissPushButton()
+        }
+        .onAppear {
+            EventService.sendEvent(key: .settingsPage)
         }
     } // End body
 } // End struct

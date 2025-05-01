@@ -8,6 +8,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct CreateSubscriptionView: View {
     
@@ -107,7 +108,7 @@ struct CreateSubscriptionView: View {
                 if viewModel.isAutomationInCreation() {
                     viewModel.presentingConfirmationDialog.toggle()
                 } else {
-                    dismiss()
+                    dismissAction()
                 }
             }
             
@@ -134,13 +135,23 @@ struct CreateSubscriptionView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(edges: .bottom)
     } // body
+    
+    func dismissAction() {
+        if viewModel.isEditing {
+            EventService.sendEvent(key: .subscriptionUpdateCanceled)
+        } else {
+            EventService.sendEvent(key: .subscriptionCreationCanceled)
+        }
+        dismiss()
+    }
+    
 } // struct
 
 // MARK: - Preview

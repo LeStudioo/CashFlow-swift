@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import StatsKit
 
 final class PreferencesSubscription: ObservableObject {
     static let shared = PreferencesSubscription()
@@ -15,7 +16,10 @@ final class PreferencesSubscription: ObservableObject {
     
     @UserDefault("PreferencesSubscription_isNotificationsEnabled", defaultValue: false) // Notifiaction sent at 10h00
     var isNotificationsEnabled: Bool {
-        willSet { objectWillChange.send() }
+        willSet {
+            if newValue { EventService.sendEvent(key: .preferenceSubscriptionNotifications) }
+            objectWillChange.send()
+        }
     }
     
     @UserDefault("PreferencesSubscription_dayBeforeReceiveNotification", defaultValue: 1) // [1, 2, 3, 4, 5, 6, 7]

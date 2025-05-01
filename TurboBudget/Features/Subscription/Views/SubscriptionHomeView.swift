@@ -9,6 +9,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct SubscriptionHomeView: View {
     
@@ -74,7 +75,10 @@ struct SubscriptionHomeView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
-        .onAppear { getOrientationOnAppear() }
+        .onAppear {
+            getOrientationOnAppear()
+            EventService.sendEvent(key: .subscriptionDetailPage)
+        }
     } // End body
     
     // MARK: - Fonctions

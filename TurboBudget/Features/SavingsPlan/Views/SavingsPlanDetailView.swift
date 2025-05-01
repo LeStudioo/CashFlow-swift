@@ -9,6 +9,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import StatsKit
 
 struct SavingsPlanDetailView: View {
     
@@ -187,6 +188,7 @@ struct SavingsPlanDetailView: View {
         .scrollIndicators(.hidden)
         .onAppear {
             savingPlanNote = currentSavingsPlan.note ?? ""
+            EventService.sendEvent(key: .savingsplanDetailPage)
         }
         .onDisappear {
             if savingPlanNote != currentSavingsPlan.note && !savingPlanNote.isEmpty {

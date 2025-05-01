@@ -1,5 +1,5 @@
 {
-  "originHash" : "49de618716dedd74c088c6a37e7ad180c8997455513b7e890cc445c26ffc7c43",
+  "originHash" : "40444f3606140c3faee16e6d06cf03505f7ed6a2ae3b6d52cfda7d85a9e34f68",
   "pins" : [
     {
       "identity" : "alertkit",
@@ -116,6 +116,15 @@
       "state" : {
         "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
         "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "statskit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/StatsKit",
+      "state" : {
+        "revision" : "c8cd717aee0c94b1c04a10b6adc055708bd3c420",
+        "version" : "1.0.3"
       }
     },
     {

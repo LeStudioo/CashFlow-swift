@@ -8,6 +8,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct CreateBudgetView: View {
     
@@ -45,7 +46,7 @@ struct CreateBudgetView: View {
                 if viewModel.isBudgetInCreation() {
                     viewModel.presentingConfirmationDialog.toggle()
                 } else {
-                    dismiss()
+                    dismissAction()
                 }
             }
             
@@ -65,13 +66,19 @@ struct CreateBudgetView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(edges: .bottom)
     } // End body
+    
+    func dismissAction() {
+        EventService.sendEvent(key: .budgetCreationCanceled)
+        dismiss()
+    }
+    
 } // End struct
 
 // MARK: - Preview

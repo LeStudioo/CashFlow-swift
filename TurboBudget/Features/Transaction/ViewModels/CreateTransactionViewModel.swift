@@ -21,6 +21,10 @@ final class CreateTransactionViewModel: ObservableObject {
             
     @Published var presentingConfirmationDialog: Bool = false
     
+    var isEditing: Bool {
+        return transaction != nil
+    }
+    
     // init
     init(transaction: TransactionModel? = nil) {
         if let transaction {

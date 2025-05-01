@@ -8,6 +8,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct SavingsPlansHomeView: View {
     
@@ -80,6 +81,9 @@ struct SavingsPlansHomeView: View {
             }
         }
         .background(Color.background.edgesIgnoringSafeArea(.all))
+        .onAppear {
+            EventService.sendEvent(key: .savingsplanListPage)
+        }
     } // body
 } // struct
 

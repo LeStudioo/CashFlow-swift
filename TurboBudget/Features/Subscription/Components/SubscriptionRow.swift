@@ -66,7 +66,7 @@ struct SubscriptionRow: View {
             },
             trailingActions: { context in
                 SwipeAction(action: {
-                    router.present(route: .sheet, .subscription(.update(subscription: subscription)))
+                    router.push(.subscription(.update(subscription: subscription)))
                     context.state.wrappedValue = .closed
                 }, label: { _ in
                     VStack(spacing: 5) {

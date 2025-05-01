@@ -12,18 +12,6 @@ import SwiftUI
 class CreateSavingsPlanViewModel: ObservableObject {
     static let shared = CreateSavingsPlanViewModel()
     
-    init(savingsPlan: SavingsPlanModel? = nil) {
-        if let savingsPlan {
-            self.savingsPlan = savingsPlan
-            self.name = savingsPlan.name ?? ""
-            self.emoji = savingsPlan.emoji ?? "💻"
-            self.goalAmount = "\(savingsPlan.goalAmount?.toString(maxDigits: 0) ?? "")"
-            self.startDate = savingsPlan.startDate
-            self.endDate = savingsPlan.endDate ?? .now
-            self.isEndDate = savingsPlan.endDateString != nil
-        }
-    }
-    
     var savingsPlan: SavingsPlanModel?
     
     @Published var name: String = ""
@@ -37,6 +25,22 @@ class CreateSavingsPlanViewModel: ObservableObject {
     @Published var showEmojiPicker: Bool = false
     
     @Published var presentingConfirmationDialog: Bool = false
+    
+    var isEditing: Bool {
+        return savingsPlan != nil
+    }
+    
+    init(savingsPlan: SavingsPlanModel? = nil) {
+        if let savingsPlan {
+            self.savingsPlan = savingsPlan
+            self.name = savingsPlan.name ?? ""
+            self.emoji = savingsPlan.emoji ?? "💻"
+            self.goalAmount = "\(savingsPlan.goalAmount?.toString(maxDigits: 0) ?? "")"
+            self.startDate = savingsPlan.startDate
+            self.endDate = savingsPlan.endDate ?? .now
+            self.isEndDate = savingsPlan.endDateString != nil
+        }
+    }
     
 }
 

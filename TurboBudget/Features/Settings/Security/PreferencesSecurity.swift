@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import StatsKit
 
 final class PreferencesSecurity: ObservableObject {
     static let shared = PreferencesSecurity()
@@ -15,12 +16,17 @@ final class PreferencesSecurity: ObservableObject {
         
     @UserDefault("isFaceIDEnabled", defaultValue: false) // PreferencesSecurity_isBiometricEnabled
     var isBiometricEnabled: Bool {
-        willSet { objectWillChange.send() }
+        willSet {
+            if newValue { EventService.sendEvent(key: .preferenceSecurityBiometrie) }
+            objectWillChange.send() }
     }
     
     @UserDefault("isSecurityPlusEnabled", defaultValue: false) // PreferencesSecurity_isSecurityReinforced
     var isSecurityReinforced: Bool {
-        willSet { objectWillChange.send() }
+        willSet {
+            if newValue { EventService.sendEvent(key: .preferenceSecurityReinforced) }
+            objectWillChange.send()
+        }
     }
     
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct SavingsAccountDetailView: View {
     
@@ -132,6 +133,9 @@ struct SavingsAccountDetailView: View {
                 transferStore.transfers = []
                 await transferStore.fetchTransfersWithPagination(accountID: accountID)
             }
+        }
+        .onAppear {
+            EventService.sendEvent(key: .accountSavingsDetailPage)
         }
     } // body
 } // struct

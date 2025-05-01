@@ -23,6 +23,10 @@ class CreateSubscriptionViewModel: ObservableObject {
     
     @Published var presentingConfirmationDialog: Bool = false
     
+    var isEditing: Bool {
+        return subscription != nil
+    }
+    
     init(subscription: SubscriptionModel? = nil) {
         self.subscription = subscription
         if let subscription {

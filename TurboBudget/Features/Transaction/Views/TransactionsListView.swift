@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 struct TransactionsListView: View {
     
@@ -74,6 +75,9 @@ struct TransactionsListView: View {
                     }
                 }
             }
+        }
+        .onAppear {
+            EventService.sendEvent(key: .transactionListPage)
         }
     } // body
 } // struct

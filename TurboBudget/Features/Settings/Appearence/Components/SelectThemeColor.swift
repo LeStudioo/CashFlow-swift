@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StatsKit
 
 struct SelectThemeColor: View {
     
@@ -47,6 +48,7 @@ struct SelectThemeColor: View {
                         .padding(4)
                         .onTapGesture {
                             themeManager.theme = theme
+                            EventService.sendEvent(key: .preferenceAppearanceTint)
                         }
                     }
                 }

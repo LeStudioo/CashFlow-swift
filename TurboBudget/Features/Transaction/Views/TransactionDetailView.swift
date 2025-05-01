@@ -9,6 +9,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import StatsKit
 
 struct TransactionDetailView: View {
 
@@ -125,6 +126,11 @@ struct TransactionDetailView: View {
         .scrollIndicators(.hidden)
         .onAppear { 
             viewModel.note = currentTransaction.note ?? ""
+            if transaction.type == .transfer {
+                EventService.sendEvent(key: .transferDetailPage)
+            } else {
+                EventService.sendEvent(key: .transactionDetailPage)
+            }
         }
         .task {
             if store.isCashFlowPro && currentTransaction.category?.id == 0 {

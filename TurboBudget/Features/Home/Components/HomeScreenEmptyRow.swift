@@ -15,7 +15,7 @@ struct HomeScreenEmptyRow: View {
         
     // MARK: -
     var body: some View {
-        NavigationButton(route: .sheet, destination: type.destination) {
+        NavigationButton(route: .push, destination: type.destination) {
             VStack(spacing: 24) {
                 Text(type.title)
                     .font(Font.mediumText16())

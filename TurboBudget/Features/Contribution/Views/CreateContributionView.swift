@@ -7,6 +7,7 @@
 // Localizations 30/09/2023
 
 import SwiftUI
+import StatsKit
 
 struct CreateContributionView: View {
 
@@ -77,7 +78,7 @@ struct CreateContributionView: View {
                     if viewModel.isContributionInCreation() {
                         viewModel.presentingConfirmationDialog.toggle()
                     } else {
-                        dismiss()
+                        dismissAction()
                     }
                 }
                 
@@ -98,10 +99,16 @@ struct CreateContributionView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
     } // End body
+    
+    func dismissAction() {
+        EventService.sendEvent(key: .contributionCreationCanceled)
+        dismiss()
+    }
+    
 } // End struct
 
 // MARK: - Preview

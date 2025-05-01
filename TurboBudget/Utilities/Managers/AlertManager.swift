@@ -9,6 +9,7 @@ import Foundation
 import AlertKit
 import SwiftUI
 import NavigationKit
+import StatsKit
 
 extension AlertManager {
     
@@ -43,6 +44,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.signOut()
+                EventService.sendEvent(key: .userLogout)
                 dismiss()
             }
         )

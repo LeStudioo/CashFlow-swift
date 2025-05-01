@@ -7,6 +7,7 @@
 // Localizations 01/10/2023
 
 import SwiftUI
+import StatsKit
 
 struct PaywallView: View {
     
@@ -32,6 +33,7 @@ struct PaywallView: View {
                             imageWith: ["predictionPaywallDetailled"],
                             desc: "paywall_detailled_prediction".localized
                         )
+                        .onAppear { EventService.sendEvent(key: .paywallDetailPrediction) }
                     }, label: {
                         PaywallRow(
                             systemName: "sparkles",
@@ -81,6 +83,7 @@ struct PaywallView: View {
                             imageWith: ["budgetPaywallDetailled"],
                             desc: "paywall_detailled_budgets".localized
                         )
+                        .onAppear { EventService.sendEvent(key: .paywallDetailBudgets) }
                     }, label: {
                         PaywallRow(
                             systemName: "chart.pie.fill",
@@ -173,6 +176,9 @@ struct PaywallView: View {
             .padding(.top)
             .background(Color.background200)
         } // NavigationStack
+        .onAppear {
+            EventService.sendEvent(key: .appPaywall)
+        }
     } // body
     
     private func timeString(from timeInterval: TimeInterval) -> String {

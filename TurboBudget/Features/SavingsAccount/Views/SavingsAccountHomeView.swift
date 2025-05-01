@@ -74,7 +74,7 @@ struct SavingsAccountHomeView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     if purchaseManager.isCashFlowPro || accountStore.savingsAccounts.isEmpty {
-                        router.present(route: .sheet, .savingsAccount(.create))
+                        router.push(.savingsPlan(.create))
                     } else {
                         alertManager.showPaywall(router: router)
                     }

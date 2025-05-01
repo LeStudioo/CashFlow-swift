@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StatsKit
 
 struct CreateTransferView: View {
     
@@ -91,7 +92,7 @@ struct CreateTransferView: View {
                 if viewModel.isTransferInCreation() {
                     viewModel.presentingConfirmationDialog.toggle()
                 } else {
-                    dismiss()
+                    dismissAction()
                 }
             }
             
@@ -114,13 +115,19 @@ struct CreateTransferView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(edges: .bottom)
     } // body
+    
+    func dismissAction() {
+        EventService.sendEvent(key: .transferCreationCanceled)
+        dismiss()
+    }
+    
 } // struct
 
 // MARK: - Preview

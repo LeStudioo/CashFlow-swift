@@ -8,6 +8,7 @@
 import SwiftUI
 import NetworkKit
 import NavigationKit
+import StatsKit
 
 struct CreateTransactionView: View {
     
@@ -106,7 +107,7 @@ struct CreateTransactionView: View {
                 if viewModel.isTransactionInCreation() {
                     viewModel.presentingConfirmationDialog.toggle()
                 } else {
-                    dismiss()
+                    dismissAction()
                 }
             }
             
@@ -134,13 +135,23 @@ struct CreateTransactionView: View {
             viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
-            Button("word_cancel_changes".localized, role: .destructive, action: { dismiss() })
+            Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(edges: .bottom)
     } // End body
+    
+    func dismissAction() {
+        if viewModel.isEditing {
+            EventService.sendEvent(key: .transactionUpdateCanceled)
+        } else {
+            EventService.sendEvent(key: .transactionCreationCanceled)
+        }
+        dismiss()
+    }
+    
 } // End struct
 
 // MARK: - Preview

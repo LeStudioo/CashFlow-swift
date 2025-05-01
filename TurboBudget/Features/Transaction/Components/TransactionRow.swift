@@ -69,7 +69,7 @@ struct TransactionRow: View {
             }, trailingActions: { context in
                 if isEditable {
                     SwipeAction(action: {
-                        router.present(route: .sheet, .transaction(.update(transaction: currentTransaction)))
+                        router.push(.transaction(.update(transaction: currentTransaction)))
                         context.state.wrappedValue = .closed
                     }, label: { _ in
                         VStack(spacing: 5) {

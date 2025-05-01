@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import StatsKit
 
 struct SubscriptionDetailView: View {
     
@@ -130,6 +131,9 @@ struct SubscriptionDetailView: View {
                 ToolbarDismissKeyboardButtonView()
             }
             .background(Color.background.edgesIgnoringSafeArea(.all))
+            .onAppear {
+                EventService.sendEvent(key: .subscriptionDetailPage)
+            }
         }
     } // body
 } // struct

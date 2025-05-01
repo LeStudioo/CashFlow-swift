@@ -176,17 +176,17 @@ enum CustomEmptyViewSituation {
         case .account:
             router.present(route: .sheet, .account(.create))
         case .transactions:
-            router.present(route: .sheet, .transaction(.create))
+            router.push(.transaction(.create))
         case .subscriptions:
-            router.present(route: .sheet, .subscription(.create))
+            router.push(.subscription(.create))
         case .savingsPlan:
-            router.present(route: .sheet, .savingsPlan(.create))
+            router.push(.savingsPlan(.create))
         case .savingsAccount:
-            router.present(route: .sheet, .savingsAccount(.create))
+            router.push(.savingsAccount(.create))
         case .contributions:
             break
         case .analytics:
-            router.present(route: .sheet, .transaction(.create))
+            router.push(.transaction(.create))
         }
     }
 }
