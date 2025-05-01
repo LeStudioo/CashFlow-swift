@@ -23,9 +23,13 @@ struct HomeScreenRecentTransactions: View {
                 HomeScreenComponentHeader(type: .recentTransactions)
                 
                 if transactionStore.transactions.isNotEmpty {
-                    ForEach(transactionStore.transactions.prefix(preferencesDisplayHome.transaction_value)) { transaction in
-                        NavigationButton(route: .push, destination: AppDestination.transaction(.detail(transaction: transaction))) {
-                            TransactionRow(transaction: transaction)
+                    VStack(spacing: 0) {
+                        let transactions = transactionStore.transactions.prefix(preferencesDisplayHome.transaction_value)
+                        ForEach(transactions) { transaction in
+                            NavigationButton(route: .push, destination: AppDestination.transaction(.detail(transaction: transaction))) {
+                                TransactionRow(transaction: transaction)
+                                    .padding(.bottom, transactions.last?.id == transaction.id ? 0 : DesignSystem.Padding.medium)
+                            }
                         }
                     }
                 } else {

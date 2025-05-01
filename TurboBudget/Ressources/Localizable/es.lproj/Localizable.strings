@@ -950,6 +950,15 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 
 "statistics_with_savings" = "Tenga en cuenta los ahorros y las inversiones.";
 
+/*  */
+"subscription_first_subscription" = "Primera suscripción";
+
+/*  */
+"subscription_next_transaction" = "Siguiente operación";
+
+/*  */
+"subscription_number_of_transactions" = "Número de transacciones";
+
 "successful_contribution_new_desc" = "Su contribución ha sido procesada y agregada a su plan de ahorro.";
 
 "successful_contribution_new_title" = "¡Contribución creada!";
@@ -1263,6 +1272,9 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "word_json" = "JSON";
 
 "word_light" = "Luz";
+
+/*  */
+"word_main_account" = "Cuenta principal";
 
 "word_maxAmount" = "Importe máximo";
 

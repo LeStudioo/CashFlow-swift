@@ -26,6 +26,7 @@ struct TransactionsListView: View {
                         destination: AppDestination.transaction(.detail(transaction: transaction))
                     ) {
                         TransactionRow(transaction: transaction)
+                            .padding(.bottom, DesignSystem.Padding.medium)
                     }
                     .id(transaction.id)
                     .padding(.horizontal)
@@ -36,7 +37,7 @@ struct TransactionsListView: View {
                     }
                 }
                 .noDefaultStyle()
-                .padding(.vertical, DesignSystem.Padding.extraSmall)
+               
             } header: {
                 DetailOfExpensesAndIncomesByMonth(
                     month: month,

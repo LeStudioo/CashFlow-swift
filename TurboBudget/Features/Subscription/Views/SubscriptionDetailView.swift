@@ -43,7 +43,7 @@ struct SubscriptionDetailView: View {
                             .lineLimit(2)
                     }
                     
-                    VStack(spacing: 40) {
+                    VStack(spacing: 24) {
                         VStack(spacing: 12) {
                             DetailRow(
                                 icon: "clock.arrow.circlepath",
@@ -78,23 +78,39 @@ struct SubscriptionDetailView: View {
                             }
                         }
                         
-                        if let transactions = subscription.transactions {
-                            Text(transactions.count.formatted())
-                        }
-                        
                         if let firstSubscriptionDate = subscription.firstSubscriptionDate {
                             VStack(spacing: 12) {
                                 DetailRow(
                                     icon: "calendar",
-                                    text: "subscription_first_subscription_date".localized,
+                                    text: "subscription_first_subscription".localized,
                                     value: firstSubscriptionDate.formatted(date: .complete, time: .omitted).capitalized
                                 )
                                 
-                                DetailRow(
-                                    icon: "dollarsign",
-                                    text: "subscription_number_of_transactions".localized,
-                                    value: firstSubscriptionDate.monthsBetween(.now).formatted()
-                                )
+//                                DetailRow(
+//                                    icon: "dollarsign",
+//                                    text: "Date since".localized,
+//                                    value: firstSubscriptionDate.monthsBetween(.now).formatted()
+//                                )
+                            }
+                        }
+                    }
+                    
+                    if let transactions = subscription.transactions {
+                        VStack(spacing: 16) {
+                            Text("word_transactions".localized + " (\(transactions.count) - \(transactions.map(\.amount).reduce(0, +).toCurrency()))")
+                                .fullWidth(.leading)
+                                .font(.mediumCustom(size: 20))
+                            
+                            VStack(spacing: 0) {
+                                ForEach(transactions.sorted(by: { $0.date > $1.date })) { transaction in
+                                    NavigationButton(
+                                        route: .push,
+                                        destination: AppDestination.transaction(.detail(transaction: transaction))
+                                    ) {
+                                        TransactionRow(transaction: transaction)
+                                            .padding(.bottom, 12)
+                                    }
+                                }
                             }
                         }
                     }

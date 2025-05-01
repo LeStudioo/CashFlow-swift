@@ -949,6 +949,15 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 
+/*  */
+"subscription_first_subscription" = "Erstes Abonnement";
+
+/*  */
+"subscription_next_transaction" = "Nächste Transaktion";
+
+/*  */
+"subscription_number_of_transactions" = "Anzahl der Transaktionen";
+
 "successful_contribution_new_desc" = "Ihr Beitrag wurde bearbeitet und Ihrem Sparplan hinzugefügt.";
 
 "successful_contribution_new_title" = "Beitrag erstellt!";
@@ -1262,6 +1271,9 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "word_json" = "JSON";
 
 "word_light" = "Licht";
+
+/*  */
+"word_main_account" = "Hauptkonto";
 
 "word_maxAmount" = "Höchstbetrag";
 

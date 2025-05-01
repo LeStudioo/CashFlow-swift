@@ -950,6 +950,15 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 
 "statistics_with_savings" = "Prendre en compte les épargnes et placements.";
 
+/*  */
+"subscription_first_subscription" = "Première souscription";
+
+/*  */
+"subscription_next_transaction" = "Prochaine transaction";
+
+/*  */
+"subscription_number_of_transactions" = "Nombre de transactions";
+
 "successful_contribution_new_desc" = "Votre contribution a été traité et ajouté à votre plan d'épargne.";
 
 "successful_contribution_new_title" = "Contribution créé !";
@@ -1263,6 +1272,9 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 "word_json" = "JSON";
 
 "word_light" = "Clair";
+
+/*  */
+"word_main_account" = "Compte principal";
 
 "word_maxAmount" = "Montant maximum";
 

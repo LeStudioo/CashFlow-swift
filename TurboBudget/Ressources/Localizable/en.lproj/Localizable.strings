@@ -950,6 +950,15 @@ This can serve as a guideline for balancing your spending, saving and planning y
 
 "statistics_with_savings" = "Take savings and investments into account.";
 
+/*  */
+"subscription_first_subscription" = "First subscription";
+
+/*  */
+"subscription_next_transaction" = "Next transaction";
+
+/*  */
+"subscription_number_of_transactions" = "Number of transactions";
+
 "successful_contribution_new_desc" = "Your contribution has been processed and added to your savings plan.";
 
 "successful_contribution_new_title" = "Contribution created!";
@@ -1263,6 +1272,9 @@ This can serve as a guideline for balancing your spending, saving and planning y
 "word_json" = "JSON";
 
 "word_light" = "Light";
+
+/*  */
+"word_main_account" = "Main account";
 
 "word_maxAmount" = "Maximum amount";
 
