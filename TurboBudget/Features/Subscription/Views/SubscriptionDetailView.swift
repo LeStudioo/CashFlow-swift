@@ -78,9 +78,9 @@ struct SubscriptionDetailView: View {
                             }
                         }
                         
-                        //                    if let transactions = subscription.transactions {
-                        //                        Text(transactions.count.formatted())
-                        //                    }
+                        if let transactions = subscription.transactions {
+                            Text(transactions.count.formatted())
+                        }
                         
                         if let firstSubscriptionDate = subscription.firstSubscriptionDate {
                             VStack(spacing: 12) {

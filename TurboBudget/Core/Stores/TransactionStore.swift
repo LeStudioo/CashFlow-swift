@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import StatsKit
 
 final class TransactionStore: ObservableObject {
     static let shared = TransactionStore()
@@ -65,6 +66,8 @@ extension TransactionStore {
             
             self.transactions += transactions
             sortTransactionsByDate()
+            
+            EventService.sendEvent(key: .transactionListPagination)
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -81,6 +84,15 @@ extension TransactionStore {
                     sortTransactionsByDate()
                 }
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                EventService.sendEvent(key: .transactionCreated)
+                if transaction.type == .expense {
+                    EventService.sendEvent(key: .transactionExpenseCreated)
+                } else if transaction.type == .income {
+                    EventService.sendEvent(key: .transactionIncomeCreated)
+                }
+                if transaction.isFromApplePay {
+                    EventService.sendEvent(key: .transactionCreatedApplePay)
+                }
                 return shouldReturn ? transaction : nil
             }
             return nil
@@ -102,6 +114,7 @@ extension TransactionStore {
                     self.transactions[index] = transaction
                     sortTransactionsByDate()
                     AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
+                    EventService.sendEvent(key: .transactionUpdated)
                     return shouldReturn ? transaction : nil
                 }
             }
@@ -136,6 +149,8 @@ extension TransactionStore {
             if let newBalance = response.newBalance, let account = accountRepo.selectedAccount, let accountID = account._id {
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
+            
+            EventService.sendEvent(key: .transactionDeleted)
         } catch { NetworkService.handleError(error: error) }
     }
 }
