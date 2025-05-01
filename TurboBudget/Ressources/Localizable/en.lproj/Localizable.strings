@@ -682,6 +682,18 @@ Simple, fast, secure - your financial peace of mind starts here.";
 
 "recover_transaction" = "Retrieve a transaction";
 
+/*  */
+"release_note_bugfixes" = "Fixing bugs";
+
+/*  */
+"release_note_new_features" = "New features";
+
+/*  */
+"release_note_new_features_pro" = "New premium features";
+
+/*  */
+"release_note_title" = "Release note -";
+
 "sample_account_name" = "Theo's account";
 
 "sample_boite" = "Nightclub";

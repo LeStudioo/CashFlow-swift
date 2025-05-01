@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import NavigationKit
 
 struct WhatsNewView: View {
     
@@ -13,6 +14,10 @@ struct WhatsNewView: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openURL) private var openURL
+    
+    var router: Router<AppDestination>? {
+        return AppRouterManager.shared.router(for: .home)
+    }
     
     // MARK: -
     var body: some View {
@@ -29,12 +34,14 @@ struct WhatsNewView: View {
             
             VStack(spacing: 24) {
                 Button {
-                   
+                    router?.push(.shared(.releaseNoteDetail(releaseNote: .version2_0_4)))
+                    preferencesGeneral.isWhatsNewSeen = true
+                    dismiss()
                 } label: {
                     HStack {
                         Text("whatsnew_features".localized)
                         Spacer()
-                        Image(systemName: "arrow.up.right")
+                        Image(systemName: "arrow.right")
                     }
                     .fontWeight(.semibold)
                     .fullWidth()

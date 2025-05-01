@@ -61,6 +61,9 @@ struct HomeView: View {
             if preferencesGeneral.numberOfOpenings % 20 == 0 && !purchasesManager.isCashFlowPro {
                 router.present(route: .sheet, .shared(.paywall))
             }
+            if preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen {
+                router.present(route: .modalFitContent, .shared(.whatsNew))
+            }
         }
     } // body
 } // struct

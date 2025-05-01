@@ -682,6 +682,18 @@ Sencillo, rápido y seguro: su tranquilidad financiera empieza aquí.";
 
 "recover_transaction" = "Recuperar una transacción";
 
+/*  */
+"release_note_bugfixes" = "Corrección de errores";
+
+/*  */
+"release_note_new_features" = "Novedades";
+
+/*  */
+"release_note_new_features_pro" = "Nuevas prestaciones premium";
+
+/*  */
+"release_note_title" = "Nota de publicación -";
+
 "sample_account_name" = "Cuenta de Théo";
 
 "sample_boite" = "Discoteca";

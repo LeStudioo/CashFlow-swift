@@ -17,7 +17,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
             ScrollView {
                 VStack(spacing: DesignSystem.Spacing.large) {
                     VStack(alignment: .leading, spacing: DesignSystem.Spacing.extraSmall) {
-                        Text("Note de mise à jour - \(releaseNote.version)")
+                        Text("\("release_note_title".localized) \(releaseNote.version)")
                             .font(.system(size: 24, weight: .bold))
                         
                         Text(releaseNote.date)
@@ -28,7 +28,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     
                     if let newFeatures = releaseNote.newFeatures, newFeatures.isEmpty == false {
                         VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
-                            Text("Nouvelles fonctionnalités")
+                            Text("release_note_new_features".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)
                                 .fullWidth(.leading)
@@ -42,7 +42,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     
                     if let newFeaturesPro = releaseNote.newFeaturesPro, newFeaturesPro.isEmpty == false {
                         VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
-                            Text("Nouvelles fonctionnalités premium")
+                            Text("release_note_new_features_pro".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)
                                 .fullWidth(.leading)
@@ -56,7 +56,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     
                     if let bugfixes = releaseNote.bugfixes, bugfixes.isEmpty == false {
                         VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
-                            Text("Résolution de bugs")
+                            Text("release_note_bugfixes".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)
                                 .fullWidth(.leading)
@@ -74,6 +74,8 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
         .toolbar {
             ToolbarDismissPushButton()
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
     } // body
 } // struct
 

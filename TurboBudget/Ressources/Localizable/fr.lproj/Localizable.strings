@@ -682,6 +682,18 @@ Simple, rapide, sécurisé – votre tranquillité d’esprit financière commen
 
 "recover_transaction" = "Récupérer une transaction";
 
+/*  */
+"release_note_bugfixes" = "Résolution de bugs";
+
+/*  */
+"release_note_new_features" = "Nouvelles fonctionnalités";
+
+/*  */
+"release_note_new_features_pro" = "Nouvelles fonctionnalités premium";
+
+/*  */
+"release_note_title" = "Note de mise à jour -";
+
 "sample_account_name" = "Compte de Théo";
 
 "sample_boite" = "Boite de nuit";

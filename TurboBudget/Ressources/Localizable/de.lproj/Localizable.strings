@@ -682,6 +682,18 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "recover_transaction" = "Transaktion abrufen";
 
+/*  */
+"release_note_bugfixes" = "Behebung von Fehlern";
+
+/*  */
+"release_note_new_features" = "Neue Funktionen";
+
+/*  */
+"release_note_new_features_pro" = "Neue Premiumfunktionen";
+
+/*  */
+"release_note_title" = "Freigabemitteilung -";
+
 "sample_account_name" = "Théo's Konto";
 
 "sample_boite" = "Nachtclub";

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ReleaseNoteModel {
+struct ReleaseNoteModel: Equatable, Hashable {
     let version: String
     let date: String
     

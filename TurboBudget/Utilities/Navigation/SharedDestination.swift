@@ -12,6 +12,7 @@ enum SharedDestination: AppDestinationProtocol {
     case paywall
     case whatsNew
     case qrCodeScanner
+    case releaseNoteDetail(releaseNote: ReleaseNoteModel)
     
     case home
     case analytics
@@ -30,6 +31,8 @@ enum SharedDestination: AppDestinationProtocol {
             HomeView()
         case .analytics:
             AnalyticsHomeView()
+        case .releaseNoteDetail(let releaseNote):
+            ReleaseNoteDetailView(releaseNote: releaseNote)
         }
     }
 }
