@@ -36,7 +36,7 @@
         }
       ],
       "productID" : "com.Sementa.CashFlow.lifetime",
-      "referenceName" : "Lifetime CashFlow Pro",
+      "referenceName" : "CashFlow Pro",
       "type" : "NonConsumable"
     }
   ],
@@ -44,7 +44,7 @@
     "_applicationInternalID" : "6450913423",
     "_developerTeamID" : "8TMMB69WBG",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 755865746.32046497,
+    "_lastSynchronizedDate" : 767851357.74300897,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -96,53 +96,7 @@
     ]
   },
   "subscriptionGroups" : [
-    {
-      "id" : "21532358",
-      "localizations" : [
 
-      ],
-      "name" : "CashFlow Pro",
-      "subscriptions" : [
-        {
-          "adHocOffers" : [
-
-          ],
-          "codeOffers" : [
-
-          ],
-          "displayPrice" : "1.99",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "6739449054",
-          "introductoryOffer" : null,
-          "localizations" : [
-            {
-              "description" : "+ de fonctionnalités pour gérer votre argent!",
-              "displayName" : "CashFlow Pro",
-              "locale" : "fr"
-            },
-            {
-              "description" : "Nuevas funciones para gestionar tu dinero",
-              "displayName" : "CashFlow Pro",
-              "locale" : "es_ES"
-            },
-            {
-              "description" : "New features to help you manage your money!",
-              "displayName" : "CashFlow Pro",
-              "locale" : "en_GB"
-            }
-          ],
-          "productID" : "cashflowpro_199_1m_3d0",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "CashFlow Pro Subscription",
-          "subscriptionGroupID" : "21532358",
-          "type" : "RecurringSubscription",
-          "winbackOffers" : [
-
-          ]
-        }
-      ]
-    }
   ],
   "version" : {
     "major" : 4,

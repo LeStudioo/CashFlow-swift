@@ -123,8 +123,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/theosementa/StatsKit",
       "state" : {
-        "revision" : "c8cd717aee0c94b1c04a10b6adc055708bd3c420",
-        "version" : "1.0.3"
+        "revision" : "f318796edb7033917d0868574c552fb310482e7c",
+        "version" : "1.0.4"
       }
     },
     {
