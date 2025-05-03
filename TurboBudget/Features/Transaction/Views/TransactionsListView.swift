@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import StatsKit
+import TheoKit
 
 struct TransactionsListView: View {
     
@@ -52,7 +53,7 @@ struct TransactionsListView: View {
         } // List
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .overlay(alignment: .bottom) {
             if isLoading {
                 CashFlowLoader()

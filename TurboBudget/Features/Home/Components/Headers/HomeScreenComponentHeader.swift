@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct HomeScreenComponentHeader: View {
     
@@ -19,14 +20,10 @@ struct HomeScreenComponentHeader: View {
     var body: some View {
         NavigationButton(route: .push, destination: type.destination) {
             HStack(spacing: 8) {
-                Image(systemName: type.icon)
-                    .foregroundStyle(Color.customGray)
-                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                
                 Text(type.title)
-                    .foregroundStyle(Color.customGray)
-                    .font(.semiBoldCustom(size: 22))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(Color.white)
+                    .font(TKDesignSystem.Fonts.Title.medium)
+                    .fullWidth(.leading)
                 
                 Image(systemName: "arrow.right")
                     .foregroundStyle(themeManager.theme.color)
@@ -55,14 +52,6 @@ enum HomeScreenComponentHeaderType {
         case .recentTransactions:   return AppDestination.transaction(.list)
         case .savingsPlan:          return AppDestination.savingsPlan(.list)
         case .subscription:         return AppDestination.subscription(.list)
-        }
-    }
-    
-    var icon: String {
-        switch self {
-        case .recentTransactions:   return "creditcard.and.123"
-        case .savingsPlan:          return "dollarsign.square.fill"
-        case .subscription:         return "clock.arrow.circlepath"
         }
     }
 }

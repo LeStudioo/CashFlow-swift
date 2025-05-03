@@ -84,13 +84,13 @@ struct SavingsAccountDetailView: View {
                 Menu(
                     content: {
                         NavigationButton(
-                            route: .sheet,
+                            route: .push,
                             destination: AppDestination.savingsAccount(.createTransaction(savingsAccount: savingsAccountStore.currentAccount))
                         ) {
                             Label(Word.Classic.add, systemImage: "plus")
                         }
                         NavigationButton(
-                            route: .sheet,
+                            route: .push,
                             destination: AppDestination.transfer(.create(receiverAccount: savingsAccountStore.currentAccount))
                         ) {
                             Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right")

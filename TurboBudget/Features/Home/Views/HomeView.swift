@@ -11,6 +11,7 @@ import SwiftUI
 import CoreData
 import StoreKit
 import NavigationKit
+import TheoKit
 
 struct HomeView: View {
         
@@ -24,7 +25,7 @@ struct HomeView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(spacing: 32) {
             HomeHeader()
                 .padding(.horizontal)
             
@@ -37,7 +38,6 @@ struct HomeView: View {
                     HomeScreenRecentTransactions()
                     HomeScreenSavingsPlan()
                 }
-                .padding(.horizontal)
                 
                 Rectangle()
                     .frame(height: 120)
@@ -45,8 +45,9 @@ struct HomeView: View {
             } // ScrollView
             .scrollIndicators(.hidden)
         }
+        .padding(TKDesignSystem.Padding.large)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onAppear {
             preferencesGeneral.numberOfOpenings += 1
             if (preferencesGeneral.numberOfOpenings % 6 == 0) && !preferencesGeneral.isApplePayEnabled {

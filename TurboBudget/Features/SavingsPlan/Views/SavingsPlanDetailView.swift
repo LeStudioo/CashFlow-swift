@@ -211,7 +211,7 @@ struct SavingsPlanDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     NavigationButton(
-                        route: .sheet,
+                        route: .push,
                         destination: AppDestination.savingsPlan(.update(savingsPlan: currentSavingsPlan))
                     ) {
                         Label(Word.Classic.edit.localized, systemImage: "pencil")

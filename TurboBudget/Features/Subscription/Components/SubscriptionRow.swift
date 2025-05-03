@@ -10,6 +10,7 @@ import SwiftUI
 import SwipeActions
 import AlertKit
 import NavigationKit
+import TheoKit
 
 struct SubscriptionRow: View {
     
@@ -27,42 +28,43 @@ struct SubscriptionRow: View {
     var body: some View {
         SwipeView(
             label: {
-                HStack {
+                HStack(spacing: TKDesignSystem.Spacing.medium) {
                     CircleCategory(
                         category: subscription.category,
                         subcategory: subscription.subcategory
                     )
                     
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text(Word.Main.subscription)
-                            .foregroundStyle(Color.customGray)
-                            .font(.Text.medium)
+                            .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                            .font(TKDesignSystem.Fonts.Body.small)
                         
                         Text(subscription.name)
-                            .font(.semiBoldText18())
+                            .font(TKDesignSystem.Fonts.Body.medium)
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
                     }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing, spacing: 5) {
+                    .fullWidth(.leading)
+                                        
+                    VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
-                            .font(.semiBoldText16())
+                            .font(TKDesignSystem.Fonts.Body.mediumBold)
                             .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
                             .lineLimit(1)
                         
                         Text(subscription.frequencyDate.withTemporality)
-                            .font(.Text.medium)
-                            .foregroundStyle(Color.customGray)
+                            .font(TKDesignSystem.Fonts.Body.small)
+                            .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .lineLimit(1)
                     }
                 }
-                .padding(12)
-                .background {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color.background100)
-                }
+                .padding(TKDesignSystem.Padding.medium)
+                .roundedRectangleBorder(
+                    TKDesignSystem.Colors.Background.Theme.bg100,
+                    radius: 16,
+                    lineWidth: 1,
+                    strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+                )
             },
             trailingActions: { context in
                 SwipeAction(action: {
@@ -101,7 +103,6 @@ struct SubscriptionRow: View {
         .swipeActionWidth(90)
         .swipeActionCornerRadius(16)
         .swipeMinimumDistance(30)
-        .padding(.vertical, 4)
     } // body
 } // struct
 

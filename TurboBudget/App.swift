@@ -137,6 +137,11 @@ struct TurboBudgetApp: App {
                     }
                 }
             }
+            .onAppear {
+                TKDesignSystem.fontBold = "Satoshi-Bold"
+                TKDesignSystem.fontMedium = "Satoshi-Medium"
+                TKDesignSystem.fontRegular = "Satoshi-Regular"
+            }
         }
     } // body
 } // struct

@@ -9,6 +9,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct HomeScreenSubscription: View {
     
@@ -20,11 +21,11 @@ struct HomeScreenSubscription: View {
     
     // MARK: -
     var body: some View {
-        VStack {
+        VStack(spacing: TKDesignSystem.Spacing.standard) {
             HomeScreenComponentHeader(type: .subscription)
             
             if !subscriptionStore.subscriptions.isEmpty {
-                VStack {
+                VStack(spacing: TKDesignSystem.Spacing.medium) {
                     ForEach(subscriptionStore.subscriptions.prefix(preferencesDisplayHome.subscription_value)) { subscription in
                         NavigationButton(
                             route: .push,

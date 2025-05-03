@@ -160,7 +160,7 @@ struct TransactionDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Menu {
                     NavigationButton(
-                        route: .sheet,
+                        route: .push,
                         destination: AppDestination.transaction(.update(transaction: currentTransaction))
                     ) {
                         Label(Word.Classic.edit, systemImage: "pencil")

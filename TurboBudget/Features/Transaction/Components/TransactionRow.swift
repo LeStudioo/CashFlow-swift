@@ -10,6 +10,7 @@ import SwiftUI
 import SwipeActions
 import AlertKit
 import NavigationKit
+import TheoKit
 
 struct TransactionRow: View {
     
@@ -29,44 +30,46 @@ struct TransactionRow: View {
     var body: some View {
         SwipeView(
             label: {
-                HStack {
+                HStack(spacing: TKDesignSystem.Spacing.medium) {
                     CircleCategory(
                         category: currentTransaction.category,
                         subcategory: currentTransaction.subcategory,
                         transaction: currentTransaction
                     )
                     
-                    VStack(alignment: .leading, spacing: 5) {
+                    VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text(transactionTypeString)
-                            .foregroundStyle(Color.customGray)
-                            .font(.Text.medium)
+                            .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                            .font(DesignSystem.Fonts.Body.small)
                         
                         Text(currentTransaction.nameDisplayed)
-                            .font(.semiBoldText18())
+                            .font(DesignSystem.Fonts.Body.medium)
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
                     }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing, spacing: 5) {
+                    .fullWidth(.leading)
+                                        
+                    VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                            .font(.semiBoldText16())
+                            .font(DesignSystem.Fonts.Body.mediumBold)
                             .foregroundStyle(currentTransaction.color)
                             .lineLimit(1)
                         
                         Text(currentTransaction.date.withTemporality)
-                            .font(.Text.medium)
-                            .foregroundStyle(Color.customGray)
+                            .font(DesignSystem.Fonts.Body.small)
+                            .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .lineLimit(1)
                     }
                 }
-                .padding(12)
-                .background {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color.background100)
-                }
-            }, trailingActions: { context in
+                .padding(TKDesignSystem.Padding.medium)
+                .roundedRectangleBorder(
+                    TKDesignSystem.Colors.Background.Theme.bg100,
+                    radius: 16,
+                    lineWidth: 1,
+                    strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+                )
+            },
+            trailingActions: { context in
                 if isEditable {
                     SwipeAction(action: {
                         router.push(.transaction(.update(transaction: currentTransaction)))

@@ -127,7 +127,7 @@ struct SubscriptionDetailView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Menu {
                         NavigationButton(
-                            route: .sheet,
+                            route: .push,
                             destination: AppDestination.subscription(.update(subscription: subscription))
                         ) {
                             Label(Word.Classic.edit, systemImage: "pencil")

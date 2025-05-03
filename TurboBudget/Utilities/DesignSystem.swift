@@ -9,10 +9,54 @@
 import Foundation
 import SwiftUICore
 
-struct DesignSystem { }
+struct DesignSystem {
+    
+    static var fontRegular: String = "Satoshi-Regular"
+    static var fontMedium: String = "Satoshi-Medium"
+    static var fontBold: String = "Satoshi-Bold"
+    
+}
 
 // MARK: - Fonts
 extension DesignSystem {
+    
+    struct Fonts {
+        public struct Display {
+            /// `This font is in "Bold 40" style`
+            public static let extraLarge: Font = Font.custom(fontBold, size: 40)
+            /// `This font is in "Bold 36" style`
+            public static let large: Font = Font.custom(fontBold, size: 36)
+            /// `This font is in "Bold 32" style`
+            public static let medium: Font = Font.custom(fontBold, size: 32)
+            /// `This font is in "Bold 28" style`
+            public static let small: Font = Font.custom(fontBold, size: 28)
+        }
+        public struct Title {
+            /// `This font is in "Bold 24" style`
+            public static let large: Font = Font.custom(fontBold, size: 24)
+            /// `This font is in "Medium 20" style`
+            public static let medium: Font = Font.custom(fontMedium, size: 20)
+        }
+        public struct Body {
+            /// `This font is in "Bold 18" style`
+            public static let large: Font = Font.custom(fontBold, size: 18)
+            /// `This font is in "Bold 16" style`
+            public static let mediumBold: Font = Font.custom(fontBold, size: 16)
+            /// `This font is in "Medium 16" style`
+            public static let medium: Font = Font.custom(fontMedium, size: 16)
+            /// `This font is in "Medium 14" style`
+            public static let small: Font = Font.custom(fontMedium, size: 14)
+        }
+        public struct Label {
+            /// `This font is in "Medium 12" style`
+            public static let large: Font = Font.custom(fontMedium, size: 12)
+            /// `This font is in "Bold 10" style`
+            public static let medium: Font = Font.custom(fontBold, size: 10)
+            /// `This font is in "Bold 8" style`
+            public static let small: Font = Font.custom(fontBold, size: 8)
+        }
+    }
+    
     struct FontDS {
         struct Title {
             /// `This font is in "SemiBold 24"`

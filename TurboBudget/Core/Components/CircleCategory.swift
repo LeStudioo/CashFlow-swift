@@ -18,51 +18,44 @@ struct CircleCategory: View {
     
     // MARK: -
     var body: some View {
-        Circle()
-            .foregroundStyle(Color.background)
-            .frame(width: 50)
-            .overlay {
-                if let category, let subcategory {
-                    Circle()
-                        .foregroundStyle(category.color)
-                        .shadow(radius: 4, y: 4)
-                        .frame(width: 34)
-                    
-                    CustomOrSystemImage(
-                        systemImage: subcategory.icon,
-                        size: 14
-                    )
-                } else if let category, subcategory == nil {
-                    Circle()
-                        .foregroundStyle(category.color)
-                        .shadow(radius: 4, y: 4)
-                        .frame(width: 34)
-                    
-                    Image(systemName: category.icon)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .systemBackground))
-                } else if let transaction, transaction.type == .transfer,
-                          let selectedAccount = accountStore.selectedAccount,
-                          let accountID = selectedAccount._id {
-                    let isSender = accountID == transaction.senderAccount?._id
-                    Circle()
-                        .foregroundStyle(isSender ? .error400 : .primary500)
-                        .shadow(radius: 4, y: 4)
-                        .frame(width: 34)
-                    
-                    Image(systemName: isSender ? "antenna.radiowaves.left.and.right" : "tray.fill")
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .systemBackground))
-                } else {
-                    Circle()
-                        .foregroundStyle(.gray)
-                        .shadow(radius: 4, y: 4)
-                        .frame(width: 34)
-                    
-                    Text(UserCurrency.symbol)
-                        .foregroundStyle(Color(uiColor: .systemBackground))
-                }
+        ZStack {
+            if let category, let subcategory {
+                Circle()
+                    .foregroundStyle(category.color)
+                    .frame(width: 36)
+                
+                CustomOrSystemImage(
+                    systemImage: subcategory.icon,
+                    size: 14
+                )
+            } else if let category, subcategory == nil {
+                Circle()
+                    .foregroundStyle(category.color)
+                    .frame(width: 36)
+                
+                Image(systemName: category.icon)
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundStyle(Color(uiColor: .systemBackground))
+            } else if let transaction, transaction.type == .transfer,
+                      let selectedAccount = accountStore.selectedAccount,
+                      let accountID = selectedAccount._id {
+                let isSender = accountID == transaction.senderAccount?._id
+                Circle()
+                    .foregroundStyle(isSender ? .error400 : .primary500)
+                    .frame(width: 36)
+                
+                Image(systemName: isSender ? "antenna.radiowaves.left.and.right" : "tray.fill")
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
+                    .foregroundStyle(Color(uiColor: .systemBackground))
+            } else {
+                Circle()
+                    .foregroundStyle(.gray)
+                    .frame(width: 36)
+                
+                Text(UserCurrency.symbol)
+                    .foregroundStyle(Color(uiColor: .systemBackground))
             }
+        }
     } // body
 } // struct
 
