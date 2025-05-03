@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/theosementa/NavigationKit",
       "state" : {
-        "revision" : "335b61409f19f70526429388c990beb93b0e047d",
-        "version" : "1.0.9"
+        "revision" : "7f11d08380bf080f4d494a40a6492758cead1320",
+        "version" : "1.1.0"
       }
     },
     {

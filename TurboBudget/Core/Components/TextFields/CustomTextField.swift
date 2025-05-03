@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 enum CustomTextFieldStyle {
     case text
@@ -22,45 +23,31 @@ struct CustomTextField: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
             Text(config.title)
-                .padding(.leading, 8)
+                .padding(.leading, TKDesignSystem.Spacing.small)
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {
                 TextField(config.placeholder, text: $text)
                     .focused($isFocused)
                     .keyboardType(config.style == .amount ? .decimalPad : .default)
-                    .font(.system(size: 16, weight: .medium))
-                    .padding([.vertical, .leading], 14)
-                    .padding(.trailing, config.style == .amount ? 8 : 14)
-                    .background {
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 16,
-                            bottomLeadingRadius: 16,
-                            bottomTrailingRadius: config.style == .amount ? 0 :16,
-                            topTrailingRadius: config.style == .amount ? 0 : 16,
-                            style: .continuous
-                        )
-                        .fill(Color.background200)
-                    }
+                    .font(DesignSystem.Fonts.Body.medium)
+                    .padding([.vertical, .leading], TKDesignSystem.Padding.medium)
+                    .padding(.trailing, config.style == .amount ? 8 : TKDesignSystem.Padding.medium)
                 
                 if config.style == .amount {
                     Text(UserCurrency.symbol)
-                        .padding(.vertical, 14)
+                        .padding(.vertical, TKDesignSystem.Padding.medium)
                         .padding(.trailing)
-                        .background {
-                            UnevenRoundedRectangle(
-                                topLeadingRadius: 0,
-                                bottomLeadingRadius: 0,
-                                bottomTrailingRadius: 16,
-                                topTrailingRadius: 16,
-                                style: .continuous
-                            )
-                            .fill(Color.background200)
-                        }
                 }
             }
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg100,
+                radius: TKDesignSystem.Radius.medium,
+                lineWidth: 1,
+                strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+            )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .onTapGesture {

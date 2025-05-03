@@ -27,10 +27,10 @@ struct TransactionsListView: View {
                         destination: AppDestination.transaction(.detail(transaction: transaction))
                     ) {
                         TransactionRow(transaction: transaction)
-                            .padding(.bottom, DesignSystem.Padding.medium)
                     }
                     .id(transaction.id)
-                    .padding(.horizontal)
+                    .padding(.bottom, DesignSystem.Padding.medium)
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
                     .onAppear {
                         if transactionStore.transactions.last?.id == transaction.id && !isLoading {
                             self.isLoading = true
@@ -38,7 +38,6 @@ struct TransactionsListView: View {
                     }
                 }
                 .noDefaultStyle()
-               
             } header: {
                 DetailOfExpensesAndIncomesByMonth(
                     month: month,
@@ -49,6 +48,7 @@ struct TransactionsListView: View {
                         .compactMap(\.amount)
                         .reduce(0, +)
                 )
+                .padding(.horizontal, TKDesignSystem.Padding.large)
             } // Section
         } // List
         .listStyle(.plain)

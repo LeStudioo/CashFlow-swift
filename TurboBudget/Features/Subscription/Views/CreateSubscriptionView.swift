@@ -9,6 +9,7 @@
 import SwiftUI
 import NavigationKit
 import StatsKit
+import TheoKit
 
 struct CreateSubscriptionView: View {
     
@@ -35,100 +36,98 @@ struct CreateSubscriptionView: View {
     
     // MARK: -
     var body: some View {
-        ScrollView {
-            VStack(spacing: 24) {
-                CustomTextField(
-                    text: $viewModel.name,
-                    config: .init(
-                        title: Word.Classic.name,
-                        placeholder: "Netflix"
-                    )
-                )
-                .focused($focusedField, equals: .title)
-                .submitLabel(.next)
-                .onSubmit {
-                    focusedField = .amount
-                }
-                
-                CustomTextField(
-                    text: $viewModel.amount,
-                    config: .init(
-                        title: Word.Classic.price,
-                        placeholder: "14,99",
-                        style: .amount
-                    )
-                )
-                .focused($focusedField, equals: .amount)
-                
-                TransactionTypePicker(selected: $viewModel.type)
-                
-                VStack(spacing: 6) {
-                    SelectCategoryButton(
-                        selectedCategory: $viewModel.selectedCategory,
-                        selectedSubcategory: $viewModel.selectedSubcategory
-                    )
-                    .onChange(of: viewModel.type) { newValue in
-                        viewModel.onChangeType(newValue: newValue)
-                    }
-                    .onChange(of: viewModel.selectedCategory) { newValue in
-                        if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                            viewModel.type = .expense
-                        } else if newValue == CategoryModel.revenue {
-                            viewModel.type = .income
-                            viewModel.selectedSubcategory = nil
+        VStack(spacing: 0) {
+            NavigationBar(
+                title: subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update,
+                actionButton: .init(
+                    title: subscription == nil ? Word.Classic.create : Word.Classic.edit,
+                    action: {
+                        VibrationManager.vibration()
+                        if subscription != nil {
+                            await viewModel.updateSubscription(dismiss: dismiss)
+                        } else {
+                            await viewModel.createNewSubscription(dismiss: dismiss)
                         }
+                    },
+                    isDisabled: !viewModel.validateAutomation()
+                ),
+                dismissAction: {
+                    if viewModel.isAutomationInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
+                        dismissAction()
+                    }
+                }
+            )
+            ScrollView {
+                VStack(spacing: 24) {
+                    CustomTextField(
+                        text: $viewModel.name,
+                        config: .init(
+                            title: Word.Classic.name,
+                            placeholder: "Netflix"
+                        )
+                    )
+                    .focused($focusedField, equals: .title)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .amount
                     }
                     
-                    if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                        RecommendedCategoryButton(
-                            transactionName: viewModel.name,
-                            type: $viewModel.type,
+                    CustomTextField(
+                        text: $viewModel.amount,
+                        config: .init(
+                            title: Word.Classic.price,
+                            placeholder: "14,99",
+                            style: .amount
+                        )
+                    )
+                    .focused($focusedField, equals: .amount)
+                    
+                    TransactionTypePicker(selected: $viewModel.type)
+                    
+                    VStack(spacing: 6) {
+                        SelectCategoryButton(
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
+                        .onChange(of: viewModel.type) { newValue in
+                            viewModel.onChangeType(newValue: newValue)
+                        }
+                        .onChange(of: viewModel.selectedCategory) { newValue in
+                            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
+                                viewModel.type = .expense
+                            } else if newValue == CategoryModel.revenue {
+                                viewModel.type = .income
+                                viewModel.selectedSubcategory = nil
+                            }
+                        }
+                        
+                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                            RecommendedCategoryButton(
+                                transactionName: viewModel.name,
+                                type: $viewModel.type,
+                                selectedCategory: $viewModel.selectedCategory,
+                                selectedSubcategory: $viewModel.selectedSubcategory
+                            )
+                        }
                     }
+                    .animation(.smooth, value: viewModel.name)
+                    
+                    CustomDatePicker(
+                        title: Word.Classic.subscriptionFuturDate,
+                        date: $viewModel.frequencyDate,
+                        onlyFutureDates: true
+                    )
+                    
+                    FrequencyPicker(selected: $viewModel.frequency)
                 }
-                .animation(.smooth, value: viewModel.name)
-                
-                CustomDatePicker(
-                    title: Word.Classic.subscriptionFuturDate,
-                    date: $viewModel.frequencyDate,
-                    onlyFutureDates: true
-                )
-                
-                FrequencyPicker(selected: $viewModel.frequency)
-            }
-            .padding(.horizontal, 24)
-            .padding(.top)
-        } // End ScrollView
-        .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.interactively)
+                .padding(.horizontal, 24)
+            } // End ScrollView
+            .scrollIndicators(.hidden)
+            .scrollDismissesKeyboard(.interactively)
+        }
         .toolbar {
-            ToolbarDismissButtonView {
-                if viewModel.isAutomationInCreation() {
-                    viewModel.presentingConfirmationDialog.toggle()
-                } else {
-                    dismissAction()
-                }
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update)
-                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-            }
-            
-            ToolbarValidationButtonView(
-                type: subscription == nil ? .creation : .edition,
-                isActive: viewModel.validateAutomation()
-            ) {
-                VibrationManager.vibration()
-                if subscription != nil {
-                    await viewModel.updateSubscription(dismiss: dismiss)
-                } else {
-                    await viewModel.createNewSubscription(dismiss: dismiss)
-                }
-            }
-            
             ToolbarDismissKeyboardButtonView()
         }
         .interactiveDismissDisabled(viewModel.isAutomationInCreation()) {
@@ -138,8 +137,8 @@ struct CreateSubscriptionView: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
         .ignoresSafeArea(edges: .bottom)
     } // body
     

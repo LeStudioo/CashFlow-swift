@@ -9,35 +9,35 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct TransactionsView: View {
     
     // Environement
     @EnvironmentObject private var transactionStore: TransactionStore
+    @EnvironmentObject private var router: Router<AppDestination>
             
     // MARK: -
     var body: some View {
-        TransactionsListView()
-            .overlay {
-                CustomEmptyView(
-                    type: .empty(.transactions),
-                    isDisplayed: transactionStore.transactions.isEmpty
+        VStack(spacing: 0) {
+            NavigationBar(
+                title: Word.Main.transactions,
+                actionButton: .init(
+                    title: Word.Classic.create,
+                    action: { router.push(.transaction(.create)) },
+                    isDisabled: false
                 )
-            }
-            .navigationTitle(Word.Main.transactions)
-            .navigationBarTitleDisplayMode(.large)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarDismissPushButton()
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationButton(route: .sheet, destination: AppDestination.transaction(.create)) {
-                        Image(systemName: "plus")
-                            .foregroundStyle(Color.text)
-                            .font(.system(size: 18, weight: .medium, design: .rounded))
-                    }
+            )
+            TransactionsListView()
+                .overlay {
+                    CustomEmptyView(
+                        type: .empty(.transactions),
+                        isDisplayed: transactionStore.transactions.isEmpty
+                    )
                 }
-            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
     } // body
 } // struct
 

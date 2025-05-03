@@ -27,7 +27,8 @@ struct HomeView: View {
     var body: some View {
         VStack(spacing: 32) {
             HomeHeader()
-                .padding(.horizontal)
+                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.top, TKDesignSystem.Padding.large)
             
             ScrollView {
                 CarouselOfChartsView()
@@ -38,6 +39,7 @@ struct HomeView: View {
                     HomeScreenRecentTransactions()
                     HomeScreenSavingsPlan()
                 }
+                .padding(.horizontal, TKDesignSystem.Padding.large)
                 
                 Rectangle()
                     .frame(height: 120)
@@ -45,7 +47,6 @@ struct HomeView: View {
             } // ScrollView
             .scrollIndicators(.hidden)
         }
-        .padding(TKDesignSystem.Padding.large)
         .navigationBarTitleDisplayMode(.inline)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onAppear {

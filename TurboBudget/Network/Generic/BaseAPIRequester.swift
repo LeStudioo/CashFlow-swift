@@ -11,9 +11,16 @@ import NetworkKit
 extension APIRequestBuilder {
     
     var headers: [(key: String, value: String)]? {
+        
+        var stylesVersion: Int {
+            let versionCleaned: String = Bundle.main.releaseVersionNumber?.replacingOccurrences(of: ".", with: "") ?? ""
+            return (Int(versionCleaned) ?? 0) <= 204 ? 1 : 2
+        }
+        
         var header = [(String, String)]()
         header.append(("Content-Type", "application/json"))
         header.append(("Language", Locale.current.identifier))
+        header.append(("x-style-version", "\(stylesVersion)"))
         #if DEBUG
         header.append(("Environment", "debug"))
         #else
