@@ -11,7 +11,6 @@ struct TransactionDTO: Codable {
     var id: Int?
     var name: String?
     var amount: Double?
-    var typeNum: Int? // TransactionType
     var dateISO: String?
     var creationDate: String?
     var categoryID: Int?
@@ -34,7 +33,6 @@ struct TransactionDTO: Codable {
         case id
         case name
         case amount
-        case typeNum = "type"
         case dateISO = "date"
 
         case creationDate
@@ -61,7 +59,6 @@ extension TransactionDTO {
         id: Int? = nil,
         name: String? = nil,
         amount: Double? = nil,
-        typeNum: Int? = nil,
         dateISO: String? = nil,
         creationDate: String? = nil,
         categoryID: Int? = nil,
@@ -78,7 +75,6 @@ extension TransactionDTO {
         self.id = id
         self.name = name
         self.amount = amount
-        self.typeNum = typeNum
         self.dateISO = dateISO
         self.creationDate = creationDate
         self.categoryID = categoryID
@@ -97,14 +93,12 @@ extension TransactionDTO {
     init(
         name: String,
         amount: Double,
-        typeNum: Int,
         dateISO: String,
         categoryID: Int,
         subcategoryID: Int? = nil
     ) {
         self.name = name
         self.amount = amount
-        self.typeNum = typeNum
         self.dateISO = dateISO
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID
@@ -119,7 +113,6 @@ extension TransactionDTO {
     init(
         id: Int? = nil,
         amount: Double? = nil,
-        typeNum: Int? = nil,
         dateISO: String? = nil,
         creationDate: String? = nil,
         senderAccountID: Int? = nil,
@@ -128,7 +121,6 @@ extension TransactionDTO {
     ) {
         self.id = id
         self.amount = amount
-        self.typeNum = typeNum
         self.dateISO = dateISO
         self.creationDate = creationDate
         self.senderAccountID = senderAccountID
@@ -143,13 +135,9 @@ extension TransactionDTO {
     func toModel() throws -> TransactionModel {
         guard let id,
               let amount,
-              let typeNum,
               let dateISO
         else { throw NetworkError.unknown }
-        
-        guard let type = TransactionType(rawValue: typeNum)
-        else { throw NetworkError.unknown }
-        
+                
         let date = dateISO.toDate()
         let category = CategoryStore.shared.findCategoryById(categoryID)
         
@@ -162,7 +150,6 @@ extension TransactionDTO {
             id: id,
             name: name ?? "",
             amount: amount,
-            type: type,
             date: date ?? .now,
             creationDate: creationDate?.toDate(),
             category: category,

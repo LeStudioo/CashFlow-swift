@@ -13,7 +13,6 @@ struct TransactionModel: Identifiable, Equatable, Hashable {
     var id: Int
     var name: String
     var amount: Double
-    var type: TransactionType
     var date: Date
     var creationDate: Date?
     var category: CategoryModel?
@@ -42,6 +41,18 @@ extension TransactionModel {
 }
 
 extension TransactionModel {
+    
+    var type: TransactionType {
+        if self.senderAccount != nil, self.receiverAccount != nil {
+            return .transfer
+        }
+        
+        if category?.isRevenue == true {
+            return .income
+        } else {
+            return .expense
+        }
+    }
     
     var isSender: Bool {
         guard let selectedAccount = AccountStore.shared.selectedAccount else { return false }

@@ -12,7 +12,7 @@ extension CategoryModel {
         id: 1,
         name: "category1_name".localized,
         icon: "cart.fill",
-        colorString: "red",
+        color: .red,
         subcategories: [
             SubcategoryModel.mock
         ]

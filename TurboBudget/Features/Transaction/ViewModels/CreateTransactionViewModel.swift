@@ -14,7 +14,6 @@ final class CreateTransactionViewModel: ObservableObject {
     
     @Published var transactionTitle: String = ""
     @Published var transactionAmount: String = ""
-    @Published var transactionType: TransactionType = .expense
     @Published var transactionDate: Date = Date()
     @Published var selectedCategory: CategoryModel?
     @Published var selectedSubcategory: SubcategoryModel?
@@ -31,7 +30,6 @@ final class CreateTransactionViewModel: ObservableObject {
             self.transaction = transaction
             self.transactionTitle = transaction.nameDisplayed
             self.transactionAmount = transaction.amount.toString()
-            self.transactionType = transaction.type
             self.transactionDate = transaction.date
             self.selectedCategory = transaction.category
             self.selectedSubcategory = transaction.subcategory
@@ -46,25 +44,14 @@ final class CreateTransactionViewModel: ObservableObject {
 //        }
 //    }
     
-    func onChangeType(newValue: TransactionType) {
-        if newValue == .income {
-            selectedCategory = CategoryModel.revenue
-            selectedSubcategory = nil
-        } else if newValue == .expense && selectedCategory == CategoryModel.revenue {
-            selectedCategory = nil
-            selectedSubcategory = nil
-        }
-    }
-    
     func bodyForCreation() -> TransactionDTO {
         return TransactionDTO(
             name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
-            typeNum: transactionType.rawValue,
             dateISO: transactionDate.toISO(),
             creationDate: Date().toISO(),
-            categoryID: transactionType == .income ? CategoryModel.revenue?.id : selectedCategory?.id,
-            subcategoryID: transactionType == .income ? nil : selectedSubcategory?.id
+            categoryID: selectedCategory?.id,
+            subcategoryID: selectedSubcategory?.id
         )
     }
     
@@ -114,7 +101,6 @@ extension CreateTransactionViewModel {
     func resetData() {
         transactionTitle = ""
         transactionAmount = ""
-        transactionType = .expense
         transactionDate = Date()
         selectedCategory = nil
         selectedSubcategory = nil

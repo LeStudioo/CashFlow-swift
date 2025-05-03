@@ -106,7 +106,6 @@ struct CreateSubscriptionView: View {
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(
                                 transactionName: viewModel.name,
-                                type: $viewModel.type,
                                 selectedCategory: $viewModel.selectedCategory,
                                 selectedSubcategory: $viewModel.selectedSubcategory
                             )

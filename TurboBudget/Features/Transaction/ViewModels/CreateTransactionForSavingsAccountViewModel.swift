@@ -37,7 +37,6 @@ extension CreateTransactionForSavingsAccountViewModel {
         return TransactionDTO(
             name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
-            typeNum: TransactionType.income.rawValue,
             dateISO: transactionDate.toISO(),
             creationDate: Date().toISO(),
             categoryID: CategoryModel.revenue?.id,

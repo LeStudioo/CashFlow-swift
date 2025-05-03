@@ -86,30 +86,16 @@ struct CreateTransactionView: View {
                         )
                     )
                     .focused($focusedField, equals: .amount)
-                    
-                    TransactionTypePicker(selected: $viewModel.transactionType)
-                    
+                                        
                     VStack(spacing: 6) {
                         SelectCategoryButton(
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
-                        .onChange(of: viewModel.transactionType) { newValue in
-                            viewModel.onChangeType(newValue: newValue)
-                        }
-                        .onChange(of: viewModel.selectedCategory) { newValue in
-                            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                                viewModel.transactionType = .expense
-                            } else if newValue == CategoryModel.revenue {
-                                viewModel.transactionType = .income
-                                viewModel.selectedSubcategory = nil
-                            }
-                        }
                         
                         if store.isCashFlowPro && viewModel.selectedCategory == nil {
                             RecommendedCategoryButton(
                                 transactionName: viewModel.transactionTitle,
-                                type: $viewModel.transactionType,
                                 selectedCategory: $viewModel.selectedCategory,
                                 selectedSubcategory: $viewModel.selectedSubcategory
                             )

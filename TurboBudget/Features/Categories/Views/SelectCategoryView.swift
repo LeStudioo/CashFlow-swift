@@ -28,7 +28,6 @@ struct SelectCategoryView: View {
     // Computed variables
     var categoriesFiltered: [CategoryModel] {
         return categoryStore.categories
-            .filter { !$0.isRevenue }
             .searchFor(searchText)
     }
     
@@ -52,6 +51,7 @@ struct SelectCategoryView: View {
                                 }
                         }
                         .padding([.horizontal, .top])
+                        
                         if category.subcategories == nil || category.subcategories?.isEmpty == true {
                             CategorySelectableRow(
                                 category: category,

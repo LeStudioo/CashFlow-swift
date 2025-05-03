@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct SelectCategoryButton: View {
     
@@ -45,21 +46,26 @@ struct SelectCategoryButton: View {
                         
                         Text(selectedCategory.name)
                     } else {
-                        Image(systemName: "plus")
+                        Image(.iconFolderPlus)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
                         Text(Word.Create.addCategory)
                     }
                 }
-                .font(.system(size: 16, weight: .medium))
+                .font(DesignSystem.Fonts.Body.medium)
                 .foregroundStyle(selectedCategory != nil ? Color.black : Color.text)
-                .padding(14)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background {
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(selectedCategory?.color ?? Color.background200)
-                }
+                .padding(TKDesignSystem.Padding.regular)
+                .fullWidth(.leading)
+                .roundedRectangleBorder(
+                    selectedCategory?.color ?? TKDesignSystem.Colors.Background.Theme.bg100,
+                    radius: TKDesignSystem.Radius.medium,
+                    lineWidth: selectedCategory == nil ? 1 : 0,
+                    strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+                )
             }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .fullWidth(.leading)
     } // End body
 } // End struct
 

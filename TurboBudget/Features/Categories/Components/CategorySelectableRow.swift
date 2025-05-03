@@ -32,7 +32,7 @@ struct CategorySelectableRow: View {
                 Text(category.name)
                     .font(.semiBoldSmall())
                     .foregroundStyle(Color.text)
-                    .lineLimit(1)
+                    .lineLimit(1)                
                 
                 Spacer()
             }

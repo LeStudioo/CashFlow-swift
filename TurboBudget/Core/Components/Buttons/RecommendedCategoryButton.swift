@@ -12,7 +12,6 @@ struct RecommendedCategoryButton: View {
     
     // Builder
     var transactionName: String
-    @Binding var type: TransactionType
     @Binding var selectedCategory: CategoryModel?
     @Binding var selectedSubcategory: SubcategoryModel?
     
@@ -36,12 +35,6 @@ struct RecommendedCategoryButton: View {
                 .font(.system(size: 14, weight: .medium))
                 .padding(.horizontal, 8)
                 .onTapGesture {
-                    if selectedCategory?.isRevenue == true {
-                        withAnimation { type = .income }
-                    } else {
-                        selectedCategory = bestCategory
-                        withAnimation { type = .expense }
-                    }
                     if let subcategoryFound { selectedSubcategory = subcategoryFound }
                     EventService.sendEvent(key: .autocatSuggestionAccepeted)
                 }
@@ -64,7 +57,6 @@ struct RecommendedCategoryButton: View {
 #Preview {
     RecommendedCategoryButton(
         transactionName: "Test",
-        type: .constant(.expense),
         selectedCategory: .constant(.mock),
         selectedSubcategory: .constant(.mock)
     )

@@ -52,9 +52,8 @@ struct AddTransactionIntent: AppIntent {
         var body: TransactionDTO = .init(
             name: title,
             amount: finalNumber,
-            typeNum: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),
-            categoryID: 0,
+            categoryID: 0, // TODO: Validate ?? Mettre message si validé
             isFromApplePay: true,
             nameFromApplePay: title,
             autoCat: PreferencesApplePay.shared.isAddCategoryAutomaticallyEnabled

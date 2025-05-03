@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct CustomDatePicker: View {
     
@@ -32,14 +33,15 @@ struct CustomDatePicker: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }, label: {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
-                        .foregroundStyle(Color.text)
-                        .padding(8)
-                        .background {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .fill(Color.background300)
-                        }
+                        .foregroundStyle(Color.label)
+                        .font(DesignSystem.Fonts.Body.medium)
+                        .padding(TKDesignSystem.Padding.medium)
+                        .roundedRectangleBorder(
+                            TKDesignSystem.Colors.Background.Theme.bg200,
+                            radius: TKDesignSystem.Radius.small
+                        )
                 })
-                .padding(8)
+                .padding(TKDesignSystem.Padding.extraSmall)
                 
                 if isDatePickerShowing {
                     if onlyFutureDates {
@@ -53,13 +55,15 @@ struct CustomDatePicker: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background200)
-            }
+            .fullWidth(.trailing)
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg100,
+                radius: TKDesignSystem.Radius.medium,
+                lineWidth: 1,
+                strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+            )
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .fullWidth(.leading)
         .onAppear {
             if onlyFutureDates {
                 date = tomorrow

@@ -23,8 +23,8 @@ extension CategoryStore {
         do {
             let categories = try await NetworkService.sendRequest(
                 apiBuilder: CategoryAPIRequester.fetchCategories,
-                responseModel: [CategoryModel].self
-            )
+                responseModel: [CategoryDTO].self
+            ).map { try $0.toModel() }
             self.categories = categories
             self.subcategories = categories.flatMap { $0.subcategories ?? [] }
         } catch { NetworkService.handleError(error: error) }
@@ -40,11 +40,10 @@ extension CategoryStore {
         
         return Dictionary(uniqueKeysWithValues: categories
             .compactMap { category in
-                guard let categoryID = category.id else { return nil }
                 let categoryTransactions = transactionsByCategory[category, default: []]
                 if categoryTransactions.isEmpty { return nil }
                 return (
-                    categoryID,
+                    category.id,
                     CategoryTransactionData(
                         category: category,
                         transactions: categoryTransactions
@@ -78,7 +77,7 @@ extension CategoryStore {
             .filter { !$0.category.isRevenue }
             .map { data in
                 PieSliceData(
-                    categoryID: data.category.id!,
+                    categoryID: data.category.id,
                     iconName: data.category.icon,
                     value: data.totalAmount,
                     color: data.category.color
@@ -92,7 +91,7 @@ extension CategoryStore {
             .values
             .map { data in
                 PieSliceData(
-                    categoryID: category.id!,
+                    categoryID: category.id,
                     subcategoryID: data.subcategory.id!,
                     iconName: data.subcategory.icon,
                     value: data.totalAmount,
@@ -105,6 +104,14 @@ extension CategoryStore {
 
 // MARK: - Utils
 extension CategoryStore {
+    
+    var toCategorized: CategoryModel? {
+        return self.categories.first { $0.isToCategorized }
+    }
+    
+    func findCategoryByName(_ name: String) -> CategoryModel? {
+        return self.categories.first(where: { $0.name == name })
+    }
 
     func findCategoryById(_ id: Int?) -> CategoryModel? {
         return self.categories.first(where: { $0.id == id })
