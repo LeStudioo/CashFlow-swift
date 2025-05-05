@@ -9,6 +9,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import TheoKit
 
 struct AccountDashboardView: View {
     
@@ -27,188 +28,186 @@ struct AccountDashboardView: View {
     // MARK: -
     var body: some View {
         ScrollView {
-            if let account = accountStore.selectedAccount {
-                VStack {
-                    Menu {
-                        ForEach(accountStore.accounts) { account in
-                            Button {
-                                accountStore.setNewAccount(account: account)
-                            } label: {
-                                Text(account.name)
-                            }
+            VStack(spacing: 32) {
+                HStack {
+                    Menu(content: {
+                        if let account = accountStore.selectedAccount {
+                            Button(
+                                action: {
+                                    router.present(route: .sheet, .account(.update(account: account)))
+                                },
+                                label: { Label(Word.Classic.edit, systemImage: "pencil") }
+                            )
                         }
-                    } label: {
-                        HStack(spacing: DesignSystem.Spacing.small) {
-                            Text(account.name)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(2)
-                            
-                            Image(.iconChevronUpDown)
-                                .resizable()
-                                .renderingMode(.template)
-                                .frame(width: 24, height: 24)
-                        }
-                        .font(DesignSystem.FontDS.Title.semibold)
-                        .foregroundStyle(themeManager.theme.color)
-                    }
-                    .onChange(of: accountStore.selectedAccount?.id) { _ in
-                        if appManager.isStartDataLoaded {
-                            appManager.resetAllStoresData()
-                            Task {
-                                await appManager.loadStartData()
-                            }
-                        }
-                    }
-                    
-                    VStack(alignment: .leading) {
-                            Text(account.balance.toCurrency())
-                                .titleAdjustSize()
-                                .animation(.default, value: account.balance)
-                                .contentTransition(.numericText())
                         
-                        Text("home_screen_available_balance".localized)
-                            .foregroundStyle(Color.customGray)
-                            .font(Font.mediumText16())
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                }
-            }
-            
-            VStack(spacing: 16) {
-                NavigationButton(route: .push, destination: AppDestination.account(.statistics)) {
-                    DashboardRow(
-                        config: .init(
-                            style: .row,
-                            icon: "chart.xyaxis.line",
-                            text: Word.Classic.statistics
-                        )
-                    )
-                }
-                .disabled(!store.isCashFlowPro)
-                .onTapGesture {
-                    if !store.isCashFlowPro {
-                        alertManager.showPaywall(router: router)
-                    }
-                }
-                
-                NavigationButton(route: .push, destination: AppDestination.savingsAccount(.list)) {
-                    DashboardRow(
-                        config: .init(
-                            icon: "building.columns.fill",
-                            text: Word.Main.savingsAccounts
-                        )
-                    )
-                }
-                
-                LazyVGrid(columns: viewModel.columns, spacing: 16, content: {
-                    NavigationButton(route: .push, destination: AppDestination.transaction(.list)) {
-                        DashboardRow(
-                            config: .init(
-                                icon: "creditcard.and.123",
-                                text: Word.Main.transactions
+                        if let creditCard = creditCardStore.creditCards.first, let uuid = creditCard.uuid {
+                            Button(
+                                role: .destructive,
+                                action: {
+                                    Task {
+                                        if let account = accountStore.selectedAccount, let accountID = account._id {
+                                            await creditCardStore.deleteCreditCard(accountID: accountID, cardID: uuid)
+                                        }
+                                    }
+                                },
+                                label: { Label(Word.CreditCard.deleteTitle, systemImage: "trash.fill") }
                             )
-                        )
-                    }
-                    
-                    NavigationButton(route: .push, destination: AppDestination.subscription(.list)) {
-                        DashboardRow(
-                            config: .init(
-                                icon: "clock.arrow.circlepath",
-                                text: Word.Main.subscriptions
-                            )
-                        )
-                    }
-                    
-                    NavigationButton(route: .push, destination: AppDestination.savingsPlan(.list)) {
-                        DashboardRow(
-                            config: .init(
-                                icon: "dollarsign.square.fill",
-                                text: Word.Main.savingsPlans
-                            )
-                        )
-                    }
-                    
-                    NavigationButton(route: .push, destination: AppDestination.budget(.list)) {
-                        DashboardRow(
-                            config: .init(
-                                icon: "chart.pie.fill",
-                                text: "word_budgets".localized,
-                                isLocked: !store.isCashFlowPro
-                            )
-                        )
-                    }
-                    .disabled(!store.isCashFlowPro)
-                    .onTapGesture {
-                        if !store.isCashFlowPro {
-                            alertManager.showPaywall(router: router)
                         }
-                    }
-                })
-                
-                if let creditCard = creditCardStore.creditCards.first {
-                    CreditCardView(creditCard: creditCard)
-                }
-            }
-            .padding(.horizontal)
-            
-            Rectangle()
-                .frame(height: 120)
-                .opacity(0)
-        }
-        .scrollIndicators(.hidden)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Menu(content: {
-                    if let account = accountStore.selectedAccount {
-                        Button(
-                            action: {
-                                router.present(route: .sheet, .account(.update(account: account)))
-                            },
-                            label: { Label(Word.Classic.edit, systemImage: "pencil") }
-                        )
-                    }
-                    
-                    if let creditCard = creditCardStore.creditCards.first, let uuid = creditCard.uuid {
+                        
                         Button(
                             role: .destructive,
-                            action: {
-                                Task {
-                                    if let account = accountStore.selectedAccount, let accountID = account._id {
-                                        await creditCardStore.deleteCreditCard(accountID: accountID, cardID: uuid)
-                                    }
-                                }
-                            },
-                            label: { Label(Word.CreditCard.deleteTitle, systemImage: "trash.fill") }
+                            action: { viewModel.isDeleting.toggle() },
+                            label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
                         )
-                    }
+                    }, label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(Color.text)
+                            .font(.system(size: 18, weight: .medium, design: .rounded))
+                    })
                     
-                    Button(
-                        role: .destructive,
-                        action: { viewModel.isDeleting.toggle() },
-                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
-                    )
-                }, label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
-            }
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                HStack {
+                    Spacer()
+                    
                     if !store.isCashFlowPro {
                         PremiumButton()
                     }
+                    
                     NavigationButton(route: .push, destination: AppDestination.settings(.home)) {
-                        Image(systemName: "gearshape.fill")
+                        Image(.iconGear)
+                            .renderingMode(.template)
                             .foregroundStyle(Color.text)
-                            .font(.system(size: 14, weight: .medium, design: .rounded))
                     }
                 }
-            }
+                
+                if let account = accountStore.selectedAccount {
+                    VStack(spacing: 16) {
+                        Menu {
+                            ForEach(accountStore.accounts) { account in
+                                Button {
+                                    accountStore.setNewAccount(account: account)
+                                } label: {
+                                    Text(account.name)
+                                }
+                            }
+                        } label: {
+                            HStack(spacing: DesignSystem.Spacing.small) {
+                                Text(account.name)
+                                    .multilineTextAlignment(.center)
+                                    .lineLimit(2)
+                                
+                                Image(.iconChevronUpDown)
+                                    .renderingMode(.template)
+                            }
+                            .font(DesignSystem.Fonts.Title.medium)
+                            .foregroundStyle(themeManager.theme.color)
+                        }
+                        .onChange(of: accountStore.selectedAccount?.id) { _ in
+                            if appManager.isStartDataLoaded {
+                                appManager.resetAllStoresData()
+                                Task {
+                                    await appManager.loadStartData()
+                                }
+                            }
+                        }
+                        
+                        VStack(alignment: .center, spacing: 0) {
+                            Text(account.balance.toCurrency())
+                                .font(DesignSystem.Fonts.Display.extraLarge)
+                                .animation(.default, value: account.balance)
+                                .contentTransition(.numericText())
+                            
+                            Text("home_screen_available_balance".localized)
+                                .font(DesignSystem.Fonts.Body.medium)
+                                .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                        }
+                        .fullWidth()
+                    }
+                }
+                
+                VStack(spacing: 16) {
+                    
+                    
+                    LazyVGrid(columns: viewModel.columns, spacing: 16, content: {
+                        NavigationButton(route: .push, destination: AppDestination.account(.statistics)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconLineChart,
+                                    text: Word.Classic.statistics
+                                )
+                            )
+                        }
+                        .disabled(!store.isCashFlowPro)
+                        .onTapGesture {
+                            if !store.isCashFlowPro {
+                                alertManager.showPaywall(router: router)
+                            }
+                        }
+                        
+                        NavigationButton(route: .push, destination: AppDestination.savingsAccount(.list)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconLandmark,
+                                    text: Word.Main.savingsAccounts
+                                )
+                            )
+                        }
+                        
+                        NavigationButton(route: .push, destination: AppDestination.transaction(.list)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconWallet,
+                                    text: Word.Main.transactions
+                                )
+                            )
+                        }
+                        
+                        NavigationButton(route: .push, destination: AppDestination.subscription(.list)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconClockRepeat,
+                                    text: Word.Main.subscriptions
+                                )
+                            )
+                        }
+                        
+                        NavigationButton(route: .push, destination: AppDestination.savingsPlan(.list)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconPiggyBank,
+                                    text: Word.Main.savingsPlans
+                                )
+                            )
+                        }
+                        
+                        NavigationButton(route: .push, destination: AppDestination.budget(.list)) {
+                            DashboardRow(
+                                config: .init(
+                                    icon: .iconPieChart,
+                                    text: "word_budgets".localized,
+                                    isLocked: !store.isCashFlowPro
+                                )
+                            )
+                        }
+                        .disabled(!store.isCashFlowPro)
+                        .onTapGesture {
+                            if !store.isCashFlowPro {
+                                alertManager.showPaywall(router: router)
+                            }
+                        }
+                    })
+                    
+                    if let creditCard = creditCardStore.creditCards.first {
+                        CreditCardView(creditCard: creditCard)
+                    }
+                }
+                
+                Rectangle()
+                    .frame(height: 120)
+                    .opacity(0)
+            } // Main VStack
+            .padding(TKDesignSystem.Padding.large)
         }
+        .scrollIndicators(.hidden)
+        .navigationBarTitleDisplayMode(.inline)
         .background(Color.background.edgesIgnoringSafeArea(.all))
         .alert("account_detail_rename".localized, isPresented: $viewModel.isEditingAccountName, actions: {
             TextField("account_detail_new_name".localized, text: $viewModel.accountName)

@@ -6,10 +6,7 @@
 //
 
 import SwiftUI
-
-enum DashboardRowType {
-    case row, cell
-}
+import TheoKit
 
 struct DashboardRow: View {
     
@@ -18,69 +15,45 @@ struct DashboardRow: View {
     
     // MARK: -
     var body: some View {
-        if config.style == .row {
+        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.large) {
             HStack {
-                RoundedRectangle(cornerRadius: 12, style: .continuous)
-                    .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.background200)
-                    .overlay {
-                        Image(systemName: config.icon)
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color.text)
-                            .shadow(radius: 2, y: 2)
-                    }
+                Image(config.icon)
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.label)
+                    .padding(TKDesignSystem.Padding.small)
+                    .roundedRectangleBorder(
+                        TKDesignSystem.Colors.Background.Theme.bg200,
+                        radius: TKDesignSystem.Radius.small
+                    )
                 
-                Text(config.text)
-                    .font(.semiBoldText16())
-                    .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                Spacer()
                 
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 18, weight: .semibold))
+                Image(.iconArrowRight)
+                    .renderingMode(.template)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
             }
-            .padding()
-            .foregroundStyle(Color.text)
-            .frame(maxWidth: .infinity)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background100)
-            }
-        } else {
-            VStack(alignment: .leading, spacing: 32) {
-                HStack {
-                    RoundedRectangle(cornerRadius: 12, style: .continuous)
-                        .frame(width: 50, height: 50)
-                        .foregroundStyle(Color.background200)
-                        .overlay {
-                            Image(systemName: config.icon)
-                                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                                .foregroundStyle(Color.text)
-                                .shadow(radius: 2, y: 2)
-                        }
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 18, weight: .semibold))
-                }
-                            
-                Text(config.text)
-                    .font(.semiBoldText16())
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(2)
-            }
-            .padding()
-            .foregroundStyle(Color.text)
-            .frame(maxWidth: .infinity)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background100)
-            }
-            .opacity(config.isLocked ? 0.4 : 1)
-            .overlay {
-                if config.isLocked {
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 32, weight: .semibold))
-                }
+            
+            Text(config.text)
+                .font(DesignSystem.Fonts.Body.medium)
+                .foregroundStyle(Color.label)
+                .multilineTextAlignment(.leading)
+                .lineLimit(2)
+        }
+        .padding(TKDesignSystem.Padding.standard)
+        .roundedRectangleBorder(
+            TKDesignSystem.Colors.Background.Theme.bg100,
+            radius: TKDesignSystem.Radius.standard,
+            lineWidth: 0.5,
+            strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+        )
+        .opacity(config.isLocked ? 0.4 : 1)
+        .overlay {
+            if config.isLocked {
+                Image(.iconDoorLocked)
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.label)
+                    .frame(width: 40, height: 40)
             }
         }
     } // body
@@ -89,8 +62,7 @@ struct DashboardRow: View {
 // MARK: - Configuration
 extension DashboardRow {
     struct Configuration {
-        var style: DashboardRowType = .cell
-        var icon: String
+        var icon: ImageResource
         var text: String
         var isLocked: Bool = false
     }
@@ -101,7 +73,7 @@ extension DashboardRow {
     HStack(spacing: 8) {
         DashboardRow(
             config: .init(
-                icon: "person.fill",
+                icon: .iconPiggyBank,
                 text: "Preview 1",
                 isLocked: true
             )
@@ -109,7 +81,7 @@ extension DashboardRow {
         
         DashboardRow(
             config: .init(
-                icon: "House.fill",
+                icon: .iconClockRepeat,
                 text: "Preview 2"
             )
         )
