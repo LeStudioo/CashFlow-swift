@@ -11,6 +11,7 @@ struct TransactionDTO: Codable {
     var id: Int?
     var name: String?
     var amount: Double?
+    var type: Int?
     var dateISO: String?
     var creationDate: String?
     var categoryID: Int?
@@ -33,6 +34,7 @@ struct TransactionDTO: Codable {
         case id
         case name
         case amount
+        case type
         case dateISO = "date"
 
         case creationDate
@@ -59,6 +61,7 @@ extension TransactionDTO {
         id: Int? = nil,
         name: String? = nil,
         amount: Double? = nil,
+        type: Int? = nil,
         dateISO: String? = nil,
         creationDate: String? = nil,
         categoryID: Int? = nil,
@@ -75,6 +78,7 @@ extension TransactionDTO {
         self.id = id
         self.name = name
         self.amount = amount
+        self.type = type
         self.dateISO = dateISO
         self.creationDate = creationDate
         self.categoryID = categoryID
@@ -93,12 +97,14 @@ extension TransactionDTO {
     init(
         name: String,
         amount: Double,
+        type: Int,
         dateISO: String,
         categoryID: Int,
         subcategoryID: Int? = nil
     ) {
         self.name = name
         self.amount = amount
+        self.type = type
         self.dateISO = dateISO
         self.categoryID = categoryID
         self.subcategoryID = subcategoryID

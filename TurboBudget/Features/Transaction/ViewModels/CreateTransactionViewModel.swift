@@ -48,6 +48,7 @@ final class CreateTransactionViewModel: ObservableObject {
         return TransactionDTO(
             name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
+            type: selectedCategory?.id == CategoryModel.revenue?.id ? TransactionType.income.rawValue : TransactionType.expense.rawValue,
             dateISO: transactionDate.toISO(),
             creationDate: Date().toISO(),
             categoryID: selectedCategory?.id,

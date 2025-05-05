@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct HomeHeader: View {
     
@@ -20,14 +21,14 @@ struct HomeHeader: View {
             VStack(alignment: .leading) {
                 if let account = accountStore.selectedAccount {
                     Text(account.balance.toCurrency())
-                        .titleAdjustSize()
-                        .animation(.default, value: account.balance)
+                        .font(DesignSystem.Fonts.Title.large)
                         .contentTransition(.numericText())
+                        .animation(.smooth, value: account.balance)
                 }
                 
                 Text("home_screen_available_balance".localized)
-                    .foregroundStyle(Color.customGray)
-                    .font(Font.mediumText16())
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                    .font(DesignSystem.Fonts.Body.small)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -36,9 +37,9 @@ struct HomeHeader: View {
             }
             
             NavigationButton(route: .push, destination: AppDestination.settings(.home)) {
-                Image(systemName: "gearshape.fill")
+                Image(.iconGear)
+                    .renderingMode(.template)
                     .foregroundStyle(Color.text)
-                    .font(.system(size: 18, weight: .medium, design: .rounded))
             }
         }
     } // body

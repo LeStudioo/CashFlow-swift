@@ -37,20 +37,10 @@ struct SelectCategoryView: View {
             ScrollView {
                 ForEach(categoriesFiltered) { category in
                     VStack {
-                        HStack {
-                            Text(category.name)
-                                .font(.mediumCustom(size: 22))
-                            Spacer()
-                            Circle()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(category.color)
-                                .overlay {
-                                    Image(systemName: category.icon)
-                                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                                        .foregroundStyle(Color(uiColor: .systemBackground))
-                                }
-                        }
-                        .padding([.horizontal, .top])
+                        Text(category.name)
+                            .font(.mediumCustom(size: 22))
+                            .fullWidth(.leading)
+                            .padding([.horizontal, .top])
                         
                         if category.subcategories == nil || category.subcategories?.isEmpty == true {
                             CategorySelectableRow(

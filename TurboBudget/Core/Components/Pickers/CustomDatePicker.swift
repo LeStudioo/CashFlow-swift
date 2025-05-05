@@ -33,6 +33,7 @@ struct CustomDatePicker: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }, label: {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
+                        .contentTransition(.numericText())
                         .foregroundStyle(Color.label)
                         .font(DesignSystem.Fonts.Body.medium)
                         .padding(TKDesignSystem.Padding.medium)
@@ -42,6 +43,7 @@ struct CustomDatePicker: View {
                         )
                 })
                 .padding(TKDesignSystem.Padding.extraSmall)
+                .animation(.smooth, value: date)
                 
                 if isDatePickerShowing {
                     if onlyFutureDates {
