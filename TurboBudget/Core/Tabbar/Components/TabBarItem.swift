@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct TabBarItem: View {
     
     // Builder
-    var icon: String
+    var icon: ImageResource
     var title: String
     var tag: Int
     
@@ -20,20 +21,21 @@ struct TabBarItem: View {
     var body: some View {
         Button(action: { selectTab(tag) }, label: {
             VStack(spacing: 14) {
-                Image(systemName: "\(icon)\(appManager.selectedTab == tag ? ".fill" : "")")
-                    .font(.system(size: 20, weight: .medium, design: .rounded))
-                    .frame(width: 20, height: 20)
+                Image(icon)
+                    .resizable()
+                    .renderingMode(.template)
+                    .frame(width: 22, height: 22)
                 
                 Text(title)
-                    .font(.semiBoldSmall())
+                    .font(DesignSystem.Fonts.Label.large)
             }
             .foregroundStyle(
                 appManager.selectedTab == tag
-                ? Color(uiColor: UIColor.label)
-                : Color.reversedCustomGray
+                ? Color.label
+                : TKDesignSystem.Colors.Background.Theme.bg500
             )
         })
-        .frame(maxWidth: .infinity)
+//        .frame(maxWidth: .infinity)
         .buttonStyle(BouncyButtonStyle())
     } // body
     
@@ -48,7 +50,7 @@ struct TabBarItem: View {
 // MARK: - Preview
 #Preview {
     TabBarItem(
-        icon: "house",
+        icon: .iconHouse,
         title: "word_home",
         tag: 0
     )

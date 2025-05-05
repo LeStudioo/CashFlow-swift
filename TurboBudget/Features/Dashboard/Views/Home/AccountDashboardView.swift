@@ -208,7 +208,7 @@ struct AccountDashboardView: View {
         }
         .scrollIndicators(.hidden)
         .navigationBarTitleDisplayMode(.inline)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .alert("account_detail_rename".localized, isPresented: $viewModel.isEditingAccountName, actions: {
             TextField("account_detail_new_name".localized, text: $viewModel.accountName)
             Button(action: { return }, label: { Text("word_cancel".localized) })
