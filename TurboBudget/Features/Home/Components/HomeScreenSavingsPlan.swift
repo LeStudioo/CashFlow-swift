@@ -51,7 +51,10 @@ struct HomeScreenSavingsPlan: View {
                     }
                 }
             } else {
-                HomeScreenEmptyRow(type: .savingsPlan)
+                CustomEmptyView(
+                    type: .empty(.savingsPlan(.home)),
+                    isDisplayed: true
+                )
             }
         }
         .animation(.smooth, value: savingsPlanStore.savingsPlans.count)

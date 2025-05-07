@@ -174,11 +174,11 @@ struct SavingsPlanDetailView: View {
                             ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
                         }
                     } else {
-                        CustomEmptyView(
-                            type: .empty(.contributions),
-                            isDisplayed: contributionStore.contributions.isEmpty
-                        )
-                        .padding(.top)
+//                        CustomEmptyView(
+//                            type: .empty(.contributions),
+//                            isDisplayed: contributionStore.contributions.isEmpty
+//                        )
+//                        .padding(.top)
                     }
                 }
                 .padding(.bottom)

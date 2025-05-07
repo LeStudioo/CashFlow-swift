@@ -172,7 +172,7 @@
 
 "automation_new" = "Nueva automatización";
 
-"automation_placeholder_amount" = "0.00";
+"automation_placeholder_amount" = "0";
 
 "automation_recurrence" = "Recurrencia";
 
@@ -198,7 +198,7 @@
 
 "budget_cell_overrun" = "Sobrepaso";
 
-"budget_placeholder_amount" = "0.00";
+"budget_placeholder_amount" = "0";
 
 "budget_successful" = "Presupuesto creado";
 
@@ -402,6 +402,15 @@
 
 "category9_name" = "Retiros";
 
+/*  */
+"category_family_children" = "Vida familiar e hijos";
+
+/*  */
+"category_projects_events" = "Proyectos y eventos";
+
+/*  */
+"category_subscriptions_services" = "Suscripciones y servicios";
+
 "chart_auto_expenses_expenses_in" = "Gastos automatizados en";
 
 "chart_auto_incomes_incomes_in" = "Ingresos automatizados en";
@@ -430,7 +439,7 @@
 
 "contribution_new" = "Nueva contribución";
 
-"contribution_placeholder_amount" = "0.00";
+"contribution_placeholder_amount" = "0";
 
 "contribution_withdraw" = "Retirar";
 
@@ -474,11 +483,29 @@
 
 "descending_order_word" = "orden descendente";
 
+/*  */
+"empty_account_list_description" = "Cree su primera cuenta haciendo clic en el botón + de la parte inferior de la pantalla";
+
+/*  */
+"empty_account_title" = "Sin cuenta";
+
 "empty_accounts_create" = "Crea una cuenta";
 
 "empty_accounts_desc" = "¡Crea tu primera cuenta para comenzar a usar CashFlow!";
 
 "empty_contributions_desc" = "Aún no has registrado ninguna contribución.";
+
+/*  */
+"empty_expenses_this_month_description" = "Son muy buenas noticias, ¿no?";
+
+/*  */
+"empty_expenses_this_month_title" = "Sin gastos este mes";
+
+/*  */
+"empty_incomes_this_month_description" = "¡El dinero no cae del cielo! Demasiado ...";
+
+/*  */
+"empty_incomes_this_month_title" = "No hay ingresos este mes";
 
 "empty_savingsAccounts_create" = "Crear una cuenta de ahorros";
 
@@ -488,13 +515,55 @@
 
 "empty_savingsPlans_desc" = "Aún no has registrado ningún plan de ahorro.";
 
+/*  */
+"empty_savingsaccount_list_description" = "Cree su primera cuenta de ahorros haciendo clic en el botón crear en la parte superior de la pantalla";
+
+/*  */
+"empty_savingsaccount_title" = "Sin cuenta de ahorros";
+
+/*  */
+"empty_savingsplan_home_description" = "Crea tu primer plan de ahorro haciendo clic aquí o en el botón + en la parte inferior de la pantalla";
+
+/*  */
+"empty_savingsplan_list_description" = "Crea tu primer plan de ahorro haciendo clic en el botón crear en la parte superior de la pantalla";
+
+/*  */
+"empty_savingsplan_title" = "Sin plan de ahorro";
+
+/*  */
+"empty_search_description" = "Revisa la ortografía o inicia una nueva búsqueda.";
+
+/*  */
+"empty_stats_list_description" = "Aún no hay datos suficientes para mostrar estadísticas. Agregue más haciendo clic en el botón + en la parte inferior de la pantalla.";
+
+/*  */
+"empty_stats_title" = "Sin estadísticas";
+
+/*  */
+"empty_subscription_home_description" = "Crea tu primera suscripción haciendo clic aquí o en el botón + en la parte inferior de la pantalla";
+
 "empty_subscriptions_create" = "Crear una suscripción";
 
 "empty_subscriptions_desc" = "Aún no has registrado ninguna suscripción.";
 
+/*  */
+"empty_subscriptions_list_description" = "Crea tu primera suscripción haciendo clic en el botón crear en la parte superior de la pantalla";
+
+/*  */
+"empty_subscriptions_title" = "Sin suscripción";
+
 "empty_transactions_create" = "Crear una transacción";
 
 "empty_transactions_desc" = "Aún no has registrado ninguna transacción.";
+
+/*  */
+"empty_transactions_home_description" = "Crea tu primera transacción haciendo clic aquí o en el botón + en la parte inferior de la pantalla";
+
+/*  */
+"empty_transactions_list_description" = "Cree su primera transacción haciendo clic en el botón Crear en la parte superior de la pantalla.";
+
+/*  */
+"empty_transactions_title" = "Sin transacción";
 
 "error_message_no_data_day" = "No hay datos para este día.";
 
@@ -736,7 +805,7 @@ Sencillo, rápido y seguro: su tranquilidad financiera empieza aquí.";
 
 "savingsplan_new" = "Nuevo plan de ahorro";
 
-"savingsplan_placeholder_amount" = "0.00";
+"savingsplan_placeholder_amount" = "0";
 
 "savingsplan_start" = "Inicio";
 
@@ -993,6 +1062,72 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "statistics_with_savings" = "Tenga en cuenta los ahorros y las inversiones.";
 
 /*  */
+"subcategory_activities_children" = "Actividades, Ocio infantil";
+
+/*  */
+"subcategory_child_care" = "Cuidado de los niños";
+
+/*  */
+"subcategory_children_clothing" = "ropa para niños";
+
+/*  */
+"subcategory_consumer_loans" = "Préstamos al consumo";
+
+/*  */
+"subcategory_cryptocurrency" = "Criptomoneda";
+
+/*  */
+"subcategory_home_loan" = "Préstamo hipotecario";
+
+/*  */
+"subcategory_life_insurance" = "Seguro de vida";
+
+/*  */
+"subcategory_major_renovation" = "Gran renovación";
+
+/*  */
+"subcategory_moving" = "Emocionante";
+
+/*  */
+"subcategory_multimedia_services" = "Servicios multimedia";
+
+/*  */
+"subcategory_nursery_school" = "Guardería, Escuela";
+
+/*  */
+"subcategory_passive_income" = "Ingresos pasivos";
+
+/*  */
+"subcategory_press_magazines" = "Prensa, Revistas";
+
+/*  */
+"subcategory_refunds_transfers_received" = "Reembolsos, Transferencias recibidas";
+
+/*  */
+"subcategory_retirement_savings" = "Ahorros para la jubilación";
+
+/*  */
+"subcategory_salary" = "Salario";
+
+/*  */
+"subcategory_secondary_income" = "Ingreso secundario";
+
+/*  */
+"subcategory_software_apps" = "Software, aplicaciones";
+
+/*  */
+"subcategory_stock_market_shares" = "Cuotas en el mercado de valores";
+
+/*  */
+"subcategory_student_loans" = "Préstamos para estudiantes";
+
+/*  */
+"subcategory_vehicle_loan" = "Préstamo de vehículo";
+
+/*  */
+"subcategory_wedding_birth" = "Boda, Nacimiento";
+
+/*  */
 "subscription_first_subscription" = "Primera suscripción";
 
 /*  */
@@ -1140,7 +1275,7 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 
 "transaction_new" = "Nueva transacción";
 
-"transaction_placeholder_amount" = "0.00";
+"transaction_placeholder_amount" = "0";
 
 "transaction_recommended_category" = "Categoría recomendada";
 
@@ -1316,6 +1451,9 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 
 "word_json" = "JSON";
 
+/*  */
+"word_last_transactions" = "Últimas transacciones";
+
 "word_light" = "Luz";
 
 /*  */
@@ -1340,6 +1478,9 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "word_notifications" = "Notificaciones";
 
 "word_ok" = "OK";
+
+/*  */
+"word_others" = "Otros";
 
 "word_preposition_from" = "de";
 

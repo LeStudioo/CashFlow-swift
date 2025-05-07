@@ -18,17 +18,17 @@ struct HomeHeader: View {
     // MARK: -
     var body: some View {
         HStack(spacing: 16) {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 0) {
                 if let account = accountStore.selectedAccount {
                     Text(account.balance.toCurrency())
-                        .font(DesignSystem.Fonts.Title.large)
+                        .fontWithLineHeight(DesignSystem.Fonts.Title.large)
                         .contentTransition(.numericText())
                         .animation(.smooth, value: account.balance)
                 }
                 
                 Text("home_screen_available_balance".localized)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
-                    .font(DesignSystem.Fonts.Body.small)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             

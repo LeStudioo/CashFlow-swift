@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct SubcategoryRow: View {
     
@@ -28,37 +29,38 @@ struct SubcategoryRow: View {
         HStack {
             Circle()
                 .foregroundStyle(subcategory.color)
-                .frame(width: 45, height: 45)
+                .frame(width: 36, height: 36)
                 .overlay {
                     CustomOrSystemImage(
                         systemImage: subcategory.icon,
-                        size: 18
+                        size: 16
                     )
                 }
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(subcategory.name)
-                    .font(.semiBoldCustom(size: 20))
-                    .foregroundStyle(Color.text)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                    .foregroundStyle(Color.label)
                     .lineLimit(1)
                 
                 Text(stringAmount)
-                    .font(.semiBoldText18())
-                    .foregroundStyle(.gray)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     .lineLimit(1)
             }
+            .fullWidth(.leading)
             
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundStyle(Color.text)
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+            Image(.iconArrowRight)
+                .renderingMode(.template)
+                .foregroundStyle(Color.white)
         }
-        .padding()
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
-        }
+        .padding(TKDesignSystem.Padding.medium)
+        .roundedRectangleBorder(
+            TKDesignSystem.Colors.Background.Theme.bg100,
+            radius: TKDesignSystem.Radius.standard,
+            lineWidth: 1,
+            strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+        )
     } // body
 } // struct
 

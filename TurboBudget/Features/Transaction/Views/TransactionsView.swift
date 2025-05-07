@@ -31,7 +31,7 @@ struct TransactionsView: View {
             TransactionsListView()
                 .overlay {
                     CustomEmptyView(
-                        type: .empty(.transactions),
+                        type: .empty(.transactions(.list)),
                         isDisplayed: transactionStore.transactions.isEmpty
                     )
                 }

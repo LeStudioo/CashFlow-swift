@@ -41,9 +41,9 @@ enum HomeScreenComponentHeaderType {
     
     var title: String {
         switch self {
-        case .recentTransactions:   return Word.Title.Transaction.home
-        case .savingsPlan:          return Word.Title.SavingsPlan.home
-        case .subscription:         return Word.Title.Subscription.home
+        case .recentTransactions:   return "word_last_transactions".localized
+        case .savingsPlan:          return "word_savingsplans".localized
+        case .subscription:         return "word_subscriptions".localized
         }
     }
     

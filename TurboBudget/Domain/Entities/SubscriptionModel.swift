@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUICore
+import TheoKit
 
 struct SubscriptionModel: Identifiable, Equatable, Hashable {
     var id: Int
@@ -68,7 +69,7 @@ extension SubscriptionModel {
     var color: Color {
         switch type {
         case .expense:
-            return .error400
+            return TKDesignSystem.Colors.Error.c500
         case .income:
             return .primary500
         default:

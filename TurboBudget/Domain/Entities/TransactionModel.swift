@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUICore
 import CoreLocation
+import TheoKit
 
 struct TransactionModel: Identifiable, Equatable, Hashable {
     var id: Int
@@ -92,7 +93,7 @@ extension TransactionModel {
     var color: Color {
         switch type {
         case .expense:
-            return .error400
+            return TKDesignSystem.Colors.Error.c500
         case .income:
             return .primary500
         case .transfer:

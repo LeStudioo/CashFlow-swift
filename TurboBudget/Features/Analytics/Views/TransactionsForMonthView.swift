@@ -61,7 +61,7 @@ struct TransactionsForMonthView: View {
                 .animation(.smooth, value: transactionsFiltered.count)
             } else {
                 CustomEmptyView(
-                    type: transactionsFiltered.isEmpty && !searchText.isEmpty ? .noResults(searchText) : .empty(.transactions),
+                    type: transactionsFiltered.isEmpty && !searchText.isEmpty ? .noResults(searchText) : .empty(.transactions(.list)),
                     isDisplayed: transactionsFiltered.isEmpty
                 )
             }

@@ -58,7 +58,7 @@ struct SavingsPlansHomeView: View {
         .scrollIndicators(.hidden)
         .overlay {
             CustomEmptyView(
-                type: (searchResults.isEmpty && !searchText.isEmpty) ? .noResults(searchText) : .empty(.savingsPlan),
+                type: (searchResults.isEmpty && !searchText.isEmpty) ? .noResults(searchText) : .empty(.savingsPlan(.list)),
                 isDisplayed: savingsPlanStore.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
             )
         }

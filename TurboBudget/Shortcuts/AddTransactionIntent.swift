@@ -52,6 +52,7 @@ struct AddTransactionIntent: AppIntent {
         var body: TransactionDTO = .init(
             name: title,
             amount: finalNumber,
+            type: TransactionType.expense.rawValue,
             dateISO: Date().toISO(),
             categoryID: 0, // TODO: Validate ?? Mettre message si validé
             isFromApplePay: true,

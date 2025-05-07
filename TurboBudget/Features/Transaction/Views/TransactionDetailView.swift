@@ -10,6 +10,7 @@ import SwiftUI
 import AlertKit
 import NavigationKit
 import StatsKit
+import TheoKit
 
 struct TransactionDetailView: View {
 
@@ -33,98 +34,114 @@ struct TransactionDetailView: View {
 
     // MARK: -
     var body: some View {
-        ScrollView {
-            VStack(spacing: DesignSystem.Spacing.extraLarge) {
-                VStack(spacing: DesignSystem.Spacing.small) {
-                    VStack(spacing: DesignSystem.Spacing.extraSmall) {
-                        Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                            .font(.system(size: 48, weight: .heavy))
-                            .foregroundColor(currentTransaction.color)
-                        
-                        Text(currentTransaction.nameDisplayed)
-                            .font(DesignSystem.FontDS.Title.semibold)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                    }
-                    if currentTransaction.isFromSubscription == true {
-                        Text("transaction_detail_automatically_created".localized)
-                            .font(.mediumText16())
-                    }
+        VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
+            NavigationBarWithMenu {
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.transaction(.update(transaction: currentTransaction))
+                ) {
+                    Label(Word.Classic.edit, systemImage: "pencil")
                 }
                 
-                if let categoryFound = viewModel.bestCategory {
-                    let subcategoryFound = viewModel.bestSubcategory
-                    TransactionDetailPredictedCategoryRow(
-                        category: categoryFound,
-                        subcategory: subcategoryFound,
-                        action: {
-                            viewModel.selectedCategory = categoryFound
-                            if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
-                            viewModel.updateCategory(transactionID: currentTransaction.id)
+                Button(
+                    role: .destructive,
+                    action: { AlertManager.shared.deleteTransaction(transaction: currentTransaction, dismissAction: dismiss) },
+                    label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                )
+            }
+            
+            ScrollView {
+                VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
+                    VStack(spacing: TKDesignSystem.Spacing.small) {
+                        VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                            Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
+                                .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
+                                .foregroundColor(currentTransaction.color)
+                            
+                            Text(currentTransaction.nameDisplayed)
+                                .fontWithLineHeight(DesignSystem.Fonts.Display.small)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
                         }
-                    )
-                }
-                
-                VStack(spacing: DesignSystem.Spacing.medium) {
-                    DetailRow(
-                        icon: "calendar",
-                        text: "transaction_detail_date".localized,
-                        value: currentTransaction.date.formatted(
-                            date: .complete,
-                            time: currentTransaction.isFromApplePay == true ? .shortened : .omitted
-                        ).capitalized
-                    )
+                        if currentTransaction.isFromSubscription == true {
+                            Text("transaction_detail_automatically_created".localized)
+                                .font(.mediumText16())
+                        }
+                    }
                     
-                    if let category = currentTransaction.category {
-                        DetailRow(
-                            icon: category.icon,
-                            value: category.name,
-                            iconBackgroundColor: category.color) {
-                                presentChangeCategory()
+                    if let categoryFound = viewModel.bestCategory {
+                        let subcategoryFound = viewModel.bestSubcategory
+                        TransactionDetailPredictedCategoryRow(
+                            category: categoryFound,
+                            subcategory: subcategoryFound,
+                            action: {
+                                viewModel.selectedCategory = categoryFound
+                                if let subcategoryFound { viewModel.selectedSubcategory = subcategoryFound }
+                                viewModel.updateCategory(transactionID: currentTransaction.id)
                             }
+                        )
+                    }
+                    
+                    VStack(spacing: DesignSystem.Spacing.medium) {
+                        DetailRow(
+                            icon: "calendar",
+                            text: "transaction_detail_date".localized,
+                            value: currentTransaction.date.formatted(
+                                date: .complete,
+                                time: currentTransaction.isFromApplePay == true ? .shortened : .omitted
+                            ).capitalized
+                        )
                         
-                        if let subcategory = currentTransaction.subcategory {
+                        if let category = currentTransaction.category {
                             DetailRow(
-                                icon: subcategory.icon,
-                                value: subcategory.name,
-                                iconBackgroundColor: subcategory.color) {
+                                icon: category.icon,
+                                value: category.name,
+                                iconBackgroundColor: category.color) {
                                     presentChangeCategory()
                                 }
+                            
+                            if let subcategory = currentTransaction.subcategory {
+                                DetailRow(
+                                    icon: subcategory.icon,
+                                    value: subcategory.name,
+                                    iconBackgroundColor: subcategory.color) {
+                                        presentChangeCategory()
+                                    }
+                            }
                         }
-                    }
-                    
-                    if let senderAccount = currentTransaction.senderAccount {
-                        DetailRow(
-                            icon: "antenna.radiowaves.left.and.right",
-                            text: Word.Classic.senderAccount,
-                            value: senderAccount.name
-                        )
-                    }
-                    
-                    if let receiverAccount = currentTransaction.receiverAccount {
-                        DetailRow(
-                            icon: "tray.fill",
-                            text:  Word.Classic.receiverAccount,
-                            value: receiverAccount.name
-                        )
-                    }
-                    
-                    TransactionDetailNoteRow(note: $viewModel.note)
-                    
-                    if currentTransaction.lat != nil && currentTransaction.long != nil {
-                        if #available(iOS 17.0, *) {
-                            TransactionMapRow(transaction: currentTransaction)
-                        } else {
-                            // Fallback on earlier versions
+                        
+                        if let senderAccount = currentTransaction.senderAccount {
+                            DetailRow(
+                                icon: "antenna.radiowaves.left.and.right",
+                                text: Word.Classic.senderAccount,
+                                value: senderAccount.name
+                            )
+                        }
+                        
+                        if let receiverAccount = currentTransaction.receiverAccount {
+                            DetailRow(
+                                icon: "tray.fill",
+                                text:  Word.Classic.receiverAccount,
+                                value: receiverAccount.name
+                            )
+                        }
+                        
+                        TransactionDetailNoteRow(note: $viewModel.note)
+                        
+                        if currentTransaction.lat != nil && currentTransaction.long != nil {
+                            if #available(iOS 17.0, *) {
+                                TransactionMapRow(transaction: currentTransaction)
+                            } else {
+                                // Fallback on earlier versions
+                            }
                         }
                     }
                 }
-            }
-            .padding(.horizontal)
-            .padding(.top, DesignSystem.Padding.extraLarge)
-        } // ScrollView
-        .scrollIndicators(.hidden)
-        .onAppear { 
+                .padding(.horizontal, DesignSystem.Padding.large)
+            } // ScrollView
+            .scrollIndicators(.hidden)
+        }
+        .onAppear {
             viewModel.note = currentTransaction.note ?? ""
             if transaction.type == .transfer {
                 EventService.sendEvent(key: .transferDetailPage)
@@ -155,32 +172,9 @@ struct TransactionDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
-            ToolbarDismissPushButton()
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu {
-                    NavigationButton(
-                        route: .push,
-                        destination: AppDestination.transaction(.update(transaction: currentTransaction))
-                    ) {
-                        Label(Word.Classic.edit, systemImage: "pencil")
-                    }
-                    
-                    Button(
-                        role: .destructive,
-                        action: { AlertManager.shared.deleteTransaction(transaction: currentTransaction, dismissAction: dismiss) },
-                        label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
-                    )
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
-
             ToolbarDismissKeyboardButtonView()
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
     } // body
 } // struct
 

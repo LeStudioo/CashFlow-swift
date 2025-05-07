@@ -36,7 +36,10 @@ struct HomeScreenSubscription: View {
                     }
                 }
             } else {
-                HomeScreenEmptyRow(type: .subscription)
+                CustomEmptyView(
+                    type: .empty(.subscriptions(.home)),
+                    isDisplayed: true
+                )
             }
         }
         .isDisplayed(preferencesDisplayHome.subscription_isDisplayed)

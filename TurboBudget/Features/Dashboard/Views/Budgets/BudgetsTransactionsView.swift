@@ -43,7 +43,7 @@ struct BudgetsTransactionsView: View {
                         }
                         .listRowSeparator(.hidden)
                     } header: {
-                        Text(subcategory.expenses.sorted { $0.amount ?? 0 < $1.amount ?? 0 }.compactMap(\.amount).reduce(0, +).toCurrency())
+                        Text(subcategory.expenses.sorted { $0.amount < $1.amount }.compactMap(\.amount).reduce(0, +).toCurrency())
                             .font(.mediumCustom(size: 22))
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.vertical, 8)
@@ -53,7 +53,7 @@ struct BudgetsTransactionsView: View {
                 .scrollContentBackground(.hidden)
             } else { // No Transaction
                 CustomEmptyView(
-                    type: .empty(.transactions),
+                    type: .empty(.transactions(.list)),
                     isDisplayed: subcategory.transactions.isEmpty
                 )
             }

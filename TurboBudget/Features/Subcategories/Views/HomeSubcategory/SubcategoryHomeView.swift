@@ -7,8 +7,8 @@
 // Localizations 01/10/2023
 
 import SwiftUI
-import Charts
 import NavigationKit
+import TheoKit
 
 struct SubcategoryHomeView: View {
     
@@ -25,74 +25,66 @@ struct SubcategoryHomeView: View {
     
     // Computed
     var searchResults: [SubcategoryModel] {
-        if viewModel.searchText.isEmpty {
-            return category.subcategories?
-                .sorted { $0.name < $1.name } ?? []
-        } else {
-            return category.subcategories?
-                .filter { $0.name.localizedStandardContains(viewModel.searchText) } ?? []
-                .sorted { $0.name < $1.name }
+        let subcategories = viewModel.searchText.isEmpty
+            ? (category.subcategories ?? [])
+            : (category.subcategories?.filter { $0.name.localizedStandardContains(viewModel.searchText) } ?? [])
+        
+        return subcategories.sorted { subcat1, subcat2 in
+            if subcat2.name == "word_others".localized {
+                return true
+            }
+            if subcat1.name == "word_others".localized {
+                return false
+            }
+            return subcat1.name < subcat2.name
         }
     }
     
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView {
-                VStack {
-                    if transactionStore.getExpenses(for: category, in: selectedDate).isEmpty
-                        && transactionStore.getIncomes(for: category, in: selectedDate).isEmpty {
-                        EmptyCategoryData()
-                            .padding(.bottom, 8)
-                    }
-                    
-                    if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty {
-                        PieChart(
-                            month: selectedDate,
-                            slices: categoryStore.subcategoriesSlices(for: category, in: selectedDate),
-                            backgroundColor: Color.background100,
-                            configuration: .init(style: .subcategory, space: 0.2, hole: 0.75)
-                        )
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background {
-                            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                .fill(Color.background100)
-                        }
-                        .padding(.bottom, 8)
-                    }
-                    
-                    ForEach(searchResults) { subcategory in
-                        NavigationButton(
-                            route: .push,
-                            destination: AppDestination.subcategory(
-                                .transactions(
-                                    subcategory: subcategory,
-                                    selectedDate: selectedDate
-                                )
+            NavigationBar(title: "word_subcategories".localized)
+            //                    if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty { // TODO: deplace in alaytics
+            //                        PieChart(
+            //                            month: selectedDate,
+            //                            slices: categoryStore.subcategoriesSlices(for: category, in: selectedDate),
+            //                            backgroundColor: Color.background100,
+            //                            configuration: .init(style: .subcategory, space: 0.2, hole: 0.75)
+            //                        )
+            //                        .padding()
+            //                        .frame(maxWidth: .infinity)
+            //                        .background {
+            //                            RoundedRectangle(cornerRadius: 16, style: .continuous)
+            //                                .fill(Color.background100)
+            //                        }
+            //                        .padding(.bottom, 8)
+            //                    }
+            
+            List {
+                ForEach(searchResults) { subcategory in
+                    NavigationButton(
+                        route: .push,
+                        destination: AppDestination.subcategory(
+                            .transactions(
+                                subcategory: subcategory,
+                                selectedDate: selectedDate
                             )
-                        ) {
-                            SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
-                        }
-                        .padding(.bottom, 8)
+                        )
+                    ) {
+                        SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
                     }
+                    .padding(.bottom, TKDesignSystem.Spacing.medium)
                 }
-                .padding()
+                .noDefaultStyle()
             } // End ScrollView
+            .listStyle(.plain)
             .scrollDismissesKeyboard(.immediately)
             .scrollIndicators(.hidden)
+            .padding(.horizontal, TKDesignSystem.Padding.large)
         } // End VStack
-        .blur(radius: viewModel.filter.showMenu ? 3 : 0)
-        .disabled(viewModel.filter.showMenu)
-        .onTapGesture { withAnimation { viewModel.filter.showMenu = false } }
-        .searchable(text: $viewModel.searchText.animation(), prompt: "word_search".localized)
-        .navigationTitle("word_subcategories".localized)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarDismissPushButton()
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
     } // body
 } // struct
 

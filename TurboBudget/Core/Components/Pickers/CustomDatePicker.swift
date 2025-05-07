@@ -35,7 +35,7 @@ struct CustomDatePicker: View {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
                         .contentTransition(.numericText())
                         .foregroundStyle(Color.label)
-                        .font(DesignSystem.Fonts.Body.medium)
+                        .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                         .padding(TKDesignSystem.Padding.medium)
                         .roundedRectangleBorder(
                             TKDesignSystem.Colors.Background.Theme.bg200,

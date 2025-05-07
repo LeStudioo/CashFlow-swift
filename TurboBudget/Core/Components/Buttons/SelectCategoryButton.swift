@@ -53,7 +53,7 @@ struct SelectCategoryButton: View {
                         Text(Word.Create.addCategory)
                     }
                 }
-                .font(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                 .foregroundStyle(selectedCategory != nil ? Color.black : Color.text)
                 .padding(TKDesignSystem.Padding.regular)
                 .fullWidth(.leading)

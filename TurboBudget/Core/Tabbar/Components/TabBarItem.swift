@@ -27,7 +27,7 @@ struct TabBarItem: View {
                     .frame(width: 22, height: 22)
                 
                 Text(title)
-                    .font(DesignSystem.Fonts.Label.large)
+                    .fontWithLineHeight(DesignSystem.Fonts.Label.large)
             }
             .foregroundStyle(
                 appManager.selectedTab == tag

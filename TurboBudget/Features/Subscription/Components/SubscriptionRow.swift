@@ -49,7 +49,7 @@ struct SubscriptionRow: View {
                     VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
                             .font(TKDesignSystem.Fonts.Body.mediumBold)
-                            .foregroundStyle(subscription.type == .expense ? .error400 : .primary500)
+                            .foregroundStyle(subscription.color)
                             .lineLimit(1)
                         
                         Text(subscription.frequencyDate.withTemporality)

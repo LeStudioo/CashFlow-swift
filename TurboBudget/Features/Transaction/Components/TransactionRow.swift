@@ -40,10 +40,10 @@ struct TransactionRow: View {
                     VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text(transactionTypeString)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
-                            .font(DesignSystem.Fonts.Body.small)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                         
                         Text(currentTransaction.nameDisplayed)
-                            .font(DesignSystem.Fonts.Body.medium)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
                     }
@@ -51,12 +51,12 @@ struct TransactionRow: View {
                                         
                     VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
                         Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                            .font(DesignSystem.Fonts.Body.mediumBold)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
                             .foregroundStyle(currentTransaction.color)
                             .lineLimit(1)
                         
                         Text(currentTransaction.date.withTemporality)
-                            .font(DesignSystem.Fonts.Body.small)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .lineLimit(1)
                     }

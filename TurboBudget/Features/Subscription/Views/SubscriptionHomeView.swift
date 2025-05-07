@@ -66,7 +66,7 @@ struct SubscriptionHomeView: View {
         .animation(.smooth, value: subscriptionStore.subscriptions.count)
         .overlay {
             CustomEmptyView(
-                type: .empty(.subscriptions),
+                type: .empty(.subscriptions(.list)),
                 isDisplayed: subscriptionStore.subscriptions.isEmpty
             )
         }

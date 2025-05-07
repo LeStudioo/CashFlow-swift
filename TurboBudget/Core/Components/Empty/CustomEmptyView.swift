@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct CustomEmptyView: View {
     
@@ -14,87 +15,100 @@ struct CustomEmptyView: View {
     var type: CustomEmptyViewType
     var isDisplayed: Bool
     
-    @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var router: Router<AppDestination>
     
-    var isSituation: Bool {
+    var isHomeSituation: Bool {
         switch type {
         case .empty(let situation):
             switch situation {
-            case .contributions: return false
-            default: return true
+            case .account:
+                return false
+            case .transactions(let style):
+                return style == .home ? true : false
+            case .subscriptions(let style):
+                return style == .home ? true : false
+            case .savingsPlan(let style):
+                return style == .home ? true : false
+            case .savingsAccount:
+                return false
+            case .analytics:
+                return false
             }
-        case .noResults:    return false
+        case .noResults:
+            return false
         }
     }
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 16) {
-            Image(getEmptyImage() + themeManager.theme.nameNotLocalized.capitalized)
+        VStack(spacing: TKDesignSystem.Spacing.small) {
+            Image(emptyIcon)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
-                .shadow(radius: 4, y: 4)
-                .frame(width: UIScreen.main.bounds.width / (UIDevice.isIpad ? 3 : 1.5))
+                .renderingMode(.template)
+                .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                .frame(width: 32, height: 32)
             
-            Text(getDescription())
-                .font(.semiBoldText16())
-                .multilineTextAlignment(.center)
-            
-            if isSituation {
-                Button(action: action) {
-                    Text(createText)
-                        .foregroundStyle(Color.white)
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background {
-                            Capsule()
-                                .fill(themeManager.theme.color)
-                        }
-                }
+            VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                Text(emptyTitle)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.large)
+                    .foregroundStyle(Color.label)
+                    
+                Text(emptyDescription)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg500)
+                    .multilineTextAlignment(.center)
             }
         }
-        .padding(32)
-        .offset(y: -50)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(TKDesignSystem.Padding.large)
+        .offset(y: isHomeSituation ? 0 : -50)
+        .frame(maxWidth: .infinity, maxHeight: isHomeSituation ? nil : .infinity)
+        .roundedRectangleBorder(
+            isHomeSituation ? TKDesignSystem.Colors.Background.Theme.bg100 : .clear,
+            radius: TKDesignSystem.Radius.standard,
+            lineWidth: isHomeSituation ? 0.5 : 0,
+            strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+        )
         .isDisplayed(isDisplayed)
-    } // body
-    
-    // MARK: - Functions
-    private func getEmptyImage() -> String {
-        switch type {
-        case .empty(let situation):
-            return situation.emptyImage
-        case .noResults:
-            return "NoResults"
+        .onTapGesture {
+            if isHomeSituation {
+                action()
+            }
         }
     }
     
-    private func getDescription() -> String {
+    var emptyIcon: ImageResource {
         switch type {
         case .empty(let situation):
-            return situation.description
+            return situation.icon
+        case .noResults:
+            return .iconSearch
+        }
+    }
+    
+    var emptyDescription: String {
+        switch type {
+        case .empty(let situation):
+            return situation.description.localized
+        case .noResults:
+            return "empty_search_description".localized
+        }
+    }
+    
+    var emptyTitle: String {
+        switch type {
+        case .empty(let situation):
+            return situation.title.localized
         case .noResults(let searchText):
             return "word_no_results".localized + " " + searchText
         }
     }
-    
+
     private func action() {
         switch type {
         case .empty(let situation):
             situation.action(router: router)
         case .noResults:
             break
-        }
-    }
-    
-    private var createText: String {
-        switch type {
-        case .empty(let situation):
-            return situation.createText
-        case .noResults:
-            return ""
         }
     }
 } // struct
@@ -105,69 +119,70 @@ enum CustomEmptyViewType: Equatable {
     case noResults(_ searchText: String)
 }
 
-enum CustomEmptyViewSituation {
+enum CustomEmptyViewSituationStyle: Equatable {
+    case home
+    case list
+}
+
+enum CustomEmptyViewSituation: Equatable {
     case account
-    case transactions
-    case subscriptions
-    case savingsPlan
-    case contributions
+    case transactions(CustomEmptyViewSituationStyle)
+    case subscriptions(CustomEmptyViewSituationStyle)
+    case savingsPlan(CustomEmptyViewSituationStyle)
+//    case contributions
     case savingsAccount
     case analytics
     
-    var emptyImage: String {
+    var icon: ImageResource {
         switch self {
         case .account:
-            return "NoAccount"
+            return .iconPerson
         case .transactions:
-            return "NoTransaction"
+            return .iconBanknote
         case .subscriptions:
-            return "NoAutomation" // TBL To edit to subscription
+            return .iconClockRepeat
         case .savingsPlan:
-            return "NoSavingPlan"
-        case .contributions:
-            return "NoSavingPlan"
+            return .iconPiggyBank
+//        case .contributions:
+//            return .iconHandCoins
         case .savingsAccount:
-            return "NoSavingPlan"
+            return .iconLandmark
         case .analytics:
-            return "NoIncome" // TBL To edit
+            return .iconLineChart
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .account:
+            return "empty_account_title"
+        case .transactions:
+            return "empty_transactions_title"
+        case .subscriptions:
+            return "empty_subscriptions_title"
+        case .savingsPlan:
+            return "empty_savingsplan_title"
+        case .savingsAccount:
+            return "empty_savingsaccount_title"
+        case .analytics:
+            return "empty_stats_title"
         }
     }
     
     var description: String {
         switch self {
         case .account:
-            return Word.Empty.Account.desc
-        case .transactions:
-            return Word.Empty.Transaction.desc
-        case .subscriptions:
-            return Word.Empty.Subscription.desc
-        case .savingsPlan:
-            return Word.Empty.SavingsPlan.desc
-        case .contributions:
-            return Word.Empty.Contribution.desc
+            return "empty_account_list_description"
+        case .transactions(let style):
+            return style == .list ? "empty_transactions_list_description" : "empty_transactions_home_description"
+        case .subscriptions(let style):
+            return style == .list ? "empty_subscriptions_list_description" : "empty_subscription_home_description"
+        case .savingsPlan(let style):
+            return style == .list ? "empty_savingsplan_list_description" : "empty_savingsplan_home_description"
         case .savingsAccount:
-            return Word.Empty.SavingsAccount.desc
+            return "empty_savingsaccount_list_description"
         case .analytics:
-            return "analytic_home_no_stats".localized
-        }
-    }
-    
-    var createText: String {
-        switch self {
-        case .account:
-            return Word.Empty.Account.create
-        case .transactions:
-            return Word.Empty.Transaction.create
-        case .subscriptions:
-            return Word.Empty.Subscription.create
-        case .savingsPlan:
-            return Word.Empty.SavingsPlan.create
-        case .contributions:
-            return ""
-        case .savingsAccount:
-            return Word.Empty.SavingsAccount.create
-        case .analytics:
-            return Word.Empty.Transaction.create
+            return "empty_stats_list_description"
         }
     }
     
@@ -183,8 +198,6 @@ enum CustomEmptyViewSituation {
             router.push(.savingsPlan(.create))
         case .savingsAccount:
             router.push(.savingsAccount(.create))
-        case .contributions:
-            break
         case .analytics:
             router.push(.transaction(.create))
         }
@@ -197,5 +210,4 @@ enum CustomEmptyViewSituation {
         type: .empty(.account),
         isDisplayed: true
     )
-    .environmentObject(ThemeManager())
 }

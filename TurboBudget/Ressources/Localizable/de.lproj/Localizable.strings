@@ -172,7 +172,7 @@
 
 "automation_new" = "Neue Automatisierung";
 
-"automation_placeholder_amount" = "0.00";
+"automation_placeholder_amount" = "0";
 
 "automation_recurrence" = "Wiederholung";
 
@@ -198,7 +198,7 @@
 
 "budget_cell_overrun" = "Überschreitung";
 
-"budget_placeholder_amount" = "0.00";
+"budget_placeholder_amount" = "0";
 
 "budget_successful" = "Budget erstellt";
 
@@ -402,6 +402,15 @@
 
 "category9_name" = "Abhebungen";
 
+/*  */
+"category_family_children" = "Familienleben & Kinder";
+
+/*  */
+"category_projects_events" = "Projekte und Veranstaltungen";
+
+/*  */
+"category_subscriptions_services" = "Abonnements & Dienstleistungen";
+
 "chart_auto_expenses_expenses_in" = "Automatisierte Ausgaben im";
 
 "chart_auto_incomes_incomes_in" = "Automatisierte Einnahmen im";
@@ -430,7 +439,7 @@
 
 "contribution_new" = "Neue Beitrag";
 
-"contribution_placeholder_amount" = "0.00";
+"contribution_placeholder_amount" = "0";
 
 "contribution_withdraw" = "Entfernen";
 
@@ -474,11 +483,29 @@
 
 "descending_order_word" = "Absteigende Reihenfolge";
 
+/*  */
+"empty_account_list_description" = "Erstellen Sie Ihr erstes Konto, indem Sie auf die Schaltfläche + am unteren Rand des Bildschirms klicken.";
+
+/*  */
+"empty_account_title" = "Kein Konto";
+
 "empty_accounts_create" = "Ein Konto erstellen";
 
 "empty_accounts_desc" = "Erstellen Sie Ihr erstes Konto, um CashFlow zu nutzen!";
 
 "empty_contributions_desc" = "Sie haben noch keine Beiträge registriert.";
+
+/*  */
+"empty_expenses_this_month_description" = "Das ist doch eine gute Nachricht, oder?";
+
+/*  */
+"empty_expenses_this_month_title" = "Keine Ausgaben in diesem Monat";
+
+/*  */
+"empty_incomes_this_month_description" = "Geld fällt nicht vom Himmel! Schade...";
+
+/*  */
+"empty_incomes_this_month_title" = "Kein Einkommen in diesem Monat";
 
 "empty_savingsAccounts_create" = "Erstellen Sie ein Sparkonto";
 
@@ -488,15 +515,57 @@
 
 "empty_savingsPlans_desc" = "Sie haben noch keinen Sparplan registriert.";
 
+/*  */
+"empty_savingsaccount_list_description" = "Erstellen Sie Ihr erstes Sparkonto, indem Sie oben auf dem Bildschirm auf die Schaltfläche „Erstellen“ klicken";
+
+/*  */
+"empty_savingsaccount_title" = "Kein Sparkonto";
+
+/*  */
+"empty_savingsplan_home_description" = "Erstellen Sie Ihren ersten Sparplan, indem Sie hier oder auf die Schaltfläche + am unteren Bildschirmrand klicken";
+
+/*  */
+"empty_savingsplan_list_description" = "Erstellen Sie Ihren ersten Sparplan, indem Sie oben auf dem Bildschirm auf die Schaltfläche „Erstellen“ klicken";
+
+/*  */
+"empty_savingsplan_title" = "Kein Sparplan";
+
+/*  */
+"empty_search_description" = "Überprüfen Sie die Rechtschreibung oder starten Sie eine neue Suche.";
+
+/*  */
+"empty_stats_list_description" = "Es sind noch nicht genügend Daten vorhanden, um Statistiken anzuzeigen. Fügen Sie weitere hinzu, indem Sie auf die Schaltfläche „+“ unten auf dem Bildschirm klicken.";
+
+/*  */
+"empty_stats_title" = "Keine Statistik";
+
+/*  */
+"empty_subscription_home_description" = "Erstellen Sie Ihr erstes Abonnement, indem Sie hier oder auf die Schaltfläche „+“ unten auf dem Bildschirm klicken";
+
 "empty_subscriptions_create" = "Erstellen Sie ein Abonnement";
 
-"empty_subscriptions_desc" = "Sie haben noch kein Abonnement registriert.";
+"empty_subscriptions_desc" = "Sie haben noch keine Abonnements registriert.";
+
+/*  */
+"empty_subscriptions_list_description" = "Erstellen Sie Ihr erstes Abonnement, indem Sie oben auf dem Bildschirm auf die Schaltfläche „Erstellen“ klicken";
+
+/*  */
+"empty_subscriptions_title" = "Kein Abonnement";
 
 "empty_transactions_create" = "Erstellen Sie eine Transaktion";
 
-"empty_transactions_desc" = "Sie haben noch keine Transaktionen erfasst.";
+"empty_transactions_desc" = "Sie haben noch keine Transaktionen registriert.";
 
-"error_message_no_data_day" = "Keine Daten für diesen Tag.";
+/*  */
+"empty_transactions_home_description" = "Erstellen Sie Ihre erste Transaktion, indem Sie hier oder auf die Schaltfläche „+“ unten auf dem Bildschirm klicken";
+
+/*  */
+"empty_transactions_list_description" = "Erstellen Sie Ihre erste Transaktion, indem Sie oben auf dem Bildschirm auf die Schaltfläche „Erstellen“ klicken.";
+
+/*  */
+"empty_transactions_title" = "Keine Transaktion";
+
+"error_message_no_data_day" = "Für diesen Tag liegen keine Daten vor.";
 
 "error_message_no_data_month" = "Keine Daten für diesen Monat.";
 
@@ -736,7 +805,7 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "savingsplan_new" = "Neuer Sparplan";
 
-"savingsplan_placeholder_amount" = "0.00";
+"savingsplan_placeholder_amount" = "0";
 
 "savingsplan_start" = "Beginn";
 
@@ -992,6 +1061,72 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "statistics_with_savings" = "Berücksichtigen Sie Ersparnisse und Investitionen.";
 
 /*  */
+"subcategory_activities_children" = "Aktivitäten, Freizeit für Kinder";
+
+/*  */
+"subcategory_child_care" = "Kinderbetreuung";
+
+/*  */
+"subcategory_children_clothing" = "Kinderbekleidung";
+
+/*  */
+"subcategory_consumer_loans" = "Verbraucherkredite";
+
+/*  */
+"subcategory_cryptocurrency" = "Kryptowährung";
+
+/*  */
+"subcategory_home_loan" = "Wohnungsbaudarlehen";
+
+/*  */
+"subcategory_life_insurance" = "Lebensversicherung";
+
+/*  */
+"subcategory_major_renovation" = "Große Renovierung";
+
+/*  */
+"subcategory_moving" = "Umzug";
+
+/*  */
+"subcategory_multimedia_services" = "Multimedia-Dienste";
+
+/*  */
+"subcategory_nursery_school" = "Kindergarten";
+
+/*  */
+"subcategory_passive_income" = "Passives Einkommen";
+
+/*  */
+"subcategory_press_magazines" = "Presse, Zeitschriften";
+
+/*  */
+"subcategory_refunds_transfers_received" = "Rückerstattungen, Überweisungen erhalten";
+
+/*  */
+"subcategory_retirement_savings" = "Altersvorsorge";
+
+/*  */
+"subcategory_salary" = "Gehalt";
+
+/*  */
+"subcategory_secondary_income" = "Nebenverdienst";
+
+/*  */
+"subcategory_software_apps" = "Software, Apps";
+
+/*  */
+"subcategory_stock_market_shares" = "Börsenanteile";
+
+/*  */
+"subcategory_student_loans" = "Studienkredite";
+
+/*  */
+"subcategory_vehicle_loan" = "Fahrzeugkredit";
+
+/*  */
+"subcategory_wedding_birth" = "Hochzeit, Geburt";
+
+/*  */
 "subscription_first_subscription" = "Erstes Abonnement";
 
 /*  */
@@ -1139,7 +1274,7 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "transaction_new" = "Neue Transaktion";
 
-"transaction_placeholder_amount" = "0.00";
+"transaction_placeholder_amount" = "0";
 
 "transaction_recommended_category" = "Empfohlene Kategorie";
 
@@ -1315,6 +1450,9 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "word_json" = "JSON";
 
+/*  */
+"word_last_transactions" = "Letzte Transaktionen";
+
 "word_light" = "Licht";
 
 /*  */
@@ -1339,6 +1477,9 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "word_notifications" = "Benachrichtigungen";
 
 "word_ok" = "OK";
+
+/*  */
+"word_others" = "Andere";
 
 "word_preposition_from" = "von";
 

@@ -33,7 +33,10 @@ struct HomeScreenRecentTransactions: View {
                         }
                     }
                 } else {
-                    HomeScreenEmptyRow(type: .recentTransactions)
+                    CustomEmptyView(
+                        type: .empty(.transactions(.home)),
+                        isDisplayed: true
+                    )
                 }
             }
         }

@@ -6,81 +6,55 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct CategoryRow: View {
     
-    // Builder
+    // MARK: Dependencies
     var category: CategoryModel
     var selectedDate: Date
     var amount: String
-    
-    // Custom
-    @ObservedObject var filter: Filter = sharedFilter
-    @EnvironmentObject private var transactionStore: TransactionStore
-        
-    // MARK: -
+            
+    // MARK: - View
     var body: some View {
-        HStack {
+        HStack(spacing: TKDesignSystem.Spacing.small) {
             Circle()
                 .foregroundStyle(category.color)
-                .frame(width: 45, height: 45)
+                .frame(width: 36, height: 36)
                 .overlay {
                     Image(systemName: category.icon)
-                        .font(.system(size: 18, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.black)
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundStyle(.white)
                 }
             
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: 0) {
                 Text(category.name)
-                    .font(.semiBoldCustom(size: 20))
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                    .foregroundStyle(Color.label)
                     .lineLimit(1)
                 
                 Text(amount)
-                    .font(.semiBoldText18())
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                     .animation(.smooth, value: amount)
                     .contentTransition(.numericText())
-                    .foregroundStyle(.gray)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     .lineLimit(1)
             }
+            .fullWidth(.leading)
             
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundStyle(Color.text)
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+            Image(.iconArrowRight)
+                .renderingMode(.template)
+                .foregroundStyle(Color.white)
         }
-        .padding()
-        .padding(.trailing, 8)
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
-        }
-//        .onAppear {
-//            calculateAmount()
-//        }
-//        .onChange(of: selectedDate) { _ in
-//            calculateAmount()
-//        }
-//        .onChange(of: transactionStore.transactions) { _ in
-//            calculateAmount()
-//        }
-    } // body
-    
-//    private func calculateAmount() {
-//        if category.isRevenue {
-//            amount = transactionStore.getIncomes(for: category, in: selectedDate)
-//                .compactMap(\.amount)
-//                .reduce(0, +)
-//                .toCurrency()
-//        } else {
-//            amount = transactionStore.getExpenses(for: category, in: selectedDate)
-//                .compactMap(\.amount)
-//                .reduce(0, +)
-//                .toCurrency()
-//        }
-//    }
-    
-} // struct
+        .padding(TKDesignSystem.Padding.medium)
+        .roundedRectangleBorder(
+            TKDesignSystem.Colors.Background.Theme.bg100,
+            radius: TKDesignSystem.Radius.standard,
+            lineWidth: 1,
+            strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+        )
+    }
+}
 
 // MARK: - Preview
 #Preview {

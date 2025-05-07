@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct DetailRow: View {
     
@@ -24,7 +25,7 @@ struct DetailRow: View {
             HStack(spacing: 8) {
                 CustomOrSystemImage(
                     systemImage: icon,
-                    size: 12,
+                    size: 10,
                     color: text == nil ? .black : Color.text
                 )
                 .padding(6)
@@ -34,24 +35,25 @@ struct DetailRow: View {
                 }
                 if let text {
                     Text(text)
-                        .font(.mediumText16())
-                        .foregroundStyle(Color.text)
+                        .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                        .foregroundStyle(Color.label)
                         .lineLimit(1)
-//                        .multilineTextAlignment(.leading)
                         .fixedSize(horizontal: true, vertical: true)
                 }
                 
                 Text(value)
-                    .font(.semiBoldText16())
-                    .foregroundStyle(Color.text)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                    .foregroundStyle(Color.label)
                     .multilineTextAlignment(.trailing)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .fullWidth(.trailing)
             }
             .padding()
-            .background {
-                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous)
-                    .fill(Color.background100)
-            }
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg100,
+                radius: TKDesignSystem.Radius.standard,
+                lineWidth: 1,
+                strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+            )
         }
     } // body
 } // struct

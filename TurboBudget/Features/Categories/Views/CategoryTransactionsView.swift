@@ -9,10 +9,11 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct CategoryTransactionsView: View {
     
-    // Builder
+    // MARK: Dependencies
     var category: CategoryModel
     var selectedDate: Date
     
@@ -43,42 +44,38 @@ struct CategoryTransactionsView: View {
                                     TransactionRow(transaction: transaction)
                                 }
                             }
-                            .padding(.horizontal)
-                            .listRowSeparator(.hidden)
-                            .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                            .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                            .noDefaultStyle()
+                            .padding(.bottom, DesignSystem.Padding.medium)
                         },
                         header: {
-                        DetailOfExpensesAndIncomesByMonth(
-                            month: selectedDate,
-                            amountOfExpenses: amountExpense,
-                            amountOfIncomes: amountIncome
-                        )
-                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
-                    })
-                    .foregroundStyle(Color.text)
+                            DetailOfExpensesAndIncomesByMonth(
+                                month: selectedDate,
+                                amountOfExpenses: amountExpense,
+                                amountOfIncomes: amountIncome
+                            )
+                        }
+                    )
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
-                .background(Color.background.edgesIgnoringSafeArea(.all))
                 .animation(.smooth, value: transactionsFiltered.count)
             } else {
                 CustomEmptyView(
-                    type: transactionsFiltered.isEmpty && !searchText.isEmpty ? .noResults(searchText) : .empty(.transactions),
+                    type: transactionsFiltered.isEmpty && !searchText.isEmpty ? .noResults(searchText) : .empty(.transactions(.list)),
                     isDisplayed: transactionsFiltered.isEmpty
                 )
             }
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
         .navigationTitle(Word.Main.transactions)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .toolbar {
             ToolbarDismissPushButton()
         }
         .searchable(text: $searchText, prompt: "word_search".localized)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
         .onAppear {
             if category.isRevenue {
                 amountIncome = transactions
