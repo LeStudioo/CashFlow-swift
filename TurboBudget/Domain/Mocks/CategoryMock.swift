@@ -11,7 +11,7 @@ extension CategoryModel {
     static let mock = CategoryModel(
         id: 1,
         name: "category1_name".localized,
-        icon: "cart.fill",
+        icon: .iconCart,
         color: .red,
         subcategories: [
             SubcategoryModel.mock

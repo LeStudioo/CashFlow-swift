@@ -11,7 +11,8 @@ extension SubcategoryModel {
     static let mock = SubcategoryModel(
         id: 1,
         name: "category1_subcategory1_name".localized,
-        icon: "dumbbell.fill",
-        colorString: "red"
+        icon: .iconDumbbell,
+        color: .red,
+        isVisible: true
     )
 }

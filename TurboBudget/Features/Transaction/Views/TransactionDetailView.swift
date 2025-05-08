@@ -84,7 +84,7 @@ struct TransactionDetailView: View {
                     
                     VStack(spacing: DesignSystem.Spacing.medium) {
                         DetailRow(
-                            icon: "calendar",
+                            icon: .iconCalendar,
                             text: "transaction_detail_date".localized,
                             value: currentTransaction.date.formatted(
                                 date: .complete,
@@ -110,17 +110,17 @@ struct TransactionDetailView: View {
                             }
                         }
                         
-                        if let senderAccount = currentTransaction.senderAccount {
-                            DetailRow(
-                                icon: "antenna.radiowaves.left.and.right",
-                                text: Word.Classic.senderAccount,
-                                value: senderAccount.name
-                            )
-                        }
+//                        if let senderAccount = currentTransaction.senderAccount { // TODO: Verify
+//                            DetailRow(
+//                                icon: "antenna.radiowaves.left.and.right",
+//                                text: Word.Classic.senderAccount,
+//                                value: senderAccount.name
+//                            )
+//                        }
                         
                         if let receiverAccount = currentTransaction.receiverAccount {
                             DetailRow(
-                                icon: "tray.fill",
+                                icon: .iconInbox,
                                 text:  Word.Classic.receiverAccount,
                                 value: receiverAccount.name
                             )

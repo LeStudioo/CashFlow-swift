@@ -33,16 +33,19 @@ struct SelectCategoryButton: View {
             ) {
                 HStack(spacing: 8) {
                     if let selectedSubcategory, selectedCategory != nil {
-                        CustomOrSystemImage(
-                            systemImage: selectedSubcategory.icon,
-                            size: 16
-                        )
+                        Image(selectedSubcategory.icon) // TODO: Verify
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .frame(width: 16, height: 16)
                         
                         Text(selectedSubcategory.name)
                     } else if let selectedCategory, selectedSubcategory == nil {
-                        Image(systemName: selectedCategory.icon)
-                            .font(.system(size: 16, weight: .bold, design: .rounded))
-                            .foregroundStyle(Color.black)
+                        Image(selectedCategory.icon) // TODO: Verify
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .frame(width: 16, height: 16)
                         
                         Text(selectedCategory.name)
                     } else {

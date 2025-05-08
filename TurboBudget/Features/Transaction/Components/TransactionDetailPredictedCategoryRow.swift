@@ -14,7 +14,7 @@ struct TransactionDetailPredictedCategoryRow: View {
     var subcategory: SubcategoryModel?
     var action: (() -> Void)?
     
-    var icon: String {
+    var icon: ImageResource {
         if let subcategory {
             return subcategory.icon
         } else { return category.icon }
@@ -33,7 +33,11 @@ struct TransactionDetailPredictedCategoryRow: View {
         } label: {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
-                    CustomOrSystemImage(systemImage: icon, size: 12, color: Color.text)
+                    Image(icon) // TODO: Verify
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 12, height: 12)
                         .padding(6)
                         .background {
                             Circle()

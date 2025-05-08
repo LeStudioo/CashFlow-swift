@@ -23,9 +23,11 @@ struct CategoryHeader: View {
                 .frame(width: 30, height: 30)
                 .foregroundStyle(category.color)
                 .overlay {
-                    Image(systemName: category.icon)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
-                        .foregroundStyle(Color(uiColor: .systemBackground))
+                    Image(category.icon) // TODO: Verify
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 14, height: 14)
                 }
         }
     } // body

@@ -23,19 +23,22 @@ struct CircleCategory: View {
                 Circle()
                     .foregroundStyle(category.color)
                     .frame(width: 36)
-                
-                CustomOrSystemImage(
-                    systemImage: subcategory.icon,
-                    size: 14
-                )
+
+                Image(subcategory.icon) // TODO: Verify
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.white)
+                    .frame(width: 14, height: 14)
             } else if let category, subcategory == nil {
                 Circle()
                     .foregroundStyle(category.color)
                     .frame(width: 36)
                 
-                Image(systemName: category.icon)
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    .foregroundStyle(Color(uiColor: .systemBackground))
+                Image(category.icon) // TODO: Verify
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.white)
+                    .frame(width: 14, height: 14)
             } else if let transaction, transaction.type == .transfer,
                       let selectedAccount = accountStore.selectedAccount,
                       let accountID = selectedAccount._id {

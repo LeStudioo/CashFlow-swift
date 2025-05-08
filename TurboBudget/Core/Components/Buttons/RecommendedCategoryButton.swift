@@ -26,7 +26,7 @@ struct RecommendedCategoryButton: View {
                 HStack(spacing: 8) {
                     Text(Word.Classic.recommended + " : ")
                     HStack(spacing: 4) {
-                        Image(systemName: bestCategory.icon)
+                        Image(bestCategory.icon)
                         Text("\(bestSubcategory != nil ? (bestSubcategory!.name) : (bestCategory.name))")
                     }
                     .foregroundStyle(bestCategory.color)

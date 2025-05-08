@@ -1,36 +1,39 @@
 //
-//  CategoryDTO.swift
+//  SubcategoryDTO.swift
 //  CashFlow
 //
-//  Created by Theo Sementa on 03/05/2025.
+//  Created by Theo Sementa on 08/05/2025.
 //
 
 import Foundation
 import SwiftUICore
 
-struct CategoryDTO: Codable, Equatable, Hashable {
+struct SubcategoryDTO: Codable, Equatable, Hashable {
     var id: Int?
     var name: String?
     var icon: String?
     var color: String?
-    var subcategories: [SubcategoryDTO]?
+    var isVisible: Bool?
 }
 
-extension CategoryDTO {
-    
-    func toModel() throws -> CategoryModel {
+extension SubcategoryDTO {
+
+    func toModel() throws -> SubcategoryModel {
         guard let id,
               let name,
               let icon,
-              let color
+              let color,
+              let isVisible
         else { throw NetworkError.parsingError }
         
-        return .init(
+        return SubcategoryModel(
             id: id,
             name: name.localized,
             icon: ImageResource(name: icon, bundle: .main),
             color: Color(hex: color),
-            subcategories: try subcategories?.map { try $0.toModel() } ?? []
+            isVisible: isVisible
         )
     }
+    
 }
+    

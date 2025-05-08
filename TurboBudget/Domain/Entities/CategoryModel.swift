@@ -11,7 +11,7 @@ import SwiftUI
 struct CategoryModel: Identifiable, Equatable, Hashable {
     var id: Int
     var name: String
-    var icon: String // TODO: ImageResource
+    var icon: ImageResource
     var color: Color
     var subcategories: [SubcategoryModel]?
 }
@@ -85,17 +85,17 @@ extension CategoryModel {
                 .filter { Calendar.current.isDate($0.date, equalTo: filterManager.date, toGranularity: .month) }
             
             let amount = transactionsFiltered
-                .map { $0.amount ?? 0 }
+                .map { $0.amount }
                 .reduce(0, +)
             
             if amount != 0 {
                 array.append(
                     .init(
-                        categoryID: self.id ?? 0,
+                        categoryID: self.id,
                         subcategoryID: subcategory.id,
-                        iconName: subcategory.icon,
+                        icon: subcategory.icon,
                         value: subcategory.transactionsFiltered
-                            .map { $0.amount ?? 0 }
+                            .map { $0.amount }
                             .reduce(0, +),
                         color: subcategory.color
                     )

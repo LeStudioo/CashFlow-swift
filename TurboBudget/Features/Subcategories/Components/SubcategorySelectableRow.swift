@@ -24,10 +24,12 @@ struct SubcategorySelectableRow: View {
                     .foregroundStyle(subcategory.color)
                     .frame(width: 35, height: 35)
                     .overlay {
-                        CustomOrSystemImage(
-                            systemImage: subcategory.icon,
-                            size: 16
-                        )
+                        // TODO: Verify
+                        Image(subcategory.icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .frame(width: 16, height: 16)
                     }
                 
                 Text(subcategory.name)

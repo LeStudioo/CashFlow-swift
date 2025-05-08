@@ -22,9 +22,11 @@ struct CategoryRow: View {
                 .foregroundStyle(category.color)
                 .frame(width: 36, height: 36)
                 .overlay {
-                    Image(systemName: category.icon)
-                        .font(.system(size: 16, weight: .semibold, design: .rounded))
-                        .foregroundStyle(.white)
+                    Image(category.icon)
+                        .resizable()
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.white)
+                        .frame(width: 20, height: 20)
                 }
             
             VStack(alignment: .leading, spacing: 0) {

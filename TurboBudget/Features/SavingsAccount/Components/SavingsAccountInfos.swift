@@ -17,18 +17,18 @@ struct SavingsAccountInfos: View {
     // MARK: -
     var body: some View {
         VStack(spacing: 12) {
-            DetailRow(
-                icon: "\(UserCurrency.name)sign",
-                text: Word.Classic.currentAmount,
-                value: savingsAccount.balance.toCurrency()
-            )
-            .onGetHeight { height in
-                rowHeight = height - 8
-            }
+//            DetailRow( // TODO: Verify
+//                icon: "\(UserCurrency.name)sign",
+//                text: Word.Classic.currentAmount,
+//                value: savingsAccount.balance.toCurrency()
+//            )
+//            .onGetHeight { height in
+//                rowHeight = height - 8
+//            }
             
             if let maxAmount = savingsAccount.maxAmount {
                 DetailRow(
-                    icon: "building.columns.fill",
+                    icon: .iconLandmark,
                     text: Word.Classic.maxAmount,
                     value: maxAmount.toCurrency()
                 )

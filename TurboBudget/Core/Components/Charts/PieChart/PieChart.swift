@@ -36,8 +36,8 @@ struct PieChart: View {
     var colors: [Color] {
         return slices.map(\.color)
     }
-    var icons: [String] {
-        return slices.map(\.iconName)
+    var icons: [ImageResource] {
+        return slices.map(\.icon)
     }
     var percentage: Double {
         if let activeSlice {
@@ -89,11 +89,12 @@ struct PieChart: View {
                             y: center.y + sin(midAngle.radians - .pi / 2) * iconRadius
                         )
                         
-                        CustomOrSystemImage(
-                            systemImage: icons[index],
-                            size: 16
-                        )
-                        .position(iconPosition)
+                        Image(icons[index]) // TODO: Verify
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .frame(width: 16, height: 16)
+                            .position(iconPosition)
                     }
                 } // End ForEach
                 

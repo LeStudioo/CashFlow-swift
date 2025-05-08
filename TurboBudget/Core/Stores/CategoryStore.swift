@@ -26,6 +26,9 @@ extension CategoryStore {
                 responseModel: [CategoryDTO].self
             ).map { try $0.toModel() }
             self.categories = categories
+            for (index, category) in self.categories.enumerated() {
+                self.categories[index].subcategories = category.subcategories?.filter { $0.isVisible }
+            }
             self.subcategories = categories.flatMap { $0.subcategories ?? [] }
         } catch { NetworkService.handleError(error: error) }
     }
@@ -58,11 +61,10 @@ extension CategoryStore {
         
         return Dictionary(uniqueKeysWithValues: (category.subcategories ?? [])
             .compactMap { subcategory in
-                guard let subcategoryID = subcategory.id else { return nil }
                 let subcategoryTransactions = transactionsBySubcategory[subcategory, default: []]
                 if subcategoryTransactions.isEmpty { return nil }
                 return (
-                    subcategoryID,
+                    subcategory.id,
                     SubcategoryTransactionData(
                         subcategory: subcategory,
                         transactions: subcategoryTransactions
@@ -78,7 +80,7 @@ extension CategoryStore {
             .map { data in
                 PieSliceData(
                     categoryID: data.category.id,
-                    iconName: data.category.icon,
+                    icon: data.category.icon,
                     value: data.totalAmount,
                     color: data.category.color
                 )
@@ -92,8 +94,8 @@ extension CategoryStore {
             .map { data in
                 PieSliceData(
                     categoryID: category.id,
-                    subcategoryID: data.subcategory.id!,
-                    iconName: data.subcategory.icon,
+                    subcategoryID: data.subcategory.id,
+                    icon: data.subcategory.icon,
                     value: data.totalAmount,
                     color: data.subcategory.color
                 )

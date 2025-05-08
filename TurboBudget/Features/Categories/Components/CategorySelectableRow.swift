@@ -24,15 +24,17 @@ struct CategorySelectableRow: View {
                     .foregroundStyle(category.color)
                     .frame(width: 35, height: 35)
                     .overlay {
-                        Image(systemName: category.icon)
-                            .font(.system(size: 16, weight: .semibold, design: .rounded))
-                            .foregroundStyle(.black)
+                        Image(category.icon) // TODO: Verify
+                            .resizable()
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.white)
+                            .frame(width: 16, height: 16)
                     }
                 
                 Text(category.name)
                     .font(.semiBoldSmall())
                     .foregroundStyle(Color.text)
-                    .lineLimit(1)                
+                    .lineLimit(1)
                 
                 Spacer()
             }

@@ -11,7 +11,7 @@ import TheoKit
 struct DetailRow: View {
     
     // Builder
-    var icon: String
+    var icon: ImageResource
     var text: String?
     var value: String
     var iconBackgroundColor: Color = .background200
@@ -23,11 +23,11 @@ struct DetailRow: View {
             if let action { action() }
         } label: {
             HStack(spacing: 8) {
-                CustomOrSystemImage(
-                    systemImage: icon,
-                    size: 10,
-                    color: text == nil ? .black : Color.text
-                )
+                Image(icon) // TODO: Verify
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundStyle(Color.white)
+                    .frame(width: 10, height: 10)
                 .padding(6)
                 .background {
                     Circle()
@@ -62,13 +62,13 @@ struct DetailRow: View {
 #Preview {
     VStack(spacing: 16) {
         DetailRow(
-            icon: "tshirt.fill",
+            icon: .iconShirt,
             value: "Vêtements, Chaussures, Accessoires",
             iconBackgroundColor: Color.red
         )
         
         DetailRow(
-            icon: "tshirt.fill",
+            icon: .iconCalendar,
             text: "Date",
             value: "Vêtements, Chaussures, Accessoires",
             iconBackgroundColor: Color.red

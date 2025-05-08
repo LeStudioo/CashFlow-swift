@@ -62,13 +62,13 @@ struct SubscriptionDetailView: View {
                         VStack(spacing: 24) {
                             VStack(spacing: 12) {
                                 DetailRow(
-                                    icon: "clock.arrow.circlepath",
+                                    icon: .iconClockRepeat,
                                     text: Word.Classic.frequency,
                                     value: subscription.frequency.name
                                 )
                                 
                                 DetailRow(
-                                    icon: "calendar",
+                                    icon: .iconCalendar,
                                     text: "subscription_next_transaction".localized,
                                     value: subscription.frequencyDate.formatted(date: .complete, time: .omitted).capitalized
                                 )
@@ -97,7 +97,7 @@ struct SubscriptionDetailView: View {
                             if let firstSubscriptionDate = subscription.firstSubscriptionDate {
                                 VStack(spacing: 12) {
                                     DetailRow(
-                                        icon: "calendar",
+                                        icon: .iconCalendar,
                                         text: "subscription_first_subscription".localized,
                                         value: firstSubscriptionDate.formatted(date: .complete, time: .omitted).capitalized
                                     )
