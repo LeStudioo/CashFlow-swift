@@ -31,11 +31,8 @@ struct SubcategoryRow: View {
                 .foregroundStyle(subcategory.color)
                 .frame(width: 36, height: 36)
                 .overlay {
-                    Image(subcategory.icon)
-                        .resizable()
-                        .renderingMode(.template)
+                    IconSVG(icon: subcategory.icon, value: .medium)
                         .foregroundStyle(Color.white)
-                        .frame(width: 20, height: 20)
                 }
             
             VStack(alignment: .leading, spacing: 0) {
@@ -51,9 +48,8 @@ struct SubcategoryRow: View {
             }
             .fullWidth(.leading)
             
-            Image(.iconArrowRight)
-                .renderingMode(.template)
-                .foregroundStyle(Color.white)
+            IconSVG(icon: .iconArrowRight, value: .large)
+                .foregroundStyle(Color.label)
         }
         .padding(TKDesignSystem.Padding.medium)
         .roundedRectangleBorder(

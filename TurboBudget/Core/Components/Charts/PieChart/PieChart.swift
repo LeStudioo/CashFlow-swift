@@ -89,11 +89,9 @@ struct PieChart: View {
                             y: center.y + sin(midAngle.radians - .pi / 2) * iconRadius
                         )
                         
-                        Image(icons[index]) // TODO: Verify
-                            .resizable()
-                            .renderingMode(.template)
+                        IconSVG(icon: icons[index], value: .standard) // TODO: Verify
+                        Image(icons[index])
                             .foregroundStyle(Color.white)
-                            .frame(width: 16, height: 16)
                             .position(iconPosition)
                     }
                 } // End ForEach

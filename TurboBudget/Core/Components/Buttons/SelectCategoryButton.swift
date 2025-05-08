@@ -33,20 +33,10 @@ struct SelectCategoryButton: View {
             ) {
                 HStack(spacing: 8) {
                     if let selectedSubcategory, selectedCategory != nil {
-                        Image(selectedSubcategory.icon) // TODO: Verify
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundStyle(Color.white)
-                            .frame(width: 16, height: 16)
-                        
+                        IconSVG(icon: selectedSubcategory.icon, value: .medium)
                         Text(selectedSubcategory.name)
                     } else if let selectedCategory, selectedSubcategory == nil {
-                        Image(selectedCategory.icon) // TODO: Verify
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundStyle(Color.white)
-                            .frame(width: 16, height: 16)
-                        
+                        IconSVG(icon: selectedCategory.icon, value: .medium)
                         Text(selectedCategory.name)
                     } else {
                         Image(.iconFolderPlus)
@@ -57,7 +47,7 @@ struct SelectCategoryButton: View {
                     }
                 }
                 .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
-                .foregroundStyle(selectedCategory != nil ? Color.black : Color.text)
+                .foregroundStyle(Color.white)
                 .padding(TKDesignSystem.Padding.regular)
                 .fullWidth(.leading)
                 .roundedRectangleBorder(

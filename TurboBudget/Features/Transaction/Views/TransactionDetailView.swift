@@ -110,18 +110,18 @@ struct TransactionDetailView: View {
                             }
                         }
                         
-//                        if let senderAccount = currentTransaction.senderAccount { // TODO: Verify
-//                            DetailRow(
-//                                icon: "antenna.radiowaves.left.and.right",
-//                                text: Word.Classic.senderAccount,
-//                                value: senderAccount.name
-//                            )
-//                        }
+                        if let senderAccount = currentTransaction.senderAccount {
+                            DetailRow(
+                                icon: .iconSend,
+                                text: Word.Classic.senderAccount,
+                                value: senderAccount.name
+                            )
+                        }
                         
                         if let receiverAccount = currentTransaction.receiverAccount {
                             DetailRow(
                                 icon: .iconInbox,
-                                text:  Word.Classic.receiverAccount,
+                                text: Word.Classic.receiverAccount,
                                 value: receiverAccount.name
                             )
                         }

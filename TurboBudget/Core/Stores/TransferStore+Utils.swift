@@ -19,7 +19,7 @@ extension TransferStore {
         var savingsTransfer: [TransactionModel] = []
         
         for transfer in self.transfers {
-            if (transfer.amount ?? 0) > 0 && Calendar.current.isDate(transfer.date, equalTo: selectedDate, toGranularity: .month) {
+            if transfer.amount > 0 && Calendar.current.isDate(transfer.date, equalTo: selectedDate, toGranularity: .month) {
                 savingsTransfer.append(transfer)
             }
         }
@@ -35,7 +35,7 @@ extension TransferStore {
     // -----------------------------------------------------------
     func amountOfSavingsByMonth(month: Date) -> Double {
         return getAllSavingsTransferForChosenMonth(selectedDate: month)
-            .map({ $0.amount ?? 0 })
+            .map(\.amount)
             .reduce(0, +)
     }
     
@@ -49,7 +49,7 @@ extension TransferStore {
         var withdrawalTransfer: [TransactionModel] = []
         
         for transfer in transfers {
-            if (transfer.amount ?? 0) < 0 && Calendar.current.isDate(transfer.date, equalTo: selectedDate, toGranularity: .month) {
+            if transfer.amount < 0 && Calendar.current.isDate(transfer.date, equalTo: selectedDate, toGranularity: .month) {
                 withdrawalTransfer.append(transfer)
             }
         }
@@ -65,7 +65,7 @@ extension TransferStore {
     // -----------------------------------------------------------
     func amountOfWithdrawalByMonth(month: Date) -> Double {
         return getAllWithdrawalTransferForChosenMonth(selectedDate: month)
-            .map({ $0.amount ?? 0 })
+            .map(\.amount)
             .reduce(0, +)
     }
     

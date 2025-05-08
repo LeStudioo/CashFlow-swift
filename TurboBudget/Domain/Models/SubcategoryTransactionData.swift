@@ -15,6 +15,6 @@ struct SubcategoryTransactionData {
     init(subcategory: SubcategoryModel, transactions: [TransactionModel]) {
         self.subcategory = subcategory
         self.transactions = transactions
-        self.totalAmount = transactions.map { $0.amount ?? 0 }.reduce(0, +)
+        self.totalAmount = transactions.map(\.amount).reduce(0, +)
     }
 }

@@ -25,14 +25,16 @@ struct TransactionMapRow: View {
     
     // MARK: -
     var body: some View {
-        let systemImage = transaction.subcategory?.icon ?? .iconQuestionFile
-        Map(initialPosition: cameraPosition) { //TODO: Verify
-//            Marker(
-//                transaction.nameDisplayed,
-//                image: systemImage,
-//                coordinate: transaction.coordinates
-//            )
-//            .tint(transaction.category?.color ?? .blue)
+        let systemImage: ImageResource = transaction.subcategory?.icon ?? .iconQuestionFile
+        Map(initialPosition: cameraPosition) {
+            Annotation(transaction.nameDisplayed, coordinate: transaction.coordinates) {
+                IconSVG(icon: systemImage, value: .standard)
+                    .padding(6)
+                    .background {
+                        Circle()
+                            .fill(transaction.category?.color ?? .blue)
+                    }
+            }
         }
         .mapStyle(.standard(elevation: .realistic))
         .frame(height: 200)

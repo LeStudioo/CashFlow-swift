@@ -24,21 +24,13 @@ struct CircleCategory: View {
                     .foregroundStyle(category.color)
                     .frame(width: 36)
 
-                Image(subcategory.icon) // TODO: Verify
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.white)
-                    .frame(width: 14, height: 14)
+                IconSVG(icon: subcategory.icon, value: .medium)
             } else if let category, subcategory == nil {
                 Circle()
                     .foregroundStyle(category.color)
                     .frame(width: 36)
                 
-                Image(category.icon) // TODO: Verify
-                    .resizable()
-                    .renderingMode(.template)
-                    .foregroundStyle(Color.white)
-                    .frame(width: 14, height: 14)
+                IconSVG(icon: category.icon, value: .medium)
             } else if let transaction, transaction.type == .transfer,
                       let selectedAccount = accountStore.selectedAccount,
                       let accountID = selectedAccount._id {
@@ -47,9 +39,7 @@ struct CircleCategory: View {
                     .foregroundStyle(isSender ? .error400 : .primary500)
                     .frame(width: 36)
                 
-                Image(systemName: isSender ? "antenna.radiowaves.left.and.right" : "tray.fill")
-                    .font(.system(size: 14, weight: .semibold, design: .rounded))
-                    .foregroundStyle(Color(uiColor: .systemBackground))
+                IconSVG(icon: isSender ? .iconSend : .iconInbox, value: .medium)
             } else {
                 Circle()
                     .foregroundStyle(.gray)
@@ -59,6 +49,7 @@ struct CircleCategory: View {
                     .foregroundStyle(Color(uiColor: .systemBackground))
             }
         }
+        .foregroundStyle(Color.white)
     } // body
 } // struct
 

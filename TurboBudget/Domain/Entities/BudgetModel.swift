@@ -84,7 +84,7 @@ extension BudgetModel {
             if transaction.type == .expense
                 && subcategoryOfTransaction == subcategory
                 && Calendar.current.isDate(transaction.date, equalTo: Date(), toGranularity: .month) {
-                amount += transaction.amount ?? 0
+                amount += transaction.amount
             }
         }
         

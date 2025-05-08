@@ -33,11 +33,8 @@ struct TransactionDetailPredictedCategoryRow: View {
         } label: {
             VStack(alignment: .leading, spacing: 8) {
                 HStack(spacing: 6) {
-                    Image(icon) // TODO: Verify
-                        .resizable()
-                        .renderingMode(.template)
+                    IconSVG(icon: icon, value: .small)
                         .foregroundStyle(Color.white)
-                        .frame(width: 12, height: 12)
                         .padding(6)
                         .background {
                             Circle()

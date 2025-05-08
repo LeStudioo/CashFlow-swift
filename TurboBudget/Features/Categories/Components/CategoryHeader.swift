@@ -23,11 +23,8 @@ struct CategoryHeader: View {
                 .frame(width: 30, height: 30)
                 .foregroundStyle(category.color)
                 .overlay {
-                    Image(category.icon) // TODO: Verify
-                        .resizable()
-                        .renderingMode(.template)
+                    IconSVG(icon: category.icon, value: .small) // TODO: Verify
                         .foregroundStyle(Color.white)
-                        .frame(width: 14, height: 14)
                 }
         }
     } // body

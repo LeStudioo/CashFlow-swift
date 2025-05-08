@@ -69,21 +69,21 @@ struct SavingsPlanDetailView: View {
                 VStack(spacing: 8) {
                     ProgressBar(percentage: currentSavingsPlan.percentageComplete)
                         .frame(height: 48)
-//                    DetailRow( // TODO: Verify
-//                        icon: UserCurrency.name + "sign.circle.fill",
-//                        text: Word.Classic.remaining,
-//                        value: currentSavingsPlan.amountToTheGoal.toCurrency()
-//                    )
                     DetailRow(
-                        icon: .iconLandmark,
+                        icon: .iconCoins,
+                        text: Word.Classic.remaining,
+                        value: currentSavingsPlan.amountToTheGoal.toCurrency()
+                    )
+                    DetailRow(
+                        icon: .iconHandCoins,
                         text: Word.Classic.contributed,
                         value: amountContributed.toCurrency()
                     )
-//                    DetailRow( // TODO: Verify
-//                        icon: "flag.fill",
-//                        text: Word.Classic.finalTarget,
-//                        value: currentSavingsPlan.goalAmount?.toCurrency() ?? ""
-//                    )
+                    DetailRow(
+                        icon: .iconLandmark,
+                        text: Word.Classic.finalTarget,
+                        value: currentSavingsPlan.goalAmount?.toCurrency() ?? ""
+                    )
                 }
                
                 VStack(spacing: 8) {
@@ -111,14 +111,14 @@ struct SavingsPlanDetailView: View {
                         }
                     }
                     if currentSavingsPlan.endDate != nil {
-//                        DetailRow( // TODO: Verify
-//                            icon: "flag.fill",
-//                            text: Word.Classic.monthlyTarget,
-//                            value: currentSavingsPlan.monthlyGoalAmount.toCurrency()
-//                        )
+                        DetailRow(
+                            icon: .iconLandmark,
+                            text: Word.Classic.monthlyTarget,
+                            value: currentSavingsPlan.monthlyGoalAmount.toCurrency()
+                        )
                     }
                     DetailRow(
-                        icon: .iconLandmark,
+                        icon: .iconHandCoins,
                         text: Word.Classic.contributedThisMonth,
                         value: contributionStore.getAmountOfContributions(in: .now).toCurrency()
                     )
@@ -131,14 +131,14 @@ struct SavingsPlanDetailView: View {
                         value: currentSavingsPlan.startDate.formatted(date: .abbreviated, time: .omitted)
                     )
                     DetailRow(
-                        icon: .iconClock,
+                        icon: .iconHourGlass,
                         text: Word.Classic.daysElapsed,
                         value: "\(currentSavingsPlan.daysSinceStart)"
                     )
                     
                     if let endDate = currentSavingsPlan.endDate {
                         DetailRow(
-                            icon: .iconHourGlass,
+                            icon: .iconClock,
                             text: Word.Classic.daysRemaining,
                             value: "\(currentSavingsPlan.daysRemaining)"
                         )

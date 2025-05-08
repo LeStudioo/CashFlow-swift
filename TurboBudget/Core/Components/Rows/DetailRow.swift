@@ -23,16 +23,13 @@ struct DetailRow: View {
             if let action { action() }
         } label: {
             HStack(spacing: 8) {
-                Image(icon) // TODO: Verify
-                    .resizable()
-                    .renderingMode(.template)
+                IconSVG(icon: icon, value: .small)
                     .foregroundStyle(Color.white)
-                    .frame(width: 10, height: 10)
-                .padding(6)
-                .background {
-                    Circle()
-                        .fill(iconBackgroundColor)
-                }
+                    .padding(6)
+                    .background {
+                        Circle()
+                            .fill(iconBackgroundColor)
+                    }
                 if let text {
                     Text(text)
                         .fontWithLineHeight(DesignSystem.Fonts.Body.small)
