@@ -169,11 +169,7 @@ struct TransactionDetailView: View {
                 EventService.sendEvent(key: .transactionNoteAdded)
             }
         }
-        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarDismissKeyboardButtonView()
-        }
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
     } // body
 } // struct

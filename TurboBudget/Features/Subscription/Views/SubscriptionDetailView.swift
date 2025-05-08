@@ -135,11 +135,7 @@ struct SubscriptionDetailView: View {
                 } // ScrollView
                 .scrollIndicators(.hidden)
             }
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarDismissKeyboardButtonView()
-            }
             .background(TKDesignSystem.Colors.Background.Theme.bg50)
             .onAppear {
                 EventService.sendEvent(key: .subscriptionDetailPage)
