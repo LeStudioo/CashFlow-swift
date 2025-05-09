@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import NavigationKit
+import TheoKit
 
 struct SavingsAccountHomeView: View {
     
@@ -18,6 +19,8 @@ struct SavingsAccountHomeView: View {
     @EnvironmentObject private var accountStore: AccountStore
     @Environment(\.dismiss) private var dismiss
     
+    @State private var searchText: String = ""
+    
     // Computed variables
     var totalSavings: Double {
         return accountStore.savingsAccounts
@@ -27,37 +30,64 @@ struct SavingsAccountHomeView: View {
     
     var columns: [GridItem] {
         if UIDevice.isIpad {
-            return [GridItem(), GridItem(), GridItem(), GridItem()]
+            return [GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16), GridItem(spacing: 16)]
         } else {
-            return [GridItem(), GridItem()]
+            return [GridItem(spacing: 16), GridItem(spacing: 16)]
+        }
+    }
+    
+    var savingsAccountsFiltered: [AccountModel] {
+        if searchText.isEmpty {
+            return accountStore.savingsAccounts
+        } else {
+            return accountStore.savingsAccounts.filter { $0.name.localizedStandardContains(searchText) }
         }
     }
     
     // MARK: -
     var body: some View {
-        ScrollView {
-            if !accountStore.savingsAccounts.isEmpty {
-                VStack(spacing: -2) {
-                    Text(Word.SavingsAccount.totalSavings)
-                        .font(Font.mediumText16())
-                        .foregroundStyle(Color.customGray)
-                    
-                    Text(totalSavings.toCurrency())
-                        .font(.boldH1())
-                }
-                .padding(.vertical, 12)
-                
-                LazyVGrid(columns: columns, spacing: 12, content: {
-                    ForEach(accountStore.savingsAccounts) { account in
-                        NavigationButton(
-                            route: .push,
-                            destination: AppDestination.savingsAccount(.detail(savingsAccount: account))
-                        ) {
-                            SavingsAccountRow(savingsAccount: account)
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: Word.Main.savingsAccounts,
+                actionButton: .init(
+                    title: "word_create".localized,
+                    action: {
+                        if purchaseManager.isCashFlowPro || accountStore.savingsAccounts.isEmpty {
+                            router.push(.savingsPlan(.create))
+                        } else {
+                            alertManager.showPaywall(router: router)
                         }
+                    },
+                    isDisabled: false
+                ),
+                placeholder: "word_search".localized,
+                searchText: $searchText.animation()
+            )
+        } content: { _ in
+            if !accountStore.savingsAccounts.isEmpty {
+                VStack(spacing: 32) {
+                    VStack(spacing: 0) {
+                        Text(totalSavings.toCurrency())
+                            .fontWithLineHeight(DesignSystem.Fonts.Display.extraLarge)
+                            .foregroundStyle(Color.label)
+                        
+                        Text(Word.SavingsAccount.totalSavings)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     }
-                })
-                .padding(.horizontal, 8)
+                    
+                    LazyVGrid(columns: columns, spacing: 16, content: {
+                        ForEach(savingsAccountsFiltered) { account in
+                            NavigationButton(
+                                route: .push,
+                                destination: AppDestination.savingsAccount(.detail(savingsAccount: account))
+                            ) {
+                                SavingsAccountRow(savingsAccount: account)
+                            }
+                        }
+                    })
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                }
             } else {
                 CustomEmptyView(
                     type: .empty(.savingsAccount),
@@ -65,27 +95,8 @@ struct SavingsAccountHomeView: View {
                 )
             }
         }
-        .navigationTitle(Word.Main.savingsAccounts)
-        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarDismissPushButton()
-                        
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    if purchaseManager.isCashFlowPro || accountStore.savingsAccounts.isEmpty {
-                        router.push(.savingsPlan(.create))
-                    } else {
-                        alertManager.showPaywall(router: router)
-                    }
-                } label: {
-                    Image(systemName: "plus")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
     } // body
 } // struct
 

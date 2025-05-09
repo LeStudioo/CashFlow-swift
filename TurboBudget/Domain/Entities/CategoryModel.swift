@@ -31,10 +31,8 @@ extension CategoryModel {
             "word_income".localized,
         ]
         
-        for category in incomeCategories {
-            if self.name == category {
-                return true
-            }
+        for category in incomeCategories where self.name == category {
+            return true
         }
         
         return false

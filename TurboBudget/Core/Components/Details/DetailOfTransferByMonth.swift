@@ -19,32 +19,30 @@ struct DetailOfTransferByMonth: View {
 
     // MARK: -
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(month.formatted(.monthAndYear).capitalized)
-                    .font(.mediumCustom(size: 22))
-                if store.isCashFlowPro {
-                    HStack {
-                        if amountOfSavings != 0 {
-                            Text("word_savings".localized + " : " + amountOfSavings.toCurrency())
-                                .lineLimit(1)
-                        }
-                        if amountOfSavings != 0 && amountOfWithdrawal != 0 {
-                            Text("|")
-                        }
-                        if amountOfWithdrawal != 0 {
-                            Text("word_withdrawal".localized + " : " + amountOfWithdrawal.toCurrency())
-                                .lineLimit(1)
-                        }
-                        Spacer()
+        VStack(alignment: .leading) {
+            Text(month.formatted(.monthAndYear).capitalized)
+                .font(.mediumCustom(size: 22))
+            if store.isCashFlowPro {
+                HStack {
+                    if amountOfSavings != 0 {
+                        Text("word_savings".localized + " : " + amountOfSavings.toCurrency())
+                            .lineLimit(1)
                     }
-                    .foregroundStyle(Color.customGray)
-                    .font(.semiBoldSmall())
+                    if amountOfSavings != 0 && amountOfWithdrawal != 0 {
+                        Text("|")
+                    }
+                    if amountOfWithdrawal != 0 {
+                        Text("word_withdrawal".localized + " : " + amountOfWithdrawal.toCurrency())
+                            .lineLimit(1)
+                    }
+                    Spacer()
                 }
+                .foregroundStyle(Color.customGray)
+                .font(.semiBoldSmall())
             }
-            Spacer()
         }
-        .padding([.horizontal, .top])
+        .fullWidth(.leading)
+        .padding(.vertical, 8)
     } // body
 } // struct
 

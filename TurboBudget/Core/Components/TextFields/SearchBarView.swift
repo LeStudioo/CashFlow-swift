@@ -40,7 +40,7 @@ struct SearchBarView: View {
             TextField(placeholder, text: $searchText)
                 .focused($isFocused)
                 .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
-                .foregroundStyle(isSearching ? Color.label : TKDesignSystem.Colors.Background.Theme.bg500)
+                .foregroundStyle(Color.label)
             
             if isSearching {
                 Button {

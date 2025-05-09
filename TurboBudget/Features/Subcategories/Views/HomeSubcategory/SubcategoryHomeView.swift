@@ -42,8 +42,27 @@ struct SubcategoryHomeView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
+        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(title: "word_subcategories".localized)
+        } content: {
+            ForEach(searchResults) { subcategory in
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.subcategory(
+                        .transactions(
+                            subcategory: subcategory,
+                            selectedDate: selectedDate
+                        )
+                    )
+                ) {
+                    SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
+                }
+                .padding(.bottom, TKDesignSystem.Spacing.medium)
+                .padding(.horizontal, TKDesignSystem.Padding.large)
+            }
+            .noDefaultStyle()
+        }
+
             //                    if viewModel.isDisplayChart(category: category) && viewModel.searchText.isEmpty { // TODO: deplace in alaytics
             //                        PieChart(
             //                            month: selectedDate,
@@ -59,31 +78,7 @@ struct SubcategoryHomeView: View {
             //                        }
             //                        .padding(.bottom, 8)
             //                    }
-            
-            List {
-                ForEach(searchResults) { subcategory in
-                    NavigationButton(
-                        route: .push,
-                        destination: AppDestination.subcategory(
-                            .transactions(
-                                subcategory: subcategory,
-                                selectedDate: selectedDate
-                            )
-                        )
-                    ) {
-                        SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
-                    }
-                    .padding(.bottom, TKDesignSystem.Spacing.medium)
-                }
-                .noDefaultStyle()
-            } // End ScrollView
-            .listStyle(.plain)
-            .scrollDismissesKeyboard(.immediately)
-            .scrollIndicators(.hidden)
-            .padding(.horizontal, TKDesignSystem.Padding.large)
-        } // End VStack
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.large)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
     } // body
 } // struct

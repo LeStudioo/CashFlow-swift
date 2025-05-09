@@ -34,7 +34,7 @@ struct AnalyticsHomeView: View {
             if !transactionStore.transactions.isEmpty {
                 BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
                     NavigationBar(
-                        title: "word_analytic".localized,
+                        title: "word_statistics".localized,
                         withDismiss: false,
                         actionButton: .init(
                             icon: .iconGear,
@@ -43,7 +43,7 @@ struct AnalyticsHomeView: View {
                         )
                     )
                 } content: { _ in
-                    VStack(spacing: 16) {
+                    VStack(spacing: TKDesignSystem.Spacing.large) {
                         GenericBarChart(
                             title: "cashflowchart_title".localized,
                             selectedDate: $selectedDate,

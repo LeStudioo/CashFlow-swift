@@ -30,7 +30,7 @@ struct CreationMenuView: View {
             var actions: [CreationMenuAction] = [
                 CreationMenuAction(
                     title: Word.Main.creditCard,
-                    icon: "creditcard.fill",
+                    icon: .iconCreditCard,
                     destination: .creditCard(.create),
                     isDisabled: !store.isCashFlowPro || !creditCardStore.creditCards.isEmpty,
                     onTapAction: {
@@ -43,7 +43,7 @@ struct CreationMenuView: View {
                 ),
                 CreationMenuAction(
                     title: Word.Main.savingsAccount,
-                    icon: "building.columns",
+                    icon: .iconLandmark,
                     destination: .savingsAccount(.create),
                     isDisabled: !accountStore.savingsAccounts.isEmpty && !store.isCashFlowPro,
                     onTapAction: {
@@ -54,7 +54,7 @@ struct CreationMenuView: View {
                 ),
                 CreationMenuAction(
                     title: "word_account".localized,
-                    icon: "person",
+                    icon: .iconPerson,
                     destination: .account(.create),
                     isDisabled: !accountStore.accounts.isEmpty && !store.isCashFlowPro,
                     onTapAction: {
@@ -64,18 +64,8 @@ struct CreationMenuView: View {
                     }
                 ),
                 CreationMenuAction(
-                    title: Word.Main.transfer,
-                    icon: "arrow.left.arrow.right",
-                    destination: .transfer(.create())
-                ),
-                CreationMenuAction(
-                    title: Word.Main.savingsPlan,
-                    icon: "dollarsign.square.fill",
-                    destination: .savingsPlan(.create)
-                ),
-                CreationMenuAction(
                     title: Word.Classic.budget,
-                    icon: "chart.pie.fill",
+                    icon: .iconPieChart,
                     destination: .budget(.create),
                     isDisabled: !store.isCashFlowPro,
                     onTapAction: {
@@ -85,13 +75,23 @@ struct CreationMenuView: View {
                     }
                 ),
                 CreationMenuAction(
+                    title: Word.Main.savingsPlan,
+                    icon: .iconPiggyBank,
+                    destination: .savingsPlan(.create)
+                ),
+                CreationMenuAction(
+                    title: Word.Main.transfer,
+                    icon: .iconSend,
+                    destination: .transfer(.create())
+                ),
+                CreationMenuAction(
                     title: Word.Main.subscription,
-                    icon: "clock.arrow.circlepath",
+                    icon: .iconClockRepeat,
                     destination: .subscription(.create)
                 ),
                 CreationMenuAction(
                     title: Word.Main.transaction,
-                    icon: "creditcard.and.123",
+                    icon: .iconBanknote,
                     destination: .transaction(.create)
                 )
             ]
@@ -100,7 +100,7 @@ struct CreationMenuView: View {
             actions.append(
                 CreationMenuAction(
                     title: "TBL Scan QRCode",
-                    icon: "qrcode",
+                    icon: .iconPeage,
                     destination: .shared(.qrCodeScanner)
                 )
             )
@@ -111,7 +111,7 @@ struct CreationMenuView: View {
             return [
                 CreationMenuAction(
                     title: "word_account".localized,
-                    icon: "person",
+                    icon: .iconPerson,
                     destination: .account(.create)
                 )
             ]

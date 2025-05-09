@@ -43,7 +43,7 @@ struct DashboardRow: View {
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: TKDesignSystem.Radius.standard,
-            lineWidth: 0.5,
+            lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )
         .opacity(config.isLocked ? 0.4 : 1)

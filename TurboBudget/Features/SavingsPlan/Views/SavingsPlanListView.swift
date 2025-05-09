@@ -31,7 +31,7 @@ struct SavingsPlanListView: View {
     }
     
     // Other
-    private let layout: [GridItem] = [GridItem(.flexible(minimum: 40), spacing: 20), GridItem(.flexible(minimum: 40), spacing: 20)]
+    private let layout: [GridItem] = [GridItem(.flexible(minimum: 40), spacing: 16), GridItem(.flexible(minimum: 40), spacing: 16)]
     
     // MARK: -
     var body: some View {

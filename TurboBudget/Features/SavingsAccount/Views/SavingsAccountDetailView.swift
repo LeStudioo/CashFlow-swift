@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import StatsKit
+import TheoKit
 
 struct SavingsAccountDetailView: View {
     
@@ -34,14 +35,39 @@ struct SavingsAccountDetailView: View {
     
     // MARK: - body
     var body: some View {
-        List {
-            SavingsAccountInfos(savingsAccount: currentAccount)
-                .listRowBackground(Color.clear)
-                .listRowSeparator(.hidden)
-            
-            ForEach(transferStore.monthsOfTransfers, id: \.self) { month in
-                Section(
-                    content: {
+        VStack(spacing: 0) {
+            NavigationBarWithMenu(title: savingsAccountStore.currentAccount.name) {
+//                NavigationButton( // TODO: Reactivate
+//                    route: .push,
+//                    destination: AppDestination.savingsAccount(.createTransaction(savingsAccount: savingsAccountStore.currentAccount))
+//                ) {
+//                    Label(Word.Classic.add, systemImage: "plus")
+//                }
+                NavigationButton(
+                    route: .push,
+                    destination: AppDestination.transfer(.create(receiverAccount: savingsAccountStore.currentAccount))
+                ) {
+                    Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right")
+                }
+                NavigationButton(
+                    route: .sheet,
+                    destination: AppDestination.savingsAccount(.update(savingsAccount: savingsAccountStore.currentAccount))
+                ) {
+                    Label(Word.Classic.edit, systemImage: "pencil")
+                }
+                Button(
+                    role: .destructive,
+                    action: { isDeleting.toggle() },
+                    label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                )
+            }
+            List {
+                SavingsAccountInfos(savingsAccount: currentAccount)
+                    .noDefaultStyle()
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                
+                ForEach(transferStore.monthsOfTransfers, id: \.self) { month in
+                    Section {
                         ForEach(transferStore.transfers) { transfer in
                             if Calendar.current.isDate(transfer.date, equalTo: month, toGranularity: .month) {
                                 NavigationButton(
@@ -55,66 +81,33 @@ struct SavingsAccountDetailView: View {
                                     }
                                 }
                                 .environmentObject(savingsAccountStore)
-                                .padding(.horizontal)
+                                .padding(.bottom, TKDesignSystem.Padding.medium)
+                                .padding(.horizontal, TKDesignSystem.Padding.large)
                             }
                         }
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                        .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
-                    },
-                    header: {
-                    DetailOfTransferByMonth(
-                        month: month,
-                        amountOfSavings: transferStore.amountOfSavingsByMonth(month: month),
-                        amountOfWithdrawal: transferStore.amountOfWithdrawalByMonth(month: month)
-                    )
-                    .listRowInsets(EdgeInsets(top: -12, leading: 0, bottom: 8, trailing: 0))
-                })
-                .foregroundStyle(Color.text)
-            }
-        } // End List
-        .listStyle(.plain)
-        .scrollContentBackground(.hidden)
-        .scrollIndicators(.hidden)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
-        .navigationBarTitleDisplayMode(.large)
-        .navigationTitle(savingsAccountStore.currentAccount.name)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Menu(
-                    content: {
-                        NavigationButton(
-                            route: .push,
-                            destination: AppDestination.savingsAccount(.createTransaction(savingsAccount: savingsAccountStore.currentAccount))
-                        ) {
-                            Label(Word.Classic.add, systemImage: "plus")
-                        }
-                        NavigationButton(
-                            route: .push,
-                            destination: AppDestination.transfer(.create(receiverAccount: savingsAccountStore.currentAccount))
-                        ) {
-                            Label(Word.Main.transfer, systemImage: "arrow.left.arrow.right")
-                        }
-                        NavigationButton(
-                            route: .sheet,
-                            destination: AppDestination.savingsAccount(.update(savingsAccount: savingsAccountStore.currentAccount))
-                        ) {
-                            Label(Word.Classic.edit, systemImage: "pencil")
-                        }
-                        Button(
-                            role: .destructive,
-                            action: { isDeleting.toggle() },
-                            label: { Label(Word.Classic.delete, systemImage: "trash.fill") }
+                        .noDefaultStyle()
+                    } header: {
+                        DetailOfTransferByMonth(
+                            month: month,
+                            amountOfSavings: transferStore.amountOfSavingsByMonth(month: month),
+                            amountOfWithdrawal: transferStore.amountOfWithdrawalByMonth(month: month)
                         )
-                    },
-                    label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                })
-            }
+                        .padding(.horizontal, TKDesignSystem.Padding.large)
+                    }
+                    .foregroundStyle(Color.label)
+                }
+            } // End List
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .scrollIndicators(.hidden)
+            .padding(.top, TKDesignSystem.Padding.large)
         }
-        .alert("account_detail_delete_account".localized, isPresented: $isDeleting, actions: {
+        .navigationBarBackButtonHidden(true)
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
+        .alert(
+            "account_detail_delete_account".localized,
+            isPresented: $isDeleting,
+            actions: {
                 TextField(savingsAccountStore.currentAccount.name, text: $accountNameForDeleting)
                 Button(role: .cancel, action: { return }, label: { Text("word_cancel".localized) })
                 Button(role: .destructive, action: {
@@ -127,7 +120,8 @@ struct SavingsAccountDetailView: View {
                         }
                     }
                 }, label: { Text(Word.Classic.delete) })
-        }, message: { Text("account_detail_delete_account_desc".localized) })
+            }, message: { Text("account_detail_delete_account_desc".localized) }
+        )
         .task {
             if let accountID = savingsAccountStore.currentAccount._id {
                 transferStore.transfers = []

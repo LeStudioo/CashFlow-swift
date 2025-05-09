@@ -38,7 +38,7 @@ struct CreateTransactionView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(
                 title: transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update,
                 actionButton: .init(
@@ -62,63 +62,56 @@ struct CreateTransactionView: View {
                     }
                 }
             )
-            ScrollView {
-                VStack(spacing: 24) {
-                    CustomTextField(
-                        text: $viewModel.transactionTitle,
-                        config: .init(
-                            title: Word.Classic.name,
-                            placeholder: "category11_subcategory3_name".localized
-                        )
+        } content: { _ in
+            VStack(spacing: 24) {
+                CustomTextField(
+                    text: $viewModel.transactionTitle,
+                    config: .init(
+                        title: Word.Classic.name,
+                        placeholder: "category11_subcategory3_name".localized
                     )
-                    .focused($focusedField, equals: .title)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .amount
-                    }
+                )
+                .focused($focusedField, equals: .title)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .amount
+                }
+                
+                CustomTextField(
+                    text: $viewModel.transactionAmount,
+                    config: .init(
+                        title: Word.Classic.price,
+                        placeholder: "64,87",
+                        style: .amount
+                    )
+                )
+                .focused($focusedField, equals: .amount)
+                
+                VStack(spacing: 6) {
+                    SelectCategoryButton(
+                        selectedCategory: $viewModel.selectedCategory,
+                        selectedSubcategory: $viewModel.selectedSubcategory
+                    )
                     
-                    CustomTextField(
-                        text: $viewModel.transactionAmount,
-                        config: .init(
-                            title: Word.Classic.price,
-                            placeholder: "64,87",
-                            style: .amount
-                        )
-                    )
-                    .focused($focusedField, equals: .amount)
-                                        
-                    VStack(spacing: 6) {
-                        SelectCategoryButton(
+                    if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                        RecommendedCategoryButton(
+                            transactionName: viewModel.transactionTitle,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
-                        
-                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                            RecommendedCategoryButton(
-                                transactionName: viewModel.transactionTitle,
-                                selectedCategory: $viewModel.selectedCategory,
-                                selectedSubcategory: $viewModel.selectedSubcategory
-                            )
-                        }
                     }
-                    .animation(.smooth, value: viewModel.transactionTitle)
-                    
-                    CustomDatePicker(
-                        title: Word.Classic.date,
-                        date: $viewModel.transactionDate
-                    )
                 }
-                .padding(.horizontal, 24)
-            } // End ScrollView
-            .scrollContentBackground(.hidden)
-            .scrollDismissesKeyboard(.interactively)
-            .scrollIndicators(.hidden)
+                .animation(.smooth, value: viewModel.transactionTitle)
+                
+                CustomDatePicker(
+                    title: Word.Classic.date,
+                    date: $viewModel.transactionDate
+                )
+            }
+            .padding(.horizontal, 24)
         }
         .toolbar {
             ToolbarDismissKeyboardButtonView()
-        }
-        .interactiveDismissDisabled(viewModel.isTransactionInCreation()) {
-            viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
@@ -126,8 +119,7 @@ struct CreateTransactionView: View {
         }
         .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
         .navigationBarBackButtonHidden(true)
-        .ignoresSafeArea(edges: .bottom)
-    } // End body
+    }
     
     func dismissAction() {
         if viewModel.isEditing {
@@ -138,7 +130,7 @@ struct CreateTransactionView: View {
         dismiss()
     }
     
-} // End struct
+}
 
 // MARK: - Preview
 #Preview {

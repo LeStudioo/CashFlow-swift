@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct SavingsAccountRow: View {
     
@@ -19,42 +20,42 @@ struct SavingsAccountRow: View {
         VStack(alignment: .center) {
             HStack {
                 Rectangle()
-                    .frame(width: 50, height: 50)
-                    .foregroundStyle(Color.background200)
-                    .cornerRadius(12)
+                    .frame(width: 40, height: 40)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg200)
+                    .cornerRadius(TKDesignSystem.Radius.small)
                     .overlay {
-                        Image(systemName: "building.columns.fill")
-                            .font(.system(size: 18, weight: .semibold, design: .rounded))
-                            .foregroundStyle(Color.text)
-                            .shadow(radius: 2, y: 2)
+                        Image(.iconLandmark)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.label)
                     }
+                
                 Spacer()
-
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 18, weight: .semibold))
+                
+                Image(.iconArrowRight)
+                    .renderingMode(.template)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
             }
             
-            Spacer(minLength: 0)
-            
             Text(savingsAccount.balance.toCurrency())
-                .font(.boldH2())
-                .multilineTextAlignment(.center)
+                .fontWithLineHeight(DesignSystem.Fonts.Title.large)
                 .lineLimit(1)
-            
-            Spacer(minLength: 0)
+                .frame(maxHeight: .infinity)
+                .foregroundStyle(Color.label)
             
             Text(savingsAccount.name)
-                .font(.semiBoldText16())
+                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
+                .foregroundStyle(Color.label)
         }
-        .padding()
-        .foregroundStyle(Color.text)
-        .frame(width: width, height: width)
-        .background {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .fill(Color.background100)
-        }
+        .padding(TKDesignSystem.Padding.standard)
+        .aspectRatio(1, contentMode: .fit)
+        .roundedRectangleBorder(
+            TKDesignSystem.Colors.Background.Theme.bg100,
+            radius: TKDesignSystem.Radius.standard,
+            lineWidth: 1,
+            strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+        )
     } // body
 } // struct
 

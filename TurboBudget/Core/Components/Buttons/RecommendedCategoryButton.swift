@@ -27,12 +27,15 @@ struct RecommendedCategoryButton: View {
                     Text(Word.Classic.recommended + " : ")
                     HStack(spacing: 4) {
                         Image(bestCategory.icon)
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 20, height: 20)
                         Text("\(bestSubcategory != nil ? (bestSubcategory!.name) : (bestCategory.name))")
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                     }
+                    .fullWidth(.trailing)
                     .foregroundStyle(bestCategory.color)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
-                .font(.system(size: 14, weight: .medium))
                 .padding(.horizontal, 8)
                 .onTapGesture {
                     selectedCategory = bestCategory

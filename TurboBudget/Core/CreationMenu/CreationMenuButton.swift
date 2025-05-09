@@ -11,14 +11,14 @@ import NavigationKit
 struct CreationMenuAction: Identifiable {
     let id = UUID()
     let title: String
-    let icon: String
+    let icon: ImageResource
     let destination: AppDestination
     let isDisabled: Bool
     let onTapAction: (() -> Void)?
     
     init(
         title: String,
-        icon: String,
+        icon: ImageResource,
         destination: AppDestination,
         isDisabled: Bool = false,
         onTapAction: (() -> Void)? = nil
@@ -41,8 +41,14 @@ struct CreationMenuButton: View {
             AppManager.shared.selectedTab = 0
             AppRouterManager.shared.router(for: .home)?.push(action.destination)
         } label: {
-            Label(action.title, systemImage: action.icon)
-                .font(.Subtitle.medium)
+            Label {
+                Text(action.title)
+                    .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+            } icon: {
+                Image(action.icon)
+                    .renderingMode(.template)
+            }
+            .foregroundStyle(Color.label)
         }
         .disabled(action.isDisabled)
         .onTapGesture {
@@ -56,7 +62,7 @@ struct CreationMenuButton: View {
     CreationMenuButton(
         action: .init(
             title: "Preview",
-            icon: "person.crop.circle",
+            icon: .iconPerson,
             destination: .transaction(.create)
         ),
         onPress: { }

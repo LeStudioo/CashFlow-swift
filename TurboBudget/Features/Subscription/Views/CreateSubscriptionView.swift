@@ -36,7 +36,7 @@ struct CreateSubscriptionView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 0) {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(
                 title: subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update,
                 actionButton: .init(
@@ -59,86 +59,79 @@ struct CreateSubscriptionView: View {
                     }
                 }
             )
-            ScrollView {
-                VStack(spacing: 24) {
-                    CustomTextField(
-                        text: $viewModel.name,
-                        config: .init(
-                            title: Word.Classic.name,
-                            placeholder: "Netflix"
-                        )
+        } content: { _ in
+            VStack(spacing: 24) {
+                CustomTextField(
+                    text: $viewModel.name,
+                    config: .init(
+                        title: Word.Classic.name,
+                        placeholder: "Netflix"
                     )
-                    .focused($focusedField, equals: .title)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .amount
+                )
+                .focused($focusedField, equals: .title)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .amount
+                }
+                
+                CustomTextField(
+                    text: $viewModel.amount,
+                    config: .init(
+                        title: Word.Classic.price,
+                        placeholder: "14,99",
+                        style: .amount
+                    )
+                )
+                .focused($focusedField, equals: .amount)
+                
+                TransactionTypePicker(selected: $viewModel.type) // TODO: Delete
+                
+                VStack(spacing: 6) {
+                    SelectCategoryButton(
+                        selectedCategory: $viewModel.selectedCategory,
+                        selectedSubcategory: $viewModel.selectedSubcategory
+                    )
+                    .onChange(of: viewModel.type) { newValue in
+                        viewModel.onChangeType(newValue: newValue)
+                    }
+                    .onChange(of: viewModel.selectedCategory) { newValue in
+                        if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
+                            viewModel.type = .expense
+                        } else if newValue == CategoryModel.revenue {
+                            viewModel.type = .income
+                            viewModel.selectedSubcategory = nil
+                        }
                     }
                     
-                    CustomTextField(
-                        text: $viewModel.amount,
-                        config: .init(
-                            title: Word.Classic.price,
-                            placeholder: "14,99",
-                            style: .amount
-                        )
-                    )
-                    .focused($focusedField, equals: .amount)
-                    
-                    TransactionTypePicker(selected: $viewModel.type)
-                    
-                    VStack(spacing: 6) {
-                        SelectCategoryButton(
+                    if store.isCashFlowPro && viewModel.selectedCategory == nil {
+                        RecommendedCategoryButton(
+                            transactionName: viewModel.name,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
-                        .onChange(of: viewModel.type) { newValue in
-                            viewModel.onChangeType(newValue: newValue)
-                        }
-                        .onChange(of: viewModel.selectedCategory) { newValue in
-                            if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                                viewModel.type = .expense
-                            } else if newValue == CategoryModel.revenue {
-                                viewModel.type = .income
-                                viewModel.selectedSubcategory = nil
-                            }
-                        }
-                        
-                        if store.isCashFlowPro && viewModel.selectedCategory == nil {
-                            RecommendedCategoryButton(
-                                transactionName: viewModel.name,
-                                selectedCategory: $viewModel.selectedCategory,
-                                selectedSubcategory: $viewModel.selectedSubcategory
-                            )
-                        }
                     }
-                    .animation(.smooth, value: viewModel.name)
-                    
-                    CustomDatePicker(
-                        title: Word.Classic.subscriptionFuturDate,
-                        date: $viewModel.frequencyDate,
-                        onlyFutureDates: true
-                    )
-                    
-                    FrequencyPicker(selected: $viewModel.frequency)
                 }
-                .padding(.horizontal, 24)
-            } // End ScrollView
-            .scrollIndicators(.hidden)
-            .scrollDismissesKeyboard(.interactively)
+                .animation(.smooth, value: viewModel.name)
+                
+                CustomDatePicker(
+                    title: Word.Classic.subscriptionFuturDate,
+                    date: $viewModel.frequencyDate,
+                    onlyFutureDates: true
+                )
+                
+                FrequencyPicker(selected: $viewModel.frequency)
+            }
+            .padding(.horizontal, 24)
         }
         .toolbar {
             ToolbarDismissKeyboardButtonView()
-        }
-        .interactiveDismissDisabled(viewModel.isAutomationInCreation()) {
-            viewModel.presentingConfirmationDialog.toggle()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
-        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .navigationBarBackButtonHidden(true)
-        .ignoresSafeArea(edges: .bottom)
     } // body
     
     func dismissAction() {
