@@ -25,27 +25,23 @@ struct HomeView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: 32) {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
             HomeHeader()
-                .padding(.horizontal, TKDesignSystem.Padding.large)
-                .padding(.top, TKDesignSystem.Padding.large)
+                .padding(TKDesignSystem.Padding.large)
+        } content: { _ in
+            CarouselOfChartsView()
+                .padding(.bottom, 24)
             
-            ScrollView {
-                CarouselOfChartsView()
-                    .padding(.bottom, 24)
-                
-                VStack(spacing: 32) {
-                    HomeScreenSubscription()
-                    HomeScreenRecentTransactions()
-                    HomeScreenSavingsPlan()
-                }
-                .padding(.horizontal, TKDesignSystem.Padding.large)
-                
-                Rectangle()
-                    .frame(height: 120)
-                    .opacity(0)
-            } // ScrollView
-            .scrollIndicators(.hidden)
+            VStack(spacing: 32) {
+                HomeScreenSubscription()
+                HomeScreenRecentTransactions()
+                HomeScreenSavingsPlan()
+            }
+            .padding(.horizontal, TKDesignSystem.Padding.large)
+            
+            Rectangle()
+                .frame(height: 120)
+                .opacity(0)
         }
         .navigationBarTitleDisplayMode(.inline)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)

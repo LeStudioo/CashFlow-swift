@@ -25,51 +25,29 @@ struct CategoryHomeView: View {
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            NavigationBar(
-                title: "word_categories".localized,
-                withDismiss: false,
-                actionButton: .init(
-                    icon: .iconGear,
-                    action: { router.push(.settings(.home)) },
-                    isDisabled: false
-                )
-            )
             if viewModel.categoriesFiltered.isNotEmpty {
-//                VStack(spacing: 24) { // TODO: deplace in analytics
-//                    if !viewModel.isChartDisplayed {
-//                        EmptyCategoryData()
-//                            .padding(8)
-//                    } else if viewModel.searchText.isEmpty {
-//                        PieChart(
-//                            month: viewModel.selectedDate,
-//                            slices: CategoryStore.shared.categoriesSlices(for: viewModel.selectedDate),
-//                            backgroundColor: Color.background100,
-//                            configuration: .init(style: .category, space: 0.2, hole: 0.75)
-//                        )
-//                        .padding(8)
-//                    }
-//                    
-//                    VStack(spacing: 8) {
-//                        SwitchDateButton(date: $viewModel.selectedDate, type: .month)
-//                        SwitchDateButton(date: $viewModel.selectedDate, type: .year)
-//                    }
-//                }
-//                .padding(8)
-//                .frame(maxWidth: .infinity)
-//                .background {
-//                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-//                        .fill(Color.background100)
-//                }
-//                .padding(.bottom, 8)
-                
-                List {
+                ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+                    NavigationBar(
+                        title: "word_categories".localized,
+                        withDismiss: false,
+                        actionButton: .init(
+                            icon: .iconGear,
+                            action: { router.push(.settings(.home)) },
+                            isDisabled: false
+                        ),
+                        placeholder: "word_search".localized,
+                        searchText: $viewModel.searchText.animation(),
+                    )
+                } content: {
                     ForEach(viewModel.categoriesFiltered) { category in
                         let subcategories = category.subcategories
                         NavigationButton(
                             route: .push,
-                            destination: (subcategories?.isEmpty == false
-                            ? AppDestination.subcategory(.list(category: category, selectedDate: viewModel.selectedDate))
-                            : AppDestination.category(.transactions(category: category, selectedDate: viewModel.selectedDate)))
+                            destination: (
+                                subcategories?.isEmpty == false
+                                ? AppDestination.subcategory(.list(category: category, selectedDate: viewModel.selectedDate))
+                                : AppDestination.category(.transactions(category: category, selectedDate: viewModel.selectedDate))
+                            )
                         ) {
                             CategoryRow(
                                 category: category,
@@ -80,23 +58,47 @@ struct CategoryHomeView: View {
                         .padding(.bottom, TKDesignSystem.Spacing.medium)
                     }
                     .noDefaultStyle()
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
                     
                     Rectangle()
                         .frame(height: 100)
                         .opacity(0)
                         .noDefaultStyle()
                 }
-                .listStyle(.plain)
-                .scrollDismissesKeyboard(.immediately)
-                .scrollIndicators(.hidden)
-                .padding(.horizontal, TKDesignSystem.Padding.large)
             } else {
                 CustomEmptyView(
                     type: .noResults(viewModel.searchText),
                     isDisplayed: viewModel.categoriesFiltered.isEmpty && !viewModel.searchText.isEmpty
                 )
             }
-        } // ScrollView
+            
+            //                VStack(spacing: 24) { // TODO: deplace in analytics
+            //                    if !viewModel.isChartDisplayed {
+            //                        EmptyCategoryData()
+            //                            .padding(8)
+            //                    } else if viewModel.searchText.isEmpty {
+            //                        PieChart(
+            //                            month: viewModel.selectedDate,
+            //                            slices: CategoryStore.shared.categoriesSlices(for: viewModel.selectedDate),
+            //                            backgroundColor: Color.background100,
+            //                            configuration: .init(style: .category, space: 0.2, hole: 0.75)
+            //                        )
+            //                        .padding(8)
+            //                    }
+            //
+            //                    VStack(spacing: 8) {
+            //                        SwitchDateButton(date: $viewModel.selectedDate, type: .month)
+            //                        SwitchDateButton(date: $viewModel.selectedDate, type: .year)
+            //                    }
+            //                }
+            //                .padding(8)
+            //                .frame(maxWidth: .infinity)
+            //                .background {
+            //                    RoundedRectangle(cornerRadius: 16, style: .continuous)
+            //                        .fill(Color.background100)
+            //                }
+            //                .padding(.bottom, 8)
+        } // VStack
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onAppear {
             viewModel.calculateAllAmounts(for: viewModel.selectedDate)

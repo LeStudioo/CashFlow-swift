@@ -8,14 +8,15 @@
 
 import SwiftUI
 import UIKit
-import Charts
 import NavigationKit
+import TheoKit
 
 struct AnalyticsHomeView: View {
     
     // Stores
     @EnvironmentObject private var accountStore: AccountStore
     @EnvironmentObject private var transactionStore: TransactionStore
+    @EnvironmentObject private var router: Router<AppDestination>
         
     // Custom
     @State private var dailyExpenses: [AmountByDay] = []
@@ -29,88 +30,97 @@ struct AnalyticsHomeView: View {
 
     // MARK: -
     var body: some View {
-        ScrollView {
+        VStack(spacing: 0) {
             if !transactionStore.transactions.isEmpty {
-                VStack(spacing: 16) {
-                    GenericBarChart(
-                        title: "cashflowchart_title".localized,
-                        selectedDate: $selectedDate,
-                        values: accountStore.cashflow,
-                        amount: amount
+                BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+                    NavigationBar(
+                        title: "word_analytic".localized,
+                        withDismiss: false,
+                        actionButton: .init(
+                            icon: .iconGear,
+                            action: { router.push(.settings(.home)) },
+                            isDisabled: false
+                        )
                     )
-                    .onChange(of: selectedDate) { _ in
-                        Task {
-                            if selectedDate.year != selectedYear {
-                                selectedYear = selectedDate.year
-                                await fetchCashFlow()
+                } content: { _ in
+                    VStack(spacing: 16) {
+                        GenericBarChart(
+                            title: "cashflowchart_title".localized,
+                            selectedDate: $selectedDate,
+                            values: accountStore.cashflow,
+                            amount: amount
+                        )
+                        .onChange(of: selectedDate) { _ in
+                            Task {
+                                if selectedDate.year != selectedYear {
+                                    selectedYear = selectedDate.year
+                                    await fetchCashFlow()
+                                }
+                                amount = accountStore.cashFlowAmount(for: selectedDate)
                             }
+                        }
+                        .task {
+                            await fetchCashFlow()
                             amount = accountStore.cashFlowAmount(for: selectedDate)
                         }
-                    }
-                    .task {
-                        await fetchCashFlow()
-                        amount = accountStore.cashFlowAmount(for: selectedDate)
-                    }
-                    
-                    NavigationButton(
-                        route: .push,
-                        destination: AppDestination.transaction(.specificList(month: selectedDate, type: .income))) {
-                            GenericLineChart(
-                                selectedDate: selectedDate,
-                                values: dailyIncomes,
-                                config: .init(
-                                    title: "chart_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                                    mainColor: Color.primary500
+                        
+                        NavigationButton(
+                            route: .push,
+                            destination: AppDestination.transaction(.specificList(month: selectedDate, type: .income))) {
+                                GenericLineChart(
+                                    selectedDate: selectedDate,
+                                    values: dailyIncomes,
+                                    config: .init(
+                                        title: "chart_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                        mainColor: Color.primary500
+                                    )
                                 )
-                            )
-                        }
-                    
-                    NavigationButton(
-                        route: .push,
-                        destination: AppDestination.transaction(.specificList(month: selectedDate, type: .expense))) {
-                            GenericLineChart(
-                                selectedDate: selectedDate,
-                                values: dailyExpenses,
-                                config: .init(
-                                    title: "chart_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                                    mainColor: Color.error400
+                            }
+                        
+                        NavigationButton(
+                            route: .push,
+                            destination: AppDestination.transaction(.specificList(month: selectedDate, type: .expense))) {
+                                GenericLineChart(
+                                    selectedDate: selectedDate,
+                                    values: dailyExpenses,
+                                    config: .init(
+                                        title: "chart_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                        mainColor: Color.error400
+                                    )
                                 )
+                            }
+                        
+                        GenericLineChart(
+                            selectedDate: selectedDate,
+                            values: dailySubscriptionsIncomes,
+                            config: .init(
+                                title: "chart_auto_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                mainColor: Color.primary500
                             )
-                        }
+                        )
+                        GenericLineChart(
+                            selectedDate: selectedDate,
+                            values: dailySubscriptionsExpenses,
+                            config: .init(
+                                title: "chart_auto_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
+                                mainColor: Color.error400
+                            )
+                        )
+                    }
+                    .padding(.horizontal, TKDesignSystem.Padding.large)
                     
-                    GenericLineChart(
-                        selectedDate: selectedDate,
-                        values: dailySubscriptionsIncomes,
-                        config: .init(
-                            title: "chart_auto_incomes_incomes_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                            mainColor: Color.primary500
-                        )
-                    )
-                    GenericLineChart(
-                        selectedDate: selectedDate,
-                        values: dailySubscriptionsExpenses,
-                        config: .init(
-                            title: "chart_auto_expenses_expenses_in".localized + " " + selectedDate.formatted(.monthAndYear),
-                            mainColor: Color.error400
-                        )
-                    )
+                    Rectangle()
+                        .frame(height: 120)
+                        .opacity(0)
                 }
-                .padding(.horizontal)
-                
-                Rectangle()
-                    .frame(height: 120)
-                    .opacity(0)
             } else {
                 CustomEmptyView(
                     type: .empty(.analytics),
                     isDisplayed: transactionStore.transactions.isEmpty
                 )
             }
-        } // ScrollView
-        .scrollIndicators(.hidden)
-        .navigationTitle("word_analytic".localized)
-        .navigationBarTitleDisplayMode(.large)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        } // VStack
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onChange(of: selectedDate) { _ in
             if let account = accountStore.selectedAccount, let accountID = account._id {
                 Task {

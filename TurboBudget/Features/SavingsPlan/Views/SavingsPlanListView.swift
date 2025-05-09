@@ -1,5 +1,5 @@
 //
-//  SavingsPlansHomeView.swift
+//  SavingsPlanListView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 20/06/2023.
@@ -9,12 +9,14 @@
 import SwiftUI
 import NavigationKit
 import StatsKit
+import TheoKit
 
-struct SavingsPlansHomeView: View {
+struct SavingsPlanListView: View {
     
     // Environment
     @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
     @EnvironmentObject private var contributionStore: ContributionStore
+    @EnvironmentObject private var router: Router<AppDestination>
         
     // String variables
     @State private var searchText: String = ""
@@ -33,7 +35,18 @@ struct SavingsPlansHomeView: View {
     
     // MARK: -
     var body: some View {
-        ScrollView {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: Word.Main.savingsPlans,
+                actionButton: .init(
+                    title: Word.Classic.create,
+                    action: { router.push(.savingsPlan(.create)) },
+                    isDisabled: false
+                ),
+                placeholder: "word_search".localized,
+                searchText: $searchText.animation()
+            )
+        } content: { _ in
             LazyVGrid(columns: layout, alignment: .center) {
                 ForEach(searchResults) { savingsPlan in
                     NavigationButton(
@@ -53,34 +66,16 @@ struct SavingsPlansHomeView: View {
                     .padding(.bottom)
                 }
             }
-            .padding()
-        } // ScrollView
-        .scrollIndicators(.hidden)
+            .padding(.horizontal, TKDesignSystem.Padding.large)
+        }
         .overlay {
             CustomEmptyView(
                 type: (searchResults.isEmpty && !searchText.isEmpty) ? .noResults(searchText) : .empty(.savingsPlan(.list)),
                 isDisplayed: savingsPlanStore.savingsPlans.isEmpty || (searchResults.isEmpty && !searchText.isEmpty)
             )
         }
-        .navigationTitle(Word.Main.savingsPlans)
-        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .toolbar {
-            ToolbarDismissPushButton()
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(
-                    route: .sheet,
-                    destination: AppDestination.savingsPlan(.create)
-                ) {
-                    Image(systemName: "plus")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onAppear {
             EventService.sendEvent(key: .savingsplanListPage)
         }
@@ -89,5 +84,5 @@ struct SavingsPlansHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    SavingsPlansHomeView()
+    SavingsPlanListView()
 }

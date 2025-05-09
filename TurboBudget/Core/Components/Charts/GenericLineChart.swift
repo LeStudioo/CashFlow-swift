@@ -23,19 +23,17 @@ struct GenericLineChart: View {
     
     // MARK: -
     var body: some View {
-        VStack {
-            VStack(alignment: .leading, spacing: 10) {
+        VStack(spacing: TKDesignSystem.Spacing.large) {
+            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
                 Text(config.title)
-                    .foregroundStyle(Color.customGray)
-                    .font(Font.mediumSmall())
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
+                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
                 
                 Text(amounts.reduce(0, +).toCurrency())
-                    .foregroundStyle(Color.text)
-                    .font(DesignSystem.FontDS.Title.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(Color.label)
+                    .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
             }
-            .padding(8)
+            .fullWidth(.leading)
             
             Chart {
                 ForEach(values) { item in

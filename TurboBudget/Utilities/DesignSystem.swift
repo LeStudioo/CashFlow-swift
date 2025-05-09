@@ -27,6 +27,10 @@ struct ExtendedUIFont {
 // MARK: - Fonts
 extension DesignSystem {
     
+    struct Blur {
+        static let topbar: CGFloat = 36
+    }
+    
     struct Fonts {
         public struct Display {
             /// `This font is in "Bold 48" style`

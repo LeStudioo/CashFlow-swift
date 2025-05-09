@@ -60,7 +60,6 @@ struct CustomEmptyView: View {
             }
         }
         .padding(TKDesignSystem.Padding.large)
-        .offset(y: isHomeSituation ? 0 : -50)
         .frame(maxWidth: .infinity, maxHeight: isHomeSituation ? nil : .infinity)
         .roundedRectangleBorder(
             isHomeSituation ? TKDesignSystem.Colors.Background.Theme.bg100 : .clear,
@@ -99,7 +98,7 @@ struct CustomEmptyView: View {
         case .empty(let situation):
             return situation.title.localized
         case .noResults(let searchText):
-            return "word_no_results".localized + " " + searchText
+            return "word_no_results".localized + " " + "\"\(searchText)\""
         }
     }
 
