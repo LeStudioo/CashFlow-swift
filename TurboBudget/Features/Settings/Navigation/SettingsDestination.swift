@@ -25,7 +25,7 @@ enum SettingsDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .home:
-            SettingsHomeView()
+            SettingsScreen()
         case .debug:
             SettingsDebugView()
         case .general:
