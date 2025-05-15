@@ -67,6 +67,7 @@ struct PageControllerView: View {
                         }
                         .onAppear {
                             if !appManager.isRoutersRegistered {
+                                routerManager.resetRouters()
                                 routerManager.register(router: homeRouter, for: .home)
                                 routerManager.register(router: analyticsRouter, for: .analytics)
                                 routerManager.register(router: dashboardRouter, for: .dashboard)
@@ -80,6 +81,11 @@ struct PageControllerView: View {
                                 type: .empty(.account),
                                 isDisplayed: true
                             )
+                        }
+                        .onAppear {
+                            if !appManager.isRoutersRegistered {
+                                routerManager.register(router: homeRouter, for: .home)
+                            }
                         }
                     }
                     

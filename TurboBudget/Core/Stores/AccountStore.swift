@@ -37,11 +37,11 @@ extension AccountStore {
             self.classicAccounts = accounts.filter { $0.type == .classic }
             self.savingsAccounts = accounts.filter { $0.type == .savings }
 
-            if PreferencesAccount.shared.mainAccountId == 0 {
+            if let account = findByID(PreferencesAccount.shared.mainAccountId) {
+                self.selectedAccount = account
+            } else {
                 self.selectedAccount = self.accounts.sorted { $0.createdAt ?? .now < $1.createdAt ?? .now }.first
                 PreferencesAccount.shared.mainAccountId = self.selectedAccount?._id ?? 0
-            } else {
-                self.selectedAccount = findByID(PreferencesAccount.shared.mainAccountId)
             }
         } catch { NetworkService.handleError(error: error) }
     }

@@ -23,6 +23,10 @@ extension AppRouterManager {
         return routers[tab]
     }
     
+    func resetRouters() {
+        routers.removeAll()
+    }
+    
 }
 
 extension AppRouterManager {
