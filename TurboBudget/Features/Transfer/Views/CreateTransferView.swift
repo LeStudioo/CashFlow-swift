@@ -7,6 +7,7 @@
 
 import SwiftUI
 import StatsKit
+import TheoKit
 
 struct CreateTransferView: View {
     
@@ -23,7 +24,26 @@ struct CreateTransferView: View {
     
     // MARK: -
     var body: some View {
-        ScrollView {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: Word.Title.Transfer.new,
+                actionButton: .init(
+                    title: Word.Classic.create,
+                    action: {
+                        VibrationManager.vibration()
+                        await viewModel.createTransfer(dismiss: dismiss)
+                    },
+                    isDisabled: !viewModel.isTransferValid()
+                ),
+                dismissAction: {
+                    if viewModel.isTransferInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
+                        dismissAction()
+                    }
+                }
+            )
+        } content: { _ in
             VStack(spacing: 40) {
                 VStack(spacing: 24) {
                     CustomTextField(
@@ -84,43 +104,16 @@ struct CreateTransferView: View {
             }
             .padding(.horizontal, 24)
             .padding(.top)
-        } // End ScrollView
-        .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.interactively)
-        .toolbar {
-            ToolbarDismissButtonView {
-                if viewModel.isTransferInCreation() {
-                    viewModel.presentingConfirmationDialog.toggle()
-                } else {
-                    dismissAction()
-                }
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(Word.Title.Transfer.new)
-                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-            }
-            
-            ToolbarValidationButtonView(
-                type: .creation,
-                isActive: viewModel.isTransferValid()
-            ) {
-                VibrationManager.vibration()
-                await viewModel.createTransfer(dismiss: dismiss)
-            }
-            
-            ToolbarDismissKeyboardButtonView()
         }
-        .interactiveDismissDisabled(viewModel.isTransferInCreation()) {
-            viewModel.presentingConfirmationDialog.toggle()
+        .toolbar {
+            ToolbarDismissKeyboardButtonView()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea(edges: .bottom)
     } // body
     
     func dismissAction() {

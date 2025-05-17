@@ -12,10 +12,10 @@ extension Array where Element == CategoryModel {
     func searchFor(_ searchText: String) -> [CategoryModel] {
         let categories = CategoryStore.shared.categories
         
-        guard let income = categories.filter({ $0.isRevenue }).first else { return [] }
+        guard let income = categories.filter({ $0.isIncome }).first else { return [] }
         guard let toCategorized = categories.filter({ $0.isToCategorized }).first else { return [] }
         let allCategories = [toCategorized, income] + categories
-            .filter { !$0.isRevenue && !$0.isToCategorized }
+            .filter { !$0.isIncome && !$0.isToCategorized }
             .sorted { $0.name < $1.name }
         
         if searchText.isEmpty {

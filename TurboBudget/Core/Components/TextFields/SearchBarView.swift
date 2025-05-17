@@ -41,6 +41,9 @@ struct SearchBarView: View {
                 .focused($isFocused)
                 .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                 .foregroundStyle(Color.label)
+                .toolbar {
+                    ToolbarDismissKeyboardButtonView()
+                }
             
             if isSearching {
                 Button {

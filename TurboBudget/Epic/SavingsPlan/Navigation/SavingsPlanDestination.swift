@@ -19,13 +19,13 @@ enum SavingsPlanDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .list:
-            SavingsPlanListView()
+            SavingsPlanListScreen()
         case .create:
-            CreateSavingPlansView()
+            CreateSavingPlansScreen()
         case .update(let savingsPlan):
-            CreateSavingPlansView(savingsPlan: savingsPlan)
+            CreateSavingPlansScreen(savingsPlan: savingsPlan)
         case .detail(let savingsPlan):
-            SavingsPlanDetailView(savingsPlan: savingsPlan)
+            SavingsPlanDetailScreen(savingsPlan: savingsPlan)
         }
     }
 }

@@ -27,7 +27,13 @@ struct SubcategoryTransactionsView: View {
         let transactionsExpenses = transactionStore.getExpenses(for: subcategory, in: selectedDate)
         let transactionsFiltered = transactionsExpenses.search(for: searchText)
         
-        VStack {
+        VStack(spacing: 0) {
+            NavigationBar(
+                title: Word.Main.transactions,
+                placeholder: "word_search".localized,
+                searchText: $searchText,
+            )
+         
             if transactionsFiltered.isNotEmpty {
                 List {
                     Section(
@@ -63,14 +69,9 @@ struct SubcategoryTransactionsView: View {
                 )
             }
         }
-        .navigationTitle(Word.Main.transactions)
-        .navigationBarTitleDisplayMode(.large)
+        .scrollDismissesKeyboard(.interactively)
         .navigationBarBackButtonHidden(true)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
-        .toolbar {
-            ToolbarDismissPushButton()
-        }
-        .searchable(text: $searchText, prompt: "word_search".localized)
     } // body
 } // struct
 

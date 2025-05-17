@@ -42,7 +42,7 @@
 ////                        LazyVGrid(columns: layout, alignment: .center) {
 ////                            ForEach(searchResults) { savingPlan in
 ////                                NavigationButton(push: router.pushSavingPlansDetail(savingPlan: savingPlan)) {
-////                                    SavingsPlanRow(savingPlan: savingPlan)
+////                                    SavingsPlanRowView(savingPlan: savingPlan)
 ////                                }
 ////                                .padding(.bottom)
 ////                            }

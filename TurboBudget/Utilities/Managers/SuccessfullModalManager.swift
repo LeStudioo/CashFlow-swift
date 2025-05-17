@@ -62,7 +62,7 @@ extension SuccessfullModalManager {
     func showSuccessfulSavingsPlan(type: SuccessfulType, savingsPlan: SavingsPlanModel) {
         self.title = Word.Successful.SavingsPlan.title(type: type)
         self.subtitle = Word.Successful.SavingsPlan.description(type: type)
-        self.content = AnyView(SavingsPlanRow(savingsPlan: savingsPlan))
+        self.content = AnyView(SavingsPlanRowView(savingsPlan: savingsPlan))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true

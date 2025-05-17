@@ -16,7 +16,6 @@ class CreateSubscriptionViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var amount: String = ""
     @Published var frequencyDate: Date = .now
-    @Published var type: TransactionType = .expense
     @Published var frequency: SubscriptionFrequency = .monthly
     @Published var selectedCategory: CategoryModel?
     @Published var selectedSubcategory: SubcategoryModel?
@@ -32,7 +31,6 @@ class CreateSubscriptionViewModel: ObservableObject {
         if let subscription {
             self.name = subscription.name
             self.amount = subscription.amount.formatted()
-            self.type = subscription.type
             self.frequency = subscription.frequency
             self.frequencyDate = subscription.frequencyDate
             self.selectedCategory = subscription.category
@@ -58,7 +56,7 @@ extension CreateSubscriptionViewModel {
         return .init(
             name: name,
             amount: amount.toDouble(),
-            type: type,
+            type: selectedCategory?.isIncome == true ? TransactionType.income : TransactionType.expense,
             frequency: frequency,
             frequencyDate: frequencyDate,
             categoryID: selectedCategory?.id ?? 0,

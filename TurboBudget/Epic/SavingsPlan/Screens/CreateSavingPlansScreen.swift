@@ -1,5 +1,5 @@
 //
-//  CreateSavingPlansView.swift
+//  CreateSavingPlansScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 20/06/2023.
@@ -9,8 +9,9 @@
 import SwiftUI
 import MCEmojiPicker
 import StatsKit
+import TheoKit
 
-struct CreateSavingPlansView: View {
+struct CreateSavingPlansScreen: View {
     
     // builder
     var savingsPlan: SavingsPlanModel?
@@ -38,7 +39,30 @@ struct CreateSavingPlansView: View {
     
     // MARK: -
     var body: some View {
-        ScrollView {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update,
+                actionButton: .init(
+                    title: savingsPlan == nil ? Word.Classic.create : Word.Classic.edit,
+                    action: {
+                        VibrationManager.vibration()
+                        if savingsPlan == nil {
+                            await viewModel.createSavingsPlan(dismiss: dismiss)
+                        } else {
+                            await viewModel.updateSavingsPlan(dismiss: dismiss)
+                        }
+                    },
+                    isDisabled: !viewModel.validateSavingPlan()
+                ),
+                dismissAction: {
+                    if viewModel.isSavingPlansInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
+                        dismissAction()
+                    }
+                }
+            )
+        } content: { _ in
             VStack(spacing: 24) {
                 HStack(alignment: .bottom, spacing: 8) {
                     CustomTextField(
@@ -111,47 +135,16 @@ struct CreateSavingPlansView: View {
             }
             .padding(.horizontal, 24)
             .padding(.top)
-        } // End ScrollView
-        .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.interactively)
-        .toolbar {
-            ToolbarDismissButtonView {
-                if viewModel.isSavingPlansInCreation() {
-                    viewModel.presentingConfirmationDialog.toggle()
-                } else {
-                    dismissAction()
-                }
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update)
-                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-            }
-            
-            ToolbarValidationButtonView(
-                type: savingsPlan == nil ? .creation : .edition,
-                isActive: viewModel.validateSavingPlan()
-            ) {
-                VibrationManager.vibration()
-                if savingsPlan == nil {
-                    await viewModel.createSavingsPlan(dismiss: dismiss)
-                } else {
-                    await viewModel.updateSavingsPlan(dismiss: dismiss)
-                }
-            }
-            
-            ToolbarDismissKeyboardButtonView()
         }
-        .interactiveDismissDisabled(viewModel.isSavingPlansInCreation()) {
-            viewModel.presentingConfirmationDialog.toggle()
+        .toolbar {
+            ToolbarDismissKeyboardButtonView()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea(edges: .bottom)
     } // End body
     
     func dismissAction() {
@@ -167,5 +160,5 @@ struct CreateSavingPlansView: View {
 
 // MARK: - Preview
 #Preview {
-    CreateSavingPlansView()
+    CreateSavingPlansScreen()
 }

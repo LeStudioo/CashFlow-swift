@@ -83,25 +83,12 @@ struct CreateSubscriptionView: View {
                     )
                 )
                 .focused($focusedField, equals: .amount)
-                
-                TransactionTypePicker(selected: $viewModel.type) // TODO: Delete
-                
+                                
                 VStack(spacing: 6) {
                     SelectCategoryButton(
                         selectedCategory: $viewModel.selectedCategory,
                         selectedSubcategory: $viewModel.selectedSubcategory
                     )
-                    .onChange(of: viewModel.type) { newValue in
-                        viewModel.onChangeType(newValue: newValue)
-                    }
-                    .onChange(of: viewModel.selectedCategory) { newValue in
-                        if newValue != CategoryModel.revenue && newValue != CategoryModel.toCategorized {
-                            viewModel.type = .expense
-                        } else if newValue == CategoryModel.revenue {
-                            viewModel.type = .income
-                            viewModel.selectedSubcategory = nil
-                        }
-                    }
                     
                     if store.isCashFlowPro && viewModel.selectedCategory == nil {
                         RecommendedCategoryButton(

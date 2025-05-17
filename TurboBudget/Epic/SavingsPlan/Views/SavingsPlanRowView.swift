@@ -1,5 +1,5 @@
 //
-//  SavingsPlanRow.swift
+//  SavingsPlanRowView.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 24/06/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import TheoKit
 
-struct SavingsPlanRow: View {
+struct SavingsPlanRowView: View {
 
     // Custom type
     var savingsPlan: SavingsPlanModel
@@ -69,7 +69,7 @@ struct SavingsPlanRow: View {
 
 // MARK: - Preview
 #Preview {
-    SavingsPlanRow(savingsPlan: .mockClassicSavingsPlan)
+    SavingsPlanRowView(savingsPlan: .mockClassicSavingsPlan)
         .environmentObject(ThemeManager())
         .environmentObject(SavingsPlanStore())
         .frame(width: 180)

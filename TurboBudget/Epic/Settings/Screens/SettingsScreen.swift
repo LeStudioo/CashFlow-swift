@@ -35,15 +35,14 @@ struct SettingsScreen: View {
     
     // MARK: - View
     var body: some View {
-        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(
                 title: "setting_home_title".localized,
                 placeholder: "word_search".localized,
                 searchText: $searchText
             )
-        } content: {
+        } content: { _ in
             SettingsRowView(item: .cashFlowPro)
-                .noDefaultStyle()
                 .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
                 .padding(.horizontal, TKDesignSystem.Padding.large)
             
@@ -65,11 +64,14 @@ struct SettingsScreen: View {
                 }
                 .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
             }
-            .noDefaultStyle()
             .padding(.horizontal, TKDesignSystem.Padding.large)
+            
+            Text("v\(Bundle.main.releaseVersionNumber ?? "")")
+                .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                .foregroundStyle(Color.label)
+                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
         }
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
-        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
     }
 }

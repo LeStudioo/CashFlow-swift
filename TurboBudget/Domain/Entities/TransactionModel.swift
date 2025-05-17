@@ -48,7 +48,7 @@ extension TransactionModel {
             return .transfer
         }
         
-        if category?.isRevenue == true {
+        if category?.isIncome == true {
             return .income
         } else {
             return .expense
@@ -97,7 +97,7 @@ extension TransactionModel {
         case .income:
             return .primary500
         case .transfer:
-            return isSender ? .error400 : .primary500
+            return isSender ? TKDesignSystem.Colors.Error.c500 : .primary500
         }
     }
     

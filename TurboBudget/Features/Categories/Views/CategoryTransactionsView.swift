@@ -77,7 +77,7 @@ struct CategoryTransactionsView: View {
         }
         .searchable(text: $searchText, prompt: "word_search".localized)
         .onAppear {
-            if category.isRevenue {
+            if category.isIncome {
                 amountIncome = transactions
                     .compactMap(\.amount)
                     .reduce(0, +)

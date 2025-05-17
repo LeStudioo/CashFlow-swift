@@ -76,7 +76,7 @@ extension CategoryStore {
     func categoriesSlices(for month: Date) -> [PieSliceData] {
         let slices = computeCategoryData(for: month)
             .values
-            .filter { !$0.category.isRevenue }
+            .filter { !$0.category.isIncome }
             .map { data in
                 PieSliceData(
                     categoryID: data.category.id,

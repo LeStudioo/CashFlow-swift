@@ -9,6 +9,7 @@
 import SwiftUI
 import NavigationKit
 import StatsKit
+import TheoKit
 
 struct CreateBudgetView: View {
     
@@ -20,7 +21,26 @@ struct CreateBudgetView: View {
     
     // MARK: - body
     var body: some View {
-        ScrollView {
+        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: Word.Title.Budget.new,
+                actionButton: .init(
+                    title: Word.Classic.create,
+                    action: {
+                        VibrationManager.vibration()
+                        await viewModel.createBudget(dismiss: dismiss)
+                    },
+                    isDisabled: !viewModel.isBudgetValid()
+                ),
+                dismissAction: {
+                    if viewModel.isBudgetInCreation() {
+                        viewModel.presentingConfirmationDialog.toggle()
+                    } else {
+                        dismissAction()
+                    }
+                }
+            )
+        } content: { _ in
             VStack(spacing: 24) {
                 SelectCategoryButton(
                     selectedCategory: $viewModel.selectedCategory,
@@ -38,40 +58,16 @@ struct CreateBudgetView: View {
             }
             .padding(.horizontal, 24)
             .padding(.top)
-        } // End ScrollView
-        .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.interactively)
-        .toolbar {
-            ToolbarDismissButtonView {
-                if viewModel.isBudgetInCreation() {
-                    viewModel.presentingConfirmationDialog.toggle()
-                } else {
-                    dismissAction()
-                }
-            }
-            
-            ToolbarItem(placement: .principal) {
-                Text(Word.Title.Budget.new)
-                    .font(.system(size: UIDevice.isLittleIphone ? 16 : 18, weight: .medium))
-            }
-            
-            ToolbarValidationButtonView(isActive: viewModel.isBudgetValid()) {
-                VibrationManager.vibration()
-                await viewModel.createBudget(dismiss: dismiss)
-            }
-            
-            ToolbarDismissKeyboardButtonView()
         }
-        .interactiveDismissDisabled(viewModel.isBudgetInCreation()) {
-            viewModel.presentingConfirmationDialog.toggle()
+        .toolbar {
+            ToolbarDismissKeyboardButtonView()
         }
         .confirmationDialog("", isPresented: $viewModel.presentingConfirmationDialog) {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
         .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
-        .ignoresSafeArea(edges: .bottom)
     } // End body
     
     func dismissAction() {

@@ -26,16 +26,8 @@ extension CategoryModel {
         return CategoryStore.shared.findCategoryById(0)
     }
     
-    var isRevenue: Bool { // TODO: Change to isIncome
-        let incomeCategories: [String] = [
-            "word_income".localized,
-        ]
-        
-        for category in incomeCategories where self.name == category {
-            return true
-        }
-        
-        return false
+    var isIncome: Bool {
+        return self.name == "word_income".localized
     }
     
     var isToCategorized: Bool {

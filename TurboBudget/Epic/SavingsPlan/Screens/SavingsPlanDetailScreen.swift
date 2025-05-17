@@ -1,5 +1,5 @@
 //
-//  SavingsPlanDetailView.swift
+//  SavingsPlanDetailScreen.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -11,7 +11,7 @@ import AlertKit
 import NavigationKit
 import StatsKit
 
-struct SavingsPlanDetailView: View {
+struct SavingsPlanDetailScreen: View {
     
     // Builder
     var savingsPlan: SavingsPlanModel
@@ -244,5 +244,5 @@ struct SavingsPlanDetailView: View {
 
 // MARK: - Preview
 #Preview {
-    SavingsPlanDetailView(savingsPlan: .mockClassicSavingsPlan)
+    SavingsPlanDetailScreen(savingsPlan: .mockClassicSavingsPlan)
 }

@@ -1,5 +1,5 @@
 //
-//  SavingsPlanListView.swift
+//  SavingsPlanListScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 20/06/2023.
@@ -11,7 +11,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 
-struct SavingsPlanListView: View {
+struct SavingsPlanListScreen: View {
     
     // Environment
     @EnvironmentObject private var savingsPlanStore: SavingsPlanStore
@@ -60,7 +60,7 @@ struct SavingsPlanListView: View {
                             }
                         },
                         label: {
-                            SavingsPlanRow(savingsPlan: savingsPlan)
+                            SavingsPlanRowView(savingsPlan: savingsPlan)
                         }
                     )
                     .padding(.bottom)
@@ -84,5 +84,5 @@ struct SavingsPlanListView: View {
 
 // MARK: - Preview
 #Preview {
-    SavingsPlanListView()
+    SavingsPlanListScreen()
 }

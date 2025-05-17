@@ -244,7 +244,7 @@ extension TransactionStore {
     
     func getExpenses(for subcategory: SubcategoryModel, in month: Date? = nil) -> [TransactionModel] {
         return getTransactions(for: subcategory, in: month)
-            .filter { $0.type == .expense }
+//            .filter { $0.type == .expense }
     }
     
 }

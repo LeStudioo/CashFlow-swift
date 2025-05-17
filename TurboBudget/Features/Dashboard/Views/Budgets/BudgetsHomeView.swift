@@ -9,6 +9,7 @@
 
 import SwiftUI
 import NavigationKit
+import TheoKit
 
 struct BudgetsHomeView: View {
     
@@ -21,43 +22,37 @@ struct BudgetsHomeView: View {
     
     // MARK: -
     var body: some View {
-        List(budgetStore.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
-            VStack(spacing: 16) {
-                CategoryHeader(category: category)
-                
-                VStack(spacing: 12) {
-                    ForEach(budgets) { budget in
-                        BudgetRow(budget: budget)
-                            .onTapGesture {
-                                if let subcategory = budget.subcategory {
-                                    router.push(.budget(.transactions(subcategory: subcategory)))
+        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+            NavigationBar(
+                title: "word_budgets".localized,
+                actionButton: .init(
+                    title: Word.Classic.create,
+                    action: { router.push(.budget(.create)) },
+                    isDisabled: false
+                )
+            )
+        } content: {
+            ForEach(budgetStore.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
+                VStack(spacing: 16) {
+                    CategoryHeader(category: category)
+                    
+                    VStack(spacing: 12) {
+                        ForEach(budgets) { budget in
+                            BudgetRow(budget: budget)
+                                .onTapGesture {
+                                    if let subcategory = budget.subcategory {
+                                        router.push(.budget(.transactions(subcategory: subcategory)))
+                                    }
                                 }
-                            }
+                        }
                     }
                 }
+                .listRowSeparator(.hidden)
+                .padding(.bottom, 8)
             }
-            .listRowSeparator(.hidden)
-            .padding(.bottom, 8)
         }
-        .listStyle(.plain)
-        .navigationTitle("word_budgets".localized)
-        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarDismissPushButton()
-            
-            ToolbarItem(placement: .navigationBarTrailing) {
-                NavigationButton(
-                    route: .sheet,
-                    destination: AppDestination.budget(.create)
-                ) {
-                    Image(systemName: "plus")
-                        .foregroundStyle(Color.text)
-                        .font(.system(size: 18, weight: .medium, design: .rounded))
-                }
-            }
-        }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50.edgesIgnoringSafeArea(.all))
     } // body
 } // struct
 

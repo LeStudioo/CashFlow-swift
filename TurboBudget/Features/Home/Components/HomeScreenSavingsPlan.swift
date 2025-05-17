@@ -44,7 +44,7 @@ struct HomeScreenSavingsPlan: View {
                                 }
                             },
                             label: {
-                                SavingsPlanRow(savingsPlan: savingsPlan)
+                                SavingsPlanRowView(savingsPlan: savingsPlan)
                             }
                         )
                         .padding(.bottom)

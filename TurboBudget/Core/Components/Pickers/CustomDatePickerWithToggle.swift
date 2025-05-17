@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct CustomDatePickerWithToggle: View {
     
@@ -16,6 +17,7 @@ struct CustomDatePickerWithToggle: View {
     var withRange: Bool = false
     
     @State private var isDatePickerShowing: Bool = false
+    @State private var datePickerHeight: CGFloat = 0
     
     @EnvironmentObject private var themeManager: ThemeManager
     
@@ -28,38 +30,44 @@ struct CustomDatePickerWithToggle: View {
             
             VStack(alignment: .trailing, spacing: 0) {
                 HStack {
-                    Button(action: {
-                        if isEnabled {
-                            withAnimation { isDatePickerShowing.toggle() }
-                        }
-                    }, label: {
-                        Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
-                            .foregroundStyle(Color.text)
+                    Button {
+                        withAnimation { isEnabled.toggle() }
+                    } label: {
+                        Image(.iconCheck)
+                            .renderingMode(.template)
+                            .foregroundStyle(Color.label)
                             .padding(8)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(Color.background300)
-                            }
-                    })
-                    .opacity(isEnabled ? 1 : 0.6)
+                            .frame(width: self.datePickerHeight, height: self.datePickerHeight)
+                            .roundedRectangleBorder(
+                                isEnabled ? themeManager.theme.color : Color.background300,
+                                radius: 8
+                            )
+                    }
                     
                     Spacer()
                     
                     Button {
-                        withAnimation { isEnabled.toggle() }
+                        if isEnabled {
+                            withAnimation { isDatePickerShowing.toggle() }
+                        }
                     } label: {
-                        Image(systemName: "checkmark")
-                            .foregroundStyle(Color.text)
-                            .font(.system(size: 16, weight: .semibold))
-                            .frame(width: 20, height: 20)
-                            .padding(8)
-                            .background {
-                                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                    .fill(isEnabled ? themeManager.theme.color : Color.background300)
-                            }
+                        Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
+                            .contentTransition(.numericText())
+                            .foregroundStyle(Color.label)
+                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .padding(TKDesignSystem.Padding.medium)
+                            .roundedRectangleBorder(
+                                TKDesignSystem.Colors.Background.Theme.bg200,
+                                radius: TKDesignSystem.Radius.small
+                            )
                     }
+                    .opacity(isEnabled ? 1 : 0.6)
+                    .getSize { size in
+                        self.datePickerHeight = size.height
+                    }
+                    
                 }
-                .padding(8)
+                .padding(TKDesignSystem.Padding.extraSmall)
                 
                 if isDatePickerShowing {
                     if withRange {
@@ -74,10 +82,12 @@ struct CustomDatePickerWithToggle: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .trailing)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background200)
-            }
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg100,
+                radius: TKDesignSystem.Radius.medium,
+                lineWidth: 1,
+                strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
+            )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .onChange(of: isEnabled) { newValue in
@@ -96,4 +106,6 @@ struct CustomDatePickerWithToggle: View {
         isEnabled: .constant(true)
     )
     .padding()
+    .environmentObject(ThemeManager.shared)
+    .preferredColorScheme(.dark)
 }
