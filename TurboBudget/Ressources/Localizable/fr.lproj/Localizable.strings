@@ -1003,10 +1003,25 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 "settings_applepay_shortcut_button" = "Activer le raccourci Apple Pay";
 
 /*  */
+"settings_features_title" = "Fonctionnalités";
+
+/*  */
+"settings_help_title" = "Aide";
+
+/*  */
+"settings_manage_accounts_title" = "Gérer les comptes";
+
+/*  */
+"settings_others_title" = "Autres";
+
+/*  */
 "settings_preferences_applepay_address" = "Ajouter automatiquement la position";
 
 /*  */
 "settings_preferences_applepay_address_footer" = "Ajouter automatiquement la localisation à un paiement avec ApplePay";
+
+/*  */
+"settings_privacy_title" = "Confidentialité";
 
 "shortcut_all_para" = "Créer une transaction de ${amount} pour ${title}";
 
@@ -1353,6 +1368,9 @@ Cela peut servir de ligne directrice pour équilibrer vos dépenses, épargner e
 "word_amount" = "Montant";
 
 "word_amountToReach" = "Montant à atteindre";
+
+/*  */
+"word_amount_after_transaction" = "Montant après transaction";
 
 "word_analytic" = "Stats";
 

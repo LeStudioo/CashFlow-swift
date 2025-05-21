@@ -15,37 +15,37 @@ struct SettingsSectionModel: Identifiable {
     
 extension SettingsSectionModel {
     static let general: SettingsSectionModel = .init(
-        title: "General", // TODO: TBL
+        title: "title_setting_general".localized,
         items: [.general, .security]
     )
     
     static let display: SettingsSectionModel = .init(
-        title: "Display", // TODO: TBL
+        title: "setting_display_title".localized,
         items: [.appearance, .display]
     )
     
     static let features: SettingsSectionModel = .init(
-        title: "Features", // TODO: TBL
+        title: "settings_features_title".localized,
         items: [.account, .subscription, .applePay]
     )
     
     static let help: SettingsSectionModel = .init(
-        title: "Help", // TODO: TBL
+        title: "settings_help_title".localized,
         items: [.shortcutApplePay, .faq]
     )
     
     static let others: SettingsSectionModel = .init(
-        title: "Others", // TODO: TBL
+        title: "settings_others_title".localized,
         items: [.writeReview, .reportBug, .suggestFeature, .shareApp, .credits, .moreOfThisDeveloper]
     )
     
     static let manageAccount: SettingsSectionModel = .init(
-        title: "Manage Accounts", // TODO: TBL
+        title: "settings_manage_accounts_title".localized,
         items: [.logout, .deleteAccount]
     )
     
     static let privacy: SettingsSectionModel = .init(
-        title: "Privacy", // TODO: TBL
+        title: "settings_privacy_title".localized,
         items: [.conditionsOfUse, .confidentialityPolicy]
     )
     

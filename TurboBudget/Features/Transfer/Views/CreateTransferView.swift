@@ -73,7 +73,7 @@ struct CreateTransferView: View {
                 
                 if !viewModel.amount.isBlank {
                     VStack(alignment: .leading, spacing: 24) {
-                        Text("Montant après transaction") // TODO: TBL
+                        Text("word_amount_after_transaction".localized)
                             .font(.mediumH3())
                             .fullWidth(.leading)
                         

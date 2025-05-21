@@ -1002,10 +1002,25 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "settings_applepay_shortcut_button" = "Apple Pay Verknüpfung aktivieren";
 
 /*  */
+"settings_features_title" = "Eigenschaften";
+
+/*  */
+"settings_help_title" = "Help";
+
+/*  */
+"settings_manage_accounts_title" = "Konten verwalten";
+
+/*  */
+"settings_others_title" = "Andere";
+
+/*  */
 "settings_preferences_applepay_address" = "Automatisch Position hinzufügen";
 
 /*  */
 "settings_preferences_applepay_address_footer" = "Automatisches Hinzufügen des Standorts zu einer Zahlung mit ApplePay";
+
+/*  */
+"settings_privacy_title" = "Datenschutz";
 
 "shortcut_all_para" = "Erstellen Sie eine Transaktion von ${amount} für ${title}";
 
@@ -1352,6 +1367,9 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 "word_amount" = "Menge";
 
 "word_amountToReach" = "Betrag zu erreichen";
+
+/*  */
+"word_amount_after_transaction" = "Betrag nach der Transaktion";
 
 "word_analytic" = "Statistiken";
 

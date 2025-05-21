@@ -1003,10 +1003,25 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "settings_applepay_shortcut_button" = "Activar acceso directo a Apple Pay";
 
 /*  */
+"settings_features_title" = "Funciones";
+
+/*  */
+"settings_help_title" = "Ayuda";
+
+/*  */
+"settings_manage_accounts_title" = "Gestionar cuentas";
+
+/*  */
+"settings_others_title" = "Otros";
+
+/*  */
 "settings_preferences_applepay_address" = "Añadir posición automáticamente";
 
 /*  */
 "settings_preferences_applepay_address_footer" = "Añadir automáticamente la ubicación a un pago con ApplePay";
+
+/*  */
+"settings_privacy_title" = "Privacidad";
 
 "shortcut_all_para" = "Crear una transacción de ${amount} para ${title}";
 
@@ -1353,6 +1368,9 @@ Esto puede servir como una guía para equilibrar tus gastos, ahorrar y planifica
 "word_amount" = "Cantidad";
 
 "word_amountToReach" = "cantidad a alcanzar";
+
+/*  */
+"word_amount_after_transaction" = "Importe después de la transacción";
 
 "word_analytic" = "Estadísticas";
 

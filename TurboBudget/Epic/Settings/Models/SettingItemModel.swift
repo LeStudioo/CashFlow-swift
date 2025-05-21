@@ -53,7 +53,7 @@ enum SettingItemModel: Identifiable {
         case .subscription:return Word.Main.subscription
         case .applePay:    return "Apple Pay"
         case .shortcutApplePay: return "settings_applepay_shortcut_button".localized
-        case .faq:         return "F.A.Q" // TODO: TBL
+        case .faq:         return "F.A.Q"
         case .writeReview: return "setting_home_write_review".localized
         case .reportBug:   return "setting_home_report_bug".localized
         case .suggestFeature: return "setting_home_new_features".localized

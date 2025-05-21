@@ -1003,10 +1003,25 @@ This can serve as a guideline for balancing your spending, saving and planning y
 "settings_applepay_shortcut_button" = "Activate Apple Pay shortcut";
 
 /*  */
+"settings_features_title" = "Features";
+
+/*  */
+"settings_help_title" = "Help";
+
+/*  */
+"settings_manage_accounts_title" = "Manage Accounts";
+
+/*  */
+"settings_others_title" = "Others";
+
+/*  */
 "settings_preferences_applepay_address" = "Automatically add position";
 
 /*  */
 "settings_preferences_applepay_address_footer" = "Automatically add location to a payment with ApplePay";
+
+/*  */
+"settings_privacy_title" = "Privacy";
 
 "shortcut_all_para" = "Create a transaction of ${amount} for ${title}";
 
@@ -1353,6 +1368,9 @@ This can serve as a guideline for balancing your spending, saving and planning y
 "word_amount" = "Amount";
 
 "word_amountToReach" = "Amount to reach";
+
+/*  */
+"word_amount_after_transaction" = "Amount after transaction";
 
 "word_analytic" = "Stats";
 

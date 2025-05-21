@@ -21,13 +21,13 @@ struct HomeScreenComponentHeader: View {
         NavigationButton(route: .push, destination: type.destination) {
             HStack(spacing: 8) {
                 Text(type.title)
-                    .foregroundStyle(Color.white)
+                    .foregroundStyle(Color.label)
                     .font(TKDesignSystem.Fonts.Title.medium)
                     .fullWidth(.leading)
                 
-                Image(systemName: "arrow.right")
+                Image(.iconArrowRight)
+                    .renderingMode(.template)
                     .foregroundStyle(themeManager.theme.color)
-                    .font(.system(size: 20, weight: .medium, design: .rounded))
             }
         }
     } // body
