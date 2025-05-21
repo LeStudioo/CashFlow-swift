@@ -154,22 +154,6 @@
 				es,
 				de,
 				it,
-				"de 2",
-				"en 2",
-				"es 2",
-				"fr 2",
-				"de 3",
-				"en 3",
-				"es 3",
-				"fr 3",
-				"de 4",
-				"en 4",
-				"es 4",
-				"fr 4",
-				"de 5",
-				"en 5",
-				"es 5",
-				"fr 5",
 			);
 			mainGroup = 81A7077A2A3B6B4C00BEB0BF;
 			packageReferences = (
@@ -368,7 +352,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250508;
+				CURRENT_PROJECT_VERSION = 20250521;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -420,7 +404,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TurboBudget/TurboBudget.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20250508;
+				CURRENT_PROJECT_VERSION = 20250521;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TurboBudget/Preview Content\"";
 				ENABLE_HARDENED_RUNTIME = YES;

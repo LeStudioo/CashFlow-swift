@@ -70,6 +70,10 @@ struct SettingsScreen: View {
                 .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
                 .foregroundStyle(Color.label)
                 .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+            
+            Rectangle()
+                .foregroundStyle(Color.clear)
+                .frame(height: 40)
         }
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .navigationBarBackButtonHidden(true)
