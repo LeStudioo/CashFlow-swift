@@ -84,15 +84,7 @@ extension TransactionStore {
                     sortTransactionsByDate()
                 }
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
-                EventService.sendEvent(key: .transactionCreated)
-                if transaction.type == .expense {
-                    EventService.sendEvent(key: .transactionExpenseCreated)
-                } else if transaction.type == .income {
-                    EventService.sendEvent(key: .transactionIncomeCreated)
-                }
-                if transaction.isFromApplePay {
-                    EventService.sendEvent(key: .transactionCreatedApplePay)
-                }
+                EventService.sendEventForTransactionCreated(transaction: transaction)
                 return shouldReturn ? transaction : nil
             }
             return nil

@@ -94,20 +94,22 @@ extension TransactionDTO {
     }
     
     /// Classic Transaction Body
-    init(
+    static func body(
         name: String,
         amount: Double,
         type: Int,
         dateISO: String,
-        categoryID: Int,
+        categoryID: Int? = nil,
         subcategoryID: Int? = nil
-    ) {
-        self.name = name
-        self.amount = amount
-        self.type = type
-        self.dateISO = dateISO
-        self.categoryID = categoryID
-        self.subcategoryID = subcategoryID
+    ) -> TransactionDTO {
+        return .init(
+            name: name,
+            amount: amount,
+            type: type,
+            dateISO: dateISO,
+            categoryID: categoryID,
+            subcategoryID: subcategoryID
+        )
     }
     
 }

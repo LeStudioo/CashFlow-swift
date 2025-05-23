@@ -20,6 +20,10 @@ final class CreateTransactionViewModel: ObservableObject {
             
     @Published var presentingConfirmationDialog: Bool = false
     
+    let accountStore: AccountStore = .shared
+    let transactionStore: TransactionStore = .shared
+    let successfullModalManager: SuccessfullModalManager = .shared
+    
     var isEditing: Bool {
         return transaction != nil
     }
@@ -45,22 +49,17 @@ final class CreateTransactionViewModel: ObservableObject {
 //    }
     
     func bodyForCreation() -> TransactionDTO {
-        return TransactionDTO(
+        return TransactionDTO.body(
             name: transactionTitle.trimmingCharacters(in: .whitespaces),
             amount: transactionAmount.toDouble(),
             type: selectedCategory?.isIncome == true ? TransactionType.income.rawValue : TransactionType.expense.rawValue,
             dateISO: transactionDate.toISO(),
-            creationDate: Date().toISO(),
             categoryID: selectedCategory?.id,
             subcategoryID: selectedSubcategory?.id
         )
     }
     
     func createTransaction(dismiss: DismissAction) async {
-        let accountStore: AccountStore = .shared
-        let transactionStore: TransactionStore = .shared
-        let successfullModalManager: SuccessfullModalManager = .shared
-        
         guard let account = accountStore.selectedAccount else { return }
         guard let accountID = account._id else { return }
         
@@ -75,10 +74,6 @@ final class CreateTransactionViewModel: ObservableObject {
     }
     
     func updateTransaction(dismiss: DismissAction) async {
-        let accountStore: AccountStore = .shared
-        let transactionStore: TransactionStore = .shared
-        let successfullModalManager: SuccessfullModalManager = .shared
-        
         guard let account = accountStore.selectedAccount else { return }
         guard let accountID = account._id else { return }
         guard let transactionID = transaction?.id else { return }
