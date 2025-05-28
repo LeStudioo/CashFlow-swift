@@ -19,7 +19,7 @@ enum SubcategoryDestination: AppDestinationProtocol {
         case .list(let category, let selectedDate):
             SubcategoryHomeView(category: category, selectedDate: selectedDate)
         case .transactions(let subcategory, let selectedDate):
-            SubcategoryTransactionsView(subcategory: subcategory, selectedDate: selectedDate)
+            SubcategoryTransactionsScreen(subcategory: subcategory, selectedDate: selectedDate)
         }
     }
     

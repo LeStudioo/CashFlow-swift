@@ -1,39 +1,37 @@
 //
-//  SubcategoryTransactionsView.swift
+//  CategoryTransactionsScreen.swift
 //  CashFlow
 //
-//  Created by KaayZenn on 16/08/2023.
+//  Created by KaayZenn on 18/08/2023.
 //
+// Refactor 26/09/2023
 // Localizations 01/10/2023
 
 import SwiftUI
 import NavigationKit
 import TheoKit
 
-struct SubcategoryTransactionsView: View {
+struct CategoryTransactionsScreen: View {
     
-    // Builder
-    var subcategory: SubcategoryModel
+    // MARK: Dependencies
+    var category: CategoryModel
     var selectedDate: Date
     
-    // Repo
+    // Environment
     @EnvironmentObject private var transactionStore: TransactionStore
-        
-    // State or Binding String
+    
+    // String variables
     @State private var searchText: String = ""
+    
+    @State private var amountExpense: Double = 0
+    @State private var amountIncome: Double = 0
     
     // MARK: -
     var body: some View {
-        let transactionsExpenses = transactionStore.getExpenses(for: subcategory, in: selectedDate)
-        let transactionsFiltered = transactionsExpenses.search(for: searchText)
+        let transactions = transactionStore.getTransactions(for: category, in: selectedDate)
+        let transactionsFiltered = transactions.search(searchText)
         
-        VStack(spacing: 0) {
-            NavigationBar(
-                title: Word.Main.transactions,
-                placeholder: "word_search".localized,
-                searchText: $searchText,
-            )
-         
+        VStack {
             if transactionsFiltered.isNotEmpty {
                 List {
                     Section(
@@ -48,11 +46,12 @@ struct SubcategoryTransactionsView: View {
                             }
                             .noDefaultStyle()
                             .padding(.bottom, DesignSystem.Padding.medium)
-                        }, header: {
+                        },
+                        header: {
                             DetailOfExpensesAndIncomesByMonth(
                                 month: selectedDate,
-                                amountOfExpenses: transactionsExpenses.compactMap(\.amount).reduce(0, +),
-                                amountOfIncomes: 0
+                                amountOfExpenses: amountExpense,
+                                amountOfIncomes: amountIncome
                             )
                         }
                     )
@@ -69,13 +68,29 @@ struct SubcategoryTransactionsView: View {
                 )
             }
         }
-        .scrollDismissesKeyboard(.interactively)
+        .navigationTitle(Word.Main.transactions)
+        .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
-    } // body
-} // struct
+        .toolbar {
+            ToolbarDismissPushButton()
+        }
+        .searchable(text: $searchText, prompt: "word_search".localized)
+        .onAppear {
+            if category.isIncome {
+                amountIncome = transactions
+                    .compactMap(\.amount)
+                    .reduce(0, +)
+            } else {
+                amountExpense = transactions
+                    .compactMap(\.amount)
+                    .reduce(0, +)
+            }
+        }
+    } // End body
+} // End struct
 
 // MARK: - Preview
 #Preview {
-    SubcategoryTransactionsView(subcategory: .mock, selectedDate: .now)
+    CategoryTransactionsScreen(category: .mock, selectedDate: .now)
 }

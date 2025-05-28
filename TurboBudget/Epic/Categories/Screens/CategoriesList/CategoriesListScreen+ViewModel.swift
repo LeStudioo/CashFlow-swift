@@ -7,36 +7,27 @@
 
 import Foundation
 
-struct CategoryAmount: Identifiable {
-    let id: UUID
-    let categoryId: Int?
-    let amount: Double
+extension CategoriesListScreen {
     
-    init(categoryId: Int?, amount: Double) {
-        self.id = UUID()
-        self.categoryId = categoryId
-        self.amount = amount
-    }
-}
-
-final class CategoriesHomeViewModel: ObservableObject {
-    
-    let categories = CategoryStore.shared.categories
+    final class ViewModel: ObservableObject {
+        let categories = CategoryStore.shared.categories
+            
+        @Published var categoryAmounts: [Int?: CategoryAmount] = [:]
+        @Published var searchText: String = ""
         
-    @Published var categoryAmounts: [Int?: CategoryAmount] = [:]
-    @Published var searchText: String = ""
+        @Published var selectedDate: Date = Date()
+    }
     
-    @Published var selectedDate: Date = Date()
 }
 
-extension CategoriesHomeViewModel {
+extension CategoriesListScreen.ViewModel {
     
     var isChartDisplayed: Bool {
         return !TransactionStore.shared.getExpenses(in: selectedDate).isEmpty
     }
     
     var categoriesFiltered: [CategoryModel] {
-        return categories.searchFor(searchText)
+        return categories.search(searchText)
     }
     
     func calculateAllAmounts(for date: Date) {

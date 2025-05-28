@@ -1,5 +1,5 @@
 //
-//  CategoryRow.swift
+//  CategoryRowView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 18/06/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import TheoKit
 
-struct CategoryRow: View {
+struct CategoryRowView: View {
     
     // MARK: Dependencies
     var category: CategoryModel
@@ -56,5 +56,5 @@ struct CategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryRow(category: .mock, selectedDate: .now, amount: "")
+    CategoryRowView(category: .mock, selectedDate: .now, amount: "")
 }

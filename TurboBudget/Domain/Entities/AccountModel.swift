@@ -97,6 +97,12 @@ struct AccountModel: Codable, Identifiable, Equatable, Hashable {
     }
 }
 
+extension AccountModel: Searchable {
+    var searchableText: String {
+        return name
+    }
+}
+
 extension AccountModel {
     
     var name: String {

@@ -1,13 +1,14 @@
 //
-//  CategorySelectableRow.swift
+//  CategorySelectableRowView.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 28/12/2024.
 //
 
 import SwiftUI
+import TheoKit
 
-struct CategorySelectableRow: View {
+struct CategorySelectableRowView: View {
     
     // Builder
     var category: CategoryModel
@@ -35,12 +36,11 @@ struct CategorySelectableRow: View {
                 
                 Spacer()
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background300)
-            }
+            .padding(TKDesignSystem.Padding.standard)
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg200,
+                radius: TKDesignSystem.Radius.standard
+            )
             .overlay(alignment: .topTrailing) {
                 if isSelected {
                     ZStack {
@@ -60,7 +60,7 @@ struct CategorySelectableRow: View {
 
 // MARK: - Preview
 #Preview {
-    CategorySelectableRow(
+    CategorySelectableRowView(
         category: .mock,
         isSelected: true
     ) { }

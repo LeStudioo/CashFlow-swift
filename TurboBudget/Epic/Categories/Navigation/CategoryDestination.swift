@@ -18,11 +18,11 @@ enum CategoryDestination: AppDestinationProtocol, Equatable, Hashable {
     func body(route: Route) -> some View {
         switch self {
         case .list:
-            CategoryHomeView()
+            CategoriesListScreen()
         case .transactions(let category, let selectedDate):
-            CategoryTransactionsView(category: category, selectedDate: selectedDate)
+            CategoryTransactionsScreen(category: category, selectedDate: selectedDate)
         case .select(let selectedCategory, let selectedSubcategory):
-            SelectCategoryView(selectedCategory: selectedCategory, selectedSubcategory: selectedSubcategory)
+            SelectCategoryScreen(selectedCategory: selectedCategory, selectedSubcategory: selectedSubcategory)
         }
     }
     

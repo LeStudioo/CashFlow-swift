@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TheoKit
 
 struct SubcategorySelectableRow: View {
     
@@ -34,12 +35,11 @@ struct SubcategorySelectableRow: View {
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical)
-            .background {
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color.background300)
-            }
+            .padding(TKDesignSystem.Padding.standard)
+            .roundedRectangleBorder(
+                TKDesignSystem.Colors.Background.Theme.bg200,
+                radius: TKDesignSystem.Radius.standard
+            )
             .overlay(alignment: .topTrailing) {
                 if isSelected {
                     ZStack {

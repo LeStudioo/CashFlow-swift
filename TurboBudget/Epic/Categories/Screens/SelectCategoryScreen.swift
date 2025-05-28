@@ -1,5 +1,5 @@
 //
-//  SelectCategoryView.swift
+//  SelectCategoryScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 18/06/2023.
@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct SelectCategoryView: View {
+struct SelectCategoryScreen: View {
     
     // Builder
     @Binding var selectedCategory: CategoryModel?
@@ -43,7 +43,7 @@ struct SelectCategoryView: View {
                             .padding([.horizontal, .top])
                         
                         if category.subcategories == nil || category.subcategories?.isEmpty == true {
-                            CategorySelectableRow(
+                            CategorySelectableRowView(
                                 category: category,
                                 isSelected: selectedCategory == category
                             ) {
@@ -126,6 +126,6 @@ struct SelectCategoryView: View {
 //    @State static var selectedSubcategoryPreview: ? =
 //
 //    static var previews: some View {
-//        SelectCategoryView(selectedCategory: $selectedCategoryPreview, selectedSubcategory: )
+//        SelectCategoryScreen(selectedCategory: $selectedCategoryPreview, selectedSubcategory: )
 //    }
 // }

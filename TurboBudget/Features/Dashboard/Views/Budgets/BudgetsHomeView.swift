@@ -34,7 +34,7 @@ struct BudgetsHomeView: View {
         } content: {
             ForEach(budgetStore.budgetsByCategory.sorted(by: { $0.key.name < $1.key.name }), id: \.key) { category, budgets in
                 VStack(spacing: 16) {
-                    CategoryHeader(category: category)
+                    CategoryHeaderView(category: category)
                     
                     VStack(spacing: 12) {
                         ForEach(budgets) { budget in

@@ -23,11 +23,7 @@ struct SavingsPlanListScreen: View {
         
     // Computed var
     private var searchResults: [SavingsPlanModel] {
-        if searchText.isEmpty {
-            return savingsPlanStore.savingsPlans
-        } else {
-            return savingsPlanStore.savingsPlans.filter { $0.name?.localizedStandardContains(searchText) ?? false }
-        }
+        return savingsPlanStore.savingsPlans.search(searchText)
     }
     
     // Other

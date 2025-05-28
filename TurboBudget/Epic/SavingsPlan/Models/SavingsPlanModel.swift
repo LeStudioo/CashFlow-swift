@@ -82,6 +82,12 @@ struct SavingsPlanModel: Codable, Identifiable, Equatable, Hashable {
     }
 }
 
+extension SavingsPlanModel: Searchable {
+    var searchableText: String {
+        return name ?? ""
+    }
+}
+
 extension SavingsPlanModel {
     
     var startDate: Date {

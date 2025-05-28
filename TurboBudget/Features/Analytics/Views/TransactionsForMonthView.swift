@@ -23,7 +23,7 @@ struct TransactionsForMonthView: View {
     // MARK: -
     var body: some View {
         let transactions = transactionStore.getTransactions(in: selectedDate).filter { $0.type == type }
-        let transactionsFiltered = transactions.search(for: searchText)
+        let transactionsFiltered = transactions.search(searchText)
         
         VStack {
             if transactionsFiltered.isNotEmpty {

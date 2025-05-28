@@ -1,5 +1,5 @@
 //
-//  CategoryHeader.swift
+//  CategoryHeaderView.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 03/12/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoryHeader: View {
+struct CategoryHeaderView: View {
     
     // Builder
     var category: CategoryModel
@@ -32,5 +32,5 @@ struct CategoryHeader: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryHeader(category: .mock)
+    CategoryHeaderView(category: .mock)
 }

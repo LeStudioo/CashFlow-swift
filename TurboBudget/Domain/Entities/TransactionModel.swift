@@ -41,6 +41,12 @@ extension TransactionModel {
 
 }
 
+extension TransactionModel: Searchable {
+    var searchableText: String {
+        return nameDisplayed
+    }
+}
+
 extension TransactionModel {
     
     var type: TransactionType {

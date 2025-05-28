@@ -25,6 +25,7 @@ extension EventService {
             ]
         )
     }
+    
 }
 
 extension EventService {

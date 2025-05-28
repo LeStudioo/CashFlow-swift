@@ -1,5 +1,5 @@
 //
-//  CategoryHomeView.swift
+//  CategoriesListScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 18/06/2023.
@@ -11,7 +11,7 @@ import SwiftUI
 import NavigationKit
 import TheoKit
 
-struct CategoryHomeView: View {
+struct CategoriesListScreen: View {
     
     // MARK: EnvironmentObject
     @EnvironmentObject private var accountStore: AccountStore
@@ -19,26 +19,26 @@ struct CategoryHomeView: View {
     @EnvironmentObject private var categoryStore: CategoryStore
     @EnvironmentObject private var router: Router<AppDestination>
     
-    // Custom type
-    @StateObject private var viewModel: CategoriesHomeViewModel = .init()
+    // MARK: StateObject
+    @StateObject private var viewModel: ViewModel = .init()
     
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            if viewModel.categoriesFiltered.isNotEmpty {
-                ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
-                    NavigationBar(
-                        title: "word_categories".localized,
-                        withDismiss: false,
-                        actionButton: .init(
-                            icon: .iconGear,
-                            action: { router.push(.settings(.home)) },
-                            isDisabled: false
-                        ),
-                        placeholder: "word_search".localized,
-                        searchText: $viewModel.searchText.animation(),
-                    )
-                } content: {
+            ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+                NavigationBar(
+                    title: "word_categories".localized,
+                    withDismiss: false,
+                    actionButton: .init(
+                        icon: .iconGear,
+                        action: { router.push(.settings(.home)) },
+                        isDisabled: false
+                    ),
+                    placeholder: "word_search".localized,
+                    searchText: $viewModel.searchText.animation(),
+                )
+            } content: {
+                if viewModel.categoriesFiltered.isNotEmpty {
                     ForEach(viewModel.categoriesFiltered) { category in
                         let subcategories = category.subcategories
                         NavigationButton(
@@ -49,7 +49,7 @@ struct CategoryHomeView: View {
                                 : AppDestination.category(.transactions(category: category, selectedDate: viewModel.selectedDate))
                             )
                         ) {
-                            CategoryRow(
+                            CategoryRowView(
                                 category: category,
                                 selectedDate: viewModel.selectedDate,
                                 amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
@@ -64,12 +64,12 @@ struct CategoryHomeView: View {
                         .frame(height: 100)
                         .opacity(0)
                         .noDefaultStyle()
+                } else {
+                    CustomEmptyView(
+                        type: .noResults(viewModel.searchText),
+                        isDisplayed: viewModel.categoriesFiltered.isEmpty && !viewModel.searchText.isEmpty
+                    )
                 }
-            } else {
-                CustomEmptyView(
-                    type: .noResults(viewModel.searchText),
-                    isDisplayed: viewModel.categoriesFiltered.isEmpty && !viewModel.searchText.isEmpty
-                )
             }
             
             //                VStack(spacing: 24) { // TODO: deplace in analytics
@@ -123,5 +123,5 @@ struct CategoryHomeView: View {
 
 // MARK: - Preview
 #Preview {
-    CategoryHomeView()
+    CategoriesListScreen()
 }

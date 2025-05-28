@@ -36,6 +36,13 @@ extension CategoryModel {
     
 }
 
+extension CategoryModel: Searchable {
+    var searchableText: String {
+        let subcategoryNames = subcategories?.map { $0.name } ?? []
+        return "\(name) \(subcategoryNames.joined(separator: " "))"
+    }
+}
+
 extension CategoryModel {
     
     var transactions: [TransactionModel] {

@@ -37,11 +37,7 @@ struct SavingsAccountHomeView: View {
     }
     
     var savingsAccountsFiltered: [AccountModel] {
-        if searchText.isEmpty {
-            return accountStore.savingsAccounts
-        } else {
-            return accountStore.savingsAccounts.filter { $0.name.localizedStandardContains(searchText) }
-        }
+        return accountStore.savingsAccounts.search(searchText)
     }
     
     // MARK: -
