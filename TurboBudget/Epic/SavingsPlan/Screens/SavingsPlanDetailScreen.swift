@@ -151,7 +151,7 @@ struct SavingsPlanDetailScreen: View {
                     }
                 }
               
-                TransactionDetailNoteRow(note: $savingPlanNote)
+                TransactionDetailNoteRowView(note: $savingPlanNote)
                 
                 VStack(spacing: 8) {
                     HStack {
@@ -171,7 +171,7 @@ struct SavingsPlanDetailScreen: View {
                     
                     if contributionStore.contributions.isNotEmpty {
                         ForEach(contributionStore.contributions) { contribution in
-                            ContributionRow(savingsPlan: currentSavingsPlan, contribution: contribution)
+                            ContributionRowView(savingsPlan: currentSavingsPlan, contribution: contribution)
                         }
                     } else {
 //                        CustomEmptyView(

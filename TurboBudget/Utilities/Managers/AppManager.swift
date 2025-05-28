@@ -32,7 +32,7 @@ extension AppManager {
         let creditCardStore: CreditCardStore = .shared
         let categoryStore: CategoryStore = .shared
         
-        let preferencesSubscription: PreferencesSubscription = .shared
+        let preferencesSubscription: SubscriptionPreferences = .shared
         
         await categoryStore.fetchCategories()
         if let selectedAccount = accountStore.selectedAccount, let accountID = selectedAccount._id {

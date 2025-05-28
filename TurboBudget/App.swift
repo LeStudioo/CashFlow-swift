@@ -40,7 +40,7 @@ struct TurboBudgetApp: App {
     
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
-    @StateObject private var preferencesSubscription: PreferencesSubscription = .shared
+    @StateObject private var preferencesSubscription: SubscriptionPreferences = .shared
         
     // init
     init() {
@@ -79,7 +79,7 @@ struct TurboBudgetApp: App {
                         }
                     }
                 case .needLogin:
-                    LoginView()
+                    LoginScreen()
                 case .noInternet:
                     NoInternetView()
                 }

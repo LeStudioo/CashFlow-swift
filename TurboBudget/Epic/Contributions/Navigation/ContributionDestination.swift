@@ -1,0 +1,22 @@
+//
+//  ContributionDestination.swift
+//  CashFlow
+//
+//  Created by Theo Sementa on 18/04/2025.
+//
+
+import SwiftUICore
+import NavigationKit
+
+enum ContributionDestination: AppDestinationProtocol {
+    case create(savingsPlan: SavingsPlanModel)
+    
+    var id: Self { self }
+    
+    func body(route: Route) -> some View {
+        switch self {
+        case .create(let savingsPlan):
+            CreateContributionScreen(savingsPlan: savingsPlan)
+        }
+    }
+}

@@ -42,7 +42,7 @@ struct SubcategoryTransactionsScreen: View {
                                 route: .push,
                                 destination: AppDestination.transaction(.detail(transaction: transaction))
                             ) {
-                                TransactionRow(transaction: transaction)
+                                TransactionRowView(transaction: transaction)
                             }
                         }
                         .noDefaultStyle()

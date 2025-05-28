@@ -29,7 +29,7 @@ extension SuccessfullModalManager {
     func showSuccessfulTransaction(type: SuccessfulType, transaction: TransactionModel) {
         self.title = Word.Successful.Transaction.title(type: type)
         self.subtitle = Word.Successful.Transaction.description(type: type)
-        self.content = AnyView(TransactionRow(transaction: transaction).disabled(true))
+        self.content = AnyView(TransactionRowView(transaction: transaction).disabled(true))
             
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true
@@ -40,7 +40,7 @@ extension SuccessfullModalManager {
     func showSuccessfulTransfer(type: SuccessfulType, transfer: TransactionModel) {
         self.title = Word.Successful.Transfer.title(type: type)
         self.subtitle = Word.Successful.Transfer.description(type: type)
-        self.content = AnyView(TransferRow(transfer: transfer, location: .successfulSheet).disabled(true))
+        self.content = AnyView(TransferRowView(transfer: transfer, location: .successfulSheet).disabled(true))
             
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true
@@ -51,7 +51,7 @@ extension SuccessfullModalManager {
     func showSuccessfulSubscription(type: SuccessfulType, subscription: SubscriptionModel) {
         self.title = Word.Successful.Subscription.title(type: type)
         self.subtitle = Word.Successful.Subscription.description(type: type)
-        self.content = AnyView(SubscriptionRow(subscription: subscription).disabled(true))
+        self.content = AnyView(SubscriptionRowView(subscription: subscription).disabled(true))
             
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true
@@ -73,7 +73,7 @@ extension SuccessfullModalManager {
     func showSuccessfulContribution(type: SuccessfulType, savingsPlan: SavingsPlanModel, contribution: ContributionModel) {
         self.title = Word.Successful.Contribution.title(type: type)
         self.subtitle = Word.Successful.Contribution.description(type: type)
-        self.content = AnyView(ContributionRow(savingsPlan: savingsPlan, contribution: contribution))
+        self.content = AnyView(ContributionRowView(savingsPlan: savingsPlan, contribution: contribution))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true
@@ -84,7 +84,7 @@ extension SuccessfullModalManager {
     func showSuccessfullBudget(type: SuccessfulType, budget: BudgetModel) {
         self.title = "budget_successful".localized
         self.subtitle = "budget_successful_desc".localized
-        self.content = AnyView(BudgetRow(budget: budget))
+        self.content = AnyView(BudgetRowView(budget: budget))
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.isPresenting = true

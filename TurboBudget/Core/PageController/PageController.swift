@@ -94,7 +94,7 @@ struct PageControllerView: View {
                     }
                 }
                 .sheet(isPresented: $viewModel.showOnboarding) {
-                    OnboardingView()
+                    OnboardingScreen()
                 }
                 .blur(radius: appManager.isMenuPresented ? 12 : 0)
                 .overlay {
