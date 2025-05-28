@@ -1,5 +1,5 @@
 //
-//  QRCodeScannerView.swift
+//  QRCodeScannerScreen.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 25/07/2023.
@@ -8,7 +8,7 @@
 import SwiftUI
 import NetworkKit
 
-struct QRCodeScannerView: View {
+struct QRCodeScannerScreen: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var themeManager: ThemeManager
@@ -54,5 +54,5 @@ struct QRCodeScannerView: View {
 
 // MARK: - Preview
 #Preview {
-    QRCodeScannerView()
+    QRCodeScannerScreen()
 }

@@ -26,7 +26,7 @@ enum SharedDestination: AppDestinationProtocol {
         case .whatsNew:
             WhatsNewScreen()
         case .qrCodeScanner:
-            QRCodeScannerView()
+            QRCodeScannerScreen()
         case .home:
             HomeScreen()
         case .analytics:

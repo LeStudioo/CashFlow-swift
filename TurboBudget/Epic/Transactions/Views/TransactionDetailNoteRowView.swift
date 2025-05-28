@@ -22,13 +22,6 @@ struct TransactionDetailNoteRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-                CustomOrSystemImage(systemImage: "text.quote", size: 12, color: .white)
-                    .padding(6)
-                    .background {
-                        Circle()
-                            .fill(Color.background200)
-                    }
-                
                 Text(Word.Classic.note)
                     .font(.mediumText16())
                     .foregroundStyle(Color.text)

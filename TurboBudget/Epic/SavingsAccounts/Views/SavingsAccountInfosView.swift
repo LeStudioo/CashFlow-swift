@@ -22,8 +22,8 @@ struct SavingsAccountInfosView: View {
                 text: Word.Classic.currentAmount,
                 value: savingsAccount.balance.toCurrency()
             )
-            .onGetHeight { height in
-                rowHeight = height - 8
+            .getSize { size in
+                rowHeight = size.height - 8
             }
             
             if let maxAmount = savingsAccount.maxAmount {

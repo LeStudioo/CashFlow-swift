@@ -127,7 +127,7 @@ struct AccountDashboardScreen: View {
                     
                     VStack(spacing: 16) {LazyVGrid(columns: viewModel.columns, spacing: 16, content: {
                             NavigationButton(route: .push, destination: AppDestination.account(.statistics)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconLineChart,
                                         text: Word.Classic.statistics
@@ -142,7 +142,7 @@ struct AccountDashboardScreen: View {
                             }
                             
                             NavigationButton(route: .push, destination: AppDestination.savingsAccount(.list)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconLandmark,
                                         text: Word.Main.savingsAccounts
@@ -151,7 +151,7 @@ struct AccountDashboardScreen: View {
                             }
                             
                             NavigationButton(route: .push, destination: AppDestination.transaction(.list)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconWallet,
                                         text: Word.Main.transactions
@@ -160,7 +160,7 @@ struct AccountDashboardScreen: View {
                             }
                             
                             NavigationButton(route: .push, destination: AppDestination.subscription(.list)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconClockRepeat,
                                         text: Word.Main.subscriptions
@@ -169,7 +169,7 @@ struct AccountDashboardScreen: View {
                             }
                             
                             NavigationButton(route: .push, destination: AppDestination.savingsPlan(.list)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconPiggyBank,
                                         text: Word.Main.savingsPlans
@@ -178,7 +178,7 @@ struct AccountDashboardScreen: View {
                             }
                             
                             NavigationButton(route: .push, destination: AppDestination.budget(.list)) {
-                                DashboardRow(
+                                DashboardRowView(
                                     config: .init(
                                         icon: .iconPieChart,
                                         text: "word_budgets".localized,
