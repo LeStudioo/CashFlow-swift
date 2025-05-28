@@ -1,5 +1,5 @@
 //
-//  SubcategorySelectableRow.swift
+//  SubcategorySelectableRowView.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 28/12/2024.
@@ -8,16 +8,17 @@
 import SwiftUI
 import TheoKit
 
-struct SubcategorySelectableRow: View {
+struct SubcategorySelectableRowView: View {
     
-    // Builder
+    // MARK: Dependencies
     var subcategory: SubcategoryModel
     var isSelected: Bool
     var action: () -> Void
     
+    // MARK: Environments
     @EnvironmentObject private var themeManager: ThemeManager
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         Button(action: action) {
             HStack {
@@ -59,5 +60,5 @@ struct SubcategorySelectableRow: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategorySelectableRow(subcategory: .mock, isSelected: true, action: { })
+    SubcategorySelectableRowView(subcategory: .mock, isSelected: true, action: { })
 }

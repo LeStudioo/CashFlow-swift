@@ -7,14 +7,16 @@
 
 import Foundation
 
-final class SubcategoryHomeViewModel: ObservableObject {
-    @Published var selectedSubcategory: SubcategoryModel?
-    @Published var filter: Filter = .shared
+extension SubcategoryListScreen {
     
-    @Published var searchText: String = ""
+    final class ViewModel: ObservableObject {
+        @Published var selectedSubcategory: SubcategoryModel?        
+        @Published var searchText: String = ""
+    }
+    
 }
 
-extension SubcategoryHomeViewModel {
+extension SubcategoryListScreen.ViewModel {
     
     func isDisplayChart(category: CategoryModel) -> Bool {
         let transactionStore: TransactionStore = .shared

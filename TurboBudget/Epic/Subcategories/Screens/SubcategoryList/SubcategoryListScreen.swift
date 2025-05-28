@@ -1,5 +1,5 @@
 //
-//  SubcategoryHomeView.swift
+//  SubcategoryListScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 19/06/2023.
@@ -10,18 +10,18 @@ import SwiftUI
 import NavigationKit
 import TheoKit
 
-struct SubcategoryHomeView: View {
+struct SubcategoryListScreen: View {
     
-    // Builder
+    // MARK: Dependencies
     var category: CategoryModel
     var selectedDate: Date
     
-    // Custom
-    @StateObject private var viewModel: SubcategoryHomeViewModel = .init()
-    
-    // Environnement
+    // MARK: Environnements
     @EnvironmentObject private var transactionStore: TransactionStore
     @EnvironmentObject private var categoryStore: CategoryStore
+    
+    // MARK: StateObject
+    @StateObject private var viewModel: ViewModel = .init()
     
     // Computed
     var searchResults: [SubcategoryModel] {
@@ -40,7 +40,7 @@ struct SubcategoryHomeView: View {
         }
     }
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(title: "word_subcategories".localized)
@@ -55,7 +55,7 @@ struct SubcategoryHomeView: View {
                         )
                     )
                 ) {
-                    SubcategoryRow(subcategory: subcategory, selectedDate: selectedDate)
+                    SubcategoryRowView(subcategory: subcategory, selectedDate: selectedDate)
                 }
                 .padding(.bottom, TKDesignSystem.Spacing.medium)
                 .padding(.horizontal, TKDesignSystem.Padding.large)
@@ -80,10 +80,10 @@ struct SubcategoryHomeView: View {
             //                    }
         .navigationBarBackButtonHidden(true)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {
-    SubcategoryHomeView(category: .mock, selectedDate: .now)
+    SubcategoryListScreen(category: .mock, selectedDate: .now)
 }

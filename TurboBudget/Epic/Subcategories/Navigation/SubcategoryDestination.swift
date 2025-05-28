@@ -17,7 +17,7 @@ enum SubcategoryDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .list(let category, let selectedDate):
-            SubcategoryHomeView(category: category, selectedDate: selectedDate)
+            SubcategoryListScreen(category: category, selectedDate: selectedDate)
         case .transactions(let subcategory, let selectedDate):
             SubcategoryTransactionsScreen(subcategory: subcategory, selectedDate: selectedDate)
         }

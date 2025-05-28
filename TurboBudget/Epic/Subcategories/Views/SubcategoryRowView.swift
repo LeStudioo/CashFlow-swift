@@ -1,5 +1,5 @@
 //
-//  SubcategoryRow.swift
+//  SubcategoryRowView.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 19/06/2023.
@@ -8,12 +8,13 @@
 import SwiftUI
 import TheoKit
 
-struct SubcategoryRow: View {
+struct SubcategoryRowView: View {
     
-    // Custom type
+    // MARK: Dependencies
     var subcategory: SubcategoryModel
     var selectedDate: Date
     
+    // MARK: Environments
     @EnvironmentObject private var transactionStore: TransactionStore
     
     // Computed var
@@ -63,5 +64,5 @@ struct SubcategoryRow: View {
 
 // MARK: - Preview
 #Preview {
-    SubcategoryRow(subcategory: .mock, selectedDate: .now)
+    SubcategoryRowView(subcategory: .mock, selectedDate: .now)
 }

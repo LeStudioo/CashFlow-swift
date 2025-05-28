@@ -59,7 +59,7 @@ struct SelectCategoryScreen: View {
                                 ? category.subcategories ?? []
                                 : category.subcategories?.filter { $0.name.localizedStandardContains(searchText) } ?? []
                                 ForEach(subcategories) { subcategory in
-                                    SubcategorySelectableRow(
+                                    SubcategorySelectableRowView(
                                         subcategory: subcategory,
                                         isSelected: selectedSubcategory == subcategory
                                     ) {

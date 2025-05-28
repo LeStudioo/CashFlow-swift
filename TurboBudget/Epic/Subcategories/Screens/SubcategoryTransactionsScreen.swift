@@ -12,14 +12,14 @@ import TheoKit
 
 struct SubcategoryTransactionsScreen: View {
     
-    // Builder
+    // MARK: Dependencies
     var subcategory: SubcategoryModel
     var selectedDate: Date
     
-    // Repo
+    // MARK: Environments
     @EnvironmentObject private var transactionStore: TransactionStore
         
-    // State or Binding String
+    // MARK: States
     @State private var searchText: String = ""
     
     // MARK: -
@@ -36,26 +36,24 @@ struct SubcategoryTransactionsScreen: View {
          
             if transactionsFiltered.isNotEmpty {
                 List {
-                    Section(
-                        content: {
-                            ForEach(transactionsFiltered) { transaction in
-                                NavigationButton(
-                                    route: .push,
-                                    destination: AppDestination.transaction(.detail(transaction: transaction))
-                                ) {
-                                    TransactionRow(transaction: transaction)
-                                }
+                    Section {
+                        ForEach(transactionsFiltered) { transaction in
+                            NavigationButton(
+                                route: .push,
+                                destination: AppDestination.transaction(.detail(transaction: transaction))
+                            ) {
+                                TransactionRow(transaction: transaction)
                             }
-                            .noDefaultStyle()
-                            .padding(.bottom, DesignSystem.Padding.medium)
-                        }, header: {
-                            DetailOfExpensesAndIncomesByMonth(
-                                month: selectedDate,
-                                amountOfExpenses: transactionsExpenses.compactMap(\.amount).reduce(0, +),
-                                amountOfIncomes: 0
-                            )
                         }
-                    )
+                        .noDefaultStyle()
+                        .padding(.bottom, DesignSystem.Padding.medium)
+                    } header: {
+                        DetailOfExpensesAndIncomesByMonth(
+                            month: selectedDate,
+                            amountOfExpenses: transactionsExpenses.compactMap(\.amount).reduce(0, +),
+                            amountOfIncomes: 0
+                        )
+                    }
                     .padding(.horizontal, TKDesignSystem.Padding.large)
                 }
                 .listStyle(.plain)

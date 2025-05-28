@@ -10,11 +10,12 @@ import TheoKit
 
 struct CategorySelectableRowView: View {
     
-    // Builder
+    // MARK: Dependencies
     var category: CategoryModel
     var isSelected: Bool
     var action: () -> Void
     
+    // MARK: Environments
     @EnvironmentObject private var themeManager: ThemeManager
     
     // MARK: -

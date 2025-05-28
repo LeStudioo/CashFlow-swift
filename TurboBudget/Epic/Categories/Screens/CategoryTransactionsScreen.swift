@@ -17,16 +17,15 @@ struct CategoryTransactionsScreen: View {
     var category: CategoryModel
     var selectedDate: Date
     
-    // Environment
+    // MARK: Environments
     @EnvironmentObject private var transactionStore: TransactionStore
     
-    // String variables
+    // MARK: States
     @State private var searchText: String = ""
-    
     @State private var amountExpense: Double = 0
     @State private var amountIncome: Double = 0
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         let transactions = transactionStore.getTransactions(for: category, in: selectedDate)
         let transactionsFiltered = transactions.search(searchText)
@@ -87,8 +86,8 @@ struct CategoryTransactionsScreen: View {
                     .reduce(0, +)
             }
         }
-    } // End body
-} // End struct
+    }
+}
 
 // MARK: - Preview
 #Preview {

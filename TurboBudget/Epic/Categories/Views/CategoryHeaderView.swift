@@ -9,10 +9,10 @@ import SwiftUI
 
 struct CategoryHeaderView: View {
     
-    // Builder
+    // MARK: Dependencies
     var category: CategoryModel
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         HStack(spacing: 8) {
             Text(category.name)
@@ -27,8 +27,8 @@ struct CategoryHeaderView: View {
                         .foregroundStyle(Color.white)
                 }
         }
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {
