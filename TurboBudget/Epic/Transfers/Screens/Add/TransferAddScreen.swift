@@ -1,5 +1,5 @@
 //
-//  CreateTransferScreen.swift
+//  TransferAddScreen.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 29/11/2024.
@@ -9,7 +9,7 @@ import SwiftUI
 import StatsKit
 import TheoKit
 
-struct CreateTransferScreen: View {
+struct TransferAddScreen: View {
     
     // Builder
     @StateObject private var viewModel: ViewModel
@@ -125,5 +125,5 @@ struct CreateTransferScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateTransferScreen()
+    TransferAddScreen()
 }

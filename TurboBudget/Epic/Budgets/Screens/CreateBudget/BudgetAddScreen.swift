@@ -1,5 +1,5 @@
 //
-//  CreateBudgetScreen.swift
+//  BudgetAddScreen.swift
 //  CashFlow
 //
 //  Created by KaayZenn on 03/08/2023.
@@ -11,7 +11,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 
-struct CreateBudgetScreen: View {
+struct BudgetAddScreen: View {
     
     // Custom
     @StateObject private var viewModel: ViewModel = .init()
@@ -79,5 +79,5 @@ struct CreateBudgetScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateBudgetScreen()
+    BudgetAddScreen()
 }

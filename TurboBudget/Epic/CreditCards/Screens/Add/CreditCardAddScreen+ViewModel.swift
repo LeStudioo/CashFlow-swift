@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateCreditCardScreen {
+extension CreditCardAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -24,7 +24,7 @@ extension CreateCreditCardScreen {
     
 }
 
-extension CreateCreditCardScreen.ViewModel {
+extension CreditCardAddScreen.ViewModel {
     
     @MainActor
     func createCreditCard(dismiss: DismissAction) async {
@@ -49,7 +49,7 @@ extension CreateCreditCardScreen.ViewModel {
     
 }
 
-extension CreateCreditCardScreen.ViewModel {
+extension CreditCardAddScreen.ViewModel {
     
     func isCreditCardInCreation() -> Bool {
         if !cardNumbers.isEmpty || !cvv.isEmpty || !cardHolder.isEmpty {

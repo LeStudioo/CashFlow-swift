@@ -20,7 +20,7 @@ enum BudgetsDestination: AppDestinationProtocol {
         case .list:
             BudgetsListScreen()
         case .create:
-            CreateBudgetScreen()
+            BudgetAddScreen()
         case .transactions(let subcategory):
             BudgetsTransactionsListScreen(subcategory: subcategory)
         }

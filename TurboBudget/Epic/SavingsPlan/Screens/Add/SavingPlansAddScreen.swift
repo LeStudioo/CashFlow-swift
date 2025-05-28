@@ -1,5 +1,5 @@
 //
-//  CreateSavingPlansScreen.swift
+//  SavingPlansAddScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 20/06/2023.
@@ -11,11 +11,11 @@ import MCEmojiPicker
 import StatsKit
 import TheoKit
 
-struct CreateSavingPlansScreen: View {
+struct SavingPlansAddScreen: View {
     
     // builder
     var savingsPlan: SavingsPlanModel?
-    @StateObject private var viewModel: CreateSavingsPlanViewModel
+    @StateObject private var viewModel: ViewModel
     
     // Custom
     @EnvironmentObject private var accountStore: AccountStore
@@ -34,7 +34,7 @@ struct CreateSavingPlansScreen: View {
     // init
     init(savingsPlan: SavingsPlanModel? = nil) {
         self.savingsPlan = savingsPlan
-        self._viewModel = StateObject(wrappedValue: CreateSavingsPlanViewModel(savingsPlan: savingsPlan))
+        self._viewModel = StateObject(wrappedValue: ViewModel(savingsPlan: savingsPlan))
     }
     
     // MARK: -
@@ -160,5 +160,5 @@ struct CreateSavingPlansScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateSavingPlansScreen()
+    SavingPlansAddScreen()
 }

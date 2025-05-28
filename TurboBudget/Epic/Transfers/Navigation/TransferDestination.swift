@@ -16,7 +16,7 @@ enum TransferDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .create(let receiverAccount):
-            CreateTransferScreen(receiverAccount: receiverAccount)
+            TransferAddScreen(receiverAccount: receiverAccount)
         }
     }
 }

@@ -8,17 +8,18 @@
 import Foundation
 import LocalAuthentication
 
-class PageControllerViewModel: ObservableObject {
-    static let shared = PageControllerViewModel()
-        
-    @Published var showOnboarding: Bool = false
-    @Published var isUnlocked: Bool = false
-    @Published var launchScreenEnd: Bool = false
+extension PageControllerScreen {
+    
+    final class ViewModel: ObservableObject {
+        @Published var showOnboarding: Bool = false
+        @Published var isUnlocked: Bool = false
+        @Published var launchScreenEnd: Bool = false
+    }
+    
 }
 
-extension PageControllerViewModel {
+extension PageControllerScreen.ViewModel {
     
-    @MainActor
     func authenticate() {
         let context = LAContext()
         var error: NSError?
@@ -32,8 +33,7 @@ extension PageControllerViewModel {
                 self.isUnlocked = isAllowed
                 UserDefaults.standard.set(isAllowed, forKey: "appIsOpen")
             }
-        } else {
-            // no biometrics
-        }
+        } else { }
     }
+    
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateTransferScreen {
+extension TransferAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -31,7 +31,7 @@ extension CreateTransferScreen {
     
 }
 
-extension CreateTransferScreen.ViewModel {
+extension TransferAddScreen.ViewModel {
     
     func createTransfer(dismiss: DismissAction) async {
         guard let senderAccount, let receiverAccount else { return }
@@ -55,7 +55,7 @@ extension CreateTransferScreen.ViewModel {
     
 }
 
-extension CreateTransferScreen.ViewModel {
+extension TransferAddScreen.ViewModel {
     
     func isTransferInCreation() -> Bool {
         if !amount.isBlank {

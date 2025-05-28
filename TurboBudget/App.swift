@@ -61,14 +61,14 @@ struct TurboBudgetApp: App {
                     Group {
                         if preferencesSecurity.isSecurityReinforced {
                             if scenePhase == .active {
-                                PageControllerView()
+                                PageControllerScreen()
                             } else {
                                 Image("LaunchScreen")
                                     .resizable()
                                     .edgesIgnoringSafeArea([.bottom, .top])
                             }
                         } else {
-                            PageControllerView()
+                            PageControllerScreen()
                         }
                     }
                     .task {

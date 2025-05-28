@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateContributionScreen {
+extension ContributionAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -29,7 +29,7 @@ extension CreateContributionScreen {
     
 }
 
-extension CreateContributionScreen.ViewModel {
+extension ContributionAddScreen.ViewModel {
     
     func isContributionValid() -> Bool {
         guard amount.toDouble() != 0 else { return false }

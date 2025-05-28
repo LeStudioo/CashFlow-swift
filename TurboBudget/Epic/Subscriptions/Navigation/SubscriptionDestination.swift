@@ -21,11 +21,11 @@ enum SubscriptionDestination: AppDestinationProtocol {
         case .list:
             SubscriptionsListScreen()
         case .create:
-            CreateSubscriptionScreen()
+            SubscriptionAddScreen()
         case .update(let subscription):
-            CreateSubscriptionScreen(subscription: subscription)
+            SubscriptionAddScreen(subscription: subscription)
         case .detail(let subscriptionId):
-            SubscriptionDetailScreen(subscriptionId: subscriptionId)
+            SubscriptionDetailsScreen(subscriptionId: subscriptionId)
         }
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension SubscriptionDetailScreen {
+extension SubscriptionDetailsScreen {
     
     final class ViewModel: ObservableObject {
         @Published var selectedCategory: CategoryModel?
@@ -16,7 +16,7 @@ extension SubscriptionDetailScreen {
     
 }
 
-extension SubscriptionDetailScreen.ViewModel {
+extension SubscriptionDetailsScreen.ViewModel {
     
     @MainActor
     func updateCategory(subscriptionID: Int) {

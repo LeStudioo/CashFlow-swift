@@ -24,11 +24,11 @@ enum TransactionDestination: AppDestinationProtocol {
         case .specificList(let month, let type):
             TransactionsForMonthScreen(selectedDate: month, type: type)
         case .create:
-            CreateTransactionScreen()
+            TransactionAddScreen()
         case .update(let transaction):
-            CreateTransactionScreen(transaction: transaction)
+            TransactionAddScreen(transaction: transaction)
         case .detail(let transaction):
-            TransactionDetailScreen(transaction: transaction)
+            TransactionDetailsScreen(transaction: transaction)
         }
     }
 }

@@ -19,9 +19,9 @@ enum AccountDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .create:
-            CreateAccountScreen(type: .classic)
+            AccountAddScreen(type: .classic)
         case .update(let account):
-            CreateAccountScreen(type: .classic, account: account)
+            AccountAddScreen(type: .classic, account: account)
         case .dashboard:
             AccountDashboardScreen()
         case .statistics:

@@ -1,5 +1,5 @@
 //
-//  TransactionDetailScreen.swift
+//  TransactionDetailsScreen.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 08/07/2023.
@@ -12,7 +12,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 
-struct TransactionDetailScreen: View {
+struct TransactionDetailsScreen: View {
 
     // MARK: Dependencies
     var transaction: TransactionModel
@@ -172,7 +172,7 @@ struct TransactionDetailScreen: View {
 } // struct
 
 // MARK: - Utils
-extension TransactionDetailScreen {
+extension TransactionDetailsScreen {
     
     // TODO: DUPLICATED
     func presentChangeCategory() {
@@ -195,7 +195,7 @@ extension TransactionDetailScreen {
 // MARK: - Preview
 #Preview {
     NavigationStack {
-        TransactionDetailScreen(transaction: .mockClassicTransaction)
+        TransactionDetailsScreen(transaction: .mockClassicTransaction)
     }
     .environmentObject(TransactionStore())
     .environmentObject(PurchasesManager())

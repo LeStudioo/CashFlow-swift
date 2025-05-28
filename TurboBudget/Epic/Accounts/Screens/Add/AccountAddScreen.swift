@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct CreateAccountScreen: View {
+struct AccountAddScreen: View {
     
     // Builder
     var type: AccountType
@@ -118,6 +118,6 @@ struct CreateAccountScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateAccountScreen(type: .savings)
+    AccountAddScreen(type: .savings)
         .environmentObject(AccountStore())
 }

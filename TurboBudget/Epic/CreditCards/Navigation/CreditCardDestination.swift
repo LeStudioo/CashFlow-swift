@@ -16,7 +16,7 @@ enum CreditCardDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .create:
-            CreateCreditCardScreen()
+            CreditCardAddScreen()
         }
     }
 }

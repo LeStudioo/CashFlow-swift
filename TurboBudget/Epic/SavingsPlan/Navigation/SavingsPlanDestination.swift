@@ -21,9 +21,9 @@ enum SavingsPlanDestination: AppDestinationProtocol {
         case .list:
             SavingsPlanListScreen()
         case .create:
-            CreateSavingPlansScreen()
+            SavingPlansAddScreen()
         case .update(let savingsPlan):
-            CreateSavingPlansScreen(savingsPlan: savingsPlan)
+            SavingPlansAddScreen(savingsPlan: savingsPlan)
         case .detail(let savingsPlan):
             SavingsPlanDetailScreen(savingsPlan: savingsPlan)
         }

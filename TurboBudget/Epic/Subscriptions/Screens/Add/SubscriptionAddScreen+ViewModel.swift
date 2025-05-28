@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateSubscriptionScreen {
+extension SubscriptionAddScreen {
     
     final class ViewModel: ObservableObject {
         let successfullModalManager: SuccessfullModalManager = .shared
@@ -44,7 +44,7 @@ extension CreateSubscriptionScreen {
     
 }
 
-extension CreateSubscriptionScreen.ViewModel {
+extension SubscriptionAddScreen.ViewModel {
     
     func onChangeType(newValue: TransactionType) {
         if newValue == .income {
@@ -109,7 +109,7 @@ extension CreateSubscriptionScreen.ViewModel {
 }
 
 // MARK: - Verification
-extension CreateSubscriptionScreen.ViewModel {
+extension SubscriptionAddScreen.ViewModel {
 
     func isAutomationInCreation() -> Bool {
         if selectedCategory != nil || selectedSubcategory != nil || !name.isBlank || amount.toDouble() != 0 {

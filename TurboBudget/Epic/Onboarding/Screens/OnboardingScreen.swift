@@ -68,7 +68,7 @@ struct OnboardingScreen: View {
                     desc: "onboarding_page4_desc".localized
                 ).tag(4)
                 
-                CreateAccountScreen(type: .classic) {
+                AccountAddScreen(type: .classic) {
                     actualPage += 1
                     await accountStore.fetchAccounts()
                     preferencesGeneral.isAlreadyOpen = true

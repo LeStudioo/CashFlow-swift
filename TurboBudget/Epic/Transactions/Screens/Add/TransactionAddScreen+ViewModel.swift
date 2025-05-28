@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateTransactionScreen {
+extension TransactionAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -96,7 +96,7 @@ extension CreateTransactionScreen {
 }
 
 // MARK: - Utils
-extension CreateTransactionScreen.ViewModel {
+extension TransactionAddScreen.ViewModel {
     
     func resetData() {
         transactionTitle = ""
@@ -109,7 +109,7 @@ extension CreateTransactionScreen.ViewModel {
 }
 
 // MARK: - Verification
-extension CreateTransactionScreen.ViewModel {
+extension TransactionAddScreen.ViewModel {
     
     func isTransactionInCreation() -> Bool {
         if selectedCategory != nil || selectedSubcategory != nil || !transactionTitle.isEmpty || transactionAmount.toDouble() != 0 {

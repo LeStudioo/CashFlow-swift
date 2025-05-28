@@ -5,9 +5,9 @@
 //  Created by Theo Sementa on 14/11/2024.
 //
 
-//import SwiftUI
+// import SwiftUI
 //
-//struct TabBarShape: Shape {
+// struct TabBarShape: Shape {
 //    func path(in rect: CGRect) -> Path {
 //        return Path { path in
 //            path.move(to: .zero)
@@ -36,7 +36,7 @@
 //            path.closeSubpath()
 //        }
 //    }
-//}
+// }
 
 import SwiftUI
 

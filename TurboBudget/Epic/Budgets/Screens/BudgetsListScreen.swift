@@ -13,9 +13,6 @@ import TheoKit
 
 struct BudgetsListScreen: View {
     
-    // Custom
-    @ObservedObject var filter: Filter = sharedFilter
-    
     // Environnement
     @EnvironmentObject private var router: Router<AppDestination>
     @EnvironmentObject private var budgetStore: BudgetStore

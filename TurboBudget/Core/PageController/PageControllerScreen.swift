@@ -1,5 +1,5 @@
 //
-//  PageControllerView.swift
+//  PageControllerScreen.swift
 //  TurboBudget
 //
 //  Created by Théo Sementa on 15/06/2023.
@@ -12,7 +12,7 @@ import CoreData
 import NavigationKit
 import StatsKit
 
-struct PageControllerView: View {
+struct PageControllerScreen: View {
     
     // Environment
     @EnvironmentObject private var appManager: AppManager
@@ -24,7 +24,7 @@ struct PageControllerView: View {
     @StateObject private var categoryRouter: Router<AppDestination> = .init()
     @StateObject private var routerManager: AppRouterManager = .shared
     
-    @StateObject private var viewModel: PageControllerViewModel = .init()
+    @StateObject private var viewModel: ViewModel = .init()
     
     // Environement
     @Environment(\.scenePhase) private var scenePhase
@@ -144,5 +144,5 @@ struct PageControllerView: View {
 
 // MARK: - Preview
 #Preview {
-    PageControllerView()
+    PageControllerScreen()
 }

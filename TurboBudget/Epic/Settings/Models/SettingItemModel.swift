@@ -50,7 +50,7 @@ enum SettingItemModel: Identifiable {
         case .appearance:  return "setting_home_appearance".localized
         case .display:     return Word.Title.Setting.display
         case .account:     return "word_account".localized
-        case .subscription:return Word.Main.subscription
+        case .subscription: return Word.Main.subscription
         case .applePay:    return "Apple Pay"
         case .shortcutApplePay: return "settings_applepay_shortcut_button".localized
         case .faq:         return "F.A.Q"
@@ -125,7 +125,7 @@ enum SettingItemModel: Identifiable {
         case .appearance:  return true
         case .display:     return true
         case .account:     return true
-        case .subscription:return true
+        case .subscription: return true
         case .applePay:    return true
         case .shortcutApplePay: return false
         case .faq:         return false
@@ -142,8 +142,12 @@ enum SettingItemModel: Identifiable {
         }
     }
     
-    @MainActor
-    func action(router: Router<AppDestination>, alertManager: AlertManager? = nil, dismiss: DismissAction? = nil) {
+    // swiftlint:disable:next cyclomatic_complexity
+    @MainActor func action(
+        router: Router<AppDestination>,
+        alertManager: AlertManager? = nil,
+        dismiss: DismissAction? = nil
+    ) {
         switch self {
         case .cashFlowPro: router.present(route: .sheet, .shared(.paywall))
         case .general:     router.push(.settings(.general))

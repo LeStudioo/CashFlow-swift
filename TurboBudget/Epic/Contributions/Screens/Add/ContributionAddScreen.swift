@@ -1,5 +1,5 @@
 //
-//  CreateContributionScreen.swift
+//  ContributionAddScreen.swift
 //  CashFlow
 //
 //  Created by Théo Sementa on 09/07/2023.
@@ -9,7 +9,7 @@
 import SwiftUI
 import StatsKit
 
-struct CreateContributionScreen: View {
+struct ContributionAddScreen: View {
 
     // Builder
     var savingsPlan: SavingsPlanModel
@@ -113,5 +113,5 @@ struct CreateContributionScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateContributionScreen(savingsPlan: .mockClassicSavingsPlan)
+    ContributionAddScreen(savingsPlan: .mockClassicSavingsPlan)
 }

@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateAccountScreen {
+extension AccountAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -35,7 +35,7 @@ extension CreateAccountScreen {
     
 }
 
-extension CreateAccountScreen.ViewModel {
+extension AccountAddScreen.ViewModel {
     
     func isAccountInCreation() -> Bool {
         if !name.isBlank || balance.toDouble() != 0 || !maxAmount.isBlank {

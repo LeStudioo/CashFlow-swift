@@ -1,61 +1,58 @@
 //
-//  CreateTransactionScreen.swift
-//  TurboBudget
+//  AddAutomationsView.swift
+//  CashFlow
 //
-//  Created by Théo Sementa on 16/06/2023.
+//  Created by KaayZenn on 18/07/2023.
 //
+// Localizations 30/09/2023
 
 import SwiftUI
-import NetworkKit
 import NavigationKit
 import StatsKit
 import TheoKit
 
-struct CreateTransactionScreen: View {
+struct SubscriptionAddScreen: View {
     
     // builder
-    var transaction: TransactionModel?
+    var subscription: SubscriptionModel?
     
     @StateObject private var viewModel: ViewModel
     
+    // Environment
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var store: PurchasesManager
-    
-    @EnvironmentObject private var accountStore: AccountStore
-    @EnvironmentObject private var transactionStore: TransactionStore
     
     // Enum
     enum Field: CaseIterable {
         case amount, title
     }
-    @FocusState var focusedField: Field?
+    @FocusState private var focusedField: Field?
     
     // init
-    init(transaction: TransactionModel? = nil) {
-        self.transaction = transaction
-        self._viewModel = StateObject(wrappedValue: ViewModel(transaction: transaction))
+    init(subscription: SubscriptionModel? = nil) {
+        self.subscription = subscription
+        self._viewModel = StateObject(wrappedValue: ViewModel(subscription: subscription))
     }
     
     // MARK: -
     var body: some View {
         BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
             NavigationBar(
-                title: transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update,
+                title: subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update,
                 actionButton: .init(
-                    title: transaction == nil ? Word.Classic.create : Word.Classic.edit,
+                    title: subscription == nil ? Word.Classic.create : Word.Classic.edit,
                     action: {
-                        NetworkService.cancelAllTasks()
                         VibrationManager.vibration()
-                        if transaction == nil {
-                            await viewModel.createTransaction(dismiss: dismiss)
+                        if subscription != nil {
+                            await viewModel.updateSubscription(dismiss: dismiss)
                         } else {
-                            await viewModel.updateTransaction(dismiss: dismiss)
+                            await viewModel.createNewSubscription(dismiss: dismiss)
                         }
                     },
-                    isDisabled: !viewModel.validateTrasaction()
+                    isDisabled: !viewModel.validateAutomation()
                 ),
                 dismissAction: {
-                    if viewModel.isTransactionInCreation() {
+                    if viewModel.isAutomationInCreation() {
                         viewModel.presentingConfirmationDialog.toggle()
                     } else {
                         dismissAction()
@@ -65,10 +62,10 @@ struct CreateTransactionScreen: View {
         } content: { _ in
             VStack(spacing: 24) {
                 CustomTextField(
-                    text: $viewModel.transactionTitle,
+                    text: $viewModel.name,
                     config: .init(
                         title: Word.Classic.name,
-                        placeholder: "category11_subcategory3_name".localized
+                        placeholder: "Netflix"
                     )
                 )
                 .focused($focusedField, equals: .title)
@@ -78,15 +75,15 @@ struct CreateTransactionScreen: View {
                 }
                 
                 CustomTextField(
-                    text: $viewModel.transactionAmount,
+                    text: $viewModel.amount,
                     config: .init(
                         title: Word.Classic.price,
-                        placeholder: "64,87",
+                        placeholder: "14,99",
                         style: .amount
                     )
                 )
                 .focused($focusedField, equals: .amount)
-                
+                                
                 VStack(spacing: 6) {
                     SelectCategoryButton(
                         selectedCategory: $viewModel.selectedCategory,
@@ -95,18 +92,21 @@ struct CreateTransactionScreen: View {
                     
                     if store.isCashFlowPro && viewModel.selectedCategory == nil {
                         RecommendedCategoryButton(
-                            transactionName: viewModel.transactionTitle,
+                            transactionName: viewModel.name,
                             selectedCategory: $viewModel.selectedCategory,
                             selectedSubcategory: $viewModel.selectedSubcategory
                         )
                     }
                 }
-                .animation(.smooth, value: viewModel.transactionTitle)
+                .animation(.smooth, value: viewModel.name)
                 
                 CustomDatePicker(
-                    title: Word.Classic.date,
-                    date: $viewModel.transactionDate
+                    title: Word.Classic.subscriptionFuturDate,
+                    date: $viewModel.frequencyDate,
+                    onlyFutureDates: true
                 )
+                
+                FrequencyPicker(selected: $viewModel.frequency)
             }
             .padding(.horizontal, 24)
         }
@@ -117,22 +117,41 @@ struct CreateTransactionScreen: View {
             Button("word_cancel_changes".localized, role: .destructive, action: { dismissAction() })
             Button("word_return".localized, role: .cancel, action: { })
         }
-        .background(TKDesignSystem.Colors.Background.Theme.bg50.ignoresSafeArea(.all))
+        .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .navigationBarBackButtonHidden(true)
-    }
+    } // body
     
     func dismissAction() {
         if viewModel.isEditing {
-            EventService.sendEvent(key: .transactionUpdateCanceled)
+            EventService.sendEvent(key: .subscriptionUpdateCanceled)
         } else {
-            EventService.sendEvent(key: .transactionCreationCanceled)
+            EventService.sendEvent(key: .subscriptionCreationCanceled)
         }
         dismiss()
     }
     
-}
+} // struct
 
 // MARK: - Preview
 #Preview {
-    CreateTransactionScreen()
+    SubscriptionAddScreen()
+}
+
+struct OnTapDismissKeyboardModifier2: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .contentShape(Rectangle()) // Define the tappable area
+            .simultaneousGesture(
+                TapGesture()
+                    .onEnded { _ in
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+            )
+    }
+}
+
+extension View {
+    public func onTapDismissKeyboard2() -> some View {
+        return modifier(OnTapDismissKeyboardModifier2())
+    }
 }

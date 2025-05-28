@@ -31,11 +31,11 @@ extension ReleaseNoteModel {
         ],
         newFeaturesPro: [
             "feature_pro_204_applepay".localized,
-            "feature_pro_204_account".localized,
+            "feature_pro_204_account".localized
         ],
         bugfixes: [
             "bugfix_204_transactions".localized,
-            "bugfix_204_preferences".localized,
+            "bugfix_204_preferences".localized
         ]
     )
     

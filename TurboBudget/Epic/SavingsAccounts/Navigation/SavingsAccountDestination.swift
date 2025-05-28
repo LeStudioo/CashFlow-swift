@@ -20,9 +20,9 @@ enum SavingsAccountDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .create:
-            CreateAccountScreen(type: .savings)
+            AccountAddScreen(type: .savings)
         case .update(let account):
-            CreateAccountScreen(type: .savings, account: account)
+            AccountAddScreen(type: .savings, account: account)
         case .list:
             SavingsAccountsListView()
         case .detail(let savingsAccount):

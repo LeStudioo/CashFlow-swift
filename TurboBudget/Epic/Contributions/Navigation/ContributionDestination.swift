@@ -16,7 +16,7 @@ enum ContributionDestination: AppDestinationProtocol {
     func body(route: Route) -> some View {
         switch self {
         case .create(let savingsPlan):
-            CreateContributionScreen(savingsPlan: savingsPlan)
+            ContributionAddScreen(savingsPlan: savingsPlan)
         }
     }
 }

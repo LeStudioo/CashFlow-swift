@@ -9,42 +9,44 @@ import Foundation
 import CoreData
 import SwiftUI
 
-class CreateSavingsPlanViewModel: ObservableObject {
-    static let shared = CreateSavingsPlanViewModel()
+extension SavingPlansAddScreen {
     
-    var savingsPlan: SavingsPlanModel?
-    
-    @Published var name: String = ""
-    @Published var emoji: String = "💻"
-    @Published var savingPlanAmountOfStart: String = ""
-    @Published var goalAmount: String = ""
-    @Published var startDate: Date = .now
-    @Published var endDate: Date = .now
-    
-    @Published var isEndDate: Bool = false
-    @Published var showEmojiPicker: Bool = false
-    
-    @Published var presentingConfirmationDialog: Bool = false
-    
-    var isEditing: Bool {
-        return savingsPlan != nil
-    }
-    
-    init(savingsPlan: SavingsPlanModel? = nil) {
-        if let savingsPlan {
-            self.savingsPlan = savingsPlan
-            self.name = savingsPlan.name ?? ""
-            self.emoji = savingsPlan.emoji ?? "💻"
-            self.goalAmount = "\(savingsPlan.goalAmount?.toString(maxDigits: 0) ?? "")"
-            self.startDate = savingsPlan.startDate
-            self.endDate = savingsPlan.endDate ?? .now
-            self.isEndDate = savingsPlan.endDateString != nil
+    final class ViewModel: ObservableObject {
+        var savingsPlan: SavingsPlanModel?
+        
+        @Published var name: String = ""
+        @Published var emoji: String = "💻"
+        @Published var savingPlanAmountOfStart: String = ""
+        @Published var goalAmount: String = ""
+        @Published var startDate: Date = .now
+        @Published var endDate: Date = .now
+        
+        @Published var isEndDate: Bool = false
+        @Published var showEmojiPicker: Bool = false
+        
+        @Published var presentingConfirmationDialog: Bool = false
+        
+        var isEditing: Bool {
+            return savingsPlan != nil
         }
+        
+        init(savingsPlan: SavingsPlanModel? = nil) {
+            if let savingsPlan {
+                self.savingsPlan = savingsPlan
+                self.name = savingsPlan.name ?? ""
+                self.emoji = savingsPlan.emoji ?? "💻"
+                self.goalAmount = "\(savingsPlan.goalAmount?.toString(maxDigits: 0) ?? "")"
+                self.startDate = savingsPlan.startDate
+                self.endDate = savingsPlan.endDate ?? .now
+                self.isEndDate = savingsPlan.endDateString != nil
+            }
+        }
+        
     }
     
 }
 
-extension CreateSavingsPlanViewModel {
+extension SavingPlansAddScreen.ViewModel {
     
     func bodyForCreation() -> SavingsPlanModel {
         return SavingsPlanModel(
@@ -100,7 +102,7 @@ extension CreateSavingsPlanViewModel {
 }
 
 // MARK: - Verification
-extension CreateSavingsPlanViewModel {
+extension SavingPlansAddScreen.ViewModel {
     
     func isSavingPlansInCreation() -> Bool {
         if !name.isBlank || savingPlanAmountOfStart.toDouble() != 0 || goalAmount.toDouble() != 0 || isEndDate {

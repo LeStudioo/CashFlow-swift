@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension TransactionDetailScreen {
+extension TransactionDetailsScreen {
     
     class ViewModel: ObservableObject {
         @Published var selectedCategory: CategoryModel?
@@ -22,7 +22,7 @@ extension TransactionDetailScreen {
     
 }
 
-extension TransactionDetailScreen.ViewModel {
+extension TransactionDetailsScreen.ViewModel {
     
     func updateTransaction(transactionID: Int?) {
         guard let transactionID else { return }
@@ -44,7 +44,7 @@ extension TransactionDetailScreen.ViewModel {
 }
 
 // MARK: - Utils
-extension TransactionDetailScreen.ViewModel {
+extension TransactionDetailsScreen.ViewModel {
 
     @MainActor
     func updateCategory(transactionID: Int) {

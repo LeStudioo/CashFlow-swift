@@ -1,5 +1,5 @@
 //
-//  CreateCreditCardScreen.swift
+//  CreditCardAddScreen.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 14/12/2024.
@@ -8,7 +8,7 @@
 import SwiftUI
 import StatsKit
 
-struct CreateCreditCardScreen: View {
+struct CreditCardAddScreen: View {
     
     @StateObject private var viewModel: ViewModel = .init()
     
@@ -109,5 +109,5 @@ struct CreateCreditCardScreen: View {
 
 // MARK: - Preview
 #Preview {
-    CreateCreditCardScreen()
+    CreditCardAddScreen()
 }

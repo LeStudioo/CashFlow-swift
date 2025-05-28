@@ -16,5 +16,3 @@ extension Array where Element: Searchable {
     }
     
 }
-
-

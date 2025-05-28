@@ -1,5 +1,5 @@
 //
-//  SubscriptionDetailScreen.swift
+//  SubscriptionDetailsScreen.swift
 //  CashFlow
 //
 //  Created by Theo Sementa on 22/12/2024.
@@ -11,7 +11,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 
-struct SubscriptionDetailScreen: View {
+struct SubscriptionDetailsScreen: View {
     
     // Builder
     var subscriptionId: Int
@@ -113,7 +113,8 @@ struct SubscriptionDetailScreen: View {
                         
                         if let transactions = subscription.transactions {
                             VStack(spacing: 16) {
-                                Text("word_transactions".localized + " (\(transactions.count) - \(transactions.map(\.amount).reduce(0, +).toCurrency()))")
+                                let transactionsAmount = transactions.map(\.amount).reduce(0, +).toCurrency()
+                                Text("word_transactions".localized + " (\(transactions.count) - \(transactionsAmount))")
                                     .fullWidth(.leading)
                                     .font(.mediumCustom(size: 20))
                                 
@@ -145,7 +146,7 @@ struct SubscriptionDetailScreen: View {
 } // struct
 
 // MARK: - Utils
-extension SubscriptionDetailScreen {
+extension SubscriptionDetailsScreen {
 
     // TODO: DUPLICATED
     func presentChangeCategory() {
@@ -166,5 +167,5 @@ extension SubscriptionDetailScreen {
 
 // MARK: - Preview
 #Preview {
-    SubscriptionDetailScreen(subscriptionId: 0)
+    SubscriptionDetailsScreen(subscriptionId: 0)
 }

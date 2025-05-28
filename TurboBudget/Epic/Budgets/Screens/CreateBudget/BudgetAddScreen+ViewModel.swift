@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension CreateBudgetScreen {
+extension BudgetAddScreen {
     
     final class ViewModel: ObservableObject {
         
@@ -21,7 +21,7 @@ extension CreateBudgetScreen {
     
 }
 
-extension CreateBudgetScreen.ViewModel {
+extension BudgetAddScreen.ViewModel {
     
     func createBudget(dismiss: DismissAction) async {
         let accountStore: AccountStore = .shared
@@ -46,7 +46,7 @@ extension CreateBudgetScreen.ViewModel {
 }
 
 // MARK: - Utils
-extension CreateBudgetScreen.ViewModel {
+extension BudgetAddScreen.ViewModel {
     
     func isBudgetAlredayExist() -> Bool {
         if let sub = selectedSubcategory, sub.budget != nil {
@@ -59,7 +59,7 @@ extension CreateBudgetScreen.ViewModel {
 }
 
 // MARK: - Validation
-extension CreateBudgetScreen.ViewModel {
+extension BudgetAddScreen.ViewModel {
     
     func isBudgetInCreation() -> Bool {
         if selectedCategory != nil || selectedSubcategory != nil || amountBudget.toDouble() != 0 {
