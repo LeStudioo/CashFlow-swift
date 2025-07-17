@@ -1,0 +1,15 @@
+# OS X temporary files
+.DS_Store
+.Trashes
+
+# Xcode User settings
+xcuserdata/
+CashFlow.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+Packages/
+Package.resolved
+.swiftpm
+
+# Pods
+Pods/
