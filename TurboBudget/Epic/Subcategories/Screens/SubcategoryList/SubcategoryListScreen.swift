@@ -43,7 +43,7 @@ struct SubcategoryListScreen: View {
     
     // MARK: - View
     var body: some View {
-        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+        ListWithBluredHeader(maxBlurRadius: Blur.topbar) {
             NavigationBar(title: "word_subcategories".localized)
         } content: {
             ForEach(searchResults) { subcategory in

@@ -39,12 +39,12 @@ struct SubcategoryRowView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(subcategory.name)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                    .fontWithLineHeight(.Body.mediumBold)
                     .foregroundStyle(Color.label)
                     .lineLimit(1)
                 
                 Text(stringAmount)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     .lineLimit(1)
             }

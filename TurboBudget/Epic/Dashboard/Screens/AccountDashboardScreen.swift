@@ -100,7 +100,7 @@ struct AccountDashboardScreen: View {
                                     Image(.iconChevronUpDown)
                                         .renderingMode(.template)
                                 }
-                                .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                                .fontWithLineHeight(.Title.medium)
                                 .foregroundStyle(themeManager.theme.color)
                             }
                             .onChange(of: accountStore.selectedAccount?.id) { _ in
@@ -114,12 +114,12 @@ struct AccountDashboardScreen: View {
                             
                             VStack(alignment: .center, spacing: 0) {
                                 Text(account.balance.toCurrency())
-                                    .fontWithLineHeight(DesignSystem.Fonts.Display.extraLarge)
+                                    .fontWithLineHeight(.Display.extraLarge)
                                     .animation(.default, value: account.balance)
                                     .contentTransition(.numericText())
                                 
                                 Text("home_screen_available_balance".localized)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                                    .fontWithLineHeight(.Body.medium)
                                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             }
                             .fullWidth()

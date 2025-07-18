@@ -51,11 +51,11 @@ struct CustomEmptyView: View {
             
             VStack(spacing: Spacing.extraSmall) {
                 Text(emptyTitle)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.large)
+                    .fontWithLineHeight(.Body.large)
                     .foregroundStyle(Color.label)
                     
                 Text(emptyDescription)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg500)
                     .multilineTextAlignment(.center)
             }

@@ -29,12 +29,12 @@ struct CategoryRowView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(category.name)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                    .fontWithLineHeight(.Body.mediumBold)
                     .foregroundStyle(Color.label)
                     .lineLimit(1)
                 
                 Text(amount)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                     .animation(.smooth, value: amount)
                     .contentTransition(.numericText())
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)

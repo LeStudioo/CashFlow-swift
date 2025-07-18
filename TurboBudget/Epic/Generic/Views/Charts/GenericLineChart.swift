@@ -28,11 +28,11 @@ struct GenericLineChart: View {
             VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                 Text(config.title)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                 
                 Text(amounts.reduce(0, +).toCurrency())
                     .foregroundStyle(Color.label)
-                    .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                    .fontWithLineHeight(.Title.medium)
             }
             .fullWidth(.leading)
             

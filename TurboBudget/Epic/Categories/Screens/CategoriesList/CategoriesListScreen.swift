@@ -26,7 +26,7 @@ struct CategoriesListScreen: View {
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+            ListWithBluredHeader(maxBlurRadius: Blur.topbar) {
                 NavigationBar(
                     title: "word_categories".localized,
                     withDismiss: false,

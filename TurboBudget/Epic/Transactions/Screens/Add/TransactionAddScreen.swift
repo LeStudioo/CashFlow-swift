@@ -10,6 +10,7 @@ import NetworkKit
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct TransactionAddScreen: View {
     
@@ -38,7 +39,7 @@ struct TransactionAddScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: transaction == nil ? Word.Title.Transaction.new : Word.Title.Transaction.update,
                 actionButton: .init(

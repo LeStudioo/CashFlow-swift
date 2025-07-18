@@ -33,14 +33,14 @@ struct DetailRow: View {
                     }
                 if let text {
                     Text(text)
-                        .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                        .fontWithLineHeight(.Body.small)
                         .foregroundStyle(Color.label)
                         .lineLimit(1)
                         .fixedSize(horizontal: true, vertical: true)
                 }
                 
                 Text(value)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                    .fontWithLineHeight(.Body.medium)
                     .foregroundStyle(Color.label)
                     .multilineTextAlignment(.trailing)
                     .fullWidth(.trailing)

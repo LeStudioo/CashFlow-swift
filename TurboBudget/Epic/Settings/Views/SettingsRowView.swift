@@ -36,7 +36,7 @@ struct SettingsRowView: View {
                 )
             
             Text(item.title)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .fullWidth(.leading)
             

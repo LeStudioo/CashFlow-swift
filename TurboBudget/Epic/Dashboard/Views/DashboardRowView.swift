@@ -35,7 +35,7 @@ struct DashboardRowView: View {
             }
             
             Text(config.text)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)

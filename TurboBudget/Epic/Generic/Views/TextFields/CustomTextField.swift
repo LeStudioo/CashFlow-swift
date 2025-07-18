@@ -33,7 +33,7 @@ struct CustomTextField: View {
                 TextField(config.placeholder, text: $text)
                     .focused($isFocused)
                     .keyboardType(config.style == .amount ? .decimalPad : .default)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                    .fontWithLineHeight(.Body.medium)
                     .padding([.vertical, .leading], Padding.regular)
                     .padding(.trailing, config.style == .amount ? 8 : Padding.regular)
                 

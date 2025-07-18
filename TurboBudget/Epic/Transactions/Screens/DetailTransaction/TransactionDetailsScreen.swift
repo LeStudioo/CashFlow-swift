@@ -53,11 +53,11 @@ struct TransactionDetailsScreen: View {
                     VStack(spacing: Spacing.small) {
                         VStack(spacing: Spacing.extraSmall) {
                             Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
+                                .fontWithLineHeight(.Display.huge)
                                 .foregroundColor(currentTransaction.color)
                             
                             Text(currentTransaction.nameDisplayed)
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.small)
+                                .fontWithLineHeight(.Display.small)
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                         }

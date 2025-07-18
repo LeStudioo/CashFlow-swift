@@ -47,7 +47,7 @@ struct SelectCategoryButton: View {
                         Text(Word.Create.addCategory)
                     }
                 }
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.white)
                 .padding(Padding.regular)
                 .fullWidth(.leading)

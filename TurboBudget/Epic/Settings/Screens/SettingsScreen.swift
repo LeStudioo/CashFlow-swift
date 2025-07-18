@@ -36,7 +36,7 @@ struct SettingsScreen: View {
     
     // MARK: - View
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: "setting_home_title".localized,
                 placeholder: "word_search".localized,
@@ -50,7 +50,7 @@ struct SettingsScreen: View {
             ForEach(settingsFiltered) { section in
                 VStack(spacing: Spacing.standard) {
                     Text(section.title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                        .fontWithLineHeight(.Title.medium)
                         .foregroundStyle(Color.label)
                         .fullWidth(.leading)
                         
@@ -68,7 +68,7 @@ struct SettingsScreen: View {
             .padding(.horizontal, Padding.large)
             
             Text("v\(Bundle.main.releaseVersionNumber ?? "")")
-                .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                .fontWithLineHeight(.Body.mediumBold)
                 .foregroundStyle(Color.label)
                 .padding(.bottom, Spacing.extraLarge)
             

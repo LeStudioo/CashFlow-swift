@@ -51,11 +51,11 @@ struct SubscriptionDetailsScreen: View {
                     VStack(spacing: Spacing.extraLarge) {
                         VStack(spacing: Spacing.extraSmall) {
                             Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
+                                .fontWithLineHeight(.Display.huge)
                                 .foregroundColor(subscription.color)
                             
                             Text(subscription.name)
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.small)
+                                .fontWithLineHeight(.Display.small)
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                         }

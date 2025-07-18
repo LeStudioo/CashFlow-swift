@@ -26,7 +26,7 @@ struct HomeScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             HomeHeaderView()
                 .padding(Padding.large)
         } content: { _ in

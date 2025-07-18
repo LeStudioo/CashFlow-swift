@@ -35,14 +35,14 @@ struct NavigationBarWithMenu<Content: View>: View {
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                         Text("word_return".localized)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .fontWithLineHeight(.Body.medium)
                     }
                 }
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 
                 if let title {
                     Text(title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                        .fontWithLineHeight(.Title.large)
                         .foregroundStyle(Color.label)
                 }
             }

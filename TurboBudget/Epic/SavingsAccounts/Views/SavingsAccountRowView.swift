@@ -38,13 +38,13 @@ struct SavingsAccountRowView: View {
             }
             
             Text(savingsAccount.balance.toCurrency())
-                .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                .fontWithLineHeight(.Title.large)
                 .lineLimit(1)
                 .frame(maxHeight: .infinity)
                 .foregroundStyle(Color.label)
             
             Text(savingsAccount.name)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
                 .foregroundStyle(Color.label)

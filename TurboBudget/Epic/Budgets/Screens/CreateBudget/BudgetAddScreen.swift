@@ -10,6 +10,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct BudgetAddScreen: View {
     
@@ -21,7 +22,7 @@ struct BudgetAddScreen: View {
     
     // MARK: - body
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: Word.Title.Budget.new,
                 actionButton: .init(

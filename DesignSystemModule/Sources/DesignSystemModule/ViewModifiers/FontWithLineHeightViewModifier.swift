@@ -23,7 +23,7 @@ struct FontWithLineHeightViewModifier: ViewModifier {
 }
 
 extension View {
-    func fontWithLineHeight(_ font: ExtendedUIFont) -> some View {
+    public func fontWithLineHeight(_ font: ExtendedUIFont) -> some View {
         return modifier(FontWithLineHeightViewModifier(font: font))
     }
 }

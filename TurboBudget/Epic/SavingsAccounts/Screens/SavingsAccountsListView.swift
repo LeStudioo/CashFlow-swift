@@ -43,7 +43,7 @@ struct SavingsAccountsListView: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: Word.Main.savingsAccounts,
                 actionButton: .init(
@@ -65,11 +65,11 @@ struct SavingsAccountsListView: View {
                 VStack(spacing: 32) {
                     VStack(spacing: 0) {
                         Text(totalSavings.toCurrency())
-                            .fontWithLineHeight(DesignSystem.Fonts.Display.extraLarge)
+                            .fontWithLineHeight(.Display.extraLarge)
                             .foregroundStyle(Color.label)
                         
                         Text(Word.SavingsAccount.totalSavings)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .fontWithLineHeight(.Body.medium)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     }
                     

@@ -32,7 +32,7 @@ struct SavingsPlanListScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: Word.Main.savingsPlans,
                 actionButton: .init(

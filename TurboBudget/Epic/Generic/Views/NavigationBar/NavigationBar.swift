@@ -57,7 +57,7 @@ struct NavigationBar: View {
                                     .renderingMode(.template)
                                     .frame(width: 20, height: 20)
                                 Text("word_return".localized)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                                    .fontWithLineHeight(.Body.medium)
                             }
                             
                         }
@@ -76,7 +76,7 @@ struct NavigationBar: View {
                                     .foregroundStyle(Color.label)
                             } else if let title = actionButton.title {
                                 Text(title)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.large)
+                                    .fontWithLineHeight(.Body.large)
                                     .foregroundStyle(themeManager.theme.color)
                             }
                         }
@@ -88,7 +88,7 @@ struct NavigationBar: View {
                 
                 if let title {
                     Text(title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                        .fontWithLineHeight(.Title.large)
                         .foregroundStyle(Color.label)
                 }
             }

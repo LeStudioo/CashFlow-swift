@@ -44,16 +44,16 @@ struct SavingsPlanRowView: View {
                         
             VStack(spacing: 0) {
                 Text("\((savingsPlan.currentAmount ?? 0).toCurrency())")
-                    .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                    .fontWithLineHeight(.Title.large)
                     .foregroundStyle(Color.label)
                 Text("/ \((savingsPlan.goalAmount ?? 0).toCurrency())")
-                    .fontWithLineHeight(DesignSystem.Fonts.Label.large)
+                    .fontWithLineHeight(.Label.large)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
             }
             .frame(maxHeight: .infinity)
                                    
             Text(currentSavingsPlan.name ?? "")
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .lineLimit(1)                  
         }

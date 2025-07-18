@@ -33,7 +33,7 @@ struct AnalyticsScreen: View {
     var body: some View {
         VStack(spacing: 0) {
             if !transactionStore.transactions.isEmpty {
-                BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+                BetterScrollView(maxBlurRadius: Blur.topbar) {
                     NavigationBar(
                         title: "word_statistics".localized,
                         withDismiss: false,

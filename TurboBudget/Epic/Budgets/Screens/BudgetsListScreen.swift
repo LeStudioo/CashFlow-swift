@@ -10,6 +10,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct BudgetsListScreen: View {
     
@@ -19,7 +20,7 @@ struct BudgetsListScreen: View {
     
     // MARK: -
     var body: some View {
-        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+        ListWithBluredHeader(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: "word_budgets".localized,
                 actionButton: .init(
