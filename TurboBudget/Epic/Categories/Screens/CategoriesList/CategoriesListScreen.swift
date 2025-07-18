@@ -10,6 +10,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct CategoriesListScreen: View {
     
@@ -25,7 +26,7 @@ struct CategoriesListScreen: View {
     // MARK: -
     var body: some View {
         VStack(spacing: 0) {
-            ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+            ListWithBluredHeader(maxBlurRadius: Blur.topbar) {
                 NavigationBar(
                     title: "word_categories".localized,
                     withDismiss: false,
@@ -55,10 +56,10 @@ struct CategoriesListScreen: View {
                                 amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                             )
                         }
-                        .padding(.bottom, TKDesignSystem.Spacing.medium)
+                        .padding(.bottom, Spacing.medium)
                     }
                     .noDefaultStyle()
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                     
                     Rectangle()
                         .frame(height: 100)

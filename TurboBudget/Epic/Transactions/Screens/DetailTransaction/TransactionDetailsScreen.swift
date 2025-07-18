@@ -11,6 +11,7 @@ import AlertKit
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct TransactionDetailsScreen: View {
 
@@ -31,7 +32,7 @@ struct TransactionDetailsScreen: View {
 
     // MARK: -
     var body: some View {
-        VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
+        VStack(spacing: Spacing.extraLarge) {
             NavigationBarWithMenu {
                 NavigationButton(
                     route: .push,
@@ -48,15 +49,15 @@ struct TransactionDetailsScreen: View {
             }
             
             ScrollView {
-                VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
-                    VStack(spacing: TKDesignSystem.Spacing.small) {
-                        VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                VStack(spacing: Spacing.extraLarge) {
+                    VStack(spacing: Spacing.small) {
+                        VStack(spacing: Spacing.extraSmall) {
                             Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
+                                .fontWithLineHeight(.Display.huge)
                                 .foregroundColor(currentTransaction.color)
                             
                             Text(currentTransaction.nameDisplayed)
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.small)
+                                .fontWithLineHeight(.Display.small)
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                         }
@@ -79,7 +80,7 @@ struct TransactionDetailsScreen: View {
                         )
                     }
                     
-                    VStack(spacing: DesignSystem.Spacing.medium) {
+                    VStack(spacing: Spacing.medium) {
                         DetailRow(
                             icon: .iconCalendar,
                             text: "transaction_detail_date".localized,
@@ -134,7 +135,7 @@ struct TransactionDetailsScreen: View {
                         }
                     }
                 }
-                .padding(.horizontal, DesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
             } // ScrollView
             .scrollIndicators(.hidden)
         }

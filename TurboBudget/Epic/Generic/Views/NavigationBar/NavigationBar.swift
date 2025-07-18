@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct NavigationBar: View {
     
@@ -39,11 +40,11 @@ struct NavigationBar: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.standard) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.small) {
-                HStack(spacing: TKDesignSystem.Spacing.small) {
+        VStack(alignment: .leading, spacing: Spacing.standard) {
+            VStack(alignment: .leading, spacing: Spacing.small) {
+                HStack(spacing: Spacing.small) {
                     if withDismiss {
-                        HStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                        HStack(spacing: Spacing.extraSmall) {
                             Button {
                                 if let dismissAction {
                                     dismissAction()
@@ -56,7 +57,7 @@ struct NavigationBar: View {
                                     .renderingMode(.template)
                                     .frame(width: 20, height: 20)
                                 Text("word_return".localized)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                                    .fontWithLineHeight(.Body.medium)
                             }
                             
                         }
@@ -75,7 +76,7 @@ struct NavigationBar: View {
                                     .foregroundStyle(Color.label)
                             } else if let title = actionButton.title {
                                 Text(title)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.large)
+                                    .fontWithLineHeight(.Body.large)
                                     .foregroundStyle(themeManager.theme.color)
                             }
                         }
@@ -87,7 +88,7 @@ struct NavigationBar: View {
                 
                 if let title {
                     Text(title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                        .fontWithLineHeight(.Title.large)
                         .foregroundStyle(Color.label)
                 }
             }
@@ -97,7 +98,7 @@ struct NavigationBar: View {
             }
         }
         .fullWidth(.leading)
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
     } // body
 } // struct
 

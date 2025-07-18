@@ -10,6 +10,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SavingsPlanListScreen: View {
     
@@ -31,7 +32,7 @@ struct SavingsPlanListScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: Word.Main.savingsPlans,
                 actionButton: .init(
@@ -62,7 +63,7 @@ struct SavingsPlanListScreen: View {
                     .padding(.bottom)
                 }
             }
-            .padding(.horizontal, TKDesignSystem.Padding.large)
+            .padding(.horizontal, Padding.large)
         }
         .overlay {
             CustomEmptyView(

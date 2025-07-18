@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct DetailRow: View {
     
@@ -32,14 +33,14 @@ struct DetailRow: View {
                     }
                 if let text {
                     Text(text)
-                        .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                        .fontWithLineHeight(.Body.small)
                         .foregroundStyle(Color.label)
                         .lineLimit(1)
                         .fixedSize(horizontal: true, vertical: true)
                 }
                 
                 Text(value)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                    .fontWithLineHeight(.Body.medium)
                     .foregroundStyle(Color.label)
                     .multilineTextAlignment(.trailing)
                     .fullWidth(.trailing)
@@ -47,7 +48,7 @@ struct DetailRow: View {
             .padding()
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.standard,
+                radius: CornerRadius.standard,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

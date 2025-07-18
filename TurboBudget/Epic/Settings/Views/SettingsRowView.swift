@@ -9,6 +9,7 @@ import SwiftUI
 import TheoKit
 import NavigationKit
 import AlertKit
+import DesignSystemModule
 
 struct SettingsRowView: View {
     
@@ -22,20 +23,20 @@ struct SettingsRowView: View {
     
     // MARK: - View
     var body: some View {
-        HStack(spacing: TKDesignSystem.Spacing.medium) {
+        HStack(spacing: Spacing.medium) {
             Image(item.icon)
                 .resizable()
                 .renderingMode(.template)
                 .foregroundStyle(Color.white)
                 .frame(width: 16, height: 16)
-                .padding(TKDesignSystem.Padding.small)
+                .padding(Padding.small)
                 .roundedRectangleBorder(
                     item.color,
-                    radius: TKDesignSystem.Radius.small
+                    radius: CornerRadius.small
                 )
             
             Text(item.title)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .fullWidth(.leading)
             
@@ -44,10 +45,10 @@ struct SettingsRowView: View {
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 
         }
-        .padding(TKDesignSystem.Padding.medium)
+        .padding(Padding.medium)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

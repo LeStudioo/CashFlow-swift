@@ -8,6 +8,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct BudgetRowView: View {
     
@@ -75,7 +76,7 @@ struct BudgetRowView: View {
         .padding()
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

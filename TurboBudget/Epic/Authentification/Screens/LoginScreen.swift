@@ -8,6 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 import NetworkKit
+import DesignSystemModule
 
 struct LoginScreen: View {
     
@@ -58,7 +59,7 @@ struct LoginScreen: View {
             }
             #endif
             
-            VStack(spacing: DesignSystem.Spacing.standard) {
+            VStack(spacing: Spacing.standard) {
                 SignInButton(
                     config: .init(
                         icon: .googleLogo,
@@ -98,11 +99,11 @@ struct LoginScreen: View {
                 }
                 // black button
                 .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                .clipShape(RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard, style: .continuous))
                 .frame(height: 48)
             }
         }
-        .padding(DesignSystem.Padding.large)
+        .padding(Padding.large)
     } // body
 } // struct
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 enum CustomTextFieldStyle {
     case text
@@ -23,28 +24,28 @@ struct CustomTextField: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+        VStack(alignment: .leading, spacing: Spacing.extraSmall) {
             Text(config.title)
-                .padding(.leading, TKDesignSystem.Spacing.small)
+                .padding(.leading, Spacing.small)
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {
                 TextField(config.placeholder, text: $text)
                     .focused($isFocused)
                     .keyboardType(config.style == .amount ? .decimalPad : .default)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
-                    .padding([.vertical, .leading], TKDesignSystem.Padding.regular)
-                    .padding(.trailing, config.style == .amount ? 8 : TKDesignSystem.Padding.regular)
+                    .fontWithLineHeight(.Body.medium)
+                    .padding([.vertical, .leading], Padding.regular)
+                    .padding(.trailing, config.style == .amount ? 8 : Padding.regular)
                 
                 if config.style == .amount {
                     Text(UserCurrency.symbol)
-                        .padding(.vertical, TKDesignSystem.Padding.regular)
+                        .padding(.vertical, Padding.regular)
                         .padding(.trailing)
                 }
             }
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.medium,
+                radius: CornerRadius.medium,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct CustomDatePicker: View {
     
@@ -35,14 +36,14 @@ struct CustomDatePicker: View {
                     Text(date.formatted(Date.FormatStyle().day().month(.abbreviated).year()))
                         .contentTransition(.numericText())
                         .foregroundStyle(Color.label)
-                        .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
-                        .padding(TKDesignSystem.Padding.medium)
+                        .fontWithLineHeight(.Body.medium)
+                        .padding(Padding.medium)
                         .roundedRectangleBorder(
                             TKDesignSystem.Colors.Background.Theme.bg200,
-                            radius: TKDesignSystem.Radius.small
+                            radius: CornerRadius.small
                         )
                 })
-                .padding(TKDesignSystem.Padding.extraSmall)
+                .padding(Padding.extraSmall)
                 .animation(.smooth, value: date)
                 
                 if isDatePickerShowing {
@@ -60,7 +61,7 @@ struct CustomDatePicker: View {
             .fullWidth(.trailing)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.medium,
+                radius: CornerRadius.medium,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

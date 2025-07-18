@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct AnalyticsScreen: View {
     
@@ -32,7 +33,7 @@ struct AnalyticsScreen: View {
     var body: some View {
         VStack(spacing: 0) {
             if !transactionStore.transactions.isEmpty {
-                BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+                BetterScrollView(maxBlurRadius: Blur.topbar) {
                     NavigationBar(
                         title: "word_statistics".localized,
                         withDismiss: false,
@@ -43,7 +44,7 @@ struct AnalyticsScreen: View {
                         )
                     )
                 } content: { _ in
-                    VStack(spacing: TKDesignSystem.Spacing.large) {
+                    VStack(spacing: Spacing.large) {
                         GenericBarChart(
                             title: "cashflowchart_title".localized,
                             selectedDate: $selectedDate,
@@ -107,7 +108,7 @@ struct AnalyticsScreen: View {
                             )
                         )
                     }
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                     
                     Rectangle()
                         .frame(height: 120)

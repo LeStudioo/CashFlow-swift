@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct TransactionsListScreen: View {
     
@@ -29,8 +30,8 @@ struct TransactionsListScreen: View {
                         TransactionRowView(transaction: transaction)
                     }
                     .id(transaction.id)
-                    .padding(.bottom, DesignSystem.Padding.medium)
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.bottom, Padding.medium)
+                    .padding(.horizontal, Padding.large)
                     .onAppear {
                         if transactionStore.transactions.last?.id == transaction.id && !isLoading {
                             self.isLoading = true
@@ -48,7 +49,7 @@ struct TransactionsListScreen: View {
                         .compactMap(\.amount)
                         .reduce(0, +)
                 )
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
             } // Section
         } // List
         .listStyle(.plain)

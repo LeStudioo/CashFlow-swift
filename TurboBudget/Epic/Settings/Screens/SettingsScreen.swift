@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import TheoKit
+import DesignSystemModule
 
 struct SettingsScreen: View {
     
@@ -35,7 +36,7 @@ struct SettingsScreen: View {
     
     // MARK: - View
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: "setting_home_title".localized,
                 placeholder: "word_search".localized,
@@ -43,17 +44,17 @@ struct SettingsScreen: View {
             )
         } content: { _ in
             SettingsRowView(item: .cashFlowPro)
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.bottom, Spacing.extraLarge)
+                .padding(.horizontal, Padding.large)
             
             ForEach(settingsFiltered) { section in
-                VStack(spacing: TKDesignSystem.Spacing.standard) {
+                VStack(spacing: Spacing.standard) {
                     Text(section.title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                        .fontWithLineHeight(.Title.medium)
                         .foregroundStyle(Color.label)
                         .fullWidth(.leading)
                         
-                    VStack(spacing: TKDesignSystem.Spacing.medium) {
+                    VStack(spacing: Spacing.medium) {
                         let filteredItems = section.items.filter { item in
                             item.title.localizedStandardContains(searchText)
                         }
@@ -62,14 +63,14 @@ struct SettingsScreen: View {
                         }
                     }
                 }
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+                .padding(.bottom, Spacing.extraLarge)
             }
-            .padding(.horizontal, TKDesignSystem.Padding.large)
+            .padding(.horizontal, Padding.large)
             
             Text("v\(Bundle.main.releaseVersionNumber ?? "")")
-                .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                .fontWithLineHeight(.Body.mediumBold)
                 .foregroundStyle(Color.label)
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+                .padding(.bottom, Spacing.extraLarge)
             
             Rectangle()
                 .foregroundStyle(Color.clear)

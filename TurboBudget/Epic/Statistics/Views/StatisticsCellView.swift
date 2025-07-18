@@ -16,7 +16,7 @@ struct StatisticsCellView: View {
     var body: some View {
         VStack(spacing: 8) {
             Text(title)
-                .font(.Body.semibold)
+                .font(.semiBoldText16())
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack(spacing: 6) {

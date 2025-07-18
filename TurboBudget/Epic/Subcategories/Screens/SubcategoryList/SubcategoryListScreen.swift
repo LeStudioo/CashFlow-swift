@@ -9,6 +9,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SubcategoryListScreen: View {
     
@@ -42,7 +43,7 @@ struct SubcategoryListScreen: View {
     
     // MARK: - View
     var body: some View {
-        ListWithBluredHeader(maxBlurRadius: DesignSystem.Blur.topbar) {
+        ListWithBluredHeader(maxBlurRadius: Blur.topbar) {
             NavigationBar(title: "word_subcategories".localized)
         } content: {
             ForEach(searchResults) { subcategory in
@@ -57,8 +58,8 @@ struct SubcategoryListScreen: View {
                 ) {
                     SubcategoryRowView(subcategory: subcategory, selectedDate: selectedDate)
                 }
-                .padding(.bottom, TKDesignSystem.Spacing.medium)
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.bottom, Spacing.medium)
+                .padding(.horizontal, Padding.large)
             }
             .noDefaultStyle()
         }

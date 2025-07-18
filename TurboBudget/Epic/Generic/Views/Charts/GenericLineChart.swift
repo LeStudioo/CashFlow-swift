@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 import TheoKit
+import DesignSystemModule
 
 struct GenericLineChart: View {
     
@@ -23,15 +24,15 @@ struct GenericLineChart: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: TKDesignSystem.Spacing.large) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+        VStack(spacing: Spacing.large) {
+            VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                 Text(config.title)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                 
                 Text(amounts.reduce(0, +).toCurrency())
                     .foregroundStyle(Color.label)
-                    .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                    .fontWithLineHeight(.Title.medium)
             }
             .fullWidth(.leading)
             
@@ -79,7 +80,7 @@ struct GenericLineChart: View {
                 }
             }
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: 16,

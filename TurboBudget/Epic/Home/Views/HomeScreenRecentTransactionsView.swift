@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct HomeScreenRecentTransactionsView: View {
     
@@ -20,11 +21,11 @@ struct HomeScreenRecentTransactionsView: View {
     // MARK: -
     var body: some View {
         if preferencesDisplayHome.transaction_isDisplayed {
-            VStack(spacing: TKDesignSystem.Spacing.standard) {
+            VStack(spacing: Spacing.standard) {
                 HomeScreenComponentHeaderView(type: .recentTransactions)
                 
                 if transactionStore.transactions.isNotEmpty {
-                    VStack(spacing: TKDesignSystem.Spacing.medium) {
+                    VStack(spacing: Spacing.medium) {
                         let transactions = transactionStore.transactions.prefix(preferencesDisplayHome.transaction_value)
                         ForEach(transactions) { transaction in
                             NavigationButton(route: .push, destination: AppDestination.transaction(.detail(transaction: transaction))) {

@@ -24,7 +24,7 @@ struct ProgressBar: View {
     // MARK: -
     var body: some View {
         GeometryReader { geometry in
-            let widthText = percentageString.width(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.8
+            let widthText = percentageString.width(usingFont: UIFont(name: "PlusJakartaSans-SemiBold", size: 16)!) * 1.8 // TODO: Need refactor
             let widthPercentage = geometry.size.width * min(1, percentage)
             let progressWidth = max(widthText, widthPercentage)
             

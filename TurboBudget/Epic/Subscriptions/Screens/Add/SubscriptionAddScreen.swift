@@ -10,6 +10,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SubscriptionAddScreen: View {
     
@@ -36,7 +37,7 @@ struct SubscriptionAddScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: subscription == nil ? Word.Title.Subscription.new : Word.Title.Subscription.update,
                 actionButton: .init(

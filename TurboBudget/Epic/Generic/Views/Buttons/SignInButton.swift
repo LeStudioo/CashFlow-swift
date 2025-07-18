@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystemModule
 
 struct SignInButton: View {
     
@@ -19,14 +20,14 @@ struct SignInButton: View {
             HStack(spacing: 8) {
                 Image(config.icon)
                 Text(config.title)
-                    .font(DesignSystem.FontDS.Button.text)
+                    .font(.semiBoldText18())
                     .foregroundStyle(Color.textReversed)
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
             .padding(.vertical, 12)
             .background {
-                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous)
+                RoundedRectangle(cornerRadius: CornerRadius.standard, style: .continuous)
                     .fill(Color.text)
             }
         }

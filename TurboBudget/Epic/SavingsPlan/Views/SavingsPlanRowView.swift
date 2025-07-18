@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SavingsPlanRowView: View {
 
@@ -28,7 +29,7 @@ struct SavingsPlanRowView: View {
                 Rectangle()
                     .frame(width: 40, height: 40)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg200)
-                    .cornerRadius(TKDesignSystem.Radius.small)
+                    .cornerRadius(CornerRadius.small)
                     .overlay {
                         Text(currentSavingsPlan.emoji ?? "")
                             .font(.system(size: 24, weight: .semibold, design: .rounded))
@@ -43,24 +44,24 @@ struct SavingsPlanRowView: View {
                         
             VStack(spacing: 0) {
                 Text("\((savingsPlan.currentAmount ?? 0).toCurrency())")
-                    .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                    .fontWithLineHeight(.Title.large)
                     .foregroundStyle(Color.label)
                 Text("/ \((savingsPlan.goalAmount ?? 0).toCurrency())")
-                    .fontWithLineHeight(DesignSystem.Fonts.Label.large)
+                    .fontWithLineHeight(.Label.large)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
             }
             .frame(maxHeight: .infinity)
                                    
             Text(currentSavingsPlan.name ?? "")
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .lineLimit(1)                  
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .aspectRatio(1, contentMode: .fit)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

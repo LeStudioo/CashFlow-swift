@@ -29,7 +29,7 @@ struct GenericBarChart: View {
                     
                     Text(amount.toCurrency())
                         .foregroundStyle(Color.text)
-                        .font(DesignSystem.FontDS.Title.semibold)
+                        .font(.semiBoldH3())
                         .animation(.smooth, value: amount)
                         .contentTransition(.numericText())
                 }

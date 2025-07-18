@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SearchBarView: View {
     
@@ -39,7 +40,7 @@ struct SearchBarView: View {
             
             TextField(placeholder, text: $searchText)
                 .focused($isFocused)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .toolbar {
                     ToolbarDismissKeyboardButtonView()
@@ -57,10 +58,10 @@ struct SearchBarView: View {
                 }
             }
         }
-        .padding(TKDesignSystem.Padding.regular)
+        .padding(Padding.regular)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.medium,
+            radius: CornerRadius.medium,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

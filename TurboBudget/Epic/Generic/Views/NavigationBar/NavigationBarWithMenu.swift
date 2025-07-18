@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct NavigationBarWithMenu<Content: View>: View {
     
@@ -19,9 +20,9 @@ struct NavigationBarWithMenu<Content: View>: View {
     
     // MARK: - View
     var body: some View {
-        HStack(spacing: TKDesignSystem.Spacing.small) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.small) {
-                HStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+        HStack(spacing: Spacing.small) {
+            VStack(alignment: .leading, spacing: Spacing.small) {
+                HStack(spacing: Spacing.extraSmall) {
                     Button {
                         if let dismissAction {
                             dismissAction()
@@ -34,14 +35,14 @@ struct NavigationBarWithMenu<Content: View>: View {
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                         Text("word_return".localized)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .fontWithLineHeight(.Body.medium)
                     }
                 }
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 
                 if let title {
                     Text(title)
-                        .fontWithLineHeight(DesignSystem.Fonts.Title.large)
+                        .fontWithLineHeight(.Title.large)
                         .foregroundStyle(Color.label)
                 }
             }
@@ -54,7 +55,7 @@ struct NavigationBarWithMenu<Content: View>: View {
                     .foregroundStyle(Color.label)
             }
         }
-        .padding(.horizontal, TKDesignSystem.Padding.large)
+        .padding(.horizontal, Padding.large)
     }
 }
 

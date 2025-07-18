@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct DashboardRowView: View {
     
@@ -15,15 +16,15 @@ struct DashboardRowView: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.large) {
+        VStack(alignment: .leading, spacing: Spacing.large) {
             HStack {
                 Image(config.icon)
                     .renderingMode(.template)
                     .foregroundStyle(Color.label)
-                    .padding(TKDesignSystem.Padding.small)
+                    .padding(Padding.small)
                     .roundedRectangleBorder(
                         TKDesignSystem.Colors.Background.Theme.bg200,
-                        radius: TKDesignSystem.Radius.small
+                        radius: CornerRadius.small
                     )
                 
                 Spacer()
@@ -34,15 +35,15 @@ struct DashboardRowView: View {
             }
             
             Text(config.text)
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.label)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SubcategoryRowView: View {
     
@@ -38,12 +39,12 @@ struct SubcategoryRowView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 Text(subcategory.name)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                    .fontWithLineHeight(.Body.mediumBold)
                     .foregroundStyle(Color.label)
                     .lineLimit(1)
                 
                 Text(stringAmount)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     .lineLimit(1)
             }
@@ -52,10 +53,10 @@ struct SubcategoryRowView: View {
             IconSVG(icon: .iconArrowRight, value: .large)
                 .foregroundStyle(Color.label)
         }
-        .padding(TKDesignSystem.Padding.medium)
+        .padding(Padding.medium)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SelectCategoryButton: View {
     
@@ -46,13 +47,13 @@ struct SelectCategoryButton: View {
                         Text(Word.Create.addCategory)
                     }
                 }
-                .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                .fontWithLineHeight(.Body.medium)
                 .foregroundStyle(Color.white)
-                .padding(TKDesignSystem.Padding.regular)
+                .padding(Padding.regular)
                 .fullWidth(.leading)
                 .roundedRectangleBorder(
                     selectedCategory?.color ?? TKDesignSystem.Colors.Background.Theme.bg100,
-                    radius: TKDesignSystem.Radius.medium,
+                    radius: CornerRadius.medium,
                     lineWidth: selectedCategory == nil ? 1 : 0,
                     strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
                 )

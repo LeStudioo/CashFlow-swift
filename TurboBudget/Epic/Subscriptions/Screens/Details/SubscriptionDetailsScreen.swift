@@ -10,6 +10,7 @@ import AlertKit
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SubscriptionDetailsScreen: View {
     
@@ -31,7 +32,7 @@ struct SubscriptionDetailsScreen: View {
     // MARK: -
     var body: some View {
         if let subscription {
-            VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
+            VStack(spacing: Spacing.extraLarge) {
                 NavigationBarWithMenu {
                     NavigationButton(
                         route: .push,
@@ -47,14 +48,14 @@ struct SubscriptionDetailsScreen: View {
                 }
                 
                 ScrollView(.vertical) {
-                    VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
-                        VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(spacing: Spacing.extraLarge) {
+                        VStack(spacing: Spacing.extraSmall) {
                             Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
+                                .fontWithLineHeight(.Display.huge)
                                 .foregroundColor(subscription.color)
                             
                             Text(subscription.name)
-                                .fontWithLineHeight(DesignSystem.Fonts.Display.small)
+                                .fontWithLineHeight(.Display.small)
                                 .multilineTextAlignment(.center)
                                 .lineLimit(2)
                         }
@@ -125,14 +126,14 @@ struct SubscriptionDetailsScreen: View {
                                             destination: AppDestination.transaction(.detail(transaction: transaction))
                                         ) {
                                             TransactionRowView(transaction: transaction)
-                                                .padding(.bottom, TKDesignSystem.Padding.medium)
+                                                .padding(.bottom, Padding.medium)
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                 } // ScrollView
                 .scrollIndicators(.hidden)
             }

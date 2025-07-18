@@ -43,9 +43,9 @@ struct TurboBudgetApp: App {
     @StateObject private var preferencesSubscription: SubscriptionPreferences = .shared
         
     // init
-    init() {
-        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: nameFontBold, size: 18)!]
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: nameFontBold, size: 30)!]
+    init() { // TODO: Need refactor
+        UINavigationBar.appearance().titleTextAttributes = [.font: UIFont(name: "PlusJakartaSans-Bold", size: 18)!]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: UIFont(name: "PlusJakartaSans-Bold", size: 30)!]
     }
     
     // MARK: -

@@ -12,6 +12,7 @@ import CoreData
 import StoreKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct HomeScreen: View {
         
@@ -25,9 +26,9 @@ struct HomeScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             HomeHeaderView()
-                .padding(TKDesignSystem.Padding.large)
+                .padding(Padding.large)
         } content: { _ in
             CarouselOfChartsView()
                 .padding(.bottom, 24)
@@ -37,7 +38,7 @@ struct HomeScreen: View {
                 HomeScreenRecentTransactionsView()
                 HomeScreenSavingsPlanView()
             }
-            .padding(.horizontal, TKDesignSystem.Padding.large)
+            .padding(.horizontal, Padding.large)
             
             Rectangle()
                 .frame(height: 120)

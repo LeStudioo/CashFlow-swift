@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SubcategorySelectableRowView: View {
     
@@ -36,10 +37,10 @@ struct SubcategorySelectableRowView: View {
                     .lineLimit(1)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(TKDesignSystem.Padding.standard)
+            .padding(Padding.standard)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg200,
-                radius: TKDesignSystem.Radius.standard
+                radius: CornerRadius.standard
             )
             .overlay(alignment: .topTrailing) {
                 if isSelected {

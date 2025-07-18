@@ -31,7 +31,7 @@ struct RecommendedCategoryButton: View {
                             .renderingMode(.template)
                             .frame(width: 20, height: 20)
                         Text("\(bestSubcategory != nil ? (bestSubcategory!.name) : (bestCategory.name))")
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                            .fontWithLineHeight(.Body.small)
                     }
                     .fullWidth(.trailing)
                     .foregroundStyle(bestCategory.color)

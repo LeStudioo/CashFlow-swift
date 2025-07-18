@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct CustomEmptyView: View {
     
@@ -41,29 +42,29 @@ struct CustomEmptyView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: TKDesignSystem.Spacing.small) {
+        VStack(spacing: Spacing.small) {
             Image(emptyIcon)
                 .resizable()
                 .renderingMode(.template)
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 .frame(width: 32, height: 32)
             
-            VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+            VStack(spacing: Spacing.extraSmall) {
                 Text(emptyTitle)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.large)
+                    .fontWithLineHeight(.Body.large)
                     .foregroundStyle(Color.label)
                     
                 Text(emptyDescription)
-                    .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                    .fontWithLineHeight(.Body.small)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg500)
                     .multilineTextAlignment(.center)
             }
         }
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
         .frame(maxWidth: .infinity, maxHeight: isHomeSituation ? nil : .infinity)
         .roundedRectangleBorder(
             isHomeSituation ? TKDesignSystem.Colors.Background.Theme.bg100 : .clear,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: isHomeSituation ? 0.5 : 0,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

@@ -10,6 +10,7 @@ import SwiftUI
 import MCEmojiPicker
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SavingPlansAddScreen: View {
     
@@ -39,7 +40,7 @@ struct SavingPlansAddScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: savingsPlan == nil ? Word.Title.SavingsPlan.new : Word.Title.SavingsPlan.update,
                 actionButton: .init(

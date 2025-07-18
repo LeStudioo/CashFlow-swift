@@ -10,6 +10,7 @@ import SwiftUI
 import AlertKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct AccountDashboardScreen: View {
     
@@ -91,7 +92,7 @@ struct AccountDashboardScreen: View {
                                     }
                                 }
                             } label: {
-                                HStack(spacing: DesignSystem.Spacing.small) {
+                                HStack(spacing: Spacing.small) {
                                     Text(account.name)
                                         .multilineTextAlignment(.center)
                                         .lineLimit(2)
@@ -99,7 +100,7 @@ struct AccountDashboardScreen: View {
                                     Image(.iconChevronUpDown)
                                         .renderingMode(.template)
                                 }
-                                .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
+                                .fontWithLineHeight(.Title.medium)
                                 .foregroundStyle(themeManager.theme.color)
                             }
                             .onChange(of: accountStore.selectedAccount?.id) { _ in
@@ -113,12 +114,12 @@ struct AccountDashboardScreen: View {
                             
                             VStack(alignment: .center, spacing: 0) {
                                 Text(account.balance.toCurrency())
-                                    .fontWithLineHeight(DesignSystem.Fonts.Display.extraLarge)
+                                    .fontWithLineHeight(.Display.extraLarge)
                                     .animation(.default, value: account.balance)
                                     .contentTransition(.numericText())
                                 
                                 Text("home_screen_available_balance".localized)
-                                    .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                                    .fontWithLineHeight(.Body.medium)
                                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             }
                             .fullWidth()
@@ -206,7 +207,7 @@ struct AccountDashboardScreen: View {
             }
             .scrollIndicators(.hidden)
         }
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .alert("account_detail_rename".localized, isPresented: $viewModel.isEditingAccountName, actions: {
             TextField("account_detail_new_name".localized, text: $viewModel.accountName)

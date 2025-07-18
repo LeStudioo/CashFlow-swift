@@ -11,6 +11,7 @@ import SwipeActions
 import AlertKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct TransactionRowView: View {
     
@@ -30,38 +31,38 @@ struct TransactionRowView: View {
     var body: some View {
         SwipeView(
             label: {
-                HStack(spacing: TKDesignSystem.Spacing.medium) {
+                HStack(spacing: Spacing.medium) {
                     CircleCategory(
                         category: currentTransaction.category,
                         subcategory: currentTransaction.subcategory,
                         transaction: currentTransaction
                     )
                     
-                    VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                         Text(transactionTypeString)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                            .fontWithLineHeight(.Body.small)
                         
                         Text(currentTransaction.nameDisplayed)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
+                            .fontWithLineHeight(.Body.medium)
                             .foregroundStyle(Color.text)
                             .lineLimit(1)
                     }
                     .fullWidth(.leading)
                                         
-                    VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .trailing, spacing: Spacing.extraSmall) {
                         Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
+                            .fontWithLineHeight(.Body.mediumBold)
                             .foregroundStyle(currentTransaction.color)
                             .lineLimit(1)
                         
                         Text(currentTransaction.date.withTemporality)
-                            .fontWithLineHeight(DesignSystem.Fonts.Body.small)
+                            .fontWithLineHeight(.Body.small)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .lineLimit(1)
                     }
                 }
-                .padding(TKDesignSystem.Padding.medium)
+                .padding(Padding.medium)
                 .roundedRectangleBorder(
                     TKDesignSystem.Colors.Background.Theme.bg100,
                     radius: 16,

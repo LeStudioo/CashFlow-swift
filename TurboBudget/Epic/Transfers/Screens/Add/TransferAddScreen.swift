@@ -8,6 +8,7 @@
 import SwiftUI
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct TransferAddScreen: View {
     
@@ -24,7 +25,7 @@ struct TransferAddScreen: View {
     
     // MARK: -
     var body: some View {
-        BetterScrollView(maxBlurRadius: DesignSystem.Blur.topbar) {
+        BetterScrollView(maxBlurRadius: Blur.topbar) {
             NavigationBar(
                 title: Word.Title.Transfer.new,
                 actionButton: .init(
