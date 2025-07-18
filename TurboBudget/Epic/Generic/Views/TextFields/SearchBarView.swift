@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SearchBarView: View {
     
@@ -57,7 +58,7 @@ struct SearchBarView: View {
                 }
             }
         }
-        .padding(TKDesignSystem.Padding.regular)
+        .padding(Padding.regular)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: TKDesignSystem.Radius.medium,

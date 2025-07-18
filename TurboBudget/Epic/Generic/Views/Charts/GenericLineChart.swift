@@ -8,6 +8,7 @@
 import SwiftUI
 import Charts
 import TheoKit
+import DesignSystemModule
 
 struct GenericLineChart: View {
     
@@ -79,7 +80,7 @@ struct GenericLineChart: View {
                 }
             }
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: 16,

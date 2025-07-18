@@ -8,6 +8,7 @@
 import SwiftUI
 import AlertKit
 import TheoKit
+import DesignSystemModule
 
 struct SettingsScreen: View {
     
@@ -44,7 +45,7 @@ struct SettingsScreen: View {
         } content: { _ in
             SettingsRowView(item: .cashFlowPro)
                 .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
             
             ForEach(settingsFiltered) { section in
                 VStack(spacing: TKDesignSystem.Spacing.standard) {
@@ -64,7 +65,7 @@ struct SettingsScreen: View {
                 }
                 .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
             }
-            .padding(.horizontal, TKDesignSystem.Padding.large)
+            .padding(.horizontal, Padding.large)
             
             Text("v\(Bundle.main.releaseVersionNumber ?? "")")
                 .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)

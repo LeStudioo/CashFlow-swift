@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct CategoryRowView: View {
     
@@ -44,7 +45,7 @@ struct CategoryRowView: View {
             IconSVG(icon: .iconArrowRight, value: .large)
                 .foregroundStyle(Color.label)
         }
-        .padding(TKDesignSystem.Padding.medium)
+        .padding(Padding.medium)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: TKDesignSystem.Radius.standard,

@@ -8,6 +8,7 @@
 import SwiftUI
 import AuthenticationServices
 import NetworkKit
+import DesignSystemModule
 
 struct LoginScreen: View {
     
@@ -102,7 +103,7 @@ struct LoginScreen: View {
                 .frame(height: 48)
             }
         }
-        .padding(DesignSystem.Padding.large)
+        .padding(Padding.large)
     } // body
 } // struct
 

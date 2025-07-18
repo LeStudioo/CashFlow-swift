@@ -9,6 +9,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SubcategoryListScreen: View {
     
@@ -58,7 +59,7 @@ struct SubcategoryListScreen: View {
                     SubcategoryRowView(subcategory: subcategory, selectedDate: selectedDate)
                 }
                 .padding(.bottom, TKDesignSystem.Spacing.medium)
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
             }
             .noDefaultStyle()
         }

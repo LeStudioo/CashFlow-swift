@@ -9,6 +9,7 @@
 import SwiftUI
 import Charts
 import TheoKit
+import DesignSystemModule
 
 struct CarouselOfChartsView: View {
     
@@ -35,7 +36,7 @@ struct CarouselOfChartsView: View {
                         mainColor: Color.error400
                     )
                 )
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
                 .tag(0)
                 
                 GenericLineChart(
@@ -46,7 +47,7 @@ struct CarouselOfChartsView: View {
                         mainColor: Color.primary500
                     )
                 )
-                .padding(.horizontal, TKDesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
                 .tag(1)
             }
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct NavigationBarWithMenu<Content: View>: View {
     
@@ -54,7 +55,7 @@ struct NavigationBarWithMenu<Content: View>: View {
                     .foregroundStyle(Color.label)
             }
         }
-        .padding(.horizontal, TKDesignSystem.Padding.large)
+        .padding(.horizontal, Padding.large)
     }
 }
 

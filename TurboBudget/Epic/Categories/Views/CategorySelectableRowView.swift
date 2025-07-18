@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct CategorySelectableRowView: View {
     
@@ -37,7 +38,7 @@ struct CategorySelectableRowView: View {
                 
                 Spacer()
             }
-            .padding(TKDesignSystem.Padding.standard)
+            .padding(Padding.standard)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg200,
                 radius: TKDesignSystem.Radius.standard

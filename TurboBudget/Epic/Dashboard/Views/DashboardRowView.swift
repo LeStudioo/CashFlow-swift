@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct DashboardRowView: View {
     
@@ -20,7 +21,7 @@ struct DashboardRowView: View {
                 Image(config.icon)
                     .renderingMode(.template)
                     .foregroundStyle(Color.label)
-                    .padding(TKDesignSystem.Padding.small)
+                    .padding(Padding.small)
                     .roundedRectangleBorder(
                         TKDesignSystem.Colors.Background.Theme.bg200,
                         radius: TKDesignSystem.Radius.small
@@ -39,7 +40,7 @@ struct DashboardRowView: View {
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: TKDesignSystem.Radius.standard,

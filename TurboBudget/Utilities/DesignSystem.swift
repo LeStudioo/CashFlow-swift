@@ -74,24 +74,6 @@ extension DesignSystem {
     }
 }
 
-// MARK: - Padding
-extension DesignSystem {
-    struct Padding {
-        /// `Value = 4`
-        static let extraSmall: CGFloat = 4
-        /// `Value = 8`
-        static let small: CGFloat = 8
-        /// `Value = 12`
-        static let medium: CGFloat = 12
-        /// `Value = 16`
-        static let standard: CGFloat = 16
-        /// `Value = 24`
-        static let large: CGFloat = 24
-        /// `Value = 32`
-        static let extraLarge: CGFloat = 32
-    }
-}
-
 // MARK: - Spacing
 extension DesignSystem {
     struct Spacing {

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 enum CustomTextFieldStyle {
     case text
@@ -33,12 +34,12 @@ struct CustomTextField: View {
                     .focused($isFocused)
                     .keyboardType(config.style == .amount ? .decimalPad : .default)
                     .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
-                    .padding([.vertical, .leading], TKDesignSystem.Padding.regular)
-                    .padding(.trailing, config.style == .amount ? 8 : TKDesignSystem.Padding.regular)
+                    .padding([.vertical, .leading], Padding.regular)
+                    .padding(.trailing, config.style == .amount ? 8 : Padding.regular)
                 
                 if config.style == .amount {
                     Text(UserCurrency.symbol)
-                        .padding(.vertical, TKDesignSystem.Padding.regular)
+                        .padding(.vertical, Padding.regular)
                         .padding(.trailing)
                 }
             }

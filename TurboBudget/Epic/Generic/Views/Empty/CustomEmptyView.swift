@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct CustomEmptyView: View {
     
@@ -59,7 +60,7 @@ struct CustomEmptyView: View {
                     .multilineTextAlignment(.center)
             }
         }
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
         .frame(maxWidth: .infinity, maxHeight: isHomeSituation ? nil : .infinity)
         .roundedRectangleBorder(
             isHomeSituation ? TKDesignSystem.Colors.Background.Theme.bg100 : .clear,

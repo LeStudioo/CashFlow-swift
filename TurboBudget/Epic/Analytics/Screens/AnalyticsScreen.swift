@@ -10,6 +10,7 @@ import SwiftUI
 import UIKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct AnalyticsScreen: View {
     
@@ -107,7 +108,7 @@ struct AnalyticsScreen: View {
                             )
                         )
                     }
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                     
                     Rectangle()
                         .frame(height: 120)

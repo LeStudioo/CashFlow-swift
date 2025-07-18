@@ -10,6 +10,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SavingsPlanListScreen: View {
     
@@ -62,7 +63,7 @@ struct SavingsPlanListScreen: View {
                     .padding(.bottom)
                 }
             }
-            .padding(.horizontal, TKDesignSystem.Padding.large)
+            .padding(.horizontal, Padding.large)
         }
         .overlay {
             CustomEmptyView(

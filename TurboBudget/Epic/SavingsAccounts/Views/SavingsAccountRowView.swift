@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct SavingsAccountRowView: View {
     
@@ -48,7 +49,7 @@ struct SavingsAccountRowView: View {
                 .lineLimit(2)
                 .foregroundStyle(Color.label)
         }
-        .padding(TKDesignSystem.Padding.standard)
+        .padding(Padding.standard)
         .aspectRatio(1, contentMode: .fit)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,

@@ -9,6 +9,7 @@ import SwiftUI
 import AlertKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SavingsAccountsListView: View {
     
@@ -82,7 +83,7 @@ struct SavingsAccountsListView: View {
                             }
                         }
                     })
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                 }
             } else {
                 CustomEmptyView(

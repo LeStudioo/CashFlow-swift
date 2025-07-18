@@ -10,6 +10,7 @@ import SwiftUI
 import AlertKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct AccountDashboardScreen: View {
     
@@ -206,7 +207,7 @@ struct AccountDashboardScreen: View {
             }
             .scrollIndicators(.hidden)
         }
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .alert("account_detail_rename".localized, isPresented: $viewModel.isEditingAccountName, actions: {
             TextField("account_detail_new_name".localized, text: $viewModel.accountName)

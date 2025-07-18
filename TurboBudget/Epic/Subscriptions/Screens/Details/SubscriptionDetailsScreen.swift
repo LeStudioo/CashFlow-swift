@@ -10,6 +10,7 @@ import AlertKit
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SubscriptionDetailsScreen: View {
     
@@ -125,14 +126,14 @@ struct SubscriptionDetailsScreen: View {
                                             destination: AppDestination.transaction(.detail(transaction: transaction))
                                         ) {
                                             TransactionRowView(transaction: transaction)
-                                                .padding(.bottom, TKDesignSystem.Padding.medium)
+                                                .padding(.bottom, Padding.medium)
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                 } // ScrollView
                 .scrollIndicators(.hidden)
             }

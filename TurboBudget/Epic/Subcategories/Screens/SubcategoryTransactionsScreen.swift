@@ -9,6 +9,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SubcategoryTransactionsScreen: View {
     
@@ -46,7 +47,7 @@ struct SubcategoryTransactionsScreen: View {
                             }
                         }
                         .noDefaultStyle()
-                        .padding(.bottom, DesignSystem.Padding.medium)
+                        .padding(.bottom, Padding.medium)
                     } header: {
                         DetailOfExpensesAndIncomesByMonth(
                             month: selectedDate,
@@ -54,7 +55,7 @@ struct SubcategoryTransactionsScreen: View {
                             amountOfIncomes: 0
                         )
                     }
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                 }
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)

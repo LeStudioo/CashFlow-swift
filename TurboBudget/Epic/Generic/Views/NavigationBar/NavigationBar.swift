@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import DesignSystemModule
 
 struct NavigationBar: View {
     
@@ -97,7 +98,7 @@ struct NavigationBar: View {
             }
         }
         .fullWidth(.leading)
-        .padding(TKDesignSystem.Padding.large)
+        .padding(Padding.large)
     } // body
 } // struct
 

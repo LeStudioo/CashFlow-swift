@@ -10,6 +10,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct CategoriesListScreen: View {
     
@@ -58,7 +59,7 @@ struct CategoriesListScreen: View {
                         .padding(.bottom, TKDesignSystem.Spacing.medium)
                     }
                     .noDefaultStyle()
-                    .padding(.horizontal, TKDesignSystem.Padding.large)
+                    .padding(.horizontal, Padding.large)
                     
                     Rectangle()
                         .frame(height: 100)

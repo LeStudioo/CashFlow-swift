@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SelectCategoryButton: View {
     
@@ -48,7 +49,7 @@ struct SelectCategoryButton: View {
                 }
                 .fontWithLineHeight(DesignSystem.Fonts.Body.medium)
                 .foregroundStyle(Color.white)
-                .padding(TKDesignSystem.Padding.regular)
+                .padding(Padding.regular)
                 .fullWidth(.leading)
                 .roundedRectangleBorder(
                     selectedCategory?.color ?? TKDesignSystem.Colors.Background.Theme.bg100,

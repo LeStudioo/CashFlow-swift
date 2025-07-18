@@ -11,6 +11,7 @@ import SwipeActions
 import AlertKit
 import NavigationKit
 import TheoKit
+import DesignSystemModule
 
 struct SubscriptionRowView: View {
     
@@ -58,7 +59,7 @@ struct SubscriptionRowView: View {
                             .lineLimit(1)
                     }
                 }
-                .padding(TKDesignSystem.Padding.medium)
+                .padding(Padding.medium)
                 .roundedRectangleBorder(
                     TKDesignSystem.Colors.Background.Theme.bg100,
                     radius: 16,

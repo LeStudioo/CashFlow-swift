@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystemModule
 
 struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
     
@@ -68,7 +69,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                         }
                     }
                 }
-                .padding(DesignSystem.Padding.large)
+                .padding(Padding.large)
             }
         }
         .toolbar {

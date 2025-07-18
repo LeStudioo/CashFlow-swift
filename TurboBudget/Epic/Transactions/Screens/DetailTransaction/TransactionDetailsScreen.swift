@@ -11,6 +11,7 @@ import AlertKit
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct TransactionDetailsScreen: View {
 
@@ -134,7 +135,7 @@ struct TransactionDetailsScreen: View {
                         }
                     }
                 }
-                .padding(.horizontal, DesignSystem.Padding.large)
+                .padding(.horizontal, Padding.large)
             } // ScrollView
             .scrollIndicators(.hidden)
         }

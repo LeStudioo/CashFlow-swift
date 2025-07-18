@@ -11,6 +11,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import TheoKit
+import DesignSystemModule
 
 struct SubscriptionsListScreen: View {
     
@@ -44,8 +45,8 @@ struct SubscriptionsListScreen: View {
                             ) {
                                 SubscriptionRowView(subscription: subscription)
                             }
-                            .padding(.bottom, TKDesignSystem.Padding.medium)
-                            .padding(.horizontal, TKDesignSystem.Padding.large)
+                            .padding(.bottom, Padding.medium)
+                            .padding(.horizontal, Padding.large)
                         }
                     } header: {
                         DetailOfExpensesAndIncomesByMonth(
@@ -53,7 +54,7 @@ struct SubscriptionsListScreen: View {
                             amountOfExpenses: subscriptionStore.amountExpensesByMonth(month: month),
                             amountOfIncomes: subscriptionStore.amountIncomesByMonth(month: month)
                         )
-                        .padding(.horizontal, TKDesignSystem.Padding.large)
+                        .padding(.horizontal, Padding.large)
                     }
                 }
                 .noDefaultStyle()

@@ -9,6 +9,7 @@ import SwiftUI
 import TheoKit
 import NavigationKit
 import AlertKit
+import DesignSystemModule
 
 struct SettingsRowView: View {
     
@@ -28,7 +29,7 @@ struct SettingsRowView: View {
                 .renderingMode(.template)
                 .foregroundStyle(Color.white)
                 .frame(width: 16, height: 16)
-                .padding(TKDesignSystem.Padding.small)
+                .padding(Padding.small)
                 .roundedRectangleBorder(
                     item.color,
                     radius: TKDesignSystem.Radius.small
@@ -44,7 +45,7 @@ struct SettingsRowView: View {
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 
         }
-        .padding(TKDesignSystem.Padding.medium)
+        .padding(Padding.medium)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
             radius: TKDesignSystem.Radius.standard,
