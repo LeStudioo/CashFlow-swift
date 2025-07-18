@@ -58,7 +58,7 @@ struct SubcategoryListScreen: View {
                 ) {
                     SubcategoryRowView(subcategory: subcategory, selectedDate: selectedDate)
                 }
-                .padding(.bottom, TKDesignSystem.Spacing.medium)
+                .padding(.bottom, Spacing.medium)
                 .padding(.horizontal, Padding.large)
             }
             .noDefaultStyle()

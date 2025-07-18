@@ -92,7 +92,7 @@ struct AccountDashboardScreen: View {
                                     }
                                 }
                             } label: {
-                                HStack(spacing: DesignSystem.Spacing.small) {
+                                HStack(spacing: Spacing.small) {
                                     Text(account.name)
                                         .multilineTextAlignment(.center)
                                         .lineLimit(2)

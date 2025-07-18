@@ -40,11 +40,11 @@ struct NavigationBar: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.standard) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.small) {
-                HStack(spacing: TKDesignSystem.Spacing.small) {
+        VStack(alignment: .leading, spacing: Spacing.standard) {
+            VStack(alignment: .leading, spacing: Spacing.small) {
+                HStack(spacing: Spacing.small) {
                     if withDismiss {
-                        HStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                        HStack(spacing: Spacing.extraSmall) {
                             Button {
                                 if let dismissAction {
                                     dismissAction()

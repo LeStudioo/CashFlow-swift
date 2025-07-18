@@ -31,14 +31,14 @@ struct TransactionRowView: View {
     var body: some View {
         SwipeView(
             label: {
-                HStack(spacing: TKDesignSystem.Spacing.medium) {
+                HStack(spacing: Spacing.medium) {
                     CircleCategory(
                         category: currentTransaction.category,
                         subcategory: currentTransaction.subcategory,
                         transaction: currentTransaction
                     )
                     
-                    VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                         Text(transactionTypeString)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .fontWithLineHeight(DesignSystem.Fonts.Body.small)
@@ -50,7 +50,7 @@ struct TransactionRowView: View {
                     }
                     .fullWidth(.leading)
                                         
-                    VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .trailing, spacing: Spacing.extraSmall) {
                         Text("\(currentTransaction.symbol) \(currentTransaction.amount.toCurrency())")
                             .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
                             .foregroundStyle(currentTransaction.color)

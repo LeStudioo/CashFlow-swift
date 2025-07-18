@@ -42,14 +42,14 @@ struct CustomEmptyView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: TKDesignSystem.Spacing.small) {
+        VStack(spacing: Spacing.small) {
             Image(emptyIcon)
                 .resizable()
                 .renderingMode(.template)
                 .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                 .frame(width: 32, height: 32)
             
-            VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+            VStack(spacing: Spacing.extraSmall) {
                 Text(emptyTitle)
                     .fontWithLineHeight(DesignSystem.Fonts.Body.large)
                     .foregroundStyle(Color.label)

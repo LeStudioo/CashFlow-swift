@@ -59,7 +59,7 @@ struct LoginScreen: View {
             }
             #endif
             
-            VStack(spacing: DesignSystem.Spacing.standard) {
+            VStack(spacing: Spacing.standard) {
                 SignInButton(
                     config: .init(
                         icon: .googleLogo,

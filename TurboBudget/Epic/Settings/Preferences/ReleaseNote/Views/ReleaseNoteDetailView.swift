@@ -16,8 +16,8 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(spacing: DesignSystem.Spacing.large) {
-                    VStack(alignment: .leading, spacing: DesignSystem.Spacing.extraSmall) {
+                VStack(spacing: Spacing.large) {
+                    VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                         Text("\("release_note_title".localized) \(releaseNote.version)")
                             .font(.system(size: 24, weight: .bold))
                         
@@ -28,7 +28,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     .fullWidth(.leading)
                     
                     if let newFeatures = releaseNote.newFeatures, newFeatures.isEmpty == false {
-                        VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
+                        VStack(alignment: .leading, spacing: Spacing.standard) {
                             Text("release_note_new_features".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)
@@ -42,7 +42,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     }
                     
                     if let newFeaturesPro = releaseNote.newFeaturesPro, newFeaturesPro.isEmpty == false {
-                        VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
+                        VStack(alignment: .leading, spacing: Spacing.standard) {
                             Text("release_note_new_features_pro".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)
@@ -56,7 +56,7 @@ struct ReleaseNoteDetailView: View { // TODO: Apply Design Sytem for font
                     }
                     
                     if let bugfixes = releaseNote.bugfixes, bugfixes.isEmpty == false {
-                        VStack(alignment: .leading, spacing: DesignSystem.Spacing.standard) {
+                        VStack(alignment: .leading, spacing: Spacing.standard) {
                             Text("release_note_bugfixes".localized)
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(Color.primary500)

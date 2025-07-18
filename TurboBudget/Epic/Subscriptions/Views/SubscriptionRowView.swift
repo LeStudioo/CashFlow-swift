@@ -29,13 +29,13 @@ struct SubscriptionRowView: View {
     var body: some View {
         SwipeView(
             label: {
-                HStack(spacing: TKDesignSystem.Spacing.medium) {
+                HStack(spacing: Spacing.medium) {
                     CircleCategory(
                         category: subscription.category,
                         subcategory: subscription.subcategory
                     )
                     
-                    VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                         Text(Word.Main.subscription)
                             .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                             .font(TKDesignSystem.Fonts.Body.small)
@@ -47,7 +47,7 @@ struct SubscriptionRowView: View {
                     }
                     .fullWidth(.leading)
                                         
-                    VStack(alignment: .trailing, spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(alignment: .trailing, spacing: Spacing.extraSmall) {
                         Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
                             .font(TKDesignSystem.Fonts.Body.mediumBold)
                             .foregroundStyle(subscription.color)

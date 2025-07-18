@@ -23,7 +23,7 @@ struct SettingsRowView: View {
     
     // MARK: - View
     var body: some View {
-        HStack(spacing: TKDesignSystem.Spacing.medium) {
+        HStack(spacing: Spacing.medium) {
             Image(item.icon)
                 .resizable()
                 .renderingMode(.template)

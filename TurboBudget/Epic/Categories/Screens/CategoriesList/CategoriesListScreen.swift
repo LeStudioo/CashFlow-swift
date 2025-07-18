@@ -56,7 +56,7 @@ struct CategoriesListScreen: View {
                                 amount: (viewModel.categoryAmounts[category.id]?.amount ?? 0).toCurrency()
                             )
                         }
-                        .padding(.bottom, TKDesignSystem.Spacing.medium)
+                        .padding(.bottom, Spacing.medium)
                     }
                     .noDefaultStyle()
                     .padding(.horizontal, Padding.large)

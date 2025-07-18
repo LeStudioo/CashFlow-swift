@@ -44,7 +44,7 @@ struct AnalyticsScreen: View {
                         )
                     )
                 } content: { _ in
-                    VStack(spacing: TKDesignSystem.Spacing.large) {
+                    VStack(spacing: Spacing.large) {
                         GenericBarChart(
                             title: "cashflowchart_title".localized,
                             selectedDate: $selectedDate,

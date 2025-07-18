@@ -44,17 +44,17 @@ struct SettingsScreen: View {
             )
         } content: { _ in
             SettingsRowView(item: .cashFlowPro)
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+                .padding(.bottom, Spacing.extraLarge)
                 .padding(.horizontal, Padding.large)
             
             ForEach(settingsFiltered) { section in
-                VStack(spacing: TKDesignSystem.Spacing.standard) {
+                VStack(spacing: Spacing.standard) {
                     Text(section.title)
                         .fontWithLineHeight(DesignSystem.Fonts.Title.medium)
                         .foregroundStyle(Color.label)
                         .fullWidth(.leading)
                         
-                    VStack(spacing: TKDesignSystem.Spacing.medium) {
+                    VStack(spacing: Spacing.medium) {
                         let filteredItems = section.items.filter { item in
                             item.title.localizedStandardContains(searchText)
                         }
@@ -63,14 +63,14 @@ struct SettingsScreen: View {
                         }
                     }
                 }
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+                .padding(.bottom, Spacing.extraLarge)
             }
             .padding(.horizontal, Padding.large)
             
             Text("v\(Bundle.main.releaseVersionNumber ?? "")")
                 .fontWithLineHeight(DesignSystem.Fonts.Body.mediumBold)
                 .foregroundStyle(Color.label)
-                .padding(.bottom, TKDesignSystem.Spacing.extraLarge)
+                .padding(.bottom, Spacing.extraLarge)
             
             Rectangle()
                 .foregroundStyle(Color.clear)

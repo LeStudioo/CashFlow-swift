@@ -16,7 +16,7 @@ struct DashboardRowView: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.large) {
+        VStack(alignment: .leading, spacing: Spacing.large) {
             HStack {
                 Image(config.icon)
                     .renderingMode(.template)

@@ -24,9 +24,9 @@ struct CustomTextField: View {
     
     // MARK: -
     var body: some View {
-        VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+        VStack(alignment: .leading, spacing: Spacing.extraSmall) {
             Text(config.title)
-                .padding(.leading, TKDesignSystem.Spacing.small)
+                .padding(.leading, Spacing.small)
                 .font(.system(size: 12, weight: .regular))
             
             HStack(spacing: 0) {

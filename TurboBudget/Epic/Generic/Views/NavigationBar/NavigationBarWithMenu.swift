@@ -20,9 +20,9 @@ struct NavigationBarWithMenu<Content: View>: View {
     
     // MARK: - View
     var body: some View {
-        HStack(spacing: TKDesignSystem.Spacing.small) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.small) {
-                HStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+        HStack(spacing: Spacing.small) {
+            VStack(alignment: .leading, spacing: Spacing.small) {
+                HStack(spacing: Spacing.extraSmall) {
                     Button {
                         if let dismissAction {
                             dismissAction()

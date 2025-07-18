@@ -32,7 +32,7 @@ struct SubscriptionDetailsScreen: View {
     // MARK: -
     var body: some View {
         if let subscription {
-            VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
+            VStack(spacing: Spacing.extraLarge) {
                 NavigationBarWithMenu {
                     NavigationButton(
                         route: .push,
@@ -48,8 +48,8 @@ struct SubscriptionDetailsScreen: View {
                 }
                 
                 ScrollView(.vertical) {
-                    VStack(spacing: TKDesignSystem.Spacing.extraLarge) {
-                        VStack(spacing: TKDesignSystem.Spacing.extraSmall) {
+                    VStack(spacing: Spacing.extraLarge) {
+                        VStack(spacing: Spacing.extraSmall) {
                             Text("\(subscription.symbol) \(subscription.amount.toCurrency())")
                                 .fontWithLineHeight(DesignSystem.Fonts.Display.huge)
                                 .foregroundColor(subscription.color)

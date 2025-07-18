@@ -24,8 +24,8 @@ struct GenericLineChart: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: TKDesignSystem.Spacing.large) {
-            VStack(alignment: .leading, spacing: TKDesignSystem.Spacing.extraSmall) {
+        VStack(spacing: Spacing.large) {
+            VStack(alignment: .leading, spacing: Spacing.extraSmall) {
                 Text(config.title)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg600)
                     .fontWithLineHeight(DesignSystem.Fonts.Body.small)

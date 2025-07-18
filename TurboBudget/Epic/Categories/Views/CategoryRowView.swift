@@ -18,7 +18,7 @@ struct CategoryRowView: View {
             
     // MARK: - View
     var body: some View {
-        HStack(spacing: TKDesignSystem.Spacing.small) {
+        HStack(spacing: Spacing.small) {
             Circle()
                 .foregroundStyle(category.color)
                 .frame(width: 36, height: 36)

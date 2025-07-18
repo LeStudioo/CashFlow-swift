@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystemModule
 
 struct NoInternetView: View {
     
@@ -13,7 +14,7 @@ struct NoInternetView: View {
     
     // MARK: -
     var body: some View {
-        VStack(spacing: DesignSystem.Spacing.large) {
+        VStack(spacing: Spacing.large) {
             Image("NoInternet" + themeManager.theme.nameNotLocalized.capitalized)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
