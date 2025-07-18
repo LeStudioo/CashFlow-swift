@@ -19,7 +19,7 @@ struct SignInButton: View {
             HStack(spacing: 8) {
                 Image(config.icon)
                 Text(config.title)
-                    .font(DesignSystem.FontDS.Button.text)
+                    .font(.Button.text)
                     .foregroundStyle(Color.textReversed)
             }
             .frame(maxWidth: .infinity)

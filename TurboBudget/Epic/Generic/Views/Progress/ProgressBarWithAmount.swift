@@ -42,7 +42,7 @@ struct ProgressBarWithAmount: View {
                         .animation(.smooth.delay(0.3), value: progressBarWidth)
                 }
                 .onAppear {
-                    let widthText = formatNumber(value).width(usingFont: UIFont(name: nameFontSemiBold, size: 16)!) * 1.4
+                    let widthText = formatNumber(value).width(usingFont: UIFont(name: "PlusJakartaSans-SemiBold", size: 16)!) * 1.4 // TODO: Need refactor
                     let widthPercentage = geometry.size.width * min(1, percentage)
                     progressBarWidth = max(widthText, widthPercentage)
                 }

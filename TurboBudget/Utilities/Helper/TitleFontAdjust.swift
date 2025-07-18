@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Title: ViewModifier {
+struct Title: ViewModifier { // TODO: Need to be deleted
     
     var sizeTitle: CGFloat {
         if UIDevice.isIpad {  }
@@ -22,7 +22,7 @@ struct Title: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .font(.custom(nameFontBold, size: sizeTitle))
+            .font(.custom("PlusJakartaSans-Bold", size: sizeTitle))
         
     }
 }
