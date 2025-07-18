@@ -32,7 +32,7 @@ struct SettingsRowView: View {
                 .padding(Padding.small)
                 .roundedRectangleBorder(
                     item.color,
-                    radius: TKDesignSystem.Radius.small
+                    radius: CornerRadius.small
                 )
             
             Text(item.title)
@@ -48,7 +48,7 @@ struct SettingsRowView: View {
         .padding(Padding.medium)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

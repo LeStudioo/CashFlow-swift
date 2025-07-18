@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DesignSystemModule
 
 struct SignInButton: View {
     
@@ -26,7 +27,7 @@ struct SignInButton: View {
             .padding(.horizontal)
             .padding(.vertical, 12)
             .background {
-                RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous)
+                RoundedRectangle(cornerRadius: CornerRadius.standard, style: .continuous)
                     .fill(Color.text)
             }
         }

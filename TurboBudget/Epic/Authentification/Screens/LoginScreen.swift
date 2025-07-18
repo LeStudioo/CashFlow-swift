@@ -99,7 +99,7 @@ struct LoginScreen: View {
                 }
                 // black button
                 .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                .clipShape(RoundedRectangle(cornerRadius: DesignSystem.CornerRadius.standard, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard, style: .continuous))
                 .frame(height: 48)
             }
         }

@@ -59,7 +59,7 @@ struct CustomDatePickerWithToggle: View {
                             .padding(Padding.medium)
                             .roundedRectangleBorder(
                                 TKDesignSystem.Colors.Background.Theme.bg200,
-                                radius: TKDesignSystem.Radius.small
+                                radius: CornerRadius.small
                             )
                     }
                     .opacity(isEnabled ? 1 : 0.6)
@@ -85,7 +85,7 @@ struct CustomDatePickerWithToggle: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.medium,
+                radius: CornerRadius.medium,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

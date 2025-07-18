@@ -24,7 +24,7 @@ struct DashboardRowView: View {
                     .padding(Padding.small)
                     .roundedRectangleBorder(
                         TKDesignSystem.Colors.Background.Theme.bg200,
-                        radius: TKDesignSystem.Radius.small
+                        radius: CornerRadius.small
                     )
                 
                 Spacer()
@@ -43,7 +43,7 @@ struct DashboardRowView: View {
         .padding(Padding.standard)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

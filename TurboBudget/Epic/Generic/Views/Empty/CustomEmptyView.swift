@@ -64,7 +64,7 @@ struct CustomEmptyView: View {
         .frame(maxWidth: .infinity, maxHeight: isHomeSituation ? nil : .infinity)
         .roundedRectangleBorder(
             isHomeSituation ? TKDesignSystem.Colors.Background.Theme.bg100 : .clear,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: isHomeSituation ? 0.5 : 0,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

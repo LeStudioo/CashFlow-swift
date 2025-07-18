@@ -40,7 +40,7 @@ struct CustomDatePicker: View {
                         .padding(Padding.medium)
                         .roundedRectangleBorder(
                             TKDesignSystem.Colors.Background.Theme.bg200,
-                            radius: TKDesignSystem.Radius.small
+                            radius: CornerRadius.small
                         )
                 })
                 .padding(Padding.extraSmall)
@@ -61,7 +61,7 @@ struct CustomDatePicker: View {
             .fullWidth(.trailing)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.medium,
+                radius: CornerRadius.medium,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

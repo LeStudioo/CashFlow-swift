@@ -45,7 +45,7 @@ struct CustomTextField: View {
             }
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg100,
-                radius: TKDesignSystem.Radius.medium,
+                radius: CornerRadius.medium,
                 lineWidth: 1,
                 strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
             )

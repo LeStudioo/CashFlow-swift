@@ -73,19 +73,3 @@ extension DesignSystem {
         }
     }
 }
-
-// MARK: - Corner Radius
-extension DesignSystem {
-    struct CornerRadius {
-        /// `Value = 8`
-        static let small: CGFloat = 8
-        /// `Value = 12`
-        static let medium: CGFloat = 12
-        /// `Value = 16`
-        static let standard: CGFloat = 16
-        /// `Value = 24`
-        static let large: CGFloat = 24
-        /// `Value = 32`
-        static let extraLarge: CGFloat = 32
-    }
-}

@@ -23,7 +23,7 @@ struct SavingsAccountRowView: View {
                 Rectangle()
                     .frame(width: 40, height: 40)
                     .foregroundStyle(TKDesignSystem.Colors.Background.Theme.bg200)
-                    .cornerRadius(TKDesignSystem.Radius.small)
+                    .cornerRadius(CornerRadius.small)
                     .overlay {
                         Image(.iconLandmark)
                             .renderingMode(.template)
@@ -53,7 +53,7 @@ struct SavingsAccountRowView: View {
         .aspectRatio(1, contentMode: .fit)
         .roundedRectangleBorder(
             TKDesignSystem.Colors.Background.Theme.bg100,
-            radius: TKDesignSystem.Radius.standard,
+            radius: CornerRadius.standard,
             lineWidth: 1,
             strokeColor: TKDesignSystem.Colors.Background.Theme.bg200
         )

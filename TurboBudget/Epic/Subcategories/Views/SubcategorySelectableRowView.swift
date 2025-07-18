@@ -40,7 +40,7 @@ struct SubcategorySelectableRowView: View {
             .padding(Padding.standard)
             .roundedRectangleBorder(
                 TKDesignSystem.Colors.Background.Theme.bg200,
-                radius: TKDesignSystem.Radius.standard
+                radius: CornerRadius.standard
             )
             .overlay(alignment: .topTrailing) {
                 if isSelected {
