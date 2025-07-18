@@ -2,6 +2,20 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import Foundation
+
+let isPreview = ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
+
+var resources: [Resource] {
+    if isPreview {
+        return [
+            .process("Resources/PreviewAssets.xcassets")
+            // TODO: Add fonts if possible
+        ]
+    } else {
+        return []
+    }
+}
 
 let package = Package(
     name: "DesignSystemModule",
