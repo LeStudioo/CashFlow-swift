@@ -61,7 +61,6 @@ public extension ExtendedUIFont {
     
 }
 
-
 // MARK: - Old Fonts
 let nameFontBold: String = "PlusJakartaSans-Bold"
 let nameFontSemiBold: String = "PlusJakartaSans-SemiBold"

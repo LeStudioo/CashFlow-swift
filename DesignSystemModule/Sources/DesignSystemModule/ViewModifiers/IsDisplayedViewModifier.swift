@@ -7,24 +7,22 @@
 
 import SwiftUI
 
-struct IsDisplayed: ViewModifier {
+struct IsDisplayedViewModifier: ViewModifier {
     
-    // Builder
+    // MARK: Dependencies
     var isDisplayed: Bool
     
-    // MARK: -
+    // MARK: - View
     func body(content: Content) -> some View {
         if isDisplayed {
             content
         }
-    } // End body
-    
-} // End struct
-
-extension View {
-    
-    func isDisplayed(_ isDisplayed: Bool) -> some View {
-        return modifier(IsDisplayed(isDisplayed: isDisplayed))
     }
-    
+}
+
+// MARK: - View Extension
+extension View {
+    public func isDisplayed(_ isDisplayed: Bool) -> some View {
+        return modifier(IsDisplayedViewModifier(isDisplayed: isDisplayed))
+    }
 }
