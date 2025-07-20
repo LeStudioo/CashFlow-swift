@@ -6,11 +6,7 @@
 //
 
 import SwiftUI
-
-enum SuccessfulType: String {
-    case new
-    case update
-}
+import CoreModule
 
 final class SuccessfullModalManager: ObservableObject {
     static let shared = SuccessfullModalManager()

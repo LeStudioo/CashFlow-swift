@@ -10,6 +10,7 @@ import SwiftUICore
 import NavigationKit
 import AlertKit
 import SwiftUI
+import CoreModule
 
 enum SettingItemModel: Identifiable {
     case cashFlowPro

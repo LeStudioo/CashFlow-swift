@@ -8,6 +8,7 @@
 import Foundation
 import Vision
 import VisionKit
+import CoreModule
 
 final class TextTicketRecognizer {
     let cameraScan: VNDocumentCameraScan

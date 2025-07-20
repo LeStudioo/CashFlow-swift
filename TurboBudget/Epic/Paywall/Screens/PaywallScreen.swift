@@ -8,6 +8,7 @@
 
 import SwiftUI
 import StatsKit
+import CoreModule
 
 struct PaywallScreen: View {
     

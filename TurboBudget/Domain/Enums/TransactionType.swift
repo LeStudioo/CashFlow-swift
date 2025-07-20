@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModule
 
 enum TransactionType: Int, CaseIterable {
     case expense = 0

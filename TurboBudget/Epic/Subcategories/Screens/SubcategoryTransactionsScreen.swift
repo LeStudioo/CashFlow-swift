@@ -10,6 +10,7 @@ import SwiftUI
 import NavigationKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct SubcategoryTransactionsScreen: View {
     

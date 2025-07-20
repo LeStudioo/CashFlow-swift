@@ -9,6 +9,7 @@ import SwiftUI
 import StatsKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct TransferAddScreen: View {
     

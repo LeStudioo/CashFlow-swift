@@ -7,6 +7,7 @@
 
 import SwiftUI
 import LocalAuthentication
+import CoreModule
 
 struct SettingsSecurityView: View {
     

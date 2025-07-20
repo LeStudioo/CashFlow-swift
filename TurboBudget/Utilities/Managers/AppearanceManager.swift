@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreModule
 
 // https://medium.com/@nayananp/swiftui-toggle-between-dark-light-system-across-whole-app-e29c7d9d25b3
 

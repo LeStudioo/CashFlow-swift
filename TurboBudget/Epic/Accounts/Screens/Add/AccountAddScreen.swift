@@ -8,6 +8,7 @@
 // Refactor -> 17/02/2024
 
 import SwiftUI
+import CoreModule
 
 struct AccountAddScreen: View {
     
