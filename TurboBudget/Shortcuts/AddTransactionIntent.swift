@@ -7,6 +7,7 @@
 
 import CoreData
 import AppIntents
+import CoreModule
 
 struct AddTransactionIntent: AppIntent {
     

@@ -1,13 +1,13 @@
 //
 //  Numeric+Extensions.swift
-//  CashFlow
+//  CoreModule
 //
-//  Created by Theo Sementa on 08/12/2024.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 
-extension Numeric {
+public extension Numeric {
     
     func toCurrency() -> String {
         let formatter = NumberFormatter()

@@ -1,8 +1,8 @@
 //
-//  AppearanceManager.swift
-//  CashFlow
+//  Appearance.swift
+//  CoreModule
 //
-//  Created by Théo Sementa on 05/07/2023.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
@@ -10,14 +10,20 @@ import SwiftUI
 
 // https://medium.com/@nayananp/swiftui-toggle-between-dark-light-system-across-whole-app-e29c7d9d25b3
 
-enum Appearance: Int, CaseIterable, Identifiable {
+public class AppearanceManager: ObservableObject {
+    @AppStorage("appearance") public var appearance: Appearance = .system
+    
+    public init() { }
+}
+
+public enum Appearance: Int, CaseIterable, Identifiable {
     case system
     case light
     case dark
     
-    var id: Int { self.rawValue }
+    public var id: Int { self.rawValue }
     
-    var name: String {
+    public var name: String {
         switch self {
         case .system:   return Word.Classic.system
         case .light:    return Word.Classic.light
@@ -25,7 +31,7 @@ enum Appearance: Int, CaseIterable, Identifiable {
         }
     }
     
-    var colorScheme: ColorScheme? {
+    public var colorScheme: ColorScheme? {
         switch self {
         case .light:
             return .light
@@ -35,8 +41,4 @@ enum Appearance: Int, CaseIterable, Identifiable {
             return nil
         }
     }
-}
-
-class AppearanceManager: ObservableObject {
-    @AppStorage("appearance") var appearance: Appearance = .system
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NotificationKit
+import CoreModule
 
 struct SettingsSubscriptionScreen: View {
     

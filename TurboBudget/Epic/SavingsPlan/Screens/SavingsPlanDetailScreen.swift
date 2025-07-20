@@ -10,6 +10,7 @@ import SwiftUI
 import AlertKit
 import NavigationKit
 import StatsKit
+import CoreModule
 
 struct SavingsPlanDetailScreen: View {
     

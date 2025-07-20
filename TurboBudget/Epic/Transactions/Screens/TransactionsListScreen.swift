@@ -10,6 +10,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct TransactionsListScreen: View {
     
@@ -67,7 +68,7 @@ struct TransactionsListScreen: View {
                     Task {
                         if let selectedAccount = self.accountStore.selectedAccount, let accountID = selectedAccount._id {
                             let startDateOneMonthAgo = self.transactionStore.currentDateForFetch.oneMonthAgo
-                            let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth
+                            let endDateOneMonthAgo = startDateOneMonthAgo.endOfMonth ?? Date()
                             await self.transactionStore.fetchTransactionsByPeriod(
                                 accountID: accountID,
                                 startDate: startDateOneMonthAgo,

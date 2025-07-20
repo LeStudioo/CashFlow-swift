@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Optional where Wrapped == Date {
+public extension Optional where Wrapped == Date {
     
     var withDefault: Date {
         return self ?? .now
@@ -15,7 +15,7 @@ extension Optional where Wrapped == Date {
     
 }
 
-extension Date {
+public extension Date {
     
     func toISO() -> String {
         let formatter = ISO8601DateFormatter()
@@ -33,7 +33,7 @@ extension Date {
     
 }
 
-extension Date {
+public extension Date {
     
     func hasPassed(days: Int) -> Bool {
         guard let targetDate = Calendar.current.date(byAdding: .day, value: days, to: self) else {
@@ -62,7 +62,7 @@ extension Date {
     
 }
 
-extension Date {
+public extension Date {
     
     var day: Int {
         var components = Calendar.current.dateComponents([.day, .month, .year], from: self)
@@ -89,7 +89,7 @@ extension Date {
     
 }
 
-extension Date {
+public extension Date {
     
     var withTemporality: String {
         let calendar = Calendar.current
@@ -114,7 +114,7 @@ extension Date {
     
 }
 
-extension Date {
+public extension Date {
     
     var startOfMonth: Date {
         var calendar = Calendar.current
@@ -182,7 +182,7 @@ extension Date {
     
 }
 
-extension Date {
+public extension Date {
     
     func formatCardExpiration() -> String {
         let locale = Locale.current

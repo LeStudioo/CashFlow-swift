@@ -10,6 +10,7 @@ import NavigationKit
 import StatsKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct SavingsAccountDetailScreen: View {
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwipeActions
+import CoreModule
 
 enum TransferRowLocation {
     case successfulSheet, savingsAccount

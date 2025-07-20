@@ -11,6 +11,7 @@ import AlertKit
 import NavigationKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct AccountDashboardScreen: View {
     

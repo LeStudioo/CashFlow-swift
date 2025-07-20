@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModule
 
 struct SavingsPlanModel: Codable, Identifiable, Equatable, Hashable {
     var id: Int?

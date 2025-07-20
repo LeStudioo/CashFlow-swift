@@ -1,21 +1,21 @@
 //
-//  Radius Specific Corner.swift
-//  TurboBudget
+//  File.swift
+//  DesignSystemModule
 //
-//  Created by Théo Sementa on 15/06/2023.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 import SwiftUI
 
+// TODO: To delete
 extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape( RoundedCorner(radius: radius, corners: corners) )
+    public func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        return clipShape(RoundedCorner(radius: radius, corners: corners))
     }
 }
 
 struct RoundedCorner: Shape {
-
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
 

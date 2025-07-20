@@ -1,19 +1,20 @@
 //
 //  NetworkMonitor.swift
-//  CashFlow
+//  CoreModule
 //
-//  Created by Theo Sementa on 19/04/2025.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 import Network
 
-final class NetworkMonitor: ObservableObject {
+@MainActor
+public final class NetworkMonitor: ObservableObject {
     private let networkMonitor = NWPathMonitor()
     private let workerQueue = DispatchQueue(label: "Monitor")
-    @Published var isConnected = false
+    @Published public var isConnected = false
 
-    init() {
+    public init() {
         networkMonitor.pathUpdateHandler = { path in
             DispatchQueue.main.async {
                 self.isConnected = path.status == .satisfied

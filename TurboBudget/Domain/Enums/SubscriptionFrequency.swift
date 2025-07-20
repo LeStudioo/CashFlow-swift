@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModule
 
 enum SubscriptionFrequency: Int, Codable, CaseIterable {
     case monthly = 0

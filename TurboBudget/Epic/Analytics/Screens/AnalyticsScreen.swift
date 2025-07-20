@@ -11,6 +11,7 @@ import UIKit
 import NavigationKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct AnalyticsScreen: View {
     

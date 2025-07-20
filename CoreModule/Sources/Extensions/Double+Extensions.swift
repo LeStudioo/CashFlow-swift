@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-extension Double {
+public extension Double {
     
     func reduceScale(to places: Int) -> Double {
         let multiplier = pow(10, Double(places))
@@ -25,7 +25,8 @@ extension Double {
 
 }
 
-func formatNumber(_ n: Double) -> String {
+// TODO: Remove from global scope
+public func formatNumber(_ n: Double) -> String {
     let num = abs(n)
     let sign = (n < 0) ? "-" :  ""
     

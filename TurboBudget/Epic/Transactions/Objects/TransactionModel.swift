@@ -9,6 +9,7 @@ import Foundation
 import SwiftUICore
 import CoreLocation
 import TheoKit
+import CoreModule
 
 struct TransactionModel: Identifiable, Equatable, Hashable {
     var id: Int

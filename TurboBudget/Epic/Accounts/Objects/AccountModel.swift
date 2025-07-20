@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreModule
 
 enum AccountType: Int, CaseIterable {
     case classic = 0
