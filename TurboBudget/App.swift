@@ -9,6 +9,7 @@ import SwiftUI
 import AlertKit
 import NotificationKit
 import TheoKit
+import CoreModule
 
 @main
 struct TurboBudgetApp: App {

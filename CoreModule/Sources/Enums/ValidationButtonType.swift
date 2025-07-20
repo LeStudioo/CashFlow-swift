@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ValidationButtonType {
+public enum ValidationButtonType {
     case creation
     case edition
 }

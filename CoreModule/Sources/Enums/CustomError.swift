@@ -1,13 +1,13 @@
 //
 //  CustomError.swift
-//  CashFlow
+//  CoreModule
 //
-//  Created by Theo Sementa on 18/08/2024.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 
-enum CustomError: Error {
+public enum CustomError: Error {
     case noAccount
     case categoryNotFound
     case subcategoryNotFound
