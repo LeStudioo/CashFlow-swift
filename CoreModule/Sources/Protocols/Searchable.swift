@@ -1,12 +1,12 @@
 //
 //  Searchable.swift
-//  CashFlow
+//  CoreModule
 //
-//  Created by Theo Sementa on 24/05/2025.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 
-protocol Searchable {
+public protocol Searchable {
     var searchableText: String { get }
 }

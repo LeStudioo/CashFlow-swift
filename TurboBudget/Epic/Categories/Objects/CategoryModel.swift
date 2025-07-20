@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreModule
 
 struct CategoryModel: Identifiable, Equatable, Hashable {
     var id: Int
