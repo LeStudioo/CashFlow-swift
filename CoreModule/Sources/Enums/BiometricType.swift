@@ -1,18 +1,18 @@
 //
 //  BiometricType.swift
-//  CashFlow
+//  CoreModule
 //
-//  Created by Theo Sementa on 04/01/2025.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 
-enum BiometricType {
+public enum BiometricType {
     case none
     case touch
     case face
     
-    var name: String {
+    public var name: String {
         switch self {
         case .none: return "fail"
         case .touch: return "TouchID"

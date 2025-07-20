@@ -1,15 +1,15 @@
 //
-//  UIDevice+Extensions.swift
-//  CashFlow
+//  File.swift
+//  CoreModule
 //
-//  Created by Theo Sementa on 04/12/2024.
+//  Created by Theo Sementa on 20/07/2025.
 //
 
 import Foundation
 import UIKit
 import LocalAuthentication
 
-extension UIDevice {
+public extension UIDevice {
     
     static var biometry: BiometricType {
         let authContext = LAContext()
