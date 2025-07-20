@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class UserCurrency {
-    static let symbol = Locale(identifier: Locale.current.identifier).currencySymbol ?? "x"
-    static let name = Locale.autoupdatingCurrent.localizedString(forCurrencyCode: Locale.current.currency?.identifier ?? "x") ?? "x"
-}
+//final class UserCurrency {
+//    static let symbol = Locale(identifier: Locale.current.identifier).currencySymbol ?? "x"
+//    static let name = Locale.autoupdatingCurrent.localizedString(forCurrencyCode: Locale.current.currency?.identifier ?? "x") ?? "x"
+//}

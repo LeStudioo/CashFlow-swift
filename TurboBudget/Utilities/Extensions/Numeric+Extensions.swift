@@ -7,14 +7,14 @@
 
 import Foundation
 
-extension Numeric {
-    
-    func toCurrency() -> String {
-        let formatter = NumberFormatter()
-        formatter.locale = Locale.current
-        formatter.numberStyle = .currency
-        formatter.minimumFractionDigits = 0
-        return formatter.string(for: self) ?? ""
-    }
-    
-}
+//extension Numeric {
+//    
+//    func toCurrency() -> String {
+//        let formatter = NumberFormatter()
+//        formatter.locale = Locale.current
+//        formatter.numberStyle = .currency
+//        formatter.minimumFractionDigits = 0
+//        return formatter.string(for: self) ?? ""
+//    }
+//    
+//}
