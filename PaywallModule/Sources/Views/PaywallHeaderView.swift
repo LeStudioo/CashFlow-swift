@@ -10,10 +10,13 @@ import DesignSystemModule
 
 struct PaywallHeaderView: View {
     
+    // MARK: Environments
     @Environment(\.dismiss) private var dismiss
+    
+    // MARK: States
     var isXmarkPresented: Bool = true
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         HStack {
             Spacer()
@@ -38,8 +41,8 @@ struct PaywallHeaderView: View {
                 })
             }
         }
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {

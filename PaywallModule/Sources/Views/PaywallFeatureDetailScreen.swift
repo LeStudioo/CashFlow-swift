@@ -9,12 +9,13 @@ import SwiftUI
 
 struct PaywallFeatureDetailScreen: View {
     
+    // MARK: Dependencies
     var title: String
     var imageWithout: [String]
     var imageWith: [String]
     var desc: String
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         ScrollView {
             Text(title)
@@ -58,8 +59,8 @@ struct PaywallFeatureDetailScreen: View {
         }
         .scrollIndicators(.hidden)
         .padding(.horizontal, 8)
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {

@@ -133,32 +133,16 @@ public struct PaywallScreen: View {
             
             VStack(spacing: 8) {
                 if let lifetime = store.lifetime, !store.isCashFlowPro {
-                    VStack(spacing: 16) {
-                        //                        Text(timeString(from: timeRemaining))
-                        //                            .font(.Title.semibold)
-                        //                            .foregroundColor(Color.white)
-                        //                            .onReceive(timer) { _ in
-                        //                                if timeRemaining > 0 {
-                        //                                    timeRemaining -= 1
-                        //                                }
-                        //                            }
-                        //
-                        //                        Text("Il ne reste plus que 3 produits à acheter avant la fin de la promo !")
-                        //                            .multilineTextAlignment(.center)
-                        //                            .foregroundStyle(Color.red)
-                        //                            .font(.Body.semibold)
-                        
-                        AsyncButton {
-                            if let product = store.products.first {
-                                await store.buyProduct(product)
-                            }
-                        } label: {
-                            let fakePrice = lifetime.price * 2
-                            PaywallPayementRowView(
-                                price: lifetime.price.toCurrency(),
-                                promoText: fakePrice.toCurrency()
-                            )
+                    AsyncButton {
+                        if let product = store.products.first {
+                            await store.buyProduct(product)
                         }
+                    } label: {
+                        let fakePrice = lifetime.price * 2
+                        PaywallPayementRowView(
+                            price: lifetime.price.toCurrency(),
+                            promoText: fakePrice.toCurrency()
+                        )
                     }
                 } else {
                     Text("paywall_thanks".localized)
@@ -185,15 +169,7 @@ public struct PaywallScreen: View {
         .onAppear {
             EventService.sendEvent(key: .appPaywall)
         }
-    }
-    
-    private func timeString(from timeInterval: TimeInterval) -> String {
-        let hours = Int(timeInterval) / 3600
-        let minutes = Int(timeInterval) / 60 % 60
-        let seconds = Int(timeInterval) % 60
-        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-    }
-    
+    }    
 }
 
 // MARK: - Preview

@@ -10,10 +10,11 @@ import CoreModule
 
 struct PaywallPayementRowView: View {
     
+    // MARK: Dependencies
     var price: String
     var promoText: String
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         HStack {
             Text(Word.Paywall.lifetime)
@@ -47,8 +48,8 @@ struct PaywallPayementRowView: View {
                 .offset(x: 6, y: -10)
             
         }
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {
