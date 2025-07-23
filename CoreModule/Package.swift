@@ -23,8 +23,7 @@ let package = Package(
             name: "CoreModule",
             dependencies: [
                 .product(name: "TheoKit", package: "TheoKit")
-            ],
-            swiftSettings: [.swiftLanguageMode(.v5)]
+            ]
         ),
         .testTarget(
             name: "CoreModuleTests",

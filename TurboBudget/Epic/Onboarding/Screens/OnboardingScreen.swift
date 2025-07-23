@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CloudKit
+import PaywallModule
 
 struct OnboardingScreen: View {
     
