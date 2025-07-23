@@ -6,13 +6,17 @@
 //
 
 import SwiftUI
+import DesignSystemModule
 
 struct PaywallHeaderView: View {
     
+    // MARK: Environments
     @Environment(\.dismiss) private var dismiss
+    
+    // MARK: States
     var isXmarkPresented: Bool = true
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         HStack {
             Spacer()
@@ -28,7 +32,7 @@ struct PaywallHeaderView: View {
                 Button(action: { dismiss() }, label: {
                     Circle()
                         .frame(width: 26, height: 26)
-                        .foregroundStyle(.background200)
+                        .foregroundStyle(Color.background200)
                         .overlay {
                             Image(systemName: "xmark")
                                 .font(.system(size: 12, weight: .bold))
@@ -37,8 +41,8 @@ struct PaywallHeaderView: View {
                 })
             }
         }
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {

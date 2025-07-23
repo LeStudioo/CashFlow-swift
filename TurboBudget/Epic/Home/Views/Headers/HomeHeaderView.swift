@@ -8,6 +8,7 @@
 import SwiftUI
 import NavigationKit
 import TheoKit
+import CoreModule
 
 struct HomeHeaderView: View {
     

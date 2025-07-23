@@ -9,6 +9,7 @@ import SwiftUI
 import AlertKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct SettingsScreen: View {
     

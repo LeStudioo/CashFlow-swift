@@ -7,17 +7,18 @@
 
 import SwiftUI
 import DesignSystemModule
+import CoreModule
 
 struct PaywallRowView: View {
     
-    // Builder
+    // MARK: Depedencies
     var systemName: String
     var title: String
     var text: String
     var color: Color
     var isDetailed: Bool
     
-    // MARK: -
+    // MARK: - View
     var body: some View {
         HStack(spacing: 8) {
             Circle()
@@ -48,8 +49,8 @@ struct PaywallRowView: View {
                     .foregroundStyle(Color.text)
             }
         }
-    } // body
-} // struct
+    }
+}
 
 // MARK: - Preview
 #Preview {

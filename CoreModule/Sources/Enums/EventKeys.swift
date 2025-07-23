@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum EventKeys: String {
+public enum EventKeys: String {
     
     case appSession = "app_session"
     case appPaywall = "app_paywall"

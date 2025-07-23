@@ -13,6 +13,7 @@ import StoreKit
 import NavigationKit
 import TheoKit
 import DesignSystemModule
+import CoreModule
 
 struct HomeScreen: View {
         
