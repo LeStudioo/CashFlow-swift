@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import CoreModule
 import StatsKit
 
 final class BudgetStore: ObservableObject {

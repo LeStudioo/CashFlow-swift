@@ -10,25 +10,25 @@ import StoreKit
 import StatsKit
 
 @MainActor
-class PurchasesManager: NSObject, ObservableObject {
+public class PurchasesManager: NSObject, ObservableObject {
     let productIDs: [String] = ["com.Sementa.CashFlow.lifetime"]
     var purchasedProductIDs: Set<String> = []
     
-    @Published var products: [Product] = []
+    @Published public var products: [Product] = []
     
-    @Published var isCashFlowPro: Bool = false
+    @Published public var isCashFlowPro: Bool = false
     private var updates: Task<Void, Never>?
     
 //    var subscription: Product? {
 //        return self.products.first
 //    }
     
-    var lifetime: Product? {
+    public var lifetime: Product? {
         return self.products.filter { $0.id == "com.Sementa.CashFlow.lifetime" }.first
     }
     
     // init
-    override init() {
+    override public init() {
         super.init()
         self.updates = observeTransactionUpdates()
         Task {
@@ -40,7 +40,7 @@ class PurchasesManager: NSObject, ObservableObject {
     deinit { updates?.cancel() }
 }
 
-extension PurchasesManager {
+public extension PurchasesManager {
     func loadProducts() async {
         do {
             self.products = try await Product.products(for: productIDs)
@@ -60,7 +60,7 @@ extension PurchasesManager {
                 // Successful purhcase
                 await transaction.finish()
                 await self.updatePurchasedProducts()
-                await UserStore.shared.update(body: .init(isPremium: true))
+                // await UserStore.shared.update(body: .init(isPremium: true)) TODO: Reactivate
                 EventService.sendEvent(key: .userPremium)
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
@@ -170,11 +170,11 @@ extension PurchasesManager {
 
 // MARK: - SKPaymentTransactionObserver
 extension PurchasesManager: SKPaymentTransactionObserver {
-    nonisolated func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    nonisolated public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         
     }
     
-    nonisolated func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+    nonisolated public func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
         return true
     }
 }
