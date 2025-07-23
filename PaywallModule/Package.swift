@@ -4,30 +4,32 @@
 import PackageDescription
 
 let package = Package(
-    name: "CoreModule",
+    name: "PaywallModule",
     platforms: [.iOS(.v16)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "CoreModule",
-            targets: ["CoreModule"]
+            name: "PaywallModule",
+            targets: ["PaywallModule"]
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/theosementa/TheoKit", exact: "1.0.7")
+        .package(path: "./DesignSystemModule"),
+        .package(path: "./CoreModule")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "CoreModule",
+            name: "PaywallModule",
             dependencies: [
-                .product(name: "TheoKit", package: "TheoKit")
+                "DesignSystemModule",
+                "CoreModule"
             ]
         ),
         .testTarget(
-            name: "CoreModuleTests",
-            dependencies: ["CoreModule"]
+            name: "PaywallModuleTests",
+            dependencies: ["PaywallModule"]
         )
     ]
 )
