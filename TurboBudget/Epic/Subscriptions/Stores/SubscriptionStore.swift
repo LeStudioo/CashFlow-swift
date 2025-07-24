@@ -8,6 +8,7 @@
 import Foundation
 import NetworkKit
 import StatsKit
+import CoreModule
 
 final class SubscriptionStore: ObservableObject {
     static let shared = SubscriptionStore()
@@ -44,7 +45,7 @@ extension SubscriptionStore {
             let subscription = try await SubscriptionService.create(accountID: accountID, body: body)
             self.subscriptions.append(subscription)
             sortSubscriptionsByDate()
-            EventService.sendEvent(key: .subscriptionCreated)
+            EventService.sendEvent(key: EventKeys.subscriptionCreated)
             return shouldReturn ? subscription : nil
         } catch {
             NetworkService.handleError(error: error)
@@ -60,7 +61,7 @@ extension SubscriptionStore {
             if let index = self.subscriptions.firstIndex(where: { $0.id == subscriptionID }) {
                 self.subscriptions[index] = subscription
                 sortSubscriptionsByDate()
-                EventService.sendEvent(key: .subscriptionUpdated)
+                EventService.sendEvent(key: EventKeys.subscriptionUpdated)
             }
             return subscription
         } catch {
@@ -75,7 +76,7 @@ extension SubscriptionStore {
             try await SubscriptionService.delete(subscriptionID: subscriptionID)
             if let index = self.subscriptions.firstIndex(where: { $0.id == subscriptionID }) {
                 self.subscriptions.remove(at: index)
-                EventService.sendEvent(key: .subscriptionDeleted)
+                EventService.sendEvent(key: EventKeys.subscriptionDeleted)
             }
         } catch { NetworkService.handleError(error: error) }
     }

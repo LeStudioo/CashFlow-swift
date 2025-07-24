@@ -119,7 +119,7 @@ struct TransferAddScreen: View {
     } // body
     
     func dismissAction() {
-        EventService.sendEvent(key: .transferCreationCanceled)
+        EventService.sendEvent(key: EventKeys.transferCreationCanceled)
         dismiss()
     }
     

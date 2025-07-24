@@ -125,9 +125,9 @@ struct TransactionAddScreen: View {
     
     func dismissAction() {
         if viewModel.isEditing {
-            EventService.sendEvent(key: .transactionUpdateCanceled)
+            EventService.sendEvent(key: EventKeys.transactionUpdateCanceled)
         } else {
-            EventService.sendEvent(key: .transactionCreationCanceled)
+            EventService.sendEvent(key: EventKeys.transactionCreationCanceled)
         }
         dismiss()
     }

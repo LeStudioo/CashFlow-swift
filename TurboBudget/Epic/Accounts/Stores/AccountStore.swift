@@ -8,6 +8,7 @@
 import Foundation
 import NetworkKit
 import StatsKit
+import CoreModule
 
 final class AccountStore: ObservableObject {
     static let shared = AccountStore()
@@ -59,10 +60,10 @@ extension AccountStore {
                     }
                 }
                 
-                EventService.sendEvent(key: .accountClassicCreated)
+                EventService.sendEvent(key: EventKeys.accountClassicCreated)
             } else if account.type == .savings {
                 self.savingsAccounts.append(account)
-                EventService.sendEvent(key: .accountSavingsCreated)
+                EventService.sendEvent(key: EventKeys.accountSavingsCreated)
             }
             return account
         } catch {
@@ -98,9 +99,9 @@ extension AccountStore {
             try await AccountService.delete(id: accountID)
             
             if accounts.contains(where: { $0._id == accountID }) {
-                EventService.sendEvent(key: .accountClassicDeleted)
+                EventService.sendEvent(key: EventKeys.accountClassicDeleted)
             } else if savingsAccounts.contains(where: { $0._id == accountID }) {
-                EventService.sendEvent(key: .accountSavingsDeleted)
+                EventService.sendEvent(key: EventKeys.accountSavingsDeleted)
             }
             
             self.accounts.removeAll { $0._id == accountID }

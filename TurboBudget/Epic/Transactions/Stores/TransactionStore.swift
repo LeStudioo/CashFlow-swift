@@ -8,6 +8,7 @@
 import Foundation
 import NetworkKit
 import StatsKit
+import CoreModule
 
 final class TransactionStore: ObservableObject {
     static let shared = TransactionStore()
@@ -67,7 +68,7 @@ extension TransactionStore {
             self.transactions += transactions
             sortTransactionsByDate()
             
-            EventService.sendEvent(key: .transactionListPagination)
+            EventService.sendEvent(key: EventKeys.transactionListPagination)
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -106,7 +107,7 @@ extension TransactionStore {
                     self.transactions[index] = transaction
                     sortTransactionsByDate()
                     AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
-                    EventService.sendEvent(key: .transactionUpdated)
+                    EventService.sendEvent(key: EventKeys.transactionUpdated)
                     return shouldReturn ? transaction : nil
                 }
             }
@@ -142,7 +143,7 @@ extension TransactionStore {
                 AccountStore.shared.setNewBalance(accountID: accountID, newBalance: newBalance)
             }
             
-            EventService.sendEvent(key: .transactionDeleted)
+            EventService.sendEvent(key: EventKeys.transactionDeleted)
         } catch { NetworkService.handleError(error: error) }
     }
 }

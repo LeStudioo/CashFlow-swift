@@ -189,7 +189,7 @@ struct SavingsPlanDetailScreen: View {
         .scrollIndicators(.hidden)
         .onAppear {
             savingPlanNote = currentSavingsPlan.note ?? ""
-            EventService.sendEvent(key: .savingsplanDetailPage)
+            EventService.sendEvent(key: EventKeys.savingsplanDetailPage)
         }
         .onDisappear {
             if savingPlanNote != currentSavingsPlan.note && !savingPlanNote.isEmpty {
@@ -199,7 +199,7 @@ struct SavingsPlanDetailScreen: View {
                             savingsPlanID: savingsPlanID,
                             body: .init(note: savingPlanNote)
                         )
-                        EventService.sendEvent(key: .savingsPlanNoteAdded)
+                        EventService.sendEvent(key: EventKeys.savingsPlanNoteAdded)
                     }
                 }
             }

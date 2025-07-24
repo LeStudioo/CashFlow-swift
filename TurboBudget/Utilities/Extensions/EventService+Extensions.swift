@@ -34,22 +34,22 @@ extension EventService {
     @MainActor
     private static func sendTransactionTypeEvent(type: TransactionType) {
         if type == .expense {
-            EventService.sendEvent(key: .transactionExpenseCreated)
+            EventService.sendEvent(key: EventKeys.transactionExpenseCreated)
         } else if type == .income {
-            EventService.sendEvent(key: .transactionIncomeCreated)
+            EventService.sendEvent(key: EventKeys.transactionIncomeCreated)
         }
     }
     
     @MainActor
     private static func sendApplePayEvent(isFromApplePay: Bool) {
         if isFromApplePay {
-            EventService.sendEvent(key: .transactionCreatedApplePay)
+            EventService.sendEvent(key: EventKeys.transactionCreatedApplePay)
         }
     }
     
     @MainActor
     static func sendEventForTransactionCreated(transaction: TransactionModel) {
-        EventService.sendEvent(key: .transactionCreated)
+        EventService.sendEvent(key: EventKeys.transactionCreated)
         EventService.sendTransactionTypeEvent(type: transaction.type)
         EventService.sendApplePayEvent(isFromApplePay: transaction.isFromApplePay)
     }

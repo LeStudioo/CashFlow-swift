@@ -41,7 +41,7 @@ struct RecommendedCategoryButton: View {
                 .onTapGesture {
                     selectedCategory = bestCategory
                     if let subcategoryFound { selectedSubcategory = subcategoryFound }
-                    EventService.sendEvent(key: .autocatSuggestionAccepeted)
+                    EventService.sendEvent(key: EventKeys.autocatSuggestionAccepeted)
                 }
             }
         }

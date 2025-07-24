@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import StatsKit
 
-public enum EventKeys: String {
+public enum EventKeys: String, AppEvent {
     
     case appSession = "app_session"
     case appPaywall = "app_paywall"

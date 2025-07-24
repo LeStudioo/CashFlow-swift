@@ -125,9 +125,9 @@ struct SubscriptionAddScreen: View {
     
     func dismissAction() {
         if viewModel.isEditing {
-            EventService.sendEvent(key: .subscriptionUpdateCanceled)
+            EventService.sendEvent(key: EventKeys.subscriptionUpdateCanceled)
         } else {
-            EventService.sendEvent(key: .subscriptionCreationCanceled)
+            EventService.sendEvent(key: EventKeys.subscriptionCreationCanceled)
         }
         dismiss()
     }

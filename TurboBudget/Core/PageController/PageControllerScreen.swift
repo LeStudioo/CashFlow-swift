@@ -11,6 +11,7 @@ import CloudKit
 import CoreData
 import NavigationKit
 import StatsKit
+import CoreModule
 
 struct PageControllerScreen: View {
     
@@ -137,7 +138,7 @@ struct PageControllerScreen: View {
             }
         }
         .onAppear {
-            EventService.sendEvent(key: .appSession)
+            EventService.sendEvent(key: EventKeys.appSession)
         }
     } // body
 } // struct

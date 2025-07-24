@@ -75,7 +75,7 @@ struct SavingsPlanListScreen: View {
         .navigationBarBackButtonHidden(true)
         .background(TKDesignSystem.Colors.Background.Theme.bg50)
         .onAppear {
-            EventService.sendEvent(key: .savingsplanListPage)
+            EventService.sendEvent(key: EventKeys.savingsplanListPage)
         }
     } // body
 } // struct

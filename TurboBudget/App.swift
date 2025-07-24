@@ -10,6 +10,7 @@ import AlertKit
 import NotificationKit
 import TheoKit
 import CoreModule
+import StatsKit
 
 @main
 struct TurboBudgetApp: App {
@@ -142,6 +143,8 @@ struct TurboBudgetApp: App {
                 TKDesignSystem.fontBold = "Satoshi-Bold"
                 TKDesignSystem.fontMedium = "Satoshi-Medium"
                 TKDesignSystem.fontRegular = "Satoshi-Regular"
+                
+                EventService.initialize(projectName: "CashFlow", platform: "iOS")
             }
         }
     } // body

@@ -10,6 +10,7 @@ import AlertKit
 import SwiftUI
 import NavigationKit
 import StatsKit
+import CoreModule
 
 extension AlertManager {
     
@@ -44,7 +45,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.signOut()
-                EventService.sendEvent(key: .userLogout)
+                EventService.sendEvent(key: EventKeys.userLogout)
                 dismiss()
             }
         )
@@ -58,7 +59,7 @@ extension AlertManager {
             isDestructive: true,
             action: {
                 await UserStore.shared.deleteAccount()
-                EventService.sendEvent(key: .userDeleted)
+                EventService.sendEvent(key: EventKeys.userDeleted)
                 dismiss()
             }
         )

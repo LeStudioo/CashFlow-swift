@@ -8,6 +8,7 @@
 import Foundation
 import NetworkKit
 import StatsKit
+import CoreModule
 
 final class CreditCardStore: ObservableObject {
     static let shared = CreditCardStore()
@@ -42,7 +43,7 @@ extension CreditCardStore {
                 responseModel: UUID.self
             )
             self.uuids.append(uuid)
-            EventService.sendEvent(key: .creditcardCreated)
+            EventService.sendEvent(key: EventKeys.creditcardCreated)
         } catch { NetworkService.handleError(error: error) }
     }
     
@@ -55,7 +56,7 @@ extension CreditCardStore {
             self.uuids.removeAll(where: { $0 == cardID })
             self.creditCards.removeAll(where: { $0.uuid == cardID })
             KeychainManager.shared.deleteItemFromKeychain(id: cardID.uuidString)
-            EventService.sendEvent(key: .creditcardDeleted)
+            EventService.sendEvent(key: EventKeys.creditcardDeleted)
         } catch { NetworkService.handleError(error: error) }
     }
     
