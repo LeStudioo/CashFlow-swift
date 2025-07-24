@@ -11,8 +11,6 @@
 		81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */ = {isa = PBXBuildFile; productRef = 81D990B32A49F03000EF13A3 /* SwipeActions */; };
 		D901E8002DC3584600069818 /* StatsKit in Frameworks */ = {isa = PBXBuildFile; productRef = D901E7FF2DC3584600069818 /* StatsKit */; };
 		D912D00A2D140523006DF5DC /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = D912D0092D140523006DF5DC /* AlertKit */; };
-		D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF72CE63B4100194630 /* GoogleSignIn */; };
-		D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D9300BF92CE63B4100194630 /* GoogleSignInSwift */; };
 		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
@@ -54,12 +52,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D9300BF82CE63B4100194630 /* GoogleSignIn in Frameworks */,
 				D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */,
 				D912D00A2D140523006DF5DC /* AlertKit in Frameworks */,
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
 				D9D208052E315D5800FEE9FD /* PaywallModule in Frameworks */,
-				D9300BFA2CE63B4100194630 /* GoogleSignInSwift in Frameworks */,
 				D9D2C64B2E29850700FEE9FD /* DesignSystemModule in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
 				D9D2C65A2E2CB63600FEE9FD /* CoreModule in Frameworks */,
@@ -129,8 +125,6 @@
 				8129E7502A483A7400FF23E5 /* ConfettiSwiftUI */,
 				81D990B32A49F03000EF13A3 /* SwipeActions */,
 				D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */,
-				D9300BF72CE63B4100194630 /* GoogleSignIn */,
-				D9300BF92CE63B4100194630 /* GoogleSignInSwift */,
 				D912D0092D140523006DF5DC /* AlertKit */,
 				D94594F62D16A03A00A989F0 /* NotificationKit */,
 				D97F63EE2DAFA3240060B741 /* NetworkKit */,
@@ -177,7 +171,6 @@
 				8129E74F2A483A7400FF23E5 /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 				81D990B22A49F03000EF13A3 /* XCRemoteSwiftPackageReference "SwipeActions" */,
 				D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */,
-				D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */,
 				D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */,
 				D97F63ED2DAFA3240060B741 /* XCRemoteSwiftPackageReference "NetworkKit" */,
@@ -520,14 +513,6 @@
 				kind = branch;
 			};
 		};
-		D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 8.0.0;
-			};
-		};
 		D94594F52D16A03A00A989F0 /* XCRemoteSwiftPackageReference "NotificationKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/theosementa/NotificationKit";
@@ -590,16 +575,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D912D0082D140523006DF5DC /* XCRemoteSwiftPackageReference "AlertKit" */;
 			productName = AlertKit;
-		};
-		D9300BF72CE63B4100194630 /* GoogleSignIn */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignIn;
-		};
-		D9300BF92CE63B4100194630 /* GoogleSignInSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D9300BF62CE63B4100194630 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
-			productName = GoogleSignInSwift;
 		};
 		D94594F62D16A03A00A989F0 /* NotificationKit */ = {
 			isa = XCSwiftPackageProductDependency;

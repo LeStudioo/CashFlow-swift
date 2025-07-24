@@ -8,16 +8,16 @@
 import Foundation
 import Security
 
-enum KeychainService: String {
+public enum KeychainService: String {
     case refreshToken
     case token
 }
 
-final class KeychainManager {
-    static let shared = KeychainManager()
+public final class KeychainManager {
+    public static let shared = KeychainManager()
     private init() {}
     
-    func setItemToKeychain<T: Codable>(id: String, data: T) {
+    public func setItemToKeychain<T: Codable>(id: String, data: T) {
         do {
             let encodedData = try JSONEncoder().encode(data)
             
@@ -42,7 +42,7 @@ final class KeychainManager {
         }
     }
     
-    func retrieveItemFromKeychain<T: Decodable>(id: String, type: T.Type) -> T? {
+    public func retrieveItemFromKeychain<T: Decodable>(id: String, type: T.Type) -> T? {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: id,
@@ -68,7 +68,7 @@ final class KeychainManager {
         }
     }
     
-    func deleteItemFromKeychain(id: String) {
+    public func deleteItemFromKeychain(id: String) {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
             kSecAttrAccount: id,

@@ -25,7 +25,8 @@ let package = Package(
             dependencies: [
                 .product(name: "TheoKit", package: "TheoKit"),
                 .product(name: "StatsKit", package: "StatsKit")
-            ]
+            ],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(
             name: "CoreModuleTests",

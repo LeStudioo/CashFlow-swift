@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ApplicationState {
+public enum ApplicationState {
     case idle
     case loading
     case success

@@ -15,7 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "./DesignSystemModule"),
-        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "7.0.0")
+        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "9.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.

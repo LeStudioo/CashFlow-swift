@@ -7,6 +7,7 @@
 
 import Foundation
 import NavigationKit
+import CoreModule
 
 final class AppRouterManager: ObservableObject {
     static let shared = AppRouterManager()

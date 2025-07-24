@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TheoKit
+import CoreModule
 
 struct TabBarItem: View {
     
