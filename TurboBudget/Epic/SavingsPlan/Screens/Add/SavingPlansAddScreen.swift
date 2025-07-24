@@ -151,9 +151,9 @@ struct SavingPlansAddScreen: View {
     
     func dismissAction() {
         if viewModel.isEditing {
-            EventService.sendEvent(key: .savingsplanUpdateCanceled)
+            EventService.sendEvent(key: EventKeys.savingsplanUpdateCanceled)
         } else {
-            EventService.sendEvent(key: .savingsplanCreationCanceled)
+            EventService.sendEvent(key: EventKeys.savingsplanCreationCanceled)
         }
         dismiss()
     }

@@ -131,7 +131,7 @@ struct SavingsAccountDetailScreen: View {
             }
         }
         .onAppear {
-            EventService.sendEvent(key: .accountSavingsDetailPage)
+            EventService.sendEvent(key: EventKeys.accountSavingsDetailPage)
         }
     } // body
 } // struct

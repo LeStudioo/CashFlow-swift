@@ -141,7 +141,7 @@ struct SubscriptionDetailsScreen: View {
             .navigationBarBackButtonHidden(true)
             .background(TKDesignSystem.Colors.Background.Theme.bg50)
             .onAppear {
-                EventService.sendEvent(key: .subscriptionDetailPage)
+                EventService.sendEvent(key: EventKeys.subscriptionDetailPage)
             }
         }
     } // body

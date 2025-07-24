@@ -102,7 +102,7 @@ struct CreditCardAddScreen: View {
     } // body
     
     func dismissAction() {
-        EventService.sendEvent(key: .creditcardCreationCanceled)
+        EventService.sendEvent(key: EventKeys.creditcardCreationCanceled)
         dismiss()
     }
     

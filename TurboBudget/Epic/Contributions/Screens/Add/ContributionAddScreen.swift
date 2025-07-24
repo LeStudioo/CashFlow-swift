@@ -106,7 +106,7 @@ struct ContributionAddScreen: View {
     } // End body
     
     func dismissAction() {
-        EventService.sendEvent(key: .contributionCreationCanceled)
+        EventService.sendEvent(key: EventKeys.contributionCreationCanceled)
         dismiss()
     }
     

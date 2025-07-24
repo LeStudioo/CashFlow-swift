@@ -143,9 +143,9 @@ struct TransactionDetailsScreen: View {
         .onAppear {
             viewModel.note = currentTransaction.note ?? ""
             if transaction.type == .transfer {
-                EventService.sendEvent(key: .transferDetailPage)
+                EventService.sendEvent(key: EventKeys.transferDetailPage)
             } else {
-                EventService.sendEvent(key: .transactionDetailPage)
+                EventService.sendEvent(key: EventKeys.transactionDetailPage)
             }
         }
         .task {
@@ -165,7 +165,7 @@ struct TransactionDetailsScreen: View {
         .onDisappear {
             if viewModel.note != currentTransaction.note && !viewModel.note.isBlank {
                 viewModel.updateTransaction(transactionID: currentTransaction.id)
-                EventService.sendEvent(key: .transactionNoteAdded)
+                EventService.sendEvent(key: EventKeys.transactionNoteAdded)
             }
         }
         .navigationBarBackButtonHidden(true)

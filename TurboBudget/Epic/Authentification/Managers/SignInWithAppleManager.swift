@@ -9,6 +9,7 @@ import Foundation
 import AuthenticationServices
 import NetworkKit
 import StatsKit
+import CoreModule
 
 class SignInWithAppleManager: NSObject {
     
@@ -43,7 +44,7 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
                     UserStore.shared.currentUser = user
                     AppManager.shared.appState = .success
                     
-                    EventService.sendEvent(key: .userRegisterApple)
+                    EventService.sendEvent(key: EventKeys.userRegisterApple)
                 }
             }
         }

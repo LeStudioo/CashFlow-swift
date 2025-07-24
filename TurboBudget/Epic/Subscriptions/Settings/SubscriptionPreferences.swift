@@ -18,7 +18,7 @@ final class SubscriptionPreferences: ObservableObject {
     @UserDefault("PreferencesSubscription_isNotificationsEnabled", defaultValue: false) // Notifiaction sent at 10h00
     var isNotificationsEnabled: Bool {
         willSet {
-            if newValue { EventService.sendEvent(key: .preferenceSubscriptionNotifications) }
+            if newValue { EventService.sendEvent(key: EventKeys.preferenceSubscriptionNotifications) }
             objectWillChange.send()
         }
     }

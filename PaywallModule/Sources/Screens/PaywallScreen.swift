@@ -39,7 +39,7 @@ public struct PaywallScreen: View {
                             imageWith: ["predictionPaywallDetailled"],
                             desc: "paywall_detailled_prediction".localized
                         )
-                        .onAppear { EventService.sendEvent(key: .paywallDetailPrediction) }
+                        .onAppear { EventService.sendEvent(key: EventKeys.paywallDetailPrediction) }
                     }, label: {
                         PaywallRowView(
                             systemName: "sparkles",
@@ -89,7 +89,7 @@ public struct PaywallScreen: View {
                             imageWith: ["budgetPaywallDetailled"],
                             desc: "paywall_detailled_budgets".localized
                         )
-                        .onAppear { EventService.sendEvent(key: .paywallDetailBudgets) }
+                        .onAppear { EventService.sendEvent(key: EventKeys.paywallDetailBudgets) }
                     }, label: {
                         PaywallRowView(
                             systemName: "chart.pie.fill",
@@ -167,7 +167,7 @@ public struct PaywallScreen: View {
             .background(Color.background200)
         } // NavigationStack
         .onAppear {
-            EventService.sendEvent(key: .appPaywall)
+            EventService.sendEvent(key: EventKeys.appPaywall)
         }
     }    
 }

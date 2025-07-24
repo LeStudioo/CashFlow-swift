@@ -81,7 +81,7 @@ struct TransactionsListScreen: View {
             }
         }
         .onAppear {
-            EventService.sendEvent(key: .transactionListPage)
+            EventService.sendEvent(key: EventKeys.transactionListPage)
         }
     } // body
 } // struct

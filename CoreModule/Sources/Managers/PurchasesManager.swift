@@ -61,7 +61,7 @@ public extension PurchasesManager {
                 await transaction.finish()
                 await self.updatePurchasedProducts()
                 // await UserStore.shared.update(body: .init(isPremium: true)) TODO: Reactivate
-                EventService.sendEvent(key: .userPremium)
+                EventService.sendEvent(key: EventKeys.userPremium)
             case let .success(.unverified(_, error)):
                 // Successful purchase but transaction/receipt can't be verified
                 // Could be a jailbroken phone
