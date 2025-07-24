@@ -27,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		81A707832A3B6B4C00BEB0BF /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D96F97E92E32960D006B0596 /* OnboardingModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OnboardingModule; sourceTree = "<group>"; };
 		D9887FE12AA457A400AFC915 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D9D208032E315C0600FEE9FD /* PaywallModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PaywallModule; sourceTree = "<group>"; };
 		D9D2C5C22E297E9400FEE9FD /* DesignSystemModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystemModule; sourceTree = "<group>"; };
@@ -77,6 +78,7 @@
 		81A7077A2A3B6B4C00BEB0BF = {
 			isa = PBXGroup;
 			children = (
+				D96F97E92E32960D006B0596 /* OnboardingModule */,
 				D9D208032E315C0600FEE9FD /* PaywallModule */,
 				D9D2C6582E2CB49F00FEE9FD /* CoreModule */,
 				D9D2C5C22E297E9400FEE9FD /* DesignSystemModule */,
