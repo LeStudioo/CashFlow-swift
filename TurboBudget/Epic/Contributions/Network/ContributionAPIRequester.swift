@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import CoreModule
 
 enum ContributionAPIRequester: APIRequestBuilder {
     case fetch(savingsplanID: Int)

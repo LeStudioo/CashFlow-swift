@@ -10,6 +10,7 @@ import AlertKit
 import TheoKit
 import DesignSystemModule
 import CoreModule
+import UserModule
 
 struct SettingsScreen: View {
     

@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUICore
+import CoreModule
 
 struct SubcategoryDTO: Codable, Equatable, Hashable {
     var id: Int?

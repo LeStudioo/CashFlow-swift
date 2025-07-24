@@ -11,6 +11,7 @@ import NotificationKit
 import TheoKit
 import CoreModule
 import StatsKit
+import UserModule
 
 @main
 struct TurboBudgetApp: App {

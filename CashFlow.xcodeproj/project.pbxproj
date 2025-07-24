@@ -13,6 +13,7 @@
 		D912D00A2D140523006DF5DC /* AlertKit in Frameworks */ = {isa = PBXBuildFile; productRef = D912D0092D140523006DF5DC /* AlertKit */; };
 		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
+		D96F97EC2E32B5F9006B0596 /* UserModule in Frameworks */ = {isa = PBXBuildFile; productRef = D96F97EB2E32B5F9006B0596 /* UserModule */; };
 		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
 		D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F64B92DB156ED0060B741 /* NavigationKit */; };
 		D980E52C2DC1E928005025E1 /* TheoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D980E52B2DC1E928005025E1 /* TheoKit */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		81A707832A3B6B4C00BEB0BF /* CashFlow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CashFlow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D96F97E92E32960D006B0596 /* OnboardingModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = OnboardingModule; sourceTree = "<group>"; };
+		D96F97EA2E32B311006B0596 /* UserModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserModule; sourceTree = "<group>"; };
 		D9887FE12AA457A400AFC915 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		D9D208032E315C0600FEE9FD /* PaywallModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = PaywallModule; sourceTree = "<group>"; };
 		D9D2C5C22E297E9400FEE9FD /* DesignSystemModule */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystemModule; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 				D9887FE22AA457A400AFC915 /* StoreKit.framework in Frameworks */,
 				D912D00A2D140523006DF5DC /* AlertKit in Frameworks */,
 				8129E7512A483A7400FF23E5 /* ConfettiSwiftUI in Frameworks */,
+				D96F97EC2E32B5F9006B0596 /* UserModule in Frameworks */,
 				D9D208052E315D5800FEE9FD /* PaywallModule in Frameworks */,
 				D9D2C64B2E29850700FEE9FD /* DesignSystemModule in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
@@ -74,6 +77,7 @@
 		81A7077A2A3B6B4C00BEB0BF = {
 			isa = PBXGroup;
 			children = (
+				D96F97EA2E32B311006B0596 /* UserModule */,
 				D96F97E92E32960D006B0596 /* OnboardingModule */,
 				D9D208032E315C0600FEE9FD /* PaywallModule */,
 				D9D2C6582E2CB49F00FEE9FD /* CoreModule */,
@@ -134,6 +138,7 @@
 				D9D2C64A2E29850700FEE9FD /* DesignSystemModule */,
 				D9D2C6592E2CB63600FEE9FD /* CoreModule */,
 				D9D208042E315D5800FEE9FD /* PaywallModule */,
+				D96F97EB2E32B5F9006B0596 /* UserModule */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -585,6 +590,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D96F3C9A2CB2E3B800CBABB8 /* XCRemoteSwiftPackageReference "MCEmojiPicker" */;
 			productName = MCEmojiPicker;
+		};
+		D96F97EB2E32B5F9006B0596 /* UserModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserModule;
 		};
 		D97F63EE2DAFA3240060B741 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;

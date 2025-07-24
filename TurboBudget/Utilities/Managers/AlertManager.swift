@@ -11,6 +11,7 @@ import SwiftUI
 import NavigationKit
 import StatsKit
 import CoreModule
+import UserModule
 
 extension AlertManager {
     
