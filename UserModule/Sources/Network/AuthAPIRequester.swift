@@ -9,13 +9,13 @@ import Foundation
 import NetworkKit
 import CoreModule
 
-enum AuthAPIRequester: APIRequestBuilder {
+public enum AuthAPIRequester: APIRequestBuilder {
     case apple(body: AuthBody)
     case google(body: AuthBody)
     case socket(body: AuthBody)
 }
 
-extension AuthAPIRequester {
+public extension AuthAPIRequester {
     var path: String {
         switch self {
         case .apple:    return NetworkPath.Auth.apple

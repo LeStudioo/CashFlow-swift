@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUICore
+import DesignSystemModule
 
 struct OnboardingItem: Identifiable {
     let id: UUID = UUID()

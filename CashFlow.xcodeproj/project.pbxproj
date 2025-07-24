@@ -14,6 +14,7 @@
 		D94594F72D16A03A00A989F0 /* NotificationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D94594F62D16A03A00A989F0 /* NotificationKit */; };
 		D96F3C9C2CB2E3B800CBABB8 /* MCEmojiPicker in Frameworks */ = {isa = PBXBuildFile; productRef = D96F3C9B2CB2E3B800CBABB8 /* MCEmojiPicker */; };
 		D96F97EC2E32B5F9006B0596 /* UserModule in Frameworks */ = {isa = PBXBuildFile; productRef = D96F97EB2E32B5F9006B0596 /* UserModule */; };
+		D96F97EE2E32B924006B0596 /* OnboardingModule in Frameworks */ = {isa = PBXBuildFile; productRef = D96F97ED2E32B924006B0596 /* OnboardingModule */; };
 		D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F63EE2DAFA3240060B741 /* NetworkKit */; };
 		D97F64BA2DB156ED0060B741 /* NavigationKit in Frameworks */ = {isa = PBXBuildFile; productRef = D97F64B92DB156ED0060B741 /* NavigationKit */; };
 		D980E52C2DC1E928005025E1 /* TheoKit in Frameworks */ = {isa = PBXBuildFile; productRef = D980E52B2DC1E928005025E1 /* TheoKit */; };
@@ -62,6 +63,7 @@
 				D9D2C64B2E29850700FEE9FD /* DesignSystemModule in Frameworks */,
 				81D990B42A49F03000EF13A3 /* SwipeActions in Frameworks */,
 				D9D2C65A2E2CB63600FEE9FD /* CoreModule in Frameworks */,
+				D96F97EE2E32B924006B0596 /* OnboardingModule in Frameworks */,
 				D97F63EF2DAFA3240060B741 /* NetworkKit in Frameworks */,
 				D901E8002DC3584600069818 /* StatsKit in Frameworks */,
 				D980E52C2DC1E928005025E1 /* TheoKit in Frameworks */,
@@ -139,6 +141,7 @@
 				D9D2C6592E2CB63600FEE9FD /* CoreModule */,
 				D9D208042E315D5800FEE9FD /* PaywallModule */,
 				D96F97EB2E32B5F9006B0596 /* UserModule */,
+				D96F97ED2E32B924006B0596 /* OnboardingModule */,
 			);
 			productName = TurboBudget;
 			productReference = 81A707832A3B6B4C00BEB0BF /* CashFlow.app */;
@@ -594,6 +597,10 @@
 		D96F97EB2E32B5F9006B0596 /* UserModule */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserModule;
+		};
+		D96F97ED2E32B924006B0596 /* OnboardingModule */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = OnboardingModule;
 		};
 		D97F63EE2DAFA3240060B741 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,7 +7,10 @@
 
 import SwiftUI
 import DesignSystemModule
-import _AuthenticationServices_SwiftUI
+import AuthenticationServices
+import UserModule
+import NetworkKit
+import CoreModule
 
 struct GenericOnboardingScreen: View {
     
@@ -73,26 +76,26 @@ struct GenericOnboardingScreen: View {
                     } onCompletion: { result in
                         switch result {
                         case .success(let authResults):
-//                            if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
-//                                if let appleIDToken = credential.identityToken, let idTokenString = String(data: appleIDToken, encoding: .utf8) {
-//                                    Task {
-//                                        let user = try await NetworkService.sendRequest(
-//                                            apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
-//                                            responseModel: UserModel.self
-//                                        )
-//
-//                                        if let token = user.token, let refreshToken = user.refreshToken {
-//                                            TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-//                                            UserStore.shared.currentUser = user
-//                                            AppManager.shared.appState = .success
-//                                        }
-//                                    }
-//                                } else {
-//                                    AppManager.shared.appState = .needLogin
-//                                }
-//                            } else {
-//                                AppManager.shared.appState = .needLogin
-//                            }
+                            if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
+                                if let appleIDToken = credential.identityToken, let idTokenString = String(data: appleIDToken, encoding: .utf8) {
+                                    Task {
+                                        let user = try await NetworkService.sendRequest(
+                                            apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
+                                            responseModel: UserModel.self
+                                        )
+
+                                        if let token = user.token, let refreshToken = user.refreshToken {
+                                            TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
+                                            UserStore.shared.currentUser = user
+                                            AppManager.shared.appState = .success
+                                        }
+                                    }
+                                } else {
+                                    AppManager.shared.appState = .needLogin
+                                }
+                            } else {
+                                AppManager.shared.appState = .needLogin
+                            }
                             break
                         case .failure(let error):
                             print("Authorisation failed: \(error.localizedDescription)")

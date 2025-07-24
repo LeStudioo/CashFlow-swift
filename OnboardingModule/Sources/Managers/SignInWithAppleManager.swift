@@ -10,6 +10,7 @@ import AuthenticationServices
 import NetworkKit
 import StatsKit
 import CoreModule
+import UserModule
 
 class SignInWithAppleManager: NSObject {
     
@@ -34,18 +35,18 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else { return }
                         
             Task {
-//                let user = try await NetworkService.sendRequest(
-//                    apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
-//                    responseModel: UserModel.self
-//                )
-//                
-//                if let token = user.token, let refreshToken = user.refreshToken {
-//                    TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-//                    UserStore.shared.currentUser = user
+                let user = try await NetworkService.sendRequest(
+                    apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
+                    responseModel: UserModel.self
+                )
+
+                if let token = user.token, let refreshToken = user.refreshToken {
+                    TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
+                    UserStore.shared.currentUser = user
                     AppManager.shared.appState = .success
-//                    
+
                     EventService.sendEvent(key: EventKeys.userRegisterApple)
-//                }
+                }
             }
         }
     }

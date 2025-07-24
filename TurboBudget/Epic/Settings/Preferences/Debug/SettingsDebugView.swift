@@ -40,7 +40,7 @@ struct SettingsDebugView: View {
         }
         .navigationTitle("Debug")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showOnboarding, content: { OnboardingScreen().interactiveDismissDisabled() })
+//        .sheet(isPresented: $showOnboarding, content: { OnboardingScreen().interactiveDismissDisabled() })
     } // body
 } // struct
 

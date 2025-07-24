@@ -34,7 +34,9 @@ public extension Color {
         return Color("text", bundle: BundleHelper.bundle)
     }
     
-    
+    static var textReversed: Color {
+        return Color("textReversed", bundle: BundleHelper.bundle)
+    }
     
     static var customGray: Color {
         return Color("customGray", bundle: BundleHelper.bundle)

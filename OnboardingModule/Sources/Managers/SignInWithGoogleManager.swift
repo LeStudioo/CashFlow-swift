@@ -12,6 +12,7 @@ import GoogleSignIn
 import NetworkKit
 import StatsKit
 import CoreModule
+import UserModule
 
 class SignInWithGoogleManager: ObservableObject {
     
@@ -49,19 +50,19 @@ extension SignInWithGoogleManager {
             
             Task {
                 await self.getUserInfo()
-//                
-//                let user = try await NetworkService.sendRequest(
-//                    apiBuilder: AuthAPIRequester.google(body: .init(identityToken: googleToken.tokenString)),
-//                    responseModel: UserModel.self
-//                )
-//                
-//                if let token = user.token, let refreshToken = user.refreshToken {
-//                    TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-//                    UserStore.shared.currentUser = user
+
+                let user = try await NetworkService.sendRequest(
+                    apiBuilder: AuthAPIRequester.google(body: .init(identityToken: googleToken.tokenString)),
+                    responseModel: UserModel.self
+                )
+                
+                if let token = user.token, let refreshToken = user.refreshToken {
+                    TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
+                    UserStore.shared.currentUser = user
                     AppManager.shared.appState = .success
-//                    
+
                     EventService.sendEvent(key: EventKeys.userRegisterGoogle)
-//                }
+                }
             }
         }
     }

@@ -8,6 +8,10 @@
 
 import Foundation
 
-struct AuthBody: Codable {
-    var identityToken: String
+public struct AuthBody: Codable {
+    public var identityToken: String
+    
+    public init(identityToken: String) {
+        self.identityToken = identityToken
+    }
 }

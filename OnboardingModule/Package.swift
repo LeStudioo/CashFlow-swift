@@ -15,7 +15,10 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "./DesignSystemModule"),
-        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "9.0.0")
+        .package(path: "./CoreModule"),
+        .package(path: "./UserModule"),
+        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "9.0.0"),
+//        .package(url: "https://github.com/theosementa/StatsKit", exact: "1.0.6"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -24,8 +27,12 @@ let package = Package(
             name: "OnboardingModule",
             dependencies: [
                 "DesignSystemModule",
-                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
-            ]
+                "CoreModule",
+                "UserModule",
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
+//                .product(name: "StatsKit", package: "StatsKit")
+            ],
+            swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(
             name: "OnboardingModuleTests",

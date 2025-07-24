@@ -10,18 +10,27 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "UserModule",
-            targets: ["UserModule"]),
+            targets: ["UserModule"]
+        )
+    ],
+    dependencies: [
+        .package(path: "./CoreModule"),
+        .package(url: "https://github.com/theosementa/NetworkKit", exact: "1.0.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "UserModule",
+            dependencies: [
+                "CoreModule",
+                .product(name: "NetworkKit", package: "NetworkKit")
+            ],
             swiftSettings: [.swiftLanguageMode(.v5)]
         ),
         .testTarget(
             name: "UserModuleTests",
             dependencies: ["UserModule"]
-        ),
+        )
     ]
 )
