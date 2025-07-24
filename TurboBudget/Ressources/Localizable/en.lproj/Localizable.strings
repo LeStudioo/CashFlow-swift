@@ -647,23 +647,26 @@ Simple, fast, secure - your financial peace of mind starts here.";
 
 "onboarding_button_next" = "Next";
 
-"onboarding_button_start" = "Start";
+/*  */
+"onboarding_page_one_description" = "Visualise your spending, set targets and take back control of your money.";
 
-"onboarding_page1_desc" = "Track your expenses, analyze your spending habits, identify areas where you can save, and take control of your money easily.";
+/*  */
+"onboarding_page_one_title" = "Manage your finances simply.";
 
-"onboarding_page1_title" = "Welcome to CashFlow!";
+/*  */
+"onboarding_page_three_description" = "Create savings plans, set budgets and track your progress in real time.";
 
-"onboarding_page2_desc" = "All your financial activities will be recorded and displayed briefly and clearly.";
+/*  */
+"onboarding_page_three_extra_label" = "You need an account to use CashFlow";
 
-"onboarding_page2_title" = "An easy way to track your finances";
+/*  */
+"onboarding_page_three_title" = "Reach your financial goals.";
 
-"onboarding_page3_desc" = "Features that can make saving and future financial planning easier for you.";
+/*  */
+"onboarding_page_two_description" = "Our AI automatically categorises your expenses and helps you make better decisions.";
 
-"onboarding_page3_title" = "Prepare your finances for the future";
-
-"onboarding_page4_desc" = "Start now and experience a new, fun way to manage your finances.";
-
-"onboarding_page4_title" = "A new experience in money management";
+/*  */
+"onboarding_page_two_title" = "Intelligence at the service of your budget.";
 
 "only_expenses_word" = "Only expenses";
 

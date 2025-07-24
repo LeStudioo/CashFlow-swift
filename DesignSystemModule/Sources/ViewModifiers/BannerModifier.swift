@@ -1,29 +1,12 @@
 //
-//  Banner.swift
-//  Split
+//  BannerModifier.swift
+//  DesignSystemModule
 //
-//  Created by KaayZenn on 19/05/2024.
+//  Created by Theo Sementa on 24/07/2025.
 //
-// TODO: Change place
+
 import SwiftUI
-import DesignSystemModule
-
-public enum BannerStyle {
-    case neutral
-    case error
-}
-
-public struct Banner: Equatable {
-    public var title: String
-    public var style: BannerStyle = .neutral
-    public var duration: Double = 3
-    
-    public init(title: String, style: BannerStyle = .neutral, duration: Double = 3) {
-        self.title = title
-        self.style = style
-        self.duration = duration
-    }
-}
+import CoreModule
 
 struct BannerModifier: ViewModifier {
     
@@ -99,7 +82,7 @@ struct BannerView: View {
     
     var body: some View {
         Text(title)
-//            .font(.Body.Medium.semibold)
+//            .font(.Body.mediu) // TODO: ICI
             .foregroundStyle(style == .error ? Color.white : Color(uiColor: .systemBackground))
             .padding(24)
             .frame(maxWidth: .infinity)

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import TheoKit
 import CoreModule
 
 public enum ActionButtonStyle {
@@ -52,7 +51,7 @@ public struct ActionButtonView: View {
             Text(title)
                 .fontWithLineHeight(.Body.mediumBold)
                 .foregroundStyle(Color.white)
-                .fullWidth(.center)
+                .frame(maxWidth: .infinity)
                 .padding(Padding.standard)
                 .background(style.backgroundColor, in: .rect(cornerRadius: CornerRadius.large, style: .continuous))
         }
