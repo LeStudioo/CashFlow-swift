@@ -62,6 +62,6 @@ struct ProgressBar: View {
             .frame(height: 48)
     }
     .padding()
-    .background(Color.background)
+    .background(Color.Background.bg50)
     .environmentObject(ThemeManager())
 }

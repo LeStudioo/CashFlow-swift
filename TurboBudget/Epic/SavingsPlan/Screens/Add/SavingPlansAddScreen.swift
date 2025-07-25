@@ -86,7 +86,7 @@ struct SavingPlansAddScreen: View {
                             .padding(15)
                             .background {
                                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .fill(Color.background200)
+                                    .fill(Color.Background.bg200)
                             }
                     })
                     .emojiPicker(

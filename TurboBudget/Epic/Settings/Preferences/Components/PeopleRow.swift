@@ -51,5 +51,5 @@ struct PeopleRow: View {
 #Preview {
     PeopleRow(people: .theoSementa)
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

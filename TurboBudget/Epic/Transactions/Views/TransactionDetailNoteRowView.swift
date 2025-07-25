@@ -61,5 +61,5 @@ struct TransactionDetailNoteRowView: View {
 #Preview {
     TransactionDetailNoteRowView(note: .constant(""))
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

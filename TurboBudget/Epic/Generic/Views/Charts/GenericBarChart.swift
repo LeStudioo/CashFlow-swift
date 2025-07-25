@@ -60,7 +60,7 @@ struct GenericBarChart: View {
             .chartYAxis {
                 AxisMarks { value in
                     AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                        .foregroundStyle(Color.background200)
+                        .foregroundStyle(Color.Background.bg200)
                     AxisValueLabel {
                         if let doubleValue = value.as(Double.self) {
                             Text(doubleValue.toCurrency())

@@ -45,6 +45,6 @@ struct SavingsAccountInfosView: View {
 #Preview {
     SavingsAccountInfosView(savingsAccount: .mockSavingsAccount)
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
         .environmentObject(ThemeManager())
 }

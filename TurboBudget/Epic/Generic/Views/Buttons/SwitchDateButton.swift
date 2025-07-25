@@ -48,7 +48,7 @@ struct SwitchDateButton: View {
         .padding(12)
         .background {
             RoundedRectangle(cornerRadius: 12, style: .continuous)
-                .fill(Color.background200)
+                .fill(Color.Background.bg200)
         }
     } // body
     

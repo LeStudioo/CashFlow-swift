@@ -26,7 +26,7 @@ struct ProgressBarWithAmount: View {
     var body: some View {
         GeometryReader { geometry in
             RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .fill(Color.background200)
+                .fill(Color.Background.bg200)
                 .overlay(alignment: .leading) {
                     RoundedRectangle(cornerRadius: 8, style: .continuous)
                         .fill(themeManager.theme.color)
@@ -57,5 +57,5 @@ struct ProgressBarWithAmount: View {
         .frame(height: 38)
         .environmentObject(ThemeManager())
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

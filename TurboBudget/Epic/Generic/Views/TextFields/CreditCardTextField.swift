@@ -32,7 +32,7 @@ struct CreditCardTextField: View {
                     .padding(.trailing, 14)
                     .background {
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .fill(Color.background200)
+                            .fill(Color.Background.bg200)
                     }
             }
         }

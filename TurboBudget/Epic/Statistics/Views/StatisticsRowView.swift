@@ -34,5 +34,5 @@ struct StatisticsRowView: View {
         StatisticsRowView(text: "Dépense cette semaine", value: 134.toCurrency())
     }
     .padding()
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }

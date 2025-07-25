@@ -239,7 +239,7 @@ struct SavingsPlanDetailScreen: View {
             
             ToolbarDismissKeyboardButtonView()
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
     } // body
 } // struct
 

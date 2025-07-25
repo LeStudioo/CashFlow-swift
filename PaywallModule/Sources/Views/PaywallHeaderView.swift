@@ -32,7 +32,7 @@ struct PaywallHeaderView: View {
                 Button(action: { dismiss() }, label: {
                     Circle()
                         .frame(width: 26, height: 26)
-                        .foregroundStyle(Color.background200)
+                        .foregroundStyle(Color.Background.bg200)
                         .overlay {
                             Image(systemName: "xmark")
                                 .font(.system(size: 12, weight: .bold))

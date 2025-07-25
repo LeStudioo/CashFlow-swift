@@ -40,7 +40,7 @@ struct TransactionsForMonthScreen: View {
                         .padding(.horizontal)
                         .listRowSeparator(.hidden)
                         .listRowInsets(.init(top: 4, leading: 0, bottom: 4, trailing: 0))
-                        .listRowBackground(Color.background.edgesIgnoringSafeArea(.all))
+                        .listRowBackground(Color.Background.bg50.edgesIgnoringSafeArea(.all))
                     }, header: {
                         DetailOfExpensesAndIncomesByMonth(
                             month: selectedDate,
@@ -58,7 +58,7 @@ struct TransactionsForMonthScreen: View {
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
                 .scrollIndicators(.hidden)
-                .background(Color.background.edgesIgnoringSafeArea(.all))
+                .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
                 .animation(.smooth, value: transactionsFiltered.count)
             } else {
                 CustomEmptyView(
@@ -67,7 +67,7 @@ struct TransactionsForMonthScreen: View {
                 )
             }
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
         .navigationTitle(Word.Main.transactions)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -75,7 +75,7 @@ struct TransactionsForMonthScreen: View {
             ToolbarDismissPushButton()
         }
         .searchable(text: $searchText, prompt: "word_search".localized)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
     } // body
 } // struct
 

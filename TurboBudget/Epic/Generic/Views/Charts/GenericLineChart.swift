@@ -60,7 +60,7 @@ struct GenericLineChart: View {
             .chartYAxis {
                 AxisMarks { value in
                     AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                        .foregroundStyle(Color.background200)
+                        .foregroundStyle(Color.Background.bg200)
                     AxisValueLabel {
                         if let doubleValue = value.as(Double.self) {
                             Text(doubleValue.toCurrency())
@@ -73,7 +73,7 @@ struct GenericLineChart: View {
             .chartXAxis {
                 AxisMarks { _ in
                     AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                        .foregroundStyle(Color.background200)
+                        .foregroundStyle(Color.Background.bg200)
                     AxisValueLabel()
                         .font(.system(size: 11, weight: .semibold))
                         .offset(y: 4)

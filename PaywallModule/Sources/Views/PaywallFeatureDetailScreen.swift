@@ -70,5 +70,5 @@ struct PaywallFeatureDetailScreen: View {
         imageWith: ["budgetPaywallDetailled"],
         desc: "paywall_detailled_budgets".localized
     )
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }

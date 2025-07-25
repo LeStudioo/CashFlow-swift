@@ -116,7 +116,7 @@ struct AccountStatisticsScreen: View {
                 .padding()
             }
         } // ScrollView
-        .background(Color.background)
+        .background(Color.Background.bg50)
         .scrollIndicators(.hidden)
         .navigationTitle(Word.Classic.statistics)
         .navigationBarBackButtonHidden(true)

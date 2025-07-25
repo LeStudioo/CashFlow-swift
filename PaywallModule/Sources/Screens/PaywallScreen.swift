@@ -164,7 +164,7 @@ public struct PaywallScreen: View {
             }
             .padding(.horizontal)
             .padding(.top)
-            .background(Color.background200)
+            .background(Color.Background.bg200)
         } // NavigationStack
         .onAppear {
             EventService.sendEvent(key: EventKeys.appPaywall)

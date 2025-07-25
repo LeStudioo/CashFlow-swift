@@ -9,6 +9,7 @@
 
 import SwiftUI
 import NavigationKit
+import DesignSystemModule
 
 struct BudgetsTransactionsListScreen: View {
 
@@ -58,7 +59,7 @@ struct BudgetsTransactionsListScreen: View {
                 )
             }
         }
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
         .navigationTitle("word_transactions".localized)
         .navigationBarTitleDisplayMode(.large)
         .navigationBarBackButtonHidden(true)
@@ -93,7 +94,7 @@ struct BudgetsTransactionsListScreen: View {
             }
         }
         .searchable(text: $searchText.animation(), prompt: "word_search".localized)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
     } // body
 } // struct
 

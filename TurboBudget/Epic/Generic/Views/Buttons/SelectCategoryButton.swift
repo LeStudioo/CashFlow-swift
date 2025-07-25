@@ -71,5 +71,5 @@ struct SelectCategoryButton: View {
         selectedSubcategory: .constant(nil)
     )
     .padding()
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }
