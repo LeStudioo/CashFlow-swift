@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import CoreModule
+import PreferencesModule
 
 final class PreferencesDisplayHome: ObservableObject {
     static let shared = PreferencesDisplayHome()

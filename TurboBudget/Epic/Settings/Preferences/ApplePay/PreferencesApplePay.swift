@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import StatsKit
 import CoreModule
+import PreferencesModule
 
 final class PreferencesApplePay: ObservableObject {
     static let shared = PreferencesApplePay()

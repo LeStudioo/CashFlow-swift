@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreModule
+import PreferencesModule
 
 final class VibrationManager { }
 
