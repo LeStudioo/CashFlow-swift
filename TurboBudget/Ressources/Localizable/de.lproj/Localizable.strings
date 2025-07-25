@@ -647,23 +647,32 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 
 "onboarding_button_next" = "Weiter";
 
-"onboarding_button_start" = "Anfangen";
+/*  */
+"onboarding_page_one_description" = "Machen Sie sich ein Bild von Ihren Ausgaben, setzen Sie sich Ziele und gewinnen Sie die Kontrolle über Ihr Geld zurück.";
 
-"onboarding_page1_desc" = "Verfolgen Sie Ihre Ausgaben, analysieren Sie Ihre Ausgabegewohnheiten, identifizieren Sie Bereiche, in denen Sie sparen können, und behalten Sie einfach die Kontrolle über Ihr Geld.";
+/*  */
+"onboarding_page_one_title" = "Verwalten Sie Ihre Finanzen auf einfache Weise.";
 
-"onboarding_page1_title" = "Willkommen bei CashFlow!";
+/*  */
+"onboarding_page_three_description" = "Erstellen Sie Sparpläne, legen Sie Budgets fest und verfolgen Sie Ihre Fortschritte in Echtzeit.";
 
-"onboarding_page2_desc" = "Alle Ihre finanziellen Aktivitäten werden kurz und übersichtlich erfasst und angezeigt.";
+/*  */
+"onboarding_page_three_extra_label" = "Sie benötigen ein Konto, um CashFlow zu nutzen";
 
-"onboarding_page2_title" = "Einfache Möglichkeit, Ihre Finanzen zu verfolgen";
+/*  */
+"onboarding_page_three_title" = "Erreichen Sie Ihre finanziellen Ziele.";
 
-"onboarding_page3_desc" = "Funktionen, die Ihnen das Sparen und die zukünftige Finanzplanung erleichtern können";
+/*  */
+"onboarding_page_two_description" = "Unsere KI kategorisiert Ihre Ausgaben automatisch und hilft Ihnen, bessere Entscheidungen zu treffen.";
 
-"onboarding_page3_title" = "Bereiten Sie Ihre Finanzen für die Zukunft vor";
+/*  */
+"onboarding_page_two_title" = "Intelligenz im Dienste Ihres Budgets.";
 
-"onboarding_page4_desc" = "Beginnen Sie jetzt und erleben Sie eine neue, unterhaltsame Erfahrung in der Verwaltung Ihrer Finanzen.";
+/*  */
+"onboarding_welcome_back_description" = "Schön, Sie wiederzusehen. Sind Sie bereit, wieder die Kontrolle über Ihre Finanzen zu übernehmen?";
 
-"onboarding_page4_title" = "Eine neue Erfahrung im Umgang mit Geld";
+/*  */
+"onboarding_welcome_back_title" = "Willkommen zurück!";
 
 "only_expenses_word" = "Nur Spesen";
 

@@ -11,6 +11,8 @@ import NotificationKit
 import TheoKit
 import CoreModule
 import StatsKit
+import UserModule
+import OnboardingModule
 
 @main
 struct TurboBudgetApp: App {
@@ -42,6 +44,7 @@ struct TurboBudgetApp: App {
     
     // Preferences
     @StateObject private var preferencesSecurity: PreferencesSecurity = .shared
+    @StateObject private var preferencesGeneral: PreferencesGeneral = .shared
     @StateObject private var preferencesSubscription: SubscriptionPreferences = .shared
         
     // init
@@ -54,36 +57,40 @@ struct TurboBudgetApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                switch appManager.appState {
-                case .idle:
-                    SplashScreenView()
-                case .loading:
-                    SplashScreenView()
-                case .success:
-                    Group {
-                        if preferencesSecurity.isSecurityReinforced {
-                            if scenePhase == .active {
-                                PageControllerScreen()
+                if !preferencesGeneral.isAlreadyOpen {
+                    OnboardingScreen()
+                } else {
+                    switch appManager.appState {
+                    case .idle:
+                        SplashScreenView()
+                    case .loading:
+                        SplashScreenView()
+                    case .success:
+                        Group {
+                            if preferencesSecurity.isSecurityReinforced {
+                                if scenePhase == .active {
+                                    PageControllerScreen()
+                                } else {
+                                    Image("LaunchScreen")
+                                        .resizable()
+                                        .edgesIgnoringSafeArea([.bottom, .top])
+                                }
                             } else {
-                                Image("LaunchScreen")
-                                    .resizable()
-                                    .edgesIgnoringSafeArea([.bottom, .top])
+                                PageControllerScreen()
                             }
-                        } else {
-                            PageControllerScreen()
                         }
-                    }
-                    .task {
-                        if !appManager.isStartDataLoaded {
-                            await accountStore.fetchAccounts()
-                            await appManager.loadStartData()
-                            appManager.isStartDataLoaded = true
+                        .task {
+                            if !appManager.isStartDataLoaded {
+                                await accountStore.fetchAccounts()
+                                await appManager.loadStartData()
+                                appManager.isStartDataLoaded = true
+                            }
                         }
+                    case .needLogin:
+                        LoginBackScreen()
+                    case .noInternet:
+                        NoInternetView()
                     }
-                case .needLogin:
-                    LoginScreen()
-                case .noInternet:
-                    NoInternetView()
                 }
             }
             .overlay(alignment: .bottom) {

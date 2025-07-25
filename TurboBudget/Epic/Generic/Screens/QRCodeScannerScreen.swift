@@ -40,14 +40,14 @@ struct QRCodeScannerScreen: View {
             .compositingGroup()
         }
         .onChange(of: identityToken) { _ in
-            Task {
-                do {
-                    try await NetworkService.sendRequest(
-                        apiBuilder: AuthAPIRequester.socket(body: .init(identityToken: identityToken))
-                    )
-                    dismiss()
-                } catch {}
-            }
+//            Task {
+//                do {
+//                    try await NetworkService.sendRequest(
+//                        apiBuilder: AuthAPIRequester.socket(body: .init(identityToken: identityToken))
+//                    )
+//                    dismiss()
+//                } catch {}
+//            }
         }
     } // body
 } // struct

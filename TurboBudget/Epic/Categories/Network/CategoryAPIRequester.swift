@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import CoreModule
 
 enum CategoryAPIRequester: APIRequestBuilder {
     case fetchCategories

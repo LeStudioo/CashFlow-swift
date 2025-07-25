@@ -18,12 +18,34 @@ public extension Color {
 
 public extension Color {
     
-    static var background: Color {
-        return Color("background", bundle: BundleHelper.bundle)
-    }
-    
-    static var background200: Color {
-        return Color("background200", bundle: BundleHelper.bundle)
+    struct Background {
+        public static var bg50: Color {
+            return Color("background50", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg100: Color {
+            return Color("background100", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg200: Color {
+            return Color("background200", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg300: Color {
+            return Color("background300", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg400: Color {
+            return Color("background400", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg500: Color {
+            return Color("background500", bundle: BundleHelper.bundle)
+        }
+        
+        public static var bg600: Color {
+            return Color("background600", bundle: BundleHelper.bundle)
+        }
     }
     
 }
@@ -34,7 +56,9 @@ public extension Color {
         return Color("text", bundle: BundleHelper.bundle)
     }
     
-    
+    static var textReversed: Color {
+        return Color("textReversed", bundle: BundleHelper.bundle)
+    }
     
     static var customGray: Color {
         return Color("customGray", bundle: BundleHelper.bundle)

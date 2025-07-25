@@ -7,6 +7,7 @@
 
 import SwiftUI
 import NavigationKit
+import CoreModule
 
 struct SettingsDebugView: View {
     
@@ -39,7 +40,7 @@ struct SettingsDebugView: View {
         }
         .navigationTitle("Debug")
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showOnboarding, content: { OnboardingScreen().interactiveDismissDisabled() })
+//        .sheet(isPresented: $showOnboarding, content: { OnboardingScreen().interactiveDismissDisabled() })
     } // body
 } // struct
 

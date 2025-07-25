@@ -27,10 +27,18 @@ let package = Package(
             targets: ["DesignSystemModule"]
         )
     ],
+    dependencies: [
+        .package(path: "./CoreModule"),
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .target(name: "DesignSystemModule"),
+        .target(
+            name: "DesignSystemModule",
+            dependencies: [
+                "CoreModule"
+            ]
+        ),
         .testTarget(
             name: "DesignSystemModuleTests",
             dependencies: ["DesignSystemModule"]

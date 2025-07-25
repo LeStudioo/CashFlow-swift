@@ -647,23 +647,32 @@ Sencillo, rápido y seguro: su tranquilidad financiera empieza aquí.";
 
 "onboarding_button_next" = "Siguiente";
 
-"onboarding_button_start" = "Comenzar";
+/*  */
+"onboarding_page_one_description" = "Visualice sus gastos, fije objetivos y recupere el control de su dinero.";
 
-"onboarding_page1_desc" = "Siga sus gastos, analice sus hábitos de gasto, identifique áreas donde pueda ahorrar y tome el control de su dinero fácilmente";
+/*  */
+"onboarding_page_one_title" = "Gestione sus finanzas de forma sencilla.";
 
-"onboarding_page1_title" = "¡Bienvenido a CashFlow!";
+/*  */
+"onboarding_page_three_description" = "Cree planes de ahorro, fije presupuestos y siga sus progresos en tiempo real.";
 
-"onboarding_page2_desc" = "Todas sus actividades financieras serán registradas y mostradas de manera concisa y clara";
+/*  */
+"onboarding_page_three_extra_label" = "Necesita una cuenta para utilizar CashFlow";
 
-"onboarding_page2_title" = "Una manera fácil de seguir sus finanzas";
+/*  */
+"onboarding_page_three_title" = "Alcance sus objetivos financieros.";
 
-"onboarding_page3_desc" = "Características que pueden facilitarle el ahorro y la planificación financiera futura";
+/*  */
+"onboarding_page_two_description" = "Nuestra IA clasifica automáticamente sus gastos y le ayuda a tomar mejores decisiones.";
 
-"onboarding_page3_title" = "Prepare sus finanzas para el futuro";
+/*  */
+"onboarding_page_two_title" = "Inteligencia al servicio de su presupuesto.";
 
-"onboarding_page4_desc" = "Comience ahora y experimente una nueva y divertida forma de gestionar sus finanzas";
+/*  */
+"onboarding_welcome_back_description" = "Bienvenido de nuevo. ¿Listo para recuperar el control de tus finanzas?";
 
-"onboarding_page4_title" = "Nueva experiencia en la gestión del dinero";
+/*  */
+"onboarding_welcome_back_title" = "Bienvenido de nuevo.";
 
 "only_expenses_word" = "Solo gastos";
 

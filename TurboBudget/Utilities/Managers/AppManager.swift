@@ -7,18 +7,7 @@
 
 import Foundation
 import NotificationKit
-
-final class AppManager: ObservableObject {
-    static let shared = AppManager()
-    
-    @Published var appState: ApplicationState = .idle
-    
-    @Published var selectedTab: Int = 0
-    @Published var isMenuPresented: Bool = false
-    
-    @Published var isStartDataLoaded: Bool = false
-    @Published var isRoutersRegistered: Bool = false
-}
+import CoreModule
 
 extension AppManager {
  

@@ -94,9 +94,9 @@ struct PageControllerScreen: View {
                         CustomTabBar()
                     }
                 }
-                .sheet(isPresented: $viewModel.showOnboarding) {
-                    OnboardingScreen()
-                }
+//                .sheet(isPresented: $viewModel.showOnboarding) {
+//                    OnboardingScreen()
+//                }
                 .blur(radius: appManager.isMenuPresented ? 12 : 0)
                 .overlay {
                     if appManager.isMenuPresented {
