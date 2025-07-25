@@ -82,6 +82,7 @@ struct TurboBudgetApp: App {
                         }
                         .task {
                             if !appManager.isStartDataLoaded {
+                                print("🔥 TOKENMANAGZER : \(TokenManager.shared.token)")
                                 await accountStore.fetchAccounts()
                                 await appManager.loadStartData()
                                 appManager.isStartDataLoaded = true

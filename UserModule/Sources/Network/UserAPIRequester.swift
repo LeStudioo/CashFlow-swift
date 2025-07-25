@@ -9,7 +9,7 @@ import Foundation
 import NetworkKit
 import CoreModule
 
-enum UserAPIRequester: APIRequestBuilder {
+public enum UserAPIRequester: APIRequestBuilder {
     case me
     case register(body: UserModel)
     case login(email: String, password: String)
@@ -18,7 +18,7 @@ enum UserAPIRequester: APIRequestBuilder {
     case delete
 }
 
-extension UserAPIRequester {
+public extension UserAPIRequester {
     var path: String {
         switch self {
         case .me:                               return NetworkPath.User.me
