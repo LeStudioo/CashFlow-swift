@@ -9,6 +9,7 @@ import SwiftUI
 import NavigationKit
 import TheoKit
 import DesignSystemModule
+import PreferencesModule
 
 struct HomeScreenRecentTransactionsView: View {
     

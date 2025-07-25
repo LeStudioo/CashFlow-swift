@@ -9,6 +9,7 @@
 
 import SwiftUI
 import NavigationKit
+import PreferencesModule
 
 struct HomeScreenSavingsPlanView: View {
         
