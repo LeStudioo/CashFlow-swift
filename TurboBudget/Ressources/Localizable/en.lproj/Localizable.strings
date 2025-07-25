@@ -668,6 +668,12 @@ Simple, fast, secure - your financial peace of mind starts here.";
 /*  */
 "onboarding_page_two_title" = "Intelligence at the service of your budget.";
 
+/*  */
+"onboarding_welcome_back_description" = "Welcome back. Ready to take back control of your finances?";
+
+/*  */
+"onboarding_welcome_back_title" = "Welcome back!";
+
 "only_expenses_word" = "Only expenses";
 
 "only_incomes_word" = "Only incomes";

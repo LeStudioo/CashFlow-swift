@@ -668,6 +668,12 @@ Sencillo, rápido y seguro: su tranquilidad financiera empieza aquí.";
 /*  */
 "onboarding_page_two_title" = "Inteligencia al servicio de su presupuesto.";
 
+/*  */
+"onboarding_welcome_back_description" = "Bienvenido de nuevo. ¿Listo para recuperar el control de tus finanzas?";
+
+/*  */
+"onboarding_welcome_back_title" = "Bienvenido de nuevo.";
+
 "only_expenses_word" = "Solo gastos";
 
 "only_incomes_word" = "Solo ingresos";

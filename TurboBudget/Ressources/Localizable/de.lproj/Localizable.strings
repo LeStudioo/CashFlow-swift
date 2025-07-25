@@ -668,6 +668,12 @@ Einfach, schnell, sicher - Ihr finanzieller Seelenfrieden beginnt hier.";
 /*  */
 "onboarding_page_two_title" = "Intelligenz im Dienste Ihres Budgets.";
 
+/*  */
+"onboarding_welcome_back_description" = "Schön, Sie wiederzusehen. Sind Sie bereit, wieder die Kontrolle über Ihre Finanzen zu übernehmen?";
+
+/*  */
+"onboarding_welcome_back_title" = "Willkommen zurück!";
+
 "only_expenses_word" = "Nur Spesen";
 
 "only_incomes_word" = "Nur Einkommen";

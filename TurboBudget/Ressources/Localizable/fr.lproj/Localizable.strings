@@ -668,6 +668,12 @@ Simple, rapide, sécurisé – votre tranquillité d’esprit financière commen
 /*  */
 "onboarding_page_two_title" = "L’intelligence au service de votre budget.";
 
+/*  */
+"onboarding_welcome_back_description" = "Ravi de vous revoir. Prêt à reprendre le contrôle de vos finances ?";
+
+/*  */
+"onboarding_welcome_back_title" = "Bon retour !";
+
 "only_expenses_word" = "Uniquement les dépenses";
 
 "only_incomes_word" = "Uniquement les revenus";
