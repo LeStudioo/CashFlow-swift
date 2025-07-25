@@ -10,17 +10,17 @@ import DesignSystemModule
 
 struct SignInButton: View {
     
-    // builder
+    // MARK: Dependencies
     var config: Configuration
     var action: () -> Void
     
     // MARK: -
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
+            HStack(spacing: Spacing.small) {
                 config.icon
                 Text(config.title)
-                    .font(.semiBoldText18())
+                    .fontWithLineHeight(.Body.mediumBold)
                     .foregroundStyle(Color.textReversed)
             }
             .frame(maxWidth: .infinity)

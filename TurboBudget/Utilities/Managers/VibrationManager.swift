@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CoreModule
 
 final class VibrationManager { }
 

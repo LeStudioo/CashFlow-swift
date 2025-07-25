@@ -87,7 +87,7 @@ struct TurboBudgetApp: App {
                             }
                         }
                     case .needLogin:
-                        LoginScreen()
+                        LoginBackScreen()
                     case .noInternet:
                         NoInternetView()
                     }

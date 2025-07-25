@@ -43,6 +43,7 @@ extension SignInWithAppleManager: ASAuthorizationControllerDelegate, ASAuthoriza
                 if let token = user.token, let refreshToken = user.refreshToken {
                     TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
                     UserStore.shared.currentUser = user
+                    PreferencesGeneral.shared.isAlreadyOpen = true
                     AppManager.shared.appState = .success
 
                     EventService.sendEvent(key: EventKeys.userRegisterApple)

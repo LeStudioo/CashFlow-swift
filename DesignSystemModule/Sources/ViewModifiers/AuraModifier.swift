@@ -27,7 +27,7 @@ struct AuraModifier: ViewModifier {
                 Ellipse()
                     .fill(color)
                     .getSize { contentWidth = $0.height }
-                    .frame(width: contentWidth + padding, height: 120)
+                    .frame(width: contentWidth + padding, height: 140)
                     .blur(radius: radius)
                     .offset(y: offsetY)
             }

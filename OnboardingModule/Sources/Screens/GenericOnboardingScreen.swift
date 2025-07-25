@@ -27,6 +27,7 @@ struct GenericOnboardingScreen: View {
     // MARK: Computed variables
     var isLastPage: Bool {
         return item.title == "onboarding_page_three_title".localized
+        || item.title == "onboarding_welcome_back_title".localized
     }
     
     // MARK: - View
@@ -47,7 +48,7 @@ struct GenericOnboardingScreen: View {
                 item.image
                     .resizable()
                     .frame(width: 240, height: 240)
-                    .auraEffect(padding: 80)
+                    .auraEffect(radius: 200, padding: 200)
                 
                 VStack(spacing: Spacing.small) {
                     Text(item.title)
@@ -62,49 +63,27 @@ struct GenericOnboardingScreen: View {
             .frame(maxHeight: .infinity)
             
             if isLastPage {
-                VStack(spacing: Spacing.standard) {
-                    SignInButton(
-                        config: .init(
-                            icon: .Brand.google,
-                            title: "login_google".localized
-                        ),
-                        action: { signInWithGoogleManager.signIn() }
-                    )
-                    
-                    SignInWithAppleButton(.signIn) { request in
-                        request.requestedScopes = [.fullName, .email]
-                    } onCompletion: { result in
-                        switch result {
-                        case .success(let authResults):
-                            if let credential = authResults.credential as? ASAuthorizationAppleIDCredential {
-                                if let appleIDToken = credential.identityToken, let idTokenString = String(data: appleIDToken, encoding: .utf8) {
-                                    Task {
-                                        let user = try await NetworkService.sendRequest(
-                                            apiBuilder: AuthAPIRequester.apple(body: .init(identityToken: idTokenString)),
-                                            responseModel: UserModel.self
-                                        )
-
-                                        if let token = user.token, let refreshToken = user.refreshToken {
-                                            TokenManager.shared.setTokenAndRefreshToken(token: token, refreshToken: refreshToken)
-                                            UserStore.shared.currentUser = user
-                                            AppManager.shared.appState = .success
-                                        }
-                                    }
-                                } else {
-                                    AppManager.shared.appState = .needLogin
-                                }
-                            } else {
-                                AppManager.shared.appState = .needLogin
-                            }
-                            break
-                        case .failure(let error):
-                            print("Authorisation failed: \(error.localizedDescription)")
-                        }
+                VStack(spacing: Spacing.small) {
+                    VStack(spacing: Spacing.medium) {
+                        SignInButton(
+                            config: .init(
+                                icon: .Brand.google,
+                                title: "login_google".localized
+                            ),
+                            action: { signInWithGoogleManager.signIn() }
+                        )
+                        
+                        SignInButton(
+                            config: .init(
+                                icon: .Brand.apple,
+                                title: "login_apple".localized
+                            ),
+                            action: { signInWithAppleManager.performSignIn() }
+                        )
                     }
-                    // black button
-                    .signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
-                    .clipShape(RoundedRectangle(cornerRadius: CornerRadius.standard, style: .continuous))
-                    .frame(height: 48)
+                    Text("onboarding_page_three_extra_label".localized)
+                        .fontWithLineHeight(.Body.small)
+                        .foregroundStyle(Color.Background.bg600)
                 }
             } else {
                 ActionButtonView(title: "onboarding_button_next".localized) { item.action() }
