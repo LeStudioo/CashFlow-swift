@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-import CoreModule
+import PreferencesModule
 
 final class AccountPreferences: ObservableObject {
     static let shared = AccountPreferences()

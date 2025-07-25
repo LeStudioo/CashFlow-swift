@@ -63,5 +63,5 @@ struct SelectThemeColor: View {
 #Preview {
     SelectThemeColor()
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

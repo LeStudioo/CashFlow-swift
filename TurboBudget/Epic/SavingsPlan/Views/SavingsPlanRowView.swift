@@ -75,5 +75,5 @@ struct SavingsPlanRowView: View {
         .environmentObject(SavingsPlanStore())
         .frame(width: 180)
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

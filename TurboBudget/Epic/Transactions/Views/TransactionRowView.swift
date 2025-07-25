@@ -136,5 +136,5 @@ extension TransactionRowView {
         TransactionRowView(transaction: .mockClassicTransaction)
     }
     .padding()
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }

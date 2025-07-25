@@ -12,6 +12,7 @@ import CoreData
 import NavigationKit
 import StatsKit
 import CoreModule
+import PreferencesModule
 
 struct PageControllerScreen: View {
     

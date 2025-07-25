@@ -17,7 +17,7 @@ let package = Package(
         .package(path: "./DesignSystemModule"),
         .package(path: "./CoreModule"),
         .package(path: "./UserModule"),
-        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "9.0.0"),
+        .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: "9.0.0")
 //        .package(url: "https://github.com/theosementa/StatsKit", exact: "1.0.6"),
     ],
     targets: [
@@ -29,7 +29,7 @@ let package = Package(
                 "DesignSystemModule",
                 "CoreModule",
                 "UserModule",
-                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
+                .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS")
 //                .product(name: "StatsKit", package: "StatsKit")
             ],
             swiftSettings: [.swiftLanguageMode(.v5)]

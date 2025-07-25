@@ -11,6 +11,7 @@ import NetworkKit
 import StatsKit
 import CoreModule
 import UserModule
+import PreferencesModule
 
 class SignInWithAppleManager: NSObject {
     

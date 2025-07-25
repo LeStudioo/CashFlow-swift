@@ -46,7 +46,7 @@ struct BudgetRowView: View {
                     }
                     .lineLimit(1)
                     .padding(8)
-                    .background(Color.background200)
+                    .background(Color.Background.bg200)
                     .cornerRadius(12)
                     HStack {
                         Text("budget_cell_actual".localized + " :")
@@ -55,7 +55,7 @@ struct BudgetRowView: View {
                     }
                     .lineLimit(1)
                     .padding(8)
-                    .background(Color.background200)
+                    .background(Color.Background.bg200)
                     .cornerRadius(12)
                     if currentBudget.amount < currentBudget.currentAmount {
                         HStack {
@@ -65,7 +65,7 @@ struct BudgetRowView: View {
                         }
                         .lineLimit(1)
                         .padding(8)
-                        .background(Color.background200)
+                        .background(Color.Background.bg200)
                         .cornerRadius(12)
                     }
                 }

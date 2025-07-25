@@ -73,5 +73,5 @@ struct DetailRow: View {
         )
     }
     .padding()
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }

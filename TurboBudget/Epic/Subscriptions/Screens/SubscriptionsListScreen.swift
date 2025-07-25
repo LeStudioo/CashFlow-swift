@@ -73,7 +73,7 @@ struct SubscriptionsListScreen: View {
             )
         }
         .navigationBarBackButtonHidden(true)
-        .background(Color.background.edgesIgnoringSafeArea(.all))
+        .background(Color.Background.bg50.edgesIgnoringSafeArea(.all))
         .onAppear {
             getOrientationOnAppear()
             EventService.sendEvent(key: EventKeys.subscriptionDetailPage)

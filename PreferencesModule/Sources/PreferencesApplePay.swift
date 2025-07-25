@@ -10,21 +10,21 @@ import Combine
 import StatsKit
 import CoreModule
 
-final class PreferencesApplePay: ObservableObject {
-    static let shared = PreferencesApplePay()
+public final class PreferencesApplePay: ObservableObject {
+    public static let shared = PreferencesApplePay()
     
-    let objectWillChange = PassthroughSubject<Void, Never>()
+    public let objectWillChange = PassthroughSubject<Void, Never>()
     
-    @UserDefault(UserDefaultsKeys.Preferences.ApplePay.isAddCategoryAutomaticallyEnabled, defaultValue: false)
-    var isAddCategoryAutomaticallyEnabled: Bool {
+    @UserDefault("PreferencesApplePay_isAddCategoryAutomaticallyEnabled", defaultValue: false)
+    public var isAddCategoryAutomaticallyEnabled: Bool {
         willSet {
             if newValue { EventService.sendEvent(key: EventKeys.preferenceApplePayAutocat) }
             objectWillChange.send()
         }
     }
     
-    @UserDefault(UserDefaultsKeys.Preferences.ApplePay.isAddAddressAutomaticallyEnabled, defaultValue: false)
-    var isAddAddressAutomaticallyEnabled: Bool {
+    @UserDefault("PreferencesApplePay_isAddAddressAutomaticallyEnabled", defaultValue: false)
+    public var isAddAddressAutomaticallyEnabled: Bool {
         willSet {
             if newValue { EventService.sendEvent(key: EventKeys.preferenceApplePayPosition) }
             objectWillChange.send()

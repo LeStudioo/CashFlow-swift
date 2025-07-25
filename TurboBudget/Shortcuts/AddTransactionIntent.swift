@@ -9,6 +9,7 @@ import CoreData
 import AppIntents
 import CoreModule
 import UserModule
+import PreferencesModule
 
 struct AddTransactionIntent: AppIntent {
     

@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import StatsKit
 import CoreModule
+import PreferencesModule
 
 final class SubscriptionPreferences: ObservableObject {
     static let shared = SubscriptionPreferences()

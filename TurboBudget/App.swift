@@ -13,6 +13,7 @@ import CoreModule
 import StatsKit
 import UserModule
 import OnboardingModule
+import PreferencesModule
 
 @main
 struct TurboBudgetApp: App {
@@ -81,6 +82,7 @@ struct TurboBudgetApp: App {
                         }
                         .task {
                             if !appManager.isStartDataLoaded {
+                                print("🔥 TOKENMANAGZER : \(TokenManager.shared.token)")
                                 await accountStore.fetchAccounts()
                                 await appManager.loadStartData()
                                 appManager.isStartDataLoaded = true

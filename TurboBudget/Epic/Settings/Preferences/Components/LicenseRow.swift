@@ -45,5 +45,5 @@ struct LicenseRow: View {
 #Preview {
     LicenseRow()
         .padding()
-        .background(Color.background)
+        .background(Color.Background.bg50)
 }

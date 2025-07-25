@@ -55,5 +55,5 @@ struct WhatsNewRowView: View {
         )
     }
     .padding(24)
-    .background(Color.background)
+    .background(Color.Background.bg50)
 }

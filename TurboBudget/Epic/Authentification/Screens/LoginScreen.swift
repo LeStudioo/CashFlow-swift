@@ -27,7 +27,7 @@ struct LoginScreen: View {
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
                     .padding(4)
-                    .background(Color.background200, in: .rect(cornerRadius: 36, style: .continuous))
+                    .background(Color.Background.bg200, in: .rect(cornerRadius: 36, style: .continuous))
                     .padding(64)
                 
                 VStack(spacing: 8) {
