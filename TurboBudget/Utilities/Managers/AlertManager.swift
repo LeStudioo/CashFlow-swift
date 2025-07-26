@@ -22,7 +22,7 @@ extension AlertManager {
             buttonTitle: "alert_cashflow_pro_action_button".localized,
             isDestructive: false,
             action: {
-                router.present(route: .sheet, .shared(.paywall))
+                router.present(route: .fullScreenCover, .shared(.paywall))
             }
         )
     }
