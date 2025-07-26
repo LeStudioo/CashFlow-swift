@@ -59,8 +59,8 @@ struct HomeScreen: View {
                     requestReview()
                 }
             }
-            if preferencesGeneral.numberOfOpenings % 20 == 0 && !purchasesManager.isCashFlowPro {
-                router.present(route: .sheet, .shared(.paywall))
+            if preferencesGeneral.numberOfOpenings % 12 == 0 && !purchasesManager.isCashFlowPro {
+                router.present(route: .fullScreenCover, .shared(.paywall))
             }
             if preferencesGeneral.isAlreadyOpen && !preferencesGeneral.isWhatsNewSeen {
                 router.present(route: .modalFitContent, .shared(.whatsNew))

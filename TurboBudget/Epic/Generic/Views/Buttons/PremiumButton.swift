@@ -15,7 +15,7 @@ struct PremiumButton: View {
     // MARK: -
     var body: some View {
         NavigationButton(
-            route: .sheet,
+            route: .fullScreenCover,
             destination: AppDestination.shared(.paywall)
         ) {
             HStack(spacing: 4) {
